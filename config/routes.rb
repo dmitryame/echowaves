@@ -1,5 +1,11 @@
 ActionController::Routing::Routes.draw do |map|
-  map.home '/', :controller => "sessions", :action => "new"
+  map.resources :users
+
+  map.resource :session
+
+  map.resources :conversations
+
+  map.home '/', :controller => "conversations", :action => "index"
   map.logout '/logout', :controller => 'sessions', :action => 'destroy'
   map.activate '/activate/:activation_code', :controller           => "users", :action => "activate"
   map.login '/login', :controller => 'sessions', :action => 'new'
@@ -9,9 +15,6 @@ ActionController::Routing::Routes.draw do |map|
   map.reset_password '/reset_password/:id', :controller   => "users", :action => "reset_password" 
   
   
-  map.resources :users
-
-  map.resource :session
 
   # The priority is based upon order of creation: first created -> highest priority.
 

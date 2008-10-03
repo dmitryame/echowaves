@@ -63,6 +63,23 @@ class User < ActiveRecord::Base
   def email=(value)
     write_attribute :email, (value ? value.downcase : nil)
   end
+  def forgot_password
+    @forgotten_password = true
+    self.make_password_reset_code
+  end
+  # same as make_activation_code
+  def make_password_reset_code
+    self.password_reset_code = Digest::SHA1.hexdigest( Time.now.to_s.split(//).sort_by {rand}.join )
+  end
+
+  #used in user_observer
+  def recently_forgot_password?
+    @forgotten_password
+  end
+  
+  def recently_reset_password?
+    @reset_password
+  end
 
   protected
     

@@ -1,3 +1,1 @@
-require 'rubygems'
-require 'active_support'
-require 'shoulda'
+require File.join(File.dirname(__FILE__), 'rails', 'init')

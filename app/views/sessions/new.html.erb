@@ -12,5 +12,11 @@
 <%= check_box_tag 'remember_me', '1', @remember_me %></p>
 -->
 
-<p><%= submit_tag 'Log in' %></p>
+<p>
+<%= submit_tag 'Log in' %>&nbsp;<%= link_to 'SignUp', :controller => "users", :action => "new" -%>
+&nbsp;
+<font size=-1>it's free and anyone can join</font>
+</p>
+<p><%= link_to 'Forgot Password', forgot_password_path -%></p>
+
 <% end -%>

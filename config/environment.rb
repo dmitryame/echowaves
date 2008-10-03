@@ -67,3 +67,23 @@ Rails::Initializer.run do |config|
 
   config.active_record.observers = :user_observer
 end
+# active mailer configuration
+# First, specify the Host that we will be using later for user_notifier.rb
+HOST = 'http://localhost:3000'
+
+# Second, add the :user_observer
+# Rails::Initializer.run do |config|
+#   # The user observer goes inside the Rails::Initializer block
+# config.active_record.observers = :user_observer
+# end
+
+# Third, add your SMTP settings
+ActionMailer::Base.delivery_method = :smtp
+ActionMailer::Base.smtp_settings = {
+  :address => "mail.echowaves.com",
+  :port => 25,
+  :domain => "localhost:3000",
+  :user_name => "carmelyne@echowaves.com",
+  :password => "yourrailsapp",
+  :authentication => :login
+}

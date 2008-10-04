@@ -21,3 +21,9 @@ end
 Factory.define :conversation do |conversation|
   conversation.name {Factory.next :name }
 end
+
+Factory.define :message do |message|
+  message.message {Factory.next :name }
+  message.association :user
+  message.association :conversation
+end

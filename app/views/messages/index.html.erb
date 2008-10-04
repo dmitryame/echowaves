@@ -1,0 +1,24 @@
+<h1>Listing messages</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Conversation</th>
+    <th>Message</th>
+  </tr>
+
+<% for message in @messages %>
+  <tr>
+    <td><%=h message.user %></td>
+    <td><%=h message.conversation %></td>
+    <td><%=h message.message %></td>
+    <td><%= link_to 'Show', message %></td>
+    <td><%= link_to 'Edit', edit_message_path(message) %></td>
+    <td><%= link_to 'Destroy', message, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New message', new_message_path %>

@@ -9,13 +9,29 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081003203731) do
+ActiveRecord::Schema.define(:version => 20081004184557) do
 
   create_table "conversations", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "conversations", ["name"], :name => "index_conversations_on_name"
+  add_index "conversations", ["created_at"], :name => "index_conversations_on_created_at"
+
+  create_table "messages", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "conversation_id"
+    t.integer  "parent_id"
+    t.text     "message"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "messages", ["user_id"], :name => "index_messages_on_user_id"
+  add_index "messages", ["conversation_id"], :name => "index_messages_on_conversation_id"
+  add_index "messages", ["created_at"], :name => "index_messages_on_created_at"
 
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
@@ -43,5 +59,7 @@ ActiveRecord::Schema.define(:version => 20081003203731) do
   end
 
   add_index "users", ["login"], :name => "index_users_on_login", :unique => true
+  add_index "users", ["email"], :name => "index_users_on_email"
+  add_index "users", ["crypted_password"], :name => "index_users_on_crypted_password"
 
 end

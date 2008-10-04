@@ -6,6 +6,17 @@ CREATE TABLE `conversations` (
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
+CREATE TABLE `messages` (
+  `id` int(11) NOT NULL auto_increment,
+  `user_id` int(11) default NULL,
+  `conversation_id` int(11) default NULL,
+  `parent_id` int(11) default NULL,
+  `message` text,
+  `created_at` datetime default NULL,
+  `updated_at` datetime default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 CREATE TABLE `schema_migrations` (
   `version` varchar(255) NOT NULL,
   UNIQUE KEY `unique_schema_migrations` (`version`)
@@ -38,7 +49,7 @@ CREATE TABLE `users` (
   `password_reset_code` varchar(40) default NULL,
   PRIMARY KEY  (`id`),
   UNIQUE KEY `index_users_on_login` (`login`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 INSERT INTO schema_migrations (version) VALUES ('20081001172045');
 
@@ -47,3 +58,5 @@ INSERT INTO schema_migrations (version) VALUES ('20081003172020');
 INSERT INTO schema_migrations (version) VALUES ('20081003193147');
 
 INSERT INTO schema_migrations (version) VALUES ('20081003203731');
+
+INSERT INTO schema_migrations (version) VALUES ('20081004171922');

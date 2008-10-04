@@ -1,9 +1,11 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :users
-
   map.resource :session
 
-  map.resources :conversations
+  map.resources :users
+
+  map.resources :conversations do |conversation|
+    conversation.resources :messages
+  end
 
   map.home '/', :controller => "conversations", :action => "index"
   map.logout '/logout', :controller => 'sessions', :action => 'destroy'

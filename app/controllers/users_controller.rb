@@ -89,15 +89,15 @@ class UsersController < ApplicationController
    #reset password
    def reset_password
      @user = User.find_by_password_reset_code(params[:id])
-     #raise if @user.nil?
+     raise if @user.nil?
 
      return if @user unless params[:user]
 
      if ((params[:user][:password]  == params[:user][:password_confirmation]) && !params[:user][:password_confirmation].blank?)
        #if (params[:user][:password]  params[:user][:password_confirmation])
-       self.current_user = @user #for the next two lines to work
-       current_user.password_confirmation = params[:user][:password_confirmation]
-       current_user.password = params[:user][:password]
+       @user.password_confirmation = params[:user][:password_confirmation]
+       @user.password = params[:user][:password]
+       self.current_user = @user 
        @user.reset_password
        flash[:notice] = current_user.save ? "Password reset" : "Password not reset"
        redirect_back_or_default('/')

@@ -72,6 +72,13 @@ class User < ActiveRecord::Base
     self.password_reset_code = Digest::SHA1.hexdigest( Time.now.to_s.split(//).sort_by {rand}.join )
   end
 
+  def reset_password
+    # First update the password_reset_code before setting the 
+    # reset_password flag to avoid duplicate email notifications.
+    update_attributes(:password_reset_code => nil)
+    @reset_password = true
+  end  
+
   #used in user_observer
   def recently_forgot_password?
     @forgotten_password

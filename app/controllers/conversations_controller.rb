@@ -78,6 +78,7 @@ class ConversationsController < ApplicationController
   def destroy
     @conversation = Conversation.find(params[:id])
     @conversation.destroy
+    flash[:notice] = 'Conversation was successfully removed.'
 
     respond_to do |format|
       format.html { redirect_to(conversations_url) }

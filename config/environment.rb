@@ -64,18 +64,17 @@ Rails::Initializer.run do |config|
 
   # Activate observers that should always be running
   # config.active_record.observers = :cacher, :garbage_collector
+  # Second, add the :user_observer
+  # Rails::Initializer.run do |config|
+  # The user observer goes inside the Rails::Initializer block
+  # !!!!!!!!!!!!!the following line must be uncommented in production for users to be able to register
+  # config.active_record.observers = :user_observer
 
-  config.active_record.observers = :user_observer
 end
 # active mailer configuration
 # First, specify the Host that we will be using later for user_notifier.rb
 HOST = 'http://localhost:3000'
 
-# Second, add the :user_observer
-# Rails::Initializer.run do |config|
-#   # The user observer goes inside the Rails::Initializer block
-# config.active_record.observers = :user_observer
-# end
 
 # Third, add your SMTP settings
 ActionMailer::Base.delivery_method = :smtp

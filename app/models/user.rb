@@ -85,6 +85,7 @@ class User < ActiveRecord::Base
     
     def make_activation_code
         self.activation_code = self.class.make_token
+        logger.debug "Please activate your new account http://localhost:3000/activate/#{self.activation_code}"
     end
 
 

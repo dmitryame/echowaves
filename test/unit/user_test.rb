@@ -3,7 +3,7 @@ require 'test_helper'
 class UserTest < ActiveSupport::TestCase
   context "A User instance" do    
     setup do
-      @user = Factory(:user)
+      @user = Factory.create(:user)
     end
     
     should_require_attributes :login

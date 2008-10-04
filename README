@@ -1,1 +1,8 @@
- 
+The echowaves.com is a YACT -- Yet Another Collaboration Tool. Why one more? After all we already have http://meebo.com and http://campfire.com and many other like http://facebook.com and such. They all are great, but... non of them fits our needs 100%, and non of them is open-source.
+
+
+
+
+=== INSTALL (localhost)
+=== POST INSTALL
+SignUp a user. Activate the user by copy-pasting the activation URL from the debug log into an address of your browser and hit enter. 

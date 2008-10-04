@@ -40,28 +40,24 @@ class Test::Unit::TestCase
 
   # Add more helper methods to be used by all tests here...
   #this method creates a admin/admin account, sets all the models with the relationships to give full authorization to the whole site, and authenticates
-  def authenticate_test
+
+  #this method creates a admin/admin account, sets all the models with the relationships to give full authorization to the whole site, and authenticates
+  def create_user_and_authenticate
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
 
-    @client = Factory(:client)
-
-    @subject = Factory(:subject, :name => "admin", :password => "admin", :client => @client)#, :email => "qwe@mail.com", :password => "password", :password_confirmation => "password")
+    @user = Factory(:user, :login => "admin", :email => "qwe@mail.com", :password => "password", :password_confirmation => "password")
     
-    @resource = Factory(:resource, :name => "^/.*$", :client => @client)
-    
-    @role = Factory(:role, :name => "preallowed_admin", :client => @client)
-
-    @subjects_association = Factory(:subjects_association, :subject => @subject, :role => @role)
-    @resources_association = Factory(:resources_association, :resource => @resource, :role => @role)
-    
+    #activate the user so it can be logged in
+    @user.activate!
     
     @request.env['HTTP_AUTHORIZATION'] = 
     ActionController::HttpAuthentication::Basic.encode_credentials(
     "admin", 
-    "admin" 
+    "password" 
     )
-    @subject
+    @user
   end
+
 
 end

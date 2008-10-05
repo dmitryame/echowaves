@@ -1,24 +1,15 @@
-<h1>Listing messages</h1>
+<h1>messages</h1>
 
-<table>
-  <tr>
-    <th>User</th>
-    <th>Conversation</th>
-    <th>Message</th>
-  </tr>
+<%= render :partial => 'message', :collection => @messages%>
 
-<% for message in @messages %>
-  <tr>
-    <td><%=h message.user %></td>
-    <td><%=h message.conversation %></td>
-    <td><%=h message.message %></td>
-    <td><%= link_to 'Show', message %></td>
-    <td><%= link_to 'Edit', edit_message_path(message) %></td>
-    <td><%= link_to 'Destroy', message, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
+
+<% form_for(:message, :url => conversation_messages_path(@conversation)) do |f| %>
+	<p>			
+	<%= f.text_area :message, :rows => 5, :cols => 80 %>
+	</p>	
+	<%=submit_tag "Post"%>
 <% end %>
-</table>
+<%= link_to 'back', conversations_path%></p>
 
 <br />
 
-<%= link_to 'New message', new_message_path %>

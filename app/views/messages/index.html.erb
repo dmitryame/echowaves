@@ -6,6 +6,7 @@
 <% form_for(:message, :url => conversation_messages_path(@conversation)) do |f| %>
 	<p>			
 	<%= f.text_area :message, :rows => 5, :cols => 80 %>
+	<%= f.hidden_field :parent_id, :value => @messages.last.id %>
 	</p>	
 	<%=submit_tag "Post"%>
 <% end %>

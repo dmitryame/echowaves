@@ -1,4 +1,5 @@
 class MessagesController < ApplicationController
+  before_filter :login_required
   before_filter :find_conversation
   # GET /messages
   # GET /messages.xml

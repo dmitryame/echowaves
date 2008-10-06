@@ -1,4 +1,10 @@
+<h1>conversation</h1>
+<p>
+<%=h @conversation.name%>
+</p>
+
 <h1>messages</h1>
+
 <%= will_paginate @messages %>
 
 <%= render :partial => 'message', :collection => @messages%>

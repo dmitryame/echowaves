@@ -14,14 +14,14 @@ class ConversationsController < ApplicationController
 
   # GET /conversations/1
   # GET /conversations/1.xml
-  # def show
-  #   @conversation = Conversation.find(params[:id])
-  # 
-  #   respond_to do |format|
-  #     format.html # show.html.erb
-  #     format.xml  { render :xml => @conversation }
-  #   end
-  # end
+  def show
+    @conversation = Conversation.find(params[:id])
+    redirect_to(conversation_messages_path(@conversation))  
+    # respond_to do |format|
+    #   format.html # show.html.erb
+    #   format.xml  { render :xml => @conversation }
+    # end
+  end
 
   # GET /conversations/new
   # GET /conversations/new.xml

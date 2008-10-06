@@ -3,7 +3,7 @@ class MessagesController < ApplicationController
   # GET /messages
   # GET /messages.xml
   def index
-    @messages = @conversation.messages
+    @messages = @conversation.messages.paginate(:include => [:user], :per_page => 100, :page => params[:page], :order => 'created_at DESC').reverse
 
     respond_to do |format|
       format.html # index.html.erb

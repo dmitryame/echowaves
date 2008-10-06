@@ -1,7 +1,7 @@
 <h1>messages</h1>
+<%= will_paginate @messages %>
 
 <%= render :partial => 'message', :collection => @messages%>
-
 
 <% form_for(:message, :url => conversation_messages_path(@conversation)) do |f| %>
 	<p>			

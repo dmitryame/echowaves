@@ -7,10 +7,7 @@
 
 <% for conversation in @conversations %>
   <tr>
-    <td><%=h conversation.name %></td>
-    <td><%= link_to 'Show', conversation %></td>
-    <td><%= link_to 'Edit', edit_conversation_path(conversation) %></td>
-    <td><%= link_to 'Destroy', conversation, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to h(conversation.name), conversation_messages_path(conversation) %></td>
   </tr>
 <% end %>
 </table>

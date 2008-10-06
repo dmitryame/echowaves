@@ -13,12 +13,12 @@ class ConversationsControllerTest < ActionController::TestCase
     resource.update.params = { :name => "random conversation changed" }
     resource.actions    = [
       :index,
-      :show, 
+      # :show, 
       :new, 
-      :edit, 
-      :update, 
-      :create, 
-      :destroy
+      # :edit, 
+      # :update, 
+      :create#, 
+      # :destroy
       ]    
   end        
 

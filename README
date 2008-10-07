@@ -4,5 +4,9 @@ The echowaves.com is a YACT -- Yet Another Collaboration Tool. Why one more? Aft
 
 
 === INSTALL (localhost)
+copy database.yml-config to database.yml and modify to taste
+rake db:create
+rake db:migrate
+
 === POST INSTALL
 SignUp a user. Activate the user by copy-pasting the activation URL from the debug log into an address of your browser and hit enter. 

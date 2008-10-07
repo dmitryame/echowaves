@@ -3,3 +3,7 @@ log/*.pid
 tmp/**/*
 .DS_Store
 *~
+config/database.yml
+db/*.sqlite3
+data.dump
+db/data.yml

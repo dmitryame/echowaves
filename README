@@ -1,12 +1,29 @@
 The echowaves.com is a YACT -- Yet Another Collaboration Tool. Why one more? After all we already have http://meebo.com and http://campfire.com and many other like http://facebook.com and such. They all are great, but... non of them fits our needs 100%, and non of them is open-source.
 
-
+If you'd like to contribute, perhaps start  by picking a task from the TODO list at:
+http://github.com/dmitryame/echowaves/wikis/todo
 
 
 === INSTALL (localhost)
-copy database.yml-config to database.yml and modify to taste
+copy config/database.yml-sample to config/database.yml and modify to taste (see below for some hints on different platforms)
 rake db:create
 rake db:migrate
 
 === POST INSTALL
 SignUp a user. Activate the user by copy-pasting the activation URL from the debug log into an address of your browser and hit enter. 
+
+To actually get the actionmailer stuff sent, you'll need to change the SMTP settings in config/environment.rb
+In that case, you'll probably want to comment out the (currently last) line in config/environments/development.rb that reads "config.action_mailer.raise_delivery_errors = false", so that actionmailer failures are more visible.
+
+=======
+
+Specific advice for different platforms and setups
+--------------------------------------------------
+WINDOWS
+-------
+To use this with MySQL, you will probably need to uncomment the lines in the database.yml file that say "Host: 127.0.0.1".  The error when this isn't put in is *not* particularly helpful, so if you're having trouble, give it a try.
+
+SQLITE3
+-------
+change the "adapter" lines to read "adapter: sqlite3"
+make the database lines something like "database: db/development.sqlite3" and "database: db/test.sqlite3"

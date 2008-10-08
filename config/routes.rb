@@ -7,7 +7,7 @@ ActionController::Routing::Routes.draw do |map|
     conversation.resources :messages
   end
 
-  map.home '/', :controller => "conversations", :action => "index"
+  map.home '/', :controller => "home", :action => "index"
   map.logout '/logout', :controller => 'sessions', :action => 'destroy'
   map.activate '/activate/:activation_code', :controller           => "users", :action => "activate"
   map.login '/login', :controller => 'sessions', :action => 'new'

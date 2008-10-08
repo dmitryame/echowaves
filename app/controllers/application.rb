@@ -15,4 +15,13 @@ class ApplicationController < ActionController::Base
   # Uncomment this to filter the contents of submitted sensitive data parameters
   # from your application log (in this case, all fields with names like "password"). 
   # filter_parameter_logging :password
+  
+  
 end
+
+ActiveSupport::CoreExtensions::Time::Conversions::DATE_FORMATS.merge!(
+        :pretty => "%b %d, %Y",
+        :pretty_long => "%b %d, %Y %I:%M%p",
+        :date_time12 => "%m/%d/%Y %I:%M%p",
+        :date_time24 => "%m/%d/%Y %H:%M"
+      )

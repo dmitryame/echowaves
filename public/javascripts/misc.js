@@ -4,7 +4,7 @@ function pageScroll() {
 
   // try to focus an input field, if we can find it
 function focusInput(inputId) {
-  if (document.getElementById(inputId)) {
-    document.getElementById(inputId).focus();
+  if ($(inputId)) {
+    $(inputId).focus();
   }
 }

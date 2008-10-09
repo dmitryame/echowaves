@@ -1,21 +1,32 @@
-<h1>conversation</h1>
-<p>
-<%=h @conversation.name%>
-</p>
+<h1>conversation : <%= h @conversation.name %></h1>
 
-<h1>messages</h1>
-
+<div>
+<div style='float:left;'>
+<% form_for(:message, :url => conversation_messages_path(@conversation), :html => {:onsubmit => "if ($('message_message').value.strip().length < 1) {alert('Please enter some text first!');$('message_message').focus();return false;};return true"}) do |f| %>
+		<p>			
+		<%= f.text_area :message, :rows => 5, :cols => 80 %>
+		<%= f.hidden_field :parent_id, :value => @messages.last.id unless @messages.blank? %>
+		</p>	
+		<%=submit_tag "Post"%>
+	<% end %>
+</div>
+<div style='float:left; position:relative; left: 30em'>
+	<%= link_to_function '+', 'increase_polling()', :title => 'increase time between message refresh'%>
+</div>
+<div style='float:left; position:relative; left: 31em'>|</div>
+<div style='float:left; position:relative; left: 32em'>
+	<%= link_to_function '-', 'decrease_polling()', :title => 'decrease time between message refresh'%>
+</div>
+</div>
+<div style='clear: both' id='polling'>
+<%= render :partial => 'polling' %>
+</div>
 <%= will_paginate @messages %>
 
+<div id='messages'>
 <%= render :partial => 'message', :collection => @messages%>
+</div>
 
-<% form_for(:message, :url => conversation_messages_path(@conversation), :html => {:onsubmit => "if ($('message_message').value.strip().length < 1) {alert('Please enter some text first!');$('message_message').focus();return false;};return true"}) do |f| %>
-	<p>			
-	<%= f.text_area :message, :rows => 5, :cols => 80 %>
-	<%= f.hidden_field :parent_id, :value => @messages.last.id unless @messages.blank? %>
-	</p>	
-	<%=submit_tag "Post"%>
-<% end %>
 <%= link_to 'back', conversations_path%></p>
 
 <br />

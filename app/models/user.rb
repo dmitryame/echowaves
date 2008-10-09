@@ -1,4 +1,5 @@
 require 'digest/sha1'
+require 'gravtastic'
 
 class User < ActiveRecord::Base
   include Authentication
@@ -27,6 +28,7 @@ class User < ActiveRecord::Base
   # anything else you want your user to change should be added here.
   attr_accessible :login, :email, :name, :password, :password_confirmation
 
+  is_gravtastic :size => 40, :default => "identicon" # "monsterid" or "identicon", or "wavatar"
 
   # Activates the user in the database.
   def activate!

@@ -1,2 +1,9 @@
-<p class="messagemeta"><span class="username"><%=h message.user.login %></span><span class="date"><%=h message.created_at.to_s(:pretty_long) %><span></p>
-<p class="message"><%= mark_up message.message %></p>
+<div class="message">
+<p class="messagemeta">
+<img src="<%= message.user.gravatar_url %>" class="avatar" />
+<span class="username"><%=h message.user.login %></span>
+<br/>
+<span class="date"><%=h message.created_at.to_s(:pretty_long) %></span>
+</p>
+<p><%= mark_up message.message %></p>
+</div>

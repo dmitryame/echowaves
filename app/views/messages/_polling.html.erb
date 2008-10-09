@@ -1,0 +1,4 @@
+<%= periodically_call_remote :url => {:action => 'message_poll', :conversation_id => @conversation},
+	:update => 'messages', 
+	:complete => "new Effect.Highlight('messages')",
+	:frequency => 30 %>

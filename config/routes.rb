@@ -16,7 +16,7 @@ ActionController::Routing::Routes.draw do |map|
   map.forgot_password '/forgot_password', :controller => "users", :action => "forgot_password"
   map.reset_password '/reset_password/:id', :controller   => "users", :action => "reset_password" 
   
-  
+  map.message_poll '/message_poll', :controller => 'messages', :action => "poll"
 
   # The priority is based upon order of creation: first created -> highest priority.
 

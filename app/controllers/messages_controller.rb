@@ -1,10 +1,22 @@
 class MessagesController < ApplicationController
   before_filter :login_required
   before_filter :find_conversation
+  
+  def change_polling
+    respond_to do |format|
+      format.js # change_polling.js.erb
+    end
+  end
+  
+  def message_poll
+    @messages = @conversation.messages.paginate(:include => [:user], :per_page => 100, :page => params[:page], :order => 'created_at DESC')
+    render :partial => 'message', :collection => @messages
+  end
+  
   # GET /messages
   # GET /messages.xml
   def index
-    @messages = @conversation.messages.paginate(:include => [:user], :per_page => 100, :page => params[:page], :order => 'created_at DESC').reverse
+    @messages = @conversation.messages.paginate(:include => [:user], :per_page => 100, :page => params[:page], :order => 'created_at DESC')
 
     respond_to do |format|
       format.html # index.html.erb

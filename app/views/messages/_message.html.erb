@@ -1,4 +1,2 @@
-<hr>
-
-<p><b><%=h message.user.login %></b><%=h message.created_at.to_s(:pretty_long) %></p>
-<p><%= mark_up message.message %></p>
+<p class="messagemeta"><span class="username"><%=h message.user.login %></span><span class="date"><%=h message.created_at.to_s(:pretty_long) %><span></p>
+<p class="message"><%= mark_up message.message %></p>

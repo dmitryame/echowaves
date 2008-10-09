@@ -9,7 +9,7 @@
 
 <%= render :partial => 'message', :collection => @messages%>
 
-<% form_for(:message, :url => conversation_messages_path(@conversation)) do |f| %>
+<% form_for(:message, :url => conversation_messages_path(@conversation), :html => {:onsubmit => "if ($('message_message').value.strip().length < 1) {alert('Please enter some text first!');$('message_message').focus();return false;};return true"}) do |f| %>
 	<p>			
 	<%= f.text_area :message, :rows => 5, :cols => 80 %>
 	<%= f.hidden_field :parent_id, :value => @messages.last.id unless @messages.blank? %>

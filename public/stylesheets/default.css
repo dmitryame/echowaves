@@ -52,3 +52,33 @@ a:hover { color: #fff; background-color:#000; }
   list-style: square;
 }
 
+/* stylin' the message page! */
+/* meta-information for each message (who, when, etc) */
+p.messagemeta {
+    background-color: #def;
+    margin: 3px 0 0 0;
+    font-size: .7em;
+    padding: 0 1em;
+    color: #444;
+    text-align: right;
+    border-top: solid black 1px;
+    border-left: solid black 1px;
+    border-right: solid black 1px;
+    border-bottom: dashed green 1px;
+}
+p.messagemeta .username {
+    font-weight: bold;
+    float: left;
+}
+p.message {
+    background-color: #fed;
+    margin: 0;
+    padding: 3px;
+    border-bottom: solid black 1px;
+    border-left: solid black 1px;
+    border-right: solid black 1px;
+}
+
+#message_message {
+    width: 100%;
+}

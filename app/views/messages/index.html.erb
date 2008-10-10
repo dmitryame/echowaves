@@ -24,6 +24,12 @@
 		<input type="hidden" name="after" id="after" value="0" />
 		</p>	
 		<%=submit_tag "Post"%>
+<%= link_to_remote "refresh", :url => {:action => 'message_poll', :conversation_id => @conversation},
+	:update => 'messages', :position => 'bottom',
+	:complete => "handle_new_messages()",
+	:with => "'after=' + last_message_number",
+	:before => 'suspend_polling = true',
+	:frequency => 30 %>
 	<% end %>
 </div>
 <%= link_to 'back', conversations_path%></p>

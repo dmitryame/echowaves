@@ -15,7 +15,6 @@ function handle_new_messages() {
     highlight_messages(eval(last_message_number + 1), new_last_msg_num);
     last_message_number = new_last_msg_num;
   }
-  $('message_message').value = ""; // clear out the text area
   suspend_polling = false; // in case we had shut it off for some reason
 }
 

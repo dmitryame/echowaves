@@ -14,7 +14,7 @@
 	<% remote_form_for(:message,
                            :update => 'messages', :position => 'bottom',
                            :url => conversation_messages_path(@conversation),
-                           :complete => "handle_new_messages()",
+                           :complete => "$('message_message').value = '';$('message_message').focus();handle_new_messages()",
                            # don't poll right now, and set the "after" value
                            :before => 'suspend_polling = true;$("after").value = last_message_number',
                            :condition => "$('message_message').value.strip().length > 0") do |f| %>

@@ -5,13 +5,7 @@
 	<%= render :partial => 'polling' %>
 </div>
 
-<%= will_paginate @messages %>
-
-
-<div id='messages'>
-	<%= render :partial => 'message', :collection => @messages%>
-</div>
-
+<%= link_to 'back', conversations_path%></p>
 
 <div>
 	<% form_for(:message, :url => conversation_messages_path(@conversation), :html => {:onsubmit => "if ($('message_message').value.strip().length < 1) {alert('Please enter some text first!');$('message_message').focus();return false;};return true"}) do |f| %>
@@ -23,7 +17,13 @@
 	<% end %>
 </div>
 
-<%= link_to 'back', conversations_path%></p>
+<div id='messages'>
+	<%= render :partial => 'message', :collection => @messages%>
+</div>
+
+<%= will_paginate @messages %>
+
+
 
 <br />
 

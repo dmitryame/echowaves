@@ -3,14 +3,14 @@ class MessagesController < ApplicationController
   before_filter :find_conversation
     
   def message_poll
-    @messages = @conversation.messages.paginate(:include => [:user], :per_page => 100, :page => params[:page], :order => 'created_at ASC')
+    @messages = @conversation.messages.paginate(:include => [:user], :per_page => 50, :page => params[:page], :order => 'created_at DESC')
     render :partial => 'message', :collection => @messages
   end
   
   # GET /messages
   # GET /messages.xml
   def index
-    @messages = @conversation.messages.paginate(:include => [:user], :per_page => 100, :page => params[:page], :order => 'created_at ASC')
+    @messages = @conversation.messages.paginate(:include => [:user], :per_page => 50, :page => params[:page], :order => 'created_at DESC')
 
     respond_to do |format|
       format.html # index.html.erb

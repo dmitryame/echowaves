@@ -53,6 +53,10 @@ a:hover { color: #fff; background-color:#000; }
 }
 
 /* stylin' the message page! */
+#working {
+    color: green;
+    padding-left: 30px;
+}
 div#messages {width: 100%;}
 div#messages p {font-size: .7em;line-height:1em;}
 /* meta-information for each message (who, when, etc) */

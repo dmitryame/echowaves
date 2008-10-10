@@ -94,7 +94,9 @@ div.message p {
 }
 
 #message_message {
-    width: 100%;
+    width: 450px;
+	font-size: .7em;
+	line-height:1em;
 }
 
 div#messages {
@@ -102,6 +104,6 @@ div#messages {
 } 
 
 div#messages p {
-	font-size: .5em;
+	font-size: .7em;
 	line-height:1em;
 } 

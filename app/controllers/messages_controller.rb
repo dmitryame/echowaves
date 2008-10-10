@@ -2,15 +2,19 @@ class MessagesController < ApplicationController
   before_filter :login_required
   before_filter :find_conversation
     
+  def get_messages_after(cutoff_message_id)
+    @conversation.messages.find(:all, :include => [:user], :conditions => ["id > ?", cutoff_message_id], :order => 'created_at ASC')
+  end
+  
   def message_poll
-    @messages = @conversation.messages.paginate(:include => [:user], :per_page => 50, :page => params[:page], :order => 'created_at DESC').reverse
+    @messages = get_messages_after params[:after]
     render :partial => 'message', :collection => @messages
   end
   
   # GET /messages
   # GET /messages.xml
   def index
-    @messages = @conversation.messages.paginate(:include => [:user], :per_page => 50, :page => params[:page], :order => 'created_at DESC').reverse
+    @messages = @conversation.messages.find(:all, :include => [:user], :limit => 10, :order => 'created_at DESC').reverse
 
     respond_to do |format|
       format.html # index.html.erb
@@ -55,7 +59,14 @@ class MessagesController < ApplicationController
     respond_to do |format|
       if @message.save
         flash[:notice] = 'Message was successfully created.'
-        format.html { redirect_to(conversation_messages_path(@conversation)) }
+        format.html { 
+          if request.xhr?
+            @messages = get_messages_after params[:after]
+            render :partial => 'message', :collection => @messages
+          else
+            redirect_to(conversation_messages_path(@conversation))
+          end
+        }
         format.xml  { render :xml => @message, :status => :created, :location => @message }
       else
         format.html { render :action => "new" }

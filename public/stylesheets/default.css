@@ -53,7 +53,8 @@ a:hover { color: #fff; background-color:#000; }
 }
 
 /* stylin' the message page! */
-/* holds the message, and its meta-information */
+div#messages {width: 100%;}
+div#messages p {font-size: .7em;line-height:1em;}
 /* meta-information for each message (who, when, etc) */
 div.message p.messagemeta {
     float: right;
@@ -81,6 +82,7 @@ p.messagemeta .avatar {
     float: left;
 }
 
+/* holds the message, and its meta-information */
 div.message {
     clear: both;
     background-color: #fed;

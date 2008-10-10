@@ -1,4 +1,10 @@
+<% javascript_tag do -%>
+var last_message_number = 0;
+var suspend_polling = false;
+<% end -%>
 <%= periodically_call_remote :url => {:action => 'message_poll', :conversation_id => @conversation},
-	:update => 'messages', 
-	:complete => "new Effect.Highlight('messages')",
+	:update => 'messages', :position => 'bottom',
+	:complete => "handle_new_messages()",
+	:with => "'after=' + last_message_number",
+	:condition => "!suspend_polling",
 	:frequency => 30 %>

@@ -96,3 +96,12 @@ div.message p {
 #message_message {
     width: 100%;
 }
+
+div#messages {
+	width: 450px;
+} 
+
+div#messages p {
+	font-size: .5em;
+	line-height:1em;
+} 

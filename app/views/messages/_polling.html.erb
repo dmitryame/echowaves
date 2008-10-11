@@ -4,6 +4,7 @@ var suspend_polling = false;
 <% end -%>
 <%= periodically_call_remote :url => {:action => 'message_poll', :conversation_id => @conversation},
 	:update => 'messages', :position => 'bottom',
+	:before => 'working_begin();',
 	:complete => "handle_new_messages()",
 	:with => "'after=' + last_message_number",
 	:condition => "!suspend_polling",

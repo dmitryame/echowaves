@@ -25,7 +25,6 @@ var WindowManager = {
   
   // inspired by how Campfire does it.
   moreMessagesHaveArrived: function(ids) {
-    console.log("eek " + WindowManager.blurred);
     if (!WindowManager.blurred) {
       WindowManager.highlight_messages(ids);
       return;

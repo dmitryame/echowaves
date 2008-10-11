@@ -8,15 +8,22 @@ var WindowManager = {
   
 
   init: function() {
-    document.onblur = WindowManager.onBlur;
-    document.onfocus = WindowManager.onFocus;
+//    if (document.onfocusout) { // maybe this makes it work in IE?
+    if (navigator.appName == "Microsoft Internet Explorer") { // gah!
+      Event.observe(document, 'focusout', WindowManager.onBlur);
+    } else {
+      Event.observe(window, 'blur', WindowManager.onBlur);
+    }
+    Event.observe(window, 'focus', WindowManager.onFocus);
   },
 
   onBlur: function(event) {
+//    console.log("blurring");
     WindowManager.blurred = true;
   },
   
   onFocus: function(event) {
+//    console.log("focusing");
     if (!WindowManager.blurred) { return; }
 
     WindowManager.showPendingMessages();
@@ -31,6 +38,7 @@ var WindowManager = {
     }
 
     WindowManager.pendingMessageIds = WindowManager.pendingMessageIds.concat(ids);
+
     var currentTitle = document.title;
     var prefix = "{" + WindowManager.pendingMessageIds.size() + "} ";
     var match = currentTitle.match(WindowManager.messageCountPattern);
@@ -45,6 +53,7 @@ var WindowManager = {
   showPendingMessages: function() {
     WindowManager.highlight_messages(WindowManager.pendingMessageIds);
     document.title = document.title.replace(WindowManager.messageCountPattern, "");
+    WindowManager.pendingMessageIds = new Array();
   },
 
   highlight_messages: function(ids) {
@@ -52,3 +61,5 @@ var WindowManager = {
   }
 
 };
+
+Event.observe(window, 'load', WindowManager.init);

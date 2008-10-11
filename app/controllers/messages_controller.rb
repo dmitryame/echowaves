@@ -14,7 +14,7 @@ class MessagesController < ApplicationController
   # GET /messages
   # GET /messages.xml
   def index
-    @messages = @conversation.messages.find(:all, :include => [:user], :limit => 10, :order => 'created_at DESC').reverse
+    @messages = @conversation.messages.find(:all, :include => [:user], :order => 'created_at DESC').reverse
 
     respond_to do |format|
       format.html # index.html.erb

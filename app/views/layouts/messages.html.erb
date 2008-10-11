@@ -8,8 +8,9 @@
 	<%= stylesheet_link_tag 'default' %>
 	<%= javascript_include_tag :defaults %>
 	<%= javascript_include_tag "misc" %>
+	<%= javascript_include_tag "keyboard" %>
 </head>
-<body onLoad="pageScroll();handle_new_messages();focusInput('message_message');">
+<body onLoad="pageScroll();handle_new_messages();Keyboard.init();focusInput('message_message');">
 	<div id="logout">
 		<%if logged_in?%>					
 		<%= link_to "logout", logout_path %>&nbsp;<%=current_user.login%>

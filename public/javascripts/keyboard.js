@@ -50,7 +50,7 @@ var Keyboard = {
     // ugh, "e.target.id" fails in IE (7 anyway) too lazy to figure out what to do.
 //    if (e.target.id == "message_message") {
       if (k == 13 && e.ctrlKey) { // "Ctrl-ENTER"
-        $("postly").form.onsubmit();
+        $("message_message").form.onsubmit();
       }
 //    }
 

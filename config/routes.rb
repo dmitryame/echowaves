@@ -17,6 +17,7 @@ ActionController::Routing::Routes.draw do |map|
   map.reset_password '/reset_password/:id', :controller   => "users", :action => "reset_password" 
   
   map.message_poll '/message_poll', :controller => 'messages', :action => "poll"
+  map.custom_styles '/stylesheets/custom.css', :controller => 'users', :action => "styles", :format => "css"
 
   # The priority is based upon order of creation: first created -> highest priority.
 

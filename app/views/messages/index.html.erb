@@ -14,9 +14,9 @@
 	<% remote_form_for(:message,
                            :update => 'messages', :position => 'bottom',
                            :url => conversation_messages_path(@conversation),
-                           :complete => "handle_new_messages()",
+                           :complete => "$('message_message').value = '';$('message_message').focus();handle_new_messages()",
                            # don't poll right now, and set the "after" value
-                           :before => 'suspend_polling = true;$("after").value = last_message_number',
+                           :before => 'working_begin();suspend_polling = true;$("after").value = last_message_number',
                            :condition => "$('message_message').value.strip().length > 0") do |f| %>
 		<p>
 		<%= f.text_area :message, :rows => 5, :cols => 80 %>
@@ -28,8 +28,9 @@
 	:update => 'messages', :position => 'bottom',
 	:complete => "handle_new_messages()",
 	:with => "'after=' + last_message_number",
-	:before => 'suspend_polling = true',
+	:before => 'working_begin();suspend_polling = true',
 	:frequency => 30 %>
+    <span id="working" style="display:none">Working...</span>
 	<% end %>
 </div>
 <%= link_to 'back', conversations_path%></p>

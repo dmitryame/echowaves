@@ -74,6 +74,17 @@ div.message p.messagemeta {
     border-right: solid black 1px;
     line-height: 1.1em;
 }
+div.message p.messagetools a {
+    float: left;
+    font-size: .6em;
+    padding: 0 4px;
+    margin: -4px 4px 4px -4px;
+    color: #93b;
+    text-align: left;
+    clear: both;
+    border: solid blue 1px;
+    text-decoration: none;
+}
 p.messagemeta .username {
     font-weight: bold;
 }

@@ -11,6 +11,7 @@
 </div>
 
 
+<%if params[:page].blank? or params[:page] == '1' %>
 <div>
 	<% remote_form_for(:message,
                            :update => 'messages', :position => 'bottom',
@@ -34,6 +35,7 @@
     <span id="working" style="display:none">Working...</span>
 	<% end %>
 </div>
+<%end%>
 <%= link_to 'back', conversations_path%></p>
 
 

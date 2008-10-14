@@ -1,5 +1,6 @@
 <h1>conversation : <%= h @conversation.name %></h1>
 
+<%= will_paginate @messages %>
 
 <div style='clear: both' id='polling'>
 	<%= render :partial => 'polling' %>

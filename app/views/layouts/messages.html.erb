@@ -43,6 +43,7 @@
 			// :update => 'messages', :position => 'bottom',
 			// eval(frame.body);
 			output.insert({"bottom" : frame.body});
+			MessageManipulation.handle_new_messages();
 		};
 		stomp.connect(document.domain, 61613, 'UNIQUE_ID_PER_CLIENT', '');
 		setTimeout("stomp.subscribe('CONVERSATION_CHANNEL_<%=@conversation_id%>', {exchange:''})",5000);
@@ -50,7 +51,7 @@
 
  </script>
 </head>
-<body onLoad="pageScroll();MessageManipulation.handle_new_messages();focusInput('message_message');stomp_function();">
+<body onLoad="stomp_function();pageScroll();MessageManipulation.handle_new_messages();focusInput('message_message');">
 	<div id="logout">
 		<%if logged_in?%>					
 		<%= link_to "logout", logout_path %>&nbsp;<%=current_user.login%>

@@ -9,6 +9,24 @@ copy config/database.yml-sample to config/database.yml and modify to taste (see 
 rake db:create
 rake db:migrate
 
+=== SERVERSIDE COMPONENT INSTALL
+note: the application generally works without this part, but will incur a fixed delay which is configurable in environment.rb as REFRESH_FREQUINCY in seconds
+
+* install python
+sudo apt-get install python2.5-dev
+sudo apt-get install python2.5-twisted
+
+
+* install orbited http://orbited.org/wiki/Installation
+* install simplejson
+easy_install simplejson
+
+* install stomp gem
+sudo gem install stomp
+
+
+
+
 === POST INSTALL
 SignUp a user. Activate the user by copy-pasting the activation URL from the debug log into an address of your browser and hit enter. 
 

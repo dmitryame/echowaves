@@ -8,4 +8,4 @@ var suspend_polling = false;
 	:complete => "MessageManipulation.handle_new_messages()",
 	:with => "'after=' + MessageManipulation.last_message_number",
 	:condition => "!MessageManipulation.suspend_polling",
-	:frequency => 30 %>
+	:frequency => REFRESH_FREQUINCY %>

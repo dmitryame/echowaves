@@ -89,3 +89,10 @@ ActionMailer::Base.smtp_settings = {
   :password => "yourrailsapp",
   :authentication => :login
 }
+
+
+ORBITED_HOST = 'localhost'
+ORBITED_PORT = '8500'
+
+
+REFRESH_FREQUINCY = 3600

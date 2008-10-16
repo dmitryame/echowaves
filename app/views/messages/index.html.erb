@@ -31,14 +31,11 @@
 	:complete => "MessageManipulation.handle_new_messages()",
 	:with => "'after=' + MessageManipulation.last_message_number",
 	:before => 'MessageManipulation.working_begin();MessageManipulation.suspend_polling = true',
-	:frequency => 30 %>
+	:frequency => REFRESH_FREQUINCY %>
     <span id="working" style="display:none">Working...</span>
 	<% end %>
 </div>
 <%end%>
 <%= link_to 'back', conversations_path%></p>
 
-
-
-<br />
 

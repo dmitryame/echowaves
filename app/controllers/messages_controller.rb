@@ -66,13 +66,8 @@ class MessagesController < ApplicationController
           if request.xhr?
             @messages = get_messages_after params[:after]
             # send a stomp message for everyone else to pick it up
-            newmessagescript = render_to_string :partial => 'message', :collection => @messages
-            s = Stomp::Client.new
-            s.send("CONVERSATION_CHANNEL_" + params[:conversation_id], newmessagescript)
-            s.close
-
+            send_stomp_message @messages
             render :nothing => true
-            
           else
             redirect_to(conversation_messages_path(@conversation))
           end
@@ -119,6 +114,17 @@ class MessagesController < ApplicationController
     def find_conversation
       @conversation_id = params[:conversation_id]
       @conversation = Conversation.find(@conversation_id)
+    end
+    
+    
+    def send_stomp_message(messages)
+      newmessagescript = render_to_string :partial => 'message', :collection => messages
+      s = Stomp::Client.new
+      s.send("CONVERSATION_CHANNEL_" + params[:conversation_id], newmessagescript)
+      s.close
+    rescue SystemCallError
+      logger.error "IO failed: " + $!
+      # raise
     end
 
 end

@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 	<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-	<title><%= controller.action_name %></title>
+	<title>eOw - <%= h @conversation.name %></title>
 	<%= stylesheet_link_tag 'default' %>
 	<%= stylesheet_link_tag 'custom' %>
 	<%= stylesheet_link_tag 'firebug-lite' %>
@@ -16,7 +16,7 @@
 	<%= javascript_include_tag "pi" %>
 	<!-- = javascript_include_tag "firebug-lite" -->
 </head>
-<body onLoad="pageScroll();MessageManipulation.handle_new_messages();focusInput('message_message');">
+<body onLoad="Misc.pageScroll();MessageManipulation.handle_new_messages();Misc.focusInput('message_message');">
 	<div id="logout">
 		<%if logged_in?%>					
 		<%= link_to "logout", logout_path %>&nbsp;<%=current_user.login%>

@@ -124,3 +124,11 @@ div#messages p {
 	font-size: .7em;
 	line-height:1em;
 } 
+
+.attachmentlink {
+    display: none;
+}
+
+.attachmentinput {
+    display: none;
+}

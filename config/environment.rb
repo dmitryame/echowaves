@@ -93,7 +93,7 @@ ActionMailer::Base.smtp_settings = {
 
 ORBITED_HOST = 'localhost'
 ORBITED_PORT = '8500'
-ORBITED_PREFIX = ''
+#ORBITED_PREFIX = ''
 #STOMP_HOST = 'localhost'
 #STOMP_PORT = '61613'
 

@@ -47,7 +47,7 @@
 			message_output.insert({"bottom" : frame.body});
 			MessageManipulation.handle_new_messages();
 		};
-		stomp.connect(document.domain, <%=STOMP_PORT%>, 'guest', 'guest');
+		stomp.connect(document.domain, 61613, 'UNIQUE_ID_PER_CLIENT', '');
 		setTimeout("stomp.subscribe('CONVERSATION_CHANNEL_<%=@conversation_id%>', {exchange:''})",5000);
 	};
 

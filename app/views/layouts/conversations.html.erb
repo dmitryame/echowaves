@@ -9,8 +9,8 @@
 	<%= javascript_include_tag :defaults %>
 	<%= javascript_include_tag "misc" %>
 </head>
-<body onLoad="pageScroll();focusInput('conversation_name');">
-	<div><%= link_to image_tag ("echowaves.gif", :border => 0), home_path %></div>
+<body onLoad="Misc.pageScroll();Misc.focusInput('conversation_name');">
+    <div><%= link_to image_tag ("echowaves.gif", :border => 0), home_path %></div>
 	<div id="logout">
 		<%if logged_in?%>					
 		<%= link_to "logout", logout_path %>&nbsp;<%=current_user.login%>

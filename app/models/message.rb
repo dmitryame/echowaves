@@ -3,6 +3,8 @@ class Message < ActiveRecord::Base
   belongs_to :conversation
   belongs_to :user
   
+  has_attached_file :attachment
+
   validates_presence_of     :message
   
 end

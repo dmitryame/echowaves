@@ -53,7 +53,7 @@
 
  </script>
 </head>
-<body onLoad="Misc.pageScroll();MessageManipulation.handle_new_messages();Misc.focusInput('message_message');">
+<body onLoad="stomp_function(); Misc.pageScroll();MessageManipulation.handle_new_messages();Misc.focusInput('message_message');">
 	<div><%= link_to image_tag ("echowaves.gif", :border => 0), home_path %></div>
 	<div id="logout">
 		<%if logged_in?%>					

@@ -19,26 +19,30 @@
                            :complete => "$('message_message').value = '';$('message_message').focus();MessageManipulation.handle_new_messages()",
                            # don't poll right now, and set the "after" value
                            :before => 'MessageManipulation.working_begin();MessageManipulation.suspend_polling = true;$("after").value = MessageManipulation.last_message_number',
-                           :condition => "$('message_message').value.strip().length > 0") do |f| %>
+                           :condition => "$('message_message').value.strip().length > 0",
+                           :html => { :multipart => true }) do |f| %>
 		<p>
 		<%= f.text_area :message, :rows => 5, :cols => 80 %>
 		<%= f.hidden_field :parent_id, :value => @messages.last.id unless @messages.blank? %>
 		<input type="hidden" name="after" id="after" value="0" />
-		</p>	
+		</p>
+<!--
+                <span class="attachmentinput" style="display: none;">
+                <%= f.file_field :attachment %>
+                </span>
+                <%= link_to_function "Add Attachment", "Misc.showAndHide('.attachmentinput', '.attachmentlink')", :class => "attachmentlink" %>
+-->
 		<%=submit_tag "Post"%>
 <%= link_to_remote "refresh", :url => {:action => 'message_poll', :conversation_id => @conversation},
 	:update => 'messages', :position => 'bottom',
 	:complete => "MessageManipulation.handle_new_messages()",
 	:with => "'after=' + MessageManipulation.last_message_number",
 	:before => 'MessageManipulation.working_begin();MessageManipulation.suspend_polling = true',
-	:frequency => 30 %>
+	:frequency => REFRESH_FREQUINCY %>
     <span id="working" style="display:none">Working...</span>
 	<% end %>
 </div>
 <%end%>
 <%= link_to 'back', conversations_path%></p>
 
-
-
-<br />
 

@@ -1,13 +1,15 @@
+require 'stomp'
+
 class MessagesController < ApplicationController
   before_filter :login_required
-  before_filter :find_conversation
+  before_filter :find_conversation, :except => :send_data
     
   def get_messages_after(cutoff_message_id)
     @conversation.messages.find(:all, :include => [:user], :conditions => ["id > ?", cutoff_message_id], :order => 'created_at ASC')
   end
   
-  def message_poll
-    @messages = get_messages_after params[:after]
+  def message_poll  
+    @messages = get_messages_after params[:after]  
     render :partial => 'message', :collection => @messages
   end
   
@@ -59,10 +61,13 @@ class MessagesController < ApplicationController
     respond_to do |format|
       if @message.save
         flash[:notice] = 'Message was successfully created.'
+        
         format.html { 
           if request.xhr?
             @messages = get_messages_after params[:after]
-            render :partial => 'message', :collection => @messages
+            # send a stomp message for everyone else to pick it up
+            send_stomp_message @messages
+            render :nothing => true
           else
             redirect_to(conversation_messages_path(@conversation))
           end
@@ -109,6 +114,17 @@ class MessagesController < ApplicationController
     def find_conversation
       @conversation_id = params[:conversation_id]
       @conversation = Conversation.find(@conversation_id)
+    end
+    
+    
+    def send_stomp_message(messages)
+      newmessagescript = render_to_string :partial => 'message', :collection => messages
+      s = Stomp::Client.new
+      s.send("CONVERSATION_CHANNEL_" + params[:conversation_id], newmessagescript)
+      s.close
+    rescue SystemCallError
+      logger.error "IO failed: " + $!
+      # raise
     end
 
 end

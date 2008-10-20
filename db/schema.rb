@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081004184557) do
+ActiveRecord::Schema.define(:version => 20081015035928) do
 
   create_table "conversations", :force => true do |t|
     t.string   "name"
@@ -27,6 +27,9 @@ ActiveRecord::Schema.define(:version => 20081004184557) do
     t.text     "message"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "attachment_file_name"
+    t.string   "attachment_content_type"
+    t.integer  "attachment_file_size"
   end
 
   add_index "messages", ["user_id"], :name => "index_messages_on_user_id"

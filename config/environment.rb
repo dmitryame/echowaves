@@ -27,7 +27,8 @@ Rails::Initializer.run do |config|
   # config.gem "aws-s3", :lib => "aws/s3"
 
   config.gem "gravtastic"
-  config.gem "BlueCloth"
+#  config.gem "BlueCloth"
+  config.gem "paperclip"
 
   # Only load the plugins named here, in the order given. By default, all plugins 
   # in vendor/plugins are loaded in alphabetical order.
@@ -89,3 +90,13 @@ ActionMailer::Base.smtp_settings = {
   :password => "yourrailsapp",
   :authentication => :login
 }
+
+
+ORBITED_HOST = 'localhost'
+ORBITED_PORT = '8500'
+#ORBITED_PREFIX = ''
+#STOMP_HOST = 'localhost'
+#STOMP_PORT = '61613'
+
+
+REFRESH_FREQUINCY = 3600

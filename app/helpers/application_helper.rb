@@ -17,7 +17,7 @@ module ApplicationHelper
     daysold = (Time.now - dt) / 60 / 60 / 24
     case
     when daysold < 1
-      dt.to_s(:recent)
+      "today" + dt.to_s(:recent)
     when daysold < 2
       "yesterday " + dt.to_s(:recent)
     else

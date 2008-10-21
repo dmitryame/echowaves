@@ -28,7 +28,7 @@
 		stomp.onclose = function(code) {
 			output.insert({"top" : ":Transport closed (code: " + code + ")"});
 			//try to reconnect
-			stomp.connect(document.domain, 61613, 'UNIQUE_ID_PER_CLIENT', '');			
+			// stomp.connect(document.domain, 61613, 'UNIQUE_ID_PER_CLIENT', '');			
 		};
 		stomp.onerror = function(error) {
 			alert("onerror: " + error);

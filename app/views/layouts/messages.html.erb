@@ -23,23 +23,23 @@
 		// set up stomp client.
 		stomp = new STOMPClient();
 		stomp.onopen = function() {
-			output.insert({"top" : "Transport openned"});
+			output.insert({"top" : ":Transport openned"});
 		};
 		stomp.onclose = function(code) {
-			output.insert({"top" : "Transport closed (code: " + code + ")"});
+			output.insert({"top" : ":Transport closed (code: " + code + ")"});
 			//try to reconnect
 			stomp.connect(document.domain, 61613, 'UNIQUE_ID_PER_CLIENT', '');			
 		};
 		stomp.onerror = function(error) {
 			alert("onerror: " + error);
-			output.insert("onerror: " + error);
+			output.insert(":onerror: " + error);
 		};
 		stomp.onerrorframe = function(frame) {
 			alert("onerrorframe: " + frame.body);
-			output.insert("onerrorframe: " + frame.body);
+			output.insert(":onerrorframe: " + frame.body);
 		};
 		stomp.onconnectedframe = function() {
-			output.insert({"top" : "Connected to chat room"});
+			output.insert({"top" : ":Connected to chat room"});
 		};
 		stomp.onmessageframe = function(frame) {
 			var message_output = $('messages');

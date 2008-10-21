@@ -4,7 +4,7 @@ module ApplicationHelper
     [
     "<script src=\"http://#{ORBITED_HOST}:#{ORBITED_PORT}/static/Orbited.js\"></script>",
     '<script>',
-    '  document.domain = document.domain;',
+    "  document.domain = '#{ORBITED_DOMAIN}';",
     "  Orbited.settings.port = #{ORBITED_PORT};",
     "  Orbited.settings.hostname = '#{ORBITED_HOST}';",
     '  TCPSocket = Orbited.TCPSocket;',

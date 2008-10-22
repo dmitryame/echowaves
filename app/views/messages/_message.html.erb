@@ -12,6 +12,7 @@
 		<span class="date"><%=h format_date_for_message_meta(message.created_at) %></span>
 	</p>
 	<p class="messagetext">
+		<%#=message.id%>
 		<%= mark_up message.message %>
 	</p>
 </div>

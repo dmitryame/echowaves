@@ -4,8 +4,18 @@ class MessagesController < ApplicationController
   before_filter :login_required
   before_filter :find_conversation, :except => :send_data
     
+  def get_more_messages
+    @messages = get_messages_before params[:before]  
+    render :partial => 'message', :collection => @messages
+  end
+  
+  def get_messages_before(first_message_id)
+    @conversation.messages.find(:all, :include => [:user], :conditions => ["id < ?", first_message_id], :limit => 100, :order => 'id DESC').reverse
+  end
+
+
   def get_messages_after(cutoff_message_id)
-    @conversation.messages.find(:all, :include => [:user], :conditions => ["id > ?", cutoff_message_id], :order => 'created_at ASC')
+    @conversation.messages.find(:all, :include => [:user], :conditions => ["id > ?", cutoff_message_id], :order => 'id ASC')
   end
   
   def message_poll  
@@ -16,7 +26,7 @@ class MessagesController < ApplicationController
   # GET /messages
   # GET /messages.xml
   def index
-    @messages = @conversation.messages.paginate(:include => [:user], :per_page => 100, :page => params[:page], :order => 'created_at DESC').reverse
+    @messages = @conversation.messages.find(:all, :include => [:user], :limit => 100, :order => 'id DESC').reverse
 
     respond_to do |format|
       format.html # index.html.erb

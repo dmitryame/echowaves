@@ -26,9 +26,19 @@ var MessageManipulation = {
     MessageManipulation.working_end();
   },
 
+  handle_old_messages: function() {
+	MessageManipulation.first_message_number = MessageManipulation.find_first_message_number();
+  },
+
+
   find_last_message_number: function() {
     var last_msg = $('messages').childElements().last();
     var num = parseInt(last_msg.id.sub("message",""));
+    return num;
+  },
+  find_first_message_number: function() {
+    var first_msg = $('messages').childElements().first();
+    var num = parseInt(first_msg.id.sub("message",""));
     return num;
   },
 

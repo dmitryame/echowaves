@@ -12,6 +12,7 @@
 		<span class="date"><%=h message.created_at.to_s(:pretty_long) %></span>
 	</p>
 	<p class="messagetext">
+		<%#=message.id%>
 		<%= mark_up message.message %>
 	</p>
 </div>

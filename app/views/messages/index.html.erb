@@ -1,6 +1,12 @@
 <h1>conversation : <%= h @conversation.name %></h1>
 
-<%= will_paginate @messages %>
+<%= link_to 'back', conversations_path%></p>
+
+
+<%= link_to_remote "more messages", :url => {:action => 'get_more_messages', :conversation_id => @conversation},
+	:update => 'messages', :position => 'top',
+	:complete => "MessageManipulation.handle_old_messages()",
+	:with => "'before=' + MessageManipulation.first_message_number" %>
 
 <div style='clear: both' id='polling'>
 	<%= render :partial => 'polling' %>
@@ -11,7 +17,6 @@
 </div>
 
 
-<%if params[:page].blank? or params[:page] == '1' %>
 <div>
 	<% remote_form_for(:message,
                            :update => 'messages', :position => 'bottom',
@@ -42,7 +47,6 @@
     <span id="working" style="display:none">Working...</span>
 	<% end %>
 </div>
-<%end%>
 <%= link_to 'back', conversations_path%></p>
 
 

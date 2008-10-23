@@ -74,7 +74,9 @@ Rails::Initializer.run do |config|
   # !!!!!!!!!!!!!the following line must be uncommented in production for users to be able to register
   # config.active_record.observers = :user_observer
 
+
 end
+
 # active mailer configuration
 # First, specify the Host that we will be using later for user_notifier.rb
 HOST = 'http://localhost:3000'
@@ -98,5 +100,4 @@ ORBITED_DOMAIN = 'localhost'
 STOMP_HOST = 'localhost'
 STOMP_PORT = '61613'
 
-
-REFRESH_FREQUINCY = 3600
+REFRESH_FREQUINCY = 60

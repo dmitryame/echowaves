@@ -24,11 +24,14 @@
 		stomp = new STOMPClient();
 		stomp.onopen = function() {
 			output.insert({"top" : ":Transport openned"});
+			// setTimeout("subscribe('CONVERSATION_CHANNEL_<%=@conversation_id%>', {exchange:''})",5000);						
 		};
 		stomp.onclose = function(code) {
 			output.insert({"top" : ":Transport closed (code: " + code + ")"});
 			//try to reconnect
 			// stomp.connect(document.domain, 61613, 'UNIQUE_ID_PER_CLIENT', '');			
+			setTimeout("stomp.connect('<%=STOMP_HOST%>', <%=STOMP_PORT%>, 'UNIQUE_ID_PER_CLIENT', '');", 5000);
+			setTimeout("stomp.subscribe('CONVERSATION_CHANNEL_<%=@conversation_id%>', {exchange:''})",10000);
 		};
 		stomp.onerror = function(error) {
 			alert("onerror: " + error);
@@ -51,12 +54,13 @@
 		};
 		stomp.connect('<%=STOMP_HOST%>', <%=STOMP_PORT%>, 'UNIQUE_ID_PER_CLIENT', '');
 		setTimeout("stomp.subscribe('CONVERSATION_CHANNEL_<%=@conversation_id%>', {exchange:''})",5000);
+		// stomp.subscribe('CONVERSATION_CHANNEL_<%=@conversation_id%>', {exchange:''});
 	};
 
  </script>
 	<link rel="shortcut icon" href="/images/favicon.ico" />
 </head>
-<body onLoad="stomp_function(); Misc.pageScroll();MessageManipulation.handle_old_messages();MessageManipulation.handle_new_messages();Misc.focusInput('message_message');">
+<body onLoad="Misc.pageScroll();MessageManipulation.handle_old_messages();MessageManipulation.handle_new_messages();Misc.focusInput('message_message');stomp_function();">
 	<div><%= link_to image_tag("echowaves.gif", :border => 0), home_path %></div>
 	<div id="logout">
 		<%if logged_in?%>					

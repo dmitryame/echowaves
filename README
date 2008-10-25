@@ -8,8 +8,9 @@ http://github.com/dmitryame/echowaves/wikis/todo
 
 === INSTALL (localhost)
 copy config/database.yml-sample to config/database.yml and modify to taste (see below for some hints on different platforms)
-rake db:create
-rake db:migrate
+rake gems:install   # automaticall installs gems referenced in config/environment.rb
+rake db:create      # creates the development database
+rake db:migrate     # creates tables in dev DB
 
 === SERVERSIDE COMPONENT INSTALL
 note: the application generally works without this part, but will incur a fixed delay which is configurable in environment.rb as REFRESH_FREQUINCY in seconds
@@ -25,7 +26,7 @@ easy_install simplejson
 
 * install stomp gem
 sudo gem install stomp
-
+(stomp gem will be prompted for by the entry in config/environment.rb)
 
 
 

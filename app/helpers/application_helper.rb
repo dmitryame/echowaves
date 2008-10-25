@@ -12,4 +12,16 @@ module ApplicationHelper
     "<script src=\"http://#{ORBITED_HOST}:#{ORBITED_PORT}/static/protocols/stomp/stomp.js\"></script>"
     ].join("\n")
   end
+
+  def format_date_for_message_meta(dt)
+    daysold = (Time.now - dt) / 60 / 60 / 24
+    case
+    when daysold < 1
+      "today" + dt.to_s(:recent)
+    when daysold < 2
+      "yesterday " + dt.to_s(:recent)
+    else
+      dt.to_s(:pretty_long)
+    end
+  end
 end

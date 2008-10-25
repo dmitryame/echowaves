@@ -29,6 +29,7 @@ Rails::Initializer.run do |config|
   config.gem "gravtastic"
 #  config.gem "BlueCloth"
   config.gem "paperclip"
+  config.gem "stomp"
 
   # Only load the plugins named here, in the order given. By default, all plugins 
   # in vendor/plugins are loaded in alphabetical order.
@@ -73,7 +74,6 @@ Rails::Initializer.run do |config|
   # The user observer goes inside the Rails::Initializer block
   # !!!!!!!!!!!!!the following line must be uncommented in production for users to be able to register
   # config.active_record.observers = :user_observer
-
 
 end
 

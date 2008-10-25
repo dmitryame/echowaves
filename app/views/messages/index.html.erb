@@ -27,7 +27,7 @@
                            :condition => "$('message_message').value.strip().length > 0",
                            :html => { :multipart => true }) do |f| %>
 		<p>
-		<%= f.text_area :message, :rows => 5, :cols => 80 %>
+		<%= f.text_area :message, :rows => 5, :cols => 80, :onkeyup => "if (this.scrollHeight > this.clientHeight &amp; !window.opera) this.style.height = (this.scrollHeight + 20) + 'px';" %>
 		<%= f.hidden_field :parent_id, :value => @messages.last.id unless @messages.blank? %>
 		<input type="hidden" name="after" id="after" value="0" />
 		</p>

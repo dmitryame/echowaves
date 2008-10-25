@@ -46,11 +46,19 @@
 		};
 		stomp.onmessageframe = function(frame) {
 			var message_output = $('messages');
-			// alert(frame.body);
 			// :update => 'messages', :position => 'bottom',
 			// eval(frame.body);
-			message_output.insert({"bottom" : frame.body});
-			MessageManipulation.handle_new_messages();
+			if(frame.body.startsWith("<!--message-->") ) {
+				message_output.insert({"bottom" : frame.body});
+				MessageManipulation.handle_new_messages();
+			}	
+			if(frame.body.startsWith("<!--user-->")) {
+				alert('new user');
+			}
+			if(frame.body.startsWith("<!--conversation-->")) {
+				alert('conversation updated');
+			}
+			
 		};
 		stomp.connect('<%=STOMP_HOST%>', <%=STOMP_PORT%>, 'UNIQUE_ID_PER_CLIENT', '');
 		setTimeout("stomp.subscribe('CONVERSATION_CHANNEL_<%=@conversation_id%>', {exchange:''})",5000);

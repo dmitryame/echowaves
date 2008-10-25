@@ -130,7 +130,7 @@ class MessagesController < ApplicationController
     def send_stomp_message(messages)
       newmessagescript = render_to_string :partial => 'message', :collection => messages
       s = Stomp::Client.new
-      s.send("CONVERSATION_CHANNEL_" + params[:conversation_id], newmessagescript)
+      s.send("CONVERSATION_CHANNEL_" + params[:conversation_id], "<!--message-->" + newmessagescript)
       s.close
     rescue SystemCallError
       logger.error "IO failed: " + $!

@@ -107,7 +107,7 @@ var WindowManager = {
   },
 
   highlight_messages: function(ids) {
-    ids.each(function(id) {new Effect.Highlight('message'+id)});
+    ids.each(function(id) {new Effect.Highlight('message_'+id)});
   }
 
 };

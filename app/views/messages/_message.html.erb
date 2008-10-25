@@ -1,4 +1,4 @@
-<div class="message" id="message<%= message.id %>">
+<div class="message" id="<%=dom_id(message)%>">
 	<p class="messagetools">
 		<%= link_to_function "Quote", "MessageManipulation.quote("+message.id.to_s+")" %>
 		<% if message.attachment.original_filename %>

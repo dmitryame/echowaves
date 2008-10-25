@@ -33,19 +33,19 @@ var MessageManipulation = {
 
   find_last_message_number: function() {
     var last_msg = $('messages').childElements().last();
-    var num = parseInt(last_msg.id.sub("message",""));
+    var num = parseInt(last_msg.id.sub("message_",""));
     return num;
   },
   find_first_message_number: function() {
     var first_msg = $('messages').childElements().first();
-    var num = parseInt(first_msg.id.sub("message",""));
+    var num = parseInt(first_msg.id.sub("message_",""));
     return num;
   },
 
   identify_new_messages: function(first, last) {
     var newMessages = new Array();
     for (var i = first; i <= last; i++) {
-      if ($("message"+i)) { // some might be in other conversations
+      if ($("message_"+i)) { // some might be in other conversations
         newMessages.push(i);
       }
     }
@@ -53,13 +53,13 @@ var MessageManipulation = {
   },
 
   quote: function(msgnum) {
-    var msgtxt = $$("#message"+msgnum+" p.messagetext")[0].innerHTML.strip();
+    var msgtxt = $$("#message_"+msgnum+" p.messagetext")[0].innerHTML.strip();
     // for now we have to undo all that markup we do at the back end.  bah
     msgtxt = msgtxt.gsub("<[Bb][Rr]/?>", "\n");
     msgtxt = msgtxt.gsub("</[Aa]>", "");
     msgtxt = msgtxt.gsub("<[Aa] .*?>", "");
 
-    var who = $$("#message"+msgnum+" p.messagemeta .username")[0].innerHTML.strip();
+    var who = $$("#message_"+msgnum+" p.messagemeta .username")[0].innerHTML.strip();
     $("message_message").value = who + " said:\n---\n" + msgtxt + "\n---\n";
     $("message_message").focus();
   }

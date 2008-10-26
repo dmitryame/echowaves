@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :login_required, :except => [:signup, :new, :create, :activate]
+  before_filter :login_required, :except => [:signup, :new, :create, :activate, :forgot_password, :reset_password]
 
   # Be sure to include AuthenticationSystem in Application Controller instead
   include AuthenticatedSystem

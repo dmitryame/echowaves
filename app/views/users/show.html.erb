@@ -1,0 +1,14 @@
+<p>
+	<img src="<%= @user.gravatar_url %>" class="avatar" />
+	<span class="username"><%= link_to h(@user.login), user_path(@user) %></span>		
+</p>
+
+
+<div id="conversations_for_user">
+	<b>Users conversations:</b></br>
+	<%= render :partial => 'users/conversation', :collection => @user.conversations_for_user %> 				 
+</div>
+	
+
+
+<%= link_to "back", users_path %>

@@ -138,14 +138,20 @@ div#control_panel {
 	top: 10px; 
 	left: 500px;
 }
-div#stat_data {
+div#connection_stat_data {
 	background-color: yellow;
+	position: fixed; 
+	bottom: 10px; 
+	right: 10px;	
 }
 div#users_in_conversation {
 	background-color: #d0ffff;
 	float: left;
 }
-div#conversations_for_user {
+div#my_conversations {
 	background-color: #0dffff;
 	float: right;
+}
+div#conversations_for_user {
+	background-color: #0dffff;
 }

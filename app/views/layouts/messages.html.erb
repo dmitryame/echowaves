@@ -18,7 +18,7 @@
 	<%= orbited_javascript %> 
 	<script>
 	function stomp_function() {
-		 var output = $('stat_data');
+		 var output = $('connection_stat_data');
 		// set up shell.
 		// set up stomp client.
 		stomp = new STOMPClient();
@@ -82,18 +82,7 @@
 	<link rel="shortcut icon" href="/images/favicon.ico" />
 </head>
 <body onLoad="Misc.pageScroll();MessageManipulation.handle_old_messages();MessageManipulation.handle_new_messages();Misc.focusInput('message_message');stomp_function();">
-	<div><%= link_to image_tag("echowaves.gif", :border => 0), home_path %></div>
-	<div id="logout">
-		<%if logged_in?%>					
-		<%= link_to "logout", logout_path %>&nbsp;<%=current_user.login%>
-			<% if @user_has_access_to_resource%>
-			<font size=-3 style="text-decoration: blink" color="red">admin user</font>
-			<%end%>
-		<%else%>			
-		<%= link_to "login", new_session_path %>
-		<%end%>
-	</div>
-
+	<%= render(:partial => "shared/header") %> 	
 
 	<div id="content">
 		<p style="color: red"><%= flash[:error] %></p>
@@ -101,18 +90,18 @@
 		<%= yield  %>
 	</div>
 	
-	<div id="control_panel">
-		<div id="stat_data"></div>
-		
+	<div id="control_panel">		
 		<div id="users_in_conversation">
 			<b>Users talked in this conversation:</b><br/>
 			<%= render :partial => 'conversations/user', :collection => @conversation.users_in_conversation %>
 		</div>
-		<div id="conversations_for_user">
+		<div id="my_conversations">
 			<b>My conversations:</b></br>
 			<%= render :partial => 'users/conversation', :collection => current_user.conversations_for_user %> 				 
 		</div>
 	</div>
+
+	<div id="connection_stat_data"></div>
 		
 	<%= render(:partial => "shared/footer") %> 	
 </body>

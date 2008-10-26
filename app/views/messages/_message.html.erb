@@ -7,7 +7,7 @@
 	</p>
 	<p class="messagemeta">
 		<img src="<%= message.user.gravatar_url %>" class="avatar" />
-		<span class="username"><%=h message.user.name %></span>
+		<span class="username"><%=h message.user.login %></span>
 		<br/>
 		<span class="date"><%=h format_date_for_message_meta(message.created_at) %></span>
 	</p>

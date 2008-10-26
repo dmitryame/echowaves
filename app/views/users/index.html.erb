@@ -1,0 +1,14 @@
+<h1>users</h1>
+
+<%= will_paginate @users %>
+<table>
+<% for user in @users %>
+  <tr>
+    <td>
+		<img src="<%= user.gravatar_url %>" class="avatar" />
+		<span class="username"><%= link_to h(user.login), user_path(user) %></span>		
+	</td>
+  </tr>
+<% end %>
+</table>
+<%= will_paginate @users %>

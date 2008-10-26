@@ -16,7 +16,7 @@ class ConversationTest < ActiveSupport::TestCase
  
     should_have_many :messages
 
-    should "have users in conversations" do # this is how preallowed client is identified
+    should "have users in conversations" do 
       @user1 = Factory.create(:user, :login => "user1")
       @user2 = Factory.create(:user, :login => "user2")
       @user3 = Factory.create(:user, :login => "user3")

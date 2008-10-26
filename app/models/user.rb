@@ -30,6 +30,10 @@ class User < ActiveRecord::Base
 
   is_gravtastic :size => 40, :default => "identicon" # "monsterid" or "identicon", or "wavatar"
 
+  def conversations_for_user
+    Conversation.find(:all, :include => { :messages => :user }, :conditions => {"users.id" => id})    
+  end
+
   # Activates the user in the database.
   def activate!
     @activated = true

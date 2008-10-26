@@ -108,10 +108,10 @@
 			<b>Users talked in this conversation:</b><br/>
 			<%= render :partial => 'conversations/user', :collection => @conversation.users_in_conversation %>
 		</div>
-		<!-- <div id="conversations_for_user">
+		<div id="conversations_for_user">
 			<b>My conversations:</b></br>
-			<%#= render(:partial => "users/conversations") %> 				 
-		</div> -->
+			<%= render :partial => 'users/conversation', :collection => current_user.conversations_for_user %> 				 
+		</div>
 	</div>
 		
 	<%= render(:partial => "shared/footer") %> 	

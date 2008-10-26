@@ -103,8 +103,15 @@
 	
 	<div id="control_panel">
 		<div id="stat_data"></div>
-		<div id="chat_users"></div>
 		
+		<div id="users_in_conversation">
+			<b>Users talked in this conversation:</b><br/>
+			<%= render :partial => 'conversations/user', :collection => @conversation.users_in_conversation %>
+		</div>
+		<!-- <div id="conversations_for_user">
+			<b>My conversations:</b></br>
+			<%#= render(:partial => "users/conversations") %> 				 
+		</div> -->
 	</div>
 		
 	<%= render(:partial => "shared/footer") %> 	

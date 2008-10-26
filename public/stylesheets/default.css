@@ -141,3 +141,11 @@ div#control_panel {
 div#stat_data {
 	background-color: yellow;
 }
+div#users_in_conversation {
+	background-color: #d0ffff;
+	float: left;
+}
+div#conversations_for_user {
+	background-color: #0dffff;
+	float: right;
+}

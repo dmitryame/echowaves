@@ -23,6 +23,7 @@ class UserTest < ActiveSupport::TestCase
     should_ensure_length_in_range :name, (0..100) 
           
     should_have_many :messages
+
     
   end    
 end

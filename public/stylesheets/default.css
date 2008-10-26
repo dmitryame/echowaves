@@ -132,3 +132,12 @@ div#messages p {
 .attachmentinput {
     display: none;
 }
+
+div#control_panel {
+	position: fixed; 
+	top: 10px; 
+	left: 500px;
+}
+div#stat_data {
+	background-color: yellow;
+}

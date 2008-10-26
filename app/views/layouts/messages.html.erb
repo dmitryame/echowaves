@@ -23,16 +23,16 @@
 		// set up stomp client.
 		stomp = new STOMPClient();
 		stomp.onopen = function() {
-			output.insert({"top" : ":Transport openned"});
+			output.update(":Transport openned");
 			// setTimeout("subscribe('CONVERSATION_CHANNEL_<%=@conversation_id%>', {exchange:''})",5000);						
 		};
 		stomp.onclose = function(code) {
-			output.insert({"top" : ":Transport closed (code: " + code + ")"});
+			output.update(":Transport closed (code: " + code + ")");
 			//try to reconnect
 			// stomp.connect(document.domain, 61613, 'UNIQUE_ID_PER_CLIENT', '');			
 			setTimeout("stomp.connect('<%=STOMP_HOST%>', <%=STOMP_PORT%>, 'UNIQUE_ID_PER_CLIENT', '');", 5000);
 			setTimeout("stomp.subscribe('CONVERSATION_CHANNEL_<%=@conversation_id%>', {exchange:''})",10000);
-			// output.insert({"top" : ":polling messages"});
+			// output.update(":polling messages");
 			// //lets poll for new messages in case there are some while we were disconnected
 			// new Ajax.Updater('messages', '/messages/message_poll?conversation_id=#{@conversation_id}', 
 			// 	{
@@ -43,26 +43,26 @@
 			// 		parameters:'after=' + MessageManipulation.last_message_number 
 			// 	}
 			// );
-			// output.insert({"top" : ":done polling messages"});
+			// output.update("bottom" : ":done polling messages");
 			
 		};
 		stomp.onerror = function(error) {
 			alert("onerror: " + error);
-			output.insert(":onerror: " + error);
+			output.update(":onerror: " + error);
 		};
 		stomp.onerrorframe = function(frame) {
 			alert("onerrorframe: " + frame.body);
-			output.insert(":onerrorframe: " + frame.body);
+			output.update(":onerrorframe: " + frame.body);
 		};
 		stomp.onconnectedframe = function() {
-			output.insert({"top" : ":Connected to chat room"});
+			output.update(":Connected to chat room");
 		};
 		stomp.onmessageframe = function(frame) {
 			var message_output = $('messages');
 			// :update => 'messages', :position => 'bottom',
 			// eval(frame.body);
 			if(frame.body.startsWith("<!--message-->") ) {
-				message_output.insert({"bottom" : frame.body});
+				message_output.insert({"bottom":frame.body});
 				MessageManipulation.handle_new_messages();
 			}	
 			if(frame.body.startsWith("<!--user-->")) {
@@ -101,7 +101,11 @@
 		<%= yield  %>
 	</div>
 	
-	<div id="stat_data"></div>
+	<div id="control_panel">
+		<div id="stat_data"></div>
+		<div id="chat_users"></div>
+		
+	</div>
 		
 	<%= render(:partial => "shared/footer") %> 	
 </body>

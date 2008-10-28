@@ -3,8 +3,8 @@ class ConversationsController < ApplicationController
 
   # GET /conversations
   # GET /conversations.xml
-  def index
-    @conversations = Conversation.find(:all)
+  def index    
+    @conversations = Conversation.paginate :page => params[:page], :order => 'created_at DESC'
 
     respond_to do |format|
       format.html # index.html.erb

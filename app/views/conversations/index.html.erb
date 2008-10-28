@@ -1,16 +1,15 @@
-<h1>conversations</h1>
+<h1>recently started conversations</h1>
 
+<%= will_paginate @conversations %>
 <table>
-  <tr>
-    <th>Name</th>
-  </tr>
-
 <% for conversation in @conversations %>
   <tr>
     <td><%= link_to h(conversation.name), conversation_messages_path(conversation) %></td>
+    <td><%= conversation.created_at.to_s(:date_time12) %></td>
   </tr>
 <% end %>
 </table>
+<%= will_paginate @conversations %>
 
 <br />
 

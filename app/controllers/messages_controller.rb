@@ -70,7 +70,7 @@ class MessagesController < ApplicationController
     
     respond_to do |format|
       if @message.save
-        flash[:notice] = 'Message was successfully created.'
+        # flash[:notice] = 'Message was successfully created.'
         
         format.html { 
           if request.xhr?

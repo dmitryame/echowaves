@@ -19,9 +19,32 @@ class User < ActiveRecord::Base
   validates_uniqueness_of   :email
   validates_format_of       :email,    :with => Authentication.email_regex, :message => Authentication.bad_email_message
 
+  # validates_presence_of     :personal_conversation_id #don't require it
+  validates_uniqueness_of   :personal_conversation_id, :if => Proc.new { |u| !u.personal_conversation_id.blank? } 
+  
+  
   has_many :messages
 
+
+  belongs_to :personal_conversation, #personal users conversation
+    :class_name => "Conversation", 
+    :foreign_key => "personal_conversation_id"
+  
   before_create :make_activation_code 
+
+  
+  # create personal conversations
+  def after_create 
+    conversation = Conversation.new
+    conversation.name = "Personal conversation for " + self.login
+    conversation.description = "This is a personal conversation for " + self.login + ". If you wish to collaborate with " + self.login + ", say it here."
+    conversation.personal_conversation = true;
+    conversation.created_by = self #this gets propageted to first message in the conversation which makes it an owner.
+    conversation.save
+    self.personal_conversation_id = conversation.id
+    self.save
+  end
+
 
   # HACK HACK HACK -- how to do attr_accessible from here?
   # prevents a user from submitting a crafted form that bypasses activation
@@ -29,6 +52,7 @@ class User < ActiveRecord::Base
   attr_accessible :login, :email, :name, :password, :password_confirmation
 
   is_gravtastic :size => 40, :default => "identicon" # "monsterid" or "identicon", or "wavatar"
+
 
   def conversations_for_user
     Conversation.find(:all, :include => { :messages => :user }, :conditions => {"users.id" => id})    

@@ -9,8 +9,8 @@ class ConversationsControllerTest < ActionController::TestCase
   end
    
   should_be_restful do |resource| 
-    resource.create.params = { :name => "random conversation" }
-    resource.update.params = { :name => "random conversation changed" }
+    resource.create.params = { :name => "random conversation", :description => "random conversations description"}
+    resource.update.params = { :name => "random conversation changed", :description => "changed random conversations description"}
     resource.actions    = [
       :index,
       # :show, 

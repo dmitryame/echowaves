@@ -9,12 +9,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081024034115) do
+ActiveRecord::Schema.define(:version => 20081027005113) do
 
   create_table "conversations", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "description"
+    t.boolean  "personal_conversation", :default => false
   end
 
   add_index "conversations", ["name"], :name => "index_conversations_on_name"
@@ -59,6 +61,7 @@ ActiveRecord::Schema.define(:version => 20081024034115) do
     t.string   "activation_code",           :limit => 40
     t.datetime "activated_at"
     t.string   "password_reset_code",       :limit => 40
+    t.integer  "personal_conversation_id"
   end
 
   add_index "users", ["login"], :name => "index_users_on_login", :unique => true

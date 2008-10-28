@@ -6,16 +6,18 @@ class ConversationTest < ActiveSupport::TestCase
       @conversation = Factory.create(:conversation)
     end
     
-    should_require_attributes :name
+    should_require_attributes :name, :description
+    
     should_require_unique_attributes :name
 
     should_have_index :name
     should_have_index :created_at
     
     should_ensure_length_in_range :name, (8..100) 
+    # should_ensure_length_in_range :description, (0..10000) 
  
     should_have_many :messages
-
+    
     should "have users in conversations" do 
       @user1 = Factory.create(:user, :login => "user1")
       @user2 = Factory.create(:user, :login => "user2")

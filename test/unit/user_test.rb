@@ -24,7 +24,8 @@ class UserTest < ActiveSupport::TestCase
           
     should_have_many :messages
 
-
+    should_belong_to :personal_conversation
+    
     should "have conversations" do 
       @conversation1 = Factory.create(:conversation, :name => "converstaion1")
       @conversation2 = Factory.create(:conversation, :name => "converstaion2")
@@ -39,7 +40,7 @@ class UserTest < ActiveSupport::TestCase
       @message8 = Factory.create(:message, :conversation => @conversation2, :user => @user)
       @message9 = Factory.create(:message, :conversation => @conversation1, :user => @user)
       
-      assert_equal @user.conversations_for_user.size, 3
+      assert_equal @user.conversations_for_user.size, 3 + 1#it's actually one more, because the user has his own conversation automatically created
     end
 
     

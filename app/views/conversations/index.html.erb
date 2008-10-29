@@ -1,5 +1,17 @@
-<h1>recently started conversations</h1>
+<%= link_to 'Start New conversation', new_conversation_path %>
 
+<div>
+	look for conversations:
+	<%= text_field_with_auto_complete :conversation, :name, { :size => 45 }, :skip_style => true,
+	:after_update_element => 
+	"function(element,value) " +
+	  "{ window.location=('/complete_conversation_name?id='+element.value);}"
+	-%>
+		
+</div>
+
+
+<h1>recently started conversations</h1>
 <%= will_paginate @conversations %>
 <table>
 <% for conversation in @conversations %>
@@ -13,4 +25,4 @@
 
 <br />
 
-<%= link_to 'New conversation', new_conversation_path %>
+<%= link_to 'Start New conversation', new_conversation_path %>

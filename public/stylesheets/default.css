@@ -155,3 +155,32 @@ div#my_conversations {
 div#conversations_for_user {
 	background-color: #0dffff;
 }
+
+
+.auto_complete {
+      position:absolute;
+      width:250px;
+      background-color:white;
+      border:1px solid #888;
+      margin:0px;
+      padding:0px;
+}
+
+.auto_complete ul {
+      list-style-type: none;
+      margin:0px;
+      padding:0px;
+}
+    
+.auto_complete ul li.selected 
+{ 
+	    background-color: #bbf;
+
+}
+
+.auto_complete ul li {
+      list-style-type: none;
+      display:block;
+      margin:0;
+      padding:2px;
+}

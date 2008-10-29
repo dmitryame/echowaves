@@ -1,0 +1,4 @@
+<ul class="autocomplete_list">
+  <% for article in @convesations.to_a -%>
+    <li class="autocomplete_item"><%= conversation_link convesation.name, convesation %>
+<% end -%>

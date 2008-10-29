@@ -1,5 +1,13 @@
 class ConversationsController < ApplicationController
+
   before_filter :login_required
+
+  auto_complete_for :conversation, :name
+
+  def complete_name
+    @conversation = Conversation.find_by_name(params[:id])
+    redirect_to conversation_messages_path(@conversation)
+  end
 
   # GET /conversations
   # GET /conversations.xml

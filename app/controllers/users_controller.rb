@@ -4,6 +4,14 @@ class UsersController < ApplicationController
   # Be sure to include AuthenticationSystem in Application Controller instead
   include AuthenticatedSystem
   
+  auto_complete_for :user, :name
+
+  def complete_name
+    @user = User.find_by_name(params[:id])
+    redirect_to user_path(@user)
+  end
+  
+  
   # GET /conversations
   # GET /conversations.xml
   def index

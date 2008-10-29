@@ -18,8 +18,8 @@
 <% for user in @users %>
   <tr>
     <td>
-		<img src="<%= user.gravatar_url %>" class="avatar" />
-		<span class="username"><%= link_to h(user.login), user_path(user) %></span>		
+		<%= link_to image_tag(user.gravatar_url, :border => 0, :class => "avatar"), conversation_messages_path(user.personal_conversation) %>		
+		<span class="username"><%=link_to h(user.login), user_path(user) %></span>
 	</td>
   </tr>
 <% end %>

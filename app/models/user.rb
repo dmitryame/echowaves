@@ -36,7 +36,7 @@ class User < ActiveRecord::Base
   # create personal conversations
   def after_create 
     conversation = Conversation.new
-    conversation.name = "Personal conversation for " + self.login
+    conversation.name = self.login
     conversation.description = "This is a personal conversation for " + self.login + ". If you wish to collaborate with " + self.login + ", do it here."
     conversation.personal_conversation = true;
     conversation.created_by = self #this gets propageted to first message in the conversation which makes it an owner.

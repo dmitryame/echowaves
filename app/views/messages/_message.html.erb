@@ -1,6 +1,5 @@
 <div class="message" id="<%=dom_id(message)%>">
 	<p class="messagetools">
-		<%= link_to_function "Quote", "MessageManipulation.quote("+message.id.to_s+")" %>
 		<% if message.attachment.original_filename %>
 			<%= link_to message.attachment.original_filename, message.attachment.url %>
 		<% end %>

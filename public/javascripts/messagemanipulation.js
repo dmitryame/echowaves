@@ -52,17 +52,17 @@ var MessageManipulation = {
     return newMessages;
   },
 
-  quote: function(msgnum) {
-    var msgtxt = $$("#message_"+msgnum+" p.messagetext")[0].innerHTML.strip();
-    // for now we have to undo all that markup we do at the back end.  bah
-    msgtxt = msgtxt.gsub("<[Bb][Rr]/?>", "\n");
-    msgtxt = msgtxt.gsub("</[Aa]>", "");
-    msgtxt = msgtxt.gsub("<[Aa] .*?>", "");
-
-    var who = $$("#message_"+msgnum+" p.messagemeta .username")[0].innerHTML.strip();
-    $("message_message").value = who + " said:\n---\n" + msgtxt + "\n---\n";
-    $("message_message").focus();
-  }
+  // quote: function(msgnum) {
+  //   var msgtxt = $$("#message_"+msgnum+" p.messagetext")[0].innerHTML.strip();
+  //   // for now we have to undo all that markup we do at the back end.  bah
+  //   msgtxt = msgtxt.gsub("<[Bb][Rr]/?>", "\n");
+  //   msgtxt = msgtxt.gsub("</[Aa]>", "");
+  //   msgtxt = msgtxt.gsub("<[Aa] .*?>", "");
+  // 
+  //   var who = $$("#message_"+msgnum+" p.messagemeta .username")[0].innerHTML.strip();
+  //   $("message_message").value = who + " said:\n---\n" + msgtxt + "\n---\n";
+  //   $("message_message").focus();
+  // }
 };
 
 Event.observe(window, 'load', MessageManipulation.init);

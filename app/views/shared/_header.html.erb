@@ -1,4 +1,4 @@
-<div><%= link_to image_tag("echowaves.gif", :border => 0), home_path %></div>
+<div><%= link_to image_tag("echowaves.gif", :border => 0, :width => "282px", :height => "50px" ), home_path %></div>
 <div id="logout">
 	<%if logged_in?%>					
 	<%= link_to "logout", logout_path %>&nbsp;<%=current_user.login%>

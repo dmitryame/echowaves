@@ -8,7 +8,7 @@
 		<%= link_to image_tag(message.user.gravatar_url, :border => 0, :wigth => 40, :height => 40, :class => "avatar"), conversation_messages_path(message.user.personal_conversation) %>		
 		<span class="username"><%=link_to h(message.user.login), user_path(message.user) %></span>
 		<br/>
-		<span class="date"><%=h format_date_for_message_meta(message.created_at) %></span>
+		<span class="date"><%=message.created_at.to_s(:pretty_long) %></span>
 	</p>
 	<p class="messagetext">
 		<%#=message.id%>

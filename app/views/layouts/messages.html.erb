@@ -55,7 +55,7 @@
 			output.update("onerrorframe: " + frame.body);
 		};
 		stomp.onconnectedframe = function() {
-			output.update("Connected to chat room");
+			output.update("Connected");
 		};
 		stomp.onmessageframe = function(frame) {
 			var message_output = $('messages');

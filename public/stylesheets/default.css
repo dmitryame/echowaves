@@ -1,4 +1,7 @@
-body { background-color: #fff; color: #333; }
+body { 
+	background-color: #ffffff; 
+	color: #333; 
+}
 
 body, p, ol, ul, td {
   font-family: verdana, arial, helvetica, sans-serif;
@@ -6,15 +9,25 @@ body, p, ol, ul, td {
   line-height: 18px;
 }
 
+
 pre {
   background-color: #eee;
   padding: 10px;
   font-size: 11px;
 }
 
-a { color: #000; }
-a:visited { color: #666; }
-a:hover { color: #fff; background-color:#000; }
+a { 
+	color: #005c9c;
+	outline-style: none;
+	outline-width: medium;
+	text-decoration: none;	
+}
+a:visited { 
+	color: #005c9c;
+}
+a:hover { 
+	text-decoration: underline;
+}
 
 .fieldWithErrors {
   padding: 2px;
@@ -100,7 +113,7 @@ p.messagemeta .avatar {
 /* holds the message, and its meta-information */
 div.message {
     clear: both;
-    background-color: #fed;
+    background-color: #CCFFCC;
     margin: 3px 0 0 0;
     padding: 3px;
     border: solid black 1px;
@@ -121,7 +134,7 @@ div#messages {
 } 
 
 div#messages p {
-	font-size: .7em;
+	font-size: .9em;
 	line-height:1em;
 } 
 
@@ -133,29 +146,35 @@ div#messages p {
     display: none;
 }
 
-div#control_panel {
+#connection_stat {
+	background-color: #ffffff;
 	position: fixed; 
-	top: 10px; 
-	left: 500px;
+	top: 33px; 
+	right: 0px;		
 }
-div#connection_stat_data {
-	background-color: yellow;
-	position: fixed; 
-	bottom: 10px; 
-	right: 10px;	
-}
-div#users_in_conversation {
-	background-color: #d0ffff;
-	float: left;
-}
-div#my_conversations {
-	background-color: #0dffff;
-	float: right;
-}
-div#conversations_for_user {
-	background-color: #0dffff;
+#connection_stat_data {
+	padding: 0px 5px 0px 5px;
+	font-size: .9em;
 }
 
+div#users_in_conversation {
+	background-color: #cccccc;
+	position: fixed; 
+	top: 55px; 
+	left: 475px;		
+	padding: 5px;
+}
+
+div#my_conversations {
+	background-color: #cccccc;
+	position: fixed; 
+	top: 55px; 
+	right: 0px;		
+	padding: 5px;
+}
+
+div#conversations_for_user {
+}
 
 .auto_complete {
       position:absolute;
@@ -174,15 +193,14 @@ div#conversations_for_user {
     
 .auto_complete ul li.selected 
 { 
-	    background-color: #bbf;
-
+	background-color: #bbf;
 }
 
 .auto_complete ul li {
-      list-style-type: none;
-      display:block;
-      margin:0;
-      padding:2px;
+	list-style-type: none;
+	display:block;
+	margin:0;
+	padding:2px;
 }
 
 
@@ -214,4 +232,62 @@ div#conversations_for_user {
   margin: 2px;
   border: 1px solid #eee;
   color: #ddd;
+}
+
+div#header {
+	position: fixed;
+	top: 0px;
+	left: 0px;	
+	width: 100%;
+  	background-color: #EEEEEE;	
+	border-bottom-width: 1px;
+	border-bottom-style: dotted;
+	border-bottom-color: #b5b5b5;
+}
+div#header_padding {
+	position: fixed;
+	top: 51px;
+	left: 0px;	
+	width: 100%;
+  	background-color: #000000;	
+	height: 5px;
+}
+
+div#logout{
+	position: fixed;
+	top: 10px;
+	right: 10px;		
+}
+div#header_image {
+}
+
+#menu {
+	position: fixed;
+	top: 30px;
+	left: 300px;			
+}
+
+.menu_item {
+	padding: 3px;	
+}
+
+.active_menu_item {
+	padding: 8px;		
+  	background-color: #ffffff;	
+}
+
+#content {
+	width: 500px;
+	padding-top: 60px;
+}
+
+#footer {
+	float: left;
+	padding-bottom: 0.5em;
+	width: 100%;
+	border-top-width: 1px;
+	border-top-style: dotted;
+	border-top-color: #b5b5b5;
+	text-align: center;
+	background-color: #EEEEEE;	
 }

@@ -11,7 +11,22 @@
 	<link rel="shortcut icon" href="/images/favicon.ico" />
 </head>
 <body onLoad="Misc.pageScroll();Misc.focusInput('conversation_name');">
+
 	<%= render(:partial => "shared/header") %> 	
+
+	<div id="menu">
+		<span class="menu_item">
+			<%= link_to 'home', home_path %>
+		</span>
+		|
+		<span class="menu_item">
+			<%= link_to 'users', users_path %>
+		</span>
+		|
+		<span class="active_menu_item">
+			<%= link_to 'conversations', conversations_path %>
+		</span>
+	</div>
 
 
 	<div id="content">
@@ -19,6 +34,8 @@
 		<p style="color: green"><%= flash[:notice] %></p>
 		<%= yield  %>
 	</div>
+
+	<%= render :partial => 'users/my_conversations' %>
 	
 	<%= render(:partial => "shared/footer") %> 	
 </body>

@@ -12,12 +12,28 @@
 </head>
 <body>
 	<%= render(:partial => "shared/header") %> 	
+	
+	<div id="menu">
+		<span class="menu_item">
+			<%= link_to 'home', home_path %>
+		</span>
+		|
+		<span class="active_menu_item">
+			<%= link_to 'users', users_path %>
+		</span>
+		|
+		<span class="menu_item">
+			<%= link_to 'conversations', conversations_path %>
+		</span>
+	</div>
 
 	<div id="content">
 		<p style="color: red"><%= flash[:error] %></p>
 		<p style="color: green"><%= flash[:notice] %></p>
 		<%= yield  %>
 	</div>
+	
+	<%= render :partial => 'users/my_conversations' %>
 	
 	<%= render(:partial => "shared/footer") %> 	
 </body>

@@ -23,11 +23,11 @@
 		// set up stomp client.
 		stomp = new STOMPClient();
 		stomp.onopen = function() {
-			output.update(":Transport openned");
+			output.update("Transport opened");
 			// setTimeout("subscribe('CONVERSATION_CHANNEL_<%=@conversation_id%>', {exchange:''})",5000);						
 		};
 		stomp.onclose = function(code) {
-			output.update(":Transport closed (code: " + code + ")");
+			output.update("Transport closed (code: " + code + ")");
 			//try to reconnect
 			// stomp.connect(document.domain, 61613, 'UNIQUE_ID_PER_CLIENT', '');			
 			setTimeout("stomp.connect('<%=STOMP_HOST%>', <%=STOMP_PORT%>, 'UNIQUE_ID_PER_CLIENT', '');", 5000);
@@ -48,14 +48,14 @@
 		};
 		stomp.onerror = function(error) {
 			alert("onerror: " + error);
-			output.update(":onerror: " + error);
+			output.update("onerror: " + error);
 		};
 		stomp.onerrorframe = function(frame) {
 			alert("onerrorframe: " + frame.body);
-			output.update(":onerrorframe: " + frame.body);
+			output.update("onerrorframe: " + frame.body);
 		};
 		stomp.onconnectedframe = function() {
-			output.update(":Connected to chat room");
+			output.update("Connected to chat room");
 		};
 		stomp.onmessageframe = function(frame) {
 			var message_output = $('messages');
@@ -82,7 +82,23 @@
 	<link rel="shortcut icon" href="/images/favicon.ico" />
 </head>
 <body onLoad="Misc.pageScroll();MessageManipulation.handle_old_messages();MessageManipulation.handle_new_messages();Misc.focusInput('message_message');stomp_function();">
+
 	<%= render(:partial => "shared/header") %> 	
+	
+	<div id="menu">
+		<span class="menu_item">
+			<%= link_to 'home', home_path %>
+		</span>
+		|
+		<span class="menu_item">
+			<%= link_to 'users', users_path %>
+		</span>
+		|
+		<span class="active_menu_item">
+			<%= link_to 'conversations', conversations_path %>
+		</span>
+	</div>
+	
 
 	<div id="content">
 		<p style="color: red"><%= flash[:error] %></p>
@@ -90,18 +106,14 @@
 		<%= yield  %>
 	</div>
 	
-	<div id="control_panel">		
-		<div id="users_in_conversation">
-			<b>Users talked in this conversation:</b><br/>
-			<%= render :partial => 'conversations/user', :collection => @conversation.users_in_conversation %>
-		</div>
-		<div id="my_conversations">
-			<b>My conversations:</b></br>
-			<%= render :partial => 'users/conversation', :collection => current_user.conversations_for_user %> 				 
-		</div>
+	<%= render :partial => 'conversations/users_in_conversation' %>
+
+
+	<div id="connection_stat">
+		<div id="connection_stat_data"></div>
 	</div>
 
-	<div id="connection_stat_data"></div>
+	<%= render :partial => 'users/my_conversations' %>
 		
 	<%= render(:partial => "shared/footer") %> 	
 </body>

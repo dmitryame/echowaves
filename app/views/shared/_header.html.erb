@@ -1,11 +1,14 @@
-<div><%= link_to image_tag("echowaves.gif", :border => 0, :width => "282px", :height => "50px" ), home_path %></div>
-<div id="logout">
-	<%if logged_in?%>					
-	<%= link_to "logout", logout_path %>&nbsp;<%=current_user.login%>
-		<% if @user_has_access_to_resource%>
-		<font size=-3 style="text-decoration: blink" color="red">admin user</font>
+<div id="header">
+	<div id="header_image">
+		<%= link_to image_tag("echowaves.gif", :border => 0, :width => "282px", :height => "50px" ), home_path %>
+	</div>
+	<div id="logout">
+		<%if logged_in?%>					
+		<%= link_to "logout", logout_path %>&nbsp;<%=current_user.login %>
+		<%else%>			
+		<%= link_to "login", new_session_path %>
 		<%end%>
-	<%else%>			
-	<%= link_to "login", new_session_path %>
-	<%end%>
+	</div>
+</div>
+<div id="header_padding">
 </div>

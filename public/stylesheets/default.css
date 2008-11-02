@@ -9,7 +9,6 @@ body, p, ol, ul, td {
   line-height: 18px;
 }
 
-
 pre {
   background-color: #eee;
   padding: 10px;
@@ -253,11 +252,16 @@ div#header_padding {
 	height: 5px;
 }
 
-div#logout{
+#logout{
 	position: fixed;
 	top: 10px;
 	right: 10px;		
+	height: 500%; 
+    display: table-cell;
+    vertical-align: top;
 }
+
+
 div#header_image {
 }
 

@@ -2,12 +2,25 @@
 	<div id="header_image">
 		<%= link_to image_tag("echowaves.gif", :border => 0, :width => "282px", :height => "50px" ), home_path %>
 	</div>
+	
 	<div id="logout">
-		<%if logged_in?%>					
-		<%= link_to "logout", logout_path %>&nbsp;<%=current_user.login %>
-		<%else%>			
-		<%= link_to "login", new_session_path %>
-		<%end%>
+		<table>
+			<tr valign="top">
+				<%if logged_in?%>				
+					<td>
+						<%= link_to image_tag(current_user.gravatar_url, :border => 0, :wigth => 40, :height => 40, :class => "avatar"), 
+								conversation_messages_path(current_user.personal_conversation) %>		
+					</td>
+					<td>
+						<%= link_to "logout", logout_path %>&nbsp;<%=current_user.login %>
+					</td>
+				<%else%>			
+					<td>
+						<%= link_to "login", new_session_path %>
+					</td>
+				<%end%>
+				</tr>
+			</table>
 	</div>
 </div>
 <div id="header_padding">

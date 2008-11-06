@@ -1,7 +1,4 @@
-<%= link_to 'home', '/' %>
-
-
-<h1>recently joined users</h1>
+<h2>recently joined users</h2>
 
 <div>
 	look for users:
@@ -10,7 +7,6 @@
 	"function(element,value) " +
 	  "{ window.location=('/complete_user_name?id='+element.value);}"
 	-%>
-		
 </div>
 
 <%= will_paginate @users %>
@@ -25,6 +21,3 @@
 <% end %>
 </table>
 <%= will_paginate @users %>
-
-
-<%= link_to 'home', '/' %>

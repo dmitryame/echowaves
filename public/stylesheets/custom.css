@@ -39,3 +39,38 @@
   background:#eee;
   border-top:1px solid #ccc;
 }
+
+.auto_complete {
+      position:absolute;
+      width:250px;
+      background-color:white;
+      border:1px solid #666;
+      margin:0px;
+      padding:0px;
+}
+
+.auto_complete ul {
+      list-style-type: none;
+      margin:0px;
+      padding:0px;
+}
+    
+.auto_complete ul li.selected 
+{ 
+	background-color: #eee;
+}
+
+.auto_complete ul li {
+	list-style-type: none;
+	display:block;
+	margin:0;
+	padding:2px;
+}
+
+.attachmentlink {
+    display: none;
+}
+
+.attachmentinput {
+    display: none;
+}

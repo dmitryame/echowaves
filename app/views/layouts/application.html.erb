@@ -33,8 +33,7 @@
 
 	<div id="main_content" class="container">
 		<div class="span-16 colborder">
-  		<p style="color: red"><%= flash[:error] %></p>
-  		<p style="color: green"><%= flash[:notice] %></p>
+		  <%= flash_messages %>
   		<%= yield  %>
 		</div>
     <div class="span-6 last">

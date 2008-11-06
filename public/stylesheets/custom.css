@@ -3,7 +3,7 @@
 .item { margin-bottom:10px;}
 #header { position:fixed; top:0; width:100%; background:#eee;}
 #header-padding { }
-#menu { border-bottom:4px solid #333; position:fixed; top:60px; width:100%; background:#eee;}
+#menu { border-bottom:4px solid #333; position:fixed; top:50px; width:100%; background:#eee;}
 #menu ul {
   float:left;
   padding:0;

@@ -25,7 +25,7 @@
 	  :condition => "$('message_message').value.strip().length > 0") do |f| %>
 	  
 	  <p>
-	    <%= f.text_area :message, :rows => 4, :cols => 80, :onkeyup => "if (this.scrollHeight > this.clientHeight &amp; !window.opera) this.style.height = (this.scrollHeight + 20) + 'px';" %>
+	    <%= f.text_area :message, :onkeyup => "if (this.scrollHeight > this.clientHeight &amp; !window.opera) this.style.height = (this.scrollHeight + 20) + 'px';", :class => 'messageinput' %>
 	    <input type="hidden" name="after" id="after" value="0" />
 	  </p>
 	  

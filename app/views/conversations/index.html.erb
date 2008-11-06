@@ -1,32 +1,24 @@
-<%= link_to 'home', '/' %>
-
-<%= link_to 'Start New conversation', new_conversation_path %>
-
-<div>
+<div class="item">
+  <%= link_to 'Start New conversation', new_conversation_path %> |
 	look for conversations:
-	<%= text_field_with_auto_complete :conversation, :name, { :size => 45 }, :skip_style => true,
+	<%= text_field_with_auto_complete :conversation, :name, { :size => 35 }, :skip_style => true,
 	:after_update_element => 
 	"function(element,value) " +
 	  "{ window.location=('/complete_conversation_name?id='+element.value);}"
 	-%>
-		
 </div>
 
 
-<h1>recently started conversations</h1>
-<%= will_paginate @conversations %>
-<table>
-<% for conversation in @conversations %>
-  <tr>
-    <td><%= link_to h(conversation.name), conversation_messages_path(conversation) %></td>
-    <td><%= conversation.created_at.to_s(:date_time12) %></td>
-  </tr>
-<% end %>
-</table>
+<h3>recently started conversations</h3>
 <%= will_paginate @conversations %>
 
-<br />
+<ul>
+<% for conversation in @conversations %>
+    <li><%= link_to h(conversation.name), conversation_messages_path(conversation) %> (<%= conversation.created_at.to_s(:date_time12) %>)</li>
+<% end %>
+</ul>
+
+<%= will_paginate @conversations %>
+
 
 <%= link_to 'Start New conversation', new_conversation_path %>
-
-<%= link_to 'home', '/' %>

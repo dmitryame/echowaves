@@ -1,5 +1,6 @@
 .clear { clear:both; }
 .padding { padding:10px; }
+.item { margin-bottom:10px;}
 #header { }
 #menu { border-bottom:4px solid #333; }
 #menu ul {

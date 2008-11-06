@@ -1,16 +1,21 @@
 <div class="message" id="<%=dom_id(message)%>">
-	<p class="messagemeta">		
-		<%= link_to image_tag(message.user.gravatar_url, :border => 0, :wigth => 40, :height => 40, :class => "avatar"), conversation_messages_path(message.user.personal_conversation) %>		
-		<span class="username"><%=link_to h(message.user.login), user_path(message.user) %></span>
-		<br/>
-		<span class="date"><%=message.created_at.to_s(:pretty_long) %></span>
-	</p>
-	<p class="messagetext">
-		<%#=message.id%>
-		<% if message.attachment.original_filename %>
-			<%= link_to(image_tag(message.attachment.url(:big)), message.attachment.url, :target => "_blank")%>		 
-		<%else%>
-			<%= mark_up message.message %>
-		<% end %>
-	</p>
+	<div class="messagemeta">
+	  <div class="padding">	
+		  <%= link_to image_tag(message.user.gravatar_url, :border => 0, :wigth => 40, :height => 40, :class => "avatar"), conversation_messages_path(message.user.personal_conversation) %>		
+		  <span class="username"><%=link_to h(message.user.login), user_path(message.user) %></span>
+		  <br/>
+		  <span class="date"><%=message.created_at.to_s(:pretty_long) %></span>
+	  </div>
+	</div>
+	<div class="messagetext">
+	  <div class="padding">
+		  <%#=message.id%>
+		  <% if message.attachment.original_filename %>
+			  <%= link_to(image_tag(message.attachment.url(:big)), message.attachment.url, :target => "_blank")%>		 
+		  <%else%>
+			  <%= mark_up message.message %>
+		  <% end %>
+		</div>
+	</div>
+	<div class="clear"></div>
 </div>

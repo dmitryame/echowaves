@@ -64,29 +64,45 @@ class MessagesController < ApplicationController
   # POST /messages
   # POST /messages.xml
   def create
+     @message = Message.new(params[:message])
+     @message.user = current_user
+     @message.conversation = @conversation
+
+     respond_to do |format|
+       if @message.save
+         # flash[:notice] = 'Message was successfully created.'
+
+         format.html {
+           if request.xhr?
+             @messages = get_messages_after params[:after]
+             # send a stomp message for everyone else to pick it up
+             send_stomp_message @messages
+             render :nothing => true
+           else
+             redirect_to(conversation_messages_path(@conversation))
+           end
+         }
+         format.xml { render :xml => @message, :status => :created, :location => @message }
+       else
+         format.html { render :action => "new" }
+         format.xml { render :xml => @message.errors, :status => :unprocessable_entity }
+       end
+     end
+   end
+
+
+
+  def upload_attachment
     @message = Message.new(params[:message])    
     @message.user = current_user
     @message.conversation = @conversation
+    @message.message = "!!!!!attachment!!!!!!"    
     
-    respond_to do |format|
-      if @message.save
-        # flash[:notice] = 'Message was successfully created.'
-        
-        format.html { 
-          if request.xhr?
-            @messages = get_messages_after params[:after]
-            # send a stomp message for everyone else to pick it up
-            send_stomp_message @messages
-            render :nothing => true
-          else
-            redirect_to(conversation_messages_path(@conversation))
-          end
-        }
-        format.xml  { render :xml => @message, :status => :created, :location => @message }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @message.errors, :status => :unprocessable_entity }
-      end
+    if @message.save
+      @messages = get_messages_after params[:after]
+      # send a stomp message for everyone else to pick it up
+      send_stomp_message @messages
+      render :nothing => true      
     end
   end
 

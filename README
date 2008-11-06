@@ -28,7 +28,11 @@ easy_install simplejson
 sudo gem install stomp
 (stomp gem will be prompted for by the entry in config/environment.rb)
 
+* update gem sources
+gem sources -a http://gems.github.com
 
+* install ImageMagick
+You can install quite easily via apt, yum, or port, or the package manager of your choice.
 
 === POST INSTALL
 SignUp a user. Activate the user by copy-pasting the activation URL from the debug log into an address of your browser and hit enter. 

@@ -1,6 +1,6 @@
 <h2>conversation : <%= h @conversation.name %></h2>
 
-<%= link_to 'back', conversations_path%>
+<%= link_to 'back', conversations_path %>
 
 <%= link_to_remote "more messages", :url => {:action => 'get_more_messages', :conversation_id => @conversation},
 	:update => 'messages', :position => 'top',
@@ -17,47 +17,49 @@
 
 <div>
 	<% remote_form_for(:message,
-							   :update => 'messages', :position => 'bottom',
-	                           :url => conversation_messages_path(@conversation),
-	                           :complete => "$('message_message').value = '';$('message_attachment').value = '';$('message_message').style.height = '5em';$('message_message').focus();MessageManipulation.handle_new_messages()",
-	                           # don't poll right now, and set the "after" value
-	                           :before => 'MessageManipulation.working_begin();MessageManipulation.suspend_polling = true;$("after").value = MessageManipulation.last_message_number;',
-	                           :condition => "$('message_message').value.strip().length > 0") do |f| %>
-	    <p>
+		:update => 'messages', :position => 'bottom',
+	  :url => conversation_messages_path(@conversation),
+	  :complete => "$('message_message').value = '';$('message_attachment').value = '';$('message_message').style.height = '5em';$('message_message').focus();MessageManipulation.handle_new_messages()",
+	  # don't poll right now, and set the "after" value
+	  :before => 'MessageManipulation.working_begin();MessageManipulation.suspend_polling = true;$("after").value = MessageManipulation.last_message_number;',
+	  :condition => "$('message_message').value.strip().length > 0") do |f| %>
+	  
+	  <p>
 	    <%= f.text_area :message, :rows => 4, :cols => 80, :onkeyup => "if (this.scrollHeight > this.clientHeight &amp; !window.opera) this.style.height = (this.scrollHeight + 20) + 'px';" %>
 	    <input type="hidden" name="after" id="after" value="0" />
-	    </p>
-	    <%=submit_tag "Send"%>
-	<%= link_to_remote "refresh", :url => {:action => 'message_poll', :conversation_id => @conversation},
-	  :update => 'messages', :position => 'bottom',
-	  :complete => "MessageManipulation.handle_new_messages()",
-	  :with => "'after=' + MessageManipulation.last_message_number",
-	  :before => 'MessageManipulation.working_begin();MessageManipulation.suspend_polling = true',
-	  :frequency => REFRESH_FREQUINCY %>
-	    <span id="working" style="display:none">Working...</span>
-	  <% end %>
-
+	  </p>
+	  
+	  <%= submit_tag "Send" %>
+	  
+	  <%= link_to_remote "refresh", :url => { :action => 'message_poll', :conversation_id => @conversation },
+	    :update => 'messages', :position => 'bottom',
+	    :complete => "MessageManipulation.handle_new_messages()",
+	    :with => "'after=' + MessageManipulation.last_message_number",
+	    :before => 'MessageManipulation.working_begin();MessageManipulation.suspend_polling = true',
+	    :frequency => REFRESH_FREQUINCY %>
+	  
+	  <span id="working" style="display:none">Working...</span>
+	<% end %>
 
 	<%#this form is purely for attachments handling%>
 	<% form_for(:message, 
-		:url  => {:action => "upload_attachment"},
-	    :html => { :multipart => true, :target => "upload_frame" }
-				) do |f| %>
+		:url  => { :action => "upload_attachment" },
+	  :html => { :multipart => true, :target => "upload_frame" } ) do |f| %>
+		
 		<p>
 	    <%= f.file_field :attachment %>
-		<input type="hidden" name="after" id="attach_after" value="0" />
-		<input type="hidden" name="conversation_id" id="conversation_id" value="<%=@conversation_id%>" />
+		  <input type="hidden" name="after" id="attach_after" value="0" />
+		  <input type="hidden" name="conversation_id" id="conversation_id" value="<%= @conversation_id %>" />
 		</p>         
+		
 		<%=submit_tag "Attach", :onclick => "$('attach_after').value = MessageManipulation.last_message_number"%> 
 	<% end %>
-	<iframe id='upload_frame' name="upload_frame" style="width:0px;height:0px;border:0px" src="about:blank"></iframe>							
-
-
-
-
+	
+	<iframe id='upload_frame' name="upload_frame" style="width:0px;height:0px;border:0px" src="about:blank"></iframe>
+	
 </div>
 
 
-<%= link_to 'back', conversations_path%></p>
+<%= link_to 'back', conversations_path %>
 
 

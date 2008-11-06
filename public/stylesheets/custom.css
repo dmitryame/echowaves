@@ -1,8 +1,9 @@
 .clear { clear:both; }
 .padding { padding:10px; }
 .item { margin-bottom:10px;}
-#header { }
-#menu { border-bottom:4px solid #333; }
+#header { position:fixed; top:0; width:100%; background:#eee;}
+#header-padding { }
+#menu { border-bottom:4px solid #333; position:fixed; top:60px; width:100%; background:#eee;}
 #menu ul {
   float:left;
   padding:0;
@@ -21,7 +22,7 @@
 #menu li.active a { color:#fff; }
 #menu li.active a:hover, #menu li.active a:active { background:#333; }
 
-#main_content {margin-top:20px;}
+#main_content {margin-top:100px;}
 .message {
   padding: 0 0 15px 0; border-top: 1px solid #eee;
 }

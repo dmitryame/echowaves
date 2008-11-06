@@ -23,13 +23,16 @@
 
 	<%= render(:partial => "shared/header") %>
 	
-	<div id="menu" class="container">
-		<ul>
-  		<li><%= link_to 'home', home_path %></li>
-  		<li><%= link_to 'users', users_path %></li>
-  		<li class="active"><%= link_to 'conversations', conversations_path %></li>
-  	</li>
+	<div id="menu">
+	  <div id="menu_padding" class="container">
+		  <ul>
+  	  	<li><%= link_to 'home', home_path %></li>
+  	  	<li><%= link_to 'users', users_path %></li>
+  	  	<li class="active"><%= link_to 'conversations', conversations_path %></li>
+  	  </li>
+  	</div>
 	</div>
+
 
 	<div id="main_content" class="container">
 		<div class="span-16 colborder">

@@ -1,5 +1,3 @@
-<h2>conversation : <%= h @conversation.name %></h2>
-
 <%= link_to 'back', conversations_path %>
 
 <%= link_to_remote "more messages", :url => {:action => 'get_more_messages', :conversation_id => @conversation},

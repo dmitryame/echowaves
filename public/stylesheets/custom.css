@@ -23,18 +23,19 @@
 #menu li.active { background:#333; }
 #menu li.active a { color:#fff; }
 #menu li.active a:hover, #menu li.active a:active { background:#333; }
+#menu li.current_conversation{background:#9acb63;margin-left:20px;}
 
 #main_content {margin-top:100px;}
 .message {
   padding: 0 0 5px 0; border-top: 1px solid #eee;
 }
 .messagemeta {
-  width:30%;
+  width:25%;
   float:left;
   background:#eee;
 }
 .messagetext {
-  width:70%;
+  width:75%;
   float:left;
 }
 #messageinputdiv {

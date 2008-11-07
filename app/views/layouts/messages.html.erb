@@ -99,18 +99,22 @@
   	  	<li><%= link_to 'home', home_path %></li>
   	  	<li><%= link_to 'users', users_path %></li>
   	  	<li class="active"><%= link_to 'conversations', conversations_path %></li>
+  	  	<li class="current_conversation">current: <%= h @conversation.name %></li>
   	  </li>
   	</div>
 	</div>
 
 	<div id="main_content" class="container">
-		<div class="span-16 colborder">
+    
+		<div class="span-15 colborder">
 		  <%= flash_messages %>
   		<%= yield  %>
 		</div>
-    <div class="span-6 last">
-			<%= render :partial => 'users/my_conversations' %>
+    <div class="span-4 colborder">
 			<%= render :partial => 'conversations/users_in_conversation' %>
+		</div>
+		<div class="span-3 last">
+			<%= render :partial => 'users/my_conversations' %>
 		</div>
 		<div id="connection_stat">
   		<div id="connection_stat_data"></div>

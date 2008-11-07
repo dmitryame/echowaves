@@ -9,8 +9,9 @@ class Message < ActiveRecord::Base
     :thumb => "64x64>",
     :small => "150x150>",
     :big   => "400x400>" 
-  }
-  #,:path => "/vol/attachments/:class/:attachment/:id/:style_:basename.:extension"
+  },
+  :path => PAPERCLIP_PATH,
+  :url  => PAPERCLIP_URL
 
   validates_attachment_size :attachment, :less_than => 5.megabytes
 

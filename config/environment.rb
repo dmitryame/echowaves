@@ -77,6 +77,10 @@ Rails::Initializer.run do |config|
 
 end
 
+PAPERCLIP_URL  = "/attachments/:id/:style/:basename.:extension"
+PAPERCLIP_PATH = ":rails_root/public/attachments/:id/:style/:basename.:extension"
+
+
 # active mailer configuration
 # First, specify the Host that we will be using later for user_notifier.rb
 HOST = 'http://localhost:3000'
@@ -101,3 +105,4 @@ STOMP_HOST = 'localhost'
 STOMP_PORT = '61613'
 
 REFRESH_FREQUINCY = 3600
+

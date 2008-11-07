@@ -70,10 +70,7 @@
       padding:0px;
 }
     
-.auto_complete ul li.selected 
-{ 
-	background-color: #eee;
-}
+.auto_complete ul li.selected { background-color: #eee; }
 
 .auto_complete ul li {
 	list-style-type: none;
@@ -82,10 +79,9 @@
 	padding:2px;
 }
 
-.attachmentlink {
-    display: none;
-}
+.attachmentlink { display: none; }
 
-.attachmentinput {
-    display: none;
-}
+.attachmentinput { display: none; }
+.label { margin-right:5px; }
+.system { background:#dae6d6; }
+.system .messagemeta { background:#9acb63; }

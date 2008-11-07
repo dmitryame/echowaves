@@ -1,4 +1,10 @@
 <div id="users_in_conversation">
 	<b>Users talked in this conversation:</b><br/>
-	<%= render :partial => 'conversations/user', :collection => @conversation.users_in_conversation %>
+	<%= render :partial => 'conversations/user', :collection => @conversation.users_in_conversation[0..9] %>
+	<% if @conversation.users_in_conversation.length > 10 %>
+	  and <%= @conversation.users_in_conversation.length - 1 %>
+	  <%= link_to_function("more...", nil, :id => "more_link") do |page|
+        page.insert_html :bottom, 'messages', :partial => 'conversations/users_message', :locals => {:users => @conversation.users_in_conversation}
+    end %>
+	<% end %>
 </div>

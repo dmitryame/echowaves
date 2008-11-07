@@ -36,7 +36,7 @@
 }
 .messagemeta .padding .avatar {float:left;}
 .messagemeta .padding .username_date {float:right;width:80px;font-size:90%;}
-
+.messagemeta .padding .date {color:#999;}
 .messagetext {
   width:75%;
   float:left;

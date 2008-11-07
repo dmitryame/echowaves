@@ -110,12 +110,16 @@
 		  <%= flash_messages %>
   		<%= yield  %>
 		</div>
-    <div class="span-4 colborder">
-			<%= render :partial => 'conversations/users_in_conversation' %>
-		</div>
-		<div class="span-3 last">
-			<%= render :partial => 'users/my_conversations' %>
-		</div>
+		
+		<div class="span-8 last" id="sidebar"><div id="sidebar_padding">
+      <div class="span-4 colborder">
+		  	<%= render :partial => 'conversations/users_in_conversation' %>
+		  </div>
+		  <div class="span-3 last">
+		  	<%= render :partial => 'users/my_conversations' %>
+		  </div>
+		</div></div>
+		
 		<div id="connection_stat">
   		<div id="connection_stat_data"></div>
   	</div>   
@@ -123,7 +127,7 @@
 
   <div id="messageinputdiv">
     <div id="messageinputdivpadding" class="container">
-      <div class="span-16 colborder">
+      <div class="span-15 colborder">
     	  <% remote_form_for(:message,
     	  	:update => 'messages', :position => 'bottom',
     	    :url => conversation_messages_path(@conversation),
@@ -148,7 +152,7 @@
     	    <span id="working" style="display:none">Working...</span>
     	  <% end %>
       </div>
-      <div class="span-6 last">
+      <div class="span-8 last">
     	  <%#this form is purely for attachments handling%>
     	  <% form_for(:message, 
     	  	:url  => { :action => "upload_attachment" },

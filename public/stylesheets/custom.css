@@ -25,7 +25,7 @@
 #menu li.active a:hover, #menu li.active a:active { background:#333; }
 #menu li.current_conversation{background:#9acb63;margin-left:20px;}
 
-#main_content {margin-top:100px;}
+#main_content {margin-top:90px;}
 .message {
   padding: 0 0 5px 0; border-top: 1px solid #eee;
 }
@@ -45,6 +45,8 @@
 #messageinputdivpadding {
 
 }
+#sidebar_padding { position:fixed; top:90px;}
+
 #footer {
   background:#eee;
   border-top:1px solid #ccc;

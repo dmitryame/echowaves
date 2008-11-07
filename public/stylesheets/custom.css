@@ -85,3 +85,10 @@
 .label { margin-right:5px; }
 .system { background:#dae6d6; }
 .system .messagemeta { background:#9acb63; }
+#connection_stat {
+	background-color: #333333; color:#fff;
+	float:right;
+}
+#connection_stat_data {
+  padding:2px 4px;
+}

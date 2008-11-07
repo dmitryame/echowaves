@@ -101,6 +101,7 @@
   	  	<li class="active"><%= link_to 'conversations', conversations_path %></li>
   	  	<li class="current_conversation">current: <%= h @conversation.name %></li>
   	  </ul>
+  	  <div id="connection_stat"><div id="connection_stat_data"></div></div>
   	</div>
 	</div>
 
@@ -120,9 +121,7 @@
 		  </div>
 		</div></div>
 		
-		<div id="connection_stat">
-  		<div id="connection_stat_data"></div>
-  	</div>   
+   
 	</div>
 
   <div id="messageinputdiv">

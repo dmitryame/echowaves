@@ -30,6 +30,7 @@
   	  	<li><%= link_to 'users', users_path %></li>
   	  	<li><%= link_to 'conversations', conversations_path %></li>
   	  </ul>
+  	  <div id="connection_stat"><div id="connection_stat_data"></div></div>
   	</div>
 	</div>
 
@@ -42,9 +43,6 @@
     <div class="span-6 last">
 			<%= render :partial => 'users/my_conversations' %>
 		</div>
-		<div id="connection_stat">
-  		<div id="connection_stat_data"></div>
-  	</div>   
 	</div>
 
 	<%= render(:partial => "shared/footer") %>

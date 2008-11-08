@@ -19,8 +19,8 @@ ActiveRecord::Schema.define(:version => 20081108173425) do
     t.boolean  "personal_conversation", :default => false
   end
 
-  add_index "conversations", ["name"], :name => "index_conversations_on_name"
   add_index "conversations", ["created_at"], :name => "index_conversations_on_created_at"
+  add_index "conversations", ["name"], :name => "index_conversations_on_name"
 
   create_table "messages", :force => true do |t|
     t.integer  "user_id"
@@ -34,9 +34,9 @@ ActiveRecord::Schema.define(:version => 20081108173425) do
     t.datetime "attachment_updated_at"
   end
 
-  add_index "messages", ["user_id"], :name => "index_messages_on_user_id"
   add_index "messages", ["conversation_id"], :name => "index_messages_on_conversation_id"
   add_index "messages", ["created_at"], :name => "index_messages_on_created_at"
+  add_index "messages", ["user_id"], :name => "index_messages_on_user_id"
 
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
@@ -57,9 +57,9 @@ ActiveRecord::Schema.define(:version => 20081108173425) do
     t.datetime "updated_at"
   end
 
-  add_index "subscriptions", ["user_id"], :name => "index_subscriptions_on_user_id"
-  add_index "subscriptions", ["conversation_id"], :name => "index_subscriptions_on_conversation_id"
   add_index "subscriptions", ["activated_at"], :name => "index_subscriptions_on_activated_at"
+  add_index "subscriptions", ["conversation_id"], :name => "index_subscriptions_on_conversation_id"
+  add_index "subscriptions", ["user_id"], :name => "index_subscriptions_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "login",                     :limit => 40
@@ -77,8 +77,8 @@ ActiveRecord::Schema.define(:version => 20081108173425) do
     t.integer  "personal_conversation_id"
   end
 
-  add_index "users", ["login"], :name => "index_users_on_login", :unique => true
-  add_index "users", ["email"], :name => "index_users_on_email"
   add_index "users", ["crypted_password"], :name => "index_users_on_crypted_password"
+  add_index "users", ["email"], :name => "index_users_on_email"
+  add_index "users", ["login"], :name => "index_users_on_login", :unique => true
 
 end

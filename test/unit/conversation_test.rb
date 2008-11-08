@@ -34,6 +34,9 @@ class ConversationTest < ActiveSupport::TestCase
       
       assert_equal @conversation.users_in_conversation.size, 3
     end
+
+    should_have_many :subscriptions
+    should_have_many :users, :through => :subscriptions
              
   end    
 end

@@ -27,8 +27,13 @@ class User < ActiveRecord::Base
 
 
   belongs_to :personal_conversation, #personal users conversation
-    :class_name => "Conversation", 
-    :foreign_key => "personal_conversation_id"
+  :class_name => "Conversation", 
+  :foreign_key => "personal_conversation_id"
+
+
+  has_many :subscriptions
+  has_many :conversations, :through => :subscriptions, :uniq => true   
+
   
   before_create :make_activation_code 
 

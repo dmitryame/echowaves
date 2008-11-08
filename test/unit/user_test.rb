@@ -43,6 +43,8 @@ class UserTest < ActiveSupport::TestCase
       assert_equal @user.conversations_for_user.size, 3 + 1#it's actually one more, because the user has his own conversation automatically created
     end
 
+    should_have_many :subscriptions
+    should_have_many :conversations, :through => :subscriptions
     
   end    
 end

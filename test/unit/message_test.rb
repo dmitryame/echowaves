@@ -8,12 +8,14 @@ class MessageTest < ActiveSupport::TestCase
 
     should_belong_to :conversation
     should_belong_to :user
-        
+
     should_have_index :user_id
     should_have_index :conversation_id
     should_have_index :created_at
-    
+
     should_require_attributes :message
-        
+    should_require_attributes :user_id, :conversation_id
+
+
   end    
 end

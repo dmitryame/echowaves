@@ -32,7 +32,7 @@ class ConversationTest < ActiveSupport::TestCase
       @message8 = Factory.create(:message, :conversation => @conversation, :user => @user3)
       @message9 = Factory.create(:message, :conversation => @conversation, :user => @user1)
       
-      assert_equal @conversation.users_in_conversation.size, 3
+      assert_equal @conversation.users.size, 3
     end
 
     should_have_many :subscriptions

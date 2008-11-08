@@ -40,7 +40,7 @@ class UserTest < ActiveSupport::TestCase
       @message8 = Factory.create(:message, :conversation => @conversation2, :user => @user)
       @message9 = Factory.create(:message, :conversation => @conversation1, :user => @user)
       
-      assert_equal @user.conversations_for_user.size, 3 + 1#it's actually one more, because the user has his own conversation automatically created
+      assert_equal @user.conversations.size, 3 + 1#it's actually one more, because the user has his own conversation automatically created
     end
 
     should_have_many :subscriptions

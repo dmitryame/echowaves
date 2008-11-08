@@ -16,5 +16,22 @@ class Message < ActiveRecord::Base
   validates_attachment_size :attachment, :less_than => 5.megabytes
 
   validates_presence_of     :message
+
+  validates_presence_of :user_id, :conversation_id
+
+
+  def after_create 
+    subscription = Subscription.find(:first, :conditions => ["user_id = ? and conversation_id = ?", user.id, conversation.id])     
+    # # find_by_user_and_conversation(:user => user, :conversation => conversation)
+    # 
+    if subscription == nil
+      subscription = Subscription.new
+      subscription.user_id = user.id
+      subscription.conversation_id = conversation.id
+      subscription.save      
+    end
+    # puts "new subscription: user:" + user.id.to_s + " conversation:" + conversation.id.to_s
+  end
+
   
 end

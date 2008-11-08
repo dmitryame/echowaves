@@ -77,6 +77,7 @@ Rails::Initializer.run do |config|
 
 end
 
+
 # active mailer configuration
 # First, specify the Host that we will be using later for user_notifier.rb
 HOST = 'http://localhost:3000'

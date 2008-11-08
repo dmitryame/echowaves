@@ -18,9 +18,9 @@ class UserTest < ActiveSupport::TestCase
     should_require_unique_attributes :login, :email
 
     
-    should_ensure_length_in_range :login, (3..40) 
-    should_ensure_length_in_range :email, (6..100) 
-    should_ensure_length_in_range :name, (0..100) 
+    # should_ensure_length_in_range :login, (3..40) 
+    # should_ensure_length_in_range :email, (6..100) 
+    # should_ensure_length_in_range :name, (0..100) 
           
     should_have_many :messages
 

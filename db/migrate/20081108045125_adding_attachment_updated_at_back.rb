@@ -1,4 +1,4 @@
-class AddUploadedAtAttribute < ActiveRecord::Migration
+class AddingAttachmentUpdatedAtBack < ActiveRecord::Migration
   def self.up
     add_column :messages, :attachment_updated_at, :datetime
   end

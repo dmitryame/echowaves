@@ -1,14 +1,18 @@
+<h2>Echowaves.com is an opensource web based group chat software written in RubyOnRails.</h2>
+<h3>The source code is hosted at <a href="http://github.com/dmitryame/echowaves" class="highlight">http://github.com/dmitryame/echowaves</a>.</h3>
 
 <p>
-<font size=+1>Echowaves.com is an opensource web based group chat software written in RubyOnRails. The source code is hosted at <a href="http://github.com/dmitryame/echowaves">http://github.com/dmitryame/echowaves</a>. 
-</font>
+EchoWaves is a YACT ( Yet Another Collaboration Tool ). It's actually beginning to take a shape of a YASN ( Yet Another Social Network ).
+So, what's so special about our YASN, well, it's built around conversations rather than users.
+We think it's more natural for humans to socialize around conversations.
+If you have any other ideas or suggestions feel free to talk about it in <%= link_to 'EcHoWaVeS.CoM conversation', conversation_path(1), :action => "index" -%>.
 </p>
-
-<p>
-	EchoWaves is a YACT -- Yet Another Collaboration Tool. It's actually beginning to take a shape of a YASN -- Yet Another Social Network. So, what's so special about our YASN, well, it's built around conversations rather then users -- we think it's more natural for humans to socialize around conversations. If you have any other ideas or suggestions -- feel free to talk about it in <%= link_to 'EcHoWaVeS.CoM', conversation_path(1), :action => "index" -%> conversation.
-	
 	
 <p>
-<%= link_to 'SignUp', :controller => "users", :action => "new" -%> -- it's free and anyone can join. On this site you will be able to start your own conversations, where everyone will be able to talk to you and to each other. You also will be able to see what other people are chatting about and participate in their conversations. Have fun!
+<%= link_to 'SignUp', new_user_path, :class => "highlight" -%> -- it's free and anyone can join.
+On this site you will be able to start your own conversations,
+where everyone will be able to talk to you and to each other.
+You also will be able to see what other people are chatting about and participate in their conversations.
+Have fun!
 </p>
 	

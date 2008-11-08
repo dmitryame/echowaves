@@ -28,3 +28,9 @@ Factory.define :message do |message|
   message.association :user
   message.association :conversation
 end
+
+
+Factory.define :subscription do |subscription|
+  subscription.association :user
+  subscription.association :conversation
+end

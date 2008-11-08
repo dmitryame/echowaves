@@ -1,19 +1,19 @@
-The echowaves.com is a YACT -- Yet Another Collaboration Tool. Why one more? After all we already have http://meebo.com and http://campfire.com and many other like http://facebook.com and such. They all are great, but... non of them fits our needs 100%, and non of them is open-source.
+The echowaves.com is a YACT -- Yet Another Collaboration Tool. Why one more? After all we already have http://meebo.com and http://campfire.com and many other like http://facebook.com and such. They all are great, but... none of them fits our needs 100%, and none of them is open-source.
 
 Basically this tool could be an important addition to an agile team, specially to a geographically distributed one. We all know the importance of communication which could be difficult if people are not in the same room, or when someone walks out for few minutes...
 
-If you'd like to contribute, perhaps start  by picking a task from the TODO list at:
+If you'd like to contribute, perhaps start by picking a task from the TODO list at:
 http://github.com/dmitryame/echowaves/wikis/todo
 
 
 === INSTALL (localhost)
 copy config/database.yml-sample to config/database.yml and modify to taste (see below for some hints on different platforms)
-rake gems:install   # automaticall installs gems referenced in config/environment.rb
+rake gems:install   # automatically installs gems referenced in config/environment.rb
 rake db:create      # creates the development database
 rake db:migrate     # creates tables in dev DB
 
-=== SERVERSIDE COMPONENT INSTALL
-note: the application generally works without this part, but will incur a fixed delay which is configurable in environment.rb as REFRESH_FREQUINCY in seconds
+=== SERVER SIDE COMPONENT INSTALL
+note: the application generally works just fine without this part, but, will incur in a fixed delay which is configurable in environment.rb as REFRESH_FREQUINCY in seconds
 
 * install python
 sudo apt-get install python2.5-dev
@@ -32,10 +32,10 @@ sudo gem install stomp
 gem sources -a http://gems.github.com
 
 * install ImageMagick
-You can install quite easily via apt, yum, or port, or the package manager of your choice.
+You can install it quite easily via apt, yum, or port, or the package manager of your choice.
 
 === POST INSTALL
-SignUp a user. Activate the user by copy-pasting the activation URL from the debug log into an address of your browser and hit enter. 
+SignUp as a new user. Activate the user by copy-pasting the activation URL from the debug log into the address field of your browser and hit enter. 
 
 To actually get the actionmailer stuff sent, you'll need to change the SMTP settings in config/environment.rb
 In that case, you'll probably want to comment out the (currently last) line in config/environments/development.rb that reads "config.action_mailer.raise_delivery_errors = false", so that actionmailer failures are more visible.

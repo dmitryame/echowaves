@@ -77,9 +77,6 @@ Rails::Initializer.run do |config|
 
 end
 
-PAPERCLIP_URL  = "/attachments/:id/:style/:basename.:extension"
-PAPERCLIP_PATH = ":rails_root/public/attachments/:id/:style/:basename.:extension"
-
 
 # active mailer configuration
 # First, specify the Host that we will be using later for user_notifier.rb

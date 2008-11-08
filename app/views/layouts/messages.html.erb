@@ -156,15 +156,11 @@
     	  <% form_for(:message, 
     	  	:url  => { :action => "upload_attachment" },
     	    :html => { :multipart => true, :target => "upload_frame" } ) do |f| %>
-        
-    	  	
     	      <%= f.file_field :attachment %>
     	  	  <input type="hidden" name="after" id="attach_after" value="0" />
     	  	  <input type="hidden" name="conversation_id" id="conversation_id" value="<%= @conversation_id %>" />
     	  	  <%=submit_tag "Attach", :onclick => "$('attach_after').value = MessageManipulation.last_message_number"%> 
-    	  	
     	  <% end %>
-        
     	  <iframe id='upload_frame' name="upload_frame" style="width:0px;height:0px;border:0px" src="about:blank"></iframe>
       </div>
     </div>

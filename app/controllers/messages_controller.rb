@@ -97,7 +97,13 @@ class MessagesController < ApplicationController
     @message.user = current_user
     @message.conversation = @conversation
     @message.message = "!!!!!attachment!!!!!!"    
-    
+
+
+    if params[:message][:attachment].blank?
+      render :nothing => true
+      return
+    end
+      
     if @message.save
       @messages = get_messages_after params[:after]
       # send a stomp message for everyone else to pick it up

@@ -46,12 +46,14 @@ p {margin-bottom:30px;}
   float:left;
 }
 #messageinputdiv {
-
-
+  position:fixed; bottom:0px; width:100%; background:#eee; border-top:1px solid #ccc;
 }
 #messageinputdivpadding {
-
+  padding-top:10px;
 }
+#msgtextarea {width:75%;float:left;margin-right:10px;padding:0;margin-bottom:0;}
+#msgcontrols {width:20%;float:right;margin-top:5px;}
+#messages {padding-bottom:100px;}
 #sidebar_padding { position:fixed; top:90px;}
 
 #footer {

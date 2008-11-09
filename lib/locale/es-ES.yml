@@ -18,6 +18,7 @@ es-ES:
     password: "contraseña"
     forgot_password: "¿Has olvidado la contraseña?"
     its_free: "es gratis y todo el mundo puede unirse"
+    users_conversations: "Conversaciones de los usuarios"
   footer:
     uptime_monitoring: "Website Uptime Monitoring By"
     report_problems_or_abuse: "Informa de problemas o abusos a"

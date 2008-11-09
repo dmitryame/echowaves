@@ -1,10 +1,10 @@
 <span id="follow_conversation"> 
 	--> 	
 	<% if @conversation.followed?(current_user) %>
-		<%= link_to_remote "unfollow", 
+		<%= link_to_remote t("ui.unfollow"), 
 		:url => {:controller => "conversations", :action => 'unfollow', :id => @conversation.id} %>
 	<%else%>
-		<%= link_to_remote "folow", 
+		<%= link_to_remote t("ui.follow"), 
 		:url => {:controller => "conversations", :action => 'follow', :id => @conversation.id} %>
 	<%end%>
 </span>

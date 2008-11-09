@@ -19,7 +19,10 @@ es-ES:
     forgot_password: "¿Has olvidado la contraseña?"
     its_free: "es gratis y todo el mundo puede unirse"
     users_conversations: "Conversaciones de los usuarios"
+    follow: "seguir"
+    unfollow: "no seguir"
   footer:
     uptime_monitoring: "Website Uptime Monitoring By"
     report_problems_or_abuse: "Informa de problemas o abusos a"
-    terms_and_conditions: "Terminos y Condiciones"
+    terms_and_conditions: "Terminos y Condiciones"    
+    conversations: "conversaciones"

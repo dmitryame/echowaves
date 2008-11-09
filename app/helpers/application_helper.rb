@@ -14,13 +14,9 @@ module ApplicationHelper
   end
 
   def flash_messages
-    if flash[:notice]
-      "<div class=\"notice\">#{flash[:notice]}</div>"
-    end
-    if flash[:error]
-      "<div class=\"error\">#{flash[:error]}</div>"
-    end
+    (flash[:notice] ? "<div class=\"notice\">#{flash[:notice]}</div>": "") + (flash[:error] ? "<div class=\"error\">#{flash[:error]}</div>" : "")
   end
+
   
   # def format_date_for_message_meta(dt)
   #   daysold = (Time.now - dt) / 60 / 60 / 24

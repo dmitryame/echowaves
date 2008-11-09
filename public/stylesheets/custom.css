@@ -6,6 +6,7 @@ p {margin-bottom:30px;}
 .padding { padding:10px; }
 .item { margin-bottom:10px;}
 .messageinput { width:100%; height:40px;}
+.user_in_conversation { margin-right:10px; }
 #header { position:fixed; top:0; width:100%; background:#eee;}
 #header-padding { }
 #menu { border-bottom:4px solid #333; position:fixed; top:50px; width:100%; background:#eee;}

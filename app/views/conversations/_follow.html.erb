@@ -1,5 +1,5 @@
-<span id="join_conversation">	
-	<% if current_user.joined_conversation?(@conversation) %>
+<span id="join_conversation"> --> 	
+	<% if @conversation.followed?(current_user) %>
 		<%= link_to_remote "unfollow", 
 		:url => {:controller => "conversations", :action => 'unfollow', :id => @conversation.id} %>
 	<%else%>

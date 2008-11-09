@@ -121,14 +121,6 @@ class User < ActiveRecord::Base
     @reset_password
   end
 
-  def joined_conversation?(conversation)    
-    if self.subscriptions.size > 0 && self.conversations.find(:all, :conditions => ["conversation_id = ?",conversation.id]).size > 0
-      true
-    else
-      false
-    end
-  end
-
   protected
     
     def make_activation_code

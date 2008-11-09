@@ -96,9 +96,9 @@
 	<div id="menu">
 	  <div id="menu_padding" class="container">
 		  <ul>
-  	  	<li><%= link_to 'home', home_path %></li>
-  	  	<li><%= link_to 'users', users_path %></li>
-  	  	<li class="active"><%= link_to 'conversations', conversations_path %></li>
+  	  	<li><%= link_to t('ui.home'), home_path %></li>
+  	  	<li><%= link_to t('ui.users'), users_path %></li>
+  	  	<li class="active"><%= link_to t('ui.conversations'), conversations_path %></li>
   	  	<li class="current_conversation">current: <%= h @conversation.name %></li>
   	  </ul>
   	  <div id="connection_stat"><div id="connection_stat_data"></div></div>

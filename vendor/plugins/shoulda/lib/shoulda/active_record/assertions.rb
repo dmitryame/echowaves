@@ -57,7 +57,7 @@ module ThoughtBot # :nodoc:
         #   @product = Product.new(:tangible => true)
         #   assert_bad_value(Product, :price, "0")
         def assert_bad_value(object_or_klass, attribute, value,
-                             error_message_to_expect = DEFAULT_ERROR_MESSAGES[:invalid])
+                             error_message_to_expect = self.class.default_error_message(:invalid))
           object = get_instance_of(object_or_klass)
           object.send("#{attribute}=", value)
           assert !object.valid?, "#{object.class} allowed #{value.inspect} as a value for #{attribute}"
@@ -66,7 +66,10 @@ module ThoughtBot # :nodoc:
         end
 
         def pretty_error_messages(obj)
-          obj.errors.map { |a, m| "#{a} #{m} (#{obj.send(a).inspect})" }
+          obj.errors.map do |a, m| 
+            msg = "#{a} #{m}" 
+            msg << " (#{obj.send(a).inspect})" unless a.to_sym == :base
+          end
         end
 
         private

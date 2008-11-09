@@ -8,3 +8,6 @@ es-ES:
   ui:
     signup: "Registrate"  
     echowaves_conversation: "conversacion de EcHoWaVeS.CoM"
+    home: "inicio"
+    users: "usuarios"
+    conversations: "conversaciones"

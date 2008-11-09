@@ -8,3 +8,6 @@ en-US:
   ui:
     signup: "SignUp"  
     echowaves_conversation: "EcHoWaVeS.CoM conversation"
+    home: "home"
+    users: "users"
+    conversations: "conversations"

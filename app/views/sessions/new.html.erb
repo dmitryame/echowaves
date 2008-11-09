@@ -1,11 +1,11 @@
-<h1>Log In</h1>
+<h2><%= t("ui.login") %></h2>
 
 <% form_tag session_path do -%>
-<p><%= label_tag 'login' %><br />
-<%= text_field_tag 'login', @login %></p>
+<p><%= label_tag t("ui.login") %><br />
+<%= text_field_tag t("ui.login"), @login %></p>
 
-<p><%= label_tag 'password' %><br/>
-<%= password_field_tag 'password', nil %></p>
+<p><%= label_tag t('ui.password') %><br/>
+<%= password_field_tag t('ui.password'), nil %></p>
 
 <!-- Uncomment this if you want this functionality
 <p><%= label_tag 'remember_me', 'Remember me' %>
@@ -13,10 +13,10 @@
 -->
 
 <p>
-<%= submit_tag 'Log in' %>&nbsp;<%= link_to 'SignUp', :controller => "users", :action => "new" -%>
+<%= submit_tag t("ui.login") %>&nbsp;<%= link_to t("ui.signup"), :controller => "users", :action => "new" -%>
 &nbsp;
-<font size=-1>it's free and anyone can join</font>
+<span class="mute"><%= t("ui.its_free") %></span>
 </p>
-<p><%= link_to 'Forgot Password', forgot_password_path -%></p>
+<p><%= link_to t('ui.forgot_password'), forgot_password_path -%></p>
 
 <% end -%>

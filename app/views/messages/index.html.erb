@@ -1,6 +1,6 @@
-<%= link_to 'back', conversations_path %>
+<%= link_to t('ui.back'), conversations_path %>
 
-<%= link_to_remote "more messages", :url => {:action => 'get_more_messages', :conversation_id => @conversation},
+<%= link_to_remote t("ui.more_messages"), :url => {:action => 'get_more_messages', :conversation_id => @conversation},
 	:update => 'messages', :position => 'top',
 	:complete => "MessageManipulation.handle_old_messages()",
 	:with => "'before=' + MessageManipulation.first_message_number" %>

@@ -65,6 +65,22 @@ class ConversationsController < ApplicationController
     end
   end
 
+
+  def follow
+    @conversation = Conversation.find(params[:id])
+    subscription = Subscription.new
+    subscription.conversation = @conversation
+    subscription.user = current_user
+    subscription.save
+  end
+
+  def unfollow
+    @conversation = Conversation.find(params[:id])
+    subscription = Subscription.find(:first, :conditions => ["user_id = ? and conversation_id = ?", current_user.id, @conversation.id])     
+    subscription.destroy
+  end
+
+
   # PUT /conversations/1
   # PUT /conversations/1.xml
   # def update

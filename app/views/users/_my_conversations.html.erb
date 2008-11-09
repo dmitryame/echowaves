@@ -1,6 +1,6 @@
-<%unless current_user.blank?%>
-	<div id="my_conversations">
-		<b>My conversations:</b>
-		<%= render :partial => 'users/conversation', :collection => current_user.conversations %> 				 
-	</div>
-<%end%>
+<div id="my_conversations">
+	<%unless current_user.blank?%>
+			<b>My conversations:</b>
+			<%= render :partial => 'users/conversation', :collection => current_user.conversations %> 				 
+	<%end%>
+</div>

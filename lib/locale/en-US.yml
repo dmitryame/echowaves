@@ -11,3 +11,5 @@ en-US:
     home: "home"
     users: "users"
     conversations: "conversations"
+    follow: "follow"
+    unfollow: "unfollow"

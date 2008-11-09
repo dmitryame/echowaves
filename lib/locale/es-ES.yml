@@ -11,3 +11,5 @@ es-ES:
     home: "inicio"
     users: "usuarios"
     conversations: "conversaciones"
+    follow: "seguir"
+    unfollow: "no seguir"

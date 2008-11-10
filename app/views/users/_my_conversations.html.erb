@@ -1,5 +1,5 @@
 <div id="my_conversations" class="item">
-	<% unless current_user.blank? %>
+	<% if logged_in? %>
 		<b>My last conversations:</b><br/>
 		<ul>
 			<%#= render :partial => 'users/subscription', :collection => current_user.subscriptions[0..4] %> 				 

@@ -1,0 +1,1 @@
+page.replace_html "my_conversations", :partial => 'users/my_conversations'

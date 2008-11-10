@@ -6,10 +6,11 @@
 	  
     <div class="span-6 last">
       <% if logged_in? %>				
-	  		<%= link_to image_tag(current_user.gravatar_url, :border => 0, :wigth => 40, :height => 40, :class => "avatar"), 
-	  				conversation_messages_path(current_user.personal_conversation) %> |
-	  		<%= link_to "edit your profile", edit_user_path(current_user)  %> |
-	  		<%= link_to t("ui.logout"), logout_path %>&nbsp;<%=current_user.login %>
+	  		<%= link_to image_tag(current_user.gravatar_url, :border => 0, :wigth => 40, :height => 40, :class => "avatar", :style => 'float:left;margin-right:4px;'), 
+	  				conversation_messages_path(current_user.personal_conversation) %>
+	  		<%=current_user.login %><br/>
+	  		<%= link_to "edit profile", edit_user_path(current_user)  %>
+	  		<%= link_to t("ui.logout"), logout_path %>
 	  	<%else%>			
 	  		<%= link_to t("ui.login"), new_session_path %>
 	  	<%end%>

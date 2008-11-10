@@ -36,8 +36,8 @@
  			output.update("Transport closed (code: " + code + ")");
  			//try to reconnect
  			// stomp.connect(document.domain, 61613, 'UNIQUE_ID_PER_CLIENT', '');			
- 			setTimeout("stomp.connect('<%=STOMP_HOST%>', <%=STOMP_PORT%>, 'UNIQUE_ID_PER_CLIENT', '');", 5000);
- 			setTimeout("stomp.subscribe('CONVERSATION_CHANNEL_<%=@conversation_id%>', {exchange:''})",10000);
+			stomp.connect('<%=STOMP_HOST%>', <%=STOMP_PORT%>, '<%=current_user.id%>', '');
+ 			stomp.subscribe('CONVERSATION_CHANNEL_<%=@conversation_id%>', {exchange:''});
  			// output.update(":polling messages");
  			// //lets poll for new messages in case there are some while we were disconnected
  			// new Ajax.Updater('messages', '/messages/message_poll?conversation_id=#{@conversation_id}', 

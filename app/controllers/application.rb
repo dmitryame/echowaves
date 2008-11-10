@@ -17,10 +17,15 @@ class ApplicationController < ActionController::Base
   # filter_parameter_logging :password
   
   before_filter :set_locale
+  before_filter :set_timezone
 
   def set_locale   
     session[:locale] = params[:locale] if params[:locale]
     I18n.locale = session[:locale] || I18n.default_locale
+  end
+
+  def set_timezone
+    Time.zone = current_user.time_zone if current_user
   end
   
 end

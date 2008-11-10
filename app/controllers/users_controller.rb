@@ -53,6 +53,20 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit
+    @user = current_user
+  end
+
+  def update
+    @user = current_user
+    if @user.update_attributes(params[:user])
+      flash[:notice] = "User updated"
+      redirect_to user_path(current_user)
+    else
+      render :action => :edit
+    end
+  end
+  
   def activate
     logout_keeping_session!
     user = User.find_by_activation_code(params[:activation_code]) unless params[:activation_code].blank?
@@ -69,18 +83,6 @@ class UsersController < ApplicationController
       redirect_back_or_default('/')
     end
   end
-  
-  def edit
-     if request.post?
-       @user.update_attributes(params[:user])
-     else
-       @user = User.find(session[:user_id])    
-     end
-   end
-
-
-
-
 
 
    # Change password action  
@@ -146,17 +148,6 @@ class UsersController < ApplicationController
      logger.error "Invalid Reset Code entered" 
      flash[:error] = "That is an invalid password reset code. Please check your code and try again." 
      redirect_back_or_default('/')
-   end
-
-
-
-   def update
-     if @user.update_attributes(params[:user])
-         flash[:notice] = "User updated"
-         redirect_to user_path(current_user)
-       else
-         render :action => :edit
-       end
    end
 
    

@@ -2,7 +2,8 @@
 	<% unless current_user.blank? %>
 		<b>My last conversations:</b><br/>
 		<ul>
-			<%= render :partial => 'users/subscription', :collection => current_user.subscriptions[0..4] %> 				 
+			<%#= render :partial => 'users/subscription', :collection => current_user.subscriptions[0..4] %> 				 
+			<%= render :partial => 'users/subscription', :collection => current_user.subscriptions %> 				 
 		</ul>
 		<% if current_user.conversations.length > 5 %>
   	  <%= link_to_function("view all #{current_user.conversations.length - 1} conversations", nil, :id => "all_conversations_link") do |page|

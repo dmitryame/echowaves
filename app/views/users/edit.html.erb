@@ -1,0 +1,25 @@
+<h2>Update your profile</h2>
+
+<a href="http://gravatar.com" target="_blank">get a gravatar here</a>
+
+<% @user.password = @user.password_confirmation = nil %>
+
+<%= error_messages_for :user %>
+<% form_for :user, :url => user_path(@user), :method => 'put' do |f| -%>
+<p><%= label_tag 'login' %><br/>
+<%= f.text_field :login %></p>
+
+<p><%= label_tag 'email' %><br/>
+<%= f.text_field :email %></p>
+
+<p><%= label_tag 'password' %><br/>
+<%= f.password_field :password %></p>
+
+<p><%= label_tag 'password_confirmation', 'Confirm Password' %><br/>
+<%= f.password_field :password_confirmation %></p>
+
+<p><%= label_tag 'time zone' %><br/>
+<%= f.time_zone_select :time_zone, ActiveSupport::TimeZone.us_zones %></p>
+
+<p><%= submit_tag 'update' %></p>
+<% end -%>

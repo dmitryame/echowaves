@@ -4,4 +4,13 @@ class Subscription < ActiveRecord::Base
   
   validates_presence_of :user_id, :conversation_id
 
+  def new_messages_count
+    self.conversation.messages.count :conditions => ["id > ?", self.last_message_id]
+  end
+  
+  def before_create 
+    self.last_message_id = 0
+  end
+  
+      
 end

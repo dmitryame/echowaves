@@ -1,0 +1,8 @@
+<li class="subscription_for_user" id="<%= dom_id subscription%>">	
+	(
+		<span id="new_messages_<%= dom_id subscription%>">
+			<%=subscription.new_messages_count%>
+		</span>
+	)
+	<%= link_to h(subscription.conversation.name), conversation_messages_path(subscription.conversation) %>
+</li>

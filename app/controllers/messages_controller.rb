@@ -28,6 +28,20 @@ class MessagesController < ApplicationController
   def index
     @messages = @conversation.messages.find(:all, :include => [:user], :limit => 100, :order => 'id DESC').reverse
 
+    last_viewed_subscription = Subscription.find(:first, :conditions => ["user_id = ? ", current_user.id], :order => 'activated_at DESC')
+    if(last_viewed_subscription)
+      last_viewed_subscription.last_message_id = last_viewed_subscription.conversation.messages.last.id
+    end
+
+    current_subscription = Subscription.find(:first, :conditions => ["user_id = ? and conversation_id = ?", current_user.id, @conversation.id])
+    if(current_subscription)
+      current_subscription.last_message_id = @messages.last.id
+      current_subscription.activated_at = Time.now
+      current_subscription.save
+    end  
+
+
+
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @messages }

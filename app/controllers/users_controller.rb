@@ -152,7 +152,7 @@ class UsersController < ApplicationController
 
    def update_my_conversations
    end
-   
+
    #
    # serve up custom style overrides
    def styles

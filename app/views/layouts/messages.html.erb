@@ -62,7 +62,7 @@
  			output.update("onerrorframe: " + frame.body);
  		};
  		stomp.onconnectedframe = function() {
-	 		stomp.subscribe('CONVERSATION_CHANNEL_<%=@conversation_id%>', {exchange:''});	
+	 		// stomp.subscribe('CONVERSATION_CHANNEL_<%=@conversation_id%>', {exchange:''});	
  			output.update("Connected");
  		};
  		stomp.onmessageframe = function(frame) {
@@ -84,7 +84,7 @@
 
  		};
 		stomp.connect('<%=STOMP_HOST%>', <%=STOMP_PORT%>, '<%=current_user.id%>', '');
- 		// setTimeout("stomp.subscribe('CONVERSATION_CHANNEL_<%=@conversation_id%>', {exchange:''})",5000);
+ 		setTimeout("stomp.subscribe('CONVERSATION_CHANNEL_<%=@conversation_id%>', {exchange:''})",5000);
  	};
 
   </script>

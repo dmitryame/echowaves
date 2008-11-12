@@ -3,7 +3,6 @@
 //
 var MessageManipulation = {
   last_message_number: 0,
-  suspend_polling: false,
 
   init: function() {
   },
@@ -22,7 +21,6 @@ var MessageManipulation = {
       MessageManipulation.last_message_number = new_last_msg_num;
       WindowManager.moreMessagesHaveArrived(newMessages)
     }
-    MessageManipulation.suspend_polling = false; // in case we had shut it off for some reason
     MessageManipulation.working_end();
   },
 

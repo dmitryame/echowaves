@@ -17,12 +17,7 @@ class MessagesController < ApplicationController
   def get_messages_after(cutoff_message_id)
     @conversation.messages.find(:all, :include => [:user], :conditions => ["id > ?", cutoff_message_id], :order => 'id ASC')
   end
-  
-  def message_poll  
-    @messages = get_messages_after params[:after]  
-    render :partial => 'message', :collection => @messages
-  end
-  
+    
   # GET /messages
   # GET /messages.xml
   def index
@@ -89,9 +84,10 @@ class MessagesController < ApplicationController
 
          format.html {
            if request.xhr?
-             @messages = get_messages_after params[:after]
              # send a stomp message for everyone else to pick it up
-             send_stomp_message @messages
+             send_stomp_message @message
+             send_stomp_notifications 
+             
              render :nothing => true
            else
              redirect_to(conversation_messages_path(@conversation))
@@ -120,9 +116,9 @@ class MessagesController < ApplicationController
     end
       
     if @message.save
-      @messages = get_messages_after params[:after]
       # send a stomp message for everyone else to pick it up
-      send_stomp_message @messages
+      send_stomp_message @message
+      send_stomp_notifications 
       render :nothing => true      
     end
   end
@@ -164,10 +160,18 @@ class MessagesController < ApplicationController
     end
     
     
-    def send_stomp_message(messages)
-      newmessagescript = render_to_string :partial => 'message', :collection => messages
+    def send_stomp_message(message)
+      newmessagescript = render_to_string :partial => 'message', :object => message
       s = Stomp::Client.new
       s.send("CONVERSATION_CHANNEL_" + params[:conversation_id], "<!--message-->" + newmessagescript)
+      s.close
+    rescue SystemCallError
+      logger.error "IO failed: " + $!
+      # raise
+    end
+    def send_stomp_notifications
+      s = Stomp::Client.new
+      s.send("CONVERSATION_NOTIFY_CHANNEL_" + params[:conversation_id], "1")
       s.close
     rescue SystemCallError
       logger.error "IO failed: " + $!

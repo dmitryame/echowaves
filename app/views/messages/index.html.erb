@@ -5,10 +5,6 @@
 	:complete => "MessageManipulation.handle_old_messages()",
 	:with => "'before=' + MessageManipulation.first_message_number" %>
 
-<div style='clear: both' id='polling'>
-	<%= render :partial => 'polling' %>
-</div>
-
 <div id='messages'>
   <%= render :partial => 'message', :collection => @messages%>
 </div>

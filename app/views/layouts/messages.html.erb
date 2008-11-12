@@ -36,6 +36,8 @@
  			//try to reconnect
  			// stomp.connect(document.domain, 61613, 'UNIQUE_ID_PER_CLIENT', '');			
 			stomp.connect('<%=STOMP_HOST%>', <%=STOMP_PORT%>, '<%=current_user.id%>', '');
+			setTimeout("stomp.subscribe('CONVERSATION_CHANNEL_<%=@conversation_id%>', {exchange:''})",5000);
+	 		
 	 		// setTimeout("stomp.subscribe('CONVERSATION_CHANNEL_<%=@conversation_id%>', {exchange:''})",5000);
  			// output.update(":polling messages");
  			// //lets poll for new messages in case there are some while we were disconnected
@@ -127,24 +129,16 @@
     	    :url => conversation_messages_path(@conversation),
     	    :complete => "$('message_message').value = '';$('message_attachment').value = '';$('message_message').style.height = '5em';$('message_message').focus();MessageManipulation.handle_new_messages();Misc.pageScroll();",
     	    # don't poll right now, and set the "after" value
-    	    :before => 'MessageManipulation.working_begin();MessageManipulation.suspend_polling = true;$("after").value = MessageManipulation.last_message_number;',
+    	    :before => 'MessageManipulation.working_begin();',
     	    :condition => "$('message_message').value.strip().length > 0") do |f| %>
         
           <p id="msgtextarea">        
     	    <%= f.text_area :message, :onkeyup => "if (this.scrollHeight > this.clientHeight &amp; !window.opera) this.style.height = (this.scrollHeight + 20) + 'px';", :class => 'messageinput' %>  
-    	    <input type="hidden" name="after" id="after" value="0" />
           </p>
           
           <p id="msgcontrols">
     	    <%= submit_tag "Send" %> <span class="mute">(ctrl+Enter to submit message)</span>
-        
-    	    <%= link_to_remote "refresh", :url => { :action => 'message_poll', :conversation_id => @conversation },
-    	      :update => 'messages', :position => 'bottom',
-    	      :complete => "MessageManipulation.handle_new_messages();Misc.pageScroll();",
-    	      :with => "'after=' + MessageManipulation.last_message_number",
-    	      :before => 'MessageManipulation.working_begin();MessageManipulation.suspend_polling = true',
-    	      :frequency => REFRESH_FREQUINCY %>
-        
+                
     	    <span id="working" style="display:none">Working...</span>
     	    </p>
     	  <% end %>
@@ -156,9 +150,8 @@
     	  	:url  => { :action => "upload_attachment" },
     	    :html => { :multipart => true, :target => "upload_frame" } ) do |f| %>
     	      <%= f.file_field :attachment %>
-    	  	  <input type="hidden" name="after" id="attach_after" value="0" />
     	  	  <input type="hidden" name="conversation_id" id="conversation_id" value="<%= @conversation_id %>" />
-    	  	  <%=submit_tag "Attach", :onclick => "$('attach_after').value = MessageManipulation.last_message_number"%> 
+    	  	  <%=submit_tag "Attach"%> 
     	  <% end %>
     	  <iframe id='upload_frame' name="upload_frame" style="width:0px;height:0px;border:0px" src="about:blank"></iframe>
       </div>

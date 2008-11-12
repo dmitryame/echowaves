@@ -1,6 +1,6 @@
 <div id="my_conversations" class="item">
 	<% if logged_in? %>
-		<b>My last conversations:</b><br/>
+		<b>My conversations:</b><br/>
 		<ul>
 			<%#= render :partial => 'users/subscription', :collection => current_user.subscriptions[0..4] %> 				 
 			<%= render :partial => 'users/subscription', :collection => current_user.subscriptions %> 				 

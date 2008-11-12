@@ -62,29 +62,37 @@
  			output.update("onerrorframe: " + frame.body);
  		};
  		stomp.onconnectedframe = function() {
-	 		// stomp.subscribe('CONVERSATION_CHANNEL_<%=@conversation_id%>', {exchange:''});	
+	 		// stomp.subscribecribe('CONVERSATION_CHANNEL_<%=@conversation_id%>', {exchange:''});	
+	 		stomp.subscribe('CONVERSATION_CHANNEL_<%=@conversation_id%>', {exchange:''});
+			<%current_user.subscriptions.each do |subscription|%>
+	 			stomp.subscribe('CONVERSATION_NOTIFY_CHANNEL_<%=subscription.conversation_id%>', {exchange:''});
+			<%end%>
  			output.update("Connected");
  		};
  		stomp.onmessageframe = function(frame) {
  			var message_output = $('messages');
  			// :update => 'messages', :position => 'bottom',
  			// eval(frame.body);
- 			if(frame.body.startsWith("<!--message-->") ) {
+
+			// this is an actual message for current conversation
+ 			if(frame.headers['destination'].startsWith("CONVERSATION_CHANNEL_") ) {
  				message_output.insert({"bottom":frame.body});
  				MessageManipulation.handle_new_messages();
  				// $('message_message').value = '';
  				// Misc.focusInput('message_message');
  			}	
- 			if(frame.body.startsWith("<!--user-->")) {
- 				alert('new user');
- 			}
- 			if(frame.body.startsWith("<!--conversation-->")) {
- 				alert('conversation updated');
- 			}
+			// this is a notify conversation message
+ 			if(frame.headers['destination'].startsWith("CONVERSATION_NOTIFY_CHANNEL_") ) {
+				// alert(frame.headers['destination']);
+			}
 
  		};
 		stomp.connect('<%=STOMP_HOST%>', <%=STOMP_PORT%>, '<%=current_user.id%>', '');
- 		setTimeout("stomp.subscribe('CONVERSATION_CHANNEL_<%=@conversation_id%>', {exchange:''})",5000);
+		//  		setTimeout("stomp.subscribe('CONVERSATION_CHANNEL_<%=@conversation_id%>', {exchange:''})",5000);
+		// <%current_user.subscriptions.each do |subscription|%>
+		//  			setTimeout("stomp.subscribe('CONVERSATION_NOTIFY_CHANNEL_<%=subscription.conversation_id%>', {exchange:''})",6000);		
+		// <%end%>
+
  	};
 
   </script>

@@ -45,8 +45,12 @@ class UsersController < ApplicationController
     @user.name=@user.login
     success = @user && @user.save
     if success && @user.errors.empty?
-      flash[:notice] = "Thanks for signing up!  We're sending you an email with your activation code."
-      flash[:error] = "<a href='#{HOST}/activate/#{@user.activation_code}'>Click here to activate<a>" if(SHOW_ACTIVATION_LINK)
+      if(SHOW_ACTIVATION_LINK)
+        flash[:notice] = "<a href='#{HOST}/activate/#{@user.activation_code}'>Click here to activate</a>" 
+      else
+        flash[:notice] = "Thanks for signing up!  We're sending you an email with your activation code."
+      end
+      
       redirect_to home_path
     else
       flash[:error]  = "We couldn't set up that account, sorry.  Please try again, or contact an admin (link is above)."
@@ -118,8 +122,12 @@ class UsersController < ApplicationController
      if @user = User.find_by_email(params[:user][:email])
        @user.forgot_password
        @user.save
-       flash[:notice] = "A password reset link has been sent to your email address" 
-       flash[:error] = "<a href='#{HOST}/reset_password/#{@user.password_reset_code}'>Click here to reset<a>" if(SHOW_ACTIVATION_LINK)
+       if(SHOW_ACTIVATION_LINK)
+         flash[:notice] = "<a href='#{HOST}/reset_password/#{@user.password_reset_code}'>Click here to reset</a>" 
+       else 
+         flash[:notice] = "A password reset link has been sent to your email address" 
+       end
+       
        
        redirect_to :controller   => "sessions", :action => "new"
      else

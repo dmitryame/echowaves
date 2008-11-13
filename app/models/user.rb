@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
 
 
   has_many :subscriptions
-  has_many :conversations, :through => :subscriptions, :uniq => true   
+  has_many :conversations, :through => :subscriptions, :uniq => true, :order => "name"
 
   
   before_create :make_activation_code 

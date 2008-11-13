@@ -1,5 +1,5 @@
 <%messages_count = subscription.new_messages_count%>
-<%if messages_count > 0 && @conversation.id != subscription.conversation.id%>
+<%if messages_count > 0%>
 <span class="subscription_for_user" id="<%= dom_id subscription%>">	
 	
 	<%= link_to h(messages_count), conversation_messages_path(subscription.conversation), :onMouseOut => "hideddrivetip()",  :onMouseOver => "ddrivetip('#{subscription.conversation.name}','lightgreen', 300)"	

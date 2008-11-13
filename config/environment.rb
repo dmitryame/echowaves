@@ -74,30 +74,28 @@ Rails::Initializer.run do |config|
   # The user observer goes inside the Rails::Initializer block
   # !!!!!!!!!!!!!the following line must be uncommented in production for users to be able to register
   # config.active_record.observers = :user_observer
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.delivery_method = :smtp
 
 end
 
 
 # active mailer configuration
 # First, specify the Host that we will be using later for user_notifier.rb
-HOST = 'http://localhost:3000'
+HOST = 'http://damelche-mac:3000'
 
-
-# Third, add your SMTP settings
 ActionMailer::Base.delivery_method = :smtp
+# Third, add your SMTP settings
 ActionMailer::Base.smtp_settings = {
-  :address => "mail.echowaves.com",
+  :address => "mail.rmgapps.com",
   :port => 25,
-  :domain => "localhost:3000",
-  :user_name => "carmelyne@echowaves.com",
-  :password => "yourrailsapp",
-  :authentication => :login
+  :domain => "damelche-mac:3000"
 }
 
 
-ORBITED_HOST = 'localhost'
+ORBITED_HOST = 'damelche-mac'
 ORBITED_PORT = '8500'
-ORBITED_DOMAIN = 'localhost'
-STOMP_HOST = 'localhost'
+ORBITED_DOMAIN = 'damelche-mac'
+STOMP_HOST = 'damelche-mac'
 STOMP_PORT = '61613'
 

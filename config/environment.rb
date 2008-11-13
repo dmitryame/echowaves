@@ -99,3 +99,5 @@ ORBITED_DOMAIN = 'damelche-mac'
 STOMP_HOST = 'damelche-mac'
 STOMP_PORT = '61613'
 
+#override to false in production
+SHOW_ACTIVATION_LINK=true

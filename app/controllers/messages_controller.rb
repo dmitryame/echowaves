@@ -172,6 +172,7 @@ class MessagesController < ApplicationController
     def send_stomp_notifications
       s = Stomp::Client.new
       s.send("CONVERSATION_NOTIFY_CHANNEL_" + params[:conversation_id], "1")
+      # puts ("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! CONVERSATION_NOTIFY_CHANNEL_" + params[:conversation_id])
       s.close
     rescue SystemCallError
       logger.error "IO failed: " + $!

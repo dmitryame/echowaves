@@ -89,7 +89,7 @@ ActionMailer::Base.delivery_method = :smtp
 ActionMailer::Base.smtp_settings = {
   :address => "mail.rmgapps.com",
   :port => 25,
-  :domain => "damelche-mac:3000"
+  :domain => "rmg-ny.com"
 }
 
 

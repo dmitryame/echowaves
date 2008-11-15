@@ -46,5 +46,8 @@ class UserTest < ActiveSupport::TestCase
     should_have_many :subscriptions
     should_have_many :conversations, :through => :subscriptions
     
+    should_have_many :conversation_visits
+
+   should_have_many :recent_conversations, :through => :conversation_visits
   end    
 end

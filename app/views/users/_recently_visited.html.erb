@@ -1,0 +1,6 @@
+<div id="recently_visited" class="item">
+	<% if logged_in? %>
+		<b>Recently Visited:</b><br/>
+		<%= render :partial => 'users/conversation', :collection => current_user.recent_conversations %> 
+	<% end %>
+</div>

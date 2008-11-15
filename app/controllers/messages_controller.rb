@@ -23,12 +23,14 @@ class MessagesController < ApplicationController
   def index
     @messages = @conversation.messages.find(:all, :include => [:user], :limit => 100, :order => 'id DESC').reverse
 
+    # make sure the conversation we were last viwing does not have updates
     last_viewed_subscription = Subscription.find(:first, :conditions => ["user_id = ? ", current_user.id], :order => 'activated_at DESC')
     if(last_viewed_subscription)
       last_viewed_subscription.last_message_id = last_viewed_subscription.conversation.messages.last.id
       last_viewed_subscription.save
     end
 
+    # adjust current conversation last message
     current_subscription = Subscription.find(:first, :conditions => ["user_id = ? and conversation_id = ?", current_user.id, @conversation.id])
     if(current_subscription != nil)
       current_subscription.last_message_id = @messages.last.id if @messages.size > 0
@@ -36,7 +38,11 @@ class MessagesController < ApplicationController
       current_subscription.save
     end  
 
-
+    # add a new conversation_visit to the history
+    conversation_visit = ConversationVisit.new
+    conversation_visit.user = current_user
+    conversation_visit.conversation = @conversation
+    conversation_visit.save
 
     respond_to do |format|
       format.html # index.html.erb

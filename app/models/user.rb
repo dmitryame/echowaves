@@ -34,6 +34,16 @@ class User < ActiveRecord::Base
   has_many :subscriptions
   has_many :conversations, :through => :subscriptions, :uniq => true, :order => "name"
 
+  has_many :conversation_visits
+  
+  has_many :recent_conversations, 
+  :through => :conversation_visits, 
+  :source => :conversation, 
+  :select => "distinct conversations.*",
+  :order => "conversation_visits.created_at DESC",
+  :limit => 10,
+  :uniq => :true
+
   
   before_create :make_activation_code 
 

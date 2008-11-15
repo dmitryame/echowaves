@@ -199,7 +199,7 @@
   	  	<li><%= link_to t('ui.users'), users_path %></li>
   	  	<li class="active"><%= link_to t('ui.conversations'), conversations_path %></li>
   	  	<li class="current_conversation">
-			<%= link_to h(@conversation.name), conversation_messages_path(@conversation), :onMouseOut => "hideddrivetip()",  :onMouseOver => "ddrivetip('#{@conversation.description}','lightgreen', 300)" %>
+			<%= link_to h(@conversation.name), conversation_messages_path(@conversation), :onMouseOut => "hideddrivetip()",  :onMouseOver => "ddrivetip('#{@conversation.escaped_description}','lightgreen', 300)" %>
 
 
 			<%= render :partial => 'conversations/follow' %></li>

@@ -16,7 +16,7 @@
 	    <b>All your conversations:</b><br/>
 	    <ul>
 	    <% conversations.each do |conversation| %>
-    	  <li><%= link_to h(conversation.name), conversation_messages_path(conversation) %></li>
+    	  <li><%= link_to conversation.escaped_name, conversation_messages_path(conversation) %></li>
 		  <% end %>
 		  </ul>
 		</div>

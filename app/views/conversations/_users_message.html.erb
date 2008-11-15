@@ -13,7 +13,7 @@
 	<div class="messagetext">
 	  <div class="padding">
 	    <span class="mute">Only you can see this message</span><br/>
-	    <b>Users talked in this conversation:</b><br/>
+	    <b>Followers:</b><br/>
 	    <% users.each do |u| %>
 		    <span class="label"><%= link_to h(u.login), user_path(u) %></span>
 		  <% end %>

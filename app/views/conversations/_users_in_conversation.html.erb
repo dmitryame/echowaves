@@ -1,5 +1,5 @@
 <div id="users_in_conversation" class="item">
-	<b>Users talked in this conversation:</b><br/>
+	<b>Followers:</b><br/>
 	<%= render :partial => 'conversations/user', :collection => @conversation.users[0..9] %>
 	<% if @conversation.users.length > 10 %>
 	  <br/>and <%= @conversation.users.length - 1 %>

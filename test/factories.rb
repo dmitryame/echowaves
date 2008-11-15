@@ -34,3 +34,8 @@ Factory.define :subscription do |subscription|
   subscription.association :user
   subscription.association :conversation
 end
+
+Factory.define :conversation_visit do |visits|
+  visits.association :user
+  visits.association :conversation
+end

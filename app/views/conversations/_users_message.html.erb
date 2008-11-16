@@ -15,7 +15,7 @@
 	    <span class="mute">Only you can see this message</span><br/>
 	    <b>Followers:</b><br/>
 	    <% users.each do |u| %>
-		    <span class="label"><%= link_to h(u.login), user_path(u) %></span>
+		    <span class="label"><%= link_to h(u.login), conversation_messages_path(u.personal_conversation) %></span>
 		  <% end %>
 		</div>
 	</div>

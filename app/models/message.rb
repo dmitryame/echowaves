@@ -14,7 +14,8 @@ class Message < ActiveRecord::Base
   :url  => PAPERCLIP_URL
 
   validates_attachment_size :attachment, :less_than => 5.megabytes
-
+  validates_attachment_content_type :attachment, :content_type => [ 'application/pdf', 'application/x-pdf', 'application/x-download', 'application/rtf', 'image/gif', 'image/jpeg', 'image/png', 'image/tiff', 'image/rgb' ]
+  
   validates_presence_of     :message
 
   validates_presence_of :user_id, :conversation_id

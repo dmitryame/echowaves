@@ -121,6 +121,10 @@ class MessagesController < ApplicationController
       return
     end
       
+      
+      
+    # puts '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@:' + @message.attachment_content_type  
+      
     if @message.save
       # send a stomp message for everyone else to pick it up
       send_stomp_message @message

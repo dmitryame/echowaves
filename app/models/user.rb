@@ -40,10 +40,9 @@ class User < ActiveRecord::Base
   :through => :conversation_visits, 
   :source => :conversation, 
   :select => "distinct conversations.*",
-  :order => "conversation_visits.created_at DESC",
-  :limit => 10,
-  :uniq => :true
-
+  :group => "conversation_visits.conversation_id",
+  :order => "max(conversation_visits.id) DESC",
+  :limit => 10
   
   before_create :make_activation_code 
 

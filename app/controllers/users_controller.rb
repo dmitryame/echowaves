@@ -15,7 +15,7 @@ class UsersController < ApplicationController
   # GET /conversations
   # GET /conversations.xml
   def index
-    @users = User.paginate :page => params[:page], :order => 'created_at DESC'
+    @users = User.paginate :page => params[:page], :conditions => "activated_at != 'null'", :order => 'created_at DESC'
 
     respond_to do |format|
       format.html # index.html.erb

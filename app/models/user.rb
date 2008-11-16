@@ -47,17 +47,6 @@ class User < ActiveRecord::Base
   before_create :make_activation_code 
 
   
-  # create personal conversations
-  def after_create 
-    conversation = Conversation.new
-    conversation.name = self.login
-    conversation.description = "This is a personal conversation for " + self.login + ". If you wish to collaborate with " + self.login + ", do it here."
-    conversation.personal_conversation = true;
-    conversation.created_by = self #this gets propageted to first message in the conversation which makes it an owner.
-    conversation.save
-    self.personal_conversation_id = conversation.id
-    self.save
-  end
 
 
   # HACK HACK HACK -- how to do attr_accessible from here?
@@ -73,7 +62,16 @@ class User < ActiveRecord::Base
     @activated = true
     self.activated_at = Time.now.utc
     self.activation_code = nil
-    save(false)
+    
+  # create personal conversations
+    conversation = Conversation.new
+    conversation.name = self.login
+    conversation.description = "This is a personal conversation for " + self.login + ". If you wish to collaborate with " + self.login + ", do it here."
+    conversation.personal_conversation = true;
+    conversation.created_by = self #this gets propageted to first message in the conversation which makes it an owner.
+    conversation.save
+    self.personal_conversation_id = conversation.id
+    self.save
   end
 
   # Returns true if the user has just been activated.

@@ -11,7 +11,7 @@ Factory.sequence :password do |n|
 end
 
 Factory.define :user do |u|
-  u.login "JDough"
+  u.login { Factory.next :name }
   u.email { Factory.next :email }
   u.password { Factory.next :email }
   u.password_confirmation {|p| p.password }
@@ -35,7 +35,12 @@ Factory.define :subscription do |subscription|
   subscription.association :conversation
 end
 
-Factory.define :conversation_visit do |visits|
-  visits.association :user
-  visits.association :conversation
+Factory.define :conversation_visit do |conversation_visit|
+  conversation_visit.association :user
+  conversation_visit.association :conversation
+end
+
+Factory.define :abuse_report do |abuse_report|
+  abuse_report.association :user
+  abuse_report.association :message
 end

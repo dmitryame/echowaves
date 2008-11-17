@@ -20,5 +20,13 @@
 		  <% end %>
 		</div>
 	</div>
-	<div class="clear"></div>
+	<div class="clear">
+	</div>	
+	<div class="messagelinks">
+		<%#= link_to_remote t("ui.report"), 
+		:url => {:controller => "message", :action => 'report', :id => message.id}, :confirm => t("ui.reportconfirm") %>
+		report
+		reply
+	</div>
+	
 </div>

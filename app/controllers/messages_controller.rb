@@ -50,6 +50,7 @@ class MessagesController < ApplicationController
     end
   end
 
+  
   # # GET /messages/1
   # # GET /messages/1.xml
   # def show
@@ -161,6 +162,16 @@ class MessagesController < ApplicationController
   #     format.xml  { head :ok }
   #   end
   # end
+
+  def report
+      newmessagescript = render_to_string :partial => 'message', :object => message
+      s = Stomp::Client.new
+      s.send("CONVERSATION_CHANNEL_" + params[:conversation_id], newmessagescript)
+      s.close
+      render :nothing => true
+    rescue SystemCallError
+      logger.error "IO failed: " + $!
+  end
 
   private
 

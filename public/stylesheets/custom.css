@@ -45,6 +45,12 @@ p {margin-bottom:30px;}
   width:75%;
   float:left;
 }
+.messagelinks {
+    width:100%;    
+    text-align: right;
+    clear: both;
+}
+
 #messageinputdiv {
   position:fixed; bottom:0px; width:100%; background:#eee; border-top:1px solid #ccc;
 }

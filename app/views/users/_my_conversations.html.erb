@@ -1,10 +1,6 @@
 <div id="my_conversations" class="item">
 	<% if logged_in? %>
-		<b>My updates:</b><br/>
+		<b>News:</b><br/>
 			<%= render :partial => 'users/subscription', :collection => current_user.subscriptions %> 	
-						 
-  	  <br/><%= link_to_function("view all #{current_user.conversations.length} conversations", nil, :id => "all_conversations_link") do |page|
-          page.insert_html :bottom, 'messages', :partial => 'users/conversations_message', :locals => {:conversations => current_user.conversations}
-      end %>
 	<% end %>
 </div>

@@ -1,0 +1,5 @@
+<div id="followed_conversations" class="item">
+		  <%= link_to_function("view all #{current_user.conversations.length} followed conversations", nil, :id => "all_conversations_link") 			do |page|
+	        page.insert_html :bottom, 'messages', :partial => 'users/conversations_message', :locals => {:conversations => current_user.conversations}
+	    end %>
+</div>

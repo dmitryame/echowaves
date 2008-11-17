@@ -21,6 +21,9 @@ en-US:
     users_conversations: "Users conversations"
     follow: "follow"
     unfollow: "unfollow"
+    report: "report"
+    reportconfirm: "Are you sure you would like to report this message? The abbuser will be punished."
+    spawn: "spawn"
   footer:
     uptime_monitoring: "Website Uptime Monitoring By"
     report_problems_or_abuse: "Report problems or Abuse to"

@@ -1,8 +1,8 @@
 <div id="users_in_conversation" class="item">
-	<b>Users talked in this conversation:</b><br/>
-	<%= render :partial => 'conversations/user', :collection => @conversation.users[0..9] %>
+	<b>Recent Followers:</b><br/>
+	<%= render :partial => 'conversations/user', :collection => @conversation.recent_followers %>
 	<% if @conversation.users.length > 10 %>
-	  <br/>and <%= @conversation.users.length - 1 %>
+	  <br/>and <%= @conversation.users.length - 10 %>
 	  <%= link_to_function("more...", nil, :id => "more_link") do |page|
         page.insert_html :bottom, 'messages', :partial => 'conversations/users_message', :locals => {:users => @conversation.users}
     end %>

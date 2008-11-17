@@ -1,6 +1,6 @@
 <p>
-	<%= link_to image_tag(@user.gravatar_url, :border => 0, :wigth => 40, :height => 40, :class => "avatar"), conversation_messages_path(@user.personal_conversation) %>		
-	<span class="username"><%=link_to h(@user.login), user_path(@user) %></span>
+	<%= link_to image_tag(@user.gravatar_url, :border => 0, :wigth => 40, :height => 40, :class => "avatar"), user_path(@user) %>		
+	<span class="username"><%=link_to h(@user.login), conversation_messages_path(@user.personal_conversation) %></span>
 </p>
 <br/>
 <br/>

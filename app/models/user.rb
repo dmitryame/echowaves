@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
   :foreign_key => "personal_conversation_id"
 
 
-  has_many :subscriptions
+  has_many :subscriptions, :order => "activated_at DESC"
   has_many :conversations, :through => :subscriptions, :uniq => true, :order => "name"
 
   has_many :conversation_visits

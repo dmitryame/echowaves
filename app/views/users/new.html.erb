@@ -9,7 +9,10 @@
 <p><%= label_tag 'login' %><br/>
 <%= f.text_field :login %></p>
 
-<p>activation account link will be emailed to you, please enter a real email address</p>
+<%if(!SHOW_ACTIVATION_LINK)%>
+	<p>activation account link will be emailed to you, please enter a real email address</p>
+<%end%>
+
 <p><%= label_tag 'email' %><br/>
 <%= f.text_field :email %></p>
 

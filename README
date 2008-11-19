@@ -38,6 +38,9 @@ SignUp as a new user. Activate the user by copy-pasting the activation URL from 
 To actually get the actionmailer stuff sent, you'll need to change the SMTP settings in config/environment.rb
 In that case, you'll probably want to comment out the (currently last) line in config/environments/development.rb that reads "config.action_mailer.raise_delivery_errors = false", so that actionmailer failures are more visible.
 
+=== REPORTING ISSUES
+If you find an issue or would like to make a suggestion on what functionality you would like to see in echowaves, you can do it at http://proj.echowaves.com 
+
 =======
 
 Specific advice for different platforms and setups

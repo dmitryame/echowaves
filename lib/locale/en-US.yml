@@ -5,6 +5,7 @@ en-US:
       headline2: 'The source code is hosted at <a href="http://github.com/dmitryame/echowaves" class="highlight">http://github.com/dmitryame/echowaves</a>.'
       p1: "EchoWaves is a YACT ( Yet Another Collaboration Tool ). It's actually beginning to take a shape of a YASN ( Yet Another Social Network ). So, what's so special about our YASN, well, it's built around conversations rather than users. We think it's more natural for humans to socialize around conversations. If you have any other ideas or suggestions feel free to talk about it in"
       p2: "-- it's free and anyone can join. On this site you will be able to start your own conversations, where everyone will be able to talk to you and to each other. You also will be able to see what other people are chatting about and participate in their conversations. Have fun!"
+      feedback_advice: 'If you find an issue or would like to make a suggestion on what functionality you would like to see in echowaves, you can do it at <a href="http://proj.echowaves.com" class="highlight">http://proj.echowaves.com</a>'
   ui:
     signup: "SignUp"
     login: "login"

@@ -10,12 +10,12 @@ class MessagesController < ApplicationController
   end
   
   def get_messages_before(first_message_id)
-    @conversation.messages.find(:all, :include => [:user], :conditions => ["id < ?", first_message_id], :limit => 100, :order => 'id DESC')
+    @conversation.messages.find(:all, :include => [:user], :conditions => ["id < ? and deactivated_at is null", first_message_id], :limit => 100, :order => 'id DESC')
   end
 
 
   def get_messages_after(cutoff_message_id)
-    @conversation.messages.find(:all, :include => [:user], :conditions => ["id > ?", cutoff_message_id], :order => 'id ASC')
+    @conversation.messages.find(:all, :include => [:user], :conditions => ["id > ? and deactivated_at is null", cutoff_message_id], :order => 'id ASC')
   end
     
   # GET /messages

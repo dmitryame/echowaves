@@ -21,7 +21,7 @@ class MessagesController < ApplicationController
   # GET /messages
   # GET /messages.xml
   def index
-    @messages = @conversation.messages.find(:all, :include => [:user], :limit => 100, :order => 'id DESC').reverse
+    @messages = @conversation.messages.find(:all, :include => [:user], :limit => 100, :order => 'id').reverse
 
     # make sure the conversation we were last viwing does not have updates
     last_viewed_subscription = Subscription.find(:first, :conditions => ["user_id = ? ", current_user.id], :order => 'activated_at DESC')

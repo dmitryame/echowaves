@@ -1,22 +1,24 @@
-<h2><%= t("ui.login") %></h2>
-
-<% form_tag session_path do -%>
-<p><%= label_tag t("ui.login") %><br />
-<%= text_field_tag t("ui.login"), @login %></p>
-
-<p><%= label_tag t('ui.password') %><br/>
-<%= password_field_tag t('ui.password'), nil %></p>
-
-<!-- Uncomment this if you want this functionality
-<p><%= label_tag 'remember_me', 'Remember me' %>
-<%= check_box_tag 'remember_me', '1', @remember_me %></p>
--->
-
-<p>
-<%= submit_tag t("ui.login") %>&nbsp;<%= link_to t("ui.signup"), :controller => "users", :action => "new" -%>
-&nbsp;
-<span class="mute"><%= t("ui.its_free") %></span>
-</p>
-<p><%= link_to t('ui.forgot_password'), forgot_password_path -%></p>
-
-<% end -%>
+<div class="item">
+  <h2><%= t("ui.login") %></h2>
+  
+  <% form_tag session_path do -%>
+  <p><%= label_tag t("ui.login") %><br />
+  <%= text_field_tag t("ui.login"), @login %></p>
+  
+  <p><%= label_tag t('ui.password') %><br/>
+  <%= password_field_tag t('ui.password'), nil %></p>
+  
+  <!-- Uncomment this if you want this functionality
+  <p><%= label_tag 'remember_me', 'Remember me' %>
+  <%= check_box_tag 'remember_me', '1', @remember_me %></p>
+  -->
+  
+  <p>
+  <%= submit_tag t("ui.login") %>&nbsp;<%= link_to t("ui.signup"), :controller => "users", :action => "new" -%>
+  &nbsp;
+  <span class="mute"><%= t("ui.its_free") %></span>
+  </p>
+  <p><%= link_to t('ui.forgot_password'), forgot_password_path -%></p>
+  
+  <% end -%>
+</div>

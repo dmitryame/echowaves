@@ -1,298 +1,43 @@
-body { 
-	background-color: #ffffff; 
-	color: #333; 
+body {background:#000;}
+.clear {clear:both;}
+.item {padding:10px 20px;margin-bottom:10px;}
+.msgcount {background:#333;padding:2px 4px;font-weight:bold;color:#fff;margin-right:5px;}
+.container ul {margin:0;}
+.container ul li {margin:0;}
+#header {}
+#menu {margin-top:15px;}
+#header h1 {margin:0;}
+#menu ul {
+  float:right;
+  padding:0;
+  margin:0;
+  list-style: none;
 }
+#menu li {
+  float:right;
+  background:#fff;
+  margin-left:4px;
+  padding:2px 4px;
+}
+#connection_stat {float:right;background:#fff;padding:2px 4px;margin-left:4px;}
+#main_content {background:#ccc;}
+#col1 {background:#fff;}
+#col2 {}
+#col3 {}
 
-body, p, ol, ul, td {
-  font-family: verdana, arial, helvetica, sans-serif;
-  font-size:   13px;
-  line-height: 18px;
+#messageinputdiv {
+  
 }
+#attachment_form input{margin:0;padding:0;}
+#attachment_form form{margin:0;padding:0;}
 
-pre {
-  background-color: #eee;
-  padding: 10px;
-  font-size: 11px;
-}
-
-a { 
-	color: #005c9c;
-	outline-style: none;
-	outline-width: medium;
-	text-decoration: none;	
-}
-a:visited { 
-	color: #005c9c;
-}
-a:hover { 
-	text-decoration: underline;
-}
-
-.fieldWithErrors {
-  padding: 2px;
-  background-color: red;
-  display: table;
-}
-
-#errorExplanation {
-  width: 400px;
-  border: 2px solid red;
-  padding: 7px;
-  padding-bottom: 12px;
-  margin-bottom: 20px;
-  background-color: #f0f0f0;
-}
-
-#errorExplanation h2 {
-  text-align: left;
-  font-weight: bold;
-  padding: 5px 5px 5px 15px;
-  font-size: 12px;
-  margin: -7px;
-  background-color: #c00;
-  color: #fff;
-}
-
-#errorExplanation p {
-  color: #333;
-  margin-bottom: 0;
-  padding: 5px;
-}
-
-#errorExplanation ul li {
-  font-size: 12px;
-  list-style: square;
-}
-
-/* stylin' the message page! */
-#working {
-    color: green;
-    padding-left: 30px;
-}
-div#messages {width: 100%;}
-div#messages p {font-size: .7em;line-height:1em;}
-/* meta-information for each message (who, when, etc) */
-div.message p.messagemeta {
-    float: right;
-    background-color: #def;
-    margin: -4px -4px 5px 5px;
-    padding: 0;
-    font-size: .7em;
-    color: #444;
-    text-align: right;
-    border-left: dashed green 1px;
-    border-bottom: dashed green 1px;
-    border-top: solid black 1px;
-    border-right: solid black 1px;
-    line-height: 1.1em;
-}
-div.message p.messagetools a {
-    float: left;
-    font-size: .6em;
-    padding: 0 4px;
-    margin: -4px 4px 4px -4px;
-    color: #93b;
-    text-align: left;
-    clear: both;
-    border: solid blue 1px;
-    text-decoration: none;
-}
-p.messagemeta .username {
-    font-weight: bold;
-}
-
-p.messagemeta .date {
-/*     white-space: nowrap; */
-}
-
-p.messagemeta .avatar {
-    float: left;
-}
-
-/* holds the message, and its meta-information */
-div.message {
-    clear: both;
-    background-color: #CCFFCC;
-    margin: 3px 0 0 0;
-    padding: 3px;
-    border: solid black 1px;
-}
-
-div.message p {
-    margin: 0;
-}
-
-#message_message {
-    width: 450px;
-	font-size: .7em;
-	line-height:1em;
-}
-
-div#messages {
-	width: 450px;
-} 
-
-div#messages p {
-	font-size: .9em;
-	line-height:1em;
-} 
-
-.attachmentlink {
-    display: none;
-}
-
-.attachmentinput {
-    display: none;
-}
-
-#connection_stat {
-	background-color: #ffffff;
-	position: fixed; 
-	top: 33px; 
-	right: 0px;		
-}
-#connection_stat_data {
-	padding: 0px 5px 0px 5px;
-	font-size: .9em;
-}
-
-div#users_in_conversation {
-	background-color: #cccccc;
-	position: fixed; 
-	top: 55px; 
-	left: 475px;		
-	padding: 5px;
-}
-
-div#my_conversations {
-	background-color: #cccccc;
-	position: fixed; 
-	top: 55px; 
-	right: 0px;		
-	padding: 5px;
-}
-
-div#conversations_for_user {
-}
-
-.auto_complete {
-      position:absolute;
-      width:250px;
-      background-color:white;
-      border:1px solid #888;
-      margin:0px;
-      padding:0px;
-}
-
-.auto_complete ul {
-      list-style-type: none;
-      margin:0px;
-      padding:0px;
-}
-    
-.auto_complete ul li.selected 
-{ 
-	background-color: #bbf;
-}
-
-.auto_complete ul li {
-	list-style-type: none;
-	display:block;
-	margin:0;
-	padding:2px;
-}
-
-
-.pagination {
-  padding: 3px;
-  margin: 3px;
-}
-.pagination a {
-  padding: 2px 5px 2px 5px;
-  margin: 2px;
-  border: 1px solid #aaaadd;
-  text-decoration: none;
-  color: #84D02E;
-}
-.pagination a:hover, .pagination a:active {
-  border: 1px solid #84D02E;
-  color: #000;
-}
-.pagination span.current {
-  padding: 2px 5px 2px 5px;
-  margin: 2px;
-  border: 1px solid #84D02E;
-  font-weight: bold;
-  background-color: #84D02E;
-  color: #FFF;
-}
-.pagination span.disabled {
-  padding: 2px 5px 2px 5px;
-  margin: 2px;
-  border: 1px solid #eee;
-  color: #ddd;
-}
-
-div#header {
-	position: fixed;
-	top: 0px;
-	left: 0px;	
-	width: 100%;
-  	background-color: #EEEEEE;	
-	border-bottom-width: 1px;
-	border-bottom-style: dotted;
-	border-bottom-color: #b5b5b5;
-}
-div#header_padding {
-	position: fixed;
-	top: 51px;
-	left: 0px;	
-	width: 100%;
-  	background-color: #000000;	
-	height: 5px;
-}
-
-#logout{
-	position: fixed;
-	top: 10px;
-	right: 10px;		
-	height: 500%; 
-    display: table-cell;
-    vertical-align: top;
-}
-
-
-div#header_image {
-}
-
-#menu {
-	position: fixed;
-	top: 30px;
-	left: 300px;			
-}
-
-.menu_item {
-	padding: 3px;	
-}
-
-.active_menu_item {
-	padding: 8px;		
-  	background-color: #ffffff;	
-}
-
-#content {
-	width: 500px;
-	padding-top: 60px;
-}
-
-#footer {
-	float: left;
-	padding-bottom: 0.5em;
-	width: 100%;
-	border-top-width: 1px;
-	border-top-style: dotted;
-	border-top-color: #b5b5b5;
-	text-align: center;
-	background-color: #EEEEEE;	
-}
-
+.messageinput { width:500px; height:40px; }
+textarea, input[type='text'], input[type='password'], select { border: 1px solid #333; background: #fff; }
+textarea:hover, input[type='text']:hover, input[type='password']:hover, select:hover { border-color: #333; }
+textarea:focus, input[type='text']:focus, input[type='password']:focus, select:focus { border-color: #333; outline: 2px solid #333; }
+.message {padding:20px;position:relative;border-bottom:1px dashed #ccc;}
+.message .messagelinks {position:absolute;top:0;right:20px;}
+.message .avatar {float:left;}
+.messagetext {padding-left:60px;}
+.message .date {display:block;}
+#footer {background:#fff;margin-top:10px;}

@@ -14,7 +14,7 @@ module ApplicationHelper
   end
 
   def flash_messages
-    (flash[:notice] ? "<div class=\"notice\">#{flash[:notice]}</div>": "") + (flash[:error] ? "<div class=\"error\">#{flash[:error]}</div>" : "")
+    '<div id="flash_messages">' + (flash[:notice] ? "<div class=\"notice\">#{flash[:notice]}</div>": "") + (flash[:error] ? "<div class=\"error\">#{flash[:error]}</div>" : "") + '</div>'
   end
 
   

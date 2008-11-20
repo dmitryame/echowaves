@@ -23,7 +23,7 @@ es-ES:
     follow: "seguir"
     unfollow: "no seguir"
     report: "informe"
-    reportconfirm: "Are you sure you would like to report this message? The abbuser will be punished."    
+    reportconfirm: "Are you sure you would like to report this message? The abuser will be punished."    
     spawn: "freza"    
   footer:
     uptime_monitoring: "Website Uptime Monitoring By"

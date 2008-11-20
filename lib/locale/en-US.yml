@@ -32,6 +32,9 @@ en-US:
     send: "send"
     ctrl_enter: "(ctrl+Enter to submit message)"
     my_conversations: "My conversations"
+    conversations_you_follow: "Conversations you follow"
+    news: "News"
+    recently_visited: "Recently visited"
   footer:
     uptime_monitoring: "Website Uptime Monitoring By"
     report_problems_or_abuse: "Report problems or Abuse to"

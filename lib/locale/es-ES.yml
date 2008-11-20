@@ -32,6 +32,9 @@ es-ES:
     send: "enviar"
     ctrl_enter: "(ctrl+Enter para enviar el mensaje)"
     my_conversations: "Mis conversaciones"
+    conversations_you_follow: "Conversaciones que sigues"
+    news: "Nuevos mensajes"
+    recently_visited: "Visitado recientemente"
   footer:
     uptime_monitoring: "Website Uptime Monitoring By"
     report_problems_or_abuse: "Informa de problemas o abusos a"

@@ -1,6 +1,6 @@
 <div id="recently_visited" class="item2">
 	<% if logged_in? %>
-		<b>Recently Visited:</b><br/>
+		<b><%= t("ui.recently_visited") %>:</b><br/>
 		<ul>		
 			<%= render :partial => 'users/conversation', :collection => current_user.recent_conversations %> 
 		</ul>

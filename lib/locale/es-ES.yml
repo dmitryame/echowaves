@@ -13,6 +13,7 @@ es-ES:
     echowaves_conversation: "conversacion de EcHoWaVeS.CoM"
     home: "inicio"
     users: "usuarios"
+    edit_profile: "editar perfil"
     conversations: "conversaciones"
     back: "atras"
     more_messages: "mas mensajes"

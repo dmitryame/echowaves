@@ -7,14 +7,13 @@
 	<title> - <%= h @conversation.name %></title>
   <link rel="shortcut icon" href="/images/favicon.ico" />
  	
-  <!-- Framework CSS -->
-	<link rel="stylesheet" href="/stylesheets/blueprint/screen.css" type="text/css" media="screen, projection">
-	<link rel="stylesheet" href="/stylesheets/blueprint/print.css" type="text/css" media="print">
-  <!--[if IE]><link rel="stylesheet" href="/stylesheets/blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
-	
-	<!-- Import fancy-type plugin for the sample page. -->
-	<link rel="stylesheet" href="/stylesheets/blueprint/plugins/fancy-type/screen.css" type="text/css" media="screen, projection">
- 	<%= stylesheet_link_tag 'custom' %>
+  <link rel="stylesheet" href="/stylesheets/screen.css" type="text/css" media="screen, projection">
+  <link rel="stylesheet" href="/stylesheets/print.css" type="text/css" media="print"> 
+  <!--[if IE]>
+    <link rel="stylesheet" href="/stylesheets/ie.css" type="text/css" media="screen, projection">
+  <![endif]-->
+  <link rel="stylesheet" href="/stylesheets/style.css" type="text/css" media="screen, projection">
+ 	<%= stylesheet_link_tag 'default' %>
  	<%= javascript_include_tag :defaults %>
  	<%= javascript_include_tag "misc" %>
  	<%= javascript_include_tag "windowmanager" %>
@@ -79,7 +78,7 @@
 
 			// this is an actual message for current conversation
  			if(frame.headers['destination'].startsWith("CONVERSATION_CHANNEL_") ) {
- 				message_output.insert({"bottom":frame.body});
+ 				message_output.insert({"top":frame.body});
  				MessageManipulation.handle_new_messages();
  				// $('message_message').value = '';
  				// Misc.focusInput('message_message');
@@ -118,150 +117,87 @@
 	</style>
 </head>
 
-<body id="messages_layout" onLoad="Misc.pageScroll();MessageManipulation.handle_old_messages();MessageManipulation.handle_new_messages();Misc.focusInput('message_message');stomp_function();">
-
-	<div id="dhtmltooltip"></div>
-	<script type="text/javascript">
-
-	var offsetxpoint=-60 //Customize x offset of tooltip
-	var offsetypoint=20 //Customize y offset of tooltip
-	var ie=document.all
-	var ns6=document.getElementById && !document.all
-	var enabletip=false
-	if (ie||ns6)
-	var tipobj=document.all? document.all["dhtmltooltip"] : document.getElementById? document.getElementById("dhtmltooltip") : ""
-
-	function ietruebody(){
-	return (document.compatMode && document.compatMode!="BackCompat")? document.documentElement : document.body
-	}
-
-	function ddrivetip(thetext, thecolor, thewidth){
-	if (ns6||ie){
-	if (typeof thewidth!="undefined") tipobj.style.width=thewidth+"px"
-	if (typeof thecolor!="undefined" && thecolor!="") tipobj.style.backgroundColor=thecolor
-	tipobj.innerHTML=thetext
-	enabletip=true
-	return false
-	}
-	}
-
-	function positiontip(e){
-	if (enabletip){
-	var curX=(ns6)?e.pageX : event.clientX+ietruebody().scrollLeft;
-	var curY=(ns6)?e.pageY : event.clientY+ietruebody().scrollTop;
-	//Find out how close the mouse is to the corner of the window
-	var rightedge=ie&&!window.opera? ietruebody().clientWidth-event.clientX-offsetxpoint : window.innerWidth-e.clientX-offsetxpoint-20
-	var bottomedge=ie&&!window.opera? ietruebody().clientHeight-event.clientY-offsetypoint : window.innerHeight-e.clientY-offsetypoint-20
-
-	var leftedge=(offsetxpoint<0)? offsetxpoint*(-1) : -1000
-
-	//if the horizontal distance isn't enough to accomodate the width of the context menu
-	if (rightedge<tipobj.offsetWidth)
-	//move the horizontal position of the menu to the left by it's width
-	tipobj.style.left=ie? ietruebody().scrollLeft+event.clientX-tipobj.offsetWidth+"px" : window.pageXOffset+e.clientX-tipobj.offsetWidth+"px"
-	else if (curX<leftedge)
-	tipobj.style.left="5px"
-	else
-	//position the horizontal position of the menu where the mouse is positioned
-	tipobj.style.left=curX+offsetxpoint+"px"
-
-	//same concept with the vertical position
-	if (bottomedge<tipobj.offsetHeight)
-	tipobj.style.top=ie? ietruebody().scrollTop+event.clientY-tipobj.offsetHeight-offsetypoint+"px" : window.pageYOffset+e.clientY-tipobj.offsetHeight-offsetypoint+"px"
-	else
-	tipobj.style.top=curY+offsetypoint+"px"
-	tipobj.style.visibility="visible"
-	}
-	}
-
-	function hideddrivetip(){
-	if (ns6||ie){
-	enabletip=false
-	tipobj.style.visibility="hidden"
-	tipobj.style.left="-1000px"
-	tipobj.style.backgroundColor=''
-	tipobj.style.width=''
-	}
-	}
-
-	document.onmousemove=positiontip
-
-	</script>
-
-
+<body id="messages_layout" onLoad="MessageManipulation.handle_old_messages();MessageManipulation.handle_new_messages();Misc.focusInput('message_message');stomp_function();">
 
 	<%= render(:partial => "shared/header") %>
 	
-	<div id="menu">
-	  <div id="menu_padding" class="container">
-		  <ul>
-  	  	<li><%= link_to t('ui.home'), home_path %></li>
-  	  	<li><%= link_to t('ui.users'), users_path %></li>
-  	  	<li class="active"><%= link_to t('ui.conversations'), conversations_path %></li>
-  	  	<li class="current_conversation">
-			<%= link_to h(@conversation.name), conversation_messages_path(@conversation), :onMouseOut => "hideddrivetip()",  :onMouseOver => "ddrivetip('#{h @conversation.escaped_description}','lightgreen', 300)" %>
-
-
-			<%= render :partial => 'conversations/follow' %></li>
-  	  </ul>
-  	  <div id="connection_stat"><div id="connection_stat_data"></div></div>
-  	</div>
-	</div>
 
 	<div id="main_content" class="container">
     
-		<div class="span-15 colborder">
+		<div id="col1" class="span-14">
 		  <%= flash_messages %>
+		  <div class="item">
+		    <%= link_to h(@conversation.name), conversation_messages_path(@conversation) %>
+			  <%= render :partial => 'conversations/follow' %>
+			  <div id="messageinputdiv">
+          <% remote_form_for(:message,
+          	:update => 'messages', :position => 'top',
+            :url => conversation_messages_path(@conversation),
+            :complete => "$('message_message').value = '';$('message_attachment').value = '';$('message_message').style.height = '5em';$('message_message').focus();MessageManipulation.handle_new_messages();",
+            # don't poll right now, and set the "after" value
+            :before => 'MessageManipulation.working_begin();',
+            :condition => "$('message_message').value.strip().length > 0") do |f| %>
+        
+            <p id="msgtextarea">        
+            <%= f.text_area :message, :onkeyup => "if (this.scrollHeight > this.clientHeight &amp; !window.opera) this.style.height = (this.scrollHeight + 20) + 'px';", :class => 'messageinput' %>  
+            </p>
+        
+            <p id="msgcontrols">
+            <%= submit_tag "Send" %> <span class="mute">(ctrl+Enter to submit message)</span>
+        
+            <span id="working" style="display:none">Working...</span>
+            <%= link_to_function "attach file", :id => 'attachment_link' do |page|
+              page[:attachment_form].show
+              page[:attachment_link].hide
+            end %>
+            </p>
+          <% end %>
+        </div>
+        
+        <div id="attachment_form" style="display:none">
+      	  <%#this form is purely for attachments handling%>
+      	  <% form_for(:message, 
+      	  	:url  => { :action => "upload_attachment" },
+      	    :html => { :multipart => true, :target => "upload_frame" } ) do |f| %>
+      	      <%= f.file_field :attachment %>
+      	  	  <input type="hidden" name="conversation_id" id="conversation_id" value="<%= @conversation_id %>" />
+      	  	  <%=submit_tag "Attach"%> 
+      	  <% end %>
+      	  <%= link_to_function "hide" do |page|
+            page[:attachment_form].hide
+            page[:attachment_link].show
+          end %>
+      	  <iframe id='upload_frame' name="upload_frame" style="width:0px;height:0px;border:0px" src="about:blank"></iframe>
+        </div>
+        
+      </div>
+      <hr>
   		<%= yield  %>
 		</div>
 		
-		<div class="span-8 last" id="sidebar"><div id="sidebar_padding">
-		  <%= render :partial => 'conversations/users_in_conversation' %>
+		<div id="col2" class="span-6">
 		  <%= render :partial => 'users/recently_visited' %>
-		  <%= render :partial => 'users/followed_conversations' %>
 		  <%= render :partial => 'users/my_conversations' %>
-		</div></div>
+		  <%= render :partial => 'users/followed_conversations' %>
+		</div>
 		
+		<div id="col3" class="span-4 last">
+		  <div class="item">
+		    <% if logged_in? %>				
+    		  <%= link_to image_tag(current_user.gravatar_url, :border => 0, :wigth => 40, :height => 40, :class => "avatar", :style => 'float:left;margin-right:4px;'), user_path(current_user)%>
+    		  <%= link_to h(current_user.login), conversation_messages_path(current_user.personal_conversation) %><br/>
+    		  <%= link_to "edit profile", edit_user_path(current_user)  %>
+    		  <%= link_to t("ui.logout"), logout_path %>
+    	  <%else%>			
+    		  <%= link_to t("ui.login"), new_session_path %>
+    	  <%end%>
+    	</div>
+    	<%= render :partial => 'conversations/users_in_conversation' %>
+		  
+    </div>
    
 	</div>
 
-  <div id="messageinputdiv">
-    <div id="messageinputdivpadding" class="container">
-      <div class="span-15 colborder">
-    	  <% remote_form_for(:message,
-    	  	:update => 'messages', :position => 'bottom',
-    	    :url => conversation_messages_path(@conversation),
-    	    :complete => "$('message_message').value = '';$('message_attachment').value = '';$('message_message').style.height = '5em';$('message_message').focus();MessageManipulation.handle_new_messages();Misc.pageScroll();",
-    	    # don't poll right now, and set the "after" value
-    	    :before => 'MessageManipulation.working_begin();',
-    	    :condition => "$('message_message').value.strip().length > 0") do |f| %>
-        
-          <p id="msgtextarea">        
-    	    <%= f.text_area :message, :onkeyup => "if (this.scrollHeight > this.clientHeight &amp; !window.opera) this.style.height = (this.scrollHeight + 20) + 'px';", :class => 'messageinput' %>  
-          </p>
-          
-          <p id="msgcontrols">
-    	    <%= submit_tag "Send" %> <span class="mute">(ctrl+Enter to submit message)</span>
-                
-    	    <span id="working" style="display:none">Working...</span>
-    	    </p>
-    	  <% end %>
-    	  <div class="clear"></div>
-      </div>
-      <div class="span-8 last">
-    	  <%#this form is purely for attachments handling%>
-    	  <% form_for(:message, 
-    	  	:url  => { :action => "upload_attachment" },
-    	    :html => { :multipart => true, :target => "upload_frame" } ) do |f| %>
-    	      <%= f.file_field :attachment %>
-    	  	  <input type="hidden" name="conversation_id" id="conversation_id" value="<%= @conversation_id %>" />
-    	  	  <%=submit_tag "Attach"%> 
-    	  <% end %>
-    	  <iframe id='upload_frame' name="upload_frame" style="width:0px;height:0px;border:0px" src="about:blank"></iframe>
-      </div>
-    </div>
-  	
-  </div>
 
 <%#for now lets poll for new messages in conversations that are off the screen%>  
 <%= periodically_call_remote :url => {:controller => 'users', :action => 'update_my_conversations'}, 

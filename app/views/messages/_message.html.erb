@@ -1,4 +1,5 @@
 <div class="message" id="<%=dom_id(message)%>">
+<<<<<<< HEAD:app/views/messages/_message.html.erb
 	<div class="messagemeta">
 	  <div class="padding">	
 		  <div class="avatar"><%= link_to image_tag(message.user.gravatar_url, :border => 0, :wigth => 40, :height => 40, :class => "avatar"), user_path(message.user)   %></div>
@@ -27,7 +28,23 @@
 		<%= link_to_remote t("ui.report"), 
 		:url => {:controller => 'messages', :action => 'report', :id => message.id, :conversation_id => @conversation_id}, 		
 		:confirm => t("ui.reportconfirm") %>
+=======
+  <div class="messagelinks quiet small">
+		<%#= link_to_remote t("ui.report"), 
+		:url => {:controller => "message", :action => 'report', :id => message.id}, :confirm => t("ui.reportconfirm") %>
+		report
+>>>>>>> d11e7b56a75fc7c64a6d848b97cba0cfef6d978c:app/views/messages/_message.html.erb
 		reply
 	</div>
-	
+	<div class="avatar"><%= link_to image_tag(message.user.gravatar_url, :border => 0, :wigth => 40, :height => 40, :class => "avatar"), user_path(message.user)   %></div>
+	<div class="messagetext">
+		<span class="username"><%=link_to h(message.user.login), conversation_messages_path(message.user.personal_conversation)  %></span>
+		<% if message.attachment.original_filename %>
+		  <%= link_to(image_tag(message.attachment.url(:big)), message.attachment.url, :target => "_blank")%>		 
+		<%else%>
+		  <%= mark_up message.message %>
+		<% end %>
+		<span class="date quiet small"><%= time_ago_in_words(message.created_at) %></span>
+	</div>
+	<div class="clear"></div>
 </div>

@@ -29,7 +29,6 @@ body {background:#000;}
 #col3 {}
 
 #messagesform {
-  border-bottom:1px solid #ccc;
   margin-bottom:0;
   padding-bottom:20px;
 }
@@ -38,11 +37,12 @@ body {background:#000;}
 }
 #attachment_form input{margin:0;padding:0;}
 #attachment_form form{margin:0;padding:0;}
-
+#last_message_avise {background:#9acb63; padding:0 20px;text-align:center;}
 .messageinput { width:500px; height:40px; }
 textarea, input[type='text'], input[type='password'], select { border: 1px solid #333; background: #fff; }
 textarea:hover, input[type='text']:hover, input[type='password']:hover, select:hover { border-color: #333; }
 textarea:focus, input[type='text']:focus, input[type='password']:focus, select:focus { border-color: #333; outline: 2px solid #333; }
+#messages {background:url(/images/downarrow.png) top center no-repeat;}
 .message {padding:15px 20px 0 20px;position:relative;border-bottom:1px dashed #ccc;}
 .message .messagelinks {position:absolute;top:0;right:20px;}
 .message .avatar {float:left;}

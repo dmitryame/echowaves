@@ -16,7 +16,7 @@
 
 <ul>
 <% for conversation in @conversations %>
-    <li><%= link_to h(conversation.name), conversation_messages_path(conversation) %> (<%= conversation.created_at.to_s(:date_time12) %>)</li>
+    <li><%= link_to h(conversation.name), conversation_messages_path(conversation), :class => 'tip', :title => conversation.escaped_description %> (<%= conversation.created_at.to_s(:date_time12) %>)</li>
 <% end %>
 </ul>
 

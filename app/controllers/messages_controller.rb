@@ -10,7 +10,7 @@ class MessagesController < ApplicationController
   end
   
   def get_messages_before(first_message_id)
-    @conversation.messages.find(:all, :include => [:user], :conditions => ["id < ?", first_message_id], :limit => 100, :order => 'id DESC').reverse
+    @conversation.messages.find(:all, :include => [:user], :conditions => ["id < ?", first_message_id], :limit => 100, :order => 'id DESC')
   end
 
 

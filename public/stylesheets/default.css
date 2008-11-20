@@ -1,5 +1,8 @@
 body {background:#000;}
 .clear {clear:both;}
+#flash_messages .notice {background:#ffff33;padding:4px 10px;border:none;margin:0;color:#000;font-weight:strong;}
+#flash_messages .error {background:#cc3333;padding:4px 10px;border:none;margin:0;color:#fff;font-weight:strong;}
+
 .padding {padding:10px;}
 .item {padding:10px 20px;margin-bottom:10px;}
 .msgcount {background:#333;padding:2px 4px;font-weight:bold;color:#fff;margin-right:5px;}

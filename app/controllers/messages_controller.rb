@@ -166,7 +166,7 @@ class MessagesController < ApplicationController
   def report
     message = Message.find(params[:id])
 
-    #if was already reported by the current_user
+    #if was already reported by the current_user, don't do anything
     if(AbuseReport.find_by_user_id_and_message_id( current_user.id, message.id))
       render :nothing => true
       return
@@ -175,20 +175,16 @@ class MessagesController < ApplicationController
     abuseReport = AbuseReport.new
     abuseReport.message = message
     abuseReport.user = current_user
-    
     abuseReport.save
-    # if a conversation owner reported an abuse, or 3 other non owners -- deactivate the message
-    message.deactivated_at = Time.now if (current_user == message.conversation.owner || message.abuse_reports.size > 3)
-    message.save
-    render :nothing => true      
     
-  #   newmessagescript = render_to_string :partial => 'message', :object => message
-  #   s = Stomp::Client.new
-  #   s.send("CONVERSATION_CHANNEL_" + params[:conversation_id], newmessagescript)
-  #   s.close
-  #   render :nothing => true
-  # rescue SystemCallError
-  #   logger.error "IO failed: " + $!
+    # if a conversation owner reported an abuse, or 3 other non owners -- deactivate the message
+    if (current_user == message.conversation.owner || message.abuse_reports.size > 3)
+      message.deactivated_at = Time.now 
+      message.save
+      
+      system "chmod -R 000 ./public/attachments/#{message.id}"
+    end
+    render :nothing => true            
   end
 
   private

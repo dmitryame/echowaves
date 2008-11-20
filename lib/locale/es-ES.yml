@@ -25,7 +25,9 @@ es-ES:
     unfollow: "no seguir"
     report: "informe"
     reportconfirm: "Are you sure you would like to report this message? The abuser will be punished."    
-    spawn: "freza"    
+    spawn: "freza"
+    this_is_the_newest_message: "Este es el mensaje mas nuevo"
+    attach: "Adjuntar"
   footer:
     uptime_monitoring: "Website Uptime Monitoring By"
     report_problems_or_abuse: "Informa de problemas o abusos a"

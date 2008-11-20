@@ -152,7 +152,7 @@
       	    :html => { :multipart => true, :target => "upload_frame" } ) do |f| %>
       	      <%= f.file_field :attachment %>
       	  	  <input type="hidden" name="conversation_id" id="conversation_id" value="<%= @conversation_id %>" />
-      	  	  <%=submit_tag "Attach"%>
+      	  	  <%= submit_tag t("ui.attach") %>
       	  	  <%= link_to_function "hide" do |page|
                 page[:attachment_form].hide
                 page[:attachment_link].show
@@ -162,7 +162,7 @@
       	  <iframe id='upload_frame' name="upload_frame" style="width:0px;height:0px;border:0px" src="about:blank"></iframe>
         </div>
       </div>
-      <div id="last_message_avise"><span class="small">This is the last message</span></div>
+      <div id="last_message_avise"><span class="small"><%= t("ui.this_is_the_newest_message") %></span></div>
   		<%= yield  %>
 		</div>
 		

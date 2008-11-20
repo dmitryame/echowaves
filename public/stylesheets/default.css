@@ -55,7 +55,7 @@ div.auto_complete ul strong.highlight {
   margin-left:4px;
   padding:2px 4px;
 }
-#connection_stat {margin-left:4px;padding-top:2px;}
+#connection_stat {float:right;margin-left:4px;padding-top:2px;}
 #main_content {background:#ccc;}
 #col1 {background:#fff;}
 #col2 {}

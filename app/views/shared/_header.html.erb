@@ -1,18 +1,23 @@
-<div id="header">
-  <div id="header_padding" class="container">
-    <div class="span-16 colborder">
-	  	<h1><%= link_to image_tag("echowaves.gif", :border => 0, :width => "282px", :height => "50px" ), home_path %></h1>
-	  </div>
-	  
-    <div class="span-6 last">
-      <% if logged_in? %>				
-	  		<%= link_to image_tag(current_user.gravatar_url, :border => 0, :wigth => 40, :height => 40, :class => "avatar", :style => 'float:left;margin-right:4px;'), user_path(current_user)%>
-	  		<%= link_to h(current_user.login), conversation_messages_path(current_user.personal_conversation) %><br/>
-	  		<%= link_to "edit profile", edit_user_path(current_user)  %>
-	  		<%= link_to t("ui.logout"), logout_path %>
-	  	<%else%>			
-	  		<%= link_to t("ui.login"), new_session_path %>
-	  	<%end%>
-	  </div>
+<div id="header" class="container">
+  <div class="span-12">
+  	<h1><%= link_to image_tag("echowaves.gif", :border => 0, :width => "260px", :height => "43px" ), home_path %></h1>
+  </div>
+  
+  <div class="span-12 last">
+    <div id="menu">
+      <div id="connection_stat"><div id="connection_stat_data"></div></div>
+  		<ul>
+  		  <% if logged_in? %>				
+      		<li><%= link_to t("ui.logout"), logout_path %></li>
+      		<li><%= link_to "edit profile", edit_user_path(current_user)  %></li>
+      	<%else%>			
+      		<li><%= link_to t("ui.login"), new_session_path %></li>
+      	<%end%>
+    		<li class="conversations"><%= link_to t('ui.conversations'), conversations_path %></li>
+    		<li class="users"><%= link_to t('ui.users'), users_path %></li>
+    		<li class="home"><%= link_to t('ui.home'), home_path %></li>
+    	</ul>
+    	<div class="clear"></div>
+  	</div>
   </div>
 </div>

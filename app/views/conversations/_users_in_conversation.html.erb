@@ -2,9 +2,10 @@
 	<b>Recent Followers:</b><br/>
 	<%= render :partial => 'conversations/user', :collection => @conversation.recent_followers %>
 	<% if @conversation.users.length > 10 %>
-	  <br/>and <%= @conversation.users.length - 10 %>
-	  <%= link_to_function("more...", nil, :id => "more_link") do |page|
-        page.insert_html :bottom, 'messages', :partial => 'conversations/users_message', :locals => {:users => @conversation.users}
-    end %>
+	<br/>
+    <b>Followers:</b><br/>
+    <% @conversation.users.each do |u| %>
+      <span class="label"><%= link_to h(u.login), conversation_messages_path(u.personal_conversation) %></span>
+    <% end %>
 	<% end %>
 </div>

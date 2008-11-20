@@ -2,7 +2,7 @@ es-ES:
   home:
     index:
       headline1: "Echowaves.com es un software de chat de grupo de código abierto escrito en RubyOnRails"
-      headline2: 'El código fuente se encuentra en <a href="http://github.com/dmitryame/echowaves" class="highlight">http://github.com/dmitryame/echowaves</a>.'
+      headline2: 'El código fuente se encuentra en <a href="http://github.com/dmitryame/echowaves">http://github.com/dmitryame/echowaves</a>.'
       p1: "EchoWaves es un YACT ( Yet Another Collaboration Tool ). Actualmente esta tomando forma de un YASN ( Yet Another Social Network ). Que tiene de especial nuestro YASN, bien, esta construido alrededor de las conversaciones en vez de los usuarios. Creemos que es más natural para los seres humanos a socializar en torno a las conversaciones. Si tiene alguna otra idea o sugerencia no dude en hablar de ello en la"
       p2: "-- es gratis y cualquiera puede participar. En este sitio usted podrá iniciar sus propias conversaciones, donde todo el mundo será capaz de hablar con usted y el uno al otro. Usted también será capaz de ver lo que otras personas estan conversando y participar en sus conversaciones. ¡Diviértete!"
       feedback_advice: 'Si encuentras algun problema o quieres hacer alguna sugerencia sobre alguna funcionalidad que te gustaria ver en echowaves, puedes hacerlo en <a href="http://proj.echowaves.com" class="highlight">http://proj.echowaves.com</a>'
@@ -23,7 +23,7 @@ es-ES:
     follow: "seguir"
     unfollow: "no seguir"
     report: "informe"
-    reportconfirm: "Are you sure you would like to report this message? The abbuser will be punished."    
+    reportconfirm: "Are you sure you would like to report this message? The abuser will be punished."    
     spawn: "freza"    
   footer:
     uptime_monitoring: "Website Uptime Monitoring By"

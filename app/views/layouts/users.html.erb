@@ -7,14 +7,13 @@
 	<title><%= controller.action_name %></title>
   <link rel="shortcut icon" href="/images/favicon.ico" />
  	
-  <!-- Framework CSS -->
-	<link rel="stylesheet" href="/stylesheets/blueprint/screen.css" type="text/css" media="screen, projection">
-	<link rel="stylesheet" href="/stylesheets/blueprint/print.css" type="text/css" media="print">
-  <!--[if IE]><link rel="stylesheet" href="/stylesheets/blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
-	
-	<!-- Import fancy-type plugin for the sample page. -->
-	<link rel="stylesheet" href="/stylesheets/blueprint/plugins/fancy-type/screen.css" type="text/css" media="screen, projection">
- 	<%= stylesheet_link_tag 'custom' %>
+  <link rel="stylesheet" href="/stylesheets/screen.css" type="text/css" media="screen, projection">
+  <link rel="stylesheet" href="/stylesheets/print.css" type="text/css" media="print"> 
+  <!--[if IE]>
+    <link rel="stylesheet" href="/stylesheets/ie.css" type="text/css" media="screen, projection">
+  <![endif]-->
+  <link rel="stylesheet" href="/stylesheets/style.css" type="text/css" media="screen, projection">
+ 	<%= stylesheet_link_tag 'default' %>
  	<%= javascript_include_tag :defaults %>
  	<%= javascript_include_tag "misc" %>
 </head>
@@ -23,26 +22,30 @@
 
 	<%= render(:partial => "shared/header") %>
 	
-	<div id="menu">
-	  <div id="menu_padding" class="container">
-		  <ul>
-  	  	<li><%= link_to t('ui.home'), home_path %></li>
-  	  	<li class="active"><%= link_to t('ui.users'), users_path %></li>
-  	  	<li><%= link_to t('ui.conversations'), conversations_path %></li>
-  	  </ul>
-  	  <div id="connection_stat"><div id="connection_stat_data"></div></div>
-  	</div>
-	</div>
-
-
 	<div id="main_content" class="container">
-		<div class="span-16 colborder">
+	  
+		<div id="col1" class="span-14">
       <%= flash_messages %>
   		<%= yield  %>
 		</div>
-    <div class="span-6 last">
+		
+    <div id="col2" class="span-6">
 			<%= render :partial => 'users/all_my_conversations' %>
 		</div>
+		
+		<div id="col3" class="span-4 last">
+		  <div class="item">
+		    <% if logged_in? %>				
+    		  <%= link_to image_tag(current_user.gravatar_url, :border => 0, :wigth => 40, :height => 40, :class => "avatar", :style => 'float:left;margin-right:4px;'), user_path(current_user)%>
+    		  <%= link_to h(current_user.login), conversation_messages_path(current_user.personal_conversation) %><br/>
+    		  <%= link_to "edit profile", edit_user_path(current_user)  %>
+    		  <%= link_to t("ui.logout"), logout_path %>
+    	  <%else%>			
+    		  <%= link_to t("ui.login"), new_session_path %>
+    	  <%end%>
+    	</div>
+    </div>
+    
 	</div>
 
 	<%= render(:partial => "shared/footer") %>

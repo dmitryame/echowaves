@@ -1,12 +1,19 @@
-<h2><%= t("home.index.headline1") %></h2>
-<h3><%= t("home.index.headline2") %></h3>
+<div class="ballon">
+  <h1><%= t("home.index.headline1") %></h1>
+</div>
+<div class="arrow">&nbsp;</div>
 
-<p>
- <%= t("home.index.p1") %> <%= link_to t("ui.echowaves_conversation"), conversation_path(1), :action => "index" -%>.
-</p>
-	
-<p>
-<%= link_to t("ui.signup"), new_user_path, :class => "highlight" -%> <%= t("home.index.p2") %>
-</p>
+<div class="item">
 
-<p class="highlight padding"><%= t("home.index.feedback_advice") %></p>
+  <h2><%= t("home.index.headline2") %></h2>
+  
+  <p>
+   <%= t("home.index.p1") %> <%= link_to t("ui.echowaves_conversation"), conversation_path(1), :action => "index" -%>.
+  </p>
+  	
+  <p>
+  <%= link_to t("ui.signup"), new_user_path, :class => "button" -%> <%= t("home.index.p2") %>
+  </p>
+  
+  <p><span class="highlight"><%= t("home.index.feedback_advice") %></span></p>
+</div>

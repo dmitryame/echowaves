@@ -1,14 +1,19 @@
-<div class="item">
-<h2>recently joined users</h2>
-
-<div>
-	look for users:
-	<%= text_field_with_auto_complete :user, :name, { :size => 45 }, :skip_style => true,
-	:after_update_element => 
-	"function(element,value) " +
-	  "{ window.location=('/complete_user_name?id='+element.value);}"
-	-%>
+<div class="ballon">
+  <h1>recently joined users</h1>
+  <div>
+  	look for users:
+  	<%= text_field_with_auto_complete :user, :name, { :size => 45 }, :skip_style => true,
+  	:after_update_element => 
+  	"function(element,value) " +
+  	  "{ window.location=('/complete_user_name?id='+element.value);}"
+  	-%>
+  </div>
+  
 </div>
+<div class="arrow">&nbsp;</div>
+
+<div class="item">
+  
 
 <%= will_paginate @users %>
 <table>

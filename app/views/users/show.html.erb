@@ -1,18 +1,21 @@
-<p>
-	<%= link_to image_tag(@user.gravatar_url, :border => 0, :wigth => 40, :height => 40, :class => "avatar"), user_path(@user) %>		
-	<span class="username"><%=link_to h(@user.login), conversation_messages_path(@user.personal_conversation) %></span>
-</p>
-<br/>
-<br/>
-<br/>
-
-<div id="subscriptions_for_user">
-	<b><%= t("ui.users_conversations") %>:</b>
-	<ul>
-		<%= render :partial => 'users/conversation', :collection =>  @user.conversations %> 		
-	</ul>
+<div class="ballon">
+  <h1><span class="username"><%=link_to h(@user.login), conversation_messages_path(@user.personal_conversation) %></span></h1>
+  <p>
+  	<%= link_to image_tag(@user.gravatar_url, :border => 0, :wigth => 40, :height => 40, :class => "avatar"), user_path(@user) %>		
+  	
+  </p>
 </div>
-	
+<div class="arrow">&nbsp;</div>
 
 
-<%= link_to t("ui.back"), users_path %>
+<div class="item">
+  <div id="subscriptions_for_user">
+  	<b><%= t("ui.users_conversations") %>:</b>
+  	<ul>
+  		<%= render :partial => 'users/conversation', :collection =>  @user.conversations %> 		
+  	</ul>
+  </div>
+  
+  <%= link_to t("ui.back"), users_path %>
+</div>
+  

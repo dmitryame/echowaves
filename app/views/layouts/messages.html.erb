@@ -112,7 +112,7 @@
     
 		<div id="col1" class="span-14">
 		  <%= flash_messages %>
-		  <div class="item">
+		  <div class="item" id="messagesform" >
 		    <%= link_to h(@conversation.name), conversation_messages_path(@conversation) %>
 			  <%= render :partial => 'conversations/follow' %>
 			  <div id="messageinputdiv">
@@ -157,7 +157,7 @@
         </div>
         
       </div>
-      <hr>
+
   		<%= yield  %>
 		</div>
 		

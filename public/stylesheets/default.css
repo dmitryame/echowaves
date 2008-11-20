@@ -28,6 +28,11 @@ body {background:#000;}
 #col2 {}
 #col3 {}
 
+#messagesform {
+  border-bottom:1px solid #ccc;
+  margin-bottom:0;
+  padding-bottom:20px;
+}
 #messageinputdiv {
   
 }

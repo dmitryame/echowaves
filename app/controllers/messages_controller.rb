@@ -10,18 +10,18 @@ class MessagesController < ApplicationController
   end
   
   def get_messages_before(first_message_id)
-    @conversation.messages.find(:all, :include => [:user], :conditions => ["id < ? and deactivated_at is null", first_message_id], :limit => 100, :order => 'id DESC')
+    @conversation.messages.published.find(:all, :include => [:user], :conditions => ["id < ?", first_message_id], :limit => 100, :order => 'id DESC')
   end
 
 
   def get_messages_after(cutoff_message_id)
-    @conversation.messages.find(:all, :include => [:user], :conditions => ["id > ? and deactivated_at is null", cutoff_message_id], :order => 'id ASC')
+    @conversation.messages.published.find(:all, :include => [:user], :conditions => ["id > ?", cutoff_message_id], :order => 'id ASC')
   end
     
   # GET /messages
   # GET /messages.xml
   def index
-    @messages = @conversation.messages.find(:all, :include => [:user], :conditions => "deactivated_at is null", :limit => 100, :order => 'id DESC')
+    @messages = @conversation.messages.published.find(:all, :include => [:user], :limit => 100, :order => 'id DESC')
 
     # make sure the conversation we were last viwing does not have updates
     last_viewed_subscription = Subscription.find(:first, :conditions => ["user_id = ? ", current_user.id], :order => 'activated_at DESC')

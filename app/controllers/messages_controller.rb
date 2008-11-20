@@ -181,7 +181,7 @@ class MessagesController < ApplicationController
     if (current_user == message.conversation.owner || message.abuse_reports.size > 3)
       message.deactivated_at = Time.now 
       message.save
-      
+      # perhaps this line is really important in publicly installed site like http://echowaves.com. could be parameterized for local installs
       system "chmod -R 000 ./public/attachments/#{message.id}"
     end
     render :nothing => true            

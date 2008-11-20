@@ -4,6 +4,9 @@ body {background:#000;}
 .msgcount {background:#333;padding:2px 4px;font-weight:bold;color:#fff;margin-right:5px;}
 .container ul {margin:0;}
 .container ul li {margin:0;}
+.container a:visited {color:#3366cc;}
+.container a:link {color:#1144aa;}
+.container a:hover {color:#cc3333;}
 .status_yellow {background:#ffff33;padding:5px 4px;}
 .status_green {background:#9acb63;padding:5px 4px;}
 .status_red {background:#ff0000;padding:5px 4px;color:#fff;}
@@ -30,14 +33,15 @@ body {background:#000;}
 
 #messagesform {
   margin-bottom:0;
-  padding-bottom:0px;
+  padding-bottom:10px;background:#9acb63;
 }
 #messageinputdiv {
   
 }
+#attachment_form {background:#7aab43;padding:10px;}
 #attachment_form input{margin:0;padding:0;}
 #attachment_form form{margin:0;padding:0;}
-#last_message_avise {background:#9acb63; padding:0 20px;text-align:center;}
+#last_message_avise {background:#9acb63; padding:0 20px;text-align:center;margin-top:-19px;}
 .messageinput { width:500px; height:40px; }
 textarea, input[type='text'], input[type='password'], select { border: 1px solid #333; background: #fff; }
 textarea:hover, input[type='text']:hover, input[type='password']:hover, select:hover { border-color: #333; }
@@ -49,4 +53,4 @@ textarea:focus, input[type='text']:focus, input[type='password']:focus, select:f
 .messagetext {padding-left:60px;}
 .message .date {display:block;}
 #footer {background:#fff;margin-top:10px;}
-#footer span {padding:4px;display:block;}
+#footer span {padding:2px 10px;display:block;}

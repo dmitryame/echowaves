@@ -113,7 +113,7 @@
 		<div id="col1" class="span-14">
 		  <%= flash_messages %>
 		  <div class="item" id="messagesform" >
-		    <%= link_to h(@conversation.name), conversation_messages_path(@conversation) %>
+		    <span class="strong"><%= h(@conversation.name) %></span>
 			  <%= render :partial => 'conversations/follow' %>
 			  <div id="messageinputdiv">
           <% remote_form_for(:message,
@@ -147,15 +147,15 @@
       	    :html => { :multipart => true, :target => "upload_frame" } ) do |f| %>
       	      <%= f.file_field :attachment %>
       	  	  <input type="hidden" name="conversation_id" id="conversation_id" value="<%= @conversation_id %>" />
-      	  	  <%=submit_tag "Attach"%> 
+      	  	  <%=submit_tag "Attach"%>
+      	  	  <%= link_to_function "hide" do |page|
+                page[:attachment_form].hide
+                page[:attachment_link].show
+              end %>
       	  <% end %>
-      	  <%= link_to_function "hide" do |page|
-            page[:attachment_form].hide
-            page[:attachment_link].show
-          end %>
+      	  
       	  <iframe id='upload_frame' name="upload_frame" style="width:0px;height:0px;border:0px" src="about:blank"></iframe>
         </div>
-        
       </div>
       <div id="last_message_avise"><span class="small">This is the last message</span></div>
   		<%= yield  %>

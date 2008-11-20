@@ -82,7 +82,7 @@ end
 
 # active mailer configuration
 # First, specify the Host that we will be using later for user_notifier.rb
-HOST = 'http://damelche-mac:3000'
+HOST = 'http://localhost:3000'
 
 ActionMailer::Base.delivery_method = :smtp
 # Third, add your SMTP settings
@@ -93,10 +93,10 @@ ActionMailer::Base.smtp_settings = {
 }
 
 
-ORBITED_HOST = 'damelche-mac'
+ORBITED_HOST = 'localhost'
 ORBITED_PORT = '8500'
-ORBITED_DOMAIN = 'damelche-mac'
-STOMP_HOST = 'damelche-mac'
+ORBITED_DOMAIN = 'localhost'
+STOMP_HOST = 'localhost'
 STOMP_PORT = '61613'
 
 #override to false in production

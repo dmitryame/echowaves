@@ -13,7 +13,7 @@
 		<%else%>
 		  <%= mark_up message.message %>
 		<% end %>
-		<span class="date quiet small"><%=message.created_at.to_s(:pretty_long) %></span>
+		<span class="date quiet small"><%= time_ago_in_words(message.created_at) %></span>
 	</div>
 	<div class="clear"></div>
 </div>

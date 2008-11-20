@@ -49,3 +49,4 @@ textarea:focus, input[type='text']:focus, input[type='password']:focus, select:f
 .messagetext {padding-left:60px;}
 .message .date {display:block;}
 #footer {background:#fff;margin-top:10px;}
+#footer span {padding:4px;display:block;}

@@ -21,7 +21,7 @@ class MessagesController < ApplicationController
   # GET /messages
   # GET /messages.xml
   def index
-    @messages = @conversation.messages.find(:all, :include => [:user], :limit => 100, :order => 'id DESC').reverse
+    @messages = @conversation.messages.find(:all, :include => [:user], :conditions => "deactivated_at is null", :limit => 100, :order => 'id DESC').reverse
 
     # make sure the conversation we were last viwing does not have updates
     last_viewed_subscription = Subscription.find(:first, :conditions => ["user_id = ? ", current_user.id], :order => 'activated_at DESC')
@@ -164,13 +164,31 @@ class MessagesController < ApplicationController
   # end
 
   def report
-      newmessagescript = render_to_string :partial => 'message', :object => message
-      s = Stomp::Client.new
-      s.send("CONVERSATION_CHANNEL_" + params[:conversation_id], newmessagescript)
-      s.close
+    message = Message.find(params[:id])
+
+    #if was already reported by the current_user
+    if(AbuseReport.find_by_user_id_and_message_id( current_user.id, message.id))
       render :nothing => true
-    rescue SystemCallError
-      logger.error "IO failed: " + $!
+      return
+    end
+    
+    abuseReport = AbuseReport.new
+    abuseReport.message = message
+    abuseReport.user = current_user
+    
+    abuseReport.save
+    # if a conversation owner reported an abuse, or 3 other non owners -- deactivate the message
+    message.deactivated_at = Time.now if (current_user == message.conversation.owner || message.abuse_reports.size > 3)
+    message.save
+    render :nothing => true      
+    
+  #   newmessagescript = render_to_string :partial => 'message', :object => message
+  #   s = Stomp::Client.new
+  #   s.send("CONVERSATION_CHANNEL_" + params[:conversation_id], newmessagescript)
+  #   s.close
+  #   render :nothing => true
+  # rescue SystemCallError
+  #   logger.error "IO failed: " + $!
   end
 
   private

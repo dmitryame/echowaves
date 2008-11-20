@@ -22,10 +22,11 @@
 	</div>
 	<div class="clear">
 	</div>	
+	
 	<div class="messagelinks">
-		<%#= link_to_remote t("ui.report"), 
-		:url => {:controller => "message", :action => 'report', :id => message.id}, :confirm => t("ui.reportconfirm") %>
-		report
+		<%= link_to_remote t("ui.report"), 
+		:url => {:controller => 'messages', :action => 'report', :id => message.id, :conversation_id => @conversation_id}, 		
+		:confirm => t("ui.reportconfirm") %>
 		reply
 	</div>
 	

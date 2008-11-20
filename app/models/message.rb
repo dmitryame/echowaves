@@ -4,6 +4,8 @@ class Message < ActiveRecord::Base
   belongs_to :conversation
   belongs_to :user
   
+  has_many :abuse_reports
+  
   has_attached_file :attachment,
   :styles => {
     :thumb => "64x64>",

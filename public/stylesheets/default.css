@@ -4,6 +4,9 @@ body {background:#000;}
 .msgcount {background:#333;padding:2px 4px;font-weight:bold;color:#fff;margin-right:5px;}
 .container ul {margin:0;}
 .container ul li {margin:0;}
+.status_yellow {background:#ffff33;padding:5px 4px;}
+.status_green {background:#9acb63;padding:5px 4px;}
+.status_red {background:#ff0000;padding:5px 4px;color:#fff;}
 #header {}
 #menu {margin-top:15px;}
 #header h1 {margin:0;}
@@ -19,7 +22,7 @@ body {background:#000;}
   margin-left:4px;
   padding:2px 4px;
 }
-#connection_stat {float:right;background:#fff;padding:2px 4px;margin-left:4px;}
+#connection_stat {float:right;margin-left:4px;padding-top:2px;}
 #main_content {background:#ccc;}
 #col1 {background:#fff;}
 #col2 {}

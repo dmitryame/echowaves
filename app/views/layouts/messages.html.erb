@@ -28,10 +28,10 @@
  		// set up stomp client.
  		stomp = new STOMPClient();
  		stomp.onopen = function() {
- 			output.update("Transport opened");
+ 			output.update('<span class="status_yellow">Transport opened</span>');
  		};
  		stomp.onclose = function(code) {
- 			output.update("Transport closed (code: " + code + ")");
+ 			output.update('<span class="status_red">Transport closed (code: ' + code + ')</span>');
  			//try to reconnect
  			// stomp.connect(document.domain, 61613, 'UNIQUE_ID_PER_CLIENT', '');			
 			stomp.connect('<%=STOMP_HOST%>', <%=STOMP_PORT%>, '<%=current_user.id%>', '');
@@ -54,11 +54,11 @@
  		};
  		stomp.onerror = function(error) {
  			alert("onerror: " + error);
- 			output.update("onerror: " + error);
+ 			output.update('<span class="status_red">onerror: ' + error + '</span>');
  		};
  		stomp.onerrorframe = function(frame) {
  			alert("onerrorframe: " + frame.body);
- 			output.update("onerrorframe: " + frame.body);
+ 			output.update('<span class="status_red">onerrorframe: ' + frame.body + '</span>');
  		};
  		stomp.onconnectedframe = function() {
 	 		// stomp.subscribecribe('CONVERSATION_CHANNEL_<%=@conversation_id%>', {exchange:''});	
@@ -68,7 +68,7 @@
 	 			setTimeout("stomp.subscribe('CONVERSATION_NOTIFY_CHANNEL_<%=conversation.id%>', {exchange:''});", i);
 				i += 100;
 			<%end%>
- 			output.update("Connected");
+ 			output.update('<span class="status_green">Connected</span>');
  		};
  		stomp.onmessageframe = function(frame) {
  			var message_output = $('messages');

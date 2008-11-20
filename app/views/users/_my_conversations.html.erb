@@ -1,4 +1,4 @@
-<div id="my_conversations" class="item">
+<div id="my_conversations" class="item2">
 	<% if logged_in? %>
 		<b>News:</b><br/>
 			<%= render :partial => 'users/subscription', :collection => current_user.subscriptions.slice(1..100) %><%#remove current conversation from updates list, but do not show more then 100 items, this is a bit iffy, will have to see%> 	

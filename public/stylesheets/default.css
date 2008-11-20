@@ -27,6 +27,7 @@ div.auto_complete ul strong.highlight {
 }
 .padding {padding:10px;}
 .item {padding:10px 20px;margin-bottom:10px;}
+.item2 {padding:10px 5px;margin-bottom:10px;}
 .msgcount {background:#333;padding:2px 4px;font-weight:bold;color:#fff;margin-right:5px;}
 .container ul {margin:0;}
 .container ul li {margin:0;}
@@ -36,6 +37,9 @@ div.auto_complete ul strong.highlight {
 .status_yellow {background:#ffff33;padding:5px 4px;}
 .status_green {background:#9acb63;padding:5px 4px;}
 .status_red {background:#ff0000;padding:5px 4px;color:#fff;}
+#flags {
+  text-align:right;
+}
 #header {}
 #menu {margin-top:15px;}
 #header h1 {margin:0;}

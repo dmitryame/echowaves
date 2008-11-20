@@ -35,7 +35,7 @@ body {background:#000;}
 textarea, input[type='text'], input[type='password'], select { border: 1px solid #333; background: #fff; }
 textarea:hover, input[type='text']:hover, input[type='password']:hover, select:hover { border-color: #333; }
 textarea:focus, input[type='text']:focus, input[type='password']:focus, select:focus { border-color: #333; outline: 2px solid #333; }
-.message {padding:10px 20px 0 20px;position:relative;border-bottom:1px dashed #ccc;}
+.message {padding:15px 20px 0 20px;position:relative;border-bottom:1px dashed #ccc;}
 .message .messagelinks {position:absolute;top:0;right:20px;}
 .message .avatar {float:left;}
 .messagetext {padding-left:60px;}

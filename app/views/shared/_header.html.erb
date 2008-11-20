@@ -5,7 +5,6 @@
   
   <div class="span-12 last">
     <div id="menu">
-      <div id="connection_stat"><div id="connection_stat_data"></div></div>
   		<ul>
   		  <% if logged_in? %>				
       		<li><%= link_to t("ui.logout"), logout_path %></li>
@@ -16,7 +15,10 @@
     		<li class="conversations"><%= link_to t('ui.conversations'), conversations_path %></li>
     		<li class="users"><%= link_to t('ui.users'), users_path %></li>
     		<li class="home"><%= link_to t('ui.home'), home_path %></li>
+        <li><%= link_to image_tag("/images/flags/es.gif"), "?locale=es-ES" %></li>
+        <li><%= link_to image_tag("/images/flags/us.gif"), "?locale=en-US" %></li>
     	</ul>
+    	<div id="connection_stat"><div id="connection_stat_data"></div></div>
     	<div class="clear"></div>
   	</div>
   </div>

@@ -1,16 +1,21 @@
-<div class="item">
-<h2>recently started conversations</h2>
-
-<div class="item">
-  <%= link_to 'Start New conversation', new_conversation_path %> |
-	look for conversations:
-	<%= text_field_with_auto_complete :conversation, :name, { :size => 35 }, :skip_style => true,
-	:after_update_element => 
-	"function(element,value) " +
-	  "{ window.location=('/complete_conversation_name?id='+element.value);}"
-	-%>
+<div class="ballon">
+  <h1>recently started conversations</h1>
+  <div>
+    <%= link_to 'Start New conversation', new_conversation_path %> |
+  	look for conversations:
+  	<%= text_field_with_auto_complete :conversation, :name, { :size => 35 }, :skip_style => true,
+  	:after_update_element => 
+  	"function(element,value) " +
+  	  "{ window.location=('/complete_conversation_name?id='+element.value);}"
+  	-%>
+  </div>
+  
 </div>
+<div class="arrow">&nbsp;</div>
 
+
+
+<div class="item">
 
 <%= will_paginate @conversations %>
 

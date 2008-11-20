@@ -2,7 +2,29 @@ body {background:#000;}
 .clear {clear:both;}
 #flash_messages .notice {background:#ffff33;padding:4px 10px;border:none;margin:0;color:#000;font-weight:strong;}
 #flash_messages .error {background:#cc3333;padding:4px 10px;border:none;margin:0;color:#fff;font-weight:strong;}
-
+div.auto_complete {
+  width: 340px;
+  background: #fff;
+}
+div.auto_complete ul {
+  border:1px solid #333;
+  margin:0;
+  padding:0;
+  width:100%;
+  list-style-type:none;
+}
+div.auto_complete ul li {
+  margin:0;
+  padding:3px;
+}
+div.auto_complete ul li.selected {
+  background-color: #ff3;
+}
+div.auto_complete ul strong.highlight {
+  color: #800; 
+  margin:0;
+  padding:0;
+}
 .padding {padding:10px;}
 .item {padding:10px 20px;margin-bottom:10px;}
 .msgcount {background:#333;padding:2px 4px;font-weight:bold;color:#fff;margin-right:5px;}

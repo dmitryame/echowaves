@@ -29,6 +29,7 @@ div.auto_complete ul strong.highlight {
 .item {padding:10px 20px;margin-bottom:10px;}
 .item2 {padding:10px 5px;margin-bottom:10px;}
 .msgcount {background:#333;padding:2px 4px;font-weight:bold;color:#fff;margin-right:5px;}
+.container .quiet {color:#bbb;}
 .container ul {margin:0;}
 .container ul li {margin:0;}
 .container a:visited {color:#3366cc;}

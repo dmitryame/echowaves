@@ -28,6 +28,10 @@ en-US:
     spawn: "spawn"
     this_is_the_newest_message: "This is the newest message"
     attach: "Attach"
+    attach_file: "attach file"
+    send: "send"
+    ctrl_enter: "(ctrl+Enter to submit message)"
+    my_conversations: "My conversations"
   footer:
     uptime_monitoring: "Website Uptime Monitoring By"
     report_problems_or_abuse: "Report problems or Abuse to"

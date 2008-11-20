@@ -1,5 +1,9 @@
-<h2>New conversation</h2>
+<div class="ballon">
+  <h1>New conversation</h1>
+</div>
+<div class="arrow">&nbsp;</div>
 
+<div class="item">
 <% form_for(@conversation) do |f| %>
   <%= f.error_messages %>
 
@@ -17,3 +21,4 @@
 <% end %>
 
 <%= link_to 'Back', conversations_path %>
+</div>

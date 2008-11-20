@@ -1,6 +1,21 @@
 require 'test_helper'
 
 class MessageTest < ActiveSupport::TestCase
+  context "Message" do
+    setup do
+      @message = Factory.create(:message)
+      @deactivated_message = Factory.create(:message, :deactivated_at => Time.now)
+    end
+    
+    should "return 2 users when find" do
+      assert_equal Message.find(:all).length, 2
+    end
+    
+    should "return only activated messages when find with published named_scope" do
+      assert_equal Message.published.length, 1
+    end
+  end
+  
   context "A Message instance" do    
     setup do
       @message = Factory(:message)

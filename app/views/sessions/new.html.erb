@@ -7,14 +7,14 @@
   
   <% form_tag session_path do -%>
   <p><%= label_tag t("ui.login") %><br />
-  <%= text_field_tag t("ui.login"), @login %></p>
+  <%= text_field_tag :login, @login %></p>
   
   <p><%= label_tag t('ui.password') %><br/>
-  <%= password_field_tag t('ui.password'), nil %></p>
+  <%= password_field_tag :password, nil %></p>
   
   <!-- Uncomment this if you want this functionality
   <p><%= label_tag 'remember_me', 'Remember me' %>
-  <%= check_box_tag 'remember_me', '1', @remember_me %></p>
+  <%= check_box_tag :remember_me, '1', @remember_me %></p>
   -->
   
   <p>

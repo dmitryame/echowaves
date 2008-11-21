@@ -1,6 +1,5 @@
 class ConversationsController < ApplicationController
-
-  before_filter :login_required
+  before_filter :login_required, :except => [:index, :show, :auto_complete_for_conversation_name, :complete_name ]
 
   auto_complete_for :conversation, :name
 

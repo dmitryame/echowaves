@@ -24,6 +24,7 @@
 	<%= stylesheet_link_tag 'unitip' %>
 	<%= javascript_include_tag 'unitip' %>
 	
+	<%if current_user%>
 	
  	<%= orbited_javascript %> 		
  	<script>
@@ -38,7 +39,7 @@
  		stomp.onclose = function(code) {
  			output.update('<span class="status_red">Transport closed (code: ' + code + ')</span>');
  			//try to reconnect
- 			// stomp.connect(document.domain, 61613, 'UNIQUE_ID_PER_CLIENT', '');			
+ 			// stomp.connect(document.domain, 61613, 'UNIQUE_ID_PER_CLIENT', '');
 			stomp.connect('<%=STOMP_HOST%>', <%=STOMP_PORT%>, '<%=current_user.id%>', '');
 			setTimeout("stomp.subscribe('CONVERSATION_CHANNEL_<%=@conversation_id%>', {exchange:''})",5000);
 	 		
@@ -105,7 +106,7 @@
  	};
 
   </script>
-  
+  <%end#if user is not logged in, no point in connecting to orbited%>
 </head>
 
 <body id="messages_layout" onLoad="MessageManipulation.handle_old_messages();MessageManipulation.handle_new_messages();Misc.focusInput('message_message');stomp_function();">
@@ -123,6 +124,8 @@
 			</span>
 			  <%= render :partial => 'conversations/follow' %>
 			  <div id="messageinputdiv">
+		
+		<%if current_user%>		
           <% remote_form_for(:message,
           	:update => 'messages', :position => 'top',
             :url => conversation_messages_path(@conversation),
@@ -145,6 +148,7 @@
             end %>
             </p>
           <% end %>
+		<%end#if current_user%>
         </div>
         
         <div id="attachment_form" style="display:none">

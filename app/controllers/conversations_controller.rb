@@ -79,6 +79,17 @@ class ConversationsController < ApplicationController
     subscription.destroy
   end
 
+  def makereadonly
+    @conversation = Conversation.find(params[:id])
+    @conversation.update_attributes(:read_only => true) if @conversation.owner == current_user
+    redirect_to conversation_messages_path(@conversation)
+  end
+  
+  def makewriteable
+    @conversation = Conversation.find(params[:id])
+    @conversation.update_attributes(:read_only => false) if @conversation.owner == current_user
+    redirect_to conversation_messages_path(@conversation)
+  end
 
   # PUT /conversations/1
   # PUT /conversations/1.xml

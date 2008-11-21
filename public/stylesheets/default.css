@@ -67,7 +67,7 @@ div.auto_complete ul strong.highlight {
   padding-bottom:10px;background:#9acb63;
 }
 #messageinputdiv {
-  
+  margin-bottom:20px;
 }
 #attachment_form {background:#7aab43;padding:10px;}
 #attachment_form input{margin:0;padding:0;}

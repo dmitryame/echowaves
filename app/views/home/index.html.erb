@@ -18,5 +18,11 @@
   <%= link_to t("ui.signup"), new_user_path, :class => "button" -%> <%= t("home.index.p2") %>
 </p>
 
+
+<div id='messages'>
+  <%= render :partial => 'messages/message', :collection => @messages %>
+</div>
+
+
 <p class="item"><span class="highlight"><%= t("home.index.feedback_advice") %></span></p>
 

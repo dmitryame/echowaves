@@ -1,9 +1,10 @@
 <div class="message" id="<%=dom_id(message)%>">
   	<div class="messagelinks quiet small">
-		<%= link_to_remote t("ui.report"), 
-		:url => {:controller => 'messages', :action => 'report', :id => message.id, :conversation_id => @conversation_id}, 
-		:confirm => t("ui.reportconfirm") %>
-		reply
+		<%if current_user%>
+			<%= link_to_remote t("ui.report"), 
+			:url => {:controller => 'messages', :action => 'report', :id => message.id, :conversation_id => @conversation_id}, 
+			:confirm => t("ui.reportconfirm") %>
+		<%end%>
 	</div>
 	<div class="avatar"><%= link_to image_tag(message.user.gravatar_url, :border => 0, :wigth => 40, :height => 40, :class => "avatar"), user_path(message.user)   %></div>
 	<div class="messagetext">

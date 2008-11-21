@@ -99,5 +99,7 @@ ORBITED_DOMAIN = 'localhost'
 STOMP_HOST = 'localhost'
 STOMP_PORT = '61613'
 
+HOME_CONVERSATION = 1
+
 #override to false in production
 SHOW_ACTIVATION_LINK=true

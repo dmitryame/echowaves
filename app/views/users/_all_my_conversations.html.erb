@@ -1,9 +1,0 @@
-<% if logged_in? %>
-  <div id="all_my_conversations" class="item2">
-  	<strong><%= t("ui.my_conversations") %>:</strong><br/>
-  	<ul>
-  		<%= render :partial => 'users/conversation', :collection => current_user.conversations %> 				 
-  	</ul>
-  </div>
-<% end %>
-

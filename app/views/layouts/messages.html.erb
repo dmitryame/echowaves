@@ -123,9 +123,9 @@
 				  <%= link_to h(@conversation.name), conversation_messages_path(@conversation), :class => 'tip', :title => @conversation.escaped_description %>
 			  </span>
 			  <%= render :partial => 'conversations/follow' %>
-			  
+			  <% if @conversation.read_only %>&#187; <span class="highlight">this is a readonly conversation</span><% end %>
 			  <% if current_user == @conversation.owner %>
-		      -->
+		      &#187;
 			    <% if @conversation.read_only %>
 			      <%= link_to "make writable", makewriteable_conversation_path(@conversation), :method => 'put' %>
 			    <% else %>

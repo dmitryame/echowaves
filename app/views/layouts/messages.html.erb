@@ -168,7 +168,7 @@
 		
 		<div id="col2" class="span-6">
 		  <%= render :partial => 'users/recently_visited' %>
-		  <%= render :partial => 'users/my_conversations' %>
+		  <%= render :partial => 'users/news' %>
 		  <%= render :partial => 'users/followed_conversations' %>
 		</div>
 		
@@ -182,7 +182,7 @@
 	<%= render(:partial => "shared/footer") %>
 
 <%#for now lets poll for new messages in conversations that are off the screen%>  
-<%= periodically_call_remote :url => {:controller => 'users', :action => 'update_my_conversations'}, 
+<%= periodically_call_remote :url => {:controller => 'users', :action => 'update_news'}, 
 	:frequency => 60 %> 
 
 </body>

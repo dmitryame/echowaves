@@ -32,7 +32,6 @@ es-ES:
     send: "enviar"
     ctrl_enter: "(ctrl+Enter para enviar el mensaje)"
     my_conversations: "Mis conversaciones"
-    conversations_you_follow: "Conversaciones que sigues"
     news: "Nuevos mensajes"
     recently_visited: "Visitado recientemente"
   footer:

@@ -161,7 +161,7 @@ class UsersController < ApplicationController
      redirect_back_or_default('/')
    end
 
-   def update_my_conversations
+   def update_news
    end
 
    #

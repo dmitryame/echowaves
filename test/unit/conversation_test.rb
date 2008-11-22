@@ -40,4 +40,40 @@ class ConversationTest < ActiveSupport::TestCase
     should_have_many :recent_followers, :through => :subscriptions          
   end
   
+  context "A read only conversation" do  
+    setup do
+      @conversation = Factory.create(:conversation)
+      @owner = Factory.create(:user, :login => "user1")
+      @user2 = Factory.create(:user, :login => "user2")
+      @message1 = Factory.create(:message, :conversation => @conversation, :user => @owner)
+      @conversation.update_attributes(:read_only => true)
+    end
+    
+    should "be writable by the owner" do
+      assert @conversation.writable_by?(@owner)
+    end
+    
+    should "not be writable by the users" do
+      assert !@conversation.writable_by?(@user2)
+    end
+  end
+  
+  context "A writable conversation" do
+    setup do
+      @conversation = Factory.create(:conversation)
+      @owner = Factory.create(:user, :login => "user1")
+      @user2 = Factory.create(:user, :login => "user2")
+      @message1 = Factory.create(:message, :conversation => @conversation, :user => @owner)
+      @conversation.update_attributes(:read_only => false)
+    end
+    
+    should "be writable by the owner" do
+      assert @conversation.writable_by?(@owner)
+    end
+    
+    should "be writable by the users" do
+      assert @conversation.writable_by?(@user2)
+    end
+  end
+  
 end

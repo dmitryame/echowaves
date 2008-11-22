@@ -83,31 +83,32 @@ class MessagesController < ApplicationController
   # POST /messages
   # POST /messages.xml
   def create
-     @message = Message.new(params[:message])
-     @message.user = current_user
-     @message.conversation = @conversation
-
-     respond_to do |format|
-       if @message.save
-         # flash[:notice] = 'Message was successfully created.'
-
-         format.html {
-           if request.xhr?
-             # send a stomp message for everyone else to pick it up
-             send_stomp_message @message
-             send_stomp_notifications 
-             
-             render :nothing => true
-           else
-             redirect_to(conversation_messages_path(@conversation))
-           end
-         }
-         format.xml { render :xml => @message, :status => :created, :location => @message }
-       else
-         format.html { render :action => "new" }
-         format.xml { render :xml => @message.errors, :status => :unprocessable_entity }
-       end
-     end
+    raise "error" unless @conversation.writable_by?(current_user)
+    @message = Message.new(params[:message])
+    @message.user = current_user
+    @message.conversation = @conversation
+    
+    respond_to do |format|
+      if @message.save
+        # flash[:notice] = 'Message was successfully created.'
+    
+        format.html {
+          if request.xhr?
+            # send a stomp message for everyone else to pick it up
+            send_stomp_message @message
+            send_stomp_notifications 
+            
+            render :nothing => true
+          else
+            redirect_to(conversation_messages_path(@conversation))
+          end
+        }
+        format.xml { render :xml => @message, :status => :created, :location => @message }
+      else
+        format.html { render :action => "new" }
+        format.xml { render :xml => @message.errors, :status => :unprocessable_entity }
+      end
+    end
    end
 
 

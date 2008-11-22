@@ -119,36 +119,39 @@
 		<div id="col1" class="span-14">
 		  <%= flash_messages %>
 		  <div class="item" id="messagesform" >
- 		    <span class="strong">
-				<%= link_to h(@conversation.name), conversation_messages_path(@conversation), :class => 'tip', :title => @conversation.escaped_description %>
-			</span>
-			  <%= render :partial => 'conversations/follow' %>
+		      
+        <%= render :partial => 'conversations/controls' %>
+			  
 			  <div id="messageinputdiv">
-		
-		<%if current_user%>		
-          <% remote_form_for(:message,
-          	:update => 'messages', :position => 'top',
-            :url => conversation_messages_path(@conversation),
-            :complete => "$('message_message').value = '';$('message_attachment').value = '';$('message_message').style.height = '5em';$('message_message').focus();MessageManipulation.handle_new_messages();",
-            # don't poll right now, and set the "after" value
-            :before => 'MessageManipulation.working_begin();',
-            :condition => "$('message_message').value.strip().length > 0") do |f| %>
-        
-            <p id="msgtextarea">        
-            <%= f.text_area :message, :onkeyup => "if (this.scrollHeight > this.clientHeight &amp; !window.opera) this.style.height = (this.scrollHeight + 20) + 'px';", :class => 'messageinput' %>  
-            </p>
-        
-            <p id="msgcontrols">
-            <%= submit_tag t("ui.send") %> <span class="mute"><%= t("ui.ctrl_enter") %></span>
-        
+		      <% if current_user && @conversation.writable_by?(current_user) %>		
+            <% remote_form_for(:message,
+            	:update => 'messages', :position => 'top',
+              :url => conversation_messages_path(@conversation),
+              :complete => "$('message_message').value = '';$('message_attachment').value = '';$('message_message').style.height = '5em';$('message_message').focus();MessageManipulation.handle_new_messages();",
+              # don't poll right now, and set the "after" value
+              :before => 'MessageManipulation.working_begin();',
+              :condition => "$('message_message').value.strip().length > 0") do |f| %>
+               
+
+              <p id="msgtextarea">        
+                <%= f.text_area :message, :onkeyup => "if (this.scrollHeight > this.clientHeight &amp; !window.opera) this.style.height = (this.scrollHeight + 20) + 'px';", :class => 'messageinput' %>  
+              </p>
+                
+              <p id="msgcontrols">
+                <%= submit_tag t("ui.send") %> <span class="mute"><%= t("ui.ctrl_enter") %></span>
+                  
+                <span id="working" style="display:none">Working...</span>
+                <%= link_to_function t("ui.attach_file"), :id => 'attachment_link' do |page|
+                  page[:attachment_form].show
+                  page[:attachment_link].hide
+                end %>
+              </p>
+            <% end %>
+          <% else %>
             <span id="working" style="display:none">Working...</span>
-            <%= link_to_function t("ui.attach_file"), :id => 'attachment_link' do |page|
-              page[:attachment_form].show
-              page[:attachment_link].hide
-            end %>
-            </p>
-          <% end %>
-		<%end#if current_user%>
+            <h2 class="center"><%= h(@conversation.name) %></h2>
+            <h4 class="center"><%= @conversation.escaped_description %></h4>
+		      <% end#if current_user%>
         </div>
         
         <div id="attachment_form" style="display:none">

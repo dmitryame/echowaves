@@ -29,6 +29,7 @@ CREATE TABLE `conversations` (
   `updated_at` datetime default NULL,
   `description` text,
   `personal_conversation` tinyint(1) default '0',
+  `read_only` tinyint(1) default '0',
   PRIMARY KEY  (`id`),
   KEY `index_conversations_on_name` (`name`),
   KEY `index_conversations_on_created_at` (`created_at`)
@@ -144,3 +145,5 @@ INSERT INTO schema_migrations (version) VALUES ('20081110000150');
 INSERT INTO schema_migrations (version) VALUES ('20081115054932');
 
 INSERT INTO schema_migrations (version) VALUES ('20081117020514');
+
+INSERT INTO schema_migrations (version) VALUES ('20081121081321');

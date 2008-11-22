@@ -23,6 +23,12 @@ class MessagesController < ApplicationController
   def index
     @messages = @conversation.messages.published.find(:all, :include => [:user], :limit => 100, :order => 'id DESC')
 
+    # add a new conversation_visit to the history
+    conversation_visit = ConversationVisit.new
+    conversation_visit.user = current_user if current_user
+    conversation_visit.conversation = @conversation
+    conversation_visit.save
+
     if current_user
       # make sure the conversation we were last viwing does not have updates
       last_viewed_subscription = Subscription.find(:first, :conditions => ["user_id = ? ", current_user.id], :order => 'activated_at DESC')
@@ -40,11 +46,6 @@ class MessagesController < ApplicationController
       end  
     end#if current_user
 
-    # add a new conversation_visit to the history
-    conversation_visit = ConversationVisit.new
-    conversation_visit.user = current_user
-    conversation_visit.conversation = @conversation
-    conversation_visit.save
     
     respond_to do |format|
       format.html # index.html.erb

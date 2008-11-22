@@ -38,13 +38,13 @@ class MessagesController < ApplicationController
         current_subscription.activated_at = Time.now
         current_subscription.save
       end  
-
-      # add a new conversation_visit to the history
-      conversation_visit = ConversationVisit.new
-      conversation_visit.user = current_user
-      conversation_visit.conversation = @conversation
-      conversation_visit.save
     end#if current_user
+
+    # add a new conversation_visit to the history
+    conversation_visit = ConversationVisit.new
+    conversation_visit.user = current_user
+    conversation_visit.conversation = @conversation
+    conversation_visit.save
     
     respond_to do |format|
       format.html # index.html.erb

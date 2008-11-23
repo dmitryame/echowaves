@@ -46,7 +46,7 @@ class UsersController < ApplicationController
     success = @user && @user.save
     if success && @user.errors.empty?
       if(SHOW_ACTIVATION_LINK)
-        flash[:notice] = "<a href='#{HOST}/activate/#{@user.activation_code}'>Click here to activate</a>" 
+        flash[:notice] = "<a href='/activate/#{@user.activation_code}'>Click here to activate</a>" 
       else
         flash[:notice] = "Thanks for signing up!  We're sending you an email with your activation code."
       end

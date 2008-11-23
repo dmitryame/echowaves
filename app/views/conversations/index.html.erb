@@ -1,7 +1,6 @@
 <div class="balloon">
   <h1><%= t("conversations.recently_started_conversations") %></h1>
   <div>
-    <%= link_to t('conversations.start_new_conversation'), new_conversation_path %><br/>
   	<%= t("conversations.look_for_conversations") %>:
   	<%= text_field_with_auto_complete :conversation, :name, { :size => 35 }, :skip_style => true,
   	:after_update_element => 
@@ -16,6 +15,10 @@
 
 
 <div class="item">
+  <div>
+    <%= link_to t('conversations.start_new_conversation'), new_conversation_path, :class => 'button' %>
+    <div class="clear"></div>
+  </div>
 
 <%= will_paginate @conversations %>
 
@@ -33,6 +36,4 @@
 
 <%= will_paginate @conversations %>
 
-<br/>
-<%= link_to 'Start New conversation', new_conversation_path, :class => 'button' %>
 </div>

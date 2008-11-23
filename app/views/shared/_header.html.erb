@@ -12,6 +12,7 @@
       		<li><%= link_to t("ui.edit_profile"), edit_user_path(current_user)  %></li>
       	<%else%>			
       		<li><%= link_to t("ui.login"), new_session_path %></li>
+      		<li><%= link_to t("ui.signup"), new_user_path %></li>
       	<%end%>
     		<li class="conversations"><%= link_to t('ui.conversations'), conversations_path %></li>
     		<li class="users"><%= link_to t('ui.users'), users_path %></li>

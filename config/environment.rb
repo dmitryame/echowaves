@@ -76,8 +76,6 @@ Rails::Initializer.run do |config|
   # config.active_record.observers = :user_observer
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
-  
-  config.i18n.default_locale = 'en-US'
 end
 
 

@@ -96,3 +96,8 @@ textarea:focus, input[type='text']:focus, input[type='password']:focus, select:f
   background:url(/images/downarrow.png) top center no-repeat;
   margin-bottom:10px;
 }
+.list {list-style: none;}
+.list li {
+  border-bottom:1px dashed #ccc;
+  padding:10px 0;
+}

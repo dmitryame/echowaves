@@ -19,14 +19,20 @@
 
 <%= will_paginate @conversations %>
 
-<ul>
+<ul class="list">
 <% for conversation in @conversations %>
-    <li><%= link_to h(conversation.name), conversation_messages_path(conversation), :class => 'tip', :title => conversation.escaped_description %> (<%= conversation.created_at.to_s(:date_time12) %>)</li>
+    <li>
+      <%= link_to h(conversation.name), conversation_messages_path(conversation) %>
+      <br/>
+      <%= conversation.escaped_description %>
+      <br/>
+      <span class="quiet small"><%= conversation.created_at.to_s(:date_time12) %></span>
+    </li>
 <% end %>
 </ul>
 
 <%= will_paginate @conversations %>
 
-
-<%= link_to 'Start New conversation', new_conversation_path %>
+<br/>
+<%= link_to 'Start New conversation', new_conversation_path, :class => 'button' %>
 </div>

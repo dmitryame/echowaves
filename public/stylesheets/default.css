@@ -86,7 +86,7 @@ textarea:focus, input[type='text']:focus, input[type='password']:focus, select:f
 .message .date a:link, .message .date a:visited {color:#bbb;}
 #footer {background:#fff;margin-top:10px;}
 #footer span {padding:2px 10px;display:block;}
-.ballon {
+.balloon {
   padding:10px 20px 20px 20px;
   margin-bottom:0px;
   background:#9acb63;

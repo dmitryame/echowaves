@@ -1,7 +1,7 @@
 require 'stomp'
 
 class MessagesController < ApplicationController
-  before_filter :login_required, :except => [:index, :get_more_messages ]
+  before_filter :login_required, :except => [:index, :show, :get_more_messages ]
   before_filter :find_conversation, :except => :send_data
     
   def get_more_messages
@@ -54,16 +54,16 @@ class MessagesController < ApplicationController
   end
 
   
-  # # GET /messages/1
-  # # GET /messages/1.xml
-  # def show
-  #   @message = Message.find(params[:id])
-  # 
-  #   respond_to do |format|
-  #     format.html # show.html.erb
-  #     format.xml  { render :xml => @message }
-  #   end
-  # end
+  # GET /messages/1
+  # GET /messages/1.xml
+  def show
+    @message = Message.find(params[:id])
+    
+    respond_to do |format|
+      format.html { render :layout => false }
+      format.xml  { render :xml => @message }
+    end
+  end
 
   # GET /messages/new
   # GET /messages/new.xml

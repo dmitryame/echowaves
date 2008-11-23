@@ -1,7 +1,7 @@
 <div class="ballon">
-  <h1>recently joined users</h1>
+  <h1><%= t("users.recently_joined_users") %></h1>
   <div>
-  	look for users:
+  	<%= t("users.look_for_users") %>:
   	<%= text_field_with_auto_complete :user, :name, { :size => 45 }, :skip_style => true,
   	:after_update_element => 
   	"function(element,value) " +

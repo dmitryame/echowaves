@@ -7,17 +7,25 @@ en:
       p2: "-- it's free and anyone can join. On this site you will be able to start your own conversations, where everyone will be able to talk to you and to each other. You also will be able to see what other people are chatting about and participate in their conversations. Have fun!"
       feedback_advice: 'If you find an issue or would like to make a suggestion on what functionality you would like to see in echowaves, you can do it at <a href="http://code.google.com/p/echowaves/issues/list" class="highlight">http://echowaves.googlecode.com/</a>'
   ui:
+    name: "name"
+    description: "description"
+    create: "create"
     signup: "SignUp"
     login: "login"
+    login_name: "login name"
+    email: "email"
     logout: "logout"
     echowaves_conversation: "EcHoWaVeS.CoM conversation"
     home: "home"
     users: "users"
     edit_profile: "edit profile"
+    update_your_profile: "Update your profile"
+    get_an_gravatar_here: "get an gravatar here"
     conversations: "conversations"
     back: "back"
     more_messages: "more messages"
     password: "password"
+    password_confirmation: "confirm password"
     forgot_password: "forgot password?"
     its_free: "it's free and anyone can join"
     users_conversations: "Users conversations"
@@ -34,12 +42,22 @@ en:
     my_conversations: "My conversations"
     news: "News"
     recently_visited: "Recently visited"
+    time_zone: "time zone"
+    update: "update"
+  users:
+    recently_joined_users: "recently joined users"
+    sign_up_as_new_user: "sign up as new user"
+    look_for_users: "look for users"
+  conversations:
+    recently_started_conversations: "recently started conversations"
+    start_new_conversation: "start new conversation"
+    look_for_conversations: "look for conversations"
+    new_conversation: "new conversation"
   footer:
     uptime_monitoring: "Website Uptime Monitoring By"
     report_problems_or_abuse: "Report problems or Abuse to"
     terms_and_conditions: "Terms&Conditions"    
     conversations: "conversations"
-    
     
   datetime:
     distance_in_words:

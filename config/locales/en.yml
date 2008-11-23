@@ -25,7 +25,7 @@ en:
     back: "back"
     more_messages: "more messages"
     password: "password"
-    confirm_password: "confirm password"
+    password_confirmation: "confirm password"
     forgot_password: "forgot password?"
     its_free: "it's free and anyone can join"
     users_conversations: "Users conversations"
@@ -46,6 +46,7 @@ en:
     update: "update"
   users:
     recently_joined_users: "recently joined users"
+    sign_up_as_new_user: "sign up as new user"
     look_for_users: "look for users"
   conversations:
     recently_started_conversations: "recently started conversations"

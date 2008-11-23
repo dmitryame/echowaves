@@ -25,7 +25,7 @@ es-ES:
     back: "atras"
     more_messages: "mas mensajes"
     password: "contraseña"
-    confirm_password: "confirmar contraseña"
+    password_confirmation: "confirmar contraseña"
     forgot_password: "¿Has olvidado la contraseña?"
     its_free: "es gratis y todo el mundo puede unirse"
     users_conversations: "Conversaciones de los usuarios"
@@ -46,6 +46,7 @@ es-ES:
     update: "actualizar"
   users:
     recently_joined_users: "usuarios registrados recientemente"
+    sign_up_as_new_user: "registrate como usuario"
     look_for_users: "buscar usuarios"
   conversations:
     recently_started_conversations: "conversaciones iniciadas recientemente"

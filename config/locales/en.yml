@@ -7,6 +7,9 @@ en:
       p2: "-- it's free and anyone can join. On this site you will be able to start your own conversations, where everyone will be able to talk to you and to each other. You also will be able to see what other people are chatting about and participate in their conversations. Have fun!"
       feedback_advice: 'If you find an issue or would like to make a suggestion on what functionality you would like to see in echowaves, you can do it at <a href="http://code.google.com/p/echowaves/issues/list" class="highlight">http://echowaves.googlecode.com/</a>'
   ui:
+    name: "name"
+    description: "description"
+    create: "create"
     signup: "SignUp"
     login: "login"
     login_name: "login name"
@@ -44,6 +47,11 @@ en:
   users:
     recently_joined_users: "recently joined users"
     look_for_users: "look for users"
+  conversations:
+    recently_started_conversations: "recently started conversations"
+    start_new_conversation: "start new conversation"
+    look_for_conversations: "look for conversations"
+    new_conversation: "new conversation"
   footer:
     uptime_monitoring: "Website Uptime Monitoring By"
     report_problems_or_abuse: "Report problems or Abuse to"

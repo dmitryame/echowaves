@@ -7,6 +7,9 @@ es-ES:
       p2: "-- es gratis y cualquiera puede participar. En este sitio usted podrá iniciar sus propias conversaciones, donde todo el mundo será capaz de hablar con usted y con los demas. Usted también será capaz de ver lo que otras personas estan conversando y participar en sus conversaciones. ¡Diviértete!"
       feedback_advice: 'Si encuentras algun problema o quieres hacer alguna sugerencia sobre alguna funcionalidad que te gustaria ver en echowaves, puedes hacerlo en <a href="http://code.google.com/p/echowaves/issues/list" class="highlight">http://echowaves.googlecode.com/</a>'
   ui:
+    name: "nombre"
+    description: "descripcion"
+    create: "crear"
     signup: "Registrate"
     login: "entrar"
     login_name: "nombre de usuario"
@@ -44,6 +47,11 @@ es-ES:
   users:
     recently_joined_users: "usuarios registrados recientemente"
     look_for_users: "buscar usuarios"
+  conversations:
+    recently_started_conversations: "conversaciones iniciadas recientemente"
+    start_new_conversation: "iniciar una nueva conversacion"
+    look_for_conversations: "buscar conversaciones"
+    new_conversation: "nueva conversacion"
   footer:
     uptime_monitoring: "Website Uptime Monitoring By"
     report_problems_or_abuse: "Informa de problemas o abusos a"

@@ -240,6 +240,11 @@ module ActionView #:nodoc:
       local_assigns ||= {}
 
       if options.is_a?(String)
+        ActiveSupport::Deprecation.warn(
+          "Calling render with a string will render a partial from Rails 2.3. " +
+          "Change this call to render(:file => '#{options}', :locals => locals_hash)."
+        )
+
         render(:file => options, :locals => local_assigns)
       elsif options == :update
         update_page(&block)
@@ -317,7 +322,8 @@ module ActionView #:nodoc:
           template
         elsif template = self.view_paths[template_file_name]
           template
-        elsif @_render_stack.first && template = self.view_paths["#{template_file_name}.#{@_render_stack.first.format_and_extension}"]
+        elsif (first_render = @_render_stack.first) && first_render.respond_to?(:format_and_extension) &&
+            (template = self.view_paths["#{template_file_name}.#{first_render.format_and_extension}"])
           template
         elsif template_format == :js && template = self.view_paths["#{template_file_name}.html"]
           @template_format = :html

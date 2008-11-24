@@ -33,8 +33,10 @@
  		<%= yield  %>
 		</div>
 		
-    	<div id="col2" class="span-6">
-			<%= render :partial => 'users/my_conversations' %>
+		<div id="col2" class="span-6">
+		  <%= render :partial => 'users/recently_visited' %>
+		  <%= render :partial => 'users/news' %>
+		  <%= render :partial => 'users/my_conversations' %>
 		</div>
 		
 		<div id="col3" class="span-4 last">
@@ -45,6 +47,5 @@
 
 	<%= render(:partial => "shared/footer") %>
   
-
 </body>
 </html>

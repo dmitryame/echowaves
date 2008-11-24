@@ -38,7 +38,7 @@ class MessagesController < ApplicationController
       end
 
       # adjust current conversation last message
-      current_subscription = Subscription.find(:first, :conditions => ["user_id = ? and conversation_id = ?", current_user.id, @conversation.id])
+      current_subscription = Subscription.find_by_user_id_and_conversation_id(current_user.id, @conversation.id)
       if(current_subscription != nil)
         current_subscription.last_message_id = @messages.last.id if @messages.size > 0
         current_subscription.activated_at = Time.now

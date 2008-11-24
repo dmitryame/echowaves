@@ -31,7 +31,7 @@ class MessagesController < ApplicationController
 
     if current_user
       # make sure the conversation we were last viwing does not have updates
-      last_viewed_subscription = Subscription.find(:first, :conditions => ["user_id = ? ", current_user.id], :order => 'activated_at DESC')
+      last_viewed_subscription = Subscription.find_by_user_id(current_user.id, :order => 'activated_at DESC')
       if(last_viewed_subscription)
         last_viewed_subscription.last_message_id = last_viewed_subscription.conversation.messages.last.id
         last_viewed_subscription.save

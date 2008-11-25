@@ -41,9 +41,9 @@
  			//try to reconnect
  			// stomp.connect(document.domain, 61613, 'UNIQUE_ID_PER_CLIENT', '');
 			stomp.connect('<%=STOMP_HOST%>', <%=STOMP_PORT%>, '<%=current_user.id%>', '');
-			// setTimeout("stomp.subscribe('CONVERSATION_CHANNEL_<%=@conversation_id%>', {exchange:''})",5000);
+			// stomp.subscribe('CONVERSATION_CHANNEL_<%=@conversation_id%>', {exchange:''});
 	 		
-	 		// setTimeout("stomp.subscribe('CONVERSATION_CHANNEL_<%=@conversation_id%>', {exchange:''})",5000);
+	 		setTimeout("stomp.subscribe('CONVERSATION_CHANNEL_<%=@conversation_id%>', {exchange:''})",1000);
  			// output.update(":polling messages");
  			// //lets poll for new messages in case there are some while we were disconnected
  			// new Ajax.Updater('messages', '/messages/message_poll?conversation_id=#{@conversation_id}', 
@@ -68,7 +68,7 @@
  		};
  		stomp.onconnectedframe = function() {
 	 		// stomp.subscribecribe('CONVERSATION_CHANNEL_<%=@conversation_id%>', {exchange:''});	
-	 		stomp.subscribe('CONVERSATION_CHANNEL_<%=@conversation_id%>', {exchange:''});
+	 		// stomp.subscribe('CONVERSATION_CHANNEL_<%=@conversation_id%>', {exchange:''});
 			// var i = 100;
 			// <%current_user.conversations.each do |conversation|%>
 			// 	 			setTimeout("stomp.subscribe('CONVERSATION_NOTIFY_CHANNEL_<%=conversation.id%>', {exchange:''});", i);
@@ -98,7 +98,8 @@
 
  		};
 		stomp.connect('<%=STOMP_HOST%>', <%=STOMP_PORT%>, 'user_<%=current_user.id%>', '');
-		//  		setTimeout("stomp.subscribe('CONVERSATION_CHANNEL_<%=@conversation_id%>', {exchange:''})",5000);
+		// stomp.subscribe('CONVERSATION_CHANNEL_<%=@conversation_id%>', {exchange:''});
+ 		setTimeout("stomp.subscribe('CONVERSATION_CHANNEL_<%=@conversation_id%>', {exchange:''})", 1000);
 		// <%current_user.subscriptions.each do |subscription|%>
 		//  			setTimeout("stomp.subscribe('CONVERSATION_NOTIFY_CHANNEL_<%=subscription.conversation_id%>', {exchange:''})",6000);		
 		// <%end%>

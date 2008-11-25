@@ -37,6 +37,7 @@ class Message < ActiveRecord::Base
       subscription.conversation_id = conversation.id
       subscription.save      
     end
+    subscription.mark_read
     # puts "new subscription: user:" + user.id.to_s + " conversation:" + conversation.id.to_s
   end
 

@@ -71,6 +71,7 @@ class ConversationsController < ApplicationController
     subscription.conversation = @conversation
     subscription.user = current_user
     subscription.save
+    subscription.mark_read
   end
 
   def unfollow

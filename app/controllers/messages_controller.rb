@@ -32,18 +32,12 @@ class MessagesController < ApplicationController
     if current_user
       # make sure the conversation we were last viwing does not have updates
       last_viewed_subscription = Subscription.find_by_user_id(current_user.id, :order => 'activated_at DESC')
-      if(last_viewed_subscription)
-        last_viewed_subscription.last_message_id = last_viewed_subscription.conversation.messages.last.id
-        last_viewed_subscription.save
-      end
+      last_viewed_subscription.mark_read if(last_viewed_subscription)
 
       # adjust current conversation last message
       current_subscription = Subscription.find_by_user_id_and_conversation_id(current_user.id, @conversation.id)
-      if(current_subscription != nil)
-        current_subscription.last_message_id = @messages.last.id if @messages.size > 0
-        current_subscription.activated_at = Time.now
-        current_subscription.save
-      end  
+      current_subscription.activate if(current_subscription != nil)
+
     end#if current_user
 
     

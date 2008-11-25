@@ -56,7 +56,6 @@ class User < ActiveRecord::Base
 
   is_gravtastic :size => 40, :default => "identicon" # "monsterid" or "identicon", or "wavatar"
 
-
   # Activates the user in the database.
   def activate!
     @activated = true

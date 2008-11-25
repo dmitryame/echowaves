@@ -12,5 +12,16 @@ class Subscription < ActiveRecord::Base
     self.last_message_id = 0
   end
   
+  def mark_read
+    self.last_message_id = self.conversation.messages.last.id
+    self.save
+  end
+  
+  
+  def activate
+    self.mark_read
+    self.activated_at = Time.now
+    self.save
+  end
       
 end

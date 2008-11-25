@@ -1,3 +1,7 @@
-<li class="conversation_for_user" id="<%= dom_id conversation%>">	
-	<%= link_to h(conversation.name), conversation_messages_path(conversation), :class => 'tip', :title => conversation.escaped_description %>
+<li>
+  <%= link_to h(conversation.name), conversation_messages_path(conversation) %>
+  <br/>
+  <%= conversation.escaped_description %>
+  <br/>
+  <span class="quiet small"><%= conversation.created_at.to_s(:date_time12) %></span>
 </li>

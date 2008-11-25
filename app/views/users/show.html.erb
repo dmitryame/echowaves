@@ -10,8 +10,8 @@
 
 <div class="item">
   <div id="subscriptions_for_user">
-  	<b><%= t("ui.users_conversations") %>:</b>
-  	<ul>
+  	<b><%= t("users.conversing_in") %>:</b>
+  	<ul class="list">
   		<%= render :partial => 'users/conversation', :collection =>  @user.conversations %> 		
   	</ul>
   </div>

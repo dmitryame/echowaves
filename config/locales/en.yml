@@ -48,6 +48,7 @@ en:
     recently_joined_users: "recently joined users"
     sign_up_as_new_user: "sign up as new user"
     look_for_users: "look for users"
+    conversing_in: "conversing in"
   conversations:
     recently_started_conversations: "recently started conversations"
     start_new_conversation: "start new conversation"

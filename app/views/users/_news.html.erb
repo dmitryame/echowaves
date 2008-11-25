@@ -1,12 +1,7 @@
 <div id="news" class="item2">
 	<% if logged_in? %>
 		<b><%= t("ui.news") %>:</b><br/>
-			<%= render :partial => 'users/subscription', :collection => current_user.subscriptions %><%#.slice(0..100) remove current conversation from updates list, but do not show more then 100 items, this is a bit iffy, will have to see%> 	
-			
-			<%#for now lets poll for new messages in conversations that are off the screen%>  
-			<%= periodically_call_remote :url => {:controller => 'users', :action => 'update_news'}, 
-				:frequency => 60*5 %> 
-			
+			<%= render :partial => 'users/subscription', :collection => current_user.subscriptions %><%#.slice(0..100) remove current conversation from updates list, but do not show more then 100 items, this is a bit iffy, will have to see%> 				
 	<% end %>
 	
 </div>

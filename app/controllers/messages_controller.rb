@@ -3,7 +3,8 @@ require 'stomp'
 class MessagesController < ApplicationController
   before_filter :login_required, :except => [:index, :show, :get_more_messages ]
   before_filter :find_conversation, :except => :send_data
-    
+  after_filter :store_location, :only => [:index]  
+  
   def get_more_messages
     @messages = get_messages_before params[:before]  
     render :partial => 'message', :collection => @messages

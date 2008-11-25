@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_filter :login_required, :except => [:index, :show, :auto_complete_for_user_name, :complete_name, :signup, :new, :create, :activate, :forgot_password, :reset_password]
-
+  after_filter :store_location, :only => [:index, :show]  
+  
   # Be sure to include AuthenticationSystem in Application Controller instead
   include AuthenticatedSystem
   

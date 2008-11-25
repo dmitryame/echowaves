@@ -12,8 +12,16 @@
   <div id="subscriptions_for_user">
   	<b><%= t("users.conversing_in") %>:</b>
   	<ul class="list">
-  		<%= render :partial => 'users/conversation', :collection =>  @user.conversations %> 		
-  	</ul>
+    <% for conversation in @user.conversations %>
+        <li>
+          <%= link_to h(conversation.name), conversation_messages_path(conversation) %>
+          <br/>
+          <%= conversation.escaped_description %>
+          <br/>
+          <span class="quiet small"><%= conversation.created_at.to_s(:date_time12) %></span>
+        </li>
+    <% end %>
+    </ul>
   </div>
   
   <%= link_to t("ui.back"), users_path %>

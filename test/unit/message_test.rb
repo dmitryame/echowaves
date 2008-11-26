@@ -4,10 +4,14 @@ class MessageTest < ActiveSupport::TestCase
   context "Message" do
     setup do
       @message = Factory.create(:message)
-      @deactivated_message = Factory.create(:message, :deactivated_at => Time.now)
+      
+      @deactivated_message = Factory.create(:message)
+      @abuse_report = Factory.create(:abuse_report, :user => @deactivated_message.user, :message => @deactivated_message)
+      @deactivated_message.abuse_report = @abuse_report
+      @deactivated_message.save
     end
     
-    should "return 2 users when find" do
+    should "return 2 messages when find" do
       assert_equal Message.find(:all).length, 2
     end
     

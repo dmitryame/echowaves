@@ -65,7 +65,8 @@ class UsersController < ApplicationController
 
   def update
     @user = current_user
-    if @user.update_attributes(params[:user])
+    @personal_conversation = @user.personal_conversation
+    if @user.update_attributes(params[:user]) && @personal_conversation.update_attributes(params[:conversation])
       flash[:notice] = "User updated"
       redirect_to user_path(current_user)
     else

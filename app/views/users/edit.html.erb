@@ -17,6 +17,9 @@
 <p><%= label_tag t('ui.email') %><br/>
 <%= f.text_field :email %></p>
 
+<p><%= label_tag t('ui.name') %><br/>
+<%= f.text_field :name %></p>
+
 <p><%= label_tag t('ui.password') %><br/>
 <%= f.password_field :password %></p>
 
@@ -25,6 +28,11 @@
 
 <p><%= label_tag t('ui.time_zone') %><br/>
 <%= f.time_zone_select :time_zone, ActiveSupport::TimeZone.us_zones %></p>
+
+<%- fields_for(@user.personal_conversation) do |cf| %>
+	<p><%= label_tag t('ui.description') %><br/>
+	<%= cf.text_area :description, :rows => 5 %></p>
+<%- end %>
 
 <p><%= submit_tag t('ui.update') %></p>
 <% end -%>

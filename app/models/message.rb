@@ -18,7 +18,7 @@ class Message < ActiveRecord::Base
   :url  => PAPERCLIP_URL
   
   named_scope :published,
-              :conditions => { :deactivated_at => nil }
+              :conditions => { :abuse_report_id => nil }
   
   
   validates_attachment_size :attachment, :less_than => 5.megabytes

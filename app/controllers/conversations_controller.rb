@@ -5,14 +5,14 @@ class ConversationsController < ApplicationController
   auto_complete_for :conversation, :name
 
   def complete_name
-    @conversation = Conversation.find_by_name(params[:id])
+    @conversation = Conversation.published.find_by_name(params[:id])
     redirect_to conversation_messages_path(@conversation)
   end
 
   # GET /conversations
   # GET /conversations.xml
   def index    
-    @conversations = Conversation.paginate :page => params[:page], :conditions => "personal_conversation != 1", :order => 'created_at DESC'
+    @conversations = Conversation.published.paginate :page => params[:page], :conditions => "personal_conversation != 1", :order => 'created_at DESC'
 
     respond_to do |format|
       format.html # index.html.erb
@@ -109,8 +109,7 @@ class ConversationsController < ApplicationController
     
     # if a conversation owner reported an abuse, or 10 other non owners -- deactivate the conversation
     if (current_user == conversation.owner || conversation.abuse_reports.size > 10)      
-      conversation.deactivated_at = Time.now 
-      conversation.abuse_report = abuseReport
+      conversation.abuse_report = abuseReport # the final abuse report that makes convo deactivated
       conversation.save
     end
     render :nothing => true            

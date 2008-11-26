@@ -46,7 +46,7 @@ class User < ActiveRecord::Base
   
   before_create :make_activation_code 
 
-  
+  named_scope :active, :conditions => "activated_at != 'null'"
 
 
   # HACK HACK HACK -- how to do attr_accessible from here?

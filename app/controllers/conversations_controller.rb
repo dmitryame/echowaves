@@ -12,7 +12,7 @@ class ConversationsController < ApplicationController
   # GET /conversations
   # GET /conversations.xml
   def index    
-    @conversations = Conversation.published.paginate :page => params[:page], :conditions => "personal_conversation != 1", :order => 'created_at DESC'
+    @conversations = Conversation.published.not_personal.paginate :page => params[:page], :order => 'created_at DESC'
 
     respond_to do |format|
       format.html # index.html.erb

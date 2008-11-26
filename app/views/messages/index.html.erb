@@ -1,41 +1,13 @@
-<h1>conversation : <%= h @conversation.name %></h1>
-
-
-<div style='clear: both' id='polling'>
-	<%= render :partial => 'polling' %>
-</div>
 
 <div id='messages'>
-  <%= render :partial => 'message', :collection => @messages%>
+  <%= render :partial => 'message', :collection => @messages %>
 </div>
 
+<div class="item">
+<%= link_to t('ui.back'), conversations_path %>
 
-<div>
-	<% remote_form_for(:message,
-                           :update => 'messages', :position => 'bottom',
-                           :url => conversation_messages_path(@conversation),
-                           :complete => "$('message_message').value = '';$('message_message').focus();handle_new_messages()",
-                           # don't poll right now, and set the "after" value
-                           :before => 'working_begin();suspend_polling = true;$("after").value = last_message_number',
-                           :condition => "$('message_message').value.strip().length > 0") do |f| %>
-		<p>
-		<%= f.text_area :message, :rows => 5, :cols => 80 %>
-		<%= f.hidden_field :parent_id, :value => @messages.last.id unless @messages.blank? %>
-		<input type="hidden" name="after" id="after" value="0" />
-		</p>	
-		<%=submit_tag "Post"%>
-<%= link_to_remote "refresh", :url => {:action => 'message_poll', :conversation_id => @conversation},
+<%= link_to_remote t("ui.more_messages"), :url => {:action => 'get_more_messages', :conversation_id => @conversation},
 	:update => 'messages', :position => 'bottom',
-	:complete => "handle_new_messages()",
-	:with => "'after=' + last_message_number",
-	:before => 'working_begin();suspend_polling = true',
-	:frequency => 30 %>
-    <span id="working" style="display:none">Working...</span>
-	<% end %>
+	:complete => "MessageManipulation.handle_old_messages()",
+	:with => "'before=' + MessageManipulation.first_message_number" %>
 </div>
-<%= link_to 'back', conversations_path%></p>
-
-
-
-<br />
-

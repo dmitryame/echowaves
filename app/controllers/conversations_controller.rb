@@ -1,10 +1,18 @@
 class ConversationsController < ApplicationController
-  before_filter :login_required
+  before_filter :login_required, :except => [:index, :show, :auto_complete_for_conversation_name, :complete_name ]
+  after_filter :store_location, :only => [:index, :new]  
+  
+  auto_complete_with_scope_for 'published', :conversation, :name # multiple scopes can be chained like 'published.readonly'
+
+  def complete_name
+    @conversation = Conversation.published.find_by_name(params[:id])
+    redirect_to conversation_messages_path(@conversation)
+  end
 
   # GET /conversations
   # GET /conversations.xml
-  def index
-    @conversations = Conversation.find(:all)
+  def index    
+    @conversations = Conversation.published.not_personal.paginate :page => params[:page], :order => 'created_at DESC'
 
     respond_to do |format|
       format.html # index.html.erb
@@ -43,7 +51,8 @@ class ConversationsController < ApplicationController
   # POST /conversations.xml
   def create
     @conversation = Conversation.new(params[:conversation])
-
+    @conversation.created_by = current_user
+    
     respond_to do |format|
       if @conversation.save
         flash[:notice] = 'Conversation was successfully created.'
@@ -55,6 +64,57 @@ class ConversationsController < ApplicationController
       end
     end
   end
+
+
+  def follow
+    @conversation = Conversation.find(params[:id])
+    subscription = Subscription.new
+    subscription.conversation = @conversation
+    subscription.user = current_user
+    subscription.save
+    subscription.mark_read
+  end
+
+  def unfollow
+    @conversation = Conversation.find(params[:id])
+    subscription = Subscription.find(:first, :conditions => ["user_id = ? and conversation_id = ?", current_user.id, @conversation.id])     
+    subscription.destroy
+  end
+
+  def makereadonly
+    @conversation = Conversation.find(params[:id])
+    @conversation.update_attributes(:read_only => true) if @conversation.owner == current_user
+    redirect_to conversation_messages_path(@conversation)
+  end
+  
+  def makewriteable
+    @conversation = Conversation.find(params[:id])
+    @conversation.update_attributes(:read_only => false) if @conversation.owner == current_user
+    redirect_to conversation_messages_path(@conversation)
+  end
+
+  def report
+    conversation = Conversation.find(params[:id])
+
+    #if was already reported by the current_user, don't do anything
+    if(AbuseReport.find_by_user_id_and_conversation_id( current_user.id, conversation.id))
+      render :nothing => true
+      return
+    end
+    
+    abuseReport = AbuseReport.new
+    abuseReport.conversation = conversation
+    abuseReport.user = current_user
+    abuseReport.save
+    
+    # if a conversation owner reported an abuse, or 10 other non owners -- deactivate the conversation
+    if (current_user == conversation.owner || conversation.abuse_reports.size > 10)      
+      conversation.abuse_report = abuseReport # the final abuse report that makes convo deactivated
+      conversation.save
+    end
+    render :nothing => true            
+  end
+
 
   # PUT /conversations/1
   # PUT /conversations/1.xml

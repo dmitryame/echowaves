@@ -1,17 +1,39 @@
-<h1>conversations</h1>
+<div class="balloon">
+  <h1><%= t("conversations.recently_started_conversations") %></h1>
+  <div>
+  	<%= t("conversations.look_for_conversations") %>:
+  	<%= text_field_with_auto_complete :conversation, :name, { :size => 35 }, :skip_style => true,
+  	:after_update_element => 
+  	"function(element,value) " +
+  	  "{ window.location=('/complete_conversation_name?id='+element.value);}"
+  	-%>
+  </div>
+  
+</div>
+<div class="arrow">&nbsp;</div>
 
-<table>
-  <tr>
-    <th>Name</th>
-  </tr>
 
+
+<div class="item">
+  <div>
+    <%= link_to t('conversations.start_new_conversation'), new_conversation_path, :class => 'button' %>
+    <div class="clear"></div>
+  </div>
+
+<%= will_paginate @conversations %>
+
+<ul class="list">
 <% for conversation in @conversations %>
-  <tr>
-    <td><%= link_to h(conversation.name), conversation_messages_path(conversation) %></td>
-  </tr>
+    <li>
+      <%= link_to h(conversation.name), conversation_messages_path(conversation) %>
+      <br/>
+      <%= conversation.escaped_description %>
+      <br/>
+      <span class="quiet small"><%= conversation.created_at.to_s(:date_time12) %></span>
+    </li>
 <% end %>
-</table>
+</ul>
 
-<br />
+<%= will_paginate @conversations %>
 
-<%= link_to 'New conversation', new_conversation_path %>
+</div>

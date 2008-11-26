@@ -1,12 +1,28 @@
-<p>
-<font size=+2>Echowaves.com is an opensource web based group chat software written in RubyOnRails. The source code is hosted at <a href="http://github.com/dmitryame/echowaves">http://github.com/dmitryame/echowaves</a>. 
-</font>
-</p>
-<p>
-<%= link_to 'SignUp', :controller => "users", :action => "new" -%> -- it's free and anyone can join. On this site you will be able create your own chats, where everyone will be able to talk to you and to each other. You also will be able to see what other people are chatting about and contribute your thoughts into their chats. Have fun!
+<div class="balloon">
+  <h1><%= t("home.index.headline1") %></h1>
+</div>
+<div class="arrow">&nbsp;</div>
+
+<div class="item center">
+  <h2><%= t("home.index.headline2") %></h2>
+</div>
+
+
+<p class="item">
+ <%= t("home.index.p1") %> <%= link_to t("ui.echowaves_conversation"), conversation_path(1), :action => "index" -%>.
 </p>
 
 
-<p>
-	View active <%= link_to 'conversations', :controller => "conversations", :action => "index" -%> and see what's going on!
+
+<p class="item">
+  <%= link_to t("ui.signup"), new_user_path, :class => "button" -%> <%= t("home.index.p2") %>
 </p>
+
+
+<div id='messages'>
+  <%= render :partial => 'messages/message', :collection => @messages %>
+</div>
+
+
+<p class="item"><span class="highlight"><%= t("home.index.feedback_advice") %></span></p>
+

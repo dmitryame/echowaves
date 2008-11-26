@@ -16,12 +16,16 @@ class ApplicationController < ActionController::Base
   # from your application log (in this case, all fields with names like "password"). 
   # filter_parameter_logging :password
   
+  before_filter :set_locale
+  before_filter :set_timezone
+
+  def set_locale   
+    session[:locale] = params[:locale] if params[:locale]
+    I18n.locale = session[:locale] || I18n.default_locale
+  end
+
+  def set_timezone
+    Time.zone = current_user.time_zone if current_user
+  end
   
 end
-
-ActiveSupport::CoreExtensions::Time::Conversions::DATE_FORMATS.merge!(
-        :pretty => "%b %d, %Y",
-        :pretty_long => "%b %d, %Y %I:%M%p",
-        :date_time12 => "%m/%d/%Y %I:%M%p",
-        :date_time24 => "%m/%d/%Y %H:%M"
-      )

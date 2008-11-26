@@ -1,0 +1,31 @@
+<div class="balloon">
+  <h1><%= t("ui.update_your_profile") %></h1>  
+</div>
+<div class="arrow">&nbsp;</div>
+
+<div class="item">
+
+<a href="http://gravatar.com" target="_blank"><%= t("ui.get_an_gravatar_here") %></a>
+
+<% @user.password = @user.password_confirmation = nil %>
+
+<%= error_messages_for :user %>
+<% form_for @user, :url => user_path(@user), :method => 'put' do |f| -%>
+<p><%= label_tag t('ui.login_name') %><br/>
+<%= f.text_field :login %></p>
+
+<p><%= label_tag t('ui.email') %><br/>
+<%= f.text_field :email %></p>
+
+<p><%= label_tag t('ui.password') %><br/>
+<%= f.password_field :password %></p>
+
+<p><%= label_tag t('ui.password_confirmation') %><br/>
+<%= f.password_field :password_confirmation %></p>
+
+<p><%= label_tag t('ui.time_zone') %><br/>
+<%= f.time_zone_select :time_zone, ActiveSupport::TimeZone.us_zones %></p>
+
+<p><%= submit_tag t('ui.update') %></p>
+<% end -%>
+</div>

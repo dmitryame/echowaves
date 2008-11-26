@@ -1,7 +1,39 @@
 class UsersController < ApplicationController
+  before_filter :login_required, :except => [:index, :show, :auto_complete_for_user_name, :complete_name, :signup, :new, :create, :activate, :forgot_password, :reset_password]
+  after_filter :store_location, :only => [:index, :show]  
+  
   # Be sure to include AuthenticationSystem in Application Controller instead
   include AuthenticatedSystem
   
+  auto_complete_for :user, :name
+
+  def complete_name
+    @user = User.find_by_name(params[:id])
+    redirect_to user_path(@user)
+  end
+  
+  
+  # GET /conversations
+  # GET /conversations.xml
+  def index
+    @users = User.active.paginate :page => params[:page], :order => 'created_at DESC'
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.xml  { render :xml => @users }
+    end
+  end
+
+  # GET /clients/1
+  # GET /clients/1.xml
+  def show
+    @user = User.find(params[:id])
+
+    respond_to do |format|
+      format.html # show.html.erb
+      format.xml  { render :xml => @user }
+    end
+  end
 
   # render new.rhtml
   def new
@@ -11,16 +43,36 @@ class UsersController < ApplicationController
   def create
     logout_keeping_session!
     @user = User.new(params[:user])
+    @user.name=@user.login
     success = @user && @user.save
     if success && @user.errors.empty?
-      redirect_back_or_default('/')
-      flash[:notice] = "Thanks for signing up!  We're sending you an email with your activation code."
+      if(SHOW_ACTIVATION_LINK)
+        flash[:notice] = "<a href='/activate/#{@user.activation_code}'>Click here to activate</a>" 
+      else
+        flash[:notice] = "Thanks for signing up!  We're sending you an email with your activation code."
+      end
+      
+      redirect_to home_path
     else
       flash[:error]  = "We couldn't set up that account, sorry.  Please try again, or contact an admin (link is above)."
       render :action => 'new'
     end
   end
 
+  def edit
+    @user = current_user
+  end
+
+  def update
+    @user = current_user
+    if @user.update_attributes(params[:user])
+      flash[:notice] = "User updated"
+      redirect_to user_path(current_user)
+    else
+      render :action => :edit
+    end
+  end
+  
   def activate
     logout_keeping_session!
     user = User.find_by_activation_code(params[:activation_code]) unless params[:activation_code].blank?
@@ -37,14 +89,7 @@ class UsersController < ApplicationController
       redirect_back_or_default('/')
     end
   end
-  
-  def edit
-     if request.post?
-       @user.update_attributes(params[:user])
-     else
-       @user = User.find(session[:user_id])    
-     end
-   end
+
 
    # Change password action  
    def change_password
@@ -78,7 +123,13 @@ class UsersController < ApplicationController
      if @user = User.find_by_email(params[:user][:email])
        @user.forgot_password
        @user.save
-       flash[:notice] = "A password reset link has been sent to your email address" 
+       if(SHOW_ACTIVATION_LINK)
+         flash[:notice] = "<a href='#{HOST}/reset_password/#{@user.password_reset_code}'>Click here to reset</a>" 
+       else 
+         flash[:notice] = "A password reset link has been sent to your email address" 
+       end
+       
+       
        redirect_to :controller   => "sessions", :action => "new"
      else
        flash[:error] = "Could not find a user with that email address" 
@@ -111,18 +162,9 @@ class UsersController < ApplicationController
      redirect_back_or_default('/')
    end
 
-
-
-   def update
-     if @user.update_attributes(params[:user])
-         flash[:notice] = "User updated"
-         redirect_to user_path(current_user)
-       else
-         render :action => :edit
-       end
+   def update_news
    end
 
-   
    #
    # serve up custom style overrides
    def styles
@@ -130,7 +172,8 @@ class UsersController < ApplicationController
 
      respond_to do |format|
        format.html { render :text => "/* html?! */" }
-       format.css  { render :text => "/* CSS! */div#messages p {font-size: 1em;line-height:1.2em;}div#messages {width: 100%;}div.message p.messagemeta .date {font-size: .7em;line-height:1em;white-space:nowrap;}div.message p.messagemeta{float:left;margin-left: -4px;margin-right:5px;}p.messagemeta img.avatar{height: 20px;}" }
+#       format.css  { render :text => "/* CSS! */div#messages p {font-size: 1em;line-height:1.2em;}div#messages {width: 100%;}div.message p.messagemeta .date {font-size: .7em;line-height:1em;white-space:nowrap;}div.message p.messagemeta{float:left;margin-left: -4px;margin-right:5px;}p.messagemeta img.avatar{height: 20px;}" }
+       format.css  { render :text => "/* CSS! */" }
      end
    end
 

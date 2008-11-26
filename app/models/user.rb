@@ -19,14 +19,40 @@ class User < ActiveRecord::Base
   validates_uniqueness_of   :email
   validates_format_of       :email,    :with => Authentication.email_regex, :message => Authentication.bad_email_message
 
+  # validates_presence_of     :personal_conversation_id #don't require it
+  validates_uniqueness_of   :personal_conversation_id, :if => Proc.new { |u| !u.personal_conversation_id.blank? } 
+  
+  
   has_many :messages
 
+
+  belongs_to :personal_conversation, #personal users conversation
+  :class_name => "Conversation", 
+  :foreign_key => "personal_conversation_id"
+
+
+  has_many :subscriptions, :order => "activated_at DESC"
+  has_many :conversations, :through => :subscriptions, :uniq => true, :order => "name"
+
+  has_many :conversation_visits
+  
+  has_many :recent_conversations, 
+  :through => :conversation_visits, 
+  :source => :conversation, 
+  :select => "distinct conversations.*",
+  :group => "conversation_visits.conversation_id",
+  :order => "max(conversation_visits.id) DESC",
+  :limit => 10
+  
   before_create :make_activation_code 
+
+  named_scope :active, :conditions => "activated_at != 'null'"
+
 
   # HACK HACK HACK -- how to do attr_accessible from here?
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
-  attr_accessible :login, :email, :name, :password, :password_confirmation
+  attr_accessible :login, :email, :name, :password, :password_confirmation, :time_zone
 
   is_gravtastic :size => 40, :default => "identicon" # "monsterid" or "identicon", or "wavatar"
 
@@ -35,7 +61,16 @@ class User < ActiveRecord::Base
     @activated = true
     self.activated_at = Time.now.utc
     self.activation_code = nil
-    save(false)
+    
+  # create personal conversations
+    conversation = Conversation.new
+    conversation.name = self.login
+    conversation.description = "This is a personal conversation for " + self.login + ". If you wish to collaborate with " + self.login + ", do it here."
+    conversation.personal_conversation = true;
+    conversation.created_by = self #this gets propageted to first message in the conversation which makes it an owner.
+    conversation.save
+    self.personal_conversation_id = conversation.id
+    self.save
   end
 
   # Returns true if the user has just been activated.

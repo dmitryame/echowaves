@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title><%= controller.action_name %></title>
+  <link rel="shortcut icon" href="/images/favicon.ico" />
+ 	
+  <link rel="stylesheet" href="/stylesheets/screen.css" type="text/css" media="screen, projection">
+  <link rel="stylesheet" href="/stylesheets/print.css" type="text/css" media="print"> 
+  <!--[if IE]>
+    <link rel="stylesheet" href="/stylesheets/ie.css" type="text/css" media="screen, projection">
+  <![endif]-->
+  <link rel="stylesheet" href="/stylesheets/style.css" type="text/css" media="screen, projection">
+ 	<%= stylesheet_link_tag 'default' %>
+ 	<%= javascript_include_tag :defaults %>
+ 	<%= javascript_include_tag "misc" %>
+
+ 	<%= stylesheet_link_tag 'unitip' %>
+	<%= javascript_include_tag 'unitip' %>
+
+</head>
+
+<body>
+
+	<%= render(:partial => "shared/header") %>
+	
+	<div id="main_content" class="container">
+	  
+		<div id="col1" class="span-14">
+        <%= flash_messages %>
+ 		<%= yield  %>
+		</div>
+		
+		<div id="col2" class="span-6">
+		  <%= render :partial => 'users/recently_visited' %>
+		  <%= render :partial => 'users/news' %>
+		  <%= render :partial => 'users/my_conversations' %>
+		</div>
+		
+		<div id="col3" class="span-4 last">
+      <%= render :partial => 'shared/user_stat' %>
+    </div>
+    
+	</div>
+
+	<%= render(:partial => "shared/footer") %>
+  	<%#for now lets poll for new messages in conversations that are off the screen%>  
+	<%= periodically_call_remote :url => {:controller => 'users', :action => 'update_news'}, 
+		:frequency => 60*5 %> 
+	
+
+</body>
+</html>

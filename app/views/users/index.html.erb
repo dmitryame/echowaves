@@ -1,0 +1,30 @@
+<div class="balloon">
+  <h1><%= t("users.recently_joined_users") %></h1>
+  <div>
+  	<%= t("users.look_for_users") %>:
+  	<%= text_field_with_auto_complete :user, :name, { :size => 45 }, :skip_style => true,
+  	:after_update_element => 
+  	"function(element,value) " +
+  	  "{ window.location=('/complete_user_name?id='+element.value);}"
+  	-%>
+  </div>
+  
+</div>
+<div class="arrow">&nbsp;</div>
+
+<div class="item">
+  
+
+<%= will_paginate @users %>
+<table>
+<% for user in @users %>
+  <tr>
+    <td>
+		<%= link_to image_tag(user.gravatar_url, :border => 0, :wigth => 40, :height => 40, :class => "avatar"), user_path(user) %>		
+		<span class="username"><%=link_to h(user.login), conversation_messages_path(user.personal_conversation) %></span>
+	</td>
+  </tr>
+<% end %>
+</table>
+<%= will_paginate @users %>
+</div>

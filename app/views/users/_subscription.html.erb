@@ -1,0 +1,8 @@
+<% messages_count = subscription.new_messages_count %>
+<%if messages_count > 0%>
+	<%if(@conversation != nil and subscription.conversation_id != @conversation.id or @conversation == nil) %>
+		<div class="subscription_for_user" id="CONVERSATION_NOTIFY_CHANNEL_<%=subscription.conversation.id%>">	
+			<span class="msgcount"><%= messages_count %></span> <%= link_to subscription.conversation.escaped_name, conversation_messages_path(subscription.conversation), :class => 'tip', :title => subscription.conversation.escaped_description %>
+		</div>
+	<%end%>
+<%end%>

@@ -1,15 +1,24 @@
-<h1>New conversation</h1>
+<div class="balloon">
+  <h1><%= t("conversations.new_conversation") %></h1>
+</div>
+<div class="arrow">&nbsp;</div>
 
+<div class="item">
 <% form_for(@conversation) do |f| %>
   <%= f.error_messages %>
 
   <p>
-    <%= f.label :name %><br />
+    <%= f.label t("ui.name") %><br />
     <%= f.text_field :name %>
   </p>
   <p>
-    <%= f.submit "Create" %>
+    <%= f.label t("ui.description") %><br />
+    <%= f.text_area :description %>
+  </p>
+  <p>
+    <%= f.submit t("ui.create") %>
   </p>
 <% end %>
 
-<%= link_to 'Back', conversations_path %>
+<%= link_to t("ui.back"), conversations_path %>
+</div>

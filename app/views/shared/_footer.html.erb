@@ -1,18 +1,10 @@
-<div id="footer">
-	<div>&nbsp;</div>
-	<div>&nbsp;</div>
-	<div>
-		© 2008
-	</div>
-	<div>
-		Website Uptime Monitoring By <a href="http://pingability.com">http://pingability.com</a>
-	</div>
-	<div>
-		Report problems or Abuse to <a href="mailto:webmaster@echowaves.com">webmaster@echowaves.com</a>
-	</div>
-	<div>
-		<%= link_to 'Terms&Conditions', :controller => "home", :action => "terms"-%>
-	</div>
+<div id="footer" class="container">
+	<span>
+		&copy; 2008 |
+		<%= t("footer.uptime_monitoring") %> <a href="http://pingability.com">http://pingability.com</a> |
+		<%= t("footer.report_problems_or_abuse") %> <a href="mailto:webmaster@echowaves.com">webmaster@echowaves.com</a> |
+		<%= link_to t('footer.terms_and_conditions'), :controller => "home", :action => "terms"-%>
+	</span>
 </div>
 <%#do not remove rhis scrip tag, used by google stats%>
 <script type="text/javascript">

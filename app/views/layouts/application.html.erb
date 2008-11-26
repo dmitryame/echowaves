@@ -1,35 +1,55 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html lang="en">
 <head>
-	<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title><%= controller.action_name %></title>
-	<%= stylesheet_link_tag 'default' %>
-	<%= javascript_include_tag :defaults %>
-</head>
-<body>
-
-	<div id="logout">
-		<%if logged_in?%>					
-		<%= link_to "logout", logout_path %>&nbsp;<%=current_user.login%>
-			<% if @user_has_access_to_resource%>
-			<font size=-3 style="text-decoration: blink" color="red">admin user</font>
-			<%end%>
-		<%else%>			
-		<%= link_to "login", new_session_path %>
-		<font color="red">works only with FireFox and Safari</font>
-		<%end%>
-		<div>EcHoWaVeS.CoM</div>		
-	</div>
-
-
-	<div id="content">
-		<p style="color: red"><%= flash[:error] %></p>
-		<p style="color: green"><%= flash[:notice] %></p>
-		<%= yield  %>
-	</div>
+  <link rel="shortcut icon" href="/images/favicon.ico" />
+ 	
+  <link rel="stylesheet" href="/stylesheets/screen.css" type="text/css" media="screen, projection">
+  <link rel="stylesheet" href="/stylesheets/print.css" type="text/css" media="print"> 
+  <!--[if IE]>
+    <link rel="stylesheet" href="/stylesheets/ie.css" type="text/css" media="screen, projection">
+  <![endif]-->
+  <link rel="stylesheet" href="/stylesheets/style.css" type="text/css" media="screen, projection">
+  <%= stylesheet_link_tag 'default' %>
+ 	<%= javascript_include_tag :defaults %>
+ 	<%= javascript_include_tag "misc" %>
+ 	
+ 	<%= stylesheet_link_tag 'unitip' %>
+	<%= javascript_include_tag 'unitip' %>
 	
-	<%= render(:partial => "shared/footer") %> 	
+</head>
+
+<body onLoad="Misc.focusInput('login');">
+
+	<%= render(:partial => "shared/header") %>
+  
+	<div id="main_content" class="container">
+	  
+		<div id="col1" class="span-14">
+		  <%= flash_messages %>
+  		<%= yield  %>
+		</div>
+		
+		<div id="col2" class="span-6">
+		  <%= render :partial => 'users/recently_visited' %>
+		  <%= render :partial => 'users/news' %>
+		  <%= render :partial => 'users/my_conversations' %>
+		</div>
+		
+		<div id="col3" class="span-4 last">
+      <%= render :partial => 'shared/user_stat' %>
+    </div>
+    
+	</div>
+
+	<%= render(:partial => "shared/footer") %>
+	<%#for now lets poll for new messages in conversations that are off the screen%>  
+	<%= periodically_call_remote :url => {:controller => 'users', :action => 'update_news'}, 
+		:frequency => 60*5 %> 
+	
+  
 </body>
 </html>

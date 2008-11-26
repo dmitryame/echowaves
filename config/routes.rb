@@ -3,7 +3,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :users
 
-  map.resources :conversations do |conversation|
+  map.resources :conversations, :member => {:makereadonly => :put, :makewriteable => :put} do |conversation|
     conversation.resources :messages
   end
 
@@ -16,9 +16,12 @@ ActionController::Routing::Routes.draw do |map|
   map.forgot_password '/forgot_password', :controller => "users", :action => "forgot_password"
   map.reset_password '/reset_password/:id', :controller   => "users", :action => "reset_password" 
   
-  map.message_poll '/message_poll', :controller => 'messages', :action => "poll"
   map.custom_styles '/stylesheets/custom.css', :controller => 'users', :action => "styles", :format => "css"
 
+  map.complete_conversation_name '/complete_conversation_name', :controller => 'conversations', :action => "complete_name"
+  map.complete_user_name '/complete_user_name', :controller => 'users', :action => "complete_name"
+
+  
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:

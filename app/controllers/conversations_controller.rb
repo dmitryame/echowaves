@@ -2,7 +2,7 @@ class ConversationsController < ApplicationController
   before_filter :login_required, :except => [:index, :show, :auto_complete_for_conversation_name, :complete_name ]
   after_filter :store_location, :only => [:index, :new]  
   
-  auto_complete_with_scope_for 'published', :conversation, :name # multiple scopes can be chained like 'published_readonly'
+  auto_complete_with_scope_for 'published.tested', :conversation, :name # multiple scopes can be chained like 'published.readonly'
 
   def complete_name
     @conversation = Conversation.published.find_by_name(params[:id])

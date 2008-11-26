@@ -9,7 +9,7 @@ Example:
 
   # or with multiple scopes
   class BlogController < ApplicationController
-    auto_complete_with_scope_for 'published_recent', :post, :title
+    auto_complete_with_scope_for 'published.recent', :post, :title
   end
 
 By default, auto_complete_for limits the results to 10 entries,

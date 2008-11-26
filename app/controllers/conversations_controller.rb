@@ -93,6 +93,30 @@ class ConversationsController < ApplicationController
     redirect_to conversation_messages_path(@conversation)
   end
 
+  def report
+    conversation = Conversation.find(params[:id])
+
+    #if was already reported by the current_user, don't do anything
+    if(AbuseReport.find_by_user_id_and_conversation_id( current_user.id, conversation.id))
+      render :nothing => true
+      return
+    end
+    
+    abuseReport = AbuseReport.new
+    abuseReport.conversation = conversation
+    abuseReport.user = current_user
+    abuseReport.save
+    
+    # if a conversation owner reported an abuse, or 10 other non owners -- deactivate the conversation
+    if (current_user == conversation.owner || conversation.abuse_reports.size > 10)      
+      conversation.deactivated_at = Time.now 
+      conversation.abuse_report = abuseReport
+      conversation.save
+    end
+    render :nothing => true            
+  end
+
+
   # PUT /conversations/1
   # PUT /conversations/1.xml
   # def update

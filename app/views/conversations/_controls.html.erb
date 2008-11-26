@@ -11,3 +11,9 @@
     <%= link_to "make readonly", makereadonly_conversation_path(@conversation), :method => 'put' %>
   <% end %>
 <% end %>
+<%if logged_in? %>
+	&#187;
+	<%= link_to_remote t("ui.report"), 
+	:url => {:controller => 'conversations', :action => 'report', :id => @conversation.id}, 
+	:confirm => t("ui.reportconfirm_conversation") %>
+<%end%>

@@ -5,6 +5,8 @@ class Message < ActiveRecord::Base
   belongs_to :user
   
   has_many :abuse_reports
+
+  belongs_to :abuse_report
   
   has_attached_file :attachment,
   :styles => {

@@ -40,6 +40,7 @@ class ConversationTest < ActiveSupport::TestCase
     should_have_many :recent_followers, :through => :subscriptions          
     
     should_have_many :abuse_reports
+    should_belong_to :abuse_report
     
   end
   

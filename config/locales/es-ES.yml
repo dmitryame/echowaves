@@ -33,6 +33,7 @@ es-ES:
     unfollow: "no seguir"
     report: "informe"
     reportconfirm: "Are you sure you would like to report this message? The abuser will be punished."    
+    reportconfirm_conversation: "Are you sure you would like to report this conversation? The abuser will be punished."    
     spawn: "freza"
     this_is_the_newest_message: "Este es el mensaje mas nuevo"
     attach: "Adjuntar"

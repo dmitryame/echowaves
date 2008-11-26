@@ -179,6 +179,7 @@ class MessagesController < ApplicationController
     # if a conversation owner reported an abuse, or 3 other non owners -- deactivate the message
     if (current_user == message.conversation.owner || message.abuse_reports.size > 3)
       message.deactivated_at = Time.now 
+      message.abuse_report = abuseReport
       message.save
       # perhaps this line is really important in publicly installed site like http://echowaves.com. could be parameterized for local installs
       system "chmod -R 000 ./public/attachments/#{message.id}"

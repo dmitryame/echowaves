@@ -12,12 +12,12 @@ module AutoCompleteWithScope
           :order => "#{method} ASC",
           :limit => 10 }.merge!(options)
         
-        @scope = object.to_s.camelize.constantize
+        @scope_proxy = object.to_s.camelize.constantize
         scopes.split('.').each do |scope|
-          @scope = @scope.send(scope)
+          @scope_proxy = @scope_proxy.send(scope)
         end 
         
-        @items = @scope.find(:all, find_options)
+        @items = @scope_proxy.find(:all, find_options)
     
         render :inline => "<%= auto_complete_result @items, '#{method}' %>"
       end

@@ -4,8 +4,8 @@ class Conversation < ActiveRecord::Base
   validates_presence_of :description
 
   # do not validate the uniquness of the personal conversations names, they will be guaranteed to be unique since the user names will be
-  validates_uniqueness_of   :name,                       :if => :is_non_personal_conversation?
-  validates_length_of       :name,    :within => 8..100, :if => :is_non_personal_conversation?
+  validates_uniqueness_of   :name,                       :unless => :personal?
+  validates_length_of       :name,    :within => 8..100, :unless => :personal?
   
   validates_length_of       :description, :within => 0..10000
   
@@ -34,12 +34,12 @@ class Conversation < ActiveRecord::Base
   
   def writable_by?(user)
     self.owner == user || !self.read_only
-  end  
-
-  def is_non_personal_conversation?
-    personal_conversation.blank? || personal_conversation == 0
   end
 
+  def personal?
+    self.personal_conversation
+  end
+  
   #virtual attribute requires only to make it possible to pass the user (current_user) who creted the conversation to after_create from controller
   attr_accessor :created_by
 

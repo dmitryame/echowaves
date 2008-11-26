@@ -48,7 +48,7 @@
 	<%= render(:partial => "shared/footer") %>
 	<%#for now lets poll for new messages in conversations that are off the screen%>  
 	<%= periodically_call_remote :url => {:controller => 'users', :action => 'update_news'}, 
-		:frequency => 60*5 %> 
+		:frequency => 60*5, :complete => 'ShowUnreadMessagesInFLuidapp();' %> 
 	
   
 </body>

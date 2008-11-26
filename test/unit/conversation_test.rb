@@ -38,6 +38,9 @@ class ConversationTest < ActiveSupport::TestCase
     should_have_many :subscriptions
     should_have_many :users, :through => :subscriptions
     should_have_many :recent_followers, :through => :subscriptions          
+    
+    should_have_many :abuse_reports
+    
   end
   
   context "A read only conversation" do  

@@ -27,6 +27,7 @@ class Conversation < ActiveRecord::Base
   named_scope :published,
               :conditions => { :abuse_report_id => nil }
 
+  named_scope :not_personal, :conditions => { :personal_conversation => false }
 
   def owner 
     Message.find_by_conversation_id(self.id, :order => "id ASC").user

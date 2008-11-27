@@ -41,7 +41,9 @@ class ConversationTest < ActiveSupport::TestCase
     
     should_have_many :abuse_reports
     should_belong_to :abuse_report
-    
+
+    should_belong_to :parent_message #parent message it was spawned from
+    should_have_index :parent_message_id
   end
   
   context "A read only conversation" do  

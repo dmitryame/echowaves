@@ -8,6 +8,9 @@ class Message < ActiveRecord::Base
 
   belongs_to :abuse_report
   
+  has_many :conversations, # these are the conversations spawned from the message
+  :foreign_key => "parent_message_id"
+
   has_attached_file :attachment,
   :styles => {
     :thumb => "64x64>",

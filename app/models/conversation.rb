@@ -9,7 +9,10 @@ class Conversation < ActiveRecord::Base
   
   validates_length_of       :description, :within => 0..10000
   
-  has_many :messages
+  has_many :messages #these are the conversations messages
+  belongs_to :parent_message, #parent message it was spawned from, in case it was created by spawning
+  :class_name => "Message",
+  :foreign_key => "parent_message_id"
 
   has_many :subscriptions
   has_many :users, :through => :subscriptions, :uniq => true,:order => "login ASC"
@@ -20,9 +23,8 @@ class Conversation < ActiveRecord::Base
   :order => "subscriptions.created_at DESC",
   :limit => 10
 
-  has_many :abuse_reports
-
-  belongs_to :abuse_report
+  has_many :abuse_reports #all the abuse report that were filed agains this convi
+  belongs_to :abuse_report #the abuse report record that made this convo disabled
 
   named_scope :published,
               :conditions => { :abuse_report_id => nil }

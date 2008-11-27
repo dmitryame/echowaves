@@ -186,6 +186,13 @@ class MessagesController < ApplicationController
     render :nothing => true            
   end
 
+  def spawn_conversation
+    @message = Message.find(params[:id])
+    @spawned_conversation = @message.spawn_new_conversation
+    redirect_to(conversation_messages_path(@spawned_conversation))  
+  end
+  
+  
   private
 
     def find_conversation

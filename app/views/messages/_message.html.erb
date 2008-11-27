@@ -4,6 +4,9 @@
 			<%= link_to_remote t("ui.report"), 
 			:url => {:controller => 'messages', :action => 'report', :id => message.id, :conversation_id => @conversation_id}, 
 			:confirm => t("ui.reportconfirm") %>
+			<%= link_to t("ui.spawn"), 
+			{:controller => 'messages', :action => 'spawn_conversation', :id => message.id, :conversation_id => @conversation_id}, 
+			:confirm => t("ui.spawnconfirm") %>
 		<%end%>
 	</div>
 	<div class="avatar"><%= link_to image_tag(message.user.gravatar_url, :border => 0, :wigth => 40, :height => 40, :class => "avatar"), user_path(message.user)   %></div>

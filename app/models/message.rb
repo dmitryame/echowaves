@@ -31,6 +31,10 @@ class Message < ActiveRecord::Base
 
   validates_presence_of :user_id, :conversation_id
 
+  #expected to return a new spawned conversation
+  def spawn_new_conversation
+    
+  end
 
   def after_create 
     subscription = Subscription.find(:first, :conditions => ["user_id = ? and conversation_id = ?", user.id, conversation.id])     

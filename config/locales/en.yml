@@ -35,6 +35,7 @@ en:
     reportconfirm: "Are you sure you would like to report this message? The abuser will be punished."
     reportconfirm_conversation: "Are you sure you would like to report this conversation? The abuser will be punished."
     spawn: "spawn"
+    spawnconfirm: "Are you sure you want to spawn a new conversation off of this message?"
     this_is_the_newest_message: "This is the newest message"
     attach: "Attach"
     attach_file: "attach file"

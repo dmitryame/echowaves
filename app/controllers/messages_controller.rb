@@ -188,7 +188,7 @@ class MessagesController < ApplicationController
 
   def spawn_conversation
     @message = Message.find(params[:id])
-    @spawned_conversation = @message.spawn_new_conversation
+    @spawned_conversation = @message.spawn_new_conversation(current_user)
     redirect_to(conversation_messages_path(@spawned_conversation))  
   end
   

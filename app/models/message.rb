@@ -32,8 +32,14 @@ class Message < ActiveRecord::Base
   validates_presence_of :user_id, :conversation_id
 
   #expected to return a new spawned conversation
-  def spawn_new_conversation
-    
+  def spawn_new_conversation(user)
+    @conversation = Conversation.new
+    @conversation.created_by = user
+    @conversation.name = "spawned from: " + self.message
+    @conversation.description = self.message
+    @conversation.parent_message = self
+    @conversation.save
+    return @conversation #just trying to be explicit
   end
 
   def after_create 

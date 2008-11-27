@@ -56,9 +56,9 @@ class User < ActiveRecord::Base
 
   is_gravtastic :size => 40, :default => "identicon" # "monsterid" or "identicon", or "wavatar"
 
-  def personal_conversation
-    self.conversations.detect{ |c| c.personal_conversation }
-  end
+  # def personal_conversation
+  #   self.conversations.detect{ |c| c.personal_conversation }
+  # end
   
   # Activates the user in the database.
   def activate!

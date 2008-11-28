@@ -24,18 +24,11 @@ class ConversationsControllerTest < ActionController::TestCase
   
   context "makereadonly action" do
     setup do
-      @conversation = Factory.create(:conversation)
+      @owner = Factory.create(:user, :login => "user1")      
+      @conversation = Factory.create(:conversation, :user => @current_user)
     end
-    
-    should "not make the conversation readonly if the current_user is not the owner" do
-      @owner = Factory.create(:user, :login => "user1")
-      @message1 = Factory.create(:message, :conversation => @conversation, :user => @owner)
-      put :makereadonly, :id => @conversation
-      assert_equal false, assigns(:conversation).read_only
-    end
-    
+        
     should "make the conversation readonly if the current_user is the owner" do
-      @message1 = Factory.create(:message, :conversation => @conversation, :user => @current_user)      
       put :makereadonly, :id => @conversation
       assert_equal true, assigns(:conversation).read_only
     end  
@@ -54,12 +47,6 @@ class ConversationsControllerTest < ActionController::TestCase
       assert_equal true, assigns(:conversation).read_only
     end
     
-    should "make the conversation writeable if the current_user is the owner" do
-      @message1 = Factory.create(:message, :conversation => @conversation, :user => @current_user)      
-      @conversation.update_attributes(:read_only => true)
-      put :makewriteable, :id => @conversation
-      assert_equal false, assigns(:conversation).read_only
-    end  
   end
   
 end

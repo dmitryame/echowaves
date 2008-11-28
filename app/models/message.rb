@@ -33,13 +33,13 @@ class Message < ActiveRecord::Base
 
   #expected to return a new spawned conversation
   def spawn_new_conversation(user)
-    @conversation = Conversation.new
-    @conversation.created_by = user
-    @conversation.name = "spawned from: " + self.message
-    @conversation.description = self.message
-    @conversation.parent_message = self
-    @conversation.save
-    return @conversation #just trying to be explicit
+    convo = Conversation.new
+    convo.user_id = user.id  
+    convo.name = (user.login + " spawned from: " + message)[0,100] # the convo name length is limited to 100, do not remove this range -- will fails otherwise
+    convo.description = self.message
+    convo.parent_message_id = self.id
+    convo.save
+    convo 
   end
 
   def after_create 

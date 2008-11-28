@@ -21,6 +21,7 @@ end
 Factory.define :conversation do |conversation|
   conversation.name {Factory.next :name }
   conversation.description "this is a test conversation that serves no other purpose but test"
+  conversation.association :user
 end
 
 Factory.define :message do |message|

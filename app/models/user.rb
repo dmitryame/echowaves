@@ -25,7 +25,6 @@ class User < ActiveRecord::Base
   
   has_many :messages
 
-
   belongs_to :personal_conversation, #personal users conversation
   :class_name => "Conversation", 
   :foreign_key => "personal_conversation_id"
@@ -48,17 +47,12 @@ class User < ActiveRecord::Base
 
   named_scope :active, :conditions => "activated_at != 'null'"
 
-
   # HACK HACK HACK -- how to do attr_accessible from here?
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
   attr_accessible :login, :email, :name, :password, :password_confirmation, :time_zone
 
   is_gravtastic :size => 40, :default => "identicon" # "monsterid" or "identicon", or "wavatar"
-
-  # def personal_conversation
-  #   self.conversations.detect{ |c| c.personal_conversation }
-  # end
   
   # Activates the user in the database.
   def activate!
@@ -71,7 +65,7 @@ class User < ActiveRecord::Base
     conversation.name = self.login
     conversation.description = "This is a personal conversation for #{self.name || self.login}. If you wish to collaborate with #{self.name || self.login}, do it here."
     conversation.personal_conversation = true;
-    conversation.created_by = self #this gets propageted to first message in the conversation which makes it an owner.
+    conversation.user = self #this gets propageted to first message in the conversation which makes it an owner.
     conversation.save
     self.personal_conversation_id = conversation.id
     self.save

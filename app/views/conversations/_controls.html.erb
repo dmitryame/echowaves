@@ -1,3 +1,8 @@
+<%if @conversation.parent_message_id%>
+	<span class="highlight">
+		<%= link_to "back to parent", conversation_messages_path(@conversation.parent_message.conversation)%>
+	</span> <br/>
+<%end%>
 <% if @conversation.read_only %><span class="highlight">this is a readonly conversation</span> <br/><% end %>
 <span class="strong">
   <%= link_to h(@conversation.name), conversation_messages_path(@conversation), :class => 'tip', :title => @conversation.escaped_description %>

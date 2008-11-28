@@ -4,7 +4,7 @@ class MessagesControllerTest < ActionController::TestCase
   def setup
     #authenticate
     create_user_and_authenticate
-    @conversation = Factory(:conversation, :created_by => @user)
+    @conversation = Factory(:conversation, :user => @user)
     @message = Factory(:message, :message => "some random message", :conversation => @conversation )
     @controller = MessagesController.new
   end
@@ -14,7 +14,7 @@ class MessagesControllerTest < ActionController::TestCase
     resource.create.params = { :message => "random message", :user => @user }
     resource.update.params = { :message => "Changed message", :user => @user }
     resource.actions    = [
-      :index#,
+      #:index#,
       # :show, 
       # :new, 
       # :edit, 

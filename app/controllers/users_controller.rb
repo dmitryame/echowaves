@@ -47,7 +47,7 @@ class UsersController < ApplicationController
     success = @user && @user.save
     if success && @user.errors.empty?
       if(SHOW_ACTIVATION_LINK)
-        flash[:notice] = "<a href='/activate/#{@user.activation_code}'>Click here to activate</a>" 
+        flash[:error] = "<a href='/activate/#{@user.activation_code}'>Click here to activate</a>" # it's really a notice, but just to attract an attention, since errors are output in red
       else
         flash[:notice] = "Thanks for signing up!  We're sending you an email with your activation code."
       end
@@ -125,7 +125,7 @@ class UsersController < ApplicationController
        @user.forgot_password
        @user.save
        if(SHOW_ACTIVATION_LINK)
-         flash[:notice] = "<a href='#{HOST}/reset_password/#{@user.password_reset_code}'>Click here to reset</a>" 
+         flash[:error] = "<a href='#{HOST}/reset_password/#{@user.password_reset_code}'>Click here to reset</a>" #want this notice it red, that's why it's error
        else 
          flash[:notice] = "A password reset link has been sent to your email address" 
        end

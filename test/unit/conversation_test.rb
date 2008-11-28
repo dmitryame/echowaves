@@ -44,12 +44,15 @@ class ConversationTest < ActiveSupport::TestCase
 
     should_belong_to :parent_message #parent message it was spawned from
     should_have_index :parent_message_id
+    
+    should_belong_to :user
+    should_have_index :user_id
   end
   
   context "A read only conversation" do  
     setup do
-      @conversation = Factory.create(:conversation)
       @owner = Factory.create(:user, :login => "user1")
+      @conversation = Factory.create(:conversation, :user => @owner)      
       @user2 = Factory.create(:user, :login => "user2")
       @message1 = Factory.create(:message, :conversation => @conversation, :user => @owner)
       @conversation.update_attributes(:read_only => true)

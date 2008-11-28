@@ -188,8 +188,34 @@ class MessagesController < ApplicationController
 
   def spawn_conversation
     @message = Message.find(params[:id])
-    @spawned_conversation = @message.spawn_new_conversation(current_user)
-    redirect_to(conversation_messages_path(@spawned_conversation))  
+    
+    spawned_conversations = Conversation.find_all_by_parent_message_id(@message.id)
+    # there got to be a better way, for now just walk all responses and ask for the owner
+    spawned_conversations.each do|convo| 
+      if(convo.owner == current_user)
+        flash[:error] = "You already spawned from this message"
+        redirect_to conversation_messages_path(@conversation)
+        return
+      end
+    end
+    
+    spawned_conversation = @message.spawn_new_conversation(current_user)
+
+    #create a message in the original conversation notifying about this spawning
+    notification_message = Message.new
+    notification_message.user = current_user
+    notification_message.conversation_id = @conversation_id
+    notification_message.message = 
+    "\nnew convo: #{HOST}/conversations/#{spawned_conversation.id}/messages 
+    spawned by: #{current_user.login} \n
+    in response to: #{HOST}/conversations/#{@conversation.id}/messages/#{@message.id} \n
+    #{@message.message}"
+    
+    notification_message.save        
+    #and send realtime notification to everyone who's listening
+    send_stomp_message(notification_message)
+        
+    redirect_to conversation_messages_path(spawned_conversation)
   end
   
   

@@ -51,7 +51,7 @@ class ConversationsController < ApplicationController
   # POST /conversations.xml
   def create
     @conversation = Conversation.new(params[:conversation])
-    @conversation.created_by = current_user
+    @conversation.user = current_user
     
     respond_to do |format|
       if @conversation.save

@@ -5,9 +5,9 @@ class Conversation < ActiveRecord::Base
 
   # do not validate the uniquness of the personal conversations names, they will be guaranteed to be unique since the user names will be
   validates_uniqueness_of   :name,                       :unless => :personal? or :spawned?
-  validates_length_of       :name,    :within => 8..100, :unless => :personal? 
+  validates_length_of       :name,    :within => 3..100, :unless => :personal? 
   
-  validates_length_of       :description, :within => 0..10000
+  validates_length_of       :description, :maximum => 10000
   
   has_many :messages #these are the conversations messages
   belongs_to :parent_message, #parent message it was spawned from, in case it was created by spawning

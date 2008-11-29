@@ -13,8 +13,7 @@ class ConversationTest < ActiveSupport::TestCase
     should_have_index :name
     should_have_index :created_at
     
-    should_ensure_length_in_range :name, (8..100) 
-    # should_ensure_length_in_range :description, (0..10000) 
+    should_ensure_length_in_range :name, (3..100) 
  
     should_have_many :messages
     

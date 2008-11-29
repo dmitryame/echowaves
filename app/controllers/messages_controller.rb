@@ -22,7 +22,7 @@ class MessagesController < ApplicationController
   # GET /messages
   # GET /messages.xml
   def index
-    @messages = @conversation.messages.published.find(:all, :include => [:user], :limit => 10, :order => 'id DESC')
+    @messages = @conversation.messages.published.find(:all, :include => [:user], :limit => 100, :order => 'id DESC')
 
     # add a new conversation_visit to the history
     conversation_visit = ConversationVisit.new

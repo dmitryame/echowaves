@@ -9,8 +9,9 @@ ActionController::Routing::Routes.draw do |map|
       :report => :post,
       :spawn_conversation => :get # this is a bit anti rest, but if it's not get (put for instance) it will not work in the messages that arrived via orbited, it will cause invalid auth token error
     }     
-    
   end
+  
+  map.resource :msgsearch, :only => [:show, :create]
 
   map.home '/', :controller => "home", :action => "index"
   map.logout '/logout', :controller => 'sessions', :action => 'destroy'

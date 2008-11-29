@@ -1,0 +1,11 @@
+<div class="balloon">
+  <h1>search messages</h1>
+  <div>
+    <% form_tag msgsearch_path, :method => :get do %>
+      <%= text_field_tag :q %>
+      <%= submit_tag "Search", :name => nil  %>
+    <% end %>
+  </div>
+</div>
+<div class="arrow">&nbsp;</div>
+

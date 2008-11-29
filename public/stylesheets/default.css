@@ -101,3 +101,7 @@ textarea:focus, input[type='text']:focus, input[type='password']:focus, select:f
   border-bottom:1px dashed #ccc;
   padding:10px 0;
 }
+
+.pagination {
+  padding: 10px;
+}

@@ -10,3 +10,4 @@ data.dump
 db/data.yml
 db/schema.rb
 public/attachments
+*.log

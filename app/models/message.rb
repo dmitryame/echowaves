@@ -23,6 +23,10 @@ class Message < ActiveRecord::Base
   named_scope :published,
               :conditions => { :abuse_report_id => nil }
   
+  define_index do
+    indexes created_at, message
+  end
+        
   
   validates_attachment_size :attachment, :less_than => 5.megabytes
   validates_attachment_content_type :attachment, :content_type => [ 'application/pdf', 'application/x-pdf', 'application/x-download', 'application/rtf', 'image/gif', 'image/jpeg', 'image/png', 'image/tiff', 'image/rgb' ]

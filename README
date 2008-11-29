@@ -19,8 +19,11 @@ sudo apt-get install python2.5-twisted
 
 
 * install orbited http://orbited.org/wiki/Installation
+easy_install orbited
 * install simplejson
 easy_install simplejson
+* copy orbited config file
+cp config/orbited.cfg /etc/
 
 * install stomp gem
 sudo gem install stomp

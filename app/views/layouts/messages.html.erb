@@ -44,18 +44,6 @@
 			// stomp.subscribe('CONVERSATION_CHANNEL_<%=@conversation_id%>', {exchange:''});
 	 		
 	 		setTimeout("stomp.subscribe('CONVERSATION_CHANNEL_<%=@conversation_id%>', {exchange:''})",5000);
- 			// output.update(":polling messages");
- 			// //lets poll for new messages in case there are some while we were disconnected
- 			// new Ajax.Updater('messages', '/messages/message_poll?conversation_id=#{@conversation_id}', 
- 			// 	{
- 			// 		asynchronous:true, 
- 			// 		evalScripts:true, 
- 			// 		insertion:'bottom', 
- 			// 		onComplete:function(request){MessageManipulation.handle_new_messages()}, 
- 			// 		parameters:'after=' + MessageManipulation.last_message_number 
- 			// 	}
- 			// );
- 			// output.update("bottom" : ":done polling messages");
 
  		};
  		stomp.onerror = function(error) {
@@ -67,42 +55,23 @@
  			output.update('<span class="status_red">onerrorframe: ' + frame.body + '</span>');
  		};
  		stomp.onconnectedframe = function() {
-	 		// stomp.subscribecribe('CONVERSATION_CHANNEL_<%=@conversation_id%>', {exchange:''});	
-	 		// stomp.subscribe('CONVERSATION_CHANNEL_<%=@conversation_id%>', {exchange:''});
-			// var i = 100;
-			// <%current_user.conversations.each do |conversation|%>
-			// 	 			setTimeout("stomp.subscribe('CONVERSATION_NOTIFY_CHANNEL_<%=conversation.id%>', {exchange:''});", i);
-			// 	i += 100;
-			// <%end%>
  			output.update('<span class="status_green">Connected</span>');
  		};
  		stomp.onmessageframe = function(frame) {
  			var message_output = $('messages');
- 			// :update => 'messages', :position => 'bottom',
- 			// eval(frame.body);
-			// alert(frame.headers['destination']);
-
 			// this is an actual message for current conversation
  			if(frame.headers['destination'].startsWith("CONVERSATION_CHANNEL_") ) {
  				message_output.insert({"top":frame.body});
  				MessageManipulation.handle_new_messages();
- 				// $('message_message').value = '';
- 				// Misc.focusInput('message_message');
  			}	
 			// this is a notify conversation message
  			if(frame.headers['destination'].startsWith("CONVERSATION_NOTIFY_CHANNEL_") ) {
-				
-				// alert($(frame.headers['destination']));
-				
 			}
 
  		};
 		stomp.connect('<%=STOMP_HOST%>', <%=STOMP_PORT%>, 'user_<%=current_user.id%>', '');
 		// stomp.subscribe('CONVERSATION_CHANNEL_<%=@conversation_id%>', {exchange:''});
  		setTimeout("stomp.subscribe('CONVERSATION_CHANNEL_<%=@conversation_id%>', {exchange:''})", 5000);
-		// <%current_user.subscriptions.each do |subscription|%>
-		//  			setTimeout("stomp.subscribe('CONVERSATION_NOTIFY_CHANNEL_<%=subscription.conversation_id%>', {exchange:''})",6000);		
-		// <%end%>
 
  	};
 
@@ -110,7 +79,7 @@
   <%end#if user is not logged in, no point in connecting to orbited%>
 </head>
 
-<body id="messages_layout" onLoad="MessageManipulation.handle_old_messages();MessageManipulation.handle_new_messages();Misc.focusInput('message_message');stomp_function();">
+<body id="messages_layout" onLoad="Misc.focusInput('message_message');stomp_function();">
 
 	<%= render(:partial => "shared/header") %>
 	

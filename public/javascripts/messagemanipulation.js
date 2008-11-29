@@ -28,7 +28,6 @@ var MessageManipulation = {
 	MessageManipulation.first_message_number = MessageManipulation.find_first_message_number();
   },
 
-
   find_last_message_number: function() {
     var last_msg = $('messages').childElements().first();
     var num = parseInt(last_msg.id.sub("message_",""));

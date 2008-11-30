@@ -38,9 +38,7 @@ class User < ActiveRecord::Base
   has_many :recent_conversations, 
   :through => :conversation_visits, 
   :source => :conversation, 
-  :select => "distinct conversations.*",
-  :group => "conversation_visits.conversation_id",
-  :order => "max(conversation_visits.id) DESC",
+  :order => "updated_at DESC",
   :limit => 10
   
   before_create :make_activation_code 

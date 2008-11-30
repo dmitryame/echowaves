@@ -24,7 +24,8 @@ class Message < ActiveRecord::Base
               :conditions => { :abuse_report_id => nil }
   
   define_index do
-    indexes created_at, message
+    indexes created_at, :sortable => true
+    indexes message
   end
         
   

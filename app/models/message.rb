@@ -24,6 +24,7 @@ class Message < ActiveRecord::Base
   define_index do
     indexes created_at, :sortable => true
     indexes message
+    set_property :delta => true
   end
           
   validates_attachment_size :attachment, :less_than => 5.megabytes

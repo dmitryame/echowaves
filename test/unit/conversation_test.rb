@@ -83,5 +83,25 @@ class ConversationTest < ActiveSupport::TestCase
       assert @conversation.writable_by?(@user2)
     end
   end
+
+  context "A visit to a conversation" do
+    setup do
+      @conversation = Factory.create(:conversation)
+      @user = Factory.create(:user, :login => 'user1')
+    end
+
+    should "create a new ConversationVisit on a users first visit" do
+      assert_equal ConversationVisit.all.length, 0
+      @conversation.add_visit(@user)
+      assert_equal ConversationVisit.all.length, 1
+    end
+
+    should "update the existing ConversationVisit record on repeat visit" do
+      @cv = Factory.create(:conversation_visit, :conversation => @conversation, :user => @user)
+      pre_size = ConversationVisit.all.length
+      @conversation.add_visit(@user)
+      assert_equal ConversationVisit.all.length, pre_size
+    end
+  end
   
 end

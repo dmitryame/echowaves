@@ -19,16 +19,11 @@ class MessagesController < ApplicationController
     @conversation.messages.published.find(:all, :include => [:user], :conditions => ["id > ?", cutoff_message_id], :order => 'id ASC')
   end
     
-  # GET /messages
-  # GET /messages.xml
   def index
     @messages = @conversation.messages.published.find(:all, :include => [:user], :limit => 100, :order => 'id DESC')
 
     # add a new conversation_visit to the history
-    conversation_visit = ConversationVisit.new
-    conversation_visit.user = current_user if current_user
-    conversation_visit.conversation = @conversation
-    conversation_visit.save
+    @conversation.add_visit(current_user) if logged_in?
 
     if current_user
       # make sure the conversation we were last viwing does not have updates

@@ -26,6 +26,7 @@ class Message < ActiveRecord::Base
   define_index do
     indexes created_at, :sortable => true
     indexes message
+    set_property :delta => true
   end
         
   

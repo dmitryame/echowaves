@@ -58,15 +58,10 @@ class User < ActiveRecord::Base
     self.activated_at = Time.now.utc
     self.activation_code = nil
     
-    # FIXME: stuff like this should reside in the conversation model
-  # create personal conversations
-    conversation = Conversation.new
-    conversation.name = self.login
-    conversation.description = "This is a personal conversation for #{self.name || self.login}. If you wish to collaborate with #{self.name || self.login}, do it here."
-    conversation.personal_conversation = true;
-    conversation.user = self #this gets propageted to first message in the conversation which makes it an owner.
-    conversation.save
+    # create initial personal conversation
+    conversation = Conversation.add_personal(self)
     self.personal_conversation_id = conversation.id
+
     self.save
   end
 

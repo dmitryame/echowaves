@@ -61,14 +61,15 @@ class Conversation < ActiveRecord::Base
     end
   end
 
+  def self.add_personal(user)
+    name = user.name || user.login
+    desc = "This is a personal conversation for #{name}. If you wish to collaborate with #{name}, do it here."
+    convo = user.conversations.create(:name => user.login, :personal_conversation => true, :description => desc)
 
-  # after_create do |convo|
-  #   message = Message.new
-  #   message.user = convo.created_by
-  #   message.conversation = convo
-  #   message.message = convo.description
-  #   message.save
-  # end
+    # create subscription to your own personal message automatically
+    subscription = user.subscriptions.create(:conversation => convo) 
+    convo
+  end
 
   def escaped_name
     escaped(self.name)

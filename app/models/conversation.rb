@@ -33,6 +33,18 @@ class Conversation < ActiveRecord::Base
 
   named_scope :not_personal, :conditions => { :personal_conversation => false }
 
+  class << self
+    def add_personal(user)
+      name = user.name || user.login
+      desc = "This is a personal conversation for #{name}. If you wish to collaborate with #{name}, do it here."
+      convo = user.conversations.create(:name => user.login, :personal_conversation => true, :description => desc)
+
+      # create subscription to your own personal message automatically
+      subscription = user.subscriptions.create(:conversation => convo) 
+      convo
+    end
+  end
+
   def owner 
     self.user
   end
@@ -61,14 +73,20 @@ class Conversation < ActiveRecord::Base
     end
   end
 
-  def self.add_personal(user)
-    name = user.name || user.login
-    desc = "This is a personal conversation for #{name}. If you wish to collaborate with #{name}, do it here."
-    convo = user.conversations.create(:name => user.login, :personal_conversation => true, :description => desc)
+  def over_abuse_reports_limit?
+    self.abuse_reports.size > CONVERSATION_ABUSE_THRESHOLD
+  end
 
-    # create subscription to your own personal message automatically
-    subscription = user.subscriptions.create(:conversation => convo) 
-    convo
+  def report_abuse(user)
+    unless abuse_report = self.abuse_reports.find_by_user_id( user.id )
+      abuse_report = self.abuse_reports.create( :user => user )
+    end
+    self.reload
+    
+    # check if we should deactivate the convo for abuse
+    if (user == self.owner) or self.over_abuse_reports_limit?
+      self.update_attributes( :abuse_report => abuse_report )
+    end
   end
 
   def escaped_name

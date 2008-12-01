@@ -95,23 +95,7 @@ class ConversationsController < ApplicationController
 
   def report
     conversation = Conversation.find(params[:id])
-
-    #if was already reported by the current_user, don't do anything
-    if(AbuseReport.find_by_user_id_and_conversation_id( current_user.id, conversation.id))
-      render :nothing => true
-      return
-    end
-    
-    abuseReport = AbuseReport.new
-    abuseReport.conversation = conversation
-    abuseReport.user = current_user
-    abuseReport.save
-    
-    # if a conversation owner reported an abuse, or 10 other non owners -- deactivate the conversation
-    if (current_user == conversation.owner || conversation.abuse_reports.size > 10)      
-      conversation.abuse_report = abuseReport # the final abuse report that makes convo deactivated
-      conversation.save
-    end
+    conversation.report_abuse(current_user)
     render :nothing => true            
   end
 

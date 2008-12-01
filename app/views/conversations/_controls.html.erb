@@ -18,7 +18,5 @@
 <% end %>
 <%if logged_in? %>
 	&#187;
-	<%= link_to_remote t("ui.report"), 
-	:url => {:controller => 'conversations', :action => 'report', :id => @conversation.id}, 
-	:confirm => t("ui.reportconfirm_conversation") %>
+	<%= link_to_remote t("ui.report"), :url => report_conversation_path(@conversation), :confirm => t("ui.reportconfirm_conversation") %>
 <%end%>

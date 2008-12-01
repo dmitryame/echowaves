@@ -33,7 +33,7 @@ class Message < ActiveRecord::Base
   end
 
   def over_abuse_reports_limit?
-    self.abuse_reports.size > ABUSE_REPORT_THRESHOLD
+    self.abuse_reports.size > MESSAGE_ABUSE_THRESHOLD
   end
 
   # add an abuse report per user
@@ -44,7 +44,7 @@ class Message < ActiveRecord::Base
     self.reload
 
     # check if we need to deactivate the message for abuse
-    if (user == self.conversation.owner) or (self.over_abuse_reports_limit?)
+    if (user == self.conversation.owner) or self.over_abuse_reports_limit?
       self.update_attributes(:abuse_report => abuse_report)
 
       # FIXME: why is this next line happening?  There has to be a better way to accomplish whatever is trying to be accomplished then issuing a system call!

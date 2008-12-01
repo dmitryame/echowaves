@@ -73,6 +73,15 @@ class Conversation < ActiveRecord::Base
     end
   end
 
+  def add_subscription(user)
+    self.subscriptions.create( :user => user )
+  end
+
+  def remove_subscription(user)
+    sub = self.subscriptions.find_by_user_id( user.id )
+    sub.destroy if sub
+  end
+
   def over_abuse_reports_limit?
     self.abuse_reports.size > CONVERSATION_ABUSE_THRESHOLD
   end

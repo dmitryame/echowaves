@@ -1,4 +1,2 @@
 page.replace_html "follow_conversation", :partial => 'follow'
 page.replace_html "news", :partial => 'users/news'
-
-

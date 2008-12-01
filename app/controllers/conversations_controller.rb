@@ -34,10 +34,9 @@ class ConversationsController < ApplicationController
 
   def create
     @conversation = Conversation.new(params[:conversation])
-    @conversation.user = current_user
     
     respond_to do |format|
-      if @conversation.save
+      if current_user.conversations << @conversation
         flash[:notice] = 'Conversation was successfully created.'
         format.html { redirect_to(@conversation) }
         format.xml  { render :xml => @conversation, :status => :created, :location => @conversation }

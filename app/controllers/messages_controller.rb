@@ -102,26 +102,17 @@ class MessagesController < ApplicationController
   def spawn_conversation
     @message = Message.find(params[:id])
 
-    if Conversation.find_by_parent_message_id_and_user_id(@message.id, current_user.id)
+    if current_user.conversations.find_by_parent_message_id( @message.id )
       flash[:error] = "You already spawned a new conversation from this message."
-      redirect_to conversation_messsages_path(@conversation)
+      redirect_to conversation_messages_path(@conversation)
       return
     end
     
-    spawned_conversation = @message.spawn_new_conversation(current_user)
-
-    #create a message in the original conversation notifying about this spawning
-    notification_message = Message.new
-    notification_message.user = current_user
-    notification_message.conversation_id = @conversation.id
-    notification_message.message = 
-    "\nnew convo: #{HOST}/conversations/#{spawned_conversation.id}/messages 
-    spawned by: #{current_user.login} \n
-    in response to: #{HOST}/conversations/#{@conversation.id}/messages/#{@message.id} \n
-    #{@message.message}"
+    spawned_conversation = @message.spawn_new_conversation( current_user )
     
-    notification_message.save        
-    #and send realtime notification to everyone who's listening
+    # create a message in the original conversation notifying about this spawning
+    # and send realtime notification to everyone who's listening
+    notification_message = @conversation.notify_of_new_spawn( current_user, spawned_conversation, @message )
     send_stomp_message(notification_message)
         
     redirect_to conversation_messages_path(spawned_conversation)

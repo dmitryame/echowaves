@@ -50,11 +50,7 @@ class Conversation < ActiveRecord::Base
   end
   
   def followed?(user)    
-    if user.subscriptions.size > 0 && user.conversations.find(:all, :conditions => ["conversation_id = ?",self.id]).size > 0
-      true
-    else
-      false
-    end
+    (!user.subscriptions.empty? && user.subscriptions.find_by_conversation_id(self.id)) ? true : false
   end
 
   def add_visit(user)

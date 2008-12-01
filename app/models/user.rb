@@ -31,15 +31,15 @@ class User < ActiveRecord::Base
 
 
   has_many :subscriptions, :order => "activated_at DESC"
-  has_many :conversations, :through => :subscriptions, :uniq => true, :order => "name"
+  has_many :subscribed_conversations, :through => :subscriptions, :uniq => true, :order => "name", :source => :conversation
+  has_many :conversations
 
   has_many :conversation_visits
-  
   has_many :recent_conversations, 
-  :through => :conversation_visits, 
-  :source => :conversation, 
-  :order => "updated_at DESC",
-  :limit => 10
+           :through => :conversation_visits, 
+           :source => :conversation, 
+           :order => "updated_at DESC",
+           :limit => 10
   
   before_create :make_activation_code 
 
@@ -58,6 +58,7 @@ class User < ActiveRecord::Base
     self.activated_at = Time.now.utc
     self.activation_code = nil
     
+    # FIXME: stuff like this should reside in the conversation model
   # create personal conversations
     conversation = Conversation.new
     conversation.name = self.login

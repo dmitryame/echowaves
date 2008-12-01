@@ -183,15 +183,11 @@ class MessagesController < ApplicationController
 
   def spawn_conversation
     @message = Message.find(params[:id])
-    
-    spawned_conversations = Conversation.find_all_by_parent_message_id(@message.id)
-    # there got to be a better way, for now just walk all responses and ask for the owner
-    spawned_conversations.each do|convo| 
-      if(convo.owner == current_user)
-        flash[:error] = "You already spawned from this message"
-        redirect_to conversation_messages_path(@conversation)
-        return
-      end
+
+    if Conversation.find_by_parent_message_id_and_user_id(@message.id, current_user.id)
+      flash[:error] = "You already spawned a new conversation from this message."
+      redirect_to conversation_messsages_path(@conversation)
+      return
     end
     
     spawned_conversation = @message.spawn_new_conversation(current_user)

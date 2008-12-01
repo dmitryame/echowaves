@@ -12,7 +12,7 @@
   <div id="subscriptions_for_user">
   	<b><%= t("users.conversing_in") %>:</b>
   	<ul class="list">
-    <% for conversation in @user.conversations %>
+    <% for conversation in @user.subscribed_conversations %>
         <li>
           <%= link_to h(conversation.name), conversation_messages_path(conversation) %>
           <br/>

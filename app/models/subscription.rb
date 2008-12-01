@@ -13,8 +13,7 @@ class Subscription < ActiveRecord::Base
   end
   
   def mark_read
-    self.last_message_id = self.conversation.messages.last.id
-    self.save
+    self.update_attributes(:last_message_id => self.conversation.messages.last.id) unless self.conversation.messages.blank?
   end
   
   

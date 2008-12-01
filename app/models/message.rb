@@ -1,4 +1,5 @@
 class Message < ActiveRecord::Base
+
   belongs_to :conversation
   belongs_to :user
   
@@ -29,6 +30,28 @@ class Message < ActiveRecord::Base
   def spawn_new_conversation(user)
     name = (user.login + " spawned from: " + message)[0,100] # FIXME: the convo name length is limited to 100, do not remove this range -- will fails otherwise
     user.conversations.create(:description => self.message, :parent_message_id => self.id, :name => name)
+  end
+
+  def over_abuse_reports_limit?
+    self.abuse_reports.size > ABUSE_REPORT_THRESHOLD
+  end
+
+  # add an abuse report per user
+  def report_abuse(user)
+    unless abuse_report = self.abuse_reports.find_by_user_id(user.id)
+      abuse_report = self.abuse_reports.create(:user => user)
+    end
+    self.reload
+
+    # check if we need to deactivate the message for abuse
+    if (user == self.conversation.owner) or (self.over_abuse_reports_limit?)
+      self.update_attributes(:abuse_report => abuse_report)
+
+      # FIXME: why is this next line happening?  There has to be a better way to accomplish whatever is trying to be accomplished then issuing a system call!
+      #        we need to take all OS setups into account, not just unix
+      # perhaps this line is really important in publicly installed site like http://echowaves.com. could be parameterized for local installs
+      system "chmod -R 000 ./public/attachments/#{message.id}"
+    end
   end
 
   def after_create 

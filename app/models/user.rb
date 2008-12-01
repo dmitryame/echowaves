@@ -38,7 +38,7 @@ class User < ActiveRecord::Base
   has_many :recent_conversations, 
            :through => :conversation_visits, 
            :source => :conversation, 
-           :order => "updated_at DESC",
+           :order => "conversation_visits.updated_at DESC",
            :limit => 10
   
   before_create :make_activation_code 
@@ -119,12 +119,27 @@ class User < ActiveRecord::Base
     @reset_password
   end
 
+  def mark_last_viewed_as_read
+    self.subscriptions(:order => 'activated_at DESC').first.mark_read unless self.subscriptions.empty?
+  end
+
+  def update_last_viewed_subscription(conversation)
+    if sub = self.subscriptions.find_by_conversation_id(conversation.id)
+      sub.activate
+    end
+  end
+
+  def conversation_visit_update(conversation)
+    conversation.add_visit(self)
+    self.mark_last_viewed_as_read
+    self.update_last_viewed_subscription(conversation)
+  end
+
   protected
     
-    def make_activation_code
-        self.activation_code = self.class.make_token
-        logger.debug "Please activate your new account http://localhost:3000/activate/#{self.activation_code}"
-    end
-
+  def make_activation_code
+      self.activation_code = self.class.make_token
+      logger.debug "Please activate your new account http://localhost:3000/activate/#{self.activation_code}"
+  end
 
 end

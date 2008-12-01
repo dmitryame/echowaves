@@ -3,6 +3,7 @@ require 'stomp'
 class MessagesController < ApplicationController
   before_filter :login_required, :except => [:index, :show, :get_more_messages ]
   before_filter :find_conversation, :except => :send_data
+  before_filter :check_write_access, :only => [ :create ]
   after_filter :store_location, :only => [:index]  
   
   def get_more_messages
@@ -48,35 +49,25 @@ class MessagesController < ApplicationController
   end
 
   def create
-    raise "error" unless @conversation.writable_by?(current_user)
-    @message = Message.new(params[:message])
-    @message.user = current_user
-    @message.conversation = @conversation
+    @message = @conversation.messages.new(params[:message])
     
     respond_to do |format|
-      if @message.save
-        # flash[:notice] = 'Message was successfully created.'
-    
-        format.html {
-          if request.xhr?
-            # send a stomp message for everyone else to pick it up
-            send_stomp_message @message
-            send_stomp_notifications 
-            
-            render :nothing => true
-          else
-            redirect_to(conversation_messages_path(@conversation))
-          end
-        }
+      if current_user.messages << @message
+        format.html { redirect_to(conversation_messages_path(@conversation)) }
         format.xml { render :xml => @message, :status => :created, :location => @message }
+        format.js {
+          # send a stomp message for everyone else to pick it up
+          send_stomp_message @message
+          send_stomp_notifications 
+          render :nothing => true
+        }
       else
         format.html { render :action => "new" }
         format.xml { render :xml => @message.errors, :status => :unprocessable_entity }
+        format.js { render :nothing => true }
       end
     end
-   end
-
-
+  end
 
   def upload_attachment
     @message = Message.new(params[:message])    
@@ -143,6 +134,13 @@ class MessagesController < ApplicationController
       @conversation = Conversation.find( params[:conversation_id] )
     end
     
+    def check_write_access
+      unless @conversation.writable_by?(current_user)
+        flash[:error] = "You are not allowed to add messages to this conversation."
+        redirect_to conversation_messages_path(@conversation)
+        return
+      end
+    end
     
     def send_stomp_message(message)
       newmessagescript = render_to_string :partial => 'message', :object => message
@@ -153,6 +151,7 @@ class MessagesController < ApplicationController
       logger.error "IO failed: " + $!
       # raise
     end
+
     def send_stomp_notifications
       s = Stomp::Client.new
       s.send("CONVERSATION_NOTIFY_CHANNEL_" + params[:conversation_id], "1")

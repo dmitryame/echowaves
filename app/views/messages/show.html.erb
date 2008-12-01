@@ -48,7 +48,7 @@
         	<div class="messagelinks quiet small">
       		<%if current_user %>
       			<%= link_to_remote t("ui.report"), 
-      			:url => {:controller => 'messages', :action => 'report', :id => @message.id, :conversation_id => @conversation_id}, 
+      			:url => {:controller => 'messages', :action => 'report', :id => @message.id, :conversation_id => @conversation.id}, 
       			:confirm => t("ui.reportconfirm") %>
       		<%end%>
       	</div>

@@ -41,9 +41,9 @@
  			//try to reconnect
  			// stomp.connect(document.domain, 61613, 'UNIQUE_ID_PER_CLIENT', '');
 			stomp.connect('<%=STOMP_HOST%>', <%=STOMP_PORT%>, '<%=current_user.id%>', '');
-			// stomp.subscribe('CONVERSATION_CHANNEL_<%=@conversation_id%>', {exchange:''});
+			// stomp.subscribe('CONVERSATION_CHANNEL_<%=@conversation.id%>', {exchange:''});
 	 		
-	 		setTimeout("stomp.subscribe('CONVERSATION_CHANNEL_<%=@conversation_id%>', {exchange:''})",5000);
+	 		setTimeout("stomp.subscribe('CONVERSATION_CHANNEL_<%=@conversation.id%>', {exchange:''})",5000);
 
  		};
  		stomp.onerror = function(error) {
@@ -70,8 +70,8 @@
 
  		};
 		stomp.connect('<%=STOMP_HOST%>', <%=STOMP_PORT%>, 'user_<%=current_user.id%>', '');
-		// stomp.subscribe('CONVERSATION_CHANNEL_<%=@conversation_id%>', {exchange:''});
- 		setTimeout("stomp.subscribe('CONVERSATION_CHANNEL_<%=@conversation_id%>', {exchange:''})", 5000);
+		// stomp.subscribe('CONVERSATION_CHANNEL_<%=@conversation.id%>', {exchange:''});
+ 		setTimeout("stomp.subscribe('CONVERSATION_CHANNEL_<%=@conversation.id%>', {exchange:''})", 5000);
 
  	};
 
@@ -132,7 +132,7 @@
       	  	:url  => { :action => "upload_attachment" },
       	    :html => { :multipart => true, :target => "upload_frame" } ) do |f| %>
       	      <%= f.file_field :attachment %>
-      	  	  <input type="hidden" name="conversation_id" id="conversation_id" value="<%= @conversation_id %>" />
+      	  	  <input type="hidden" name="conversation_id" id="conversation_id" value="<%= @conversation.id %>" />
       	  	  <%= submit_tag t("ui.attach") %>
       	  	  <%= link_to_function "hide" do |page|
                 page[:attachment_form].hide

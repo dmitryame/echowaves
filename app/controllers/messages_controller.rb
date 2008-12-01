@@ -199,7 +199,7 @@ class MessagesController < ApplicationController
     #create a message in the original conversation notifying about this spawning
     notification_message = Message.new
     notification_message.user = current_user
-    notification_message.conversation_id = @conversation_id
+    notification_message.conversation_id = @conversation.id
     notification_message.message = 
     "\nnew convo: #{HOST}/conversations/#{spawned_conversation.id}/messages 
     spawned by: #{current_user.login} \n
@@ -217,8 +217,7 @@ class MessagesController < ApplicationController
   private
 
     def find_conversation
-      @conversation_id = params[:conversation_id]
-      @conversation = Conversation.find(@conversation_id)
+      @conversation = Conversation.find( params[:conversation_id] )
     end
     
     

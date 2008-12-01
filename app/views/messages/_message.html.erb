@@ -2,10 +2,10 @@
   	<div class="messagelinks quiet small">
 		<%if current_user%>
 			<%= link_to_remote t("ui.report"), 
-			:url => {:controller => 'messages', :action => 'report', :id => message.id, :conversation_id => @conversation_id}, 
+			:url => {:controller => 'messages', :action => 'report', :id => message.id, :conversation_id => @conversation.id}, 
 			:confirm => t("ui.reportconfirm"), :method => :get %>
 			<%= link_to t("ui.spawn"), 
-			{:controller => 'messages', :action => 'spawn_conversation', :id => message.id, :conversation_id => @conversation_id}, 
+			{:controller => 'messages', :action => 'spawn_conversation', :id => message.id, :conversation_id => @conversation.id}, 
 			:confirm => t("ui.spawnconfirm"), :method => :get %> <%#has to be the get in order for auth token to work%>
 		<%end%>
 	</div>

@@ -81,6 +81,6 @@ class Conversation < ActiveRecord::Base
 
 private
   def escaped(value)
-    value.gsub(/"/, '&quot;').gsub(/'/, '.').gsub(/(\r\n|\n|\r)/,' </br>')
+    value.gsub(/"/, '&quot;').gsub(/'/, '.').gsub(/(\r\n|\n|\r)/,' <br />')
   end
 end

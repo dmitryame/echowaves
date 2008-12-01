@@ -1,5 +1,5 @@
 <div id="my_conversations" class="item2">
-	<%if current_user%>
+	<% if logged_in? %>
 	<b><%= t("ui.my_conversations") %>:</b><br/>
 	<ul>
 		<% current_user.subscribed_conversations.each do |conversation| %>

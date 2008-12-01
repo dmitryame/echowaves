@@ -24,7 +24,7 @@
 	<%= stylesheet_link_tag 'unitip' %>
 	<%= javascript_include_tag 'unitip' %>
 	
-	<%if current_user%>
+	<% if logged_in? %>
 	
  	<%= orbited_javascript %> 		
  	<script>
@@ -93,7 +93,7 @@
         <%= render :partial => 'conversations/controls' %>
 			  
 			  <div id="messageinputdiv">
-		      <% if current_user && @conversation.writable_by?(current_user) %>		
+		      <% if logged_in? && @conversation.writable_by?(current_user) %>		
             <% remote_form_for(:message,
             	:update => 'messages', :position => 'top',
               :url => conversation_messages_path(@conversation),

@@ -1,6 +1,6 @@
 <div class="message" id="<%=dom_id(message)%>">
   	<div class="messagelinks quiet small">
-		<%if current_user%>
+		<% if logged_in? %>
 			<%= link_to_remote t("ui.report"), :url => report_conversation_message_path(@conversation, message), :confirm => t("ui.reportconfirm") %>
 			<%= link_to t("ui.spawn"), 
 			{:controller => 'messages', :action => 'spawn_conversation', :id => message.id, :conversation_id => @conversation.id}, 

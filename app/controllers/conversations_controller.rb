@@ -60,16 +60,11 @@ class ConversationsController < ApplicationController
     @conversation.remove_subscription(current_user)
   end
 
-  def makereadonly
-    @conversation = Conversation.find(params[:id])
-    @conversation.update_attributes(:read_only => true) if @conversation.owner == current_user
-    redirect_to conversation_messages_path(@conversation)
-  end
-  
-  def makewriteable
-    @conversation = Conversation.find(params[:id])
-    @conversation.update_attributes(:read_only => false) if @conversation.owner == current_user
-    redirect_to conversation_messages_path(@conversation)
+  def readwrite_status
+    read_only = (params[:mode] == 'rw') ? false : true 
+    @conversation = Conversation.find( params[:id] )
+    @conversation.update_attributes( :read_only => read_only ) if ( @conversation.owner == current_user )
+    redirect_to conversation_messages_path( @conversation )
   end
 
   def report

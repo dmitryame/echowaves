@@ -21,32 +21,42 @@ class ConversationsControllerTest < ActionController::TestCase
       # :destroy
       ]    
   end
-  
-  context "makereadonly action" do
+
+  context "readwrite_status action" do
     setup do
-      @owner = Factory.create(:user, :login => "user1")      
+      @owner = Factory.create(:user, :login => 'user1')
       @conversation = Factory.create(:conversation, :user => @current_user)
     end
-        
-    should "make the conversation readonly if the current_user is the owner" do
-      put :makereadonly, :id => @conversation
-      assert_equal true, assigns(:conversation).read_only
-    end  
-  end
-  
-  context "makewritable action" do
-    setup do
-      @conversation = Factory.create(:conversation)
+
+    context "convo belongs to other user " do
+      setup do
+        @other_conversation = Factory.create(:conversation, :user => @owner)
+      end
+
+      should "only allow changes if the current_user is the conversation owner" do
+        # try to change to writeable
+        @other_conversation.update_attribute(:read_only, true)
+        put :readwrite_status, :id => @other_conversation, :mode => 'rw'
+        assert_equal true, assigns(:conversation).read_only
+
+        # try to change to readonly
+        @other_conversation.update_attribute(:read_only, false)
+        put :readwrite_status, :id => @other_conversation
+        assert_equal false, assigns(:conversation).read_only
+      end
     end
-    
-    should "not make the conversation writeable if the current_user is not the owner" do
-      @owner = Factory.create(:user, :login => "user1")
-      @message1 = Factory.create(:message, :conversation => @conversation, :user => @owner)
-      @conversation.update_attributes(:read_only => true)
-      put :makewriteable, :id => @conversation
-      assert_equal true, assigns(:conversation).read_only
+
+    context "convo belongs to current_user" do
+      should "make readonly with no mode param" do
+        put :readwrite_status, :id => @conversation
+        assert_equal true, assigns(:conversation).read_only
+      end
+
+      should "make writeable with rw mode param" do
+        put :readwrite_status, :id => @conversation, :mode => 'rw'
+        assert_equal false, assigns(:conversation).read_only 
+      end
     end
-    
   end
-  
+
 end

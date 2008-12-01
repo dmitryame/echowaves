@@ -3,7 +3,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :users
 
-  map.resources :conversations, :member => {:makereadonly => :put, :makewriteable => :put, :report => :post, :follow => :post, :unfollow => :post} do |conversation|
+  map.resources :conversations, :member => { :readwrite_status => :put, :report => :post, :follow => :post, :unfollow => :post } do |conversation|
     conversation.resources :messages,
     :member => {
       :report => :post,

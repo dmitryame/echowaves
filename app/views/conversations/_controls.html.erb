@@ -11,9 +11,9 @@
 <% if current_user == @conversation.owner %>
   &#187;
   <% if @conversation.read_only %>
-    <%= link_to "make writable", makewriteable_conversation_path(@conversation), :method => 'put' %>
+    <%= link_to "make writable", readwrite_status_conversation_path(@conversation, :mode => 'rw'), :method => 'put' %>
   <% else %>
-    <%= link_to "make readonly", makereadonly_conversation_path(@conversation), :method => 'put' %>
+    <%= link_to "make readonly", readwrite_status_conversation_path(@conversation), :method => 'put' %>
   <% end %>
 <% end %>
 <%if logged_in? %>

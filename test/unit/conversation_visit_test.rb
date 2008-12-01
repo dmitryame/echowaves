@@ -1,4 +1,4 @@
-require 'test_helper'
+require File.dirname(__FILE__) + '/../test_helper'
 
 class ConversationVisitTest < ActiveSupport::TestCase
   context "A Conversation_Visit instance" do    

@@ -11,3 +11,5 @@ db/data.yml
 db/schema.rb
 public/attachments
 *.log
+coverage.data
+coverage/*

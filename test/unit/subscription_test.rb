@@ -1,4 +1,4 @@
-require 'test_helper'
+require File.dirname(__FILE__) + '/../test_helper'
 
 class SubscriptionTest < ActiveSupport::TestCase
   context "A Subscription instance" do    

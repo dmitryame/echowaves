@@ -43,7 +43,7 @@ You can install it quite easily via apt, yum, or port, or the package manager of
 http://sphinxsearch.com/
 
 === POST INSTALL
-* Index data for Sphinx using Thinking Sphinx's settings
+* Index data for Sphinx using Thinking Sphinx's settings (this rake task will create the settings file at #{RAILS_ROOT}/configuration/development.sphinx.conf)
 rake thinking_sphinx:index
 
 You will see a warning like the following – it’s safe to ignore, it’s just Sphinx being overly fussy. It tries to index all indexes, including distributed ones – which never need to be indexed, so it’s nothing to worry about:
@@ -56,6 +56,7 @@ Also – you can run the index task while Sphinx is running, and it’ll reload 
 
 * setup a cron tab to run "rake thinking_sphinx:index" periodically or do it manually when you need it
 
+===
 
 SignUp as a new user. Activate the user by copy-pasting the activation URL from the debug log into the address field of your browser and hit enter. 
 

@@ -34,6 +34,18 @@ class Message < ActiveRecord::Base
   
   validates_presence_of :user_id, :conversation_id, :message
 
+  def has_attachment?
+    !self.attachment_file_name.nil?
+  end
+
+  def has_pdf?
+    has_attachment? and self.attachment_content_type.include?("pdf")
+  end
+
+  def has_image?
+    has_attachment? and self.attachment_content_type.match(/(gif|jpg|jpeg|tiff|png)/).nil? ? false : true
+  end
+
   # expected to return a new spawned conversation
   def spawn_new_conversation(user)
     name = (user.login + " spawned from: " + message)[0,100] # FIXME: the convo name length is limited to 100, do not remove this range -- will fails otherwise

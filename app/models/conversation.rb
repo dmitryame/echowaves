@@ -28,11 +28,16 @@ class Conversation < ActiveRecord::Base
 
   belongs_to :user
 
-  named_scope :published,
-              :conditions => { :abuse_report_id => nil }
-
+  named_scope :published, :conditions => { :abuse_report_id => nil }
   named_scope :not_personal, :conditions => { :personal_conversation => false }
 
+  define_index do
+    indexes :name
+    indexes description
+    has created_at
+    set_property :delta => true
+  end
+  
   class << self
     def add_personal(user)
       name = user.name || user.login

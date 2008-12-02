@@ -1,0 +1,20 @@
+<div class="balloon">
+  <h1>search conversations for:</h1>
+  <h2><%= params[:q] %></h2>
+</div>
+
+<div class="item">
+  <ul class="list">
+  <% for conversation in @conversations %>
+      <li>
+        <%= link_to highlight(h(conversation.name), params[:q].split), conversation_messages_path(conversation) %>
+        <br/>
+        <%= highlight(conversation.escaped_description, params[:q].split) %>
+        <br/>
+        <span class="quiet small"><%= conversation.created_at.to_s(:date_time12) %></span>
+      </li>
+  <% end %>
+  </ul>
+  
+  <div class="pagination"><%= will_paginate @conversations %></div>
+</div>

@@ -12,6 +12,7 @@ ActionController::Routing::Routes.draw do |map|
   end
   
   map.resource :msgsearch, :only => [:show, :create]
+  map.resource :convosearch, :only => [:show, :create]
 
   map.home '/', :controller => "home", :action => "index"
   map.logout '/logout', :controller => 'sessions', :action => 'destroy'

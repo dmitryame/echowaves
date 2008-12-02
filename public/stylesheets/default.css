@@ -105,3 +105,9 @@ textarea:focus, input[type='text']:focus, input[type='password']:focus, select:f
 .pagination {
   padding: 10px;
 }
+.container .search_link {
+  display: block;
+  margin-bottom:5px;
+  background:#fff url(/images/icons/magnifier.png) 2px 5px no-repeat;
+  padding-left:20px;
+  }

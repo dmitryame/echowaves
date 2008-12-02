@@ -80,22 +80,12 @@ class MessagesController < ApplicationController
   end
 
   def upload_attachment
-    @message = Message.new(params[:message])    
-    @message.user = current_user
-    @message.conversation = @conversation
-    @message.message = "!!!!!attachment!!!!!!"    
+    render( :nothing => true ) and return if params[:message][:attachment].blank?
 
+    @message = current_user.messages.new(params[:message])
 
-    if params[:message][:attachment].blank?
-      render :nothing => true
-      return
-    end
-      
-      
-      
-    # puts '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@:' + @message.attachment_content_type  
-      
-    if @message.save
+    if @conversation.messages << @message
+      @message.update_attributes(:message => @message.attachment_file_name)
       # send a stomp message for everyone else to pick it up
       send_stomp_message @message
       send_stomp_notifications       

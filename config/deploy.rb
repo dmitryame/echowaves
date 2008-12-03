@@ -38,6 +38,8 @@ namespace :deploy do
 #    run "cp /u/config/#{application}/production.rb #{release_path}/config/environments/"
     run "cp /u/config/#{application}/environment.rb #{release_path}/config/"
     run "cp /u/config/#{application}/site_keys.rb #{release_path}/config/initializers/"
+    run "rake thinking_sphinx:index"
+    run "rake thinking_sphinx:start"
     run "ln -nfs /vol/attachments #{release_path}/public/attachments"
   end
   

@@ -65,7 +65,7 @@ class Conversation < ActiveRecord::Base
   end
   
   def spawned?
-    self.parent_message_id == nil
+    !self.parent_message_id.nil?
   end
   
   def followed?(user)    

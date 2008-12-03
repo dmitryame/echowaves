@@ -40,6 +40,123 @@ class MessageTest < ActiveSupport::TestCase
     should_require_attributes :message
     should_require_attributes :user_id, :conversation_id
 
-
+    should_have_attached_file :attachment
   end    
+
+  def test_should_check_over_abuse_reports_limit?
+    @message1 = Factory.create(:message)
+    @message2 = Factory.create(:message)
+    @ab1 = Factory.create(:abuse_report, :message => @message1, :user => @message1.user) 
+    @ab2 = Factory.create(:abuse_report, :message => @message1, :user => @message1.user) 
+    @ab3 = Factory.create(:abuse_report, :message => @message1, :user => @message1.user) 
+
+    assert @message1.over_abuse_reports_limit?
+    assert_equal false, @message2.over_abuse_reports_limit?
+  end
+
+  def test_published?_method
+    message = Factory.create(:message)
+    assert message.published?
+    
+    abuse_report = Factory.create(:abuse_report, :message => message)
+    message.update_attribute(:abuse_report, abuse_report)
+    assert_equal false, message.published?
+  end
+
+  def test_report_abuse_method_by_non_owner
+    message_owner = Factory.create(:user)
+    report_user = Factory.create(:user)
+    message = Factory.create(:message, :user => message_owner)
+    
+    assert_equal 0, message.abuse_reports.size
+    message.report_abuse(report_user)
+    assert_equal 1, message.abuse_reports.size
+    message.report_abuse(report_user)
+    assert_equal 1, message.abuse_reports.size
+    assert_nil message.abuse_report
+  end
+
+  def test_report_abuse_method_by_owner
+    message_owner = Factory.create(:user)
+    convo = Factory.create(:conversation, :user => message_owner)
+    message = Factory.create(:message, :conversation => convo)
+
+    assert message.published?
+    assert_equal 0, message.abuse_reports.size
+
+    message.report_abuse(message_owner)
+    assert_equal 1, message.abuse_reports.size
+    assert_equal false, message.published?
+  end
+
+  def test_report_abuse_method_over_limit
+    message_owner = Factory.create(:user)
+    u1 = Factory.create(:user)
+    u2 = Factory.create(:user)
+    u3 = Factory.create(:user)
+    message = Factory.create(:message, :user => message_owner)
+
+    assert message.published?
+    assert_equal 0, message.abuse_reports.size
+
+    message.report_abuse(u1)
+    assert message.published?
+
+    message.report_abuse(u2)
+    assert message.published?
+
+    message.report_abuse(u3)
+    assert_equal false, message.published?
+    assert_equal 3, message.abuse_reports.size
+  end
+
+  def test_spawn_new_conversation
+    message_owner = Factory.create(:user)
+    spawn_user = Factory.create(:user)
+    message_convo = Factory.create(:conversation, :user => message_owner)
+    message = Factory.create(:message, :message => 'This is a test message', :user => message_owner, :conversation => message_convo)
+
+    assert_equal 1, message_owner.conversations.size
+    assert_equal 0, spawn_user.conversations.size
+
+    message.spawn_new_conversation(spawn_user)
+    assert_equal 1, message_owner.conversations.size
+    assert_equal 1, spawn_user.conversations.size
+  end
+
+  def test_has_attachment_method
+    message = Factory.create(:message)
+    assert_equal false, message.has_attachment?
+
+    # FIXME: not sure how to mock/stub out the attachment from Paperclip
+  end
+
+  private
+
+  def create_attachment( type = :image )
+    case type
+    when :pdf
+      attachment = stub(
+        :nil? => false,
+        :exists? => true,
+        :to_tempfile => self,
+        :original_filename => 'filename.pdf',
+        :content_type => 'application/pdf',
+        :size => 10
+      )
+    else
+      attachment = stub( 
+        :nil? => false,
+        :exists? => true,
+        :to_tempfile => self,
+        :original_filename => 'filename.png',
+        :content_type => 'image/png',
+        :size => 10
+      )
+    end
+    assert attachment.exists?
+    attachment
+  end
+
+
 end

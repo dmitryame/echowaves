@@ -34,8 +34,12 @@ class Message < ActiveRecord::Base
   
   validates_presence_of :user_id, :conversation_id, :message
 
+  def published?
+    self.abuse_report.nil?
+  end
+
   def has_attachment?
-    !self.attachment_file_name.nil?
+    self.attachment.exists?
   end
 
   def has_pdf?
@@ -43,7 +47,7 @@ class Message < ActiveRecord::Base
   end
 
   def has_image?
-    has_attachment? and self.attachment_content_type.match(/(gif|jpg|jpeg|tiff|png)/).nil? ? false : true
+    has_attachment? and self.attachment_content_type.include?("image")
   end
 
   # expected to return a new spawned conversation
@@ -70,7 +74,7 @@ class Message < ActiveRecord::Base
       # FIXME: why is this next line happening?  There has to be a better way to accomplish whatever is trying to be accomplished then issuing a system call!
       #        we need to take all OS setups into account, not just unix
       # perhaps this line is really important in publicly installed site like http://echowaves.com. could be parameterized for local installs
-      system "chmod -R 000 ./public/attachments/#{message.id}"
+      system "chmod -R 000 ./public/attachments/#{self.id}"
     end
   end
 

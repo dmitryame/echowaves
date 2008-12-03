@@ -1,6 +1,6 @@
 ENV["RAILS_ENV"] = "test"
 require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
-%w(test_help mocha factory_girl).each { |lib| require lib }
+%w(test_help factory_girl).each { |lib| require lib }
 require File.expand_path(File.dirname(__FILE__) + "/factories")
 
 class Test::Unit::TestCase

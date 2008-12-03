@@ -39,8 +39,8 @@ namespace :deploy do
     run "cp /u/config/#{application}/environment.rb #{release_path}/config/"
     run "cp /u/config/#{application}/site_keys.rb #{release_path}/config/initializers/"
     run "ln -nfs /vol/sphinx #{release_path}/db/sphinx"    
-    run "rake thinking_sphinx:index"
-    run "rake thinking_sphinx:start"
+    run "cd #{deploy_to}/current; /usr/bin/rake thinking_sphinx:index  RAILS_ENV=production"
+    run "cd #{deploy_to}/current; /usr/bin/rake thinking_sphinx:start  RAILS_ENV=production"
     run "ln -nfs /vol/attachments #{release_path}/public/attachments"
   end
   

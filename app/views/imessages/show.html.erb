@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title><%= controller.action_name %></title>
+  <link rel="shortcut icon" href="/images/favicon.ico" />
+ 	
+  <link rel="stylesheet" href="/stylesheets/screen.css" type="text/css" media="screen, projection">
+  <link rel="stylesheet" href="/stylesheets/print.css" type="text/css" media="print"> 
+  <!--[if IE]>
+    <link rel="stylesheet" href="/stylesheets/ie.css" type="text/css" media="screen, projection">
+  <![endif]-->
+  <link rel="stylesheet" href="/stylesheets/style.css" type="text/css" media="screen, projection">
+  <%= stylesheet_link_tag 'default' %>
+  <style type="text/css">
+    #center {background:#fff;padding-bottom:20px;}
+    .message {border:none;}
+    .balloon a:link, .balloon a:visited {color:#000;}
+  </style>
+</head>
+
+<body>
+
+	<div id="header" class="container">
+	  <div class="span-5">&nbsp;</div>
+    <div class="span-14">
+    	<h1><%= link_to image_tag("echowaves.gif", :border => 0, :width => "260px", :height => "43px" ), home_path %></h1>
+    </div>
+    <div class="span-5 last">&nbsp;</div>
+  </div>
+  
+  
+	<div id="main_content" class="container" style="background:#000;">
+	  
+	  <div class="span-5">&nbsp;</div>
+		
+		<div id="center" class="span-14">
+		  
+      <div class="balloon">
+        <h2 class="center"><%= link_to h(@conversation.name), conversation_path(@conversation) %></h2>
+        <h4 class="center"><%= @conversation.escaped_description %></h4>
+      </div>
+      <div class="arrow">&nbsp;</div>
+      
+      <div class="message" id="<%=dom_id(@message)%>">
+        	<div class="messagelinks quiet small">
+      		<% if logged_in? %>
+      			<%= link_to_remote t("ui.report"), 
+      			:url => {:controller => 'messages', :action => 'report', :id => @message.id, :conversation_id => @conversation.id}, 
+      			:confirm => t("ui.reportconfirm") %>
+      		<%end%>
+      	</div>
+        <div class="avatar"><%= link_to image_tag(@message.user.gravatar_url, :border => 0, :width => 40, :height => 40, :class => "avatar", :alt => @message.user.login), user_path(@message.user)   %></div>
+      	<div class="messagetext">
+      		<span class="username"><%=link_to h(@message.user.login), conversation_path(@conversation)  %></span>
+      		<% if @message.attachment.original_filename %>
+      		  <%= link_to(image_tag(@message.attachment.url(:big)), @message.attachment.url, :target => "_blank")%>		 
+      		<%else%>
+      		  <%= mark_up @message.message %>
+      		<% end %>
+      		<span class="date quiet small"><%= @message.created_at.to_s(:pretty_long) %></span>
+      	</div>
+      	<div class="clear"></div>
+      </div>
+
+      <div class="span-5 last">&nbsp;</div>
+      
+	</div>
+
+  
+
+</body>
+</html>
+
+
+

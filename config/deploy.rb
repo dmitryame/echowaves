@@ -45,7 +45,7 @@ namespace :deploy do
    task :after_symlink do
      run <<-CMD
        rm -fr #{current_path}/db/sphinx &&
-       ln -nfs /vol/sphinx/db/sphinx #{current_path}/db/sphinx
+       ln -nfs /vol/sphinx #{current_path}/db/sphinx
      CMD
    end
 

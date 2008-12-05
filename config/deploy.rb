@@ -43,24 +43,27 @@ namespace :deploy do
   
   desc "Re-establish symlinks"
    task :after_symlink do
-     run "rm -fr #{current_path}/db/sphinx && ln -nfs /vol/sphinx #{current_path}/db/sphinx"
+     run <<-CMD
+       rm -fr #{release_path}/db/sphinx &&
+       ln -nfs #{shared_path}/db/sphinx #{release_path}/db/sphinx
+     CMD
    end
   
    desc "Stop the sphinx server"
-    task :stop_sphinx , :roles => :app do
-      run "cd #{current_path} && rake thinking_sphinx:stop RAILS_ENV=production"
-    end
+   task :stop_sphinx , :roles => :app do
+     run "cd #{current_path} && rake thinking_sphinx:stop RAILS_ENV=production"
+   end
 
-    desc "Start the sphinx server"
-    task :start_sphinx, :roles => :app do
-      run "cd #{current_path} && rake thinking_sphinx:configure RAILS_ENV=production && rake thinking_sphinx:start RAILS_ENV=production"
-    end
+   desc "Start the sphinx server"
+   task :start_sphinx, :roles => :app do
+     run "cd #{current_path} && rake thinking_sphinx:configure RAILS_ENV=production && rake thinking_sphinx:start RAILS_ENV=production"
+   end
 
-    desc "Restart the sphinx server"
-    task :restart_sphinx, :roles => :app do
-      stop_sphinx
-      start_sphinx
-    end  
+   desc "Restart the sphinx server"
+   task :restart_sphinx, :roles => :app do
+     stop_sphinx
+     start_sphinx
+   end  
   
   after "deploy:update_code", "deploy:copy_prod_configuration"
 end

@@ -41,8 +41,8 @@ namespace :deploy do
     run "ln -nfs /vol/attachments #{release_path}/public/attachments"
   end
   
-  desc "Re-establish symlinks"
-   task :after_symlink do
+  desc "Re-establish symlinks for sphinx"
+   task :after_symlink_sphinx do
      run <<-CMD
        rm -fr #{current_path}/db/sphinx &&
        ln -nfs /vol/sphinx #{current_path}/db/sphinx
@@ -70,5 +70,5 @@ namespace :deploy do
      start_sphinx
    end  
   
-  after "deploy:update_code", "deploy:copy_prod_configuration"
+  after "deploy:update_code", "deploy:copy_prod_configuration", "deploy:after_symlink_sphinx"
 end

@@ -1,0 +1,71 @@
+#header_container {
+  background:#000;
+  position:fixed;
+  top:0;
+  width:100%;
+  z-index:100;
+}
+#header {margin:0 auto;}
+
+#main_content {
+  margin-top:44px;
+}
+#messagesform {
+  position:fixed;
+  bottom:0px;
+  width:510px;
+}
+
+
+#attachment_form {background: #9acb63; padding:0px;}
+#attachment_form_padding {padding:50px;}
+#attachment_form {
+  position:fixed;
+  bottom:20px;
+  width:550px;
+  z-index:101;
+}
+
+#attachment_form input{margin:0;padding:0;}
+#attachment_form form{margin:0;padding:0;}
+#footer {
+  display:none;
+}
+#messagesform_arrow {
+  width:520px;
+  position:fixed;
+  bottom:122px;
+  background:url(/images/uparrow.png) bottom center no-repeat;
+  z-index:99;
+}
+#messagesform {
+  padding-top:20px;
+}
+#messages {
+  background:#fff;
+  margin-bottom:99px;
+}
+#sidebars_container {
+  position:fixed;
+  top:44px;
+  width:390px;
+}
+
+#col3_container {
+
+}
+#footer_container {
+  position:fixed;
+  bottom:0;
+  background:#000;
+  z-index:100;
+  width:100%;
+  height:20px;
+}
+.container p {
+  margin:0;
+}
+#convo_controls h4{
+  margin-top:10px;
+  margin-bottom:0px;
+}

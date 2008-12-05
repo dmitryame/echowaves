@@ -73,7 +73,7 @@ div.auto_complete ul strong.highlight {
 #attachment_form input{margin:0;padding:0;}
 #attachment_form form{margin:0;padding:0;}
 #last_message_avise {background:#9acb63; padding:0 20px;text-align:center;margin-top:-19px;}
-.messageinput { width:500px; height:40px; }
+.messageinput { width:500px; height:4em; }
 textarea, input[type='text'], input[type='password'], select { border: 1px solid #333; background: #fff; }
 textarea:hover, input[type='text']:hover, input[type='password']:hover, select:hover { border-color: #333; }
 textarea:focus, input[type='text']:focus, input[type='password']:focus, select:focus { border-color: #333; outline: 2px solid #333; }

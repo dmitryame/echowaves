@@ -1,6 +1,5 @@
 <% if logged_in? %>
   <span id="follow_conversation"> 
-		&#187; 	
 		<% if @conversation.followed?(current_user) %>
 			<%= link_to_remote t("ui.unfollow"), :url => unfollow_conversation_path(@conversation) %>
 		<% else %>

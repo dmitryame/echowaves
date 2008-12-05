@@ -14,7 +14,7 @@ class ImessagesController < ApplicationController
   end
   
   def get_messages_before(first_message_id)
-    @conversation.messages.published.find(:all, :include => [:user], :conditions => ["id < ?", first_message_id], :limit => 100, :order => 'id DESC')
+    @conversation.messages.published.find(:all, :include => [:user], :conditions => ["id < ?", first_message_id], :limit => 100, :order => 'id DESC').reverse
   end
 
 
@@ -23,7 +23,7 @@ class ImessagesController < ApplicationController
   end
     
   def index
-    @messages = @conversation.messages.published.find(:all, :include => [:user], :limit => 100, :order => 'id DESC')
+    @messages = @conversation.messages.published.find(:all, :include => [:user], :limit => 100, :order => 'id DESC').reverse
     current_user.conversation_visit_update(@conversation) if logged_in?
     
     respond_to do |format|

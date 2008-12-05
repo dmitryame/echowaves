@@ -62,8 +62,9 @@
  			var message_output = $('messages');
 			// this is an actual message for current conversation
  			if(frame.headers['destination'].startsWith("CONVERSATION_CHANNEL_") ) {
- 				message_output.insert({"top":frame.body});
+ 				message_output.insert({"bottom":frame.body});
  				MessageManipulation.handle_new_messages();
+ 				Misc.pageScroll();
  			}	
 			// this is a notify conversation message
  			if(frame.headers['destination'].startsWith("CONVERSATION_NOTIFY_CHANNEL_") ) {
@@ -80,26 +81,43 @@
   <%end#if user is not logged in, no point in connecting to orbited%>
 </head>
 
-<body id="messages_layout" onLoad="Misc.focusInput('message_message');stomp_function();">
+<body id="messages_layout" onLoad="Misc.focusInput('message_message');Misc.pageScroll();stomp_function();">
 
-	<%= render(:partial => "shared/header") %>
+	<div id="header_container"><%= render(:partial => "shared/header") %></div>
 	
 
 	<div id="main_content" class="container">
     
 		<div id="col1" class="span-14">
 		  <%= flash_messages %>
+  		<%= yield  %>
+  		
+  		<div id="attachment_form" style="display:none"><div id="attachment_form_padding">
+    	  <%#this form is purely for attachments handling%>
+    	  <% form_for(:message, 
+    	  	:url  => { :action => "upload_attachment" },
+    	    :html => { :multipart => true, :target => "upload_frame" } ) do |f| %>
+    	      <%= f.file_field :attachment %>
+    	  	  <input type="hidden" name="conversation_id" id="conversation_id" value="<%= @conversation.id %>" />
+    	  	  <%= submit_tag t("ui.attach") %>
+    	  	  <%= link_to_function "hide" do |page|
+              page[:attachment_form].hide
+              page[:attachment_link].show
+            end %>
+    	  <% end %>
+    	  
+    	  <iframe id='upload_frame' name="upload_frame" style="width:0px;height:0px;border:0px" src="about:blank"></iframe>
+      </div></div>
+      
 		  <div class="item" id="messagesform" >
-		      
-        <%= render :partial => 'conversations/controls' %>
-			  
+		      			  
 			  <div id="messageinputdiv">
 		      <% if logged_in? && @conversation.writable_by?(current_user) %>		
             <% remote_form_for(:message,
-            	:update => 'messages', :position => 'top',
+            	:update => 'messages', :position => 'bottom',
               :url => conversation_messages_path(@conversation),
               :loading => "$('msgform').disable();",
-              :complete => "$('msgform').enable();$('message_message').value = '';$('message_attachment').value = '';$('message_message').style.height = '5em';$('message_message').focus();MessageManipulation.handle_new_messages();",
+              :complete => "$('msgform').enable();$('message_message').value = '';$('message_attachment').value = '';$('message_message').style.height = '4em';$('message_message').focus();MessageManipulation.handle_new_messages();",
               # don't poll right now, and set the "after" value
               :before => 'MessageManipulation.working_begin();',
               :condition => "$('message_message').value.strip().length > 0",
@@ -127,42 +145,67 @@
 		      <% end#if current_user%>
         </div>
         
-        <div id="attachment_form" style="display:none">
-      	  <%#this form is purely for attachments handling%>
-      	  <% form_for(:message, 
-      	  	:url  => { :action => "upload_attachment" },
-      	    :html => { :multipart => true, :target => "upload_frame" } ) do |f| %>
-      	      <%= f.file_field :attachment %>
-      	  	  <input type="hidden" name="conversation_id" id="conversation_id" value="<%= @conversation.id %>" />
-      	  	  <%= submit_tag t("ui.attach") %>
-      	  	  <%= link_to_function "hide" do |page|
-                page[:attachment_form].hide
-                page[:attachment_link].show
-              end %>
-      	  <% end %>
-      	  
-      	  <iframe id='upload_frame' name="upload_frame" style="width:0px;height:0px;border:0px" src="about:blank"></iframe>
-        </div>
+
       </div>
-      <div id="last_message_avise"><span class="small"><%= t("ui.this_is_the_newest_message") %></span></div>
-  		<%= yield  %>
 		</div>
 		
-		<div id="col2" class="span-6">
-		  <%= render :partial => 'users/recently_visited' %>
-		  <%= render :partial => 'users/news' %>
-		  <%= render :partial => 'users/my_conversations' %>
-		</div>
-		
-		<div id="col3" class="span-4 last">
-		  <%= render :partial => 'shared/search_links' %>
-      <%= render :partial => 'shared/user_stat' %>
-    	<%= render :partial => 'conversations/users_in_conversation' %>
-    </div>
+    <div id="sidebars" class="span-10 last">
+      &nbsp;
+      <div id="sidebars_container">
+	      
+	      <%# TODO: conversation controls (move to a partial) %>
+	      <div id="convo_controls">
+          <h4>
+            <%if @conversation.parent_message_id%>
+            	<span class="highlight">
+            		<%= link_to "back to parent", conversation_messages_path(@conversation.parent_message.conversation)%>&#187;
+            	</span>
+            <%end%>
+            <%= link_to h(@conversation.name), conversation_messages_path(@conversation), :class => 'tip', :title => @conversation.escaped_description %>
+          </h4>
+          
+          <%= render :partial => 'conversations/follow' %>
+          <% if current_user == @conversation.owner %>
+            &#187;
+            <% if @conversation.read_only %>
+              <%= link_to "make writable", readwrite_status_conversation_path(@conversation, :mode => 'rw'), :method => 'put' %>
+            <% else %>
+              <%= link_to "make readonly", readwrite_status_conversation_path(@conversation), :method => 'put' %>
+            <% end %>
+          <% end %>
+          <%if logged_in? %>
+          	&#187;
+          	<%= link_to_remote t("ui.report"), :url => report_conversation_path(@conversation), :confirm => t("ui.reportconfirm_conversation") %>
+          <%end%>
+        </div>
+        <%# end of conversation controls (move to a partial) %>
+	      
+        
+		    <div id="col2" class="span-6">
+		      &nbsp;
+		      <div id="col2_container">
+		        <%= render :partial => 'users/recently_visited' %>
+		        <%= render :partial => 'users/news' %>
+		      </div>
+		    </div>
+		    
+		    <div id="col3" class="span-4 last">
+		      &nbsp;
+		      <div id="col3_container">
+		        <%= render :partial => 'shared/user_stat' %>
+		        <%= render :partial => 'shared/search_links' %>
+        	  <%= render :partial => 'conversations/users_in_conversation' %>
+        	</div>
+        </div>
+        
+      </div>
+      
+   </div>
    
 	</div>
 
-	<%= render(:partial => "shared/footer") %>
+	<div id="footer_container">&nbsp;<%= render(:partial => "shared/footer") %></div>
+
 	<%#for now lets poll for new messages in conversations that are off the screen%>  
 	<%= periodically_call_remote :url => {:controller => 'users', :action => 'update_news'}, 
 		:frequency => 60, :complete => 'ShowUnreadMessagesInFLuidapp();' %> 

@@ -38,11 +38,32 @@ namespace :deploy do
 #    run "cp /u/config/#{application}/production.rb #{release_path}/config/environments/"
     run "cp /u/config/#{application}/environment.rb #{release_path}/config/"
     run "cp /u/config/#{application}/site_keys.rb #{release_path}/config/initializers/"
-    run "ln -nfs /vol/sphinx #{release_path}/db/sphinx"    
-    run "cd #{release_path}; /usr/bin/rake thinking_sphinx:index  RAILS_ENV=production"
-    run "cd #{release_path}; /usr/bin/rake thinking_sphinx:start  RAILS_ENV=production"
     run "ln -nfs /vol/attachments #{release_path}/public/attachments"
   end
+  
+  desc "Re-establish symlinks"
+   task :after_symlink do
+     run <<-CMD
+       rm -fr #{release_path}/db/sphinx &&
+       ln -nfs /vol/sphinx #{release_path}/db/sphinx
+     CMD
+   end
+  
+   desc "Stop the sphinx server"
+    task :stop_sphinx , :roles => :app do
+      run "cd #{current_path} && rake thinking_sphinx:stop RAILS_ENV=production"
+    end
+
+    desc "Start the sphinx server"
+    task :start_sphinx, :roles => :app do
+      run "cd #{current_path} && rake thinking_sphinx:configure RAILS_ENV=production && rake thinking_sphinx:start RAILS_ENV=production"
+    end
+
+    desc "Restart the sphinx server"
+    task :restart_sphinx, :roles => :app do
+      stop_sphinx
+      start_sphinx
+    end  
   
   after "deploy:update_code", "deploy:copy_prod_configuration"
 end

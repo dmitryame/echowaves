@@ -45,8 +45,13 @@ namespace :deploy do
    task :after_symlink do
      run <<-CMD
        rm -fr #{current_path}/db/sphinx &&
-       ln -nfs #{shared_path}/db/sphinx #{current_path}/db/sphinx
+       ln -nfs /vol/sphinx/db/sphinx #{current_path}/db/sphinx
      CMD
+   end
+
+   desc "reindex the sphinx server"
+   task :reindex_sphinx, :roles => :app do
+     run "cd /vol/sphinx && rake thinking_sphinx:index RAILS_ENV=production"
    end
   
    desc "Stop the sphinx server"

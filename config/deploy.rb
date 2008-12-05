@@ -51,7 +51,7 @@ namespace :deploy do
 
    desc "reindex the sphinx server"
    task :reindex_sphinx, :roles => :app do
-     run "cd /vol/sphinx && rake thinking_sphinx:index RAILS_ENV=production"
+     run "cd #{current_path} && rake thinking_sphinx:index RAILS_ENV=production"
    end
   
    desc "Stop the sphinx server"

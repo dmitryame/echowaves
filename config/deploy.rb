@@ -44,8 +44,8 @@ namespace :deploy do
   desc "Re-establish symlinks"
    task :after_symlink do
      run <<-CMD
-       rm -fr #{release_path}/db/sphinx &&
-       ln -nfs #{shared_path}/db/sphinx #{release_path}/db/sphinx
+       rm -fr #{current_path}/db/sphinx &&
+       ln -nfs #{shared_path}/db/sphinx #{current_path}/db/sphinx
      CMD
    end
   

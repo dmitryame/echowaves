@@ -43,8 +43,7 @@ namespace :deploy do
   
   desc "Re-establish symlinks"
    task :after_symlink do
-     run "rm -fr #{release_path}/db/sphinx"
-     run "ln -nfs /vol/sphinx #{release_path}/db/sphinx"
+     run "rm -fr #{current_path}/db/sphinx && ln -nfs /vol/sphinx #{current_path}/db/sphinx"
    end
   
    desc "Stop the sphinx server"

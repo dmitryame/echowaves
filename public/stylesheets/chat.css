@@ -1,10 +1,10 @@
 html,body{
-background:#000 url(/images/fakecolumnbg.gif) top center repeat-y;
+background:#151515 url(/images/fakecolumnbg.gif) top center repeat-y;
 margin:0px;
 height:100%;
 }
 #header_container {
-  background:#000;
+  background:#151515;
   position:fixed;
   top:0;
   width:100%;
@@ -65,7 +65,7 @@ height:100%;
 #footer_container {
   position:fixed;
   bottom:0;
-  background:#000;
+  background:#151515;
   z-index:100;
   width:100%;
   height:20px;

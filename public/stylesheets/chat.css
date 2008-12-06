@@ -1,3 +1,8 @@
+html,body{
+background:#000 url(/images/fakecolumnbg.gif) top center repeat-y;
+margin:0px;
+height:100%;
+}
 #header_container {
   background:#000;
   position:fixed;
@@ -9,13 +14,16 @@
 
 #main_content {
   margin-top:44px;
+  height:100%;  
 }
 #messagesform {
   position:fixed;
   bottom:0px;
   width:510px;
 }
-
+#col1 {height:100%;}
+#sidebars {height:100%;}
+#sidebars_container {height:100%;}
 
 #attachment_form {background: #9acb63; padding:0px;}
 #attachment_form_padding {padding:50px;}
@@ -43,14 +51,14 @@
 }
 #messages {
   background:#fff;
-  margin-bottom:99px;
+  margin-bottom:118px;
 }
+#messages_controls {background:#eee;padding:18px 20px 20px 20px;}
 #sidebars_container {
   position:fixed;
   top:44px;
   width:390px;
 }
-
 #col3_container {
 
 }
@@ -68,4 +76,11 @@
 #convo_controls h4{
   margin-top:10px;
   margin-bottom:0px;
+}
+#convo_controls {
+  background:#9acb63;
+  padding-left:5px;
+  margin-bottom:-20px;
+}
+#convo_controls a:link, #convo_controls a:visited {
 }

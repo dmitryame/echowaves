@@ -1,4 +1,4 @@
-<div class="item">
+<div id="messages_controls" class="item">
 <%= link_to t('ui.back'), conversations_path %>
 
 <%= link_to_remote t("ui.more_messages"), :url => {:action => 'get_more_messages', :conversation_id => @conversation},

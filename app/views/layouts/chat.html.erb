@@ -157,9 +157,7 @@
 	      <div id="convo_controls">
           <h4>
             <%if @conversation.parent_message_id%>
-            	<span class="highlight">
-            		<%= link_to "back to parent", conversation_messages_path(@conversation.parent_message.conversation)%>&#187;
-            	</span>
+            	<%= link_to "back to parent", conversation_messages_path(@conversation.parent_message.conversation)%> &#187;
             <%end%>
             <%= link_to h(@conversation.name), conversation_messages_path(@conversation), :class => 'tip', :title => @conversation.escaped_description %>
           </h4>
@@ -201,7 +199,6 @@
       </div>
       
    </div>
-   
 	</div>
 
 	<div id="footer_container">&nbsp;<%= render(:partial => "shared/footer") %></div>

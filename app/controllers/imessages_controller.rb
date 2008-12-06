@@ -5,16 +5,14 @@ class ImessagesController < ApplicationController
   before_filter :find_conversation, :except => :send_data
   before_filter :check_write_access, :only => [ :create ]
   after_filter :store_location, :only => [:index]  
-  
-  layout "chat"
-  
+    
   def get_more_messages
     @messages = get_messages_before params[:before]  
     render :partial => 'message', :collection => @messages
   end
   
   def get_messages_before(first_message_id)
-    @conversation.messages.published.find(:all, :include => [:user], :conditions => ["id < ?", first_message_id], :limit => 100, :order => 'id DESC').reverse
+    @conversation.messages.published.find(:all, :include => [:user], :conditions => ["id < ?", first_message_id], :limit => 100, :order => 'id DESC')
   end
 
 
@@ -23,7 +21,7 @@ class ImessagesController < ApplicationController
   end
     
   def index
-    @messages = @conversation.messages.published.find(:all, :include => [:user], :limit => 100, :order => 'id DESC').reverse
+    @messages = @conversation.messages.published.find(:all, :include => [:user], :limit => 100, :order => 'id DESC')
     current_user.conversation_visit_update(@conversation) if logged_in?
     
     respond_to do |format|

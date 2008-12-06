@@ -156,12 +156,11 @@
 	      <%# TODO: conversation controls (move to a partial) %>
 	      <div id="convo_controls">
           <h4>
-            <%if @conversation.parent_message_id%>
-            	<%= link_to "back to parent", conversation_messages_path(@conversation.parent_message.conversation)%> &#187;
-            <%end%>
             <%= link_to h(@conversation.name), conversation_messages_path(@conversation), :class => 'tip', :title => @conversation.escaped_description %>
           </h4>
-          
+          <%if @conversation.parent_message_id%>
+          	<%= link_to "back to parent", conversation_messages_path(@conversation.parent_message.conversation)%> &#187;
+          <%end%>
           <%= render :partial => 'conversations/follow' %>
           <% if current_user == @conversation.owner %>
             &#187;

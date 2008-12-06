@@ -78,9 +78,11 @@ height:100%;
   margin-bottom:0px;
 }
 #convo_controls {
-  background:#9acb63;
-  padding-left:5px;
   margin-bottom:-20px;
 }
-#convo_controls a:link, #convo_controls a:visited {
+#convo_controls h4 a:link, #convo_controls h4 a:visited {
+  background:#000;
+  color:#9acb63;
+  padding:0 5px;
+  text-decoration:none;
 }

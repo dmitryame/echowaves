@@ -140,8 +140,7 @@
             <% end %>
           <% else %>
             <span id="working" style="display:none">Working...</span>
-            <h2 class="center"><%= h(@conversation.name) %></h2>
-            <h4 class="center"><%= @conversation.escaped_description %></h4>
+            <h4 class="center">this is a read only conversation</h4>
 		      <% end#if current_user%>
         </div>
         
@@ -156,7 +155,7 @@
 	      <%# TODO: conversation controls (move to a partial) %>
 	      <div id="convo_controls">
           <h4>
-            <%= link_to h(@conversation.name), conversation_messages_path(@conversation), :class => 'tip', :title => @conversation.escaped_description %>
+            <% if @conversation.read_only %><span class="highlight">readonly</span> <% end %><%= link_to h(@conversation.name), conversation_messages_path(@conversation), :class => 'tip', :title => @conversation.escaped_description %>
           </h4>
           <%if @conversation.parent_message_id%>
           	<%= link_to "back to parent", conversation_messages_path(@conversation.parent_message.conversation)%> &#187;

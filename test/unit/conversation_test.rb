@@ -7,7 +7,6 @@ class ConversationTest < ActiveSupport::TestCase
     end
     
     should_require_attributes :name, :description
-    
     should_require_unique_attributes :name
 
     should_have_index :name
@@ -125,6 +124,134 @@ class ConversationTest < ActiveSupport::TestCase
       pre_size = ConversationVisit.all.length
       @conversation.add_visit(@user)
       assert_equal ConversationVisit.all.length, pre_size
+    end
+  end
+
+  context "Conversation#add_personal method" do
+    setup do
+      @user = Factory.create( :user )
+      @conversation = Conversation.add_personal( @user )
+    end
+
+    should "create a new personal conversation for the user" do
+      assert_equal 1, @user.conversations.size  
+      assert @conversation.description.include?("This is a personal conversation for #{@user.name}")
+    end
+
+    should "create a subscription to the new personal conversation for the user" do
+      assert_equal 1, @user.subscriptions.size
+      assert_equal @conversation, @user.subscriptions.first.conversation
+    end
+
+    should "respond to #personal?" do
+      assert @conversation.personal?
+    end
+  end
+
+  context "A regular conversation instance" do
+    setup do
+      @user = Factory.create( :user )
+      @conversation = Factory.create( :conversation, :user => @user, :name => 'Convo name', :description => 'convo description' )
+    end
+
+    should "respond to #owner" do
+      assert_equal @user, @conversation.owner
+    end
+
+    should "respond false to #spawned?" do
+      assert_equal false, @conversation.spawned?
+    end
+  end
+
+  context "A spawned conversation" do
+    setup do
+      @spawned = Factory.create( :conversation, :parent_message_id => '123' )
+    end
+
+    should "respond to #spawned? positively" do
+      assert @spawned.spawned?
+    end
+  end
+
+  context "Subscription management" do
+    setup do
+      @user = Factory.create( :user )
+      @conversation = Factory.create( :conversation )
+    end
+
+    should "add a new user subscription" do
+      assert_equal 0, @conversation.subscriptions.size
+      assert_equal false, @conversation.followed?( @user )
+      @conversation.add_subscription( @user )
+      assert_equal 1, @conversation.subscriptions.size
+      assert @conversation.followed?( @user )
+    end
+
+    should "remove a user subscription" do
+      @conversation.add_subscription( @user )
+      assert_equal 1, @conversation.subscriptions.size
+
+      @conversation.remove_subscription( @user )
+      assert_equal 0, @conversation.subscriptions.size
+
+      @conversation.subscriptions.reload
+      @conversation.remove_subscription( @user )
+      assert_equal 0, @conversation.subscriptions.size
+    end
+  end
+
+  context "Abuse reports" do
+    setup do
+      @owner = Factory.create( :user )
+      @conversation = Factory.create( :conversation, :user => @owner )
+    end
+
+    should "create a new abuse report" do
+      assert_equal 0, @conversation.abuse_reports.size
+      @conversation.report_abuse( Factory.create( :user ) )
+      assert_equal 1, @conversation.abuse_reports.size
+    end
+
+    should "only allow one abuse report per user" do
+      user = Factory.create( :user )
+      @conversation.report_abuse( user )
+      assert_equal 1, @conversation.abuse_reports.size
+      @conversation.report_abuse( user )
+      assert_equal 1, @conversation.abuse_reports.size
+    end
+
+    should "check against abuse report limit" do
+      assert_equal false, @conversation.over_abuse_reports_limit?
+      assert @conversation.published?
+      (1..CONVERSATION_ABUSE_THRESHOLD).each do |num|
+        @conversation.report_abuse( Factory.create( :user ) )
+        assert_equal false, @conversation.over_abuse_reports_limit?
+      end
+      @conversation.report_abuse( Factory.create( :user ) )
+      assert @conversation.over_abuse_reports_limit?
+      assert_equal false, @conversation.published?
+    end
+
+    should "unpublish if conversation owner reported the abuse" do
+      assert @conversation.published?
+      @conversation.report_abuse( @owner )
+      assert_equal false, @conversation.published?
+    end
+  end # context 'Abuse reports'
+
+  context "notify of new spawn" do
+    setup do
+      @user = Factory.create( :user )
+      @owner = Factory.create( :user )
+      @conversation = Factory.create( :conversation, :user => @owner )
+      @message = Factory.create( :message, :user => @user, :conversation => @conversation )
+      @spawn_convo = Factory.create( :conversation, :user => @user, :parent_message_id => @message.id )
+    end
+
+    should "return a Message object" do
+      notification = @conversation.notify_of_new_spawn( @user, @spawn_convo, @message )
+      assert_kind_of Message, notification
+      assert_match /spawned by/, notification.message
     end
   end
   

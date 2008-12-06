@@ -1,24 +1,24 @@
-require 'autotest/timestamp'
-
-Autotest.send(:alias_method, :real_make_test_cmd, :make_test_cmd)
-Autotest.send(:define_method, :make_test_cmd) do |*args|
-  real_make_test_cmd(*args).sub('test/unit', %[rubygems -e "require 'redgreen'"])
-end
-
-
-
-module Autotest::Growl
-  def self.growl title, msg, img, pri=0, stick="" 
-    system "growlnotify -n autotest --image #{img} -p #{pri} -m #{msg.inspect} #{title} #{stick}" 
-  end
-
-  Autotest.add_hook :ran_command do |at|
-    output = at.results.last.slice(/(\d+).*errors/)
-    if output =~ /ns.*[1-9]/
-      growl "Test Results", "#{output}", './public/images/rails_fail.png', 2 #, "-s" 
-    else
-      growl "Test Results", "#{output}", './public/images/rails_ok.png'
-    end
-  end
-end
+#require 'autotest/timestamp'
+#
+#Autotest.send(:alias_method, :real_make_test_cmd, :make_test_cmd)
+#Autotest.send(:define_method, :make_test_cmd) do |*args|
+#  real_make_test_cmd(*args).sub('test/unit', %[rubygems -e "require 'redgreen'"])
+#end
+#
+#
+#
+#module Autotest::Growl
+#  def self.growl title, msg, img, pri=0, stick="" 
+#    system "growlnotify -n autotest --image #{img} -p #{pri} -m #{msg.inspect} #{title} #{stick}" 
+#  end
+#
+#  Autotest.add_hook :ran_command do |at|
+#    output = at.results.last.slice(/(\d+).*errors/)
+#    if output =~ /ns.*[1-9]/
+#      growl "Test Results", "#{output}", './public/images/rails_fail.png', 2 #, "-s" 
+#    else
+#      growl "Test Results", "#{output}", './public/images/rails_ok.png'
+#    end
+#  end
+#end
 

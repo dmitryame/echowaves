@@ -70,5 +70,5 @@ namespace :deploy do
      start_sphinx
    end  
   
-  after "deploy:update_code", "deploy:copy_prod_configuration", "deploy:after_symlink_sphinx"
+  after "deploy:update_code", "deploy:copy_prod_configuration", "deploy:after_symlink_sphinx", "deploy:restart_sphinx"
 end

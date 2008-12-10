@@ -28,7 +28,8 @@ div.auto_complete ul strong.highlight {
 .padding {padding:10px;}
 .item {padding:10px 20px;margin-bottom:10px;}
 .item2 {padding:10px 5px;margin-bottom:10px;}
-.msgcount {background:#333;padding:2px 4px;font-weight:bold;color:#fff;margin-right:5px;}
+.msgcount {background:#333 url(/images/b3.gif) bottom center no-repeat;padding:2px 4px 6px 4px;font-weight:bold;color:#fff;margin-right:5px;}
+.mutedmsgcount {background:#999 url(/images/b9.gif) bottom center no-repeat;padding:2px 4px 6px 4px;font-weight:bold;color:#fff;margin-left:10px;}
 .container .quiet {color:#bbb;}
 .container ul {margin:0;}
 .container ul li {margin:0;}

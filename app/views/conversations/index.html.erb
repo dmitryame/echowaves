@@ -26,6 +26,7 @@
 <% for conversation in @conversations %>
     <li>
       <%= link_to h(conversation.name), conversation_messages_path(conversation) %>
+	  <span class="msgcount"><%= conversation.messages.size %></span>
       <br/>
       <%= conversation.escaped_description %>
       <br/>

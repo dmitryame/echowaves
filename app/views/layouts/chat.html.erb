@@ -117,7 +117,7 @@
             	:update => 'messages', :position => 'bottom',
               :url => conversation_messages_path(@conversation),
               :loading => "$('msgform').disable();",
-              :complete => "$('msgform').enable();$('message_message').value = '';$('message_attachment').value = '';$('message_message').style.height = '4em';$('message_message').focus();MessageManipulation.handle_new_messages();",
+              :complete => "$('msgform').enable();$('message_message').value = '';$('message_attachment').value = '';$('message_message').style.height = '4em';$('message_message').focus();MessageManipulation.handle_new_messages();$('messages').setStyle('padding-bottom: 118px');",
               # don't poll right now, and set the "after" value
               :before => 'MessageManipulation.working_begin();',
               :condition => "$('message_message').value.strip().length > 0",
@@ -125,7 +125,7 @@
                
 
               <p id="msgtextarea">        
-                <%= f.text_area :message, :onkeyup => "if (this.scrollHeight > this.clientHeight &amp; !window.opera) this.style.height = (this.scrollHeight + 20) + 'px';", :class => 'messageinput' %>  
+                <%= f.text_area :message, :onkeyup => "FitToTextAndMoveMessagesUp(this, ($('main_content').getHeight() - 300));Misc.pageScroll();", :class => 'messageinput' %>  
               </p>
                 
               <p id="msgcontrols">

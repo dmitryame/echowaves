@@ -14,16 +14,16 @@
   <%= link_to t("ui.signup"), new_user_path, :class => "button" -%> <%= t("home.index.p2") %>
 </p>
 
-<div class="item center">
-  <h2><%= t("home.index.headline2") %></h2>
-</div>
-
-<p class="item"><span class="highlight"><%= t("home.index.feedback_advice") %></span></p>
-
 
 <div id='messages'>
   <%= render :partial => 'messages/message', :collection => @messages %>
 </div>
 
 
+
+<div class="item center">
+  <h2><%= t("home.index.headline2") %></h2>
+</div>
+
+<p class="item"><span class="highlight"><%= t("home.index.feedback_advice") %></span></p>
 

@@ -35,10 +35,10 @@
  		// set up stomp client.
  		stomp = new STOMPClient();
  		stomp.onopen = function() {
- 			output.update('<span class="status_yellow">Transport opened</span>');
+ 			output.update('<span class="status_yellow"><%= t("ui.transport_opened") %></span>');
  		};
  		stomp.onclose = function(code) {
- 			output.update('<span class="status_red">Transport closed (code: ' + code + ')</span>');
+ 			output.update('<span class="status_red"><%= t("ui.transport_closed") %> (<%= t("ui.code") %>: ' + code + ')</span>');
  			//try to reconnect
  			// stomp.connect(document.domain, 61613, 'UNIQUE_ID_PER_CLIENT', '');
 			stomp.connect('<%=STOMP_HOST%>', <%=STOMP_PORT%>, '<%=current_user.id%>', '');
@@ -56,7 +56,7 @@
  			output.update('<span class="status_red">onerrorframe: ' + frame.body + '</span>');
  		};
  		stomp.onconnectedframe = function() {
- 			output.update('<span class="status_green">Connected</span>');
+ 			output.update('<span class="status_green"><%= t("ui.connected") %></span>');
  		};
  		stomp.onmessageframe = function(frame) {
  			var message_output = $('messages');
@@ -164,9 +164,9 @@
           <% if current_user == @conversation.owner %>
             &#187;
             <% if @conversation.read_only %>
-              <%= link_to "make writable", readwrite_status_conversation_path(@conversation, :mode => 'rw'), :method => 'put' %>
+              <%= link_to t("ui.make_writable"), readwrite_status_conversation_path(@conversation, :mode => 'rw'), :method => 'put' %>
             <% else %>
-              <%= link_to "make readonly", readwrite_status_conversation_path(@conversation), :method => 'put' %>
+              <%= link_to t("ui.make_read_only"), readwrite_status_conversation_path(@conversation), :method => 'put' %>
             <% end %>
           <% end %>
           <%if logged_in? %>

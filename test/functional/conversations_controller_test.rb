@@ -2,25 +2,162 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class ConversationsControllerTest < ActionController::TestCase
   def setup
-    #authenticate
     @current_user = create_user_and_authenticate
-    @conversation = Factory(:conversation)
     @controller = ConversationsController.new
+    @controller.stubs( :current_user ).returns( @current_user )
   end
+
+  context "create action" do
+    setup do
+      @convo = Factory.create( :conversation )
+      Conversation.expects( :new ).returns( @convo )
+      @convo.stubs( :to_param ).returns( '1' )
+        @user_convos = []
+        @current_user.expects( :conversations ).returns( @user_convos )
+    end
+
+    context "html request" do
+      context "successful create" do
+        setup do
+          @user_convos.stubs( :<< ).returns( true )
+        end
+
+        should "set flash notice" do
+          post :create, :user => 'foo'
+          assert flash.include?( :notice )
+        end
+
+        should "redirect to conversation" do
+          post :create, :user => 'foo'
+          assert_redirected_to conversation_path( @convo )
+        end
+      end
+      
+      context "failed create" do
+        setup do
+          @user_convos.stubs( :<< ).returns( false )
+        end
+
+        should "render the new template" do
+          post :create, :user => 'foo'
+          assert_template "conversations/new"
+        end
+
+        should "not set flash notice" do
+          post :create, :user => 'foo'
+          assert_equal false, flash.include?( :notice )
+        end
+      end
+    end
+
+    context "xml request" do
+      setup do
+        @request.accept = 'text/xml'
+        @convo.stubs( :to_xml ).returns( 'XML' )
+        @convo.errors.stubs( :to_xml ).returns( 'XML errors' )
+      end
+
+      context "successful create" do
+        setup do
+          @user_convos.stubs( :<< ).returns( true )
+        end
+        
+        should "render XML" do
+          post :create, :user => 'foo'
+          assert_equal 'XML', @response.body
+        end
+        
+        should "set status to :created" do
+          post :create, :user => 'foo'
+          assert_response :created
+        end
+      end
+
+      context "failed create" do
+        setup do
+          @user_convos.stubs( :<< ).returns( false )
+        end
+        
+        should "render XML errors" do
+          post :create, :user => 'foo'
+          assert_equal 'XML errors', @response.body
+        end
+
+        should "set status to unprocessable_entity" do
+          post :create, :user => 'foo'
+          assert_response :unprocessable_entity
+        end
+      end
+    end
+  end # context create actoin
    
-  should_be_restful do |resource| 
-    resource.create.params = { :name => "random conversation", :description => "random conversations description"}
-    resource.update.params = { :name => "random conversation changed", :description => "changed random conversations description"}
-    resource.actions    = [
-      :index,
-      # :show, 
-      :new, 
-      # :edit, 
-      # :update, 
-      :create#, 
-      # :destroy
-      ]    
-  end
+  context "index action" do
+    setup do
+      @convo = Factory.create( :conversation )
+      @convos = [@convo]
+      Conversation.expects( :published ).returns( @convos )
+      @convos.expects( :not_personal ).returns( @convos )
+      @convos.expects( :paginate ).returns( @convos )
+      @convos.stubs( :total_pages ).returns( 1 )
+      @convos.stubs( :to_xml ).returns( 'XML' )
+    end
+
+    context "html request" do
+      should "be successful" do
+        get :index
+        assert_response :success
+      end
+
+      should "render index template" do
+        get :index
+        assert_template 'conversations/index'
+      end
+    end
+
+    context "xml request" do
+      setup do
+        @request.accept = 'text/xml'
+      end
+
+      should "be successful" do
+        get :index
+        assert_response :success
+      end
+
+      should "render conversations in xml" do
+        get :index
+        assert_equal 'XML', @response.body
+      end
+    end
+  end # context index action
+
+  context "new action" do
+    setup do
+      @convo = Factory.build( :conversation )
+      Conversation.expects( :new ).returns( @convo )
+    end
+
+    context "html request" do
+      should "be successful and render new template" do
+        get :new
+        assert_response :success
+        assert_template 'conversations/new'
+      end
+    end
+
+    context "xml request" do
+      setup do
+        @request.accept = 'text/xml'
+        @convo.expects( :to_xml ).returns( 'XML' )
+      end
+
+      should "be successful and return xml format" do
+        get :new
+        assert_response :success
+        assert_equal 'XML', @response.body
+      end
+    end
+  end # context new action
 
   context "readwrite_status action" do
     setup do
@@ -57,6 +194,103 @@ class ConversationsControllerTest < ActionController::TestCase
         assert_equal false, assigns(:conversation).read_only 
       end
     end
-  end
+  end # context readwrite_status action
+
+  context "report action" do
+    setup do
+      @convo = Factory.create( :conversation )
+      Conversation.expects( :find ).with( '1' ).returns( @convo )
+      @convo.stubs( :report_abuse )
+    end
+
+    should "call report abuse" do
+      @convo.expects( :report_abuse ).with( @current_user )
+      put :report, :id => '1'
+    end
+
+    should "render nothing" do
+      put :report, :id => '1'
+      assert_response 200
+    end
+  end # context report action
+
+  context "follow action" do
+    setup do
+      @convo = Factory.create( :conversation )
+      Conversation.stubs( :find ).returns( @convo )
+      @subscription = Factory.create( :subscription, :conversation => @convo )
+      @convo.stubs( :add_subscription ).returns( @subscription )
+    end
+
+    should "be success" do
+      xhr :post, :follow, :id => '1'
+      assert_response 200
+    end
+
+    should "call add_subscription" do
+      Conversation.expects( :find ).with( '1' ).returns( @convo )
+      @convo.expects( :add_subscription ).with( @current_user ).returns( @subscription )
+      xhr :post, :follow, :id => '1'
+    end
+
+    should "mark subscription as read" do
+      @subscription.expects( :mark_read )
+      xhr :post, :follow, :id => '1'
+    end
+  end # context follow action
+
+  context "unfollow action" do
+    setup do
+      @convo = Factory.create( :conversation )
+      Conversation.stubs( :find ).returns( @convo )
+      @subscription = Factory.create( :subscription, :conversation => @convo )
+      @convo.stubs( :remove_subscription )
+    end
+
+    should "be success" do
+      xhr :post, :unfollow, :id => '1'
+      assert_response 200
+    end
+
+    should "call remove_subscription" do
+      Conversation.expects( :find ).with( '1' ).returns( @convo )
+      @convo.expects( :remove_subscription ).with( @current_user )
+      xhr :post, :unfollow, :id => '1'
+    end
+  end # context unfollow action
+
+  context "show action" do
+    setup do
+      @convo = Factory.create( :conversation )
+    end
+
+    should "find the conversation" do
+      Conversation.expects( :find ).with( '1' ).returns( @convo )
+      get :show, :id => '1'
+    end
+
+    should "redirect to the convo messages path" do
+      Conversation.expects( :find ).with( '1' ).returns( @convo )
+      get :show, :id => '1'
+      assert_redirected_to conversation_messages_path( @convo )
+    end
+  end # context show action
+
+  context "complete_name action" do
+    setup do
+      @convo = Factory.create( :conversation )
+    end
+
+    should "find the conversation by name" do
+      Conversation.expects( :find_by_name ).with( 'foobar' ).returns( @convo )
+      get :complete_name, :id => 'foobar'
+    end
+
+    should "redirect to the conversation message path" do
+      Conversation.expects( :find_by_name ).with( 'foobar' ).returns( @convo )
+      get :complete_name, :id => 'foobar'
+      assert_redirected_to conversation_messages_path( @convo )
+    end
+  end # context complete_name action
 
 end

@@ -26,6 +26,17 @@ class Test::Unit::TestCase
     @user
   end
 
+  def assert_flash( _key, _content )
+    assert flash.include?( _key ), "#{_key.inspect} missing from flash, has #{flash.keys.inspect}"
+
+    case _content
+    when Regexp then
+      assert_match _content, flash[_key], "Content of flash[#{_key.inspect}] did not match"
+    else
+      assert_equal _conent, flash[_key], "Incorrect content in flash[#{_key.inspect}]"
+    end
+  end
+
   def self.should_have_attached_file(attachment)
     klass = self.name.gsub(/Test$/, '').constantize
 

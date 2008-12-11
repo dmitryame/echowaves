@@ -61,7 +61,7 @@ es-ES:
     sign_up_as_new_user: "registrate como usuario"
     look_for_users: "buscar usuarios"
     conversing_in: "conversando en"
-    sinse: "desde entonces:"    
+    since: "desde:"    
   conversations:
     recently_started_conversations: "conversaciones iniciadas recientemente"
     start_new_conversation: "iniciar una nueva conversacion"

@@ -9,7 +9,7 @@
 	</div>
   <div class="avatar"><%= link_to image_tag(message.user.gravatar_url, :border => 0, :width => 40, :height => 40, :class => "avatar", :alt => message.user.login), user_path(message.user),
 	:class => 'tip', 
-	:title =>  t("users.sinse") + message.user.created_at.to_s(:pretty)  + 
+	:title =>  t("users.since") + message.user.created_at.to_s(:pretty)  + 
 	'<br/>' + pluralize(message.user.conversations.size, 'convo') +
 	'<br/>' + pluralize(message.user.messages.size, 'message') +
 	'<br/>' + pluralize(message.user.subscriptions.size, 'subsription')

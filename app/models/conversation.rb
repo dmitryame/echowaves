@@ -26,7 +26,7 @@ class Conversation < ActiveRecord::Base
   has_many :abuse_reports #all the abuse report that were filed agains this convi
   belongs_to :abuse_report #the abuse report record that made this convo disabled
 
-  belongs_to :user
+  belongs_to :user, :counter_cache => true
 
   named_scope :published, :conditions => { :abuse_report_id => nil }
   named_scope :not_personal, :conditions => { :personal_conversation => false }

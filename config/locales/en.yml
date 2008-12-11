@@ -61,6 +61,7 @@ en:
     sign_up_as_new_user: "sign up as new user"
     look_for_users: "look for users"
     conversing_in: "conversing in"
+    sinse: "sinse:"
   conversations:
     recently_started_conversations: "recently started convos"
     start_new_conversation: "start new convo"

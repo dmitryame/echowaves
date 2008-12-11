@@ -2,7 +2,7 @@ class Message < ActiveRecord::Base
 
   belongs_to :conversation, :counter_cache => true 
   
-  belongs_to :user
+  belongs_to :user, :counter_cache => true
   
   # FIXME: should this really have a double association to the same model?
   has_many :abuse_reports

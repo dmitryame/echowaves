@@ -10,7 +10,12 @@ Factory.sequence :password do |n|
   "Sup3r#{n}" 
 end
 
+Factory.sequence :id do |n|
+  n
+end
+
 Factory.define :user do |u|
+  u.id { Factory.next :id }
   u.login { Factory.next :name }
   u.email { Factory.next :email }
   u.password { Factory.next :email }

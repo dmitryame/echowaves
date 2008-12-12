@@ -34,16 +34,27 @@ class ConversationTest < ActiveSupport::TestCase
       assert_equal @conversation.users.size, 4 # it has to be one more user, the one who created the convo
     end
 
+    # FIXME: could not get it to work :(
     # should "follow/unfollow" do
-    #   @user1 = Factory.create(:user, :login => "user10")
-    #   @user2 = Factory.create(:user, :login => "user20")
-    #   @user3 = Factory.create(:user, :login => "user30")
+    #   conversation = Factory.create(:conversation)
     #   
-    #   @conversation.follow(@user1)
-    #   @conversation.follow(@user2)
-    #   @conversation.follow(@user3)
-    #   puts "subscriptions: " + @conversation.subscriptions.size.to_s
-    #   assert_equal @conversation.subscriptions.size, 3 # it has to be one more user, the one who created the convo
+    #   user1 = Factory.create(:user, :login => "user10111")
+    #   user2 = Factory.create(:user, :login => "user20111")
+    #   user3 = Factory.create(:user, :login => "user30111")
+    #   
+    #   user1.follow(conversation)
+    #   user2.follow(conversation)
+    #   user3.follow(conversation)
+    #   
+    #   puts "subscriptions: " + conversation.subscriptions.size.to_s       
+    #   assert_equal conversation.subscriptions.length, 4 # it has to be one more user, the one who created the convo
+    # 
+    #   user1.unfollow(conversation)
+    #   user2.unfollow(conversation)
+    #   user3.unfollow(conversation)
+    # 
+    #   puts "subscriptions: " + conversation.subscriptions.size.to_s             
+    #   assert_equal conversation.subscriptions.length, 1 # it has to be one more user, the one who created the convo
     #   
     # end
 

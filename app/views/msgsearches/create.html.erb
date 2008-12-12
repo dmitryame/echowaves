@@ -16,9 +16,17 @@
     			:confirm => t("ui.reportconfirm"), :method => :get %>
     		<%end%>
     	</div>
-    	<div class="avatar"><%= link_to image_tag(message.user.gravatar_url, :border => 0, :wigth => 40, :height => 40, :class => "avatar"), user_path(message.user)   %></div>
+    	<div class="avatar"><%= link_to image_tag(message.user.gravatar_url, :border => 0, :wigth => 40, :height => 40, :class => "avatar"), user_path(message.user),
+			:class => 'tip', 
+			:title =>  t("users.since") + message.user.created_at.to_s(:pretty)  + 
+			'<br/>' + pluralize(message.user.conversations.size, 'convo') +
+			'<br/>' + pluralize(message.user.messages.size, 'message') +
+			'<br/>' + pluralize(message.user.subscriptions.size, 'subsription')
+   %></div>
     	<div class="messagetext">
-    		<span class="username"><%=link_to h(message.user.login), conversation_messages_path(message.user.personal_conversation)  %></span>
+    		<span class="username"><%=link_to h(message.user.login), conversation_messages_path(message.user.personal_conversation), 
+			:class => 'tip', 
+			:title => "personal convo for " + message.user.login  %></span>
     		<% if message.attachment.original_filename %>
     		  <%= link_to(image_tag(message.attachment.url(:big)), message.attachment.url, :target => "_blank")%>		 
     		<%else%>

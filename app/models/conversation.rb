@@ -50,6 +50,16 @@ class Conversation < ActiveRecord::Base
     end
   end
 
+  def follow(user)
+    subscription = self.add_subscription(user)
+    subscription.mark_read
+  end
+  
+  def unfollow(user)
+    self.remove_subscription(user)
+  end
+  
+  
   def owner 
     self.user
   end
@@ -121,6 +131,7 @@ class Conversation < ActiveRecord::Base
   def escaped_description
     escaped(self.description)
   end
+
 
 private
   def escaped(value)

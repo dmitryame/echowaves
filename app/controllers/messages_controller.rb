@@ -6,8 +6,6 @@ class MessagesController < ApplicationController
   before_filter :check_write_access, :only => [ :create ]
   after_filter :store_location, :only => [:index]  
   
-  layout "chat"
-  
   def get_more_messages
     @messages = get_messages_before params[:before]  
     render :partial => 'message', :collection => @messages

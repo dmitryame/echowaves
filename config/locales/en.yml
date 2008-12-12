@@ -52,6 +52,7 @@ en:
     search_conversations: "search convos"
     search: "search"
     make_read_only: "set as read only"
+    make_writable: "make writable"
     connected: "connected"
     transport_opened: "transport opened"
     transport_closed: "transport closed"

@@ -52,6 +52,7 @@ es-ES:
     search_conversations: "buscar convos"
     search: "buscar"
     make_read_only: "hacer de solo lectura"
+    make_writable: "haga programable"
     connected: "conectado"
     transport_opened: "conexion abierta"
     transport_closed: "conexion cerrada"

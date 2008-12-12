@@ -44,8 +44,6 @@ class Conversation < ActiveRecord::Base
       desc = "This is a personal conversation for #{name}. If you wish to collaborate with #{name}, do it here."
       convo = user.conversations.create(:name => user.login, :personal_conversation => true, :description => desc)
 
-      # create subscription to your own personal message automatically
-      subscription = user.subscriptions.create(:conversation => convo) 
       convo
     end
   end
@@ -132,6 +130,9 @@ class Conversation < ActiveRecord::Base
     escaped(self.description)
   end
 
+  def after_create 
+    follow(self.owner)
+  end
 
 private
   def escaped(value)

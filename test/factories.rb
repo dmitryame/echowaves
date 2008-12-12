@@ -15,6 +15,7 @@ Factory.define :user do |u|
   u.email { Factory.next :email }
   u.password { Factory.next :email }
   u.password_confirmation {|p| p.password }
+  u.created_at Time.now
 end
 
 

@@ -131,6 +131,7 @@ class ConversationTest < ActiveSupport::TestCase
     setup do
       @user = Factory.create( :user )
       @conversation = Conversation.add_personal( @user )
+      @user.reload
     end
 
     should "create a new personal conversation for the user" do
@@ -177,26 +178,33 @@ class ConversationTest < ActiveSupport::TestCase
     setup do
       @user = Factory.create( :user )
       @conversation = Factory.create( :conversation )
+      @conversation.reload
     end
 
     should "add a new user subscription" do
-      assert_equal 0, @conversation.subscriptions.size
+      assert_equal 1, @conversation.subscriptions.size # convo owner is subscribed by default
       assert_equal false, @conversation.followed?( @user )
+
       @conversation.add_subscription( @user )
-      assert_equal 1, @conversation.subscriptions.size
+      @conversation.reload
+
+      assert_equal 2, @conversation.subscriptions.size
       assert @conversation.followed?( @user )
     end
 
     should "remove a user subscription" do
       @conversation.add_subscription( @user )
-      assert_equal 1, @conversation.subscriptions.size
+      @conversation.reload
+      assert_equal 2, @conversation.subscriptions.size
 
       @conversation.remove_subscription( @user )
-      assert_equal 0, @conversation.subscriptions.size
+      @conversation.reload
+      assert_equal 1, @conversation.subscriptions.size
 
       @conversation.subscriptions.reload
       @conversation.remove_subscription( @user )
-      assert_equal 0, @conversation.subscriptions.size
+      @conversation.reload
+      assert_equal 1, @conversation.subscriptions.size
     end
   end
 

@@ -66,7 +66,7 @@ class Conversation < ActiveRecord::Base
   end
   
   def followed?(user)    
-    (!user.subscriptions.empty? && user.subscriptions.find_by_conversation_id(self.id)) ? true : false
+    Subscription.find_by_conversation_id_and_user_id(self.id, user.id) ? true : false
   end
 
   def add_visit(user)

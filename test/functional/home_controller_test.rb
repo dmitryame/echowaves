@@ -4,14 +4,10 @@ class HomeControllerTest < ActionController::TestCase
 
   def setup
     @controller = HomeController.new
-    @conversation = Factory.create( :conversation, :id => 1 )
+    @conversation = Factory.create( :conversation, :id => HOME_CONVERSATION )
   end
 
   context "#index action" do
-    setup do
-      HOME_CONVERSATION = 1
-    end
-
     should "be successful and render the index template " do
       get :index
       assert assigns( :conversation )

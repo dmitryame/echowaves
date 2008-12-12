@@ -4,6 +4,8 @@ require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 require File.expand_path(File.dirname(__FILE__) + "/factories")
 
 class Test::Unit::TestCase
+  include AuthenticatedTestHelper
+
   self.use_transactional_fixtures = true
   self.use_instantiated_fixtures  = false
   # fixtures :all

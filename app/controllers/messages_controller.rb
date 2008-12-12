@@ -49,15 +49,6 @@ class MessagesController < ApplicationController
     end
   end
 
-  def new
-    @message = Message.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @message }
-    end
-  end
-
   def create
     @message = @conversation.messages.new(params[:message])
     
@@ -72,7 +63,7 @@ class MessagesController < ApplicationController
           render :nothing => true
         }
       else
-        format.html { render :action => "new" }
+        format.html { render :nothing => true }
         format.xml { render :xml => @message.errors, :status => :unprocessable_entity }
         format.js { render :nothing => true }
       end
@@ -90,6 +81,8 @@ class MessagesController < ApplicationController
       send_stomp_message @message
       send_stomp_notifications       
       render :nothing => true      
+    else
+      render :nothing => true
     end
   end
 

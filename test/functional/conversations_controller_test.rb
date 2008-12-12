@@ -12,8 +12,8 @@ class ConversationsControllerTest < ActionController::TestCase
       @convo = Factory.create( :conversation )
       Conversation.expects( :new ).returns( @convo )
       @convo.stubs( :to_param ).returns( '1' )
-        @user_convos = []
-        @current_user.expects( :conversations ).returns( @user_convos )
+      @user_convos = []
+      @current_user.expects( :conversations ).returns( @user_convos )
     end
 
     context "html request" do
@@ -89,7 +89,7 @@ class ConversationsControllerTest < ActionController::TestCase
         end
       end
     end
-  end # context create actoin
+  end # context create action
    
   context "index action" do
     setup do

@@ -62,6 +62,7 @@
  			var message_output = $('messages');
 			// this is an actual message for current conversation
  			if(frame.headers['destination'].startsWith("CONVERSATION_CHANNEL_") ) {
+	 			//eval(frame.body);
  				message_output.insert({"top":frame.body});
  				MessageManipulation.handle_new_messages();
  			}	

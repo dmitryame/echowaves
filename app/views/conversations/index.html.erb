@@ -26,7 +26,8 @@
 <% for conversation in @conversations %>
     <li>
       <%= link_to h(conversation.name), conversation_messages_path(conversation) %>
-	    <span class="mutedmsgcount"><%= conversation.messages_count %></span>
+	    <span class="mutedmsgcount"><%= pluralize conversation.messages.size, 'message' %></span>
+	    <span class="mutedmsgcount"><%= pluralize conversation.subscriptions.size, 'follower' %></span>
       <br/>
       <%= conversation.escaped_description %>
       <br/>

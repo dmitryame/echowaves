@@ -34,6 +34,19 @@ class ConversationTest < ActiveSupport::TestCase
       assert_equal @conversation.users.size, 4 # it has to be one more user, the one who created the convo
     end
 
+    # should "follow/unfollow" do
+    #   @user1 = Factory.create(:user, :login => "user10")
+    #   @user2 = Factory.create(:user, :login => "user20")
+    #   @user3 = Factory.create(:user, :login => "user30")
+    #   
+    #   @conversation.follow(@user1)
+    #   @conversation.follow(@user2)
+    #   @conversation.follow(@user3)
+    #   puts "subscriptions: " + @conversation.subscriptions.size.to_s
+    #   assert_equal @conversation.subscriptions.size, 3 # it has to be one more user, the one who created the convo
+    #   
+    # end
+
     should_have_many :subscriptions
     should_have_many :users, :through => :subscriptions
     should_have_many :recent_followers, :through => :subscriptions          

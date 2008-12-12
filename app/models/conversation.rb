@@ -48,15 +48,6 @@ class Conversation < ActiveRecord::Base
     end
   end
 
-  def follow(user)
-    subscription = self.add_subscription(user)
-    subscription.mark_read
-  end
-  
-  def unfollow(user)
-    self.remove_subscription(user)
-  end
-  
   
   def owner 
     self.user
@@ -131,7 +122,7 @@ class Conversation < ActiveRecord::Base
   end
 
   def after_create 
-    follow(self.owner)
+    owner.follow(self)
   end
 
 private

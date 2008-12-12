@@ -135,6 +135,16 @@ class User < ActiveRecord::Base
     self.update_last_viewed_subscription(conversation)
   end
 
+  def follow(convo)
+    subscription = convo.add_subscription(self)
+    subscription.mark_read
+  end
+  
+  def unfollow(convo)
+    convo.remove_subscription(self)
+  end
+  
+
   protected
     
   def make_activation_code

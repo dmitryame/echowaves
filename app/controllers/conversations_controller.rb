@@ -50,12 +50,12 @@ class ConversationsController < ApplicationController
 
   def follow
     @conversation = Conversation.find(params[:id])
-    @conversation.follow(current_user)
+    current_user.follow(@conversation)
   end
 
   def unfollow
     @conversation = Conversation.find(params[:id])
-    @conversation.unfollow(current_user)
+    current_user.unfollow(@conversation)
   end
 
   def readwrite_status

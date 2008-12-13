@@ -1,2 +1,2 @@
-page.insert_html :bottom, "first_message", :partial => 'message', :collection => @messages
+page.insert_html :top, "first_message", :partial => 'message', :collection => @messages
 page.replace "messages_controls", :partial => 'messages_controls'

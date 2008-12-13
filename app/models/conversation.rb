@@ -121,9 +121,26 @@ class Conversation < ActiveRecord::Base
     escaped(self.description)
   end
 
+
+  def get_messages_before(first_message_id)
+    self.messages.published.find(:all, :include => [:user], :conditions => ["id < ?", first_message_id], :limit => 100, :order => 'id DESC')
+  end
+  def has_messages_before?(first_message)
+    messages = self.messages.published.find(:first, :conditions => ["id < ?", first_message.id], :order => 'id DESC') 
+    messages ? true : false
+  end
+  
+  def get_messages_after(cutoff_message_id)
+    messages.published.find(:all, :include => [:user], :conditions => ["id > ?", cutoff_message_id], :order => 'id ASC')
+  end
+
+
+
   def after_create 
     owner.follow(self)
   end
+
+
 
 private
   def escaped(value)

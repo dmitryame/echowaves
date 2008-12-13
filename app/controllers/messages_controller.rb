@@ -6,29 +6,24 @@ class MessagesController < ApplicationController
   before_filter :check_write_access, :only => [ :create ]
   after_filter :store_location, :only => [:index]  
   
-  def get_more_messages
-    @messages = get_messages_before params[:before]  
-    render :partial => 'message', :collection => @messages
-  end
-  
-  def get_messages_before(first_message_id)
-    @conversation.messages.published.find(:all, :include => [:user], :conditions => ["id < ?", first_message_id], :limit => 100, :order => 'id DESC').reverse
-  end
-
-
-  def get_messages_after(cutoff_message_id)
-    @conversation.messages.published.find(:all, :include => [:user], :conditions => ["id > ?", cutoff_message_id], :order => 'id ASC')
-  end
-    
+      
   def index
     @messages = @conversation.messages.published.find(:all, :include => [:user], :limit => 100, :order => 'id DESC').reverse
     current_user.conversation_visit_update(@conversation) if logged_in?
     
+    @has_more_messages = @conversation.has_messages_before?(@messages.first)
+
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @messages }
     end
   end
+
+  def get_more_messages
+    @messages = @conversation.get_messages_before(params[:before]).reverse
+    @has_more_messages = @conversation.has_messages_before?(@messages.first)
+  end
+
 
   def show
     @message = Message.find(params[:id])

@@ -63,7 +63,6 @@
 			// this is an actual message for current conversation
  			if(frame.headers['destination'].startsWith("CONVERSATION_CHANNEL_") ) {
  				message_output.insert({"bottom":frame.body});
- 				MessageManipulation.handle_new_messages();
  				Misc.pageScroll();
  			}	
 			// this is a notify conversation message

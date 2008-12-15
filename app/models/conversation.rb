@@ -126,7 +126,7 @@ class Conversation < ActiveRecord::Base
     self.messages.published.find(:all, :include => [:user], :conditions => ["id < ?", first_message_id], :limit => 100, :order => 'id DESC')
   end
   def has_messages_before?(first_message)
-    false if(messages.size == 0)    
+    false if(first_message == nil)
     messages = self.messages.published.find(:first, :conditions => ["id < ?", first_message.id], :order => 'id DESC') 
     messages ? true : false
   end
@@ -135,7 +135,7 @@ class Conversation < ActiveRecord::Base
    self.messages.published.find(:all, :include => [:user], :conditions => ["id > ?", last_message_id], :limit => 100, :order => 'id ASC').reverse
   end
   def has_messages_after?(last_message)
-    false if(messages.size == 0)    
+    false if(last_message == nil)
     messages = self.messages.published.find(:first, :conditions => ["id > ?", last_message.id], :order => 'id ASC') 
     messages ? true : false
   end

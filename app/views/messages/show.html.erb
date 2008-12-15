@@ -12,8 +12,12 @@
   <!--[if IE]>
     <link rel="stylesheet" href="/stylesheets/ie.css" type="text/css" media="screen, projection">
   <![endif]-->
-  <link rel="stylesheet" href="/stylesheets/style.css" type="text/css" media="screen, projection">
-  <%= stylesheet_link_tag 'default' %>
+	<link rel="stylesheet" href="/stylesheets/style.css" type="text/css" media="screen, projection">
+	<%= javascript_include_tag :defaults %>
+	<%= stylesheet_link_tag 'default' %>
+	<%= stylesheet_link_tag 'unitip' %>
+	<%= javascript_include_tag 'unitip' %>
+
   <style type="text/css">
     #center {background:#fff;padding-bottom:20px;}
     .message {border:none;}
@@ -42,30 +46,18 @@
         <h2 class="center"><%= link_to h(@conversation.name), conversation_path(@conversation) %></h2>
         <h4 class="center"><%= @conversation.escaped_description %></h4>
       </div>
-      <div class="arrow">&nbsp;</div>
       
-      <div class="message" id="<%=dom_id(@message)%>">
-        	<div class="messagelinks quiet small">
-      		<% if logged_in? %>
-      			<%= link_to_remote t("ui.report"), 
-      			:url => {:controller => 'messages', :action => 'report', :id => @message.id, :conversation_id => @conversation.id}, 
-      			:confirm => t("ui.reportconfirm") %>
-      		<%end%>
-      	</div>
-        <div class="avatar"><%= link_to image_tag(@message.user.gravatar_url, :border => 0, :width => 40, :height => 40, :class => "avatar", :alt => @message.user.login), user_path(@message.user)   %></div>
-      	<div class="messagetext">
-      		<span class="username"><%=link_to h(@message.user.login), conversation_path(@conversation)  %></span>
-      		<% if @message.attachment.original_filename %>
-      		  <%= link_to(image_tag(@message.attachment.url(:big)), @message.attachment.url, :target => "_blank")%>		 
-      		<%else%>
-      		  <%= mark_up @message.message %>
-      		<% end %>
-      		<span class="date quiet small"><%= @message.created_at.to_s(:pretty_long) %></span>
-      	</div>
-      	<div class="clear"></div>
-      </div>
 
-      <div class="span-5 last">&nbsp;</div>
+
+
+	<%= render :partial => 'more_messages_on_top' %>
+	<div id='messages'>
+		<div id="first_message"></div>
+		<%= render :partial => 'message', :object => @message %>
+		<div id="last_message"></div>
+	</div>
+	<%= render :partial => 'more_messages_on_bottom' %>
+
       
 	</div>
 

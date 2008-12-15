@@ -1,0 +1,7 @@
+<div id="more_messages_on_bottom">
+	<%if @has_more_messages_on_bottom%>
+		<%= link_to_remote t("ui.more_messages"), 
+		:url => {:action => 'get_more_messages_on_bottom', :conversation_id => @conversation},
+		:with => "'after='+#{@messages.last.id}" %>
+	<%end%>
+</div>

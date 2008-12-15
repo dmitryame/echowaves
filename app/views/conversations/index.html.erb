@@ -26,6 +26,9 @@
 <% for conversation in @conversations %>
     <li>
 		<%= link_to h(conversation.name), conversation_messages_path(conversation) %>
+		
+	    <span class="mutedmsgcount"><%= pluralize conversation.messages.size, 'message' %></span>
+	    <span class="mutedmsgcount"><%= pluralize conversation.subscriptions.size, 'follower' %></span>
 		<% if logged_in? %>
 		  <span id="follow_conversation_<%=conversation.id-%>"> 
 				<% if conversation.followed?(current_user) %>
@@ -35,9 +38,7 @@
 				<% end %>
 		  </span>
 		<% end %>
-		
-	    <span class="mutedmsgcount"><%= pluralize conversation.messages.size, 'message' %></span>
-	    <span class="mutedmsgcount"><%= pluralize conversation.subscriptions.size, 'follower' %></span>
+	
       <br/>
       <%= conversation.escaped_description %>
       <br/>

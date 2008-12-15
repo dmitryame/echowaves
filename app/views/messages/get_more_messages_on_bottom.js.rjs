@@ -1,0 +1,2 @@
+page.insert_html :bottom, "last_message", :partial => 'message', :collection => @messages
+page.replace "more_messages_on_bottom", :partial => 'more_messages_on_bottom'

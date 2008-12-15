@@ -130,10 +130,13 @@ class Conversation < ActiveRecord::Base
     messages ? true : false
   end
   
-  def get_messages_after(cutoff_message_id)
-    messages.published.find(:all, :include => [:user], :conditions => ["id > ?", cutoff_message_id], :order => 'id ASC')
+  def get_messages_after(last_message_id)
+   self.messages.published.find(:all, :include => [:user], :conditions => ["id > ?", last_message_id], :limit => 100, :order => 'id ASC').reverse
   end
-
+  def has_messages_after?(last_message)
+    messages = self.messages.published.find(:first, :conditions => ["id > ?", last_message.id], :order => 'id ASC') 
+    messages ? true : false
+  end
 
 
   def after_create 

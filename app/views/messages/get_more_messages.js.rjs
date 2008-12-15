@@ -1,2 +1,3 @@
+#used in conversation_messages_path
 page.insert_html :top, "first_message", :partial => 'message', :collection => @messages
 page.replace "messages_controls", :partial => 'messages_controls'

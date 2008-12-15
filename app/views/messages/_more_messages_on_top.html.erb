@@ -1,0 +1,7 @@
+<div id="more_messages_on_top">
+	<%if @has_more_messages_on_top%>
+		<%= link_to_remote t("ui.more_messages"), 
+		:url => {:action => 'get_more_messages_on_top', :conversation_id => @conversation},
+		:with => "'before='+#{@messages.first.id}" %>
+	<%end%>
+</div>

@@ -19,14 +19,29 @@ class MessagesController < ApplicationController
     end
   end
 
+#TODO: get_more_messages, get_more_messages_on_top, get_more_messages_on_bottom need to be refactored into something more generic
   def get_more_messages
     @messages = @conversation.get_messages_before(params[:before]).reverse
     @has_more_messages = @conversation.has_messages_before?(@messages.first)
   end
 
+  def get_more_messages_on_top
+    @messages = @conversation.get_messages_before(params[:before]).reverse
+    @has_more_messages_on_top = @conversation.has_messages_before?(@messages.first)
+  end
+
+  def get_more_messages_on_bottom
+    @messages = @conversation.get_messages_after(params[:after]).reverse
+    @has_more_messages_on_bottom = @conversation.has_messages_after?(@messages.last)
+  end
+
 
   def show
     @message = Message.find(params[:id])
+    @messages = Array[@message] 
+    
+    @has_more_messages_on_top    = @conversation.has_messages_before?(@message)
+    @has_more_messages_on_bottom = @conversation.has_messages_after?(@message)
     
     respond_to do |format|
       format.html { render :layout => false }

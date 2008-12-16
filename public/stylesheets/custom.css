@@ -7,6 +7,30 @@ html, body {margin:0;background:#d0e4eb;}
   }
 #flash_messages .notice {background:#68bd53;padding:4px 10px;border:none;margin:0 0 10px 0;color:#fff;font-weight:strong;}
 #flash_messages .error {background:#cc3333;padding:4px 10px;border:none;margin:0 0 10px 0;color:#fff;font-weight:strong;}
+div.auto_complete {
+  width: 340px;
+  background: #fff;
+  z-index:200;
+}
+div.auto_complete ul {
+  border:1px solid #82c0cd;
+  margin:0;
+  padding:0px;
+  width:100%;
+  list-style-type:none;
+}
+div.auto_complete ul li {
+  margin:0;
+  padding:3px;
+}
+div.auto_complete ul li.selected {
+  background-color: #ff3;
+}
+div.auto_complete ul strong.highlight {
+  color: #800; 
+  margin:0;
+  padding:0;
+}
 .container a:link, .container a:visited {
   color:#3366cc;
 }

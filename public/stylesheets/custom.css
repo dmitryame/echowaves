@@ -153,6 +153,7 @@ margin:0 auto;background:#151110;
 #messageinputdiv {
   margin-bottom:20px;
 }
+#messageinputdiv h4 {padding:0 0 10px 0;margin:0;}
 #attachment_form {background:#7aab43;padding:10px;}
 #attachment_form input{margin:0;padding:0;}
 #attachment_form form{margin:0;padding:0;}

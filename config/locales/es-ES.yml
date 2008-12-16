@@ -51,6 +51,7 @@ es-ES:
     search_messages: "buscar mensajes"
     search_conversations: "buscar convos"
     search: "buscar"
+    search_advice: "escribe lo que quieras buscar y haz click en buscar!"
     make_read_only: "hacer de solo lectura"
     make_writable: "haga programable"
     connected: "conectado"

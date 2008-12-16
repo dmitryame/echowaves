@@ -51,6 +51,7 @@ en:
     search_messages: "search messages"
     search_conversations: "search convos"
     search: "search"
+    search_advice: "write something and click search!"
     make_read_only: "set as read only"
     make_writable: "make writable"
     connected: "connected"

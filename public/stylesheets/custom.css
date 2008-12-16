@@ -89,10 +89,11 @@ p {margin-bottom:10px;}
 }
 /* header */
 #header_container {
-  background:#151515;
+  background:#151110;
+  border-bottom:1px solid #fff;
 }
 #header {
-margin:0 auto;background:#151515;
+margin:0 auto;background:#151110;
 }
 #header h1 {
   margin:0;  
@@ -152,6 +153,7 @@ margin:0 auto;background:#151515;
 #messageinputdiv {
   margin-bottom:20px;
 }
+#messageinputdiv h4 {padding:0 0 10px 0;margin:0;}
 #attachment_form {background:#7aab43;padding:10px;}
 #attachment_form input{margin:0;padding:0;}
 #attachment_form form{margin:0;padding:0;}
@@ -173,9 +175,9 @@ textarea:focus, input[type='text']:focus, input[type='password']:focus, select:f
   margin:0;
   background:#EEEEEE;
 }
-.status_yellow {background:#ffff33;padding:0px 4px;}
-.status_green {background:#9acb63;padding:0px 4px;}
-.status_red {background:#ff0000;padding:0px 4px;color:#fff;}
+.status_yellow {display:block;background:#ffff33;padding:0px 4px;margin-top:2px;}
+.status_green {display:block;background:#bcd784;padding:0px 4px;margin-top:2px;}
+.status_red {display:block;background:#cc3333;padding:0px 4px;color:#fff;margin-top:2px;}
 .list {list-style: none;}
 .list li {
   border-bottom:1px dashed #ccc;

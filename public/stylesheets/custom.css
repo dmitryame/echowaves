@@ -1,4 +1,6 @@
-html, body {margin:0;background:#b0dfd8;}
+html, body {margin:0;background:#d0e4eb;}
+#flash_messages .notice {background:#68bd53;padding:4px 10px;border:none;margin:0;color:#fff;font-weight:strong;}
+#flash_messages .error {background:#cc3333;padding:4px 10px;border:none;margin:0;color:#fff;font-weight:strong;}
 .container a:link, .container a:visited {
   color:#3366cc;
 }

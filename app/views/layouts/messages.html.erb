@@ -157,7 +157,7 @@
           <%if @conversation.parent_message_id%>
           	<%= link_to "back to parent", conversation_messages_path(@conversation.parent_message.conversation)%> &#187;
           <%end%>
-          <%= render :partial => 'conversations/follow' %>
+          <%= render :partial => 'conversations/follow', :object => @conversation %>
           <% if current_user == @conversation.owner %>
             &#187;
             <% if @conversation.read_only %>

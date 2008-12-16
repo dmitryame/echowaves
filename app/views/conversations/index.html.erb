@@ -23,28 +23,7 @@
 <%= will_paginate @conversations %>
 
 <ul class="list">
-<% for conversation in @conversations %>
-    <li>
-		<%= link_to h(conversation.name), conversation_messages_path(conversation) %>
-		
-	    <span class="mutedmsgcount"><%= pluralize conversation.messages.size, 'message' %></span>
-	    <span class="mutedmsgcount"><%= pluralize conversation.subscriptions.size, 'follower' %></span>
-		<% if logged_in? %>
-		  <span id="follow_conversation_<%=conversation.id-%>"> 
-				<% if conversation.followed?(current_user) %>
-					<%= link_to_remote t("ui.unfollow"), :url => unfollow_conversation_path(conversation) %>
-				<% else %>
-					<%= link_to_remote t("ui.follow"), :url => follow_conversation_path(conversation) %>
-				<% end %>
-		  </span>
-		<% end %>
-	
-      <br/>
-      <%= conversation.escaped_description %>
-      <br/>
-      <span class="quiet small"><%= conversation.created_at.to_s(:date_time12) %></span>
-    </li>
-<% end %>
+	<%= render :partial => 'conversation', :collection => @conversations %>
 </ul>
 
 <%= will_paginate @conversations %>

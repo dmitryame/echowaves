@@ -58,6 +58,14 @@ class ConversationsController < ApplicationController
     current_user.unfollow(@conversation)
   end
 
+  def follow_from_list
+    follow
+  end
+  
+  def unfollow_from_list
+    unfollow
+  end
+
   def readwrite_status
     read_only = (params[:mode] == 'rw') ? false : true 
     @conversation = Conversation.find( params[:id] )

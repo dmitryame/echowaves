@@ -1,0 +1,1 @@
+page.replace "follow_conversation_#{@conversation.id}", :partial => 'follow_from_list', :object => @conversation

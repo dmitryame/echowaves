@@ -1,0 +1,9 @@
+<% if logged_in? %>
+  <span id="follow_conversation_<%=follow_from_list.id-%>"> 
+		<% if follow_from_list.followed?(current_user) %>
+			<%= link_to_remote t("ui.unfollow"), :url => unfollow_from_list_conversation_path(follow_from_list) %>
+		<% else %>
+			<%= link_to_remote t("ui.follow"), :url => follow_from_list_conversation_path(follow_from_list) %>
+		<% end %>
+  </span>
+<% end %>

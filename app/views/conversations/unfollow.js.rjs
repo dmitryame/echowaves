@@ -1,3 +1,3 @@
-page.replace "follow_conversation_#{@conversation.id}", :partial => 'follow'
+page.replace "follow_conversation_#{@conversation.id}", :partial => 'follow', :object => @conversation
 page.replace "news", :partial => 'users/news'
 page.replace "users_in_conversation", :partial => 'conversations/users_in_conversation'

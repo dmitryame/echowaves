@@ -17,6 +17,7 @@
 <div class="item">
   <div id="subscriptions_for_user">
   	<b><%= t("users.conversing_in") %>:</b>
+
   	<ul class="list">
     <% for conversation in @user.subscribed_conversations %>
         <li>
@@ -28,6 +29,7 @@
         </li>
     <% end %>
     </ul>
+
   </div>
   
   <%= link_to t("ui.back"), users_path %>

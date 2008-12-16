@@ -1,8 +1,9 @@
-<div id="recently_visited" class="item2">
-	<% if logged_in? %>
-		<b><%= t("ui.recently_visited") %>:</b><br/>
-		<ul>		
-			<%= render :partial => 'users/conversation', :collection => current_user.recent_conversations %> 
-		</ul>
-	<% end %>
+<% if logged_in? %>
+<div id="recently_visited" class="item2 page">
+	<h6><%= t("ui.recently_visited") %>:</h6>
+	<ul>		
+		<%= render :partial => 'users/conversation', :collection => current_user.recent_conversations %> 
+	</ul>
 </div>
+<% end %>
+

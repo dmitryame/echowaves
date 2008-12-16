@@ -1,5 +1,5 @@
-<div class="item2">
-  <% if logged_in? %>				
+<% if logged_in? %>
+<div class="item2 page">
     <%= link_to image_tag(current_user.gravatar_url, :border => 0, :width => 40, :height => 40, :class => "avatar", :alt => current_user.login, :style => 'float:left;margin-right:4px;'),
  	user_path(current_user),
 	:class => 'tip', 
@@ -11,5 +11,6 @@
 		:class => 'tip', 
 		:title => "personal convo for " + current_user.login %><br/>
 	  <%= link_to t("ui.edit_profile"), edit_user_path(current_user)  %>
-  <%end%>
 </div>
+<%end%>
+

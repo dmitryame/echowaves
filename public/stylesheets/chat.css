@@ -1,10 +1,6 @@
 html,body{
-background:#151515 url(/images/fakecolumnbg.gif) top center repeat-y;
-margin:0px;
-height:100%;
 }
 #header_container {
-  background:#151515;
   position:fixed;
   top:0;
   width:100%;
@@ -19,13 +15,16 @@ height:100%;
 #messagesform {
   position:fixed;
   bottom:0px;
-  width:510px;
+  width:550px;
 }
 #col1 {height:100%;}
 #sidebars {height:100%;}
-#sidebars_container {height:100%;}
 
-#attachment_form {background: #9acb63; padding:0px;}
+#attachment_form {
+  background:#42aec2;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  padding:0px;}
 #attachment_form_padding {padding:50px;}
 #attachment_form {
   position:fixed;
@@ -37,7 +36,6 @@ height:100%;
 #attachment_form input{margin:0;padding:0;}
 #attachment_form form{margin:0;padding:0;}
 #footer {
-  display:none;
 }
 #messagesform_arrow {
   width:520px;
@@ -51,13 +49,20 @@ height:100%;
 }
 #messages {
   background:#fff;
-  padding-bottom:118px;
+  padding-bottom:96px;
+  border-right:1px solid #82c0cd;
 }
-#messages_controls {background:#eee;padding:18px 20px 20px 20px;}
+#messages_controls {
+  background:#eee;
+  padding:5px;
+  border-right:1px solid #82c0cd;
+}
+.mute {color:#fff;}
 #sidebars_container {
   position:fixed;
   top:44px;
   width:390px;
+
 }
 #col3_container {
 
@@ -65,7 +70,7 @@ height:100%;
 #footer_container {
   position:fixed;
   bottom:0;
-  background:#151515;
+  background:#85c5d2;
   z-index:100;
   width:100%;
   height:20px;
@@ -74,15 +79,18 @@ height:100%;
   margin:0;
 }
 #convo_controls h4{
-  margin-top:10px;
-  margin-bottom:0px;
+  margin:0px;
 }
 #convo_controls {
-  margin-bottom:-20px;
+  margin-bottom:-10px;
+  background:#fff;
+  border-right:1px solid #82c0cd;
+  border-bottom:1px solid #82c0cd;
+  padding:5px;
 }
 #convo_controls h4 a:link, #convo_controls h4 a:visited {
-  background:#000;
-  color:#9acb63;
+  background:#42aec2;
+  color:#000;
   padding:0 5px;
   text-decoration:none;
 }

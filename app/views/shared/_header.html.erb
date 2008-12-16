@@ -1,15 +1,13 @@
 <div id="header" class="container">
   <div class="span-8">
-  	<h1><%= link_to image_tag("echowaves111.gif", :border => 0, :width => "260px", :height => "44px" ), home_path %></h1>
+  	<h1><%= link_to image_tag("/images/echowaves.png", :height => 32), home_path %></h1>
   </div>
   
   <div class="span-16 last">
     <div id="menu">
-      <div id="connection_stat"><div id="connection_stat_data"></div></div>
   		<ul>
   		  <% if logged_in? %>				
       		<li><%= link_to t("ui.logout"), logout_path %></li>
-      		<li><%= link_to t("ui.edit_profile"), edit_user_path(current_user)  %></li>
       	<%else%>			
       		<li><%= link_to t("ui.login"), new_session_path %></li>
       		<li><%= link_to t("ui.signup"), new_user_path %></li>
@@ -19,6 +17,7 @@
     		<li class="home"><%= home_menu_item %></li>
         <li><%= link_to image_tag("/images/flags/es.gif"), "?locale=es-ES" %></li>
         <li><%= link_to image_tag("/images/flags/us.gif"), "?locale=en" %></li>
+        <li><div id="connection_stat"><div id="connection_stat_data"></div></div></li>
     	</ul>
     	<div class="clear"></div>
   	</div>

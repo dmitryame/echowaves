@@ -1,29 +1,17 @@
-<div class="balloon">
+<div id="main_headline">
   <h1><%= t("home.index.headline1") %></h1>
 </div>
-<div class="arrow">&nbsp;</div>
 
-
-<p class="item">
- <%= t("home.index.p1") %> <%= link_to t("ui.echowaves_conversation"), conversation_path(1), :action => "index" -%>.
-</p>
-
-
-
-<p class="item">
-  <%= link_to t("ui.signup"), new_user_path, :class => "button" -%> <%= t("home.index.p2") %>
-</p>
-
-
-<div id='messages'>
-  <%= render :partial => 'messages/message', :collection => @messages %>
+<div id="signup_headline">
+  <h2><%= link_to t("ui.signup"), new_user_path, :class => "button" -%> <%= t("home.index.p2") %></h2>
 </div>
 
-
+<div id="main_description">
+ <%= t("home.index.p1") %> <%= link_to t("ui.echowaves_conversation"), conversation_path(1), :action => "index" -%>.
+</div>
 
 <div class="item center">
   <h2><%= t("home.index.headline2") %></h2>
 </div>
 
-<p class="item"><span class="highlight"><%= t("home.index.feedback_advice") %></span></p>
-
+<div class="item center"><h3><%= t("home.index.feedback_advice") %></h3></div>

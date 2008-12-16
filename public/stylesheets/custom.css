@@ -60,9 +60,12 @@ p {margin-bottom:10px;}
   font-size:100%;
   line-height:1.9em;
   padding-top:0px;
+  margin-top:-20px;
 }
-#signup_headline #signup_headline {
+#sidebars_container #signup_headline {
   color:#68bd53;
+  font-size:70%;
+  text-align:left;
 }
 #main_description {
   margin-top:40px;

@@ -1,10 +1,39 @@
-<div class="balloon">
-  <h1><%= t("ui.search_conversations") %></h1>
-  <div>
-    <% form_tag convosearch_path, :method => :get do %>
-      <%= text_field_tag :q %>
-      <%= submit_tag t("ui.search"), :name => nil  %>
-    <% end %>
+<div id="col1" class="span-14">
+  <%= flash_messages %>
+	<div class="page">
+    <div class="balloon">
+      <h1><%= t("ui.search_conversations") %></h1>
+      <div>
+        <% form_tag convosearch_path, :method => :get do %>
+          <%= text_field_tag :q %>
+          <%= submit_tag t("ui.search"), :name => nil  %>
+        <% end %>
+      </div>
+    </div>
   </div>
 </div>
-<div class="arrow">&nbsp;</div>
+
+<div id="sidebars" class="span-10 last">
+  <div id="sidebars_container">
+    <% unless logged_in? %>
+      <div id="main_headline">
+        <h1><%= t("home.index.headline1") %></h1>
+      </div>
+      
+      <div id="signup_headline">
+        <h2><%= link_to t("ui.signup"), new_user_path, :class => "button" -%> <%= t("home.index.p2") %></h2>
+      </div>
+    <% end %>
+    
+    <div id="col2" class="span-6">
+      <%= render :partial => 'users/recently_visited' %>
+      <%= render :partial => 'users/news' %>
+    </div>
+    
+    <div id="col3" class="span-4 last">
+      <%= render :partial => 'shared/user_stat' %>
+    </div>
+  </div>
+</div>
+
+

@@ -35,16 +35,29 @@
   		</div>
 		</div>
 		
-		<div id="col2" class="span-6">
-		  <%= render :partial => 'users/recently_visited' %>
-		  <%= render :partial => 'users/news' %>
-		</div>
-
-		<div id="col3" class="span-4 last">
-      <%= render :partial => 'shared/user_stat' %>
-      <%= render :partial => 'shared/search_links' %>
+		<div id="sidebars" class="span-10 last">
+		  <div id="sidebars_container">
+		    <% unless logged_in? %>
+		      <div id="main_headline">
+            <h1><%= t("home.index.headline1") %></h1>
+          </div>
+          
+          <div id="signup_headline">
+            <h2><%= link_to t("ui.signup"), new_user_path, :class => "button" -%> <%= t("home.index.p2") %></h2>
+          </div>
+        <% end %>
+        
+		    <div id="col2" class="span-6">
+		      <%= render :partial => 'users/recently_visited' %>
+		      <%= render :partial => 'users/news' %>
+		    </div>
+        
+		    <div id="col3" class="span-4 last">
+          <%= render :partial => 'shared/user_stat' %>
+        </div>
+      </div>
     </div>
-
+    
 	</div>
 
 	<div id="footer_container"><%= render(:partial => "shared/footer") %></div>

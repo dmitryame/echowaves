@@ -104,7 +104,7 @@ class Conversation < ActiveRecord::Base
 
   def notify_of_new_spawn(user, spawn, message)
     msg = %Q(
-      new convo: #{HOST}/conversations/#{spawn.id}/messages"
+      new convo: #{HOST}/conversations/#{spawn.id}/messages
       spawned by: #{user.login}
 
       in response to: #{HOST}/conversations/#{self.id}/messages/#{message.id}

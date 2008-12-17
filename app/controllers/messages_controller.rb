@@ -37,7 +37,7 @@ class MessagesController < ApplicationController
 
 
   def show
-    @message = Message.find(params[:id])
+    @message = Message.published.find(params[:id])
     @messages = Array[@message] 
     
     @has_more_messages_on_top    = @conversation.has_messages_before?(@message)

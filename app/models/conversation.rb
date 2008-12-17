@@ -35,6 +35,7 @@ class Conversation < ActiveRecord::Base
     indexes :name
     indexes description
     has created_at
+    has abuse_report_id
     set_property :delta => true
   end
   

@@ -3,7 +3,7 @@
 
 	<span class="mutedmsgcount"><%= pluralize conversation.messages.size, 'message' %></span>
 	<span class="mutedmsgcount"><%= pluralize conversation.subscriptions.size, 'follower' %></span>
-	<%= render :partial => 'follow_from_list', :object => conversation %>
+	<%= render :partial => 'conversations/follow_from_list', :object => conversation %>
 	
 	<br/>
 	<%= conversation.escaped_description %>

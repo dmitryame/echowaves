@@ -132,7 +132,7 @@ class MessagesController < ApplicationController
   private
 
     def find_conversation
-      @conversation = Conversation.find( params[:conversation_id] )
+      @conversation = Conversation.published.find( params[:conversation_id] )
     end
     
     def check_write_access

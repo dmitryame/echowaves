@@ -102,6 +102,10 @@ class Conversation < ActiveRecord::Base
     end
   end
 
+  def disabled_by_abuse_report?
+    self.abuse_report_id == nil ? false : true
+  end
+  
   def notify_of_new_spawn(user, spawn, message)
     msg = %Q(
       new convo: #{HOST}/conversations/#{spawn.id}/messages

@@ -6,6 +6,8 @@ html, body {margin:0;background:#d0e4eb;}
   padding-left:20px;
   }
 .conversation_for_user {overflow:hidden;}
+.conversation h5 {margin-top:0;}
+.container .quiet {color:#999;}
 #flash_messages .notice {background:#68bd53;padding:4px 10px;border:none;margin:0 0 10px 0;color:#fff;font-weight:strong;}
 #flash_messages .error {background:#cc3333;padding:4px 10px;border:none;margin:0 0 10px 0;color:#fff;font-weight:strong;}
 div.auto_complete {

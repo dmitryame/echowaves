@@ -1,12 +1,9 @@
-<li>
-	<%= link_to h(conversation.name), conversation_messages_path(conversation) %>
-
-	<span class="mutedmsgcount"><%= pluralize conversation.messages.size, 'message' %></span>
-	<span class="mutedmsgcount"><%= pluralize conversation.subscriptions.size, 'follower' %></span>
-	<%= render :partial => 'conversations/follow_from_list', :object => conversation %>
-	
-	<br/>
+<li class="conversation">
+	<h5><%= link_to h(conversation.name), conversation_messages_path(conversation) %></h5>
 	<%= conversation.escaped_description %>
 	<br/>
-	<span class="quiet small"><%= conversation.created_at.to_s(:date_time12) %></span>
+	<span class="quiet small"><%= conversation.created_at.to_s(:date_time12) %> - </span>
+	<span class="quiet small"><%= pluralize conversation.messages.size, 'message' %> - </span>
+	<span class="quiet small"><%= pluralize conversation.subscriptions.size, 'follower' %> - </span>
+	<span class="quiet small"><%= render :partial => 'conversations/follow_from_list', :object => conversation %></span>
 </li>

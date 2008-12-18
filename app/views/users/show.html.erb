@@ -1,3 +1,13 @@
+<%= javascript_include_tag "livepipe/livepipe" %>
+<%= javascript_include_tag "livepipe/tabs" %>
+<%= stylesheet_link_tag 'livepipe' %>
+
+<script>
+	document.observe('dom:loaded',function(){
+	new Control.Tabs('user_tabs');
+	});
+</script>
+
 <div class="balloon">
   <h1><span class="username"><%=link_to h(@user.login), conversation_messages_path(@user.personal_conversation) %></span></h1>
   <p>
@@ -15,14 +25,25 @@
 
 
 <div class="item">
-  <div id="subscriptions_for_user">
-  	<b><%= t("users.conversing_in") %>:</b>
 
-	<ul class="list">
-		<%= render :partial => 'conversations/conversation', :collection => @user.subscribed_conversations %>
-	</ul>
+	<div id="subscriptions_for_user">
+		<ul id="user_tabs" class="subsection_tabs">  
+			<li class="tab"><a href="#convos"><%=t("users.conversing_in")%></a></li>  
+			<li class="tab"><a href="#friends"><%=t("users.friends_with")%></a></li>  
+		</ul>  
+		<div id="convos">
+			<ul class="list">
+				<%= render :partial => 'conversations/conversation', :collection => @user.subscribed_conversations.published.not_personal %>
+			</ul>			
+		</div>  
+		<div id="friends">
+			<table>
+				<%= render :partial => 'conversations/conversation', :collection => @user.friends_convos%>
+			</table>
+		</div>
 
-  </div>
+
+	</div>
   
   <%= link_to t("ui.back"), users_path %>
 </div>

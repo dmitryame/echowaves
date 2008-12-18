@@ -1,4 +1,12 @@
 <li>
+	<%if conversation.personal_conversation == true%>
+		<%= link_to image_tag(conversation.user.gravatar_url, :border => 0, :width => 40, :height => 40, :class => "avatar", :alt => conversation.user.login), user_path(conversation.user),
+		:class => 'tip', 
+		:title =>  t("users.since") + conversation.user.created_at.to_s(:pretty)  + 
+		'<br/>' + pluralize(conversation.user.conversations.size, 'convo') +
+		'<br/>' + pluralize(conversation.user.messages.size, 'message') +
+		'<br/>' + pluralize(conversation.user.subscriptions.size, 'subsription') %>		
+	<%end%>
 	<%= link_to h(conversation.name), conversation_messages_path(conversation) %>
 
 	<span class="mutedmsgcount"><%= pluralize conversation.messages.size, 'message' %></span>

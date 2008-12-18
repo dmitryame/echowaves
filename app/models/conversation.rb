@@ -30,6 +30,8 @@ class Conversation < ActiveRecord::Base
 
   named_scope :published, :conditions => { :abuse_report_id => nil }
   named_scope :not_personal, :conditions => { :personal_conversation => false }
+  named_scope :personal, :conditions => { :personal_conversation => true }
+
 
   define_index do
     indexes :name

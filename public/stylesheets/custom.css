@@ -198,3 +198,8 @@ textarea:focus, input[type='text']:focus, input[type='password']:focus, select:f
 .container ul li {margin:0;}
 .msgcount {background:#cc3333;padding:2px 4px;font-weight:bold;color:#fff;margin-right:5px;}
 .mutedmsgcount {background:#999 url(/images/b9.gif) bottom center no-repeat;padding:2px 4px 6px 4px;font-weight:bold;color:#fff;margin-left:10px;}
+#working {
+  position:absolute;
+  top:-18px;
+  left:255px;
+}

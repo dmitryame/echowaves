@@ -161,7 +161,7 @@ margin:0 auto;background:#151110;
   margin-bottom:20px;
 }
 #messageinputdiv h4 {padding:0 0 10px 0;margin:0;}
-#attachment_form {background:#7aab43;padding:10px;}
+#attachment_form {background: url(/images/unitip/TipMid.png) repeat;padding:10px;}
 #attachment_form input{margin:0;padding:0;}
 #attachment_form form{margin:0;padding:0;}
 #last_message_avise {background:#9acb63; padding:0 20px;text-align:center;margin-top:-19px;}

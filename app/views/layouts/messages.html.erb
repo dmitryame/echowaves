@@ -110,7 +110,7 @@
 		    <div id="messagesform"><div id="messagesform_padding">
 		        			  
 			    <div id="messageinputdiv">
-		        <% if logged_in? && @conversation.writable_by?(current_user) %>		
+		        <% if logged_in? && @conversation.writable_by?(current_user) %>
               <% remote_form_for(:message,
               	:update => 'messages', :position => 'bottom',
                 :url => conversation_messages_path(@conversation),
@@ -137,7 +137,11 @@
                 </p>
               <% end %>
             <% else %>
-              <h4 class="center">this is a read only conversation</h4>
+              <% if logged_in? %>
+                <h4 class="center"><%= t("conversations.this_is_an_read_only_convo") %></h4>
+              <% else %>
+                <h4 class="center"><%= t("conversations.login_or_register_to_participate") %></h4>
+              <% end %>
 		        <% end#if current_user%>
           </div>
           

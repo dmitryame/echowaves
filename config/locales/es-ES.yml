@@ -66,6 +66,8 @@ es-ES:
     since: "desde:"    
     friends_with: "amigos"    
   conversations:
+    this_is_an_read_only_convo: "Esta es una conversacion de solo lectura"
+    login_or_register_to_participate: "Por favor <a href=\"/login\">entra</a> para participar.<br/>¿Aun no tienes una cuenta? <a href=\"/signup\">registrate ahora</a>, es gratis"
     recently_started_conversations: "conversaciones iniciadas recientemente"
     start_new_conversation: "iniciar una nueva conversacion"
     look_for_conversations: "buscar conversaciones"

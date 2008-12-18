@@ -64,7 +64,7 @@ es-ES:
     look_for_users: "buscar usuarios"
     conversing_in: "conversando en"
     since: "desde:"    
-    friends_with: "Friends With"    
+    friends_with: "amigos"    
   conversations:
     recently_started_conversations: "conversaciones iniciadas recientemente"
     start_new_conversation: "iniciar una nueva conversacion"

@@ -37,7 +37,7 @@ class MessagesController < ApplicationController
 
 
   def show
-    @message = Message.find(params[:id])
+    @message = Message.published.find(params[:id])
     @messages = Array[@message] 
     
     @has_more_messages_on_top    = @conversation.has_messages_before?(@message)
@@ -132,7 +132,7 @@ class MessagesController < ApplicationController
   private
 
     def find_conversation
-      @conversation = Conversation.find( params[:conversation_id] )
+      @conversation = Conversation.published.find( params[:conversation_id] )
     end
     
     def check_write_access

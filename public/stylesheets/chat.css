@@ -21,14 +21,14 @@ html,body{
 #sidebars {height:100%;}
 
 #attachment_form {
-  background:#42aec2;
+  background: url(/images/unitip/TipMid.png) repeat;
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
   padding:0px;}
-#attachment_form_padding {padding:50px;}
+#attachment_form_padding {padding:10px;}
 #attachment_form {
   position:fixed;
-  bottom:20px;
+  bottom:40px;
   width:550px;
   z-index:101;
 }

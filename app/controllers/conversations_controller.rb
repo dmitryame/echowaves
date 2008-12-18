@@ -19,7 +19,7 @@ class ConversationsController < ApplicationController
   end
 
   def show
-    @conversation = Conversation.find(params[:id])
+    @conversation = Conversation.published.find(params[:id])
     redirect_to(conversation_messages_path(@conversation))  
   end
 
@@ -47,14 +47,13 @@ class ConversationsController < ApplicationController
     end
   end
 
-
   def follow
-    @conversation = Conversation.find(params[:id])
+    @conversation = Conversation.published.find(params[:id])
     current_user.follow(@conversation)
   end
 
   def unfollow
-    @conversation = Conversation.find(params[:id])
+    @conversation = Conversation.published.find(params[:id])
     current_user.unfollow(@conversation)
   end
 
@@ -68,15 +67,27 @@ class ConversationsController < ApplicationController
 
   def readwrite_status
     read_only = (params[:mode] == 'rw') ? false : true 
-    @conversation = Conversation.find( params[:id] )
+    @conversation = Conversation.published.find( params[:id] )
     @conversation.update_attributes( :read_only => read_only ) if ( @conversation.owner == current_user )
     redirect_to conversation_messages_path( @conversation )
   end
 
   def report
-    conversation = Conversation.find(params[:id])
+    conversation = Conversation.published.find(params[:id])
     conversation.report_abuse(current_user)
-    render :nothing => true            
+    # FIXME: refactor this or simplify if do not need to degrade if there is no javascript
+    # what to do with the other users currently in this conversation if is disabled?
+    if conversation.disabled_by_abuse_report?
+      if request.xhr?
+        render :update do |page|
+          page.redirect_to(conversations_path)
+        end
+      else
+        redirect_to conversations_path
+      end
+    else
+      render(:nothing => true)
+    end
   end
 
 end

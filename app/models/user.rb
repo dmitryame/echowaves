@@ -37,7 +37,8 @@ class User < ActiveRecord::Base
   has_many :conversation_visits
   has_many :recent_conversations, 
            :through => :conversation_visits, 
-           :source => :conversation, 
+           :source => :conversation,
+           :conditions => { :abuse_report_id => nil },
            :order => "conversation_visits.updated_at DESC",
            :limit => 10
   

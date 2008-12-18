@@ -25,6 +25,7 @@ class Message < ActiveRecord::Base
   define_index do
     indexes message
     has created_at
+    has abuse_report_id
     set_property :delta => true
   end
           

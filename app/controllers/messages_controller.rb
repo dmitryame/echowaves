@@ -98,7 +98,7 @@ class MessagesController < ApplicationController
     if @message.save
       # send a stomp message for everyone else to pick it up
       send_stomp_message @message
-      send_stomp_notifications 
+      send_stomp_notifications       
       render :nothing => true      
     end
   end

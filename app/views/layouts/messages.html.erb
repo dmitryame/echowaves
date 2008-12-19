@@ -98,7 +98,7 @@
     	      :html => { :multipart => true, :target => "upload_frame" } ) do |f| %>
     	        <%= f.file_field :attachment %>
     	    	  <input type="hidden" name="conversation_id" id="conversation_id" value="<%= @conversation.id %>" />
-    	    	  <%= submit_tag t("ui.attach") %>
+    	    	  <%= submit_tag t("ui.attach"), :onclick => "$('attachment_form').hide();$('attachment_link').show();"%>
     	    	  <%= link_to_function "hide" do |page|
                 page[:attachment_form].hide
                 page[:attachment_link].show

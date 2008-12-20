@@ -10,6 +10,7 @@
       		<li><%= link_to t("ui.logout"), logout_path %></li>
       	<%else%>			
       		<li><%= link_to t("ui.login"), new_session_path %></li>
+      		<li><%= link_to t("ui.signup"), new_user_path %></li>
       	<%end%>
       	<li><%= link_to t("ui.search_messages"), msgsearch_path, :class => 'search_link' %></li>
         <li><%= link_to t("ui.search_conversations"), convosearch_path, :class => 'search_link' %></li>

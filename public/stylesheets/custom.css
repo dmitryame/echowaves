@@ -132,6 +132,9 @@ margin:0 auto;background:#151110;
   -webkit-border-radius: 10px;
 }
 .balloon h1 {margin:0;}
+.balloon .avatar {float:left;}
+.balloon .username {padding-left:50px;display:block;font-size:130%;}
+.balloon .userinfo {padding-left:50px;display:block;color:#3366cc;}
 .page {
   padding:5px;
   background:#fff;

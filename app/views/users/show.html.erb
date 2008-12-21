@@ -9,17 +9,17 @@
 </script>
 
 <div class="balloon">
-  <h1><span class="username"><%=link_to h(@user.login), conversation_messages_path(@user.personal_conversation) %></span></h1>
-  <p>
+  <div class="avatar">
     <%= link_to image_tag(@user.gravatar_url, :border => 0, :width => 40, :height => 40, :class => "avatar", :alt => @user.login), user_path(@user) %>		
-  </p>
-<span><%= t("users.since") + " " + @user.created_at.to_s(:pretty)%></span>
-|
-<%= pluralize @user.conversations.size, 'convo' %>
-|
-<%= pluralize @user.messages.size, 'message' %>
-|
-<%= pluralize @user.subscriptions.size, 'subscription' %>
+  </div>
+  <span class="username"><%=link_to h(@user.login), conversation_messages_path(@user.personal_conversation) %></span>
+  <span class="userinfo">
+    <%= t("users.since") + " " + @user.created_at.to_s(:pretty)%> |
+    <%= pluralize @user.conversations.size, 'convo' %> |
+    <%= pluralize @user.messages.size, 'message' %> |
+    <%= pluralize @user.subscriptions.size, 'subscription' %>
+  </span>
+  <div class="clear"></div>
 </div>
 <div class="arrow">&nbsp;</div>
 

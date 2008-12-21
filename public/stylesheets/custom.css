@@ -203,3 +203,15 @@ textarea:focus, input[type='text']:focus, input[type='password']:focus, select:f
   top:-18px;
   left:255px;
 }
+#users_list {float:left;width:100%;}
+#users_list li {
+  float:left;
+  width:49%;
+  margin-bottom:10px;
+  margin-left:2px;
+  padding:10px 0;
+  border:1px solid #eee;
+}
+#users_list li .avatar {float:left;padding-left:5px;}
+#users_list li .username {padding-left:60px;display:block;}
+#users_list li .user_real_name {padding-left:60px;display:block;color:#999;}

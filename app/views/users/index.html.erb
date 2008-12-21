@@ -8,16 +8,14 @@
   	  "{ window.location=('/complete_user_name?id='+element.value);}"
   	-%>
   </div>
-  
 </div>
 <div class="arrow">&nbsp;</div>
 
 <div class="item">
-  
-
-<%= will_paginate @users %>
-<table>
-	<%= render :partial => 'user', :collection => @users%>
-</table>
-<%= will_paginate @users %>
+  <%= will_paginate @users %>
+  <ul id="users_list">
+	    <%= render :partial => 'user', :collection => @users %>
+  </ul>
+  <div class="clear"></div>
+  <%= will_paginate @users %>
 </div>

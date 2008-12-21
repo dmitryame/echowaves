@@ -8,24 +8,17 @@
   	  "{ window.location=('/complete_conversation_name?id='+element.value);}"
   	-%>
   </div>
-  
 </div>
 <div class="arrow">&nbsp;</div>
-
-
 
 <div class="item">
   <div>
     <%= link_to t('conversations.start_new_conversation'), new_conversation_path, :class => 'button' %>
     <div class="clear"></div>
   </div>
-
-<%= will_paginate @conversations %>
-
-<ul class="list">
-	<%= render :partial => 'conversation', :collection => @conversations %>
-</ul>
-
-<%= will_paginate @conversations %>
-
+  <%= will_paginate @conversations %>
+  <ul class="list">
+	  <%= render :partial => 'conversation', :collection => @conversations %>
+  </ul>
+  <%= will_paginate @conversations %>
 </div>

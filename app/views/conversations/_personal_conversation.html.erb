@@ -8,7 +8,7 @@
 	  '<br/>' + pluralize(personal_conversation.user.subscriptions.size, 'subsription') %>		
 	</span>
 	<h5><%= link_to h(personal_conversation.name), conversation_messages_path(personal_conversation) %></h5>
-	<p><%= personal_conversation.escaped_description %></p>
+	<div class="description"><%= personal_conversation.escaped_description %></div>
 	<span class="quiet small info">
 	  <%= personal_conversation.created_at.to_s(:date_time12) %> -
 	  <%= pluralize personal_conversation.messages.size, 'message' %> -

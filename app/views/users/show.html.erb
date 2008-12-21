@@ -37,12 +37,10 @@
 			</ul>			
 		</div>  
 		<div id="friends">
-			<table>
-				<%= render :partial => 'conversations/conversation', :collection => @user.friends_convos%>
-			</table>
+			<ul class="list">
+				<%= render :partial => 'conversations/personal_conversation', :collection => @user.friends_convos %>
+			</ul>
 		</div>
-
-
 	</div>
   
   <%= link_to t("ui.back"), users_path %>

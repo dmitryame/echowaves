@@ -1,0 +1,18 @@
+<li class="personal conversation">
+	<span class="avatar">
+	  <%= link_to image_tag(personal_conversation.user.gravatar_url, :border => 0, :width => 40, :height => 40, :class => "avatar", :alt => personal_conversation.user.login), user_path(personal_conversation.user),
+	  :class => 'tip', 
+	  :title =>  t("users.since") + personal_conversation.user.created_at.to_s(:pretty)  + 
+	  '<br/>' + pluralize(personal_conversation.user.conversations.size, 'convo') +
+	  '<br/>' + pluralize(personal_conversation.user.messages.size, 'message') +
+	  '<br/>' + pluralize(personal_conversation.user.subscriptions.size, 'subsription') %>		
+	</span>
+	<h5><%= link_to h(personal_conversation.name), conversation_messages_path(personal_conversation) %></h5>
+	<p><%= personal_conversation.escaped_description %></p>
+	<span class="quiet small info">
+	  <%= personal_conversation.created_at.to_s(:date_time12) %> -
+	  <%= pluralize personal_conversation.messages.size, 'message' %> -
+	  <%= pluralize personal_conversation.subscriptions.size, 'follower' %> -
+	  <%= render :partial => 'conversations/follow_from_list', :object => personal_conversation %>
+	</span>
+</li>

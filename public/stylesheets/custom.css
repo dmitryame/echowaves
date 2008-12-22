@@ -172,7 +172,7 @@ margin:0 auto;background:#151110;
 #attachment_form input{margin:0;padding:0;}
 #attachment_form form{margin:0;padding:0;}
 #last_message_avise {background:#9acb63; padding:0 20px;text-align:center;margin-top:-19px;}
-.messageinput { width:520px; height:4em; }
+.messageinput { width:520px; height:3em; }
 textarea, input[type='text'], input[type='password'], select { border: 1px solid #333; background: #fff; }
 textarea:hover, input[type='text']:hover, input[type='password']:hover, select:hover { border-color: #333; }
 textarea:focus, input[type='text']:focus, input[type='password']:focus, select:focus { border-color: #333; outline: 2px solid #333; }
@@ -222,3 +222,4 @@ textarea:focus, input[type='text']:focus, input[type='password']:focus, select:f
 #users_list li .avatar {float:left;padding-left:5px;}
 #users_list li .username {padding-left:60px;display:block;}
 #users_list li .user_real_name {padding-left:60px;display:block;color:#999;}
+input[type='text'], input[type='password'], textarea { font-size: 100%; font-family: helvetica, "microsoft sans serif", arial, sans-serif;}

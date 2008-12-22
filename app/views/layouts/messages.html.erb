@@ -116,7 +116,7 @@
               	:update => 'messages', :position => 'bottom',
                 :url => conversation_messages_path(@conversation),
                 :loading => "$('msgform').disable();",
-                :complete => "$('msgform').enable();$('message_message').value = '';$('message_attachment').value = '';$('message_message').style.height = '4em';$('message_message').focus();$('messages').setStyle('padding-bottom: 96px');$('working').fade({ duration: 0.3 });",
+                :complete => "$('msgform').enable();$('message_message').value = '';$('message_attachment').value = '';$('message_message').style.height = '3em';$('message_message').focus();$('messages').setStyle('padding-bottom: 96px');$('working').fade({ duration: 0.3 });",
                 # don't poll right now, and set the "after" value
                 :before => "$('working').appear({ duration: 0.3 });",
                 :condition => "$('message_message').value.strip().length > 0",

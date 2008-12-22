@@ -45,3 +45,8 @@ Factory.define :abuse_report do |abuse_report|
   abuse_report.association :user
   abuse_report.association :message
 end
+
+Factory.define :invite do |invite|
+  invite.association :user
+  invite.association :conversation
+end

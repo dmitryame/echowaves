@@ -222,3 +222,8 @@ textarea:focus, input[type='text']:focus, input[type='password']:focus, select:f
 #users_list li .avatar {float:left;padding-left:5px;}
 #users_list li .username {padding-left:60px;display:block;}
 #users_list li .user_real_name {padding-left:60px;display:block;color:#999;}
+.img_attachment img {
+  border:1px solid #ccc;
+  padding:10px;
+  margin:10px auto;
+}

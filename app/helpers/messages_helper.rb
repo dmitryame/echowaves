@@ -12,7 +12,7 @@ module MessagesHelper
 
   def display_attachment(message)
     if message.has_image?
-      "<div>" + link_to( image_tag( message.attachment.url(:big) ), message.attachment.url, :target => '_blank' ) + "</div>"
+      '<div class="img_attachment">' + link_to( image_tag( message.attachment.url(:big) ), message.attachment.url, :target => '_blank' ) + "</div>"
     elsif message.has_pdf?
       %Q(
         #{link_to( image_tag( 'icons/pdf_large.jpg', :alt => 'PDF Document' ), message.attachment.url, :target => '_blank' )}

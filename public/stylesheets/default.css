@@ -112,3 +112,8 @@ textarea:focus, input[type='text']:focus, input[type='password']:focus, select:f
   background:#fff url(/images/icons/magnifier.png) 2px 5px no-repeat;
   padding-left:20px;
   }
+.img_attachment img {
+  border:1px solid #ccc;
+  padding:10px;
+  margin:10px auto;
+}

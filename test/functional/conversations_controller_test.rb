@@ -13,7 +13,9 @@ class ConversationsControllerTest < ActionController::TestCase
       Conversation.expects( :new ).returns( @convo )
       @convo.stubs( :to_param ).returns( '1' )
       @user_convos = []
-      @current_user.expects( :conversations ).returns( @user_convos )
+      # FIX
+      # @current_user.expects( :conversations ).returns( @user_convos )
+      @current_user.stubs( :conversations ).returns( @user_convos )   
     end
 
     context "html request" do

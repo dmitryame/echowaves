@@ -10,16 +10,8 @@ class HomeControllerTest < ActionController::TestCase
   context "#index action" do
     should "be successful and render the index template " do
       get :index
-      assert assigns( :conversation )
-      assert assigns( :messages )
       assert_response :success
       assert_template "home/index"
-    end
-
-    should "find the HOME_CONVERSATION and its messages" do
-      Conversation.expects( :find ).with( HOME_CONVERSATION ).returns( @conversation )
-      @conversation.expects( :messages ).returns( [ Factory.create( :message ) ] )
-      get :index
     end
   end # context #index action
 

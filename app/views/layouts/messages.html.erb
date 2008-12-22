@@ -153,30 +153,7 @@
       &nbsp;
       <div id="sidebars_container">
 	      
-	      <%# TODO: conversation controls (move to a partial) %>
-	      <div id="convo_controls">
-          <h4>
-            <% if @conversation.read_only %><span class="highlight"><%= t("ui.read_only") %></span> <% end %><%= link_to h(@conversation.name), conversation_messages_path(@conversation), :class => 'tip', :title => @conversation.escaped_description %>
-          </h4>
-          <%if @conversation.parent_message_id%>
-          	<%= link_to t("ui.back_to_parent"), conversation_messages_path(@conversation.parent_message.conversation)%> &#187;
-          <%end%>
-          <%= render :partial => 'conversations/follow', :object => @conversation %>
-          <% if current_user == @conversation.owner %>
-            &#187;
-            <% if @conversation.read_only %>
-              <%= link_to t("ui.make_writable"), readwrite_status_conversation_path(@conversation, :mode => 'rw'), :method => 'put' %>
-            <% else %>
-              <%= link_to t("ui.make_read_only"), readwrite_status_conversation_path(@conversation), :method => 'put' %>
-            <% end %>
-          <% end %>
-          <%if logged_in? %>
-          	&#187;
-          	<%= link_to_remote t("ui.report"), :url => report_conversation_path(@conversation), :confirm => t("ui.reportconfirm_conversation") %>
-          <%end%>
-        </div>
-        <%# end of conversation controls (move to a partial) %>
-	      
+			<%= render :partial => 'convo_controls' %>
         
 		    <div id="col2" class="span-6">
 		      &nbsp;

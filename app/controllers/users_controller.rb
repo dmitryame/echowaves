@@ -25,9 +25,6 @@ class UsersController < ApplicationController
   # GET /clients/1.xml
   def show
     @user = User.find(params[:id])
-
-    
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @user }
@@ -65,6 +62,7 @@ class UsersController < ApplicationController
   def update
     @user = current_user
     @personal_conversation = @user.personal_conversation
+    params[:user].delete(:login)
     if @user.update_attributes(params[:user]) && @personal_conversation.update_attributes(params[:conversation])
       flash[:notice] = "User updated"
       redirect_to user_path(current_user)

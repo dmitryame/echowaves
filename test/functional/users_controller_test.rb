@@ -84,6 +84,36 @@ class UsersControllerTest < ActionController::TestCase
     assert_equal assigns( :user ), user
   end
 
+  context "update action" do
+    setup do
+      create_user_and_authenticate
+      @controller.stubs( :current_user ).returns( @user )
+      post :update,
+            :user_id => @user.id,
+            :user => {:name => 'updated_name',
+                      :login => 'updated_login',
+                      :password => 'updated_password',
+                      :password_confirmation => 'updated_password',
+                      :time_zone => 'Europe/Madrid'} # TODO: test description update
+    end
+    
+    should "update the name" do
+      assert_equal 'updated_name', @user.name
+    end
+    
+    should "update the password" do
+      assert_equal 'updated_password', @user.password
+    end
+    
+    should "update the timezone" do
+      assert_equal 'Europe/Madrid', @user.time_zone
+    end
+    
+    should "not update the login" do
+      assert_equal 'admin', @user.login
+    end
+  end
+  
   protected
     def create_user(options = {})
       post :create, :user => { :login => 'quire', :email => 'quire@example.com',

@@ -49,15 +49,6 @@ class MessagesController < ApplicationController
     end
   end
 
-  def new
-    @message = Message.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @message }
-    end
-  end
-
   def create
     @message = @conversation.messages.new(params[:message])
     
@@ -72,7 +63,7 @@ class MessagesController < ApplicationController
           render :nothing => true
         }
       else
-        format.html { render :action => "new" }
+        format.html { render :nothing => true }
         format.xml { render :xml => @message.errors, :status => :unprocessable_entity }
         format.js { render :nothing => true }
       end
@@ -80,27 +71,21 @@ class MessagesController < ApplicationController
   end
 
   def upload_attachment
-    @message = Message.new(params[:message])    
-    @message.user = current_user
-    @message.conversation = @conversation
-    @message.message = "!!!!!attachment!!!!!!"    
+    render( :nothing => true ) and return if params[:message][:attachment].blank?
 
-
-    if params[:message][:attachment].blank?
-      render :nothing => true
-      return
-    end
-      
-      
-      
-    # puts '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@:' + @message.attachment_content_type  
-      
-    if @message.save
+    @message = current_user.messages.new(params[:message])
+    # TODO:
+    # message can't be blank, without this line the next condition will fail because there is not a message text yet,
+    # I will use this to set the attachment description (issue #43)
+    @message.message = "!!!!!attachment!!!!!!"
+    
+    if @conversation.messages << @message
+      @message.update_attributes(:message => @message.attachment_file_name)
       # send a stomp message for everyone else to pick it up
       send_stomp_message @message
-      send_stomp_notifications       
-      render :nothing => true      
+      send_stomp_notifications
     end
+    render :nothing => true
   end
 
   def report

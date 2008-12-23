@@ -51,4 +51,18 @@ class UserTest < ActiveSupport::TestCase
 
     should_have_many :recent_conversations, :through => :conversation_visits
   end    
+
+  context "mark last viewed as read" do
+    setup do
+      @user = Factory.create( :user )
+    end
+
+    should "do nothing if user has no subscriptions" do
+      assert_equal 0, @user.subscriptions.size
+      @user.mark_last_viewed_as_read
+      assert_equal 0, @user.subscriptions.size
+    end
+
+    should "update last viewed subscription" 
+  end
 end

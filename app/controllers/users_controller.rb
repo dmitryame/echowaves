@@ -2,9 +2,6 @@ class UsersController < ApplicationController
   before_filter :login_required, :except => [:index, :show, :auto_complete_for_user_name, :complete_name, :signup, :new, :create, :activate, :forgot_password, :reset_password]
   after_filter :store_location, :only => [:index, :show]  
   
-  # Be sure to include AuthenticationSystem in Application Controller instead
-  include AuthenticatedSystem
-  
   auto_complete_for :user, :name
 
   def complete_name
@@ -28,9 +25,6 @@ class UsersController < ApplicationController
   # GET /clients/1.xml
   def show
     @user = User.find(params[:id])
-
-    
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @user }
@@ -68,6 +62,7 @@ class UsersController < ApplicationController
   def update
     @user = current_user
     @personal_conversation = @user.personal_conversation
+    params[:user].delete(:login)
     if @user.update_attributes(params[:user]) && @personal_conversation.update_attributes(params[:conversation])
       flash[:notice] = "User updated"
       redirect_to user_path(current_user)

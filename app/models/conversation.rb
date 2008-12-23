@@ -49,6 +49,10 @@ class Conversation < ActiveRecord::Base
 
       convo
     end
+  end # class << self
+
+  def published?
+    self.abuse_report.nil?
   end
 
   
@@ -65,11 +69,11 @@ class Conversation < ActiveRecord::Base
   end
   
   def spawned?
-    self.parent_message_id == nil
+    !self.parent_message_id.nil?
   end
   
   def followed?(user)    
-    Subscription.find_by_conversation_id_and_user_id(self.id, user.id) ? true : false
+    self.subscriptions.find_by_user_id( user.id ).nil? ? false : true
   end
 
   def add_visit(user)
@@ -85,8 +89,8 @@ class Conversation < ActiveRecord::Base
   end
 
   def remove_subscription(user)
-    sub = self.subscriptions.find_by_user_id( user.id )
-    sub.destroy if sub
+    sub = self.subscriptions.find_all_by_user_id( user.id )
+    sub.empty? ? true : sub.each { |s| s.destroy }
   end
 
   def over_abuse_reports_limit?

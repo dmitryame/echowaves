@@ -1,0 +1,1 @@
+page["user_" + @user_id].visual_effect :drop_out

@@ -89,5 +89,26 @@ class ConversationsController < ApplicationController
       render(:nothing => true)
     end
   end
+  
+  def invite
+    @conversation = Conversation.published.find(params[:id])
+    @friends_convos = current_user.friends_convos 
+    #should also remove the users if they were already invited
+    existing_invites = Invite.find(:all, :conditions => ["requestor_id = ? and conversation_id = ?", current_user.id, @conversation.id ] )
+    
+    render :layout => "invite"
+  end
+  
+  def invite_from_list
+    @user_id = params[:user_id]
+    #TODO this preferenbly should move into the model
+    existing_invite = Invite.find(:first, :conditions => ["user_id = ? and requestor_id = ? and conversation_id = ?", @user_id, current_user.id, params[:id] ] )
+    return if(existing_invite != nil)#don't do anything, already invited
+    @invite = Invite.new
+    @invite.user_id = @user_id
+    @invite.requestor = current_user
+    @invite.conversation_id = params[:id]
+    @invite.save    
+  end
 
 end

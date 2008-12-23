@@ -15,7 +15,7 @@ class Conversation < ActiveRecord::Base
   :foreign_key => "parent_message_id"
 
   has_many :subscriptions
-  has_many :users, :through => :subscriptions, :uniq => true,:order => "login ASC"
+  has_many :users, :through => :subscriptions, :uniq => true,:order => "login ASC" #followers,  subscribers
   has_many :recent_followers, 
   :through => :subscriptions, 
   :source => :user, 

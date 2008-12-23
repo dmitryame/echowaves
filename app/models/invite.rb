@@ -8,4 +8,6 @@ class Invite < ActiveRecord::Base
   validates_presence_of :requestor_id
   validates_presence_of :user_id
   validates_presence_of :conversation_id
+  
+  
 end

@@ -54,7 +54,7 @@ class User < ActiveRecord::Base
   is_gravtastic :size => 40, :default => "identicon" # "monsterid" or "identicon", or "wavatar"
   
   def friends_convos
-    self.subscribed_conversations.published.personal
+    self.subscribed_conversations.published.personal - self.personal_conversation.to_a
   end
     
   # Activates the user in the database.

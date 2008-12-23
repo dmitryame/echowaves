@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="Description" content="Opensource Group Chat Social Network written in Ruby On Rails">
+	<title>Group Chat Social Network -- invite your friends to: <%=@conversation.name-%></title>
+  <link rel="shortcut icon" href="/images/favicon.ico" />
+ 	
+  <link rel="stylesheet" href="/stylesheets/screen.css" type="text/css" media="screen, projection">
+  <link rel="stylesheet" href="/stylesheets/print.css" type="text/css" media="print"> 
+  <!--[if IE]>
+    <link rel="stylesheet" href="/stylesheets/ie.css" type="text/css" media="screen, projection">
+  <![endif]-->
+  <link rel="stylesheet" href="/stylesheets/style.css" type="text/css" media="screen, projection">
+  <%= stylesheet_link_tag 'default' %>
+ 	<%= javascript_include_tag :defaults %>
+ 	<%= javascript_include_tag "misc" %>
+ 	
+ 	<%= stylesheet_link_tag 'unitip' %>
+	<%= javascript_include_tag 'unitip' %>
+	
+</head>
+
+<body>
+
+	<div id="header_container"><%= render(:partial => "shared/header") %></div>
+  
+	<div id="main_content" class="container">
+		<div>
+		    <%= flash_messages %>
+  	  		<%= yield  %>
+		</div>    
+	</div>
+
+	<div id="footer_container"><%= render(:partial => "shared/footer") %></div>
+</body>
+</html>

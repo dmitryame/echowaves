@@ -36,6 +36,7 @@ es-ES:
     reportconfirm_conversation: "Estas seguro de querer informar acerca de esta conversation? El autor de la conversacion inapropiada sera castigado."    
     spawn: "bifurcar"
     spawnconfirm: "Estas seguro de querer comenzar una nueva conversacion a partir de este mensaje?"
+    invite: "invite"
     back_to_parent: "convo original"
     this_is_the_newest_message: "Este es el mensaje mas nuevo"
     attach: "Adjuntar"

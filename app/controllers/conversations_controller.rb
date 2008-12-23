@@ -92,9 +92,9 @@ class ConversationsController < ApplicationController
   
   def invite
     @conversation = Conversation.published.find(params[:id])
-    @friends_convos = current_user.friends_convos 
     #should also remove the users if they were already invited
-    existing_invites = Invite.find(:all, :conditions => ["requestor_id = ? and conversation_id = ?", current_user.id, @conversation.id ] )
+    existing_invites = Invite.find(:all, :conditions => ["requestor_id = ? and conversation_id = ?", current_user.id, @conversation.id ] ).map {|invite| invite.conversation}
+    @friends_convos = current_user.friends_convos - existing_invites
     
     render :layout => "invite"
   end

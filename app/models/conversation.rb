@@ -121,7 +121,7 @@ class Conversation < ActiveRecord::Base
       in response to: #{HOST}/conversations/#{self.id}/messages/#{message.id}
       #{message.message}
     )
-    notification = user.messages.create( :conversation => self, :message => msg )
+    notification = user.messages.create( :conversation => self, :message => msg, :system_message => true)
   end
 
   def escaped_name

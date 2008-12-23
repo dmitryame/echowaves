@@ -95,13 +95,13 @@ class ConversationsController < ApplicationController
     #should also remove the users if they were already invited
     existing_invites = Invite.find(:all, :conditions => ["requestor_id = ? and conversation_id = ?", current_user.id, @conversation.id ] ).map {|invite| invite.conversation}
     @friends_convos = current_user.friends_convos - existing_invites
-    
+
     render :layout => "invite"
   end
   
   def invite_from_list
-    @user_id = params[:user_id]
-    #TODO this preferenbly should move into the model
+    @user = current_user.friends.find(params[:user_id])
+    #TODO this whole thing preferebly should move into the model
     existing_invite = Invite.find(:first, :conditions => ["user_id = ? and requestor_id = ? and conversation_id = ?", @user_id, current_user.id, params[:id] ] )
     return if(existing_invite != nil)#don't do anything, already invited
     @invite = Invite.new
@@ -109,6 +109,13 @@ class ConversationsController < ApplicationController
     @invite.requestor = current_user
     @invite.conversation_id = params[:id]
     @invite.save    
+    
+    #now let's create a system message and send it to the convo channel
+    # notification = user.messages.create( :conversation => self, :message => msg, :system_message => true)
+    # 
+    # notification_message = notify_of_new_spawn( current_user, spawned_conversation, @message )
+    # send_stomp_message(notification_message)
+    
   end
 
 end

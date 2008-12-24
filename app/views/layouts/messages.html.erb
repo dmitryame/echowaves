@@ -95,17 +95,18 @@
     	    <%#this form is purely for attachments handling%>
     	    <% form_for(:message, 
     	    	:url  => { :action => "upload_attachment" },
-    	      :html => { :multipart => true, :target => "upload_frame" } ) do |f| %>
+    	      :html => { :multipart => true, :target => "upload_frame", :id => 'atchform' } ) do |f| %>
     	        <%= f.file_field :attachment %>
     	    	  <input type="hidden" name="conversation_id" id="conversation_id" value="<%= @conversation.id %>" />
     	    	  <p id="attach_msgtextarea">        
-                <%= f.text_area :message, :onkeyup => "FitToTextAndMoveMessagesUp(this, ($('main_content').getHeight() - 300));Misc.pageScroll();", :class => 'messageinput', :id => "attch_message" %>  
+                <%= f.text_area :message, :onkeyup => "FitToTextAndMoveMessagesUp(this, (document.viewport.getHeight() - 300));Misc.pageScroll();", :class => 'messageinput', :id => "attch_message" %>  
               </p>
     	    	  <%= submit_tag t("ui.attach") %>
     	    	  <%= link_to_function t("ui.cancel") do |page|
                 page[:attachment_form].hide
                 page[:attachment_link].show
                 page.textarea.sync('attch_message','message_message')
+                page[:atchform].reset
               end %>
     	    <% end %>
     	    
@@ -128,7 +129,7 @@
                  
         
                 <p id="msgtextarea">        
-                  <%= f.text_area :message, :onkeyup => "FitToTextAndMoveMessagesUp(this, ($('main_content').getHeight() - 300));Misc.pageScroll();", :class => 'messageinput' %>  
+                  <%= f.text_area :message, :onkeyup => "FitToTextAndMoveMessagesUp(this, (document.viewport.getHeight() - 300));Misc.pageScroll();", :class => 'messageinput' %>  
                 </p>
                   
                 <p id="msgcontrols">

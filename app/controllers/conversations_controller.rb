@@ -92,20 +92,25 @@ class ConversationsController < ApplicationController
   
   def invite
     @conversation = Conversation.published.find(params[:id])
+    @friends = current_user.friends    
     #should also remove the users if they were already invited
-    existing_invites = Invite.find(:all, :conditions => ["requestor_id = ? and conversation_id = ?", current_user.id, @conversation.id ] ).map {|invite| invite.conversation}
-    @friends_convos = current_user.friends_convos - existing_invites
+    @friends.delete_if do |user|
+      invite_for_user = Invite.find(:first, :conditions => ["user_id = ? and conversation_id = ?", user.id, @conversation.id ] )
+      true unless invite_for_user == nil
+    end
 
     render :layout => "invite"
   end
   
   def invite_from_list
-    @user = current_user.friends.find(params[:user_id])
+    current_user.friends.each do |user| 
+      @user = user if(user.id.to_s == params[:user_id]) #search for the user in friends collection
+    end
     #TODO this whole thing preferebly should move into the model
-    existing_invite = Invite.find(:first, :conditions => ["user_id = ? and requestor_id = ? and conversation_id = ?", @user_id, current_user.id, params[:id] ] )
+    existing_invite = Invite.find(:first, :conditions => ["user_id = ? and requestor_id = ? and conversation_id = ?", @user.id, current_user.id, params[:id] ] )
     return if(existing_invite != nil)#don't do anything, already invited
     @invite = Invite.new
-    @invite.user_id = @user_id
+    @invite.user_id = @user.id
     @invite.requestor = current_user
     @invite.conversation_id = params[:id]
     @invite.save    

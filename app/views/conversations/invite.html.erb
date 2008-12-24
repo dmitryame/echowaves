@@ -1,7 +1,6 @@
 <%= link_to t("ui.back"), conversation_path(@conversation) %>
 
-<% @friends_convos.each do |convo|%>
-	<%user = convo.user%>
+<% @friends.each do |user|%>
 	<div id="<%=dom_id user%>">
 		<span> <%= link_to_remote t("ui.invite"), :url => invite_from_list_conversation_path(@conversation, :user_id => user.id), :method => :post %>
 		&#187;

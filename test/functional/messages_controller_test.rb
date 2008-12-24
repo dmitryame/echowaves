@@ -162,6 +162,7 @@ class MessagesControllerTest < ActionController::TestCase
       @new_message.stubs( :update_attributes ).returns( true )
       @new_message.stubs( :attachment_file_name ).returns( 'foobar' )
       @new_message.stubs( :id ).returns( 1 )
+      @new_message.conversation = @conversation
       User.any_instance.stubs( :id ).returns( 1 )
       Conversation.stubs( :find ).returns( @conversation )
     end

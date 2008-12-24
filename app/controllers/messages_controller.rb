@@ -59,7 +59,7 @@ class MessagesController < ApplicationController
         format.js {
           # send a stomp message for everyone else to pick it up
           send_stomp_message @message
-          send_stomp_notifications 
+          # send_stomp_notifications 
           render :nothing => true
         }
       else
@@ -83,7 +83,7 @@ class MessagesController < ApplicationController
       @message.update_attributes(:message => @message.attachment_file_name)
       # send a stomp message for everyone else to pick it up
       send_stomp_message @message
-      send_stomp_notifications
+      # send_stomp_notifications
     end
     render :nothing => true
   end
@@ -138,14 +138,14 @@ class MessagesController < ApplicationController
       # raise
     end
 
-    def send_stomp_notifications
-      s = Stomp::Client.new
-      s.send("CONVERSATION_NOTIFY_CHANNEL_" + params[:conversation_id], "1")
-      # puts ("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! CONVERSATION_NOTIFY_CHANNEL_" + params[:conversation_id])
-      s.close
-    rescue SystemCallError
-      logger.error "IO failed: " + $!
-      # raise
-    end
+    # def send_stomp_notifications
+    #   s = Stomp::Client.new
+    #   s.send("CONVERSATION_NOTIFY_CHANNEL_" + params[:conversation_id], "1")
+    #   # puts ("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! CONVERSATION_NOTIFY_CHANNEL_" + params[:conversation_id])
+    #   s.close
+    # rescue SystemCallError
+    #   logger.error "IO failed: " + $!
+    #   # raise
+    # end
 
 end

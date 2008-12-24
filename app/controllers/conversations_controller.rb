@@ -98,6 +98,11 @@ class ConversationsController < ApplicationController
       invite_for_user = Invite.find(:first, :conditions => ["user_id = ? and conversation_id = ?", user.id, @conversation.id ] )
       true unless invite_for_user == nil
     end
+    #should also remove the users that already follow proposed convo
+    # @friends.delete_if do |user|
+    #   user.conversations.detect {|convo| convo.id == @conversation.id}
+    # end
+
 
     render :layout => "invite"
   end
@@ -116,11 +121,26 @@ class ConversationsController < ApplicationController
     @invite.save    
     
     #now let's create a system message and send it to the convo channel
-    # notification = user.messages.create( :conversation => self, :message => msg, :system_message => true)
-    # 
-    # notification_message = notify_of_new_spawn( current_user, spawned_conversation, @message )
-    # send_stomp_message(notification_message)
-    
+    msg = " invites you to follow a convo: <a href='/conversations/#{params[:id]}/messages'>#{@invite.conversation.name}</a>"
+    notification = current_user.messages.create( :conversation => @user.personal_conversation, :message => msg, :system_message => true)
+    notification.save
+    send_stomp_message(notification)
+
+    render :update do |page| 
+      page["user_" + @user.id.to_s].visual_effect :drop_out
+    end 
+  end
+  
+  private
+  # FIXME: this is redundunt method from the messages_controller, this has to be addressed
+  def send_stomp_message(message)
+    newmessagescript = render_to_string :partial => 'messages/message', :object => message
+    s = Stomp::Client.new
+    s.send("CONVERSATION_CHANNEL_" + message.conversation.id.to_s, newmessagescript)
+    s.close
+  rescue SystemCallError
+    logger.error "IO failed: " + $!
+    # raise
   end
 
 end

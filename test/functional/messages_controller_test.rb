@@ -153,7 +153,7 @@ class MessagesControllerTest < ActionController::TestCase
 
   context "#upload_attachment action" do
     setup do
-      @new_message = Factory.build( :message, :created_at => Time.now )
+      @new_message = Factory.build( :message, :created_at => Time.now, :message => 'txt' )
       @messages = [ @message ]
       @controller.stubs( :current_user ).returns( @user )
       @user.stubs( :messages ).returns( @messages )
@@ -187,11 +187,18 @@ class MessagesControllerTest < ActionController::TestCase
         post :upload_attachment, :conversation_id => @conversation.id, :message => { :attachment => 'foo' }
       end
 
-      should "updated message attributes with the attachment file name" do
-        @new_message.expects( :update_attributes ).with( :message => 'foobar' )
+      should "update message attribute with the attachment file name if message text is blank" do
+        @new_message.message.stubs( :blank? ).returns( true )
         post :upload_attachment, :conversation_id => @conversation.id, :message => { :attachment => 'foo' }
+        assert_equal 'foobar', @new_message.message
       end
 
+      should "no update message attribute with the attachment file name if message text is not blank" do
+        @new_message.message.stubs( :blank? ).returns( false )
+        post :upload_attachment, :conversation_id => @conversation.id, :message => { :attachment => 'foo' }
+        assert_equal 'txt', @new_message.message
+      end
+      
       should "send stomp message and stomp notifications" do
         @controller.expects( :send_stomp_message ).once.with( @new_message )
         # @controller.expects( :send_stomp_notifications ).once

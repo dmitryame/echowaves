@@ -87,13 +87,16 @@ class MessagesController < ApplicationController
     # right now.
     # This will be useful for fix issue #1, and for reset the forms AFTER upload an
     # attachment
-    render :action => 'upload_attachment.js.rjs'
+    #
+    # render :action => 'upload_attachment.js.rjs'
+    
+    render :nothing => true
   end
 
   def report
     message = @conversation.messages.find(params[:id])
     message.report_abuse(current_user)
-    render :nothing => true            
+    render :nothing => true
   end
 
   def spawn_conversation

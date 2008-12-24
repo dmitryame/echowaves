@@ -105,6 +105,7 @@
     	    	  <%= link_to_function t("ui.cancel") do |page|
                 page[:attachment_form].hide
                 page[:attachment_link].show
+                page.textarea.sync('attch_message','message_message')
               end %>
     	    <% end %>
     	    
@@ -136,6 +137,7 @@
                   <%= link_to_function t("ui.attach_file"), :id => 'attachment_link' do |page|
                     page[:attachment_form].show
                     page[:attachment_link].hide
+                    page.textarea.sync('message_message','attch_message')
                   end %>
                 </p>
               <% end %>

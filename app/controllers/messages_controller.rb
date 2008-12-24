@@ -81,7 +81,12 @@ class MessagesController < ApplicationController
       send_stomp_message @message
       # send_stomp_notifications
     end
-    render :nothing => true
+    # FIXME: this not work yet, because we are calling this action from an iframe,
+    # and the RJS can't access the document.
+    # We need something like respond_to_parent plugin, but this plugin don't work with safari 3
+    # right now.
+    # This will be useful for fix issue #1
+    render :action => 'upload_attachment.js.rjs'
   end
 
   def report

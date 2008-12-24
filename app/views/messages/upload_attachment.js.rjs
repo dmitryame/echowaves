@@ -1,0 +1,4 @@
+page[:message_form].reset
+page[:attachment_form].reset
+page[:attachment_form].hide
+page[:attachment_link].show

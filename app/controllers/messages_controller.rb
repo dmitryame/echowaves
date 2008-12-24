@@ -85,7 +85,8 @@ class MessagesController < ApplicationController
     # and the RJS can't access the document.
     # We need something like respond_to_parent plugin, but this plugin don't work with safari 3
     # right now.
-    # This will be useful for fix issue #1
+    # This will be useful for fix issue #1, and for reset the forms AFTER upload an
+    # attachment
     render :action => 'upload_attachment.js.rjs'
   end
 

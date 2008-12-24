@@ -1,4 +1,4 @@
-page[:message_form].reset
-page[:attachment_form].reset
 page[:attachment_form].hide
 page[:attachment_link].show
+page.textarea.sync('attch_message','message_message')
+page[:atchform].reset

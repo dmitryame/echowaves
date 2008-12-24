@@ -6,6 +6,12 @@ Array.prototype.sum = function() {
       ((typeof this[0] == 'number') ? this[0] : 0);
 };
 
+var Textarea = {
+  sync:function(ta_orig, ta_dest) {
+    $(ta_dest).value = $F(ta_orig);
+  }
+}
+
 function ShowUnreadMessagesInFLuidapp()
 {
   var numbers = $$('.msgcount').collect(function(n) {

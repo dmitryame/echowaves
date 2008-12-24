@@ -7,6 +7,7 @@ es-ES:
       p2: "-- es gratis y cualquiera puede unirse. Comienza tus propias conversaciones, invita a todos tus amigos a unirse a tus conversaciones, sigue de cerca otras conversaciones que te parezcan interesantes. Diviertete!"
       feedback_advice: 'Si encuentras algun problema o quieres hacer alguna sugerencia sobre alguna funcionalidad que te gustaria ver en echowaves, puedes hacerlo en <a href="http://code.google.com/p/echowaves/issues/list">http://echowaves.googlecode.com/</a>'
   ui:
+    cancel: "cancelar"
     name: "nombre"
     description: "descripcion"
     create: "crear"

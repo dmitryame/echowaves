@@ -25,10 +25,10 @@ html,body{
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
   padding:0px;}
-#attachment_form_padding {padding:10px;}
+#attachment_form_padding {padding:10px 10px 0 10px;}
 #attachment_form {
   position:fixed;
-  bottom:40px;
+  bottom:10px;
   width:550px;
   z-index:101;
 }

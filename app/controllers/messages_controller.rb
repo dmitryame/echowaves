@@ -74,13 +74,9 @@ class MessagesController < ApplicationController
     render( :nothing => true ) and return if params[:message][:attachment].blank?
 
     @message = current_user.messages.new(params[:message])
-    # TODO:
-    # message can't be blank, without this line the next condition will fail because there is not a message text yet,
-    # I will use this to set the attachment description (issue #43)
-    @message.message = "!!!!!attachment!!!!!!"
-    
+    @message.message = @message.attachment_file_name if @message.message.blank?
+
     if @conversation.messages << @message
-      @message.update_attributes(:message => @message.attachment_file_name)
       # send a stomp message for everyone else to pick it up
       send_stomp_message @message
       send_stomp_notifications

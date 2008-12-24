@@ -1,7 +1,8 @@
 module MessagesHelper
 
   def mark_up(message)
-    parts = message.split "\n"
+    return message.message if message.system_message == true # no markup for system_messages
+    parts = message.message.split "\n"
     parts.map {|s| h(s)}.join(" <br/>").gsub(/(http|https|ftp)([^ ]+)/i) {|s|  "<a href='#{s}'>#{s}</a>"}        
   end
 

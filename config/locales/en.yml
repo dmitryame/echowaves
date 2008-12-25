@@ -43,7 +43,7 @@ en:
     attach: "Attach"
     attach_file: "attach file"
     send: "send"
-    ctrl_enter: "(ctrl+Enter to submit message)"
+    shift_enter: "(shift+Enter to insert new line)"
     my_conversations: "My convos"
     news: "New Messages"
     recently_visited: "Recently visited"

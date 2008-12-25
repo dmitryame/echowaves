@@ -43,7 +43,7 @@ es-ES:
     attach: "Adjuntar"
     attach_file: "adjuntar archivo"
     send: "enviar"
-    ctrl_enter: "(ctrl+Enter para enviar el mensaje)"
+    shift_enter: "(shift+Enter to insert new line)"
     my_conversations: "Mis conversaciones"
     news: "Nuevos mensajes"
     recently_visited: "Visitado recientemente"

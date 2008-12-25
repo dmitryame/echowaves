@@ -11,7 +11,7 @@
 		:title =>  t("users.since") + message.user.created_at.to_s(:pretty)  + 
 		'<br/>' + pluralize(message.user.conversations.size, 'convo') +
 		'<br/>' + pluralize(message.user.messages.size, 'message') +
-		'<br/>' + pluralize(message.user.subscriptions.size, 'subsription')
+		'<br/>' + pluralize(message.user.subscriptions.size, 'subscription')
 	   %></div>
 		<div class="messagetext">
 	    <span class="username"><%=link_to h(message.user.login), conversation_messages_path(message.user.personal_conversation), :class => 'tip', :title =>  "personal convo for #{message.user.login}" %></span>
@@ -30,7 +30,7 @@
 		:title =>  t("users.since") + message.user.created_at.to_s(:pretty)  + 
 		'<br/>' + pluralize(message.user.conversations.size, 'convo') +
 		'<br/>' + pluralize(message.user.messages.size, 'message') +
-		'<br/>' + pluralize(message.user.subscriptions.size, 'subsription')
+		'<br/>' + pluralize(message.user.subscriptions.size, 'subscription')
 	   %></div>
 		<div class="messagetext">
 	    <span class="username"><%=link_to h(message.user.login), conversation_messages_path(message.user.personal_conversation), :class => 'tip', :title =>  "personal convo for #{message.user.login}" %></span>

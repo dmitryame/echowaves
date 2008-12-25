@@ -5,7 +5,7 @@
 	  :title =>  t("users.since") + personal_conversation.user.created_at.to_s(:pretty)  + 
 	  '<br/>' + pluralize(personal_conversation.user.conversations.size, 'convo') +
 	  '<br/>' + pluralize(personal_conversation.user.messages.size, 'message') +
-	  '<br/>' + pluralize(personal_conversation.user.subscriptions.size, 'subsription') %>		
+	  '<br/>' + pluralize(personal_conversation.user.subscriptions.size, 'subscription') %>		
 	</span>
 	<h5><%= link_to h(personal_conversation.name), conversation_messages_path(personal_conversation) %></h5>
 	<div class="description"><%= personal_conversation.escaped_description %></div>

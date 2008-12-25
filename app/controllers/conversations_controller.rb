@@ -39,6 +39,15 @@ class ConversationsController < ApplicationController
     respond_to do |format|
       if current_user.conversations << @conversation
         flash[:notice] = 'Conversation was successfully created.'
+        
+        #now let's create a system message and send it to the the creator's followers
+        current_user.friends_convos.each do |personal_convo|
+          msg = " created a new convo: <a href='/conversations/#{@conversation.id}/messages'>#{@conversation.name}</a>"
+          notification = current_user.messages.create( :conversation => personal_convo, :message => msg, :system_message => true)
+          notification.save
+          notification.send_stomp_message(self)
+        end
+        
         format.html { redirect_to(@conversation) }
         format.xml  { render :xml => @conversation, :status => :created, :location => @conversation }
       else

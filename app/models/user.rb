@@ -55,7 +55,7 @@ class User < ActiveRecord::Base
   
   #this returns friends convos
   def friends_convos
-    self.subscribed_conversations.published.personal - self.personal_conversation.to_a
+    self.subscribed_conversations.published.personal - [self.personal_conversation]
   end
 
   #this returns friends (users)

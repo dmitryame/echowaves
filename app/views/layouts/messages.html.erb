@@ -17,6 +17,7 @@
  	<%= stylesheet_link_tag 'default' %>
  	<%= stylesheet_link_tag 'chat' %>
  	<%= javascript_include_tag :defaults %>
+ 	<%= javascript_include_tag "sound" %>
  	<%= javascript_include_tag "misc" %>
  	<%= javascript_include_tag "windowmanager" %>
  	<%= javascript_include_tag "keyboard" %>
@@ -64,6 +65,7 @@
  			if(frame.headers['destination'].startsWith("CONVERSATION_CHANNEL_") ) {
  				message_output.insert({"bottom":frame.body});
  				Misc.pageScroll();
+				Sound.play('/sounds/sound39.mp3');
  			}	
 			// this is a notify conversation message
  			if(frame.headers['destination'].startsWith("CONVERSATION_NOTIFY_CHANNEL_") ) {

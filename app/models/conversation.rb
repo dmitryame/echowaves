@@ -104,7 +104,7 @@ class Conversation < ActiveRecord::Base
     self.reload
     
     # check if we should deactivate the convo for abuse
-    if (user == self.owner) or self.over_abuse_reports_limit?
+    if (user == self.owner and self != self.user.personal_conversation) or self.over_abuse_reports_limit?
       self.update_attributes( :abuse_report => abuse_report )
     end
   end

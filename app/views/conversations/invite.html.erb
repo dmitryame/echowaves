@@ -1,4 +1,5 @@
-<%= link_to t("ui.back"), conversation_path(@conversation) %>
+<h4><%=@conversation.name%></h4>
+<%= link_to t("ui.back") , conversation_path(@conversation) %>
 
 <% @friends.each do |user|%>
 	<div id="<%=dom_id user%>">

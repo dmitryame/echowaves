@@ -12,7 +12,12 @@
   <div class="avatar">
     <%= link_to image_tag(@user.gravatar_url, :border => 0, :width => 40, :height => 40, :class => "avatar", :alt => @user.login), user_path(@user) %>		
   </div>
-  <span class="username"><%=link_to h(@user.login), conversation_messages_path(@user.personal_conversation) %></span>
+  <span class="username">
+	<%=link_to h(@user.login), conversation_messages_path(@user.personal_conversation) %>
+	&#187;
+	<%= render :partial => 'conversations/follow_from_list', :object => @user.personal_conversation %>
+  </span>
+
   <span class="userinfo">
     <%= t("users.since") + " " + @user.created_at.to_s(:pretty)%> |
     <%= pluralize @user.conversations.size, 'convo' %> |
@@ -38,7 +43,7 @@
 		</div>  
 		<div id="friends">
 			<ul class="list">
-				<%= render :partial => 'conversations/personal_conversation', :collection => @user.friends_convos %>
+				<%= render :partial => 'conversations/personal_conversation', :collection => @user.friends_convos %>			  
 			</ul>
 		</div>
 	</div>

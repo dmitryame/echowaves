@@ -24,7 +24,7 @@
 		<div class="clear"></div>
 	</div>
 <%else #system_message%>
-	<div class="message" id="<%=dom_id(message)%>">
+	<div class="message system" id="<%=dom_id(message)%>">
 	  <div class="avatar"><%= link_to image_tag(message.user.gravatar_url, :border => 0, :width => 20, :height => 20, :class => "avatar", :alt => message.user.login), user_path(message.user),
 		:class => 'tip', 
 		:title =>  t("users.since") + message.user.created_at.to_s(:pretty)  + 

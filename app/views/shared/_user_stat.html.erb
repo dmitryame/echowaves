@@ -6,7 +6,7 @@
 	:title =>  t("users.since") + current_user.created_at.to_s(:pretty)  + 
 	'<br/>' + pluralize(current_user.conversations.size, 'convo') +
 	'<br/>' + pluralize(current_user.messages.size, 'message') +
-	'<br/>' + pluralize(current_user.subscriptions.size, 'subsription')%>
+	'<br/>' + pluralize(current_user.subscriptions.size, 'subscription')%>
 	  <%= link_to h(current_user.login), conversation_messages_path(current_user.personal_conversation)	, 
 		:class => 'tip', 
 		:title => "personal convo for " + current_user.login %><br/>

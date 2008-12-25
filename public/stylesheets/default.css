@@ -155,6 +155,8 @@ margin:0 auto;background:#151110;
 .messagetext {padding-left:60px;}
 .message .date {display:block;}
 .message .date a:link, .message .date a:visited {color:#bbb;}
+.system {padding:10px 15px 0 20px;}
+.system .date {margin-bottom:10px;}
 
 /* messages form */
 #messagesform {

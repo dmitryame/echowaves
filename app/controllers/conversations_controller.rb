@@ -1,4 +1,5 @@
 class ConversationsController < ApplicationController
+  public :render_to_string # this is needed to make render_to_string public for message model to be able to use it
   before_filter :login_required, :except => [:index, :show, :auto_complete_for_conversation_name, :complete_name ]
   after_filter :store_location, :only => [:index, :new]  
   
@@ -124,7 +125,7 @@ class ConversationsController < ApplicationController
     msg = " invites you to follow a convo: <a href='/conversations/#{params[:id]}/messages'>#{@invite.conversation.name}</a>"
     notification = current_user.messages.create( :conversation => @user.personal_conversation, :message => msg, :system_message => true)
     notification.save
-    send_stomp_message(notification)
+    notification.send_stomp_message(self)
 
     render :update do |page| 
       page["user_" + @user.id.to_s].visual_effect :drop_out
@@ -132,15 +133,15 @@ class ConversationsController < ApplicationController
   end
   
   private
-  # FIXME: this is redundunt method from the messages_controller, this has to be addressed
-  def send_stomp_message(message)
-    newmessagescript = render_to_string :partial => 'messages/message', :object => message
-    s = Stomp::Client.new
-    s.send("CONVERSATION_CHANNEL_" + message.conversation.id.to_s, newmessagescript)
-    s.close
-  rescue SystemCallError
-    logger.error "IO failed: " + $!
-    # raise
-  end
+  # # FIXME: this is redundunt method from the messages_controller, this has to be addressed
+  # def send_stomp_message(message)
+  #   newmessagescript = render_to_string :partial => 'messages/message', :object => message
+  #   s = Stomp::Client.new
+  #   s.send("CONVERSATION_CHANNEL_" + message.conversation.id.to_s, newmessagescript)
+  #   s.close
+  # rescue SystemCallError
+  #   logger.error "IO failed: " + $!
+  #   # raise
+  # end
 
 end

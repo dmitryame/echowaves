@@ -1,6 +1,8 @@
 require 'stomp'
 
 class MessagesController < ApplicationController
+  public :render_to_string # this is needed to make render_to_string public for message model to be able to use it
+  
   before_filter :login_required, :except => [:index, :show, :get_more_messages ]
   before_filter :find_conversation, :except => :send_data
   before_filter :check_write_access, :only => [ :create ]
@@ -58,8 +60,7 @@ class MessagesController < ApplicationController
         format.xml { render :xml => @message, :status => :created, :location => @message }
         format.js {
           # send a stomp message for everyone else to pick it up
-          send_stomp_message @message
-          # send_stomp_notifications 
+          @message.send_stomp_message(self)
           render :nothing => true
         }
       else
@@ -78,8 +79,7 @@ class MessagesController < ApplicationController
 
     if @conversation.messages << @message
       # send a stomp message for everyone else to pick it up
-      send_stomp_message @message
-      # send_stomp_notifications
+      @message.send_stomp_message(self)
     end
     # FIXME: this not work yet, because we are calling this action from an iframe,
     # and the RJS can't access the document.
@@ -113,7 +113,7 @@ class MessagesController < ApplicationController
     # create a message in the original conversation notifying about this spawning
     # and send realtime notification to everyone who's listening
     notification_message = @conversation.notify_of_new_spawn( current_user, spawned_conversation, @message )
-    send_stomp_message(notification_message)
+    notification_message.send_stomp_message(self) unless notification_message == nil
         
     redirect_to conversation_messages_path(spawned_conversation)
   end
@@ -133,15 +133,15 @@ class MessagesController < ApplicationController
       end
     end
     
-    def send_stomp_message(message)
-      newmessagescript = render_to_string :partial => 'message', :object => message
-      s = Stomp::Client.new
-      s.send("CONVERSATION_CHANNEL_" + params[:conversation_id], newmessagescript)
-      s.close
-    rescue SystemCallError
-      logger.error "IO failed: " + $!
-      # raise
-    end
+    # def send_stomp_message(message)
+    #   newmessagescript = render_to_string :partial => 'message', :object => message
+    #   s = Stomp::Client.new
+    #   s.send("CONVERSATION_CHANNEL_" + params[:conversation_id], newmessagescript)
+    #   s.close
+    # rescue SystemCallError
+    #   logger.error "IO failed: " + $!
+    #   # raise
+    # end
 
     # def send_stomp_notifications
     #   s = Stomp::Client.new

@@ -85,5 +85,15 @@ class Message < ActiveRecord::Base
     subscription.mark_read
   end
 
+  def send_stomp_message(context)
+    newmessagescript = context.render_to_string(:partial => 'messages/message', :object => self)
+    s = Stomp::Client.new
+    s.send("CONVERSATION_CHANNEL_" + self.conversation.id.to_s, newmessagescript)
+    s.close
+  rescue SystemCallError
+    logger.error "IO failed: " + $!
+    # raise
+  end
+
   
 end

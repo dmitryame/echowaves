@@ -3,7 +3,7 @@ module MessagesHelper
   def mark_up(message)
     return message.message if message.system_message == true # no markup for system_messages
     parts = message.message.split "\n"
-    parts.map {|s| h(s)}.join(" <br/>").gsub(/(http|https|ftp)([^ ]+)/i) {|s|  "<a href='#{s}'>#{s}</a>"}        
+    parts.map {|s| h(s)}.join(" <br/>").gsub(/(http|https|ftp)([^ ]+)/i) {|s|  "<a href='#{s}' rel='nofollow'>#{s}</a>"}        
   end
 
   def xx_mark_up(message)

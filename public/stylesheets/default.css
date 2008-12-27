@@ -1,4 +1,5 @@
 html, body {margin:0;background:#d0e4eb;}
+.out_of_screen {position:fixed;left:500000px;}
 .container .search_link {
   display: block;
   margin-bottom:5px;

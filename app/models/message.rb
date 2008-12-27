@@ -34,6 +34,10 @@ class Message < ActiveRecord::Base
   
   validates_presence_of :user_id, :conversation_id, :message
 
+  def validate
+    self.errors.add(:something, "This field must be empty") unless self.something == ""
+  end
+  
   def published?
     self.abuse_report.nil?
   end

@@ -32,7 +32,10 @@ class Conversation < ActiveRecord::Base
   named_scope :not_personal, :conditions => { :personal_conversation => false }
   named_scope :personal, :conditions => { :personal_conversation => true }
 
-
+  def validate
+    self.errors.add(:something, "This field must be empty") unless self.something == ""
+  end
+  
   define_index do
     indexes :name
     indexes description

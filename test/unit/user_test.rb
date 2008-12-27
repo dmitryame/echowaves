@@ -50,6 +50,15 @@ class UserTest < ActiveSupport::TestCase
     should_have_many :conversation_visits
 
     should_have_many :recent_conversations, :through => :conversation_visits
+    
+    should "be valid if honeypot field is blank" do
+      assert @user.valid?
+    end
+    
+    should "not be valid if honeypot field is not blank" do
+      @user.something = "spam"
+      assert !@user.valid?
+    end
   end    
 
   context "mark last viewed as read" do

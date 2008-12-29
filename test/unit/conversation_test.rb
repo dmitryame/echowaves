@@ -69,6 +69,15 @@ class ConversationTest < ActiveSupport::TestCase
     
     should_belong_to :user
     should_have_index :user_id
+    
+    should "be valid if honeypot field is blank" do
+      assert @conversation.valid?
+    end
+    
+    should "not be valid if honeypot field is not blank" do
+      @conversation.something = "spam"
+      assert !@conversation.valid?
+    end
   end
   
   context "A read only conversation" do  

@@ -41,6 +41,15 @@ class MessageTest < ActiveSupport::TestCase
     should_require_attributes :user_id, :conversation_id
 
     should_have_attached_file :attachment
+    
+    should "be valid if honeypot field is blank" do
+      assert @message.valid?
+    end
+    
+    should "not be valid if honeypot field is not blank" do
+      @message.something = "spam"
+      assert !@message.valid?
+    end
   end    
 
   def test_should_check_over_abuse_reports_limit?

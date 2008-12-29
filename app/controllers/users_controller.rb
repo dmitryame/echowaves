@@ -39,6 +39,7 @@ class UsersController < ApplicationController
   def create
     logout_keeping_session!
     @user = User.new(params[:user])
+    @user.login = params[:user][:login]
     @user.name=@user.login
     success = @user && @user.save
     if success && @user.errors.empty?

@@ -59,6 +59,12 @@ class UserTest < ActiveSupport::TestCase
       @user.something = "spam"
       assert !@user.valid?
     end
+    
+    should "not change the login" do
+      @original_login = @user.login
+      @user.update_attributes( :login => 'changed' )
+      assert_equal @original_login, @user.login
+    end
   end    
 
   context "mark last viewed as read" do

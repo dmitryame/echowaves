@@ -41,6 +41,7 @@ es-ES:
     tagged_with: "tagged with"
     tags: "tags"    
     add_tag: "add tag"
+    confirm_remove_tag: "Are you sure you want to untag?"
     back_to_parent: "convo original"
     this_is_the_newest_message: "Este es el mensaje mas nuevo"
     attach: "Adjuntar"

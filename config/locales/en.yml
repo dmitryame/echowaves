@@ -41,6 +41,7 @@ en:
     tagged_with: "Tagged with"
     tags: "tags"
     add_tag: "add tag"
+    confirm_remove_tag: "Are you sure you want to untag?"
     back_to_parent: "back to parent"
     this_is_the_newest_message: "This is the newest message"
     attach: "Attach"

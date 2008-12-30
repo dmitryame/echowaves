@@ -231,3 +231,5 @@ input[type='text'], input[type='password'], textarea { font-size: 100%; font-fam
   padding:10px;
   margin:10px auto;
 }
+
+sup {font-size: 0.75em; line-height: 0.5em}  

@@ -183,9 +183,14 @@ class ConversationsController < ApplicationController
 
   def add_tag
     @conversation = Conversation.published.find(params[:id])
-    puts params[:tag]
     @conversation.tag_list.add(params[:tag])
     @conversation.save
+  end
+  
+  def remove_tag
+    @conversation = Conversation.published.find(params[:id])
+    @conversation.tag_list.remove(params[:tag])
+    @conversation.save    
   end
   
   private

@@ -38,6 +38,8 @@ es-ES:
     spawn: "bifurcar"
     spawnconfirm: "Estas seguro de querer comenzar una nueva conversacion a partir de este mensaje?"
     invite: "invite"
+    tagged_with: "tagged with"
+    tags: "tags"    
     back_to_parent: "convo original"
     this_is_the_newest_message: "Este es el mensaje mas nuevo"
     attach: "Adjuntar"

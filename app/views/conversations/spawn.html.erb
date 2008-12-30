@@ -17,7 +17,7 @@
   </p>
   <p>
     <%= f.label t("ui.description") %><br />
-    <%= f.text_area :description %>
+    <%= f.text_area :description, :rows => 8, :cols => 60 %>
   </p>
   <p>
     <%= f.submit t("ui.create") %>
@@ -26,6 +26,7 @@
 
 <%= link_to t("ui.back"), conversations_path %>
 </div>
-
+<br/>
+<hr/>
 <h4><%= t("messages.original_message") %></h4>
 <%= render :partial => 'messages/message', :member => @message %>

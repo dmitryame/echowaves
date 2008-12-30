@@ -29,4 +29,4 @@
 <br/>
 <hr/>
 <h4><%= t("messages.original_message") %></h4>
-<%= render :partial => 'messages/message', :member => @message %>
+<%= render :partial => 'messages/message', :locals => {:message => @message} %>

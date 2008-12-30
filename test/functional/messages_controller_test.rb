@@ -221,64 +221,6 @@ class MessagesControllerTest < ActionController::TestCase
     end
   end # context #upload_attachment action
 
-  context "#spawn_conversation action" do
-    setup do
-      @spawn_convo = Factory.create( :conversation )
-      @notify_message = Factory.create( :message, :conversation => @spawn_convo )
-      Message.stubs( :find ).returns( @message )
-      @message.stubs( :spawn_new_conversation ).returns( @spawn_convo )
-      Conversation.any_instance.stubs( :notify_of_new_spawn ).returns( @notify_message )
-      @controller.stubs( :current_user ).returns( @user )
-      @controller.stubs( :send_stomp_message )
-    end
-
-    should "find the message to spawn from" do
-      Message.expects( :find ).with( '1' ).returns( @message )
-      get :spawn_conversation, :conversation_id => @conversation.id, :id => '1'
-      assert assigns( :message )
-    end
-
-    context "only allow 1 spawn per user per message" do
-      setup do
-        Conversation.stubs( :find ).returns( @conversation )
-        @convos = [ @conversation ]
-        @user.expects( :conversations ).returns( @convos )
-      end
-
-      should "check if user already spawned from that message" do
-        @convos.expects( :find_by_parent_message_id ).with( @message.id ).returns( nil )
-        get :spawn_conversation, :conversation_id => @conversation.id, :id => '1'
-      end
-
-      should "set flash[:error] and redirect if user already spawned from this message" do
-        @convos.expects( :find_by_parent_message_id ).with( @message.id ).returns( true )
-        get :spawn_conversation, :conversation_id => @conversation.id, :id => '1'
-        assert flash.include?( :error )
-        assert_redirected_to conversation_messages_path( @conversation )
-      end
-    end
-
-    should "create a new spawned conversation" do
-      @message.expects( :spawn_new_conversation ).with( @user )
-      get :spawn_conversation, :conversation_id => @conversation.id, :id => '1'
-    end
-
-    should "send a notification message to the original conversation" do
-      Conversation.any_instance.expects( :notify_of_new_spawn ).with( @user, @spawn_convo, @message )
-      get :spawn_conversation, :conversation_id => @conversation.id, :id => '1'
-    end
-  
-    should "send stomp message" do
-      # @controller.expects( :send_stomp_message ).with( @notify_message )
-      get :spawn_conversation, :conversation_id => @conversation.id, :id => '1'
-    end
-
-    should "redirect to the new spawned conversation" do
-      get :spawn_conversation, :conversation_id => @conversation.id, :id => '1'
-      assert_redirected_to conversation_messages_path( @spawn_convo )
-    end
-  end # context #spawn_conversation
-
   context "check write access" do
     setup do
       @u2 = Factory.create( :user )

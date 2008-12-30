@@ -1,5 +1,5 @@
 <div class="balloon">
-  <h1><%= t("conversations.new_conversation") %></h1>
+  <h1><%= t("conversations.new_spawned_conversation") %></h1>
 </div>
 <div class="arrow">&nbsp;</div>
 
@@ -8,7 +8,9 @@
   <%= f.error_messages %>
 
   <p class="out_of_screen"><%= label_tag "important" %><%= f.text_field :something %></p>
-
+  
+  <%= f.hidden_field :parent_message_id %>
+  
   <p>
     <%= f.label t("ui.name") %><br />
     <%= f.text_field :name %>
@@ -24,3 +26,7 @@
 
 <%= link_to t("ui.back"), conversations_path %>
 </div>
+<br/>
+<hr/>
+<h4><%= t("messages.original_message") %></h4>
+<%= render :partial => 'messages/message', :locals => {:message => @message} %>

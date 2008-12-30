@@ -29,7 +29,7 @@
 
 <%- fields_for(@user.personal_conversation) do |cf| %>
 	<p><%= label_tag t('ui.description') %><br/>
-	<%= cf.text_area :description, :rows => 5 %></p>
+	<%= cf.text_area :description, :rows => 5, :cols => 60 %></p>
 <%- end %>
 
 <p><%= submit_tag t('ui.update') %></p>

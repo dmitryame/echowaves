@@ -78,12 +78,16 @@ es-ES:
     start_new_conversation: "iniciar una nueva conversacion"
     look_for_conversations: "buscar conversaciones"
     new_conversation: "nueva conversacion"
+    new_spawned_conversation: "nueva conversacion siguiendo un mensaje"
+    user_spawned_convo_description: "{{login}} ha creado esta conversacion siguiendo el mensaje {{original_message_link}}\n\nPor favor, escribe una descripcion y un titulo adecuados para esta nueva conversacion"
   footer:
     uptime_monitoring: "Website Uptime Monitoring By"
     report_problems_or_abuse: "Informa de problemas o abusos a"
     terms_and_conditions: "Terminos y Condiciones"    
     conversations: "conversaciones"
-
+  messages:
+    original_message: "mensaje original"
+    
   datetime:
     distance_in_words:
       half_a_minute: 'hace medio minuto'

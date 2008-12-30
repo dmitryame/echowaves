@@ -33,6 +33,28 @@ class ConversationsController < ApplicationController
     end
   end
 
+  def spawn
+    @conversation = Conversation.new
+    if params[:message_id]
+      @message = Message.find(params[:message_id])
+      
+      if current_user.conversations.find_by_parent_message_id( @message.id )
+        flash[:error] = "You already spawned a new conversation from this message."
+        redirect_to conversation_messages_path(@message.conversation_id)
+        return
+      end
+      
+      @conversation.parent_message_id = @message.id
+      @conversation.description = %Q(
+#{ t( "conversations.user_spawned_convo_description", :login => current_user.login, :original_message_link => conversation_message_url(@message.conversation_id, @message) ) }
+      )
+    end
+    respond_to do |format|
+      format.html # new.html.erb
+      format.xml  { render :xml => @conversation }
+    end
+  end
+  
   def create
     @conversation = Conversation.new(params[:conversation])
     
@@ -40,6 +62,16 @@ class ConversationsController < ApplicationController
       if current_user.conversations << @conversation
         flash[:notice] = 'Conversation was successfully created.'
         
+        if @conversation.spawned?
+          # create a message in the original conversation notifying about this spawning
+          # and send realtime notification to everyone who's listening
+          notification_message = @conversation.notify_of_new_spawn( current_user )
+          notification_message.send_stomp_message(self) unless notification_message == nil
+          # copy the original message in the recient create convo
+          @copied_message = @conversation.parent_message.clone
+          @copied_message.conversation = @conversation
+          @copied_message.save
+        end
         #now let's create a system message and send it to the the creator's followers
         current_user.friends_convos.each do |personal_convo|
           msg = " created a new convo: <a href='/conversations/#{@conversation.id}/messages'>#{@conversation.name}</a>"
@@ -51,7 +83,14 @@ class ConversationsController < ApplicationController
         format.html { redirect_to(@conversation) }
         format.xml  { render :xml => @conversation, :status => :created, :location => @conversation }
       else
-        format.html { render :action => "new" }
+        format.html do
+          if @conversation.parent_message_id.blank?
+            render( :action => "new" )
+          else
+            @message = @conversation.parent_message
+            render( :action => "spawn" )
+          end
+        end
         format.xml  { render :xml => @conversation.errors, :status => :unprocessable_entity }
       end
     end

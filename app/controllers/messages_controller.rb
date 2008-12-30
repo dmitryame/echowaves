@@ -99,25 +99,24 @@ class MessagesController < ApplicationController
     render :nothing => true
   end
 
-  def spawn_conversation
-    @message = Message.find(params[:id])
-
-    if current_user.conversations.find_by_parent_message_id( @message.id )
-      flash[:error] = "You already spawned a new conversation from this message."
-      redirect_to conversation_messages_path(@conversation)
-      return
-    end
-    
-    spawned_conversation = @message.spawn_new_conversation( current_user )
-    
-    # create a message in the original conversation notifying about this spawning
-    # and send realtime notification to everyone who's listening
-    notification_message = @conversation.notify_of_new_spawn( current_user, spawned_conversation, @message )
-    notification_message.send_stomp_message(self) unless notification_message == nil
-        
-    redirect_to conversation_messages_path(spawned_conversation)
-  end
-  
+  # def spawn_conversation
+  #   @message = Message.find(params[:id])
+  # 
+  #   if current_user.conversations.find_by_parent_message_id( @message.id )
+  #     flash[:error] = "You already spawned a new conversation from this message."
+  #     redirect_to conversation_messages_path(@conversation)
+  #     return
+  #   end
+  #   
+  #   spawned_conversation = @message.spawn_new_conversation( current_user )
+  #   
+  #   # create a message in the original conversation notifying about this spawning
+  #   # and send realtime notification to everyone who's listening
+  #   notification_message = @conversation.notify_of_new_spawn( current_user, spawned_conversation, @message )
+  #   notification_message.send_stomp_message(self) unless notification_message == nil
+  #       
+  #   redirect_to conversation_messages_path(spawned_conversation)
+  # end
   
   private
 

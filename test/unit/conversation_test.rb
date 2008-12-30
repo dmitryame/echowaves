@@ -266,7 +266,7 @@ class ConversationTest < ActiveSupport::TestCase
     end
 
     should "return a Message object" do
-      notification = @conversation.notify_of_new_spawn( @user, @spawn_convo, @message )
+      notification = @spawn_convo.notify_of_new_spawn( @user )
       assert_kind_of Message, notification
       assert_match /spawned by/, notification.message
     end

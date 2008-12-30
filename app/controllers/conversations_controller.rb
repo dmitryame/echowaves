@@ -74,6 +74,7 @@ class ConversationsController < ApplicationController
         end
         #now let's create a system message and send it to the the creator's followers
         current_user.friends_convos.each do |personal_convo|
+          next if personal_convo == @conversation.parent_message.conversation
           msg = " created a new convo: <a href='/conversations/#{@conversation.id}/messages'>#{@conversation.name}</a>"
           notification = current_user.messages.create( :conversation => personal_convo, :message => msg, :system_message => true)
           notification.save

@@ -119,24 +119,6 @@ class MessageTest < ActiveSupport::TestCase
     assert_equal 3, message.abuse_reports.size
   end
 
-  def test_spawn_new_conversation
-    message_owner = Factory.create(:user)
-    spawn_user = Factory.create(:user)
-    message_convo = Factory.create(:conversation, :user => message_owner)
-    message = Factory.create(:message, :message => 'This is a test message', :user => message_owner, :conversation => message_convo)
-    message_owner.reload
-    spawn_user.reload
-
-    assert_equal 1, message_owner.conversations.size
-    assert_equal 0, spawn_user.conversations.size
-
-    message.spawn_new_conversation(spawn_user)
-    message_owner.reload
-    spawn_user.reload
-    assert_equal 1, message_owner.conversations.size
-    assert_equal 1, spawn_user.conversations.size
-  end
-
   def test_has_attachment_method
     message = Factory.create(:message)
     assert_equal false, message.has_attachment?

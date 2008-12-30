@@ -68,6 +68,9 @@ class ConversationsController < ApplicationController
           notification_message = @conversation.notify_of_new_spawn( current_user )
           notification_message.send_stomp_message(self) unless notification_message == nil
           # copy the original message in the recient create convo
+          @copied_message = @conversation.parent_message.clone
+          @copied_message.conversation = @conversation
+          @copied_message.save
         end
         #now let's create a system message and send it to the the creator's followers
         current_user.friends_convos.each do |personal_convo|

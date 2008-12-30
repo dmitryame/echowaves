@@ -118,10 +118,10 @@ class Conversation < ActiveRecord::Base
   
   def notify_of_new_spawn(user)
     msg = %Q(
-      new convo: #{HOST}/conversations/#{self.id}/messages
+      new convo: <a href="#{HOST}/conversations/#{self.id}/messages">#{self.name}</a>
       spawned by: #{user.login}
 
-      in response to: #{HOST}/conversations/#{self.parent_message.conversation_id}/messages/#{self.parent_message.id}
+      in response to: <a href="#{HOST}/conversations/#{self.parent_message.conversation_id}/messages/#{self.parent_message.id}">#{HOST}/conversations/#{self.parent_message.conversation_id}/messages/#{self.parent_message.id}</a>
     )
     notification = user.messages.create( :conversation => self.parent_message.conversation, :message => msg, :system_message => true)
   end

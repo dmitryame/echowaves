@@ -49,6 +49,8 @@ class Conversation < ActiveRecord::Base
       name = user.name || user.login
       desc = "This is a personal conversation for #{name}. If you wish to collaborate with #{name}, do it here."
       convo = user.conversations.create(:name => user.login, :personal_conversation => true, :description => desc)
+      convo.tag_list.add("personal_convo")
+      convo.save
 
       convo
     end

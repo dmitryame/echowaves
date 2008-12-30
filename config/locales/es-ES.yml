@@ -40,6 +40,7 @@ es-ES:
     invite: "invite"
     tagged_with: "tagged with"
     tags: "tags"    
+    add_tag: "add tag"
     back_to_parent: "convo original"
     this_is_the_newest_message: "Este es el mensaje mas nuevo"
     attach: "Adjuntar"

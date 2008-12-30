@@ -180,6 +180,13 @@ class ConversationsController < ApplicationController
       page["user_" + @user.id.to_s].visual_effect :drop_out
     end 
   end
+
+  def add_tag
+    @conversation = Conversation.published.find(params[:id])
+    puts params[:tag]
+    @conversation.tag_list.add(params[:tag])
+    @conversation.save
+  end
   
   private
   # # FIXME: this is redundunt method from the messages_controller, this has to be addressed

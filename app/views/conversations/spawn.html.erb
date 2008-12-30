@@ -1,0 +1,31 @@
+<div class="balloon">
+  <h1><%= t("conversations.new_spawned_conversation") %></h1>
+</div>
+<div class="arrow">&nbsp;</div>
+
+<div class="item">
+<% form_for(@conversation) do |f| %>
+  <%= f.error_messages %>
+
+  <p class="out_of_screen"><%= label_tag "important" %><%= f.text_field :something %></p>
+  
+  <%= f.hidden_field :parent_message_id %>
+  
+  <p>
+    <%= f.label t("ui.name") %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label t("ui.description") %><br />
+    <%= f.text_area :description %>
+  </p>
+  <p>
+    <%= f.submit t("ui.create") %>
+  </p>
+<% end %>
+
+<%= link_to t("ui.back"), conversations_path %>
+</div>
+
+<h4><%= t("messages.original_message") %></h4>
+<%= render :partial => 'messages/message', :member => @message %>

@@ -54,12 +54,6 @@ class Message < ActiveRecord::Base
     has_attachment? and self.attachment_content_type.include?("image")
   end
 
-  # expected to return a new spawned conversation
-  def spawn_new_conversation(user)
-    name = (user.login + " spawned from: " + message)[0,100] # FIXME: the convo name length is limited to 100, do not remove this range -- will fails otherwise
-    user.conversations.create(:description => self.message, :parent_message_id => self.id, :name => name)
-  end
-
   def over_abuse_reports_limit?
     self.abuse_reports.size > MESSAGE_ABUSE_THRESHOLD
   end

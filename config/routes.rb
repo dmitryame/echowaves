@@ -11,12 +11,11 @@ ActionController::Routing::Routes.draw do |map|
     :follow_from_list   => :post, 
     :unfollow_from_list => :post,
     :invite             => :get,
-    :invite_from_list   => :post     
-    } do |conversation|
+    :invite_from_list   => :post
+    }, :new => { :spawn => :get } do |conversation|
     conversation.resources :messages,
     :member => {
-      :report => :post,
-      :spawn_conversation => :get # this is a bit anti rest, but if it's not get (put for instance) it will not work in the messages that arrived via orbited, it will cause invalid auth token error
+      :report => :post
     }
   end
   

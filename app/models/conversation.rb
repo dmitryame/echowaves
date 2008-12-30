@@ -116,15 +116,14 @@ class Conversation < ActiveRecord::Base
     self.abuse_report_id == nil ? false : true
   end
   
-  def notify_of_new_spawn(user, spawn, message)
+  def notify_of_new_spawn(user)
     msg = %Q(
-      new convo: #{HOST}/conversations/#{spawn.id}/messages
+      new convo: #{HOST}/conversations/#{self.id}/messages
       spawned by: #{user.login}
 
-      in response to: #{HOST}/conversations/#{self.id}/messages/#{message.id}
-      #{message.message}
+      in response to: #{HOST}/conversations/#{self.parent_message.conversation_id}/messages/#{self.parent_message.id}
     )
-    notification = user.messages.create( :conversation => self, :message => msg, :system_message => true)
+    notification = user.messages.create( :conversation => self.parent_message.conversation, :message => msg, :system_message => true)
   end
 
   def escaped_name

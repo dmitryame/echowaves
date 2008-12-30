@@ -76,11 +76,15 @@ en:
     start_new_conversation: "start new convo"
     look_for_conversations: "look for convos"
     new_conversation: "new convo"
+    new_spawned_conversation: "new spawned convo"
+    user_spawned_convo_description: "{{login}} spawned this convo, following the message {{original_message_link}}\n\nPlease provide a description and an appropriate title for this new conversation"
   footer:
     uptime_monitoring: "Website Uptime Monitoring By"
     report_problems_or_abuse: "Report problems or Abuse to"
     terms_and_conditions: "Terms&Conditions"    
     conversations: "convos"
+  messages:
+    original_message: "original message"
     
   datetime:
     distance_in_words:

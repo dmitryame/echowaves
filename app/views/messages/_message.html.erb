@@ -3,7 +3,7 @@
 	  	<div class="messagelinks quiet small">
 			<% if logged_in? %>
 				<%= link_to_remote t("ui.report"), :url => report_conversation_message_path(message.conversation, message), :confirm => t("ui.reportconfirm") %>
-	      <%= link_to t("ui.spawn"), spawn_conversation_conversation_message_path(message.conversation, message), :confirm => t("ui.spawnconfirm"), :method => :get %> <% #has to be the get in order for auth token to work %>
+	      <%= link_to t("ui.spawn"), spawn_new_conversation_path(:message_id => message.id), :confirm => t("ui.spawnconfirm"), :method => :get %> <% #has to be the get in order for auth token to work %>
 			<% end %>
 		</div>
 	  <div class="avatar"><%= link_to image_tag(message.user.gravatar_url, :border => 0, :width => 40, :height => 40, :class => "avatar", :alt => message.user.login), user_path(message.user),

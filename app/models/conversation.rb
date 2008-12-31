@@ -158,6 +158,7 @@ class Conversation < ActiveRecord::Base
 
   def after_create 
     owner.follow(self)
+    self.tag_list.add(self.user.login)
   end
 
 

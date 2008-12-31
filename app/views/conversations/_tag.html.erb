@@ -1,4 +1,8 @@
-<%=tag.to_s-%>
+<%=tag.tag.to_s-%>
 <sup>
-	<%= link_to_remote 'x', :url => {:controller => 'conversations', :action => 'remove_tag', :id => @conversation.id, :tag => tag}, :confirm => t("ui.confirm_remove_tag") %>
+	<%if tag.tagger_id == current_user.id%>
+		<%= link_to_remote 'x', :url => {:controller => 'conversations', :action => 'remove_tag', :id => @conversation.id, :tag => tag.tag.to_s}, :confirm => t("ui.confirm_remove_tag") %>
+	<%else%>
+	.
+	<%end%>
 </sup> 

@@ -28,13 +28,11 @@ class ActsAsTaggableOnMigration < ActiveRecord::Migration
     #tag personal convols
     Conversation.personal.each do |c|
       puts c.name
-      c.tag_list.add("personal_convo")
-      c.save
+      c.user.tag(c, :with => "personal_convo", :on => :tags)
     end
     Conversation.all.each do |c|
       puts c.name
-      c.tag_list.add(c.user.login)
-      c.save
+      c.user.tag(c, :with => c.tag_list.to_s  + ", " + c.user.login, :on => :tags)      
     end
     
   end

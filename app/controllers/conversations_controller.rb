@@ -183,8 +183,7 @@ class ConversationsController < ApplicationController
 
   def add_tag
     @conversation = Conversation.published.find(params[:id])
-    @conversation.tag_list.add(params[:tag])
-    @conversation.save
+    current_user.tag(@conversation, :with => @conversation.tags.collect{|tag| tag.name}.join(", ")  + ", " + params[:tag].to_s, :on => :tags)      
   end
   
   def remove_tag

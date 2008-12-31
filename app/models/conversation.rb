@@ -1,5 +1,5 @@
 class Conversation < ActiveRecord::Base
-  acts_as_taggable  
+  acts_as_taggable_on :tags
   validates_presence_of :name
   validates_presence_of :description
 
@@ -158,7 +158,7 @@ class Conversation < ActiveRecord::Base
 
   def after_create 
     owner.follow(self)
-    self.tag_list.add(self.user.login)
+    self.user.tag(self, :with => self.tag_list.to_s  + ", " + self.user.login, :on => :tags)      
   end
 
 

@@ -165,7 +165,7 @@
 	      
 			<%= render :partial => 'convo_controls' %>
         
-		    <div id="col2" class="span-6">
+		    <div id="col2" class="span-4">
 		      &nbsp;
 		      <div id="col2_container">
 		        <%= render :partial => 'users/recently_visited' %>
@@ -173,14 +173,19 @@
 		      </div>
 		    </div>
 		    
-		    <div id="col3" class="span-4 last">
+		    <div id="col3" class="span-4">
 		      &nbsp;
 		      <div id="col3_container">
 		        <%= render :partial => 'shared/user_stat' %>
       	    	<%= render :partial => 'conversations/users_in_conversation' %>
+          	  </div>
+            </div>
+		    <div id="col4" class="span-4 last">
+		      &nbsp;
+		      <div id="col4_container">
       	    	<%= render :partial => 'conversations/convo_tags' %>
-        	</div>
-        </div>
+        	  </div>
+            </div>
         
       </div>
       

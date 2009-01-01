@@ -1,5 +1,6 @@
 html, body {margin:0;background:#d0e4eb;}
 .out_of_screen {position:fixed;left:500000px;}
+.padding5 {padding:5px;}
 .container .search_link {
   display: block;
   margin-bottom:5px;
@@ -232,4 +233,9 @@ input[type='text'], input[type='password'], textarea { font-size: 100%; font-fam
   margin:10px auto;
 }
 
-sup {font-size: 0.75em; line-height: 0.5em}  
+sup {font-size: 0.75em; line-height: 0.5em}
+.tag {color:#cc3333;margin-right:4px;padding:1px 4px;margin-bottom:4px;}
+.tag a:link, .tag a:visited {
+  text-decoration:none;
+  color:#cc3333;
+}

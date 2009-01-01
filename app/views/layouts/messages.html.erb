@@ -80,6 +80,15 @@
 
   </script>
   <%end#if user is not logged in, no point in connecting to orbited%>
+  <%= javascript_include_tag "livepipe/livepipe" %>
+  <%= javascript_include_tag "livepipe/tabs" %>
+  <%= stylesheet_link_tag 'livepipe' %>
+
+  <script>
+  	document.observe('dom:loaded',function(){
+  	new Control.Tabs('convo_tabs');
+  	});
+  </script>
 </head>
 
 <body id="messages_layout" onLoad="Misc.focusInput('message_message');Misc.pageScroll();stomp_function();">
@@ -163,29 +172,34 @@
       &nbsp;
       <div id="sidebars_container">
 	      
-			<%= render :partial => 'convo_controls' %>
+			  <%= render :partial => 'convo_controls' %>
         
-		    <div id="col2" class="span-4">
-		      &nbsp;
-		      <div id="col2_container">
+        
+      	<ul id="convo_tabs" class="subsection_tabs span-10">  
+      		<li class="tab"><a href="#dashboard">dashboard</a></li>  
+      		<li class="tab"><a href="#tags">tags</a></li>
+      		<li class="tab"><a href="#users">users</a></li>
+      	</ul>
+      		
+		    <div id="dashboard" class="span-10">
+		      <div  class="span-6">
 		        <%= render :partial => 'users/recently_visited' %>
 		        <%= render :partial => 'users/news' %>
 		      </div>
+		      <div class="span-4 last">
+		        <%= render :partial => 'shared/user_stat' %>
+		        <%= render :partial => 'conversations/recent_followers' %>
+		        <%= render :partial => 'conversations/last_convo_tags' %>
+		      </div>
 		    </div>
 		    
-		    <div id="col3" class="span-4">
-		      &nbsp;
-		      <div id="col3_container">
-		        <%= render :partial => 'shared/user_stat' %>
-      	    	<%= render :partial => 'conversations/users_in_conversation' %>
-          	  </div>
-            </div>
-		    <div id="col4" class="span-4 last">
-		      &nbsp;
-		      <div id="col4_container">
-      	    	<%= render :partial => 'conversations/convo_tags' %>
-        	  </div>
-            </div>
+		    <div id="tags"  class="span-10">
+		      <%= render :partial => 'conversations/convo_tags' %>
+        </div>
+        
+        <div id="users"  class="span-10">
+		      <%= render :partial => 'conversations/users_in_conversation' %>
+        </div>
         
       </div>
       

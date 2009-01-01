@@ -3,7 +3,7 @@
 	<%= render :partial => 'conversations/tag', :collection => @conversation.taggings %>
 	
 	<% form_remote_tag(:url => {:controller => 'conversations', :action => 'add_tag', :id => @conversation.id}) do %>
-		<%= text_field 'tag', ''%>
+		<%= text_field 'tag', '', :size => 15 %>
 		<%= submit_tag t("ui.add_tag") %> 
 	<% end %> 
 </div>

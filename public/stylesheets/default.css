@@ -190,7 +190,7 @@ textarea:focus, input[type='text']:focus, input[type='password']:focus, select:f
   border-top:1px solid #42aec2;
 }
 .page h6 {
-  margin:0;
+  margin:0 0 4px 0;
   background:#EEEEEE;
 }
 .status_yellow {display:block;background:#ffff33;padding:0px 4px;margin-top:2px;}
@@ -233,11 +233,14 @@ input[type='text'], input[type='password'], textarea { font-size: 100%; font-fam
   margin:10px auto;
 }
 
-sup {font-size: 0.75em;}
-.tag {background:#d0e4eb; color:#3366cc;margin-right:2px;padding:0px 0px 0px 3px;margin-bottom:2px;white-space:nowrap;}
+.tag {border:1px solid #85c5d2; background:#d0e4eb; color:#3366cc;margin-right:3px;padding:0px 2px;margin-bottom:3px;display:block;float:left;line-height:1em;}
 .tag a:link, .tag a:visited {
   text-decoration:none;
   color:#3366cc;
+}
+.tag_controls a:link, .tag_controls a:visited {
+  color:#cc3333;
+  font-size:85%;
 }
 ul.subsection_tabs {
 border-bottom:1px solid #82c0cd;

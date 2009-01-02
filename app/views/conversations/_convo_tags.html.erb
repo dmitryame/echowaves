@@ -1,7 +1,7 @@
 <div id="convo_tags" class="item2 page">
 	<h6><%= t("ui.tagged_with") %>:</h6>
 	<%= render :partial => 'conversations/tag', :collection => @conversation.taggings %>
-	
+	<div class="clear"></div>
 	<%if current_user%>
 		<% form_remote_tag(:url => {:controller => 'conversations', :action => 'add_tag', :id => @conversation.id}) do %>
 			<%= text_field 'tag', '', :size => 15 %>

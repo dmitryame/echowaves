@@ -61,7 +61,6 @@ html,body{
 #sidebars_container {
   position:fixed;
   top:44px;
-  width:500px;
 
 }
 #col3_container {
@@ -82,11 +81,9 @@ html,body{
   margin:0px;
 }
 #convo_controls {
-  margin-bottom:-10px;
   background:#fff;
   border-right:1px solid #82c0cd;
   border-bottom:1px solid #82c0cd;
-  padding:5px;
 }
 #convo_controls h4 a:link, #convo_controls h4 a:visited {
   background:#42aec2;

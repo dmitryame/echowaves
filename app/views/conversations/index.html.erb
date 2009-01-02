@@ -1,6 +1,13 @@
 <div class="balloon">
   <h1><%= t("conversations.recently_started_conversations") %></h1>
   <div>
+    <% form_tag convosearch_path, :method => :get do %>
+      <%= t("conversations.look_for_conversations") %>: <%= text_field_tag :q %>
+      <%= submit_tag t("ui.search"), :name => nil  %>
+    <% end %>
+  </div>
+<!--
+  <div>
   	<%= t("conversations.look_for_conversations") %>:
   	<%= text_field_with_auto_complete :conversation, :name, { :size => 35 }, :skip_style => true,
   	:after_update_element => 
@@ -8,6 +15,7 @@
   	  "{ window.location=('/complete_conversation_name?id='+element.value);}"
   	-%>
   </div>
+-->
 </div>
 <div class="arrow">&nbsp;</div>
 

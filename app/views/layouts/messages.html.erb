@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="/stylesheets/ie.css" type="text/css" media="screen, projection">
   <![endif]-->
   <link rel="stylesheet" href="/stylesheets/style.css" type="text/css" media="screen, projection">
+  <%= stylesheet_link_tag 'livepipe' %>
  	<%= stylesheet_link_tag 'default' %>
  	<%= stylesheet_link_tag 'chat' %>
  	<%= javascript_include_tag :defaults %>
@@ -82,7 +83,6 @@
   <%end#if user is not logged in, no point in connecting to orbited%>
   <%= javascript_include_tag "livepipe/livepipe" %>
   <%= javascript_include_tag "livepipe/tabs" %>
-  <%= stylesheet_link_tag 'livepipe' %>
 
   <script>
   	document.observe('dom:loaded',function(){

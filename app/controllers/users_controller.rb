@@ -25,6 +25,14 @@ class UsersController < ApplicationController
   # GET /clients/1.xml
   def show
     @user = User.find(params[:id])
+
+    @tags = []    
+    @user.conversations.each do |convo|
+      convo.taggings.each do |tagging|
+        @tags |= [tagging.tag]#removing duplicate tags
+      end
+    end
+    
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @user }

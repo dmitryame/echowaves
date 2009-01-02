@@ -1,0 +1,13 @@
+<%= render :partial => 'convo_stats'%>
+
+<%= render :partial => 'users/user_tags'%>
+
+<div class="item">
+	<div id="convos">
+		<ul class="list">
+			<%= render :partial => 'conversations/conversation', :collection => @convos %>
+		</ul>			
+	</div>    
+  <%= link_to t("ui.back"), users_path %>
+</div>
+  

@@ -158,6 +158,25 @@ class User < ActiveRecord::Base
     convo.remove_subscription(self)
   end
   
+  def all_convos_tags
+    tags = [] #have to initialize the array
+    self.conversations.each do |convo|
+      convo.taggings.each do |tagging|
+        tags |= [tagging.tag]#removing duplicate tags
+      end
+    end
+    tags
+  end
+  
+  def convos_by_tag(tag)
+    convos = []
+    self.conversations.each do |convo|
+      convo.taggings.each do |tagging|
+        convos |= [convo] if(tagging.tag.to_s == tag)
+      end
+    end
+    convos
+  end
 
   protected
     

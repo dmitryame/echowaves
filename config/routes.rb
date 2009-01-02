@@ -1,7 +1,9 @@
 ActionController::Routing::Routes.draw do |map|
   map.resource :session
 
-  map.resources :users
+  map.resources :users, :member => {
+    :tagged_convos => :get
+  }
 
   map.resources :conversations, :member => { 
     :readwrite_status   => :put, 
@@ -35,7 +37,6 @@ ActionController::Routing::Routes.draw do |map|
 
   map.complete_conversation_name '/complete_conversation_name', :controller => 'conversations', :action => "complete_name"
   map.complete_user_name '/complete_user_name', :controller => 'users', :action => "complete_name"
-
   
   # The priority is based upon order of creation: first created -> highest priority.
 

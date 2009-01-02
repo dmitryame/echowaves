@@ -26,12 +26,22 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
 
-    @tags = []    
-    @user.conversations.each do |convo|
-      convo.taggings.each do |tagging|
-        @tags |= [tagging.tag]#removing duplicate tags
-      end
+    @tags = @user.all_convos_tags
+    
+    respond_to do |format|
+      format.html # show.html.erb
+      format.xml  { render :xml => @user }
     end
+  end
+  
+  def tagged_convos
+    @user = User.find(params[:id])
+
+    @tag = params[:tag]
+    
+    @tags = @user.all_convos_tags
+    
+    @convos = @user.convos_by_tag(@tag)
     
     respond_to do |format|
       format.html # show.html.erb

@@ -1,10 +1,6 @@
 <div id="users_in_conversation" class="item2 page">
-	<h6><%= t("ui.recent_followers") %>:</h6>
-	<%= render :partial => 'conversations/user', :collection => @conversation.recent_followers %>
-	<% if @conversation.users.length > 10 %>
-    <h6><%= t("ui.followers") %>:</h6>
-    <% @conversation.users.each do |u| %>
-      <span class="label"><%= link_to h(u.login), conversation_messages_path(u.personal_conversation) %></span>
-    <% end %>
-	<% end %>
+  <h6><%= t("ui.followers") %>:</h6>
+  <% @conversation.users.each do |u| %>
+    <span class="label"><%= link_to h(u.login), conversation_messages_path(u.personal_conversation) %></span>
+  <% end %>
 </div>

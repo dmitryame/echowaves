@@ -1,5 +1,6 @@
 html, body {margin:0;background:#d0e4eb;}
 .out_of_screen {position:fixed;left:500000px;}
+.padding5 {padding:5px;}
 .container .search_link {
   display: block;
   margin-bottom:5px;
@@ -232,4 +233,36 @@ input[type='text'], input[type='password'], textarea { font-size: 100%; font-fam
   margin:10px auto;
 }
 
-sup {font-size: 0.75em; line-height: 0.5em}  
+sup {font-size: 0.75em;}
+.tag {background:#d0e4eb; color:#3366cc;margin-right:2px;padding:0px 0px 0px 3px;margin-bottom:2px;white-space:nowrap;}
+.tag a:link, .tag a:visited {
+  text-decoration:none;
+  color:#3366cc;
+}
+ul.subsection_tabs {
+border-bottom:1px solid #82c0cd;
+clear:both;
+height:20px;
+list-style-image:none;
+list-style-position:outside;
+list-style-type:none;
+margin:0 0 5px;
+padding:0;
+white-space:nowrap;
+}
+ul.subsection_tabs li.tab a.active {
+background-color:#42aec2;
+}
+ul.subsection_tabs li.tab a:hover {
+color:#000;
+text-decoration:underline;
+}
+
+ul.subsection_tabs li.tab a {
+background-color:#FFFFFF;
+color:#000;
+display:block;
+height:20px;
+padding:0 4px;
+width:80px;
+}

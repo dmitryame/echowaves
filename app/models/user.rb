@@ -160,8 +160,9 @@ class User < ActiveRecord::Base
   
   def all_convos_tags
     tags = [] #have to initialize the array
-    self.conversations.each do |convo|
-      convo.taggings.each do |tagging|
+        
+    self.subscriptions.each do |subscription|
+      subscription.conversation.taggings.each do |tagging|
         tags |= [tagging.tag]#removing duplicate tags
       end
     end
@@ -170,9 +171,9 @@ class User < ActiveRecord::Base
   
   def convos_by_tag(tag)
     convos = []
-    self.conversations.each do |convo|
-      convo.taggings.each do |tagging|
-        convos |= [convo] if(tagging.tag.to_s == tag)
+    self.subscriptions.each do |subscription|
+      subscription.conversation.taggings.each do |tagging|
+        convos |= [subscription.conversation] if(tagging.tag.to_s == tag)
       end
     end
     convos

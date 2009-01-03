@@ -4,23 +4,23 @@
 <div class="arrow">&nbsp;</div>
 
 <div class="item">
-<% form_for(@conversation) do |f| %>
-  <%= f.error_messages %>
-
-  <p class="out_of_screen"><%= label_tag "important" %><%= f.text_field :something %></p>
-
-  <p>
-    <%= f.label t("ui.name") %><br />
-    <%= f.text_field :name %>
-  </p>
-  <p>
-    <%= f.label t("ui.description") %><br />
-    <%= f.text_area :description, :rows => 8, :cols => 60 %>
-  </p>
-  <p>
-    <%= f.submit t("ui.create") %>
-  </p>
-<% end %>
-
-<%= link_to t("ui.back"), conversations_path %>
+  <% form_for(@conversation) do |f| %>
+    <%= f.error_messages %>
+  
+    <p class="out_of_screen"><%= label_tag "important" %><%= f.text_field :something %></p>
+  
+    <p>
+      <%= f.label t("ui.name") %><br />
+      <%= f.text_field :name %>
+    </p>
+    <p>
+      <%= f.label t("ui.description") %><br />
+      <%= f.text_area :description, :rows => 8, :cols => 60 %>
+    </p>
+    <p>
+      <%= f.submit t("ui.create") %>
+    </p>
+  <% end %>
+  
+  <%= link_to t("ui.back"), conversations_path %>
 </div>

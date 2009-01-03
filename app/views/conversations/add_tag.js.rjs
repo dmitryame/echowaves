@@ -1,4 +1,3 @@
 page.replace "convo_tags", :partial => 'convo_tags'
 page.replace "last_convo_tags", :partial => 'last_convo_tags'
-
 page["convo_tags"].visual_effect :highlight

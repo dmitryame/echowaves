@@ -1,4 +1,5 @@
 class UserMailer < ActionMailer::Base
+  
   def signup_notification(user)
     setup_email(user)
     @subject    += 'Please activate your new account'
@@ -10,6 +11,7 @@ class UserMailer < ActionMailer::Base
     @subject    += 'Your account has been activated!'
     @body[:url]  = "#{HOST}"
   end
+
   def forgot_password(user)
     setup_email(user)
     @subject    += 'You have requested to change your password'
@@ -21,13 +23,15 @@ class UserMailer < ActionMailer::Base
     @subject    += 'Your password has been reset.'
   end
   
-  protected
-    def setup_email(user)
-      @recipients  = "#{user.email}"
-      @bcc         = "dmitry@rootlocusinc.com" #email monitoring log, do not erase
-      @from        = "support@echowaves.com"
-      @subject     = "[echowaves.com] "
-      @sent_on     = Time.now
-      @body[:user] = user
-    end
+protected
+  
+  def setup_email(user)
+    @recipients  = "#{user.email}"
+    @bcc         = "dmitry@rootlocusinc.com" #email monitoring log, do not erase
+    @from        = "support@echowaves.com"
+    @subject     = "[echowaves.com] "
+    @sent_on     = Time.now
+    @body[:user] = user
+  end
+  
 end

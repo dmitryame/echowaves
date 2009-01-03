@@ -1,4 +1,5 @@
 class ConversationsController < ApplicationController
+  
   public :render_to_string # this is needed to make render_to_string public for message model to be able to use it
   before_filter :login_required, :except => [:index, :show, :auto_complete_for_conversation_name, :complete_name ]
   after_filter :store_location, :only => [:index, :new]  
@@ -12,7 +13,6 @@ class ConversationsController < ApplicationController
 
   def index    
     @conversations = Conversation.published.not_personal.paginate :page => params[:page], :order => 'created_at DESC'
-
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @conversations }
@@ -26,7 +26,6 @@ class ConversationsController < ApplicationController
 
   def new
     @conversation = Conversation.new
-
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @conversation }
@@ -72,7 +71,7 @@ class ConversationsController < ApplicationController
           @copied_message.conversation = @conversation
           @copied_message.save
         end
-        #now let's create a system message and send it to the the creator's followers
+        # now let's create a system message and send it to the the creator's followers
         current_user.friends_convos.each do |personal_convo|
           next if personal_convo == @conversation.parent_message.conversation
           msg = " created a new convo: <a href='/conversations/#{@conversation.id}/messages'>#{@conversation.name}</a>"
@@ -153,7 +152,6 @@ class ConversationsController < ApplicationController
     #   user.conversations.detect {|convo| convo.id == @conversation.id}
     # end
 
-
     render :layout => "invite"
   end
   
@@ -192,7 +190,8 @@ class ConversationsController < ApplicationController
     @conversation.save    
   end
   
-  private
+private
+
   # # FIXME: this is redundunt method from the messages_controller, this has to be addressed
   # def send_stomp_message(message)
   #   newmessagescript = render_to_string :partial => 'messages/message', :object => message
@@ -203,5 +202,5 @@ class ConversationsController < ApplicationController
   #   logger.error "IO failed: " + $!
   #   # raise
   # end
-
+  
 end

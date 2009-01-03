@@ -1,7 +1,6 @@
 # This controller handles the login/logout function of the site.  
 class SessionsController < ApplicationController
 
-  # render new.rhtml
   def new
   end
 
@@ -33,9 +32,11 @@ class SessionsController < ApplicationController
   end
 
 protected
+  
   # Track failed login attempts
   def note_failed_signin
     flash[:error] = "Couldn't log you in as '#{params[:login]}'"
     logger.warn "Failed login for '#{params[:login]}' from #{request.remote_ip} at #{Time.now.utc}"
   end
+  
 end

@@ -1,4 +1,5 @@
 class Subscription < ActiveRecord::Base
+  
   belongs_to :user, :counter_cache => true
   belongs_to :conversation, :counter_cache => true
   
@@ -17,5 +18,5 @@ class Subscription < ActiveRecord::Base
     self.activated_at = Time.now
     self.save
   end
-      
+  
 end

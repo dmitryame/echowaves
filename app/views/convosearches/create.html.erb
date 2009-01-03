@@ -8,7 +8,7 @@
 
     <div class="item">
       <ul class="list">
-      <% for conversation in @conversations %>
+        <% for conversation in @conversations %>
           <li>
             <%= link_to highlight(h(conversation.name), params[:q].split), conversation_messages_path(conversation) %>
             <br/>
@@ -16,7 +16,7 @@
             <br/>
             <span class="quiet small"><%= conversation.created_at.to_s(:date_time12) %></span>
           </li>
-      <% end %>
+        <% end %>
       </ul>
 
       <div class="pagination"><%= will_paginate @conversations %></div>

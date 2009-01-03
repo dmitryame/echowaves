@@ -2,9 +2,11 @@ require 'digest/sha1'
 require 'gravtastic'
 
 class User < ActiveRecord::Base
+  
   include Authentication
   include Authentication::ByPassword
   include Authentication::ByCookieToken
+  
   acts_as_tagger
   validates_presence_of     :login
   validates_length_of       :login,    :within => 3..40
@@ -29,8 +31,8 @@ class User < ActiveRecord::Base
   has_many :messages
 
   belongs_to :personal_conversation, #personal users conversation
-  :class_name => "Conversation", 
-  :foreign_key => "personal_conversation_id"
+    :class_name => "Conversation", 
+    :foreign_key => "personal_conversation_id"
 
 
   has_many :subscriptions, :order => "activated_at DESC"
@@ -108,10 +110,12 @@ class User < ActiveRecord::Base
   def email=(value)
     write_attribute :email, (value ? value.downcase : nil)
   end
+  
   def forgot_password
     @forgotten_password = true
     self.make_password_reset_code
   end
+  
   # same as make_activation_code
   def make_password_reset_code
     self.password_reset_code = Digest::SHA1.hexdigest( Time.now.to_s.split(//).sort_by {rand}.join )
@@ -160,7 +164,6 @@ class User < ActiveRecord::Base
   
   def all_convos_tags
     tags = [] #have to initialize the array
-        
     self.subscriptions.each do |subscription|
       subscription.conversation.taggings.each do |tagging|
         tags |= [tagging.tag]#removing duplicate tags
@@ -179,11 +182,11 @@ class User < ActiveRecord::Base
     convos
   end
 
-  protected
+protected
     
   def make_activation_code
       self.activation_code = self.class.make_token
       logger.debug "Please activate your new account http://localhost:3000/activate/#{self.activation_code}"
   end
-
+  
 end

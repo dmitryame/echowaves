@@ -1,6 +1,7 @@
 require 'stomp'
 
 class MessagesController < ApplicationController
+  
   public :render_to_string # this is needed to make render_to_string public for message model to be able to use it
   
   before_filter :login_required, :except => [:index, :show, :get_more_messages ]
@@ -8,7 +9,6 @@ class MessagesController < ApplicationController
   before_filter :check_write_access, :only => [ :create ]
   after_filter :store_location, :only => [:index]  
   
-      
   def index
     @messages = @conversation.messages.published.find(:all, :include => [:user], :limit => 100, :order => 'id DESC').reverse
     current_user.conversation_visit_update(@conversation) if logged_in?
@@ -21,7 +21,7 @@ class MessagesController < ApplicationController
     end
   end
 
-#TODO: get_more_messages, get_more_messages_on_top, get_more_messages_on_bottom need to be refactored into something more generic
+  #TODO: get_more_messages, get_more_messages_on_top, get_more_messages_on_bottom need to be refactored into something more generic
   def get_more_messages
     @messages = @conversation.get_messages_before(params[:before]).reverse
     @has_more_messages = @conversation.has_messages_before?(@messages.first)
@@ -36,7 +36,6 @@ class MessagesController < ApplicationController
     @messages = @conversation.get_messages_after(params[:after]).reverse
     @has_more_messages_on_bottom = @conversation.has_messages_after?(@messages.last)
   end
-
 
   def show
     @message = Message.published.find(params[:id])
@@ -120,36 +119,36 @@ class MessagesController < ApplicationController
   
   private
 
-    def find_conversation
-      @conversation = Conversation.published.find( params[:conversation_id] )
+  def find_conversation
+    @conversation = Conversation.published.find( params[:conversation_id] )
+  end
+  
+  def check_write_access
+    unless @conversation.writable_by?(current_user)
+      flash[:error] = "You are not allowed to add messages to this conversation."
+      redirect_to conversation_messages_path(@conversation)
+      return
     end
-    
-    def check_write_access
-      unless @conversation.writable_by?(current_user)
-        flash[:error] = "You are not allowed to add messages to this conversation."
-        redirect_to conversation_messages_path(@conversation)
-        return
-      end
-    end
-    
-    # def send_stomp_message(message)
-    #   newmessagescript = render_to_string :partial => 'message', :object => message
-    #   s = Stomp::Client.new
-    #   s.send("CONVERSATION_CHANNEL_" + params[:conversation_id], newmessagescript)
-    #   s.close
-    # rescue SystemCallError
-    #   logger.error "IO failed: " + $!
-    #   # raise
-    # end
-
-    # def send_stomp_notifications
-    #   s = Stomp::Client.new
-    #   s.send("CONVERSATION_NOTIFY_CHANNEL_" + params[:conversation_id], "1")
-    #   # puts ("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! CONVERSATION_NOTIFY_CHANNEL_" + params[:conversation_id])
-    #   s.close
-    # rescue SystemCallError
-    #   logger.error "IO failed: " + $!
-    #   # raise
-    # end
-
+  end
+  
+  # def send_stomp_message(message)
+  #   newmessagescript = render_to_string :partial => 'message', :object => message
+  #   s = Stomp::Client.new
+  #   s.send("CONVERSATION_CHANNEL_" + params[:conversation_id], newmessagescript)
+  #   s.close
+  # rescue SystemCallError
+  #   logger.error "IO failed: " + $!
+  #   # raise
+  # end
+  
+  # def send_stomp_notifications
+  #   s = Stomp::Client.new
+  #   s.send("CONVERSATION_NOTIFY_CHANNEL_" + params[:conversation_id], "1")
+  #   # puts ("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! CONVERSATION_NOTIFY_CHANNEL_" + params[:conversation_id])
+  #   s.close
+  # rescue SystemCallError
+  #   logger.error "IO failed: " + $!
+  #   # raise
+  # end
+  
 end

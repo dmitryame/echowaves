@@ -1,4 +1,5 @@
 class Conversation < ActiveRecord::Base
+  
   acts_as_taggable_on :tags
   validates_presence_of :name
   validates_presence_of :description
@@ -11,17 +12,17 @@ class Conversation < ActiveRecord::Base
   
   has_many :messages #these are the conversations messages
   belongs_to :parent_message, #parent message it was spawned from, in case it was created by spawning
-  :class_name => "Message",
-  :foreign_key => "parent_message_id"
+    :class_name => "Message",
+    :foreign_key => "parent_message_id"
 
   has_many :subscriptions
   has_many :users, :through => :subscriptions, :uniq => true,:order => "login ASC" #followers,  subscribers
   has_many :recent_followers, 
-  :through => :subscriptions, 
-  :source => :user, 
-  :uniq => true, 
-  :order => "subscriptions.created_at DESC",
-  :limit => 10
+    :through => :subscriptions, 
+    :source => :user, 
+    :uniq => true, 
+    :order => "subscriptions.created_at DESC",
+    :limit => 10
 
   has_many :abuse_reports #all the abuse report that were filed agains this convi
   belongs_to :abuse_report #the abuse report record that made this convo disabled
@@ -51,7 +52,6 @@ class Conversation < ActiveRecord::Base
       convo = user.conversations.create(:name => user.login, :personal_conversation => true, :description => desc)
       convo.tag_list.add("personal_convo")
       convo.save
-
       convo
     end
   end # class << self
@@ -60,7 +60,6 @@ class Conversation < ActiveRecord::Base
     self.abuse_report.nil?
   end
 
-  
   def owner 
     self.user
   end
@@ -107,7 +106,6 @@ class Conversation < ActiveRecord::Base
       abuse_report = self.abuse_reports.create( :user => user )
     end
     self.reload
-    
     # check if we should deactivate the convo for abuse
     if (user == self.owner and self != self.user.personal_conversation) or self.over_abuse_reports_limit?
       self.update_attributes( :abuse_report => abuse_report )
@@ -136,35 +134,35 @@ class Conversation < ActiveRecord::Base
     escaped(self.description)
   end
 
-
   def get_messages_before(first_message_id)
     self.messages.published.find(:all, :include => [:user], :conditions => ["id < ?", first_message_id], :limit => 100, :order => 'id DESC')
   end
+  
   def has_messages_before?(first_message)
     return false if(first_message == nil)
     messages = self.messages.published.find(:first, :conditions => ["id < ?", first_message.id], :order => 'id DESC') 
     messages ? true : false
   end
-  
+
   def get_messages_after(last_message_id)
    self.messages.published.find(:all, :include => [:user], :conditions => ["id > ?", last_message_id], :limit => 100, :order => 'id ASC').reverse
   end
+  
   def has_messages_after?(last_message)
     return false if(last_message == nil)
     messages = self.messages.published.find(:first, :conditions => ["id > ?", last_message.id], :order => 'id ASC') 
     messages ? true : false
   end
 
-
   def after_create 
     owner.follow(self)
     self.user.tag(self, :with => self.tag_list.to_s  + ", " + self.user.login, :on => :tags)      
   end
 
-
-
 private
+
   def escaped(value)
     value.gsub(/"/, '&quot;').gsub(/'/, '.').gsub(/(\r\n|\n|\r)/,' <br />')
   end
+  
 end

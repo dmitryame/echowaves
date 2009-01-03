@@ -1,4 +1,5 @@
 class ConvosearchesController < ApplicationController
+  
   def show
     if params.include?(:q)
       create
@@ -21,4 +22,5 @@ class ConvosearchesController < ApplicationController
       :order => 'created_at DESC'
     )
   end
+  
 end

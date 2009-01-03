@@ -64,14 +64,14 @@ class Message < ActiveRecord::Base
       abuse_report = self.abuse_reports.create(:user => user)
     end
     self.reload
-
     # check if we need to deactivate the message for abuse
     if (user == self.conversation.owner) or self.over_abuse_reports_limit?
       self.update_attributes(:abuse_report => abuse_report)
-
+      #
       # FIXME: why is this next line happening?  There has to be a better way to accomplish whatever is trying to be accomplished then issuing a system call!
       #        we need to take all OS setups into account, not just unix
       # perhaps this line is really important in publicly installed site like http://echowaves.com. could be parameterized for local installs
+      #
       system "chmod -R 000 ./public/attachments/#{self.id}"
     end
   end
@@ -92,6 +92,5 @@ class Message < ActiveRecord::Base
     logger.error "IO failed: " + $!
     # raise
   end
-
   
 end

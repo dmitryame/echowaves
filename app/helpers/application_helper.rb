@@ -1,5 +1,6 @@
 # Methods added to this helper will be available to all templates in the application.
-module ApplicationHelper  
+module ApplicationHelper
+  
   def orbited_javascript
     [
     "<script src=\"http://#{ORBITED_HOST}:#{ORBITED_PORT}/static/Orbited.js\"></script>",
@@ -17,7 +18,6 @@ module ApplicationHelper
     '<div id="flash_messages">' + (flash[:notice] ? "<div class=\"notice\">#{flash[:notice]}</div>": "") + (flash[:error] ? "<div class=\"error\">#{flash[:error]}</div>" : "") + '</div>'
   end
 
-  
   # def format_date_for_message_meta(dt)
   #   daysold = (Time.now - dt) / 60 / 60 / 24
   #   case
@@ -29,4 +29,5 @@ module ApplicationHelper
   #     dt.to_s(:pretty_long)
   #   end
   # end
+  
 end

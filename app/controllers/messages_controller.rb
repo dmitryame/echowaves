@@ -45,7 +45,7 @@ class MessagesController < ApplicationController
     @has_more_messages_on_bottom = @conversation.has_messages_after?(@message)
     
     respond_to do |format|
-      format.html { render :layout => "application" }
+      format.html { render :layout => "single_message" }
       format.xml  { render :xml => @message }
     end
   end

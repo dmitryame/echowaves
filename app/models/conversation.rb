@@ -157,6 +157,7 @@ class Conversation < ActiveRecord::Base
   def after_create 
     owner.follow(self)
     self.user.tag(self, :with => self.tag_list.to_s  + ", " + self.user.login, :on => :tags)      
+        
   end
 
 private

@@ -70,7 +70,12 @@ class ConversationsController < ApplicationController
           @copied_message = @conversation.parent_message.clone
           @copied_message.conversation = @conversation
           @copied_message.save
+        else
+          # create a first message that is the same as the convo description
+          message = current_user.messages.create( :conversation => @conversation, :message => @conversation.description, :system_message => false)
+          message.save
         end
+        
         # now let's create a system message and send it to the the creator's followers
         current_user.friends_convos.each do |personal_convo|
           next  if (@conversation && @conversation.parent_message && personal_convo == @conversation.parent_message.conversation)

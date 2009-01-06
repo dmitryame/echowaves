@@ -6,10 +6,13 @@ class ConversationsController < ApplicationController
   
   auto_complete_with_scope_for 'published', :conversation, :name # multiple scopes can be chained like 'published.readonly'
 
+  auto_complete_for :tag, :name
+
   def complete_name
     @conversation = Conversation.published.find_by_name(params[:id])
     redirect_to conversation_messages_path(@conversation)
   end
+
 
   def index    
     @conversations = Conversation.published.not_personal.paginate :page => params[:page], :order => 'created_at DESC'
@@ -186,7 +189,7 @@ class ConversationsController < ApplicationController
 
   def add_tag
     @conversation = Conversation.published.find(params[:id])
-    current_user.tag(@conversation, :with => @conversation.tags.collect{|tag| tag.name}.join(", ")  + ", " + params[:tag].to_s, :on => :tags)      
+    current_user.tag(@conversation, :with => @conversation.tags.collect{|tag| tag.name}.join(", ")  + ", " + params[:tag][:name].to_s, :on => :tags)
   end
   
   def remove_tag

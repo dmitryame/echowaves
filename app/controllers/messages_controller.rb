@@ -5,9 +5,11 @@ class MessagesController < ApplicationController
   public :render_to_string # this is needed to make render_to_string public for message model to be able to use it
   
   before_filter :login_required, :except => [:index, :show, :get_more_messages ]
-  before_filter :find_conversation, :except => :send_data
+  before_filter :find_conversation, :except => [ :send_data, :auto_complete_for_tag_name]
   before_filter :check_write_access, :only => [ :create ]
   after_filter :store_location, :only => [:index]  
+
+  auto_complete_for :tag, :name
   
   def index
     @messages = @conversation.messages.published.find(:all, :include => [:user], :limit => 100, :order => 'id DESC').reverse

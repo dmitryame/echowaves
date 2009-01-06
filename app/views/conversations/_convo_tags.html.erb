@@ -4,7 +4,7 @@
 	<div class="clear"></div>
 	<%if current_user%>
 		<% form_remote_tag(:url => {:controller => 'conversations', :action => 'add_tag', :id => @conversation.id}) do %>
-			<%= text_field 'tag', '', :size => 15 %>
+			<%= text_field_with_auto_complete :tag, :name -%>	  	
 			<%= submit_tag t("ui.add_tag") %> 
 		<%end%>
 	<% end %> 

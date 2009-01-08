@@ -42,7 +42,7 @@ class ConversationsController < ApplicationController
       @message = Message.find(params[:message_id])
       
       if current_user.conversations.find_by_parent_message_id( @message.id )
-        flash[:error] = "You already spawned a new conversation from this message."
+        flash[:error] = t("conversations.already_spawned_warning")
         redirect_to conversation_messages_path(@message.conversation_id)
         return
       end
@@ -63,7 +63,7 @@ class ConversationsController < ApplicationController
     
     respond_to do |format|
       if current_user.conversations << @conversation
-        flash[:notice] = 'Conversation was successfully created.'
+        flash[:notice] = t("conversations.convo_sucesfully_created")
         
         if @conversation.spawned?
           # create a message in the original conversation notifying about this spawning
@@ -83,6 +83,7 @@ class ConversationsController < ApplicationController
         # now let's create a system message and send it to the the creator's followers
         current_user.friends_convos.each do |personal_convo|
           next  if (@conversation && @conversation.parent_message && personal_convo == @conversation.parent_message.conversation)
+          # TODO: how to translate this for the current user?
           msg = " created a new convo: <a href='/conversations/#{@conversation.id}/messages'>#{@conversation.name}</a>"
           notification = current_user.messages.create( :conversation => personal_convo, :message => msg, :system_message => true)
           notification.save
@@ -151,12 +152,12 @@ class ConversationsController < ApplicationController
   def invite
     @conversation = Conversation.published.find(params[:id])
     @friends = current_user.friends    
-    #should also remove the users if they were already invited
+    # should also remove the users if they were already invited
     @friends.delete_if do |user|
       invite_for_user = Invite.find(:first, :conditions => ["user_id = ? and conversation_id = ?", user.id, @conversation.id ] )
       true unless invite_for_user == nil
     end
-    #should also remove the users that already follow proposed convo
+    # should also remove the users that already follow proposed convo
     # @friends.delete_if do |user|
     #   user.conversations.detect {|convo| convo.id == @conversation.id}
     # end
@@ -168,7 +169,7 @@ class ConversationsController < ApplicationController
     current_user.friends.each do |user| 
       @user = user if(user.id.to_s == params[:user_id]) #search for the user in friends collection
     end
-    #TODO this whole thing preferebly should move into the model
+    # TODO this whole thing preferebly should move into the model
     existing_invite = Invite.find(:first, :conditions => ["user_id = ? and requestor_id = ? and conversation_id = ?", @user.id, current_user.id, params[:id] ] )
     return if(existing_invite != nil)#don't do anything, already invited
     @invite = Invite.new
@@ -177,7 +178,8 @@ class ConversationsController < ApplicationController
     @invite.conversation_id = params[:id]
     @invite.save    
     
-    #now let's create a system message and send it to the convo channel
+    # now let's create a system message and send it to the convo channel
+    # TODO: how to translate this for the current user?
     msg = " invites you to follow a convo: <a href='/conversations/#{params[:id]}/messages'>#{@invite.conversation.name}</a>"
     notification = current_user.messages.create( :conversation => @user.personal_conversation, :message => msg, :system_message => true)
     notification.save
@@ -201,7 +203,7 @@ class ConversationsController < ApplicationController
   
 private
 
-  # # FIXME: this is redundunt method from the messages_controller, this has to be addressed
+  # FIXME: this is redundunt method from the messages_controller, this has to be addressed
   # def send_stomp_message(message)
   #   newmessagescript = render_to_string :partial => 'messages/message', :object => message
   #   s = Stomp::Client.new

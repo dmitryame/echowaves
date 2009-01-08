@@ -63,14 +63,14 @@ class UsersController < ApplicationController
     success = @user && @user.save
     if success && @user.errors.empty?
       if(SHOW_ACTIVATION_LINK)
-        flash[:error] = "<a href='/activate/#{@user.activation_code}'>Click here to activate</a>" # it's really a notice, but just to attract an attention, since errors are output in red
+        flash[:error] = "<a href='/activate/#{@user.activation_code}'>#{t("ui.click_to_activate")}</a>" # it's really a notice, but just to attract an attention, since errors are output in red
       else
-        flash[:notice] = "Thanks for signing up!  We're sending you an email with your activation code."
+        flash[:notice] = t("ui.thanks_for_signup")
       end
       
       redirect_to home_path
     else
-      flash[:error]  = "We couldn't set up that account, sorry.  Please try again, or contact an admin (link is above)."
+      flash[:error]  = t("ui.signup_error")
       render :action => 'new'
     end
   end
@@ -84,7 +84,7 @@ class UsersController < ApplicationController
     @personal_conversation = @user.personal_conversation
     params[:user].delete(:login)
     if @user.update_attributes(params[:user]) && @personal_conversation.update_attributes(params[:conversation])
-      flash[:notice] = "User updated"
+      flash[:notice] = t("users.profile_updated")
       redirect_to user_path(current_user)
     else
       render :action => :edit
@@ -97,7 +97,7 @@ class UsersController < ApplicationController
     case
     when (!params[:activation_code].blank?) && user && !user.active?
       user.activate!
-      flash[:notice] = "Signup complete! Please sign in to continue."
+      flash[:notice] = t("users.signup_complete")
       redirect_to '/login'
     when params[:activation_code].blank?
       flash[:error] = "The activation code was missing.  Please follow the URL from your email."

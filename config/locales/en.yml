@@ -66,6 +66,9 @@ en:
     transport_opened: "transport opened"
     transport_closed: "transport closed"
     code: "code"
+    click_to_activate: "Click here to activate your account"
+    thanks_for_signup: "Thanks for signing up! We're sending you an email with your activation code."
+    signup_error: "We couldn't set up that account, sorry. Please try again, or contact an admin (link is above)."
   users:
     recently_joined_users: "recently joined users"
     sign_up_as_new_user: "sign up as new user"
@@ -73,6 +76,11 @@ en:
     conversing_in: "Conversing In"
     since: "since:"
     friends_with: "Friends With"
+    logged_in_sucesfully: "Logged in successfully"
+    logged_out: "You have been logged out."
+    could_not_login_as: "Couldn't log you in as {{login}}"
+    profile_updated: "Profile updated correctly"
+    signup_complete: "Signup complete! Please login to continue."
   conversations:
     this_is_an_read_only_convo: "This is a read only conversation"
     login_or_register_to_participate: "Please <a href=\"/login\">login</a> to participate.<br/>Don't have an account yet? <a href=\"/signup\">signup now</a>, it's free"
@@ -80,8 +88,11 @@ en:
     start_new_conversation: "start new convo"
     look_for_conversations: "look for convos"
     new_conversation: "new convo"
+    convo_sucesfully_created: "Conversation was successfully created."
     new_spawned_conversation: "new spawned convo"
     user_spawned_convo_description: "{{login}} spawned this convo, following the message {{original_message_link}}\n\nPlease provide a description and an appropriate title for this new conversation"
+    already_spawned_warning: "You already spawned a new conversation from this message."
+    not_allowed_to_write_warning: "You are not allowed to add messages to this conversation."
   footer:
     uptime_monitoring: "Website Uptime Monitoring By"
     report_problems_or_abuse: "Report problems or Abuse to"

@@ -127,7 +127,7 @@ class MessagesController < ApplicationController
   
   def check_write_access
     unless @conversation.writable_by?(current_user)
-      flash[:error] = "You are not allowed to add messages to this conversation."
+      flash[:error] = t("conversations.not_allowed_to_write_warning")
       redirect_to conversation_messages_path(@conversation)
       return
     end

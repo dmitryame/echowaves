@@ -18,6 +18,7 @@ class ConversationsController < ApplicationController
     @conversations = Conversation.published.not_personal.paginate :page => params[:page], :order => 'created_at DESC'
     respond_to do |format|
       format.html # index.html.erb
+      format.atom
       format.xml  { render :xml => @conversations }
     end
   end

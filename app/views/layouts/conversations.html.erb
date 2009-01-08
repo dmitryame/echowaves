@@ -19,7 +19,7 @@
  	
  	<%= stylesheet_link_tag 'unitip' %>
 	<%= javascript_include_tag 'unitip' %>
-	
+	<%= yield(:header) %>
 </head>
 
 <body onLoad="Misc.focusInput('conversation_name');">

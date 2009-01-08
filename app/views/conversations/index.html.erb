@@ -1,3 +1,9 @@
+<% content_for :header do %>
+	<%= tag(:link, :rel => "alternate",
+	:type => "application/atom+xml",
+	:href => formatted_conversations_url(:format => :atom)) %>
+<% end %>
+
 <div class="balloon">
   <h1><%= t("conversations.recently_started_conversations") %></h1>
   <div>

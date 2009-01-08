@@ -54,6 +54,7 @@ es-ES:
     time_zone: "zona horaria"
     update: "actualizar"
     recent_followers: "Seguidores recientes"
+    recent_tags: "Recent tags"
     followers: "Seguidores"
     search_messages: "buscar mensajes"
     search_conversations: "buscar convos"

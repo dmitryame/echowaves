@@ -54,6 +54,7 @@ en:
     time_zone: "time zone"
     update: "update"
     recent_followers: "Recent followers"
+    recent_tags: "Recent tags"
     followers: "Followers"
     search_messages: "search messages"
     search_conversations: "search convos"

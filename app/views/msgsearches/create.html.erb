@@ -1,72 +1,75 @@
-<div id="col1" class="span-14">
-  <%= flash_messages %>
-	<div class="page">
-    <div class="balloon">
-      <h1>search messages for:</h1>
-      <h2><%= params[:q] %></h2>
-    </div>
+<%= flash_messages %>
+<div class="page">
+	<div class="balloon">
+		<h1><%= t("ui.search_messages") %></h1>
+		<div>
+			<% form_tag msgsearch_path, :method => :get do %>
+			<%= text_field_tag :q %>
+			<%= submit_tag t("ui.search"), :name => nil  %>
+			<% end %>
+		</div>
+	</div>
 
 
-    <div id='messages'>
-      <% @messages.each do |message| %>
+	<div id='messages'>
+		<% @messages.each do |message| %>
 
 
-        <div class="message" id="<%=dom_id(message)%>">
-          	<div class="messagelinks quiet small">
-        		<%if current_user%>
-        			<%= link_to_remote t("ui.report"), 
-        			:url => {:controller => 'messages', :action => 'report', :id => message.id}, 
-        			:confirm => t("ui.reportconfirm"), :method => :get %>
-        		<%end%>
-        	</div>
-        	<div class="avatar"><%= link_to image_tag(message.user.gravatar_url, :border => 0, :wigth => 40, :height => 40, :class => "avatar"), user_path(message.user),
-    			:class => 'tip', 
-    			:title =>  t("users.since") + message.user.created_at.to_s(:pretty)  + 
-    			'<br/>' + pluralize(message.user.conversations.size, 'convo') +
-    			'<br/>' + pluralize(message.user.messages.size, 'message') +
-    			'<br/>' + pluralize(message.user.subscriptions.size, 'subscription')
-       %></div>
-        	<div class="messagetext">
-        		<span class="username"><%=link_to h(message.user.login), conversation_messages_path(message.user.personal_conversation), 
-    			:class => 'tip', 
-    			:title => "personal convo for " + message.user.login  %></span>
-        		<% if message.attachment.original_filename %>
-        		  <%= link_to(image_tag(message.attachment.url(:big)), message.attachment.url, :target => "_blank")%>		 
-        		<%else%>
-        		  <%= highlight mark_up(message), params[:q].split %>
-        		<% end %>
-        		<span class="date quiet small"><%= link_to message.created_at.to_s(:pretty_long), conversation_message_path(message.conversation_id, message) %></span>
-        	</div>
-        	<div class="clear"></div>
-        </div>
+		<div class="message" id="<%=dom_id(message)%>">
+			<div class="messagelinks quiet small">
+				<%if current_user%>
+				<%= link_to_remote t("ui.report"), 
+				:url => {:controller => 'messages', :action => 'report', :id => message.id}, 
+				:confirm => t("ui.reportconfirm"), :method => :get %>
+				<%end%>
+			</div>
+			<div class="avatar"><%= link_to image_tag(message.user.gravatar_url, :border => 0, :wigth => 40, :height => 40, :class => "avatar"), user_path(message.user),
+			:class => 'tip', 
+			:title =>  t("users.since") + message.user.created_at.to_s(:pretty)  + 
+			'<br/>' + pluralize(message.user.conversations.size, 'convo') +
+			'<br/>' + pluralize(message.user.messages.size, 'message') +
+			'<br/>' + pluralize(message.user.subscriptions.size, 'subscription')
+			%></div>
+			<div class="messagetext">
+				<span class="username"><%=link_to h(message.user.login), conversation_messages_path(message.user.personal_conversation), 
+				:class => 'tip', 
+				:title => "personal convo for " + message.user.login  %></span>
+				<% if message.attachment.original_filename %>
+				<%= link_to(image_tag(message.attachment.url(:big)), message.attachment.url, :target => "_blank")%>		 
+				<%else%>
+				<%= highlight mark_up(message), params[:q].split %>
+				<% end %>
+				<span class="date quiet small"><%= link_to message.created_at.to_s(:pretty_long), conversation_message_path(message.conversation_id, message) %></span>
+			</div>
+			<div class="clear"></div>
+		</div>
 
-      <% end %>
+		<% end %>
 
-      <div class="pagination"><%= will_paginate @messages %></div>
+		<div class="pagination"><%= will_paginate @messages %></div>
 
-    </div>
-  </div>
+	</div>
+</div>
 </div>
 
 <div id="sidebars" class="span-10 last">
-  <div id="sidebars_container">
-    <% unless logged_in? %>
-      <div id="main_headline">
-        <h1><%= t("home.index.headline1") %></h1>
-      </div>
-      
-      <div id="signup_headline">
-        <h2><%= link_to t("ui.signup"), new_user_path, :class => "button" -%> <%= t("home.index.p2") %></h2>
-      </div>
-    <% end %>
-    
-    <div id="col2" class="span-6">
-      <%= render :partial => 'users/recently_visited' %>
-      <%= render :partial => 'users/news' %>
-    </div>
-    
-    <div id="col3" class="span-4 last">
-      <%= render :partial => 'shared/user_stat' %>
-    </div>
-  </div>
-</div>
+	<div id="sidebars_container">
+		<% unless logged_in? %>
+		<div id="main_headline">
+			<h1><%= t("home.index.headline1") %></h1>
+		</div>
+
+		<div id="signup_headline">
+			<h2><%= link_to t("ui.signup"), new_user_path, :class => "button" -%> <%= t("home.index.p2") %></h2>
+		</div>
+		<% end %>
+
+		<div id="col2" class="span-6">
+			<%= render :partial => 'users/recently_visited' %>
+			<%= render :partial => 'users/news' %>
+		</div>
+
+		<div id="col3" class="span-4 last">
+			<%= render :partial => 'shared/user_stat' %>
+		</div>
+	</div>

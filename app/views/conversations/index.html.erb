@@ -30,7 +30,7 @@
     <%= link_to t('conversations.start_new_conversation'), new_conversation_path, :class => 'button' %>
     <div class="clear"></div>
 	<%if params[:tag]%>
-		<h6><%=t("ui.tagged_with")%>:<span class="tag"><%=params[:tag]%></span></h6>
+		<h6><%=t("ui.tagged_with")%>:<br/><span class="tag"><%=params[:tag]%></span></h6>
 	<%end%>
   </div>
   <%= will_paginate @conversations %>

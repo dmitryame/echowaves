@@ -12,6 +12,8 @@
 
 
 	<div id='messages'>
+		<div class="pagination"><%= will_paginate @messages %></div>
+		
 		<% @messages.each do |message| %>
 		<div class="message" id="<%=dom_id(message)%>">
 			<div class="messagelinks quiet small">

@@ -3,9 +3,6 @@
 	<%= render :partial => 'conversations/tag', :collection => @conversation.taggings[0..20] %>
 	<div class="clear"></div>
 	<div>
-	  <% if @conversation.taggings.length > 1 %>
-	    <%= link_to "all tags", "#tags" %> |
-	  <% end %>
-	  <%= link_to t("ui.add_tag"), "#tags" %>
+	  <%= link_to t("ui.view_all"), "#tags" %>
 	</div>
 </div>

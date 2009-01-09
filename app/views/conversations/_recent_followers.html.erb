@@ -2,6 +2,6 @@
 	<h6><%= t("ui.recent_followers") %>:</h6>
 	<%= render :partial => 'conversations/user', :collection => @conversation.recent_followers %>
 	<% if @conversation.users.length > 10 %>
-	  <div><a href="#users" class="action">view all</a></div>
+	  <div><a href="#users" class="action"><%=t("ui.view_all")-%></a></div>
 	<% end %>
 </div>

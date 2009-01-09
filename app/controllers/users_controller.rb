@@ -27,7 +27,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
 
-    @tags = @user.all_convos_tags
+    @tag_counts = @user.all_convos_tag_counts
     
     respond_to do |format|
       format.html # show.html.erb
@@ -40,7 +40,7 @@ class UsersController < ApplicationController
 
     @tag = params[:tag]
     
-    @tags = @user.all_convos_tags
+    @tag_counts = @user.all_convos_tag_counts
     
     @convos = @user.convos_by_tag(@tag)
 

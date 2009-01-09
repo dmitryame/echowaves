@@ -1,8 +1,10 @@
 <div id="user_tags" class="item2 page">
 	<h6><%= t("ui.tagged_with") %>:</h6>
 	
-	<% tag_cloud @tag_counts, %w(nube1 nube2 nube3 nube4 nube5 nube6) do |tag, css_class| %>
-		<%= link_to tag, tagged_convos_user_path(@user, :tag => tag.to_s), :class => css_class + ' tag' %>
+	<% if @tag_counts and @tag_counts.size > 0 %>
+		<% tag_cloud @tag_counts, %w(nube1 nube2 nube3 nube4 nube5 nube6) do |tag, css_class| %>
+			<%= link_to tag, tagged_convos_user_path(@user, :tag => tag.to_s), :class => css_class + ' tag' %>
+		<% end %>
 	<% end %>
 
 	<div class="clear"></div>

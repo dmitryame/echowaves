@@ -1,3 +1,3 @@
 page.replace "convo_tags", :partial => 'convo_tags'
-page.replace "last_convo_tags", :partial => 'last_convo_tags'
+page.replace_html "conversations_tags", :partial => 'conversations/tag', :collection => @conversation.taggings[0..20]
 page["convo_tags"].visual_effect :highlight

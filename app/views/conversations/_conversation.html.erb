@@ -1,5 +1,13 @@
 <li class="conversation">
-	<h5><%= link_to h(conversation.name), conversation_messages_path(conversation) %></h5>
+	<h3><%= link_to h(conversation.name), conversation_messages_path(conversation) %></h3>
+	
+	<% if conversation.tag_counts and conversation.tag_counts.size > 0 %>
+		<% tag_cloud conversation.tag_counts, %w(nube1 nube2 nube3 nube4 nube5 nube6) do |tag, css_class| %>
+			<%= link_to tag, conversations_path(:tag => tag.to_s), :class => css_class + ' tag' %>
+		<% end %>
+	<% end %>
+	<div class="clear"></div>
+	
 	<div class="description"><%= conversation.escaped_description %></div>
 	<span class="quiet small">
 	  <%= conversation.created_at.to_s(:date_time12) %> -

@@ -15,7 +15,13 @@ class ConversationsController < ApplicationController
 
 
   def index    
-    @conversations = Conversation.published.not_personal.paginate :page => params[:page], :order => 'created_at DESC'
+    
+    if params[:tag] != nil
+      @conversations = Conversation.tagged_with(params[:tag], :on => :tags).published.paginate :page => params[:page], :order => 'created_at DESC'
+    else
+      @conversations = Conversation.published.not_personal.paginate :page => params[:page], :order => 'created_at DESC'
+    end
+    
     respond_to do |format|
       format.html # index.html.erb
       format.atom

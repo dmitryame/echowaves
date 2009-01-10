@@ -1,7 +1,6 @@
-<% if logged_in? %>
 <div class="item2 page">
-    <%= link_to image_tag(current_user.gravatar_url, :border => 0, :width => 40, :height => 40, :class => "avatar", :alt => current_user.login, :style => 'float:left;margin-right:4px;'),
- 	user_path(current_user),
+    <%= link_to image_tag(user.gravatar_url, :border => 0, :width => 40, :height => 40, :class => "avatar", :alt => user.login, :style => 'float:left;margin-right:4px;'),
+ 	user_path(user),
 	:class => 'tip', 
 	:title =>  t("users.since") + current_user.created_at.to_s(:pretty)  + 
 	'<br/>' + pluralize(current_user.conversations.size, 'convo') +
@@ -12,5 +11,4 @@
 		:title => "personal convo for " + current_user.login %><br/>
 	  <%= link_to t("ui.edit_profile"), edit_user_path(current_user)  %>
 </div>
-<%end%>
 

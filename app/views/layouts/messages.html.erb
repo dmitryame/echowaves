@@ -187,7 +187,7 @@
 		        <%= render :partial => 'users/news' %>
 		      </div>
 		      <div class="span-4 last">
-		        <%= render :partial => 'shared/user_stat' %>
+		        <%= render :partial => 'shared/user', :object => @conversation.user %>
 		        <%= render :partial => 'conversations/recent_followers' %>
 		        <%= render :partial => 'conversations/last_convo_tags' %>
 		      </div>

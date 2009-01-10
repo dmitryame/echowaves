@@ -276,3 +276,9 @@ width:80px;
 .nube4 {font-size: 1.6em;}
 .nube5 {font-size: 1.8em;}
 .nube6 {font-size: 2.0em;}
+
+
+.current_user_gravatar {
+    white-space:nowrap;
+    clear:both;    
+}

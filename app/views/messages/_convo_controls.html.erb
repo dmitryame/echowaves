@@ -1,5 +1,7 @@
 <div id="convo_controls" class="item2 span-10 last">
+	
   <div class="padding5">
+	
 	  <h4>
 	  	<% if @conversation.read_only %><span class="highlight"><%= t("ui.read_only") %></span> <% end %><%= link_to h(@conversation.name), conversation_messages_path(@conversation), :class => 'tip', :title => @conversation.escaped_description %>
 	  </h4>
@@ -24,6 +26,7 @@
 	    <%= link_to_remote t("ui.report"), :url => report_conversation_path(@conversation), :confirm => t("ui.reportconfirm_conversation") %>
 	    &#187;
 	    <%= link_to t("ui.invite"), invite_conversation_path(@conversation)%>
-	  <%end%>
+	  <%end%>	
 	</div>
+	
 </div>

@@ -73,6 +73,7 @@ en:
     click_to_activate: "Click here to activate your account"
     thanks_for_signup: "Thanks for signing up! We're sending you an email with your activation code."
     signup_error: "We couldn't set up that account, sorry. Please try again, or contact an admin (link is above)."
+    started_by: "started by"
   users:
     recently_joined_users: "recently joined users"
     sign_up_as_new_user: "sign up as new user"

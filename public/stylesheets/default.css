@@ -283,8 +283,12 @@ width:80px;
     position: relative;
 }
 #convos_links {
+  padding-bottom:0px;
 }
 #convos_user {
   text-align:right;
   color:#999;
+  padding-top:4px;
+  border-top:1px solid #eee;
+  background:#eee;
 }

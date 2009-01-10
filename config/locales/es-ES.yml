@@ -73,6 +73,7 @@ es-ES:
     click_to_activate: "Click aqui para activar tu cuenta"
     thanks_for_signup: "Gracias por registrarte! Te hemos enviando un correo electrónico con tu código de activación"
     signup_error: "Lo sentimos mucho, no hemos podido crear tu cuenta. Por favor, inténtalo de nuevo o ponte en contacto con un administrador (el enlace está más arriba)."
+    started_by: "comenzada por"
   users:
     recently_joined_users: "usuarios registrados recientemente"
     sign_up_as_new_user: "registrate como usuario"

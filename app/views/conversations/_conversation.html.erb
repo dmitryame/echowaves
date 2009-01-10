@@ -3,7 +3,7 @@
 	
 	<% if conversation.tag_counts and conversation.tag_counts.size > 0 %>
 		<% tag_cloud conversation.tag_counts, %w(nube1 nube2 nube3 nube4 nube5 nube6) do |tag, css_class| %>
-			<%= link_to tag, conversations_path(:tag => tag.to_s), :class => css_class + ' tag' %>
+			<span class="<%= css_class %> tag"><%= link_to tag, conversations_path(:tag => tag.to_s) %></span>
 		<% end %>
 	<% end %>
 	<div class="clear"></div>

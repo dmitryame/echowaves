@@ -283,12 +283,8 @@ width:80px;
     position: relative;
 }
 #convos_links {
-    float:left;
 }
 #convos_user {
-    position: relative;
-    margin-bottom:5px;
-    paddin:5px;
-
-    right:-15px;
+  text-align:right;
+  color:#999;
 }

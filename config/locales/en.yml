@@ -43,6 +43,7 @@ en:
     tags: "tags"
     add_tag: "add tag"
     view_all: "view all"
+    view_all_or_add_a_tag: "<a href=\"#tags\">view all</a> or <a href=\"#tags\">add a tag</a>"
     confirm_remove_tag: "Are you sure you want to untag?"
     back_to_parent: "back to parent"
     this_is_the_newest_message: "This is the newest message"

@@ -173,7 +173,7 @@
       <div id="sidebars_container">
 	      
 			  <%= render :partial => 'convo_controls' %>
-        
+		
         
       	<ul id="convo_tabs" class="subsection_tabs span-10">  
       		<li class="tab"><a href="#dashboard">dashboard</a></li>  
@@ -187,7 +187,6 @@
 		        <%= render :partial => 'users/news' %>
 		      </div>
 		      <div class="span-4 last">
-		        <%= render :partial => 'shared/user', :object => @conversation.user %>
 		        <%= render :partial => 'conversations/recent_followers' %>
 		        <%= render :partial => 'conversations/last_convo_tags' %>
 		      </div>

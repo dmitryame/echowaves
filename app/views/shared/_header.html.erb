@@ -18,11 +18,6 @@
 			    	'<br/>' + pluralize(current_user.messages.size, 'message') +
 			    	'<br/>' + pluralize(current_user.subscriptions.size, 'subscription')%>
 			    </li>
-			    <li>
-			    	<%= link_to h(current_user.login), conversation_messages_path(current_user.personal_conversation)	, 
-			    	:class => 'tip', 
-			    	:title => "personal convo for " + current_user.login %>
-			    </li>
       	<%else%>			
       		<li><%= link_to t("ui.login"), new_session_path %></li>
       		<li><%= link_to t("ui.signup"), new_user_path %></li>

@@ -13,7 +13,7 @@
 		position: relative;
 		top: 0px; 
 		left: 0px;
-		width: 145px;
+		width: 245px;
 		display: block;
 	}
 	
@@ -25,7 +25,7 @@
 	
 	#unitipmid { 
 		background: url(/images/unitip/TipMid.png) repeat; 
-		width: 115px;
+		width: 215px;
 		height: auto; 
 		padding: 5px 15px;
 	}

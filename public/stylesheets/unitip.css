@@ -7,6 +7,7 @@
 	color: #fff;
 	font: normal normal 1.1em/15px Verdana, Arial, Helvetica, sans-serif;
 	display: none;
+	overflow: hidden;
 }
 
 	#unitippoint, #unitipmid, #unitipcap {

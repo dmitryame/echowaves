@@ -1,36 +1,41 @@
 <div id="header" class="container">
-  <div class="span-6">
-  	<h1><%= link_to image_tag("/images/echowaves.png", :height => 32), home_path %></h1>
-  </div>
-  
-  <div class="span-18 last">
-    <div id="menu">
-  		<ul>
-  		  <% if logged_in? %>
-    		  <li><%= link_to t("ui.logout"), logout_path %></li>
-			    <li><%= link_to t("ui.edit_profile"), edit_user_path(current_user) %></li>
-          <li>
-  		    	<%= link_to image_tag(current_user.gravatar_url, :border => 0, :alt => current_user.login, :width => 20, :height => 20),
-  		    	user_path(current_user),
-  		    	:class => 'tip', 
-  		    	:title =>  t("users.since") + current_user.created_at.to_s(:pretty)  + 
-  		    	'<br/>' + pluralize(current_user.conversations.size, 'convo') +
-  		    	'<br/>' + pluralize(current_user.messages.size, 'message') +
-  		    	'<br/>' + pluralize(current_user.subscriptions.size, 'subscription')%>
-  		    </li>
-      	<%else%>
-      		<li><%= link_to t("ui.login"), new_session_path %></li>
-      		<li><%= link_to t("ui.signup"), new_user_path %></li>
-      	<%end%>
-      	<li><%= link_to t("ui.search_messages"), msgsearch_path, :class => 'search_link' %></li>
-    		<li class="conversations"><%= link_to t('ui.conversations'), conversations_path %></li>
-    		<li class="users"><%= link_to t('ui.users'), users_path %></li>
-    		<li class="home"><%= home_menu_item %></li>
-        <li><%= link_to image_tag("/images/flags/es.gif"), "?locale=es-ES" %></li>
-        <li><%= link_to image_tag("/images/flags/us.gif"), "?locale=en" %></li>
-        <li><div id="connection_stat"><div id="connection_stat_data"></div></div></li>
-    	</ul>
-    	<div class="clear"></div>
-  	</div>
-  </div>
+	<div class="span-6">
+		<h1><%= link_to image_tag("/images/echowaves.png", :height => 32), home_path %></h1>
+	</div>
+
+	<div class="span-18 last">
+		<div id="menu">
+			<ul>
+				<% if logged_in? %>
+				<li><%= link_to t("ui.logout"), logout_path %></li>
+				<li><%= link_to t("ui.edit_profile"), edit_user_path(current_user) %></li>
+				<li>
+					<%= link_to image_tag(current_user.gravatar_url, :border => 0, :alt => current_user.login, :width => 20, :height => 20),
+					user_path(current_user),
+					:class => 'tip', 
+					:title =>  t("users.since") + current_user.created_at.to_s(:pretty)  + 
+					'<br/>' + pluralize(current_user.conversations.size, 'convo') +
+					'<br/>' + pluralize(current_user.messages.size, 'message') +
+					'<br/>' + pluralize(current_user.subscriptions.size, 'subscription')%>
+				</li>				
+				<li><%= link_to h(current_user.login), conversation_messages_path(current_user.personal_conversation)	, 
+				:class => 'tip', 
+				:title => "personal convo for " + current_user.name %>
+				</li>				
+				<%else%>
+				<li><%= link_to t("ui.login"), new_session_path %></li>
+				<li><%= link_to t("ui.signup"), new_user_path %></li>
+				<%end%>
+				<li><%= link_to t("ui.search_messages"), msgsearch_path, :class => 'search_link' %></li>
+				<li class="users"><%= link_to t('ui.users'), users_path %></li>
+				<li class="conversations"><%= link_to t('ui.conversations'), conversations_path %></li>
+
+				<li><%= link_to image_tag("/images/flags/es.gif"), "?locale=es-ES" %></li>
+				<li><%= link_to image_tag("/images/flags/us.gif"), "?locale=en" %></li>
+
+				<li><div id="connection_stat"><div id="connection_stat_data"></div></div></li>
+			</ul>
+			<div class="clear"></div>
+		</div>
+	</div>
 </div>

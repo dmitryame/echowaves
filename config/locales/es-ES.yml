@@ -15,6 +15,7 @@ es-ES:
     login: "entrar"
     login_name: "nombre de usuario"
     email: "email"
+    email_confirmation: "confirm email"    
     logout: "salir"
     echowaves_conversation: "conversacion de EcHoWaVeS.CoM"
     home: "inicio"

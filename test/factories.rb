@@ -13,6 +13,7 @@ end
 Factory.define :user do |u|
   u.login { Factory.next :name }
   u.email { Factory.next :email }
+  u.email_confirmation {|u| u.email }
   u.password { Factory.next :email }
   u.password_confirmation {|p| p.password }
   u.created_at Time.now

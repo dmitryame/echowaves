@@ -15,6 +15,7 @@ en:
     login: "login"
     login_name: "login name"
     email: "email"
+    email_confirmation: "confirm email"
     logout: "logout"
     echowaves_conversation: "EcHoWaVeS.CoM convo"
     home: "home"

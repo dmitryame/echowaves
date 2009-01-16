@@ -20,10 +20,12 @@ class User < ActiveRecord::Base
   validates_length_of       :email,    :within => 6..100 #r@a.wk
   validates_uniqueness_of   :email
   validates_format_of       :email,    :with => Authentication.email_regex, :message => Authentication.bad_email_message
+  attr_accessor :email_confirmation
+  validates_confirmation_of :email 
+  
 
   # validates_presence_of     :personal_conversation_id #don't require it
   validates_uniqueness_of   :personal_conversation_id, :if => Proc.new { |u| !u.personal_conversation_id.blank? } 
-  
   def validate
     self.errors.add(:something, "This field must be empty") unless self.something == ""
   end
@@ -54,8 +56,10 @@ class User < ActiveRecord::Base
   # HACK HACK HACK -- how to do attr_accessible from here?
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
-  attr_accessible :email, :name, :password, :password_confirmation, :time_zone, :something
+  attr_accessible :email, :email_confirmation, :name, :password, :password_confirmation, :time_zone, :something
 
+  
+  
   is_gravtastic :size => 40, :default => "identicon" # "monsterid" or "identicon", or "wavatar"
   
   #this returns friends convos

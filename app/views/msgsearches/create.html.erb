@@ -36,9 +36,8 @@
 				:title => "personal convo for " + message.user.login  %></span>
 				<% if message.attachment.original_filename %>
 				<%= link_to(image_tag(message.attachment.url(:big)), message.attachment.url, :target => "_blank")%>		 
-				<%else%>
-				<%= highlight mark_up(message), params[:q].split %>
 				<% end %>
+				<%= highlight mark_up(message), params[:q].split %>
 				<span class="date quiet small"><%= link_to message.created_at.to_s(:pretty_long), conversation_message_path(message.conversation_id, message) %></span>
 			</div>
 			<div class="clear"></div>

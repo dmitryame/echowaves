@@ -4,7 +4,7 @@
 		<h1><%= t("ui.search_messages") %></h1>
 		<div>
 			<% form_tag msgsearch_path, :method => :get do %>
-			<%= text_field_tag :q %>
+			<%= text_field_tag :q, params[:q] %>
 			<%= submit_tag t("ui.search"), :name => nil  %>
 			<% end %>
 		</div>

@@ -1,6 +1,7 @@
 <div id="users_in_conversation" class="item2 page">
   <h6><%= t("ui.followers") %>:</h6>
   <% @conversation.users.each do |u| %>
-    <span class="label"><%= link_to h(u.login), conversation_messages_path(u.personal_conversation) %></span>
+    <span class="label"><%= link_to h(u.login), conversation_messages_path(u.personal_conversation),:class => 'tip', 
+	:title => "personal convo for " + u.personal_conversation.name %></span>
   <% end %>
 </div>

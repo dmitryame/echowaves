@@ -44,6 +44,8 @@ es-ES:
     tags: "etiquetas"    
     add_tag: "añadir tag"
     view_all: "view all"
+    view_all_users: "view all users"
+    view_all_convos: "view all convos"
     view_all_or_add_a_tag: "<a href=\"#tags\">ver todos</a> o <a href=\"#tags\">añade un tag</a>"
     confirm_remove_tag: "¿Estas seguro de que quieres quitar esta etiqueta?"
     back_to_parent: "convo original"
@@ -76,6 +78,8 @@ es-ES:
     thanks_for_signup: "Gracias por registrarte! Te hemos enviando un correo electrónico con tu código de activación"
     signup_error: "Lo sentimos mucho, no hemos podido crear tu cuenta. Por favor, inténtalo de nuevo o ponte en contacto con un administrador (el enlace está más arriba)."
     started_by: "comenzada por"
+    recently_joined: "Recently joined"
+    recent_convos: "Recent convos"    
   users:
     recently_joined_users: "usuarios registrados recientemente"
     sign_up_as_new_user: "registrate como usuario"

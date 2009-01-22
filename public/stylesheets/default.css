@@ -87,6 +87,30 @@ p {margin-bottom:10px;}
   background:#fff;
   padding:20px;
 }
+
+#recent_convos {
+  margin-top:10px;
+  margin-right:10px;
+  margin-bottom:10px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  background:#fff;
+  padding:10px;
+  width:70%;
+  float:left;  
+}
+#recently_joined {
+  margin-top:10px;
+  margin-right:10px;
+  margin-bottom:10px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  background:#fff;
+  padding:10px;
+  width:20%;
+  float:right;  
+}
+
 #main_description h5 {margin-top:0;}
 #col1 {
   background:#fff;

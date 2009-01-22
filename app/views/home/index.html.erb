@@ -15,3 +15,19 @@
 </div>
 
 <div class="item center"><h3><%= t("home.index.feedback_advice") %></h3></div>
+
+
+<div id="recent_convos">
+	<h3><%= t("ui.recent_convos")-%>:</h3>
+	<%= render :partial => 'convo', :collection => @convos %>	
+	<br/>
+	<%= link_to t("ui.view_all_convos"), conversations_path %>
+</div>
+
+<div id="recently_joined">
+	<h3><%= t("ui.recently_joined")-%>:</h3>
+	<%= render :partial => 'user', :collection => @users %>	
+	<br/>
+	<%= link_to t("ui.view_all_users"), users_path %>
+</div>
+

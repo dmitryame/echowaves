@@ -44,6 +44,8 @@ en:
     tags: "tags"
     add_tag: "add tag"
     view_all: "view all"
+    view_all_users: "view all users"
+    view_all_convos: "view all convos"
     view_all_or_add_a_tag: "<a href=\"#tags\">view all</a> or <a href=\"#tags\">add a tag</a>"
     confirm_remove_tag: "Are you sure you want to untag?"
     back_to_parent: "back to parent"
@@ -76,6 +78,8 @@ en:
     thanks_for_signup: "Thanks for signing up! We're sending you an email with your activation code."
     signup_error: "We couldn't set up that account, sorry. Please try again, or contact an admin (link is above)."
     started_by: "started by"
+    recently_joined: "Recently joined"
+    recent_convos: "Recent convos"
   users:
     recently_joined_users: "recently joined users"
     sign_up_as_new_user: "sign up as new user"

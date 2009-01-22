@@ -51,7 +51,7 @@ class User < ActiveRecord::Base
   
   before_create :make_activation_code 
 
-  named_scope :active, :conditions => "activated_at != 'null'"
+  named_scope :active, :conditions => "activated_at is not null"
 
   # HACK HACK HACK -- how to do attr_accessible from here?
   # prevents a user from submitting a crafted form that bypasses activation

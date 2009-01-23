@@ -1,7 +1,7 @@
 es-ES:
   home:
     index:
-      headline1: "Echowaves.com es un programa de chat de código abierto escrito en RubyOnRails"
+      headline1: "Echowaves.com es un programa de chat de código abierto"
       headline2: 'El código fuente se encuentra en <a href="http://github.com/dmitryame/echowaves">http://github.com/dmitryame/echowaves</a>.'
       p1: "<h5>Si te gusta charlar, o escribir un blog, o compartir tu estado con los amigos, o simplemente socializar, EchoWaves es para ti.</h5>EchoWaves es una herramienta de colaboracion y una red social. EchoWaves tiene muchas caracteristicas interesantes como Facebook, es simple de usar como Twitter e igual de dinamico que Meebo. Todo gira alrededor de las conversaciones (convos) en vez de los usuarios. ¿No es mas natural para las personas, el socializar alrededor de las conversaciones?. Si tienes alguna idea o sugerencia no dudes en hablarnos de ello en la"
       p2: "-- es gratis y cualquiera puede unirse. Comienza tus propias conversaciones, invita a todos tus amigos a unirse a tus conversaciones, sigue de cerca otras conversaciones que te parezcan interesantes. Diviertete!"

@@ -64,6 +64,9 @@ p {margin-bottom:10px;}
   line-height:1.9em;
   text-align:center;
 }
+#main_headline h1 {
+	font-size: 170%;  
+}
 #signup_headline {
   text-align:center;
   color:#68bd53;
@@ -128,7 +131,7 @@ p {margin-bottom:10px;}
   background:#fff;
   padding:10px;
   width:20%;
-  float:right;  
+  float:left;  
 }
 
 #main_description h5 {margin-top:0;}

@@ -14,26 +14,12 @@
 	<h2><%= t("ui.total_convos")-%>: <%=@total_convos-%> - <%= t("ui.total_messages")-%>: <%=@total_messages-%> - <%= t("ui.total_users")-%>: <%=@total_users-%></h2>
 </div>
 
-<div id="recent_convos">
-	<h3><%= t("ui.recent_convos")-%>:</h3>
-	<%= render :partial => 'convo', :collection => @recent_convos %>	
-	<br/>
-	<%= link_to t("ui.view_all_convos"), conversations_path %>
-</div>
+<%= render :partial => 'recent_convos'%>	
 
-<div id="popular_convos">
-	<h3><%= t("ui.popular_convos")-%>:</h3>
-	<%= render :partial => 'popular_convo', :collection => @popular_convos %>	
-	<br/>
-	<%= link_to t("ui.view_all_convos"), conversations_path %>
-</div>
+<%= render :partial => 'popular_convos'%>	
 
-<div id="recently_joined">
-	<h3><%= t("ui.recently_joined")-%>:</h3>
-	<%= render :partial => 'user', :collection => @users %>	
-	<br/>
-	<%= link_to t("ui.view_all_users"), users_path %>
-</div>
+<%= render :partial => 'recently_joined'%>	
+
 
 <div class="clear"></div>
 <div class="item center">

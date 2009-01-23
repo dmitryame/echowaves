@@ -80,6 +80,10 @@ en:
     started_by: "started by"
     recently_joined: "Recently joined"
     recent_convos: "Recent convos"
+    popular_convos: "Popular convos"
+    total_convos: "Total convos"
+    total_messages: "Total messages"
+    total_users: "Total users"
   users:
     recently_joined_users: "recently joined users"
     sign_up_as_new_user: "sign up as new user"

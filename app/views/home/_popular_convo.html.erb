@@ -1,0 +1,8 @@
+<span>
+	<h5><%= link_to h(popular_convo.name), conversation_messages_path(popular_convo) %></h5>	
+	<span class="quiet small">
+	  <%= popular_convo.created_at.to_s(:date_time12) %> -
+	  <%= pluralize popular_convo.messages.size, 'message' %> -
+	  <%= pluralize popular_convo.total_visits, 'visit' %> 
+	</span>
+</span>

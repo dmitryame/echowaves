@@ -160,6 +160,10 @@ class Conversation < ActiveRecord::Base
         
   end
 
+  def total_visits
+    ConversationVisit.find(:first, :group => :conversation_id, :conditions => ["conversation_id = ?", self.id]).visits_count
+  end
+  
 private
 
   def escaped(value)

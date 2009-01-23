@@ -16,10 +16,19 @@
 
 <div class="item center"><h3><%= t("home.index.feedback_advice") %></h3></div>
 
+<div id="home_stats">
+	<h2><%= t("ui.total_convos")-%>: <%=@total_convos-%> - <%= t("ui.total_messages")-%>: <%=@total_messages-%> - <%= t("ui.total_users")-%>: <%=@total_users-%></h2>
+</div>
 
 <div id="recent_convos">
 	<h3><%= t("ui.recent_convos")-%>:</h3>
-	<%= render :partial => 'convo', :collection => @convos %>	
+	<%= render :partial => 'convo', :collection => @recent_convos %>	
+	<br/>
+	<%= link_to t("ui.view_all_convos"), conversations_path %>
+</div>
+<div id="popular_convos">
+	<h3><%= t("ui.popular_convos")-%>:</h3>
+	<%= render :partial => 'popular_convo', :collection => @popular_convos %>	
 	<br/>
 	<%= link_to t("ui.view_all_convos"), conversations_path %>
 </div>

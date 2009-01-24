@@ -28,10 +28,8 @@
 	<div id="header_container"><%= render(:partial => "shared/header") %></div>
   
 	<div id="main_content" class="container">
-		<div>
-		  <%= flash_messages %>
-	  	  <%= yield  %>
-		</div>    
+		<%= flash_messages %>
+	  <%= yield  %>
 	</div>
 
 	<div id="footer_container"><%= render(:partial => "shared/footer") %></div>

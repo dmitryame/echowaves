@@ -1,4 +1,5 @@
 html, body {margin:0;background:#d0e4eb;}
+.container .highlight {background:#ff8;}
 .out_of_screen {position:fixed;left:500000px;}
 .padding5 {padding:5px;}
 .container .search_link {
@@ -91,47 +92,37 @@ p {margin-bottom:10px;}
   padding:20px;
 }
 #home_stats {
-  margin-top:40px;
+  margin-top:20px;
   font-size:130%;
+  line-height:0.5em;
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
   background:#fff;
-  padding:20px;
+  padding:1px 10px 6px 10px;
   text-align:center;
+  margin-bottom:10px;
 }
 
 #recent_convos {
   margin-top:10px;
-  margin-right:10px;
   margin-bottom:10px;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   background:#fff;
-  padding:10px;
-  width:35%;
-  float:left;  
 }
 #popular_convos {
   margin-top:10px;
-  margin-right:10px;
   margin-bottom:10px;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   background:#fff;
-  padding:10px;
-  width:35%;
-  float:left;  
 }
 #recently_joined {
   margin-top:10px;
-  margin-right:10px;
   margin-bottom:10px;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   background:#fff;
-  padding:10px;
-  width:20%;
-  float:left;  
 }
 
 #main_description h5 {margin-top:0;}

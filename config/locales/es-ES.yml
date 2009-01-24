@@ -1,7 +1,7 @@
 es-ES:
   home:
     index:
-      headline1: "Echowaves.com es un programa de chat de código abierto escrito en RubyOnRails"
+      headline1: "Echowaves.com es un programa de chat de código abierto"
       headline2: 'El código fuente se encuentra en <a href="http://github.com/dmitryame/echowaves">http://github.com/dmitryame/echowaves</a>.'
       p1: "<h5>Si te gusta charlar, o escribir un blog, o compartir tu estado con los amigos, o simplemente socializar, EchoWaves es para ti.</h5>EchoWaves es una herramienta de colaboracion y una red social. EchoWaves tiene muchas caracteristicas interesantes como Facebook, es simple de usar como Twitter e igual de dinamico que Meebo. Todo gira alrededor de las conversaciones (convos) en vez de los usuarios. ¿No es mas natural para las personas, el socializar alrededor de las conversaciones?. Si tienes alguna idea o sugerencia no dudes en hablarnos de ello en la"
       p2: "-- es gratis y cualquiera puede unirse. Comienza tus propias conversaciones, invita a todos tus amigos a unirse a tus conversaciones, sigue de cerca otras conversaciones que te parezcan interesantes. Diviertete!"
@@ -44,6 +44,8 @@ es-ES:
     tags: "etiquetas"    
     add_tag: "añadir tag"
     view_all: "view all"
+    view_all_users: "view all users"
+    view_all_convos: "view all convos"
     view_all_or_add_a_tag: "<a href=\"#tags\">ver todos</a> o <a href=\"#tags\">añade un tag</a>"
     confirm_remove_tag: "¿Estas seguro de que quieres quitar esta etiqueta?"
     back_to_parent: "convo original"
@@ -76,6 +78,12 @@ es-ES:
     thanks_for_signup: "Gracias por registrarte! Te hemos enviando un correo electrónico con tu código de activación"
     signup_error: "Lo sentimos mucho, no hemos podido crear tu cuenta. Por favor, inténtalo de nuevo o ponte en contacto con un administrador (el enlace está más arriba)."
     started_by: "comenzada por"
+    recently_joined: "Recently joined"
+    recent_convos: "Recent convos"    
+    popular_convos: "Popular convos"
+    total_convos: "Total convos"
+    total_messages: "Total messages"
+    total_users: "Total users"
   users:
     recently_joined_users: "usuarios registrados recientemente"
     sign_up_as_new_user: "registrate como usuario"

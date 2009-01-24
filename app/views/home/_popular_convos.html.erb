@@ -1,0 +1,6 @@
+<div id="popular_convos">
+	<h3><%= t("ui.popular_convos")-%>:</h3>
+	<%= render :partial => 'popular_convo', :collection => @popular_convos %>	
+	<br/>
+	<%= link_to t("ui.view_all_convos"), conversations_path %>
+</div>

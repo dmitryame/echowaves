@@ -10,6 +10,18 @@
  <%= t("home.index.p1") %> <%= link_to t("ui.echowaves_conversation"), conversation_path(1), :action => "index" -%>.
 </div>
 
+<div id="home_stats">
+	<h2><%= t("ui.total_convos")-%>: <%=@total_convos-%> - <%= t("ui.total_messages")-%>: <%=@total_messages-%> - <%= t("ui.total_users")-%>: <%=@total_users-%></h2>
+</div>
+
+<%= render :partial => 'recent_convos'%>	
+
+<%= render :partial => 'popular_convos'%>	
+
+<%= render :partial => 'recently_joined'%>	
+
+
+<div class="clear"></div>
 <div class="item center">
   <h2><%= t("home.index.headline2") %></h2>
 </div>

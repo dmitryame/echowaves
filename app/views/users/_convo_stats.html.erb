@@ -6,8 +6,10 @@
 	<%=link_to h(@user.login), conversation_messages_path(@user.personal_conversation) %>
 	&#187;
 	<%= render :partial => 'conversations/follow_from_list', :object => @user.personal_conversation %>
-  </span>
 
+	<%= link_to image_tag("/images/icons/16px-feed-icon.png"), formatted_user_url(params[:id], :format => :atom), :type => 		"application/atom+xml", :rel => "alternate" %> 
+  </span>
+	
   <span class="userinfo">
     <%= t("users.since") + " " + @user.created_at.to_s(:pretty)%> |
     <%= pluralize @user.conversations.size, 'convo' %> |

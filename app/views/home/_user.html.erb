@@ -1,0 +1,9 @@
+<span class="avatar" id="<%= dom_id user%>">
+  <%= link_to image_tag(user.gravatar_url, :border => 0, :width => 40, :height => 40, :class => "avatar", :alt => user.login), user_path(user),
+  :class => 'tip', 
+  :title =>  user.login +
+  '<br/>' +	t("users.since") + user.created_at.to_s(:pretty)  + 
+  '<br/>' + pluralize(user.conversations.size, 'convo') +
+  '<br/>' + pluralize(user.messages.size, 'message') +
+  '<br/>' + pluralize(user.subscriptions.size, 'subscription') %>
+</span>

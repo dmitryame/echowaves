@@ -1,0 +1,9 @@
+<span>
+	<h5><%= link_to h(convo.name), conversation_messages_path(convo) %></h5>	
+	<span class="quiet small">
+	  <%= convo.created_at.to_s(:date_time12) %> -
+	  <%= pluralize convo.messages.size, 'message' %> -
+	  <%= pluralize convo.subscriptions.size, 'follower' %> -
+	  <%= render :partial => 'conversations/follow_from_list', :object => convo %>
+	</span>
+</span>

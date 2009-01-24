@@ -1,6 +1,6 @@
-<div id="recent_convos">
+<div id="recent_convos" class="span-9"><div class="padding">
 	<h3><%= t("ui.recent_convos")-%>:</h3>
 	<%= render :partial => 'convo', :collection => @recent_convos %>	
 	<br/>
 	<%= link_to t("ui.view_all_convos"), conversations_path %>
-</div>
+</div></div>

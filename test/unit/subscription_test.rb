@@ -64,7 +64,10 @@ class SubscriptionTest < ActiveSupport::TestCase
     setup do
       @user = Factory.create( :user )
       @convo = Factory.create( :conversation )
+      @user_personal_convo = Factory.create( :conversation, :name => @user.login, :user => @user, :personal_conversation => true )
+      @user.personal_conversation_id = @user_personal_convo.id
       @subscription = Factory.create( :subscription, :user => @user, :conversation => @convo )
+      @subscription_to_personal_convo = Factory.create( :subscription, :user => @user, :conversation => @user_personal_convo )
     end
 
     should "return 0 if no messages at all" do
@@ -85,5 +88,22 @@ class SubscriptionTest < ActiveSupport::TestCase
       (1..5).each { Factory.create( :message, :conversation => @convo ) }
       assert_equal 5, @subscription.new_messages_count
     end
+    
+    should "return count if new system messages exist in personal convo" do
+      assert_equal 0, @subscription_to_personal_convo.new_messages_count
+      msg1 = Factory.create( :message, :conversation => @user_personal_convo, :system_message => true )
+      @subscription_to_personal_convo.mark_read
+      (1..5).each { Factory.create( :message, :conversation => @user_personal_convo, :system_message => true ) }
+      assert_equal 5, @subscription_to_personal_convo.new_messages_count
+    end
+    
+    should "return 0 if new system messages exist in no personal convos" do
+      assert_equal 0, @subscription.new_messages_count
+      msg1 = Factory.create( :message, :conversation => @convo, :system_message => true )
+      @subscription.mark_read
+      (1..5).each { Factory.create( :message, :conversation => @convo, :system_message => true ) }
+      assert_equal 0, @subscription.new_messages_count
+    end
+    
   end
 end

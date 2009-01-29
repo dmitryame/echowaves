@@ -61,7 +61,12 @@ class User < ActiveRecord::Base
   
   
   is_gravtastic :size => 40, :default => "identicon" # "monsterid" or "identicon", or "wavatar"
-  
+
+  #this method returns a collection of all the convos with the new messages for the user.
+  def news
+    subscriptions = self.subscriptions.reject { |subscription| subscription.new_messages_count == 0 }
+  end
+
   #this returns friends convos
   def friends_convos
     self.subscribed_conversations.published.personal - [self.personal_conversation]

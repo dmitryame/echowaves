@@ -1,6 +1,6 @@
 <% if logged_in? %>
   <div id="news" class="item2 page">
   	<h6><%= t("ui.news") %>:</h6>
-  	<%= render :partial => 'users/subscription', :collection => current_user.subscriptions %><%#.slice(0..100) remove current conversation from updates list, but do not show more then 100 items, this is a bit iffy, will have to see%>	
+  	<%= render :partial => 'users/subscription', :collection => current_user.news %>
   </div>
 <% end %>

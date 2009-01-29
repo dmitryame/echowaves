@@ -178,6 +178,7 @@ class UsersController < ApplicationController
   end
 
   def update_news
+    @conversation = Conversation.find(params[:conversation_id])
   end
 
   #

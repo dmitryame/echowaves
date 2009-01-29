@@ -18,3 +18,6 @@ sup, sub { font-size: 100%; } /* IE superscript & subscript bug */
 .container input[type='submit'], .container input[type='button'] { padding: 0; } /* IE 7 button fix */
 .container legend+* { margin-top: 0; } /* we already added legend margin */
 a abbr, a acronym { text-decoration: underline; } /* IE 7 bug */
+
+#main_content {padding-bottom:20px;}
+

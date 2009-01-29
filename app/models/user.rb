@@ -183,7 +183,7 @@ class User < ActiveRecord::Base
   
   def all_convos_tag_counts
     tag_counts = [] #have to initialize the array
-    puts "subscriptions count: " + self.subscriptions.size.to_s
+    # puts "subscriptions count: " + self.subscriptions.size.to_s
     self.subscriptions.each do |subscription|      
       tag_counts |= subscription.conversation.tag_counts
     end

@@ -325,7 +325,8 @@ width:80px;
 #convos_user {
   text-align:right;
   color:#999;
-  padding-top:4px;
+  padding-top:2px;
   border-top:1px solid #eee;
   background:#eee;
+  margin-top:2px;
 }

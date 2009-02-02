@@ -105,7 +105,7 @@
   		  <div id="attachment_form" style="display:none"><div id="attachment_form_padding">
     	    <%#this form is purely for attachments handling%>
     	    <% form_for(:message, 
-    	    	:url  => { :action => "upload_attachment" },
+    	    	:url  => { :action => "upload_attachment", :conversation_id => @conversation.id },
     	      :html => { :multipart => true, :target => "upload_frame", :id => 'atchform' } ) do |f| %>
     	        <%= f.file_field :attachment %>
     	    	  <input type="hidden" name="conversation_id" id="conversation_id" value="<%= @conversation.id %>" />

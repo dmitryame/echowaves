@@ -3,10 +3,10 @@ class MsgsearchesController < ApplicationController
   def show
     if params.include?(:q)
       create
-      render :action => "create"
+      render :create
     else
       new
-      render :action => "new"
+      render :new
     end
   end
   

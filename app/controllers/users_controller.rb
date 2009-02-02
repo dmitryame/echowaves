@@ -72,7 +72,7 @@ class UsersController < ApplicationController
       redirect_to home_path
     else
       flash[:error]  = t("ui.signup_error")
-      render :action => 'new'
+      render :new
     end
   end
 
@@ -88,7 +88,7 @@ class UsersController < ApplicationController
       flash[:notice] = t("users.profile_updated")
       redirect_to user_path(current_user)
     else
-      render :action => :edit
+      render :edit
     end
   end
   
@@ -121,16 +121,16 @@ class UsersController < ApplicationController
           redirect_to root_path #profile_url(current_user.login)
         else
           flash[:error] = "An error occured, your password was not changed."
-          render :action => 'edit'
+          render :edit
         end
       else
         flash[:error] = "New password does not match the password confirmation."
         @old_password = params[:old_password]
-        render :action => 'edit'      
+        render :edit      
       end
     else
       flash[:error] = "Your old password is incorrect."
-      render :action => 'edit'
+      render :edit
     end 
   end
 

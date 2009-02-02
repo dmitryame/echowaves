@@ -1,0 +1,32 @@
+= action_mailer_optional_tls
+  
+Allows Google Mail SMTP to be used with Ruby on Rails' ActionMailer.
+
+== Install
+  ./script/plugin install http://svn.douglasfshearer.com/rails/plugins/action_mailer_optional_tls
+
+== Confugure
+
+Add the following to your environment.rb file:
+
+ ActionMailer::Base.smtp_settings = {
+    :tls => true,
+    :address => "smtp.gmail.com",
+    :port => "587",
+    :domain => "YOURDOMAIN",
+    :authentication => :plain,
+    :user_name => "GOOGLEUSERNAME",
+    :password => "GOOGLEPASSWORD" 
+  }
+
+== Webified Documentation
+
+http://douglasfshearer.com/blog/gmail-smtp-with-ruby-on-rails-and-actionmailer
+
+== Credits
+
+This useful plugin is hosted at http://douglasfshearer.com as a public service, due to the continued downtime of http://kylemaxwell.com
+
+Douglas F Shearer is neither the creator nor maintainer of this work, so if it's broke, it's broke.
+
+Created by Kyle Maxwell - http://kylemaxwell.com/

@@ -35,7 +35,7 @@
   </div>
   <%= will_paginate @conversations %>
   <ul class="list">
-	  <%= render :partial => 'conversation', :collection => @conversations %>
+	  <%= render @conversations %>
   </ul>
   <%= will_paginate @conversations %>
 </div>

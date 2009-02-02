@@ -7,7 +7,7 @@
 	&#187;
 	<%= render :partial => 'conversations/follow_from_list', :object => @user.personal_conversation %>
 
-	<%= link_to image_tag("/images/icons/16px-feed-icon.png"), formatted_user_url(params[:id], :format => :atom), :type => 		"application/atom+xml", :rel => "alternate" %> 
+	<%= link_to image_tag("/images/icons/16px-feed-icon.png"), user_url(params[:id], :format => :atom), :type => 		"application/atom+xml", :rel => "alternate" %> 
   </span>
 	
   <span class="userinfo">

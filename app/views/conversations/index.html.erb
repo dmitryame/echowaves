@@ -1,11 +1,11 @@
 <% content_for :header do %>
 	<%= tag(:link, :rel => "alternate",
 	:type => "application/atom+xml",
-	:href => formatted_conversations_url(:format => :atom)) %>
+	:href => conversations_url(:format => :atom)) %>
 <% end %>
 
 <div class="balloon">
-  <h1><%= link_to image_tag("/images/icons/16px-feed-icon.png"), formatted_conversations_url(:format => :atom), :type => "application/atom+xml", :rel => "alternate" %> <%= t("conversations.recently_started_conversations") %></h1>
+  <h1><%= link_to image_tag("/images/icons/16px-feed-icon.png"), conversations_url(:format => :atom), :type => "application/atom+xml", :rel => "alternate" %> <%= t("conversations.recently_started_conversations") %></h1>
   <div>
     <% form_tag convosearch_path, :method => :get do %>
       <%= t("conversations.look_for_conversations") %>: <%= text_field_tag :q %>

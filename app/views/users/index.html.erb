@@ -1,11 +1,11 @@
 <% content_for :header do %>
 	<%= tag(:link, :rel => "alternate",
 	:type => "application/atom+xml",
-	:href => formatted_users_url(:format => :atom)) %>
+	:href => users_url(:format => :atom)) %>
 <% end %>
 
 <div class="balloon">
-  <h1><%= link_to image_tag("/images/icons/16px-feed-icon.png"), formatted_users_url(:format => :atom), :type => "application/atom+xml", :rel => "alternate" %> <%= t("users.recently_joined_users") %></h1>
+  <h1><%= link_to image_tag("/images/icons/16px-feed-icon.png"), users_url(:format => :atom), :type => "application/atom+xml", :rel => "alternate" %> <%= t("users.recently_joined_users") %></h1>
   <div>
   	<%= t("users.look_for_users") %>:
   	<%= text_field_with_auto_complete :user, :name, { :size => 45 }, :skip_style => true,

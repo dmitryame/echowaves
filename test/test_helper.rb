@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 %w(test_help factory_girl).each { |lib| require lib }
 require File.expand_path(File.dirname(__FILE__) + "/factories")
 
-class Test::Unit::TestCase
+class ActiveSupport::TestCase
   include AuthenticatedTestHelper
 
   self.use_transactional_fixtures = true

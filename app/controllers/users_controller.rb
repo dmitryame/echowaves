@@ -47,7 +47,9 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @user }
+      # format.xml  { render :text => @user.to_xml( :only => [:id, :login, :name,
+      #                                                      :created_at, :conversations_count,
+      #                                                      :messages_count, :subscriptions_count] ) }
     end
   end
 

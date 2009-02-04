@@ -200,6 +200,16 @@ class User < ActiveRecord::Base
     convos
   end
 
+  alias_method :unsafe_to_xml, :to_xml
+  
+  def to_xml(options = {})
+    excluded_by_default = [:crypted_password, :salt, :remember_token,
+                          :remember_token_expires_at, :activated_at, :activation_code,
+                          :email, :password_reset_code]
+    options[:except] = (options[:except] ? options[:except] + excluded_by_default : excluded_by_default)   
+    unsafe_to_xml(options)
+  end
+  
 protected
     
   def make_activation_code

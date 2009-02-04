@@ -65,8 +65,88 @@ class UserTest < ActiveSupport::TestCase
       @user.update_attributes( :login => 'changed' )
       assert_equal @original_login, @user.login
     end
-  end    
-
+  end
+  
+  context "xml serialization, an User instance" do
+    setup do
+      @user = Factory.create( :user )
+      @xml = @user.to_xml
+    end
+    
+    should "serialize the login" do
+      assert_match %r{<login>}, @xml
+    end
+    
+    should "serialize the convos count" do
+      assert_match %r{<conversations-count}, @xml
+    end
+    
+    should "serialize the date of creation" do
+      assert_match %r{<created-at}, @xml
+    end
+    
+    should "serialize the id" do
+      assert_match %r{<id}, @xml
+    end
+    
+    should "serialize the messages count" do
+      assert_match %r{<messages-count}, @xml
+    end
+    
+    should "serialize the name" do
+      assert_match %r{<name>}, @xml
+    end
+    
+    should "serialize the subscriptions count" do
+      assert_match %r{<subscriptions-count}, @xml
+    end
+    
+    should "serialize the personal conversation id" do
+      assert_match %r{<personal-conversation-id}, @xml
+    end
+    
+    should "serialize the time zone" do
+      assert_match %r{<time-zone}, @xml
+    end
+    
+    should "serialize the update date" do
+      assert_match %r{<updated-at}, @xml
+    end
+    # don't show this sensible data
+    
+    should "not serialize the activation date" do
+      assert_no_match %r{<activated-at}, @xml
+    end
+    
+    should "not serialize the activation code" do
+      assert_no_match %r{<activation-code}, @xml
+    end
+    
+    should "not serialize the crypted password" do
+      assert_no_match %r{<crypted-password>}, @xml
+    end
+    
+    should "not serialize the email" do
+      assert_no_match %r{<email>}, @xml
+    end
+    
+    should "not serialize the password reset code" do
+      assert_no_match %r{<password-reset-code}, @xml
+    end
+    
+    should "not serialize the remember token" do
+      assert_no_match %r{<remember-token}, @xml
+    end
+    
+    should "not serialize the remember token expiration date" do
+      assert_no_match %r{<remember-token-expires-at}, @xml
+    end
+    
+    should "not serialize the password salt" do
+      assert_no_match %r{<salt}, @xml
+    end
+  end
+  
   context "mark last viewed as read" do
     setup do
       @user = Factory.create( :user )

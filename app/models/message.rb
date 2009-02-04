@@ -94,4 +94,7 @@ class Message < ActiveRecord::Base
     # raise
   end
   
+  def date
+    self.created_at.to_s(:simple)
+  end
 end

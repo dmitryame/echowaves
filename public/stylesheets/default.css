@@ -331,3 +331,9 @@ width:80px;
   background:#eee;
   margin-top:2px;
 }
+.groupdate {
+  padding: 0 5px;
+  background:#42aec2;
+  color:#111;
+  font-weight:bold;
+}

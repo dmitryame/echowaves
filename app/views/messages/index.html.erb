@@ -2,5 +2,11 @@
 
 <div id='messages'>
 	<div id="first_message"></div>
-	<%= render :partial => 'message', :collection => @messages %>
+	<% @messages.group_by(&:date).each do |date, grouped_messages| %>
+	  <span class="groupdate"><%= date %></span>
+	  <% grouped_messages.each do |message| %>
+	    <%= render message %>
+	  <% end %>
+	<% end %>
+	<%# render :partial => 'message', :collection => @messages %>
 </div>

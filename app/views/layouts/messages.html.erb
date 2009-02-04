@@ -27,7 +27,6 @@
 	<!--[if IE]>
     <link rel="stylesheet" href="/stylesheets/ie.css" type="text/css" media="screen, projection">
   <![endif]-->
-	<% if logged_in? %>
 	
  	<%= orbited_javascript %> 		
  	<script>
@@ -43,7 +42,7 @@
  			output.update('<span class="status_red"><%= t("ui.transport_closed") %> (<%= t("ui.code") %>: ' + code + ')</span>');
  			//try to reconnect
  			// stomp.connect(document.domain, 61613, 'UNIQUE_ID_PER_CLIENT', '');
-			stomp.connect('<%=STOMP_HOST%>', <%=STOMP_PORT%>, '<%=current_user.id%>', '');
+			stomp.connect('<%=STOMP_HOST%>', <%=STOMP_PORT%>, '<%=current_user%>', '');
 			// stomp.subscribe('CONVERSATION_CHANNEL_<%=@conversation.id%>', {exchange:''});
 	 		
 	 		setTimeout("stomp.subscribe('CONVERSATION_CHANNEL_<%=@conversation.id%>', {exchange:''})",5000);
@@ -73,14 +72,13 @@
 			}
 
  		};
-		stomp.connect('<%=STOMP_HOST%>', <%=STOMP_PORT%>, 'user_<%=current_user.id%>', '');
+		stomp.connect('<%=STOMP_HOST%>', <%=STOMP_PORT%>, 'user_<%=current_user%>', '');
 		// stomp.subscribe('CONVERSATION_CHANNEL_<%=@conversation.id%>', {exchange:''});
  		setTimeout("stomp.subscribe('CONVERSATION_CHANNEL_<%=@conversation.id%>', {exchange:''})", 5000);
 
  	};
 
   </script>
-  <%end#if user is not logged in, no point in connecting to orbited%>
   <%= javascript_include_tag "livepipe/livepipe" %>
   <%= javascript_include_tag "livepipe/tabs" %>
 

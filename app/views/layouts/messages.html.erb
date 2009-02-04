@@ -43,10 +43,7 @@
  			//try to reconnect
  			// stomp.connect(document.domain, 61613, 'UNIQUE_ID_PER_CLIENT', '');
 			stomp.connect('<%=STOMP_HOST%>', <%=STOMP_PORT%>, '<%=current_user%>', '');
-			// stomp.subscribe('CONVERSATION_CHANNEL_<%=@conversation.id%>', {exchange:''});
-	 		
-	 		setTimeout("stomp.subscribe('CONVERSATION_CHANNEL_<%=@conversation.id%>', {exchange:''})",5000);
-
+			// stomp.subscribe('CONVERSATION_CHANNEL_<%=@conversation.id%>', {exchange:''});	 		
  		};
  		stomp.onerror = function(error) {
  			alert("onerror: " + error);
@@ -58,6 +55,7 @@
  		};
  		stomp.onconnectedframe = function() {
  			output.update('<span class="status_green"><%= t("ui.connected") %></span>');
+			stomp.subscribe('CONVERSATION_CHANNEL_<%=@conversation.id%>', {exchange:''});
  		};
  		stomp.onmessageframe = function(frame) {
  			var message_output = $('messages');
@@ -73,8 +71,7 @@
 
  		};
 		stomp.connect('<%=STOMP_HOST%>', <%=STOMP_PORT%>, 'user_<%=current_user%>', '');
-		// stomp.subscribe('CONVERSATION_CHANNEL_<%=@conversation.id%>', {exchange:''});
- 		setTimeout("stomp.subscribe('CONVERSATION_CHANNEL_<%=@conversation.id%>', {exchange:''})", 5000);
+ 		// setTimeout("stomp.subscribe('CONVERSATION_CHANNEL_<%=@conversation.id%>', {exchange:''})", 5000);
 
  	};
 

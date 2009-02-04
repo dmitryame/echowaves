@@ -50,7 +50,11 @@ class MessageTest < ActiveSupport::TestCase
       @message.something = "spam"
       assert !@message.valid?
     end
-  end    
+    
+    should "return the date of creation in m/d/Y format" do
+      assert_equal @message.date, @message.created_at.strftime("%Y/%m/%d")
+    end
+  end
 
   def test_should_check_over_abuse_reports_limit?
     @message1 = Factory.create(:message)

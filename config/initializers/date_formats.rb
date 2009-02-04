@@ -4,5 +4,5 @@ ActiveSupport::CoreExtensions::Time::Conversions::DATE_FORMATS.merge!(
         :pretty_long => "%b %d, %Y %I:%M%p",
         :date_time12 => "%m/%d/%Y %I:%M%p",
         :date_time24 => "%m/%d/%Y %H:%M",
-        :simple => "%m/%d/%Y"
+        :simple => "%Y/%m/%d"
       )

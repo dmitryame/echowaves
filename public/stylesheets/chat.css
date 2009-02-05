@@ -1,4 +1,4 @@
-html,body{
+html,body{background:#ccc;
 }
 #header_container {
   position:fixed;
@@ -51,12 +51,12 @@ html,body{
 #messages {
   background:#fff;
   padding-bottom:96px;
-  border-right:1px solid #82c0cd;
+  border-right:2px solid #a7a7a7;
 }
 #messages_controls {
   background:#eee;
   padding:5px;
-  border-right:1px solid #82c0cd;
+  border-right:2px solid #a7a7a7;
 }
 .mute {color:#fff;}
 #sidebars_container {
@@ -70,7 +70,7 @@ html,body{
 #footer_container {
   position:fixed;
   bottom:0;
-  background:#85c5d2;
+  background:#426467;
   z-index:100;
   width:100%;
   height:20px;
@@ -83,12 +83,17 @@ html,body{
 }
 #convo_controls {
   background:#fff;
-  border-right:1px solid #82c0cd;
-  border-bottom:1px solid #82c0cd;
+  border-right:1px solid #a7a7a7;
+  border-bottom:1px solid #a7a7a7;
 }
 #convo_controls h4 a:link, #convo_controls h4 a:visited {
-  background:#42aec2;
-  color:#000;
+  background:#989898;
+  color:#fff;
   padding:0 5px;
   text-decoration:none;
+}
+
+#dashboard, #tags, #followers {
+  background:#eee;
+  padding-top:5px;
 }

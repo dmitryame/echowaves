@@ -3,7 +3,7 @@
 <div id='messages'>
 	<div id="first_message"></div>
 	<% @messages.group_by(&:date).each do |date, grouped_messages| %>
-	  <span class="groupdate"><%= date %></span>
+	  <p class="groupdate"><span><%= date %></span></p>
 	  <% grouped_messages.each do |message| %>
 	    <%= render message %>
 	  <% end %>

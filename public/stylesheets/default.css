@@ -181,9 +181,7 @@ margin:0 auto;background:#151110;
 .balloon .userinfo {padding-left:50px;display:block;color:#3366cc;}
 .page {
   padding:5px;
-  background:#fff;
-  border-right:1px solid #82c0cd;
-  border-bottom:1px solid #82c0cd;
+  background:#fcfcfc;
 }
 #main_content {margin-top:10px;}
 .balloon2 h1 {margin:0;}
@@ -201,7 +199,7 @@ margin:0 auto;background:#151110;
 /* messages form */
 #messagesform {
   margin-bottom:0;
-  background:#42aec2;
+  background:#62949c;
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
 }
@@ -222,12 +220,17 @@ textarea:focus, input[type='text']:focus, input[type='password']:focus, select:f
   position:fixed;
   bottom:0;
   left:0;
-  background:#85c5d2;
+  background:#426467;
   z-index:100;
   width:100%;
   padding:0;
-  border-top:1px solid #42aec2;
+  border-top:1px solid #335b61;
+  color:#fff;
 }
+#footer_container a:link, #footer_container a:visited, #footer_container a:hover, #footer_container a:active {
+  color:#fff;
+}
+
 .page h6 {
   margin:0 0 4px 0;
   background:#EEEEEE;
@@ -282,18 +285,19 @@ input[type='text'], input[type='password'], textarea { font-size: 100%; font-fam
   font-size:85%;
 }
 ul.subsection_tabs {
-border-bottom:1px solid #82c0cd;
 clear:both;
 height:20px;
 list-style-image:none;
 list-style-position:outside;
 list-style-type:none;
-margin:0 0 5px;
+margin:0px;
 padding:0;
 white-space:nowrap;
+border-bottom:none;
 }
 ul.subsection_tabs li.tab a.active {
-background-color:#42aec2;
+background-color:#eee;
+color:#111;
 }
 ul.subsection_tabs li.tab a:hover {
 color:#000;
@@ -301,12 +305,14 @@ text-decoration:underline;
 }
 
 ul.subsection_tabs li.tab a {
-background-color:#FFFFFF;
-color:#000;
+background-color:#989898;
+color:#fff;
 display:block;
 height:20px;
 padding:0 4px;
 width:80px;
+text-decoration:none;
+font-weight:bold;
 }
 
 .nube1 {font-size: 1.0em;}
@@ -332,8 +338,15 @@ width:80px;
   margin-top:2px;
 }
 .groupdate {
-  padding: 0 5px;
-  background:#42aec2;
-  color:#111;
+  padding: 16px 0 0 0;
+  color:#333;
   font-weight:bold;
+  font-size:120%;
+  background: url("/images/bl_gray_corner.gif") top left no-repeat;
+}
+
+.groupdate span {
+  border-top:1px solid #a7a7a7;
+  display:block;
+  padding:5px 0 0 10px;
 }

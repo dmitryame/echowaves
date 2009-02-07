@@ -1,11 +1,9 @@
-require 'rubygems'
 require 'rake/rdoctask'
 require 'rake/gempackagetask'
 require 'rake/testtask'
-require 'rake/contrib/sshpublisher'
 
 module Mocha
-  VERSION = "0.9.2"
+  VERSION = "0.9.5"
 end
 
 desc "Run all tests"
@@ -56,9 +54,15 @@ namespace 'test' do
 end
 
 def benchmark_test_case(klass, iterations)
-  require 'test/unit/ui/console/testrunner'
   require 'benchmark'
-  time = Benchmark.realtime { iterations.times { Test::Unit::UI::Console::TestRunner.run(klass, Test::Unit::UI::SILENT) } }
+  require 'test/unit/ui/console/testrunner'
+  begin
+    require 'test/unit/ui/console/outputlevel'
+    silent_option = { :output_level => Test::Unit::UI::Console::OutputLevel::SILENT }
+  rescue LoadError
+    silent_option = Test::Unit::UI::SILENT
+  end
+  time = Benchmark.realtime { iterations.times { Test::Unit::UI::Console::TestRunner.run(klass, silent_option) } }
 end
 
 desc 'Generate RDoc'
@@ -84,10 +88,13 @@ Rake::RDocTask.new('rdoc') do |task|
     'lib/mocha/stubbing_error.rb'
   )
 end
-task 'rdoc' => 'examples'
+
+desc "Generate all documentation"
+task 'generate_docs' => ['clobber_rdoc', 'rdoc', 'examples', 'agiledox.txt']
 
 desc "Upload RDoc to RubyForge"
-task 'publish_rdoc' => ['rdoc', 'examples'] do
+task 'publish_docs' do
+  require 'rake/contrib/sshpublisher'
   Rake::SshDirPublisher.new("jamesmead@rubyforge.org", "/var/www/gforge-projects/mocha", "doc").upload
 end
 
@@ -109,7 +116,6 @@ end
 
 desc "Convert example ruby files to syntax-highlighted html"
 task 'examples' do
-  $:.unshift File.expand_path(File.join(File.dirname(__FILE__), "vendor", "coderay-0.7.4.215", "lib"))
   require 'coderay'
   mkdir_p 'doc/examples'
   File.open('doc/examples/coderay.css', 'w') do |output|
@@ -131,31 +137,41 @@ end
 
 Gem.manage_gems if Gem::RubyGemsVersion < '1.2.0'
 
-specification = Gem::Specification.new do |s|
-  s.name   = "mocha"
-  s.summary = "Mocking and stubbing library"
-  s.version = Mocha::VERSION
-  s.platform = Gem::Platform::RUBY
-  s.author = 'James Mead'
-  s.description = <<-EOF
-    Mocking and stubbing library with JMock/SchMock syntax, which allows mocking and stubbing of methods on real (non-mock) classes.
-  EOF
-  s.email = 'mocha-developer@rubyforge.org'
-  s.homepage = 'http://mocha.rubyforge.org'
-  s.rubyforge_project = 'mocha'
+def build_specification(version = Mocha::VERSION)
+  Gem::Specification.new do |s|
+    s.name   = "mocha"
+    s.summary = "Mocking and stubbing library"
+    s.version = version
+    s.platform = Gem::Platform::RUBY
+      s.author = 'James Mead'
+    s.description = <<-EOF
+      Mocking and stubbing library with JMock/SchMock syntax, which allows mocking and stubbing of methods on real (non-mock) classes.
+    EOF
+    s.email = 'mocha-developer@googlegroups.com'
+    s.homepage = 'http://mocha.rubyforge.org'
+    s.rubyforge_project = 'mocha'
 
-  s.has_rdoc = true
-  s.extra_rdoc_files = ['README', 'COPYING']
-  s.rdoc_options << '--title' << 'Mocha' << '--main' << 'README' << '--line-numbers'
-                         
-  s.autorequire = 'mocha'
-  s.add_dependency('rake')
-  s.files = FileList['{lib,test,examples}/**/*.rb', '[A-Z]*'].exclude('TODO').to_a
+    s.has_rdoc = true
+    s.extra_rdoc_files = ['README', 'COPYING']
+    s.rdoc_options << '--title' << 'Mocha' << '--main' << 'README' << '--line-numbers'
+
+    s.add_dependency('rake')
+    s.files = FileList['{lib,test,examples}/**/*.rb', '[A-Z]*'].exclude('TODO').to_a
+  end
 end
+
+specification = build_specification
 
 Rake::GemPackageTask.new(specification) do |package|
    package.need_zip = true
    package.need_tar = true
+end
+
+desc 'Generate updated gemspec with unique version, which will cause gem to be auto-built on github.'
+task :update_gemspec do
+  File.open('mocha.gemspec', 'w') do |output|
+    output << build_specification(Mocha::VERSION + '.' + Time.now.strftime('%Y%m%d%H%M%S')).to_ruby
+  end
 end
 
 task 'verify_user' do
@@ -167,8 +183,7 @@ task 'verify_password' do
 end
 
 desc "Publish package files on RubyForge."
-task 'publish_packages' => ['verify_user', 'verify_password', 'package'] do
-  $:.unshift File.expand_path(File.join(File.dirname(__FILE__), "vendor", "meta_project-0.4.15", "lib"))
+task 'publish_packages' => ['verify_user', 'verify_password', 'clobber_package', 'package'] do
   require 'meta_project'
   require 'rake/contrib/xforge'
   release_files = FileList[
@@ -185,4 +200,11 @@ task 'publish_packages' => ['verify_user', 'verify_password', 'package'] do
     release.release_changes = ''
     release.release_notes = ''
   end
+end
+
+desc "Do a full release."
+task 'release' => ['default', 'generate_docs', 'publish_packages', 'publish_docs', 'update_gemspec'] do
+  puts
+  puts "*** Remember to commit newly generated gemspec after release ***"
+  puts
 end

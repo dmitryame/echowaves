@@ -5,6 +5,7 @@ es-ES:
       headline2: 'El código fuente se encuentra en <a href="http://github.com/dmitryame/echowaves">http://github.com/dmitryame/echowaves</a>.'
       p1: '<h5>Si te gusta charlar, o escribir un blog, o compartir tu estado con los amigos, o simplemente socializar, EchoWaves es para ti.</h5>EchoWaves es una <span class="highlight">herramienta de colaboracion</span> y una <span class="highlight">red social</span>. Tiene muchas caracteristicas interesantes como <span class="highlight">Facebook</span> y es tan facil de usar que <span class="highlight">Twitter</span>. Todo gira alrededor de las conversaciones (convos) en vez de los usuarios. ¿No es mas natural para las personas, el socializar alrededor de las conversaciones?. Si tienes alguna idea o sugerencia no dudes en hablarnos de ello en la'
       p2: "-- es gratis y cualquiera puede unirse. Comienza tus propias conversaciones, invita a todos tus amigos a unirse, sigue de cerca otras conversaciones que te parezcan interesantes y diviertete!"
+      p3: "Take it for a spin, post messages to our "
       feedback_advice: 'Si encuentras algun problema o quieres hacer alguna sugerencia sobre alguna funcionalidad que te gustaria ver en echowaves, puedes hacerlo en <a href="http://code.google.com/p/echowaves/issues/list">http://echowaves.googlecode.com/</a>'
   ui:
     cancel: "cancelar"
@@ -18,6 +19,7 @@ es-ES:
     email_confirmation: "confirm email"    
     logout: "salir"
     echowaves_conversation: "conversacion de EcHoWaVeS.CoM"
+    test_conversation: "conversacion de TEST"
     home: "inicio"
     users: "usuarios"
     convos: "convos"

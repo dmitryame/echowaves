@@ -98,6 +98,7 @@ STOMP_HOST = 'localhost'
 STOMP_PORT = '61613'
 
 HOME_CONVERSATION = 1
+TEST_CONVERSATION = 3
 
 #override to false in production
 SHOW_ACTIVATION_LINK=true

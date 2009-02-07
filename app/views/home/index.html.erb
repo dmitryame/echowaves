@@ -7,7 +7,11 @@
 </div>
 
 <div id="main_description">
- <%= t("home.index.p1") %> <%= link_to t("ui.echowaves_conversation"), conversation_path(1), :action => "index" -%>.
+ <%= t("home.index.p1") %> <%= link_to t("ui.echowaves_conversation"), conversation_path(HOME_CONVERSATION), :action => "index" -%>.
+</div>
+
+<div id="test_convo_description">
+ <%= t("home.index.p3") %> <%= link_to t("ui.test_conversation"), conversation_path(TEST_CONVERSATION), :action => "index" -%>.
 </div>
 
 <div id="home_stats">

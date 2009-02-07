@@ -102,6 +102,16 @@ p {margin-bottom:10px;}
   text-align:center;
   margin-bottom:10px;
 }
+#test_convo_description {
+  text-align:center;
+  margin-top:10px;
+  font-size:170%;
+  line-height:0.5em;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  background:#fff;
+  padding:10px;
+}
 
 #recent_convos {
   margin-top:10px;

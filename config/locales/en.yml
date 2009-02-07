@@ -65,6 +65,8 @@ en:
     recent_tags: "Recent tags"
     followers: "Followers"
     following: "Following"
+    convos: "Convos"
+    messages: "Messages"
     search_messages: "search messages"
     search_conversations: "search convos"
     search: "search"
@@ -85,7 +87,7 @@ en:
     popular_convos: "Popular convos"
     total_convos: "Total convos"
     total_messages: "Total messages"
-    total_users: "Total users"
+    total_users: "Total users"    
   users:
     recently_joined_users: "recently joined users"
     sign_up_as_new_user: "sign up as new user"

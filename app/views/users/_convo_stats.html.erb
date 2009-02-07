@@ -10,11 +10,15 @@
 	<%= link_to image_tag("/images/icons/16px-feed-icon.png"), user_url(params[:id], :format => :atom), :type => 		"application/atom+xml", :rel => "alternate" %> 
   </span>
 	
-  <span class="userinfo">
-    <%= t("users.since") + " " + @user.created_at.to_s(:pretty)%> |
-    <%= pluralize @user.conversations.size, 'convo' %> |
-    <%= pluralize @user.messages.size, 'message' %> |
-    <%= pluralize @user.subscriptions.size, 'subscription' %>
+  <span class="userinfo">                                        
+    <%= t("users.since") + " " + @user.created_at.to_s(:pretty)   + ' | ' +
+    @user.conversations.size.to_s  + '&nbsp;' + t('ui.convos')    + ' | ' +
+    @user.messages.size.to_s       + '&nbsp;' + t('ui.messages')  + ' | ' +
+    @user.subscriptions.size.to_s  + '&nbsp;' + t("ui.following") + ' | ' +
+	@user.personal_conversation.users.size.to_s + '&nbsp;' + t("ui.followers")
+
+ 	%>
+
   </span>
   <div class="clear"></div>
 </div>

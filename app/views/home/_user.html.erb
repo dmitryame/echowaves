@@ -3,7 +3,9 @@
   :class => 'tip', 
   :title =>  user.login +
   '<br/>' +	t("users.since") + user.created_at.to_s(:pretty)  + 
-  '<br/>' + pluralize(user.conversations.size, 'convo') +
-  '<br/>' + pluralize(user.messages.size, 'message') +
-  '<br/>' + pluralize(user.subscriptions.size, 'subscription') %>
+	'<br/>' + user.conversations.size.to_s  + '&nbsp;' + t('ui.convos') +
+	'<br/>' + user.messages.size.to_s       + '&nbsp;' + t('ui.messages') +
+	'<br/>' + user.subscriptions.size.to_s  + '&nbsp;' + t("ui.following") +
+	'<br/>' + user.personal_conversation.users.size.to_s               + '&nbsp;' + t("ui.followers")
+	%>
 </span>

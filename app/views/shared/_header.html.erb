@@ -14,9 +14,11 @@
 					user_path(current_user),
 					:class => 'tip', 
 					:title =>  t("users.since") + current_user.created_at.to_s(:pretty)  + 
-					'<br/>' + pluralize(current_user.conversations.size, 'convo') +
-					'<br/>' + pluralize(current_user.messages.size, 'message') +
-					'<br/>' + pluralize(current_user.subscriptions.size, 'subscription')%>
+					'<br/>' + current_user.conversations.size.to_s  + '&nbsp;' + t('ui.convos') +
+					'<br/>' + current_user.messages.size.to_s       + '&nbsp;' + t('ui.messages') +
+					'<br/>' + current_user.subscriptions.size.to_s  + '&nbsp;' + t("ui.following") +
+					'<br/>' + current_user.personal_conversation.users.size.to_s               + '&nbsp;' + t("ui.followers")
+					%>
 				</li>				
 				<li><%= link_to h(current_user.login), conversation_messages_path(current_user.personal_conversation)	, 
 				:class => 'tip', 

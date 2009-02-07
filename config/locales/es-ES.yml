@@ -65,6 +65,8 @@ es-ES:
     recent_tags: "Recent tags"
     followers: "Seguidores"
     following: "Following"
+    convos: "Convos"
+    messages: "Messages"
     search_messages: "buscar mensajes"
     search_conversations: "buscar convos"
     search: "buscar"

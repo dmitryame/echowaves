@@ -12,6 +12,7 @@ end
 
 Factory.define :user do |u|
   u.login { Factory.next :name }
+  u.name { Factory.next :name }
   u.email { Factory.next :email }
   u.email_confirmation {|u| u.email }
   u.password { Factory.next :email }

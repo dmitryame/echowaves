@@ -47,7 +47,8 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   def test_complete_name_action
-    user = Factory.create( :user )
+    user = Factory.create( :user )    
+    
     User.expects( :find_by_name ).with( user.name ).returns( user )
     get :complete_name, :id => user.name 
     assert assigns( :user )
@@ -63,6 +64,7 @@ class UsersControllerTest < ActionController::TestCase
 
   def test_should_find_and_return_user_on_show
     user = Factory.create( :user )
+    user.activate!    
     get :show, :id => user.id
     assert assigns( :user )
     assert_response :success
@@ -78,6 +80,7 @@ class UsersControllerTest < ActionController::TestCase
 
   def test_should_return_current_user_for_edit_action
     user = Factory.create( :user )
+    user.activate!
     @request.session[:user_id] = user.id
     get :edit
     assert assigns( :user )

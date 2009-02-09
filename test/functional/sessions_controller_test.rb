@@ -5,7 +5,39 @@ require 'sessions_controller'
 class SessionsController; def rescue_action(e) raise e end; end
 
 class SessionsControllerTest < ActionController::TestCase
-  fixtures :users
+  
+  setup do
+    @quentin = Factory(:user, 
+                      :login => "quentin", 
+                      :email => "quentin@example.com", 
+                      :password => "monkey",
+                      :password_confirmation => "monkey",
+                      :created_at => 5.days.ago.to_s, 
+                      :activated_at => 3.days.ago.to_s,
+                      :remember_token_expires_at => 1.days.from_now.to_s,
+                      :remember_token => "77de68daecd823babbb58edb1c8e14d7106e83bb")
+    @quentin.activate!
+    
+    @aaron = Factory(:user, 
+                      :login => "aaron", 
+                      :email => "aaron@example.com", 
+                      :password => "monkey",
+                      :password_confirmation => "monkey",
+                      :created_at => 1.days.ago.to_s, 
+                      :activated_at => 3.days.ago.to_s)                      
+    @aaron.activate!
+    
+    @old_password_holder = Factory(:user, 
+                      :login => "old_password_holder", 
+                      :email => "salty_dog@example.com", 
+                      :password => "monkey",
+                      :password_confirmation => "monkey",
+                      :created_at => 1.days.ago.to_s, 
+                      :activated_at => 3.days.ago.to_s)
+    @old_password_holder.activate!    
+    
+  end
+
 
   def test_should_login_and_redirect
     post :create, :login => 'quentin', :password => 'monkey'
@@ -47,6 +79,7 @@ class SessionsControllerTest < ActionController::TestCase
 
   def test_should_login_with_cookie
     users(:quentin).remember_me
+    
     @request.cookies["auth_token"] = cookie_for(:quentin)
     get :new
     assert @controller.send(:logged_in?)

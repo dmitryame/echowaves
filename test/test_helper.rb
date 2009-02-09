@@ -17,7 +17,7 @@ class ActiveSupport::TestCase
 
     @user = Factory(:user, :login => "admin", :name => "Dmitry Amelchenko", :email => "qwe@mail.com", :password => "password", :password_confirmation => "password")
     
-    #activate the user so it can be logged in
+    #activate the user so it can be logged in to
     @user.activate!
     
     @request.env['HTTP_AUTHORIZATION'] = 

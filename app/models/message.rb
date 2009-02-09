@@ -11,6 +11,9 @@ class Message < ActiveRecord::Base
   has_many :conversations, # these are the conversations spawned from the message
            :foreign_key => "parent_message_id"
 
+  attr_accessible :message, :attachment
+  
+
   has_attached_file :attachment,
     :styles => {
       :thumb => "64x64>",

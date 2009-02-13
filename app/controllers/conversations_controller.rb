@@ -187,7 +187,9 @@ class ConversationsController < ApplicationController
     # now let's create a system message and send it to the convo channel
     # TODO: how to translate this for the current user?
     msg = " invites you to follow a convo: <a href='/conversations/#{params[:id]}/messages'>#{@invite.conversation.name}</a>"
-    notification = current_user.messages.create( :conversation => @user.personal_conversation, :message => msg, :system_message => true)
+    notification = current_user.messages.create( :conversation => @user.personal_conversation, :message => msg)
+    notification.system_message = true
+    
     notification.save
     notification.send_stomp_message(self)
 

@@ -11,8 +11,7 @@ class Message < ActiveRecord::Base
   has_many :conversations, # these are the conversations spawned from the message
            :foreign_key => "parent_message_id"
 
-  attr_accessible :message, :attachment
-  
+  attr_protected :system_message #add more attributes as needed to protect from mass assignment
 
   has_attached_file :attachment,
     :styles => {

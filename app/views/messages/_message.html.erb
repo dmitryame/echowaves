@@ -20,7 +20,10 @@
 	      <%= display_attachment(message) %>
 			<% end %>
 			<%= mark_up message %>
-			<span class="date quiet small"><%= link_to message.created_at.to_s(:pretty_long), conversation_message_path(message.conversation, message) %></span>
+			<span class="date quiet small">
+				<%= link_to message.created_at.to_s(:pretty_long),
+			 conversation_message_path(message.conversation, message) %>
+			</span>
 		</div>
 		<div class="clear"></div>
 	</div>

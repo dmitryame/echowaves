@@ -318,23 +318,29 @@ class ConversationsControllerTest < ActionController::TestCase
     end
   end # context unfollow action
 
-  # context "show action" do
-  #   setup do
-  #     @convo = Factory.create( :conversation )
-  #     @messages = @convo.messages
-  #   end
-  # 
-  #   should "find the conversation" do
-  #     Conversation.stubs( :find ).with( '1' ).returns( @convo )
-  #     get :show, :id => '1'
-  #     assert assigns( :conversation )
-  #   end
-  # 
-  #   should "find and assign the published conversation messages" do
-  #     get :show, :id => @convo.id
-  #     assert assigns( :messages )
-  #   end
-  # end # context show action
+  context "show action" do
+    setup do
+      @conversation = Factory(:conversation, :user => @user)
+      @message = Factory(:message, :message => "some random message", :conversation => @conversation, :user => @current_user )
+      @message.stubs( :to_xml ).returns( 'XML' )
+    end
+    
+    should "call user#conversation_visit_update when logged_in?" do
+      @current_user.expects( :conversation_visit_update ).with( @conversation )
+      get :show, :id => @conversation
+    end
+    
+    # should "find the conversation" do
+    #   Conversation.stubs( :find ).with( '1' ).returns( @convo )
+    #   get :show, :id => '1'
+    #   assert assigns( :conversation )
+    # end
+    # 
+    # should "find and assign the published conversation messages" do
+    #   get :show, :id => @convo.id
+    #   assert assigns( :messages )
+    # end
+  end # context show action
 
   context "complete_name action" do
     setup do

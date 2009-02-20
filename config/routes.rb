@@ -18,7 +18,7 @@ ActionController::Routing::Routes.draw do |map|
     conversation.resources :messages,
     :member => {
       :report => :post
-    }
+    }, :except => [:edit, :update, :destroy]
   end
   
   map.resource :msgsearch, :only => [:show, :create]

@@ -2,11 +2,11 @@
 	
   <div id="convos_links" class="padding5">	
 	  <h4>
-	  	<% if @conversation.read_only %><span class="highlight"><%= t("ui.read_only") %></span> <% end %><%= link_to h(@conversation.name), conversation_messages_path(@conversation), :class => 'tip', :title => @conversation.escaped_description %>
+	  	<% if @conversation.read_only %><span class="highlight"><%= t("ui.read_only") %></span> <% end %><%= link_to h(@conversation.name), conversation_path(@conversation), :class => 'tip', :title => @conversation.escaped_description %>
 	  </h4>
 	  
 	  <%if @conversation.parent_message_id%>
-	    <%= link_to t("ui.back_to_parent"), conversation_messages_path(@conversation.parent_message.conversation)%> &#187;
+	    <%= link_to t("ui.back_to_parent"), conversation_path(@conversation.parent_message.conversation)%> &#187;
 	  <%end%>
 	  
 	  <%= render :partial => 'conversations/follow', :object => @conversation %>
@@ -31,7 +31,7 @@
 	
 	<div id="convos_user" class="padding5">
 	  <em><%= t("ui.started_by") %></em>
-		<%= link_to h(@conversation.user.login), conversation_messages_path(@conversation.user.personal_conversation)	, 
+		<%= link_to h(@conversation.user.login), conversation_path(@conversation.user.personal_conversation)	, 
 		  :class => 'tip', 
 		  :title => "personal convo for " + @conversation.user.name %>
 	  <%= link_to image_tag(@conversation.user.gravatar_url, :border => 0, :width => 20, :height => 20,

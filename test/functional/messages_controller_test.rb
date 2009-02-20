@@ -98,7 +98,7 @@ class MessagesControllerTest < ActionController::TestCase
       
       should "redirect to conversation messages path when text/html" do
         post :create, :conversation_id => @conversation.id, :message => 'foo'
-        assert_redirected_to conversation_messages_path( @conversation )
+        assert_redirected_to conversation_path( @conversation )
       end
 
       #
@@ -251,7 +251,7 @@ class MessagesControllerTest < ActionController::TestCase
       should "set flash[:error] if access denied and redirect" do
         post :create, :conversation_id => @c2.id, :message => { :message => 'foo' }
         assert flash.include?( :error )
-        assert_redirected_to conversation_messages_path( @c2 )
+        assert_redirected_to conversation_path( @c2 )
       end
     end
   end # context check write access

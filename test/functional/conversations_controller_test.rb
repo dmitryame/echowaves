@@ -318,22 +318,23 @@ class ConversationsControllerTest < ActionController::TestCase
     end
   end # context unfollow action
 
-  context "show action" do
-    setup do
-      @convo = Factory.create( :conversation )
-    end
-
-    should "find the conversation" do
-      Conversation.expects( :find ).with( '1' ).returns( @convo )
-      get :show, :id => '1'
-    end
-
-    should "redirect to the convo messages path" do
-      Conversation.expects( :find ).with( '1' ).returns( @convo )
-      get :show, :id => '1'
-      assert_redirected_to conversation_messages_path( @convo )
-    end
-  end # context show action
+  # context "show action" do
+  #   setup do
+  #     @convo = Factory.create( :conversation )
+  #     @messages = @convo.messages
+  #   end
+  # 
+  #   should "find the conversation" do
+  #     Conversation.stubs( :find ).with( '1' ).returns( @convo )
+  #     get :show, :id => '1'
+  #     assert assigns( :conversation )
+  #   end
+  # 
+  #   should "find and assign the published conversation messages" do
+  #     get :show, :id => @convo.id
+  #     assert assigns( :messages )
+  #   end
+  # end # context show action
 
   context "complete_name action" do
     setup do
@@ -345,10 +346,10 @@ class ConversationsControllerTest < ActionController::TestCase
       get :complete_name, :id => 'foobar'
     end
 
-    should "redirect to the conversation message path" do
+    should "redirect to the conversation path" do
       Conversation.expects( :find_by_name ).with( 'foobar' ).returns( @convo )
       get :complete_name, :id => 'foobar'
-      assert_redirected_to conversation_messages_path( @convo )
+      assert_redirected_to conversation_path( @convo )
     end
   end # context complete_name action
 

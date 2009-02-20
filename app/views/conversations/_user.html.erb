@@ -1,6 +1,6 @@
 <span class="user_in_conversation" id="<%= dom_id user%>">
 	<%if user.personal_conversation%>
-		<%= link_to h(user.login), conversation_messages_path(user.personal_conversation),
+		<%= link_to h(user.login), conversation_path(user.personal_conversation),
 		:class => 'tip', 
 		:title => "personal convo for " + user.personal_conversation.name%>	
 	<%else%>

@@ -1,3 +1,3 @@
 <li class="conversation_for_user" id="<%= dom_id conversation%>">	
-	<%= link_to h(conversation.name), conversation_messages_path(conversation), :class => 'tip', :title => conversation.escaped_description %>
+	<%= link_to h(conversation.name), conversation_path(conversation), :class => 'tip', :title => conversation.escaped_description %>
 </li>

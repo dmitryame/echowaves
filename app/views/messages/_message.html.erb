@@ -15,7 +15,7 @@
 		'<br/>' + message.user.personal_conversation.users.size.to_s               + '&nbsp;' + t("ui.followers")
 	   %></div>
 		<div class="messagetext">
-	    <span class="username"><%=link_to h(message.user.login), conversation_messages_path(message.user.personal_conversation), :class => 'tip', :title =>  "personal convo for #{message.user.login}" %></span>
+	    <span class="username"><%=link_to h(message.user.login), conversation_path(message.user.personal_conversation), :class => 'tip', :title =>  "personal convo for #{message.user.login}" %></span>
 			<% if message.has_attachment? %>
 	      <%= display_attachment(message) %>
 			<% end %>
@@ -38,7 +38,7 @@
 		'<br/>' + message.user.personal_conversation.users.size.to_s               + '&nbsp;' + t("ui.followers")
 	   %></div>
 		<div class="messagetext">
-	    <span class="username"><%=link_to h(message.user.login), conversation_messages_path(message.user.personal_conversation), :class => 'tip', :title =>  "personal convo for #{message.user.login}" %></span>
+	    <span class="username"><%=link_to h(message.user.login), conversation_path(message.user.personal_conversation), :class => 'tip', :title =>  "personal convo for #{message.user.login}" %></span>
 			<% if message.has_attachment? %>
 	      <%= display_attachment(message) %>
 			<% end %>

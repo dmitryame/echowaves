@@ -9,6 +9,13 @@ class HomeControllerTest < ActionController::TestCase
 
   context "#index action" do
     should "be successful and render the index template " do
+      user = Factory.create( :user )
+      followers = [ Factory.create( :user ), Factory.create(:user) ]
+      convo = Factory.create( :conversation )
+      user.stubs( :personal_conversation ).returns( convo )
+      convo.stubs( :users ).returns( followers )
+      User.expects( :find ).returns( [user] )
+      
       get :index
       assert_response :success
       assert_template "home/index"

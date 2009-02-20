@@ -57,7 +57,7 @@ class MessagesController < ApplicationController
     
     respond_to do |format|
       if current_user.messages << @message
-        format.html { redirect_to(conversation_messages_path(@conversation)) }
+        format.html { redirect_to(conversation_path(@conversation)) }
         format.xml { render :xml => @message, :status => :created, :location => @message }
         format.js {
           # send a stomp message for everyone else to pick it up
@@ -128,7 +128,7 @@ class MessagesController < ApplicationController
   def check_write_access
     unless @conversation.writable_by?(current_user)
       flash[:error] = t("conversations.not_allowed_to_write_warning")
-      redirect_to conversation_messages_path(@conversation)
+      redirect_to conversation_path(@conversation)
       return
     end
   end

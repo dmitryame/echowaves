@@ -3,7 +3,7 @@
 	<b><%= t("ui.my_conversations") %>:</b><br/>
 	<ul>
 		<% current_user.subscribed_conversations.each do |conversation| %>
-		<li><%= link_to h(conversation.escaped_name), conversation_messages_path(conversation), :class => 'tip', :title => conversation.escaped_description %></li>
+		<li><%= link_to h(conversation.escaped_name), conversation_path(conversation), :class => 'tip', :title => conversation.escaped_description %></li>
 		<% end %>
 	</ul>
 	<%end%>

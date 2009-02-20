@@ -10,7 +10,7 @@ class ConversationsController < ApplicationController
 
   def complete_name
     @conversation = Conversation.published.find_by_name(params[:id])
-    redirect_to conversation_messages_path(@conversation)
+    redirect_to conversation_path(@conversation)
   end
 
 
@@ -57,7 +57,7 @@ class ConversationsController < ApplicationController
       
       if current_user.conversations.find_by_parent_message_id( @message.id )
         flash[:error] = t("conversations.already_spawned_warning")
-        redirect_to conversation_messages_path(@message.conversation_id)
+        redirect_to conversation_path(@message.conversation_id)
         return
       end
       
@@ -98,7 +98,7 @@ class ConversationsController < ApplicationController
         current_user.friends_convos.each do |personal_convo|
           next  if (@conversation && @conversation.parent_message && personal_convo == @conversation.parent_message.conversation)
           # TODO: how to translate this for the current user?
-          msg = " created a new convo: <a href='/conversations/#{@conversation.id}/messages'>#{@conversation.name}</a>"
+          msg = " created a new convo: <a href='/conversations/#{@conversation.id}'>#{@conversation.name}</a>"
           notification = current_user.messages.create( :conversation => personal_convo, :message => msg)
           notification.system_message = true
           notification.save
@@ -143,7 +143,7 @@ class ConversationsController < ApplicationController
     read_only = (params[:mode] == 'rw') ? false : true 
     @conversation = Conversation.published.find( params[:id] )
     @conversation.update_attributes( :read_only => read_only ) if ( @conversation.owner == current_user )
-    redirect_to conversation_messages_path( @conversation )
+    redirect_to conversation_path( @conversation )
   end
 
   def report
@@ -195,7 +195,7 @@ class ConversationsController < ApplicationController
     
     # now let's create a system message and send it to the convo channel
     # TODO: how to translate this for the current user?
-    msg = " invites you to follow a convo: <a href='/conversations/#{params[:id]}/messages'>#{@invite.conversation.name}</a>"
+    msg = " invites you to follow a convo: <a href='/conversations/#{params[:id]}'>#{@invite.conversation.name}</a>"
     notification = current_user.messages.create( :conversation => @user.personal_conversation, :message => msg)
     notification.system_message = true
     

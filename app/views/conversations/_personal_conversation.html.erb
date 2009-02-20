@@ -9,7 +9,7 @@
 	'<br/>' + personal_conversation.users.size.to_s               + '&nbsp;' + t("ui.followers")
 	 %>		
 	</span>
-	<h5><%= link_to h(personal_conversation.name), conversation_messages_path(personal_conversation) %></h5>
+	<h5><%= link_to h(personal_conversation.name), conversation_path(personal_conversation) %></h5>
 	<div class="description"><%= personal_conversation.escaped_description %></div>
 	<span class="quiet small info">
 	  <%= personal_conversation.created_at.to_s(:date_time12) %> -

@@ -20,7 +20,7 @@
 					'<br/>' + current_user.personal_conversation.users.size.to_s               + '&nbsp;' + t("ui.followers")
 					%>
 				</li>				
-				<li><%= link_to h(current_user.login), conversation_messages_path(current_user.personal_conversation)	, 
+				<li><%= link_to h(current_user.login), conversation_path(current_user.personal_conversation)	, 
 				:class => 'tip', 
 				:title => "personal convo for " + current_user.name %>
 				</li>				

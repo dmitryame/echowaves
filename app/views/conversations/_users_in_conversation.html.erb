@@ -3,7 +3,7 @@
   <% @conversation.users.each do |u| %>
     <span class="label">
 	<%if u.personal_conversation%>
-		<%= link_to h(u.login), conversation_messages_path(u.personal_conversation),:class => 'tip', 
+		<%= link_to h(u.login), conversation_path(u.personal_conversation),:class => 'tip', 
 		:title => "personal convo for " + u.personal_conversation.name %>
 	<%end%>
 	</span>	

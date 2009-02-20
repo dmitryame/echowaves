@@ -55,6 +55,12 @@ class UsersControllerTest < ActionController::TestCase
   end
   
   def test_should_return_users_on_index
+    user = Factory.create( :user )
+    followers = [ Factory.create( :user ), Factory.create(:user) ]
+    convo = Factory.create( :conversation )
+    user.stubs( :personal_conversation ).returns( convo )
+    convo.stubs( :users ).returns( followers )
+    User.expects( :find ).returns( [user] )
     get :index
     assert assigns( :users )
     assert_response :success

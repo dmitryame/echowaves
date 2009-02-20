@@ -31,7 +31,15 @@ class ConversationsController < ApplicationController
 
   def show
     @conversation = Conversation.published.find(params[:id])
-    redirect_to(conversation_messages_path(@conversation))  
+    @messages = @conversation.messages.published.find(:all, :include => [:user], :limit => 100, :order => 'id DESC').reverse
+    current_user.conversation_visit_update(@conversation) if logged_in?
+    
+    @has_more_messages = @conversation.has_messages_before?(@messages.first)
+
+    respond_to do |format|
+      format.html { render :layout => 'messages' }
+      format.xml  { render :xml => @conversation }
+    end
   end
 
   def new

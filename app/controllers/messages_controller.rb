@@ -16,7 +16,7 @@ class MessagesController < ApplicationController
     current_user.conversation_visit_update(@conversation) if logged_in?
     
     @has_more_messages = @conversation.has_messages_before?(@messages.first)
-
+  
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @messages }

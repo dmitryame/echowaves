@@ -12,15 +12,8 @@ class MessagesController < ApplicationController
   auto_complete_for :tag, :name
   
   def index
-    @messages = @conversation.messages.published.find(:all, :include => [:user], :limit => 100, :order => 'id DESC').reverse
-    current_user.conversation_visit_update(@conversation) if logged_in?
-    
-    @has_more_messages = @conversation.has_messages_before?(@messages.first)
-  
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @messages }
-    end
+    headers["Status"] = "301 Moved Permanently"
+    redirect_to conversation_path(@conversation) 
   end
 
   #TODO: get_more_messages, get_more_messages_on_top, get_more_messages_on_bottom need to be refactored into something more generic

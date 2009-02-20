@@ -11,25 +11,9 @@ class MessagesControllerTest < ActionController::TestCase
   end
 
   context "index action" do
-    setup do
-      @messages = @conversation.messages
-    end
-
-    should "find and assign the published conversation messages" do
+    should "redirect to the conversation_path" do
       get :index, :conversation_id => @conversation.id
-      assert assigns( :messages )
-    end
-
-    should "be successful and render index template" do
-      get :index, :conversation_id => @conversation.id
-      assert_response :success
-      assert_template 'messages/index'
-    end
-
-    should "call user#conversation_visit_update when logged_in?" do
-      @controller.stubs( :current_user ).returns( @user )
-      @user.expects( :conversation_visit_update ).with( @conversation )
-      get :index, :conversation_id => @conversation
+      assert_redirected_to conversation_path( @conversation.id )
     end
   end # context index action
 

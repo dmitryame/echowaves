@@ -123,7 +123,10 @@ class Conversation < ActiveRecord::Base
 
       in response to: <a href="#{HOST}/conversations/#{self.parent_message.conversation_id}/messages/#{self.parent_message.id}">#{HOST}/conversations/#{self.parent_message.conversation_id}/messages/#{self.parent_message.id}</a>
     )
-    notification = user.messages.create( :conversation => self.parent_message.conversation, :message => msg, :system_message => true)
+    notification = user.messages.create( :conversation => self.parent_message.conversation, :message => msg)
+    notification.system_message = true
+    notification.save
+    return notification
   end
 
   def escaped_name

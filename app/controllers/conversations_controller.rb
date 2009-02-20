@@ -82,7 +82,7 @@ class ConversationsController < ApplicationController
           @copied_message.save
         else
           # create a first message that is the same as the convo description
-          message = current_user.messages.create( :conversation => @conversation, :message => @conversation.description, :system_message => false)
+          message = current_user.messages.create( :conversation => @conversation, :message => @conversation.description)
           message.save
         end
         
@@ -91,7 +91,8 @@ class ConversationsController < ApplicationController
           next  if (@conversation && @conversation.parent_message && personal_convo == @conversation.parent_message.conversation)
           # TODO: how to translate this for the current user?
           msg = " created a new convo: <a href='/conversations/#{@conversation.id}/messages'>#{@conversation.name}</a>"
-          notification = current_user.messages.create( :conversation => personal_convo, :message => msg, :system_message => true)
+          notification = current_user.messages.create( :conversation => personal_convo, :message => msg)
+          notification.system_message = true
           notification.save
           notification.send_stomp_message(self)
         end

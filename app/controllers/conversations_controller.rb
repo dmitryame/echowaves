@@ -1,7 +1,7 @@
 class ConversationsController < ApplicationController
   
   public :render_to_string # this is needed to make render_to_string public for message model to be able to use it
-  before_filter :login_required, :except => [:index, :show, :auto_complete_for_conversation_name, :complete_name ]
+  before_filter :require_user, :except => [:index, :show, :auto_complete_for_conversation_name, :complete_name ]
   after_filter :store_location, :only => [:index, :new]  
   
   auto_complete_with_scope_for 'published', :conversation, :name # multiple scopes can be chained like 'published.readonly'
@@ -13,19 +13,17 @@ class ConversationsController < ApplicationController
     redirect_to conversation_path(@conversation)
   end
 
-
-  def index    
-    
+  def index
     if params[:tag] != nil
       @conversations = Conversation.tagged_with(params[:tag], :on => :tags).published.paginate :page => params[:page], :order => 'created_at DESC'
     else
       @conversations = Conversation.published.not_personal.paginate :page => params[:page], :order => 'created_at DESC'
     end
-    
+
     respond_to do |format|
-      format.html # index.html.erb
+      format.html
       format.atom
-      format.xml  { render :xml => @conversations }
+      format.xml { render :xml => @conversations }
     end
   end
 
@@ -33,7 +31,7 @@ class ConversationsController < ApplicationController
     @conversation = Conversation.published.find(params[:id])
     @messages = @conversation.messages.published.find(:all, :include => [:user], :limit => 100, :order => 'id DESC').reverse
     current_user.conversation_visit_update(@conversation) if logged_in?
-    
+
     @has_more_messages = @conversation.has_messages_before?(@messages.first)
 
     respond_to do |format|
@@ -45,7 +43,7 @@ class ConversationsController < ApplicationController
   def new
     @conversation = Conversation.new
     respond_to do |format|
-      format.html # new.html.erb
+      format.html
       format.xml  { render :xml => @conversation }
     end
   end
@@ -54,13 +52,13 @@ class ConversationsController < ApplicationController
     @conversation = Conversation.new
     if params[:message_id]
       @message = Message.find(params[:message_id])
-      
+
       if current_user.conversations.find_by_parent_message_id( @message.id )
         flash[:error] = t("conversations.already_spawned_warning")
         redirect_to conversation_path(@message.conversation_id)
         return
       end
-      
+
       @conversation.parent_message_id = @message.id
       @conversation.description = %Q(
 #{ t( "conversations.user_spawned_convo_description", :login => current_user.login, :original_message_link => conversation_message_url(@message.conversation_id, @message) ) }
@@ -176,7 +174,6 @@ class ConversationsController < ApplicationController
     # @friends.delete_if do |user|
     #   user.conversations.detect {|convo| convo.id == @conversation.id}
     # end
-
     render :layout => "invite"
   end
   
@@ -217,7 +214,7 @@ class ConversationsController < ApplicationController
     @conversation.tag_list.remove(params[:tag])
     @conversation.save    
   end
-  
+
 private
 
   # FIXME: this is redundunt method from the messages_controller, this has to be addressed
@@ -230,5 +227,5 @@ private
   #   logger.error "IO failed: " + $!
   #   # raise
   # end
-  
+
 end

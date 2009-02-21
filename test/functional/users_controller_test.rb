@@ -86,7 +86,7 @@ class UsersControllerTest < ActionController::TestCase
   def test_should_return_current_user_for_edit_action
     user = Factory.create( :user )
     user.activate!
-    @request.session[:user_id] = user.id
+    set_session_for(user)
     get :edit
     assert assigns( :user )
     assert_equal assigns( :user ), user

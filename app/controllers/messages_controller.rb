@@ -4,7 +4,7 @@ class MessagesController < ApplicationController
   
   public :render_to_string # this is needed to make render_to_string public for message model to be able to use it
   
-  before_filter :login_required, :except => [:index, :show, :get_more_messages ]
+  before_filter :require_user, :except => [:index, :show, :get_more_messages ]
   before_filter :find_conversation, :except => [ :send_data, :auto_complete_for_tag_name]
   before_filter :check_write_access, :only => [ :create ]
   after_filter :store_location, :only => [:index]  
@@ -92,27 +92,8 @@ class MessagesController < ApplicationController
     message.report_abuse(current_user)
     render :nothing => true
   end
-
-  # def spawn_conversation
-  #   @message = Message.find(params[:id])
-  # 
-  #   if current_user.conversations.find_by_parent_message_id( @message.id )
-  #     flash[:error] = "You already spawned a new conversation from this message."
-  #     redirect_to conversation_messages_path(@conversation)
-  #     return
-  #   end
-  #   
-  #   spawned_conversation = @message.spawn_new_conversation( current_user )
-  #   
-  #   # create a message in the original conversation notifying about this spawning
-  #   # and send realtime notification to everyone who's listening
-  #   notification_message = @conversation.notify_of_new_spawn( current_user, spawned_conversation, @message )
-  #   notification_message.send_stomp_message(self) unless notification_message == nil
-  #       
-  #   redirect_to conversation_messages_path(spawned_conversation)
-  # end
   
-  private
+private
 
   def find_conversation
     @conversation = Conversation.published.find( params[:conversation_id] )

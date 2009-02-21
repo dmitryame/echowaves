@@ -1,5 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resource :session
+  map.resource :user_session
 
   map.resources :users, :member => {
     :tagged_convos => :get
@@ -25,9 +25,9 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :convosearch, :only => [:show, :create]
 
   map.home '/', :controller => "home", :action => "index"
-  map.logout '/logout', :controller => 'sessions', :action => 'destroy'
+  map.logout '/logout', :controller => 'user_sessions', :action => 'destroy'
   map.activate '/activate/:activation_code', :controller           => "users", :action => "activate"
-  map.login '/login', :controller => 'sessions', :action => 'new'
+  map.login '/login', :controller => 'user_sessions', :action => 'new'
   map.register '/register', :controller => 'users', :action => 'create'
   map.signup '/signup', :controller => 'users', :action => 'new'
   map.forgot_password '/forgot_password', :controller => "users", :action => "forgot_password"

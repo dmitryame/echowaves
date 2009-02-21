@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
-  
-  before_filter :login_required, :except => [:index, :show, :auto_complete_for_user_name, :complete_name, :signup, :new, :create, :activate, :forgot_password, :reset_password]
+
+  before_filter :require_user, :except => [:index, :show, :auto_complete_for_user_name,
+    :complete_name, :signup, :new, :create, :activate, :forgot_password, :reset_password]  
   after_filter :store_location, :only => [:index, :show]  
   
   auto_complete_for :user, :name
@@ -9,21 +10,17 @@ class UsersController < ApplicationController
     @user = User.find_by_name(params[:id])
     redirect_to user_path(@user)
   end
-    
-  # GET /conversations
-  # GET /conversations.xml
+
   def index
     @users = User.active.paginate :page => params[:page], :order => 'created_at DESC'
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html
       format.atom
       format.xml  { render :xml => @users }
     end
   end
 
-  # GET /clients/1
-  # GET /clients/1.xml
   def show
     @user = User.find(params[:id])
 
@@ -38,28 +35,23 @@ class UsersController < ApplicationController
   
   def tagged_convos
     @user = User.find(params[:id])
-
     @tag = params[:tag]
-    
     @tag_counts = @user.all_convos_tag_counts
-    
     @convos = @user.convos_by_tag(@tag)
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html
       # format.xml  { render :text => @user.to_xml( :only => [:id, :login, :name,
       #                                                      :created_at, :conversations_count,
       #                                                      :messages_count, :subscriptions_count] ) }
     end
   end
 
-  # render new.rhtml
   def new
     @user = User.new
   end
  
   def create
-    logout_keeping_session!
     @user = User.new(params[:user])
     @user.login = params[:user][:login]
     @user.name=@user.login
@@ -95,8 +87,7 @@ class UsersController < ApplicationController
   end
   
   def activate
-    logout_keeping_session!
-    user = User.find_by_activation_code(params[:activation_code]) unless params[:activation_code].blank?
+    user = User.find_using_activation_code(params[:activation_code]) unless params[:activation_code].blank?
     case
     when (!params[:activation_code].blank?) && user && !user.active?
       user.activate!
@@ -111,7 +102,6 @@ class UsersController < ApplicationController
     end
   end
 
-  # Change password action  
   def change_password
     return unless request.post?
     if User.authenticate(current_user.login, params[:old_password])
@@ -136,8 +126,6 @@ class UsersController < ApplicationController
     end 
   end
 
-  #
-  #gain email address
   def forgot_password
     return unless request.post?
     if @user = User.find_by_email(params[:user][:email])
@@ -154,8 +142,6 @@ class UsersController < ApplicationController
     end
   end
 
-  #
-  #reset password
   def reset_password
     @user = User.find_by_password_reset_code(params[:id])
     raise if @user.nil?

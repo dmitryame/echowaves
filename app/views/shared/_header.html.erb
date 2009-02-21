@@ -25,7 +25,7 @@
 				:title => "personal convo for " + current_user.name %>
 				</li>				
 				<%else%>
-				<li><%= link_to t("ui.login"), new_session_path %></li>
+				<li><%= link_to t("ui.login"), new_user_session_path %></li>
 				<li><%= link_to t("ui.signup"), new_user_path %></li>
 				<%end%>
 				<li><%= link_to t("ui.search_messages"), msgsearch_path, :class => 'search_link' %></li>

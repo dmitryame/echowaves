@@ -7,20 +7,17 @@
   
   <div class="item">
   
-    <% form_tag session_path do -%>
-    <p><%= label_tag t("ui.login") %><br />
-    <%= text_field_tag :login, @login %></p>
+    <% form_for @user_session, :url => user_session_path do |f| -%>
+    <p><%= f.label t("ui.login") %><br />
+    <%= f.text_field :login %></p>
   
-    <p><%= label_tag t('ui.password') %><br/>
-    <%= password_field_tag :password, nil %></p>
+    <p><%= f.label t('ui.password') %><br/>
+    <%= f.password_field :password %></p>
   
-    <!-- Uncomment this if you want this functionality
-    <p><%= label_tag 'remember_me', 'Remember me' %>
-    <%= check_box_tag :remember_me, '1', @remember_me %></p>
-    -->
+    <p><%= f.check_box :remember_me %><%= f.label :remember_me %></p>
   
     <p>
-    <%= submit_tag t("ui.login") %>&nbsp;<%= link_to t("ui.signup"), :controller => "users", :action => "new" -%>
+    <%= f.submit t("ui.login") %>&nbsp;<%= link_to t("ui.signup"), :controller => "users", :action => "new" -%>
     &nbsp;
     <span class="mute"><%= t("ui.its_free") %></span>
     </p>

@@ -2,8 +2,8 @@ class HomeController < ApplicationController
   
   # just a homepage
   def index
-    @users = User.find(:all, :order => 'created_at DESC', :limit => 56, :conditions => "activated_at is not null")
-    @recent_convos = Conversation.find(:all, :order => 'created_at DESC', :limit => 10, :conditions => "abuse_report_id is null and personal_conversation = 0")
+    @users = User.active.find(:all, :order => 'created_at DESC', :limit => 56)
+    @recent_convos = Conversation.published.not_personal.find(:all, :order => 'created_at DESC', :limit => 10)
 
     @popular_convos = Conversation.most_popular
 

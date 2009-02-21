@@ -71,6 +71,11 @@ class User < ActiveRecord::Base
   def friends
     self.friends_convos.map {|convo| convo.user}
   end
+  
+  def deliver_password_reset_instructions!
+    reset_activation_code!
+    UserMailer.deliver_password_reset_instructions(self)
+  end
     
   # Activates the user in the database.
   def activate!

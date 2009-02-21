@@ -1,6 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
   map.resource :user_session
-
+  map.resources :password_resets
+  
   map.resources :users, :member => {
     :tagged_convos => :get
   }

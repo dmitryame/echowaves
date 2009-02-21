@@ -125,46 +125,7 @@ class UsersController < ApplicationController
       render :edit
     end 
   end
-
-  def forgot_password
-    return unless request.post?
-    if @user = User.find_by_email(params[:user][:email])
-      @user.forgot_password
-      @user.save
-      if(SHOW_ACTIVATION_LINK)
-        flash[:error] = "<a href='#{HOST}/reset_password/#{@user.password_reset_code}'>Click here to reset</a>" #want this notice it red, that's why it's error
-      else 
-        flash[:notice] = "A password reset link has been sent to your email address" 
-      end
-      redirect_to :controller   => "sessions", :action => "new"
-    else
-      flash[:error] = "Could not find a user with that email address" 
-    end
-  end
-
-  def reset_password
-    @user = User.find_by_password_reset_code(params[:id])
-    raise if @user.nil?
   
-    return if @user unless params[:user]
-  
-    if ((params[:user][:password]  == params[:user][:password_confirmation]) && !params[:user][:password_confirmation].blank?)
-      #if (params[:user][:password]  params[:user][:password_confirmation])
-      @user.password_confirmation = params[:user][:password_confirmation]
-      @user.password = params[:user][:password]
-      self.current_user = @user 
-      @user.reset_password
-      flash[:notice] = current_user.save ? "Password reset" : "Password not reset"
-      redirect_back_or_default('/')
-    else
-      flash[:error] = "Password mismatch"
-    end
-  rescue
-    logger.error "Invalid Reset Code entered" 
-    flash[:error] = "That is an invalid password reset code. Please check your code and try again." 
-    redirect_back_or_default('/')
-  end
-
   def update_news
     @conversation = Conversation.find(params[:conversation_id])
   end

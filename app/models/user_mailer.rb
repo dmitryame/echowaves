@@ -1,4 +1,5 @@
 class UserMailer < ActionMailer::Base
+  default_url_options[:host] = HOST[7..-1]
   
   def signup_notification(user)
     setup_email(user)
@@ -11,16 +12,11 @@ class UserMailer < ActionMailer::Base
     @subject    += 'Your account has been activated!'
     @body[:url]  = "#{HOST}"
   end
-
-  def forgot_password(user)
+  
+  def password_reset_instructions(user)
     setup_email(user)
-    @subject    += 'You have requested to change your password'
-    @body[:url]  = "#{HOST}/reset_password/#{user.password_reset_code}" 
-  end
-
-  def reset_password(user)
-    setup_email(user)
-    @subject    += 'Your password has been reset.'
+    @subject    += "Password Reset Instructions"
+    body        :edit_password_reset_url => edit_password_reset_url(user.activation_code)
   end
   
 protected

@@ -25,42 +25,41 @@ copy config/database.yml-sample to config/database.yml and modify to taste (see 
 
 ## SERVER SIDE COMPONENT INSTALL
 
-* install python
+install python
   
     sudo apt-get install python2.5-dev
     sudo apt-get install python2.5-twisted
 
-
-* install orbited http://orbited.org/wiki/Installation
+install orbited (http://orbited.org/wiki/Installation)
   
     easy_install orbited
 
-* install simplejson
+install simplejson
   
     easy_install simplejson
 
-* copy orbited config file
+copy orbited config file
   
     cp config/orbited.cfg /etc/
 
-* install stomp gem
+install stomp gem
 
     sudo gem install stomp
 
-  (stomp gem will be prompted for by the entry in config/environment.rb)
+(stomp gem will be prompted for by the entry in config/environment.rb)
 
-* update gem sources
+update gem sources
   
     gem sources -a http://gems.github.com
 
-* install ImageMagick
-  You can install it quite easily via apt, yum, or port, or the package manager of your choice.
+install ImageMagick
+You can install it quite easily via apt, yum, or port, or the package manager of your choice.
 
-* install sphinx from http://sphinxsearch.com/
+install sphinx from http://sphinxsearch.com/
 
 ## POST INSTALL
 
-* Index data for Sphinx using Thinking Sphinx's settings (this rake task will create the settings file at #{RAILS_ROOT}/configuration/development.sphinx.conf)
+Index data for Sphinx using Thinking Sphinx's settings (this rake task will create the settings file at #{RAILS_ROOT}/configuration/development.sphinx.conf)
 
     rake thinking_sphinx:index
 
@@ -68,18 +67,22 @@ You will see a warning like the following – it’s safe to ignore, it’s just
 
     "distributed index 'article' can not be directly indexed; skipping."
 
-* Start a Sphinx searchd daemon using Thinking Sphinx's settings
+Start a Sphinx searchd daemon using Thinking Sphinx's settings
 
     rake thinking_sphinx:start
       
 Also – you can run the index task while Sphinx is running, and it’ll reload the indexes automatically. Prior to 0.9.9 though, Sphinx doesn’t reload the configuration file, so if you’ve changed your index structure or other Sphinx settings, you will need to stop and start it for those changes to take effect.
 
-* setup a cron tab to run "rake thinking_sphinx:index" periodically or do it manually when you need it
+setup a cron tab to run "rake thinking_sphinx:index" periodically or do it manually when you need it
 
-* SignUp as a new user. Activate the user by copy-pasting the activation URL from the debug log into the address field of your browser and hit enter. 
+SignUp as a new user. Activate the user by copy-pasting the activation URL from the debug log into the address field of your browser and hit enter. 
 
-* To actually get the actionmailer stuff sent, you'll need to change the SMTP settings in config/environment.rb
-In that case, you'll probably want to comment out the (currently last) line in config/environments/development.rb that reads "config.action_mailer.raise_delivery_errors = false", so that actionmailer failures are more visible.
+To actually get the actionmailer stuff sent, you'll need to change the SMTP settings in config/environment.rb
+In that case, you'll probably want to comment out the (currently last) line in config/environments/development.rb that reads:
+    
+    "config.action_mailer.raise_delivery_errors = false"
+
+so that actionmailer failures are more visible.
 
 ## REPORTING ISSUES
 

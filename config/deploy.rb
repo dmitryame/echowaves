@@ -4,7 +4,7 @@ default_run_options[:pty] = true
 
 # ssh_options[:forward_agent] = true
 set :branch, "master"
-set :deploy_via, :remote_cache
+#set :deploy_via, :remote_cache
 set :runner, nil
 # set :git_shallow_clone, 1
 

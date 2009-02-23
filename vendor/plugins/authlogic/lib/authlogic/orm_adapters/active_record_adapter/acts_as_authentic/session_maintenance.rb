@@ -40,11 +40,9 @@ module Authlogic
           
                   #{options[:session_ids].inspect}.each do |session_id|
                     session = #{options[:session_class]}.find(session_id, self)
-                    if session
-                      if !session.record.blank?
-                        @_logged_out = false
-                        @_sessions << session if session.record == self
-                      end
+                    if session && !session.record.blank?
+                      @_logged_out = false
+                      @_sessions << session if session.record == self
                     end
                   end
                 end
@@ -61,13 +59,9 @@ module Authlogic
                   # We only want to automatically login into the first session, since this is the main session. The other sessions are sessions
                   # that need to be created after logging into the main session.
                   session_id = #{options[:session_ids].inspect}.first
-          
-                  # If we are already logged in, ignore this completely. All that we care about is updating ourself.
-                  next if #{options[:session_class]}.find(session_id, self)
-                        
-                  # Log me in
-                  args = [self, session_id].compact
-                  #{options[:session_class]}.create(*args)
+                   
+                  # Log me in, only if we aren't already logged in
+                  #{options[:session_class]}.create(*[self, session_id].compact) if !#{options[:session_class]}.find(session_id, self)
                 end
         
                 def update_sessions!

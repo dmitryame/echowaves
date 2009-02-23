@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-  default_url_options[:host] = HOST[7..-1]
+  
   
   def signup_notification(user)
     setup_email(user)
@@ -22,6 +22,7 @@ class UserMailer < ActionMailer::Base
 protected
   
   def setup_email(user)
+    default_url_options[:host] = HOST[7..-1]
     @recipients  = "#{user.email}"
     @bcc         = "dmitry@rootlocusinc.com" #email monitoring log, do not erase
     @from        = "support@echowaves.com"

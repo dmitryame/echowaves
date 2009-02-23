@@ -1,7 +1,5 @@
 class ApplicationController < ActionController::Base
-  
-  before_filter :activate_authlogic
-  
+    
   helper_method :current_user_session, :current_user, :logged_in?
   
   filter_parameter_logging "password"

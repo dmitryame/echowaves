@@ -3,6 +3,7 @@ class Message < ActiveRecord::Base
   auto_html_for(:message) do
     html_escape
     youtube(:width => 400, :height => 250)
+    vimeo
     image
     link(:target => "_blank", :rel => "nofollow")
     simple_format

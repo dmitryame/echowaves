@@ -1,5 +1,13 @@
 class Message < ActiveRecord::Base
-
+  
+  auto_html_for(:message) do
+    html_escape
+    youtube(:width => 400, :height => 250)
+    image
+    link(:target => "_blank", :rel => "nofollow")
+    simple_format
+  end
+    
   belongs_to :conversation, :counter_cache => true 
   
   belongs_to :user, :counter_cache => true

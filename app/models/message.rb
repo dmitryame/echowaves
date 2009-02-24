@@ -66,6 +66,10 @@ class Message < ActiveRecord::Base
     has_attachment? and self.attachment_content_type.include?("image")
   end
 
+  def has_zip?
+    has_attachment? and self.attachment_content_type.include?("zip")
+  end
+  
   def over_abuse_reports_limit?
     self.abuse_reports.size > MESSAGE_ABUSE_THRESHOLD
   end

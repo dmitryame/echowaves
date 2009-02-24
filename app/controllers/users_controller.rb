@@ -87,7 +87,7 @@ class UsersController < ApplicationController
   end
   
   def activate
-    user = User.find_by_activation_code(params[:activation_code]) unless params[:activation_code].blank?
+    user = User.find_using_activation_code(params[:activation_code]) unless params[:activation_code].blank?
     case
     when (!params[:activation_code].blank?) && user && !user.active?
       user.activate!

@@ -41,7 +41,7 @@ class PasswordResetsController < ApplicationController
   
 private
   def load_user_using_activation_code
-    @user = User.find_using_activation_code(params[:id])
+    @user = User.find_using_activation_code(params[:id], 0)
     unless @user
       flash[:notice] = "We're sorry, but we could not locate your account. " +
         "If you are having issues try copying and pasting the URL " +

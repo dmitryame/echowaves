@@ -15,4 +15,5 @@ class Invite < ActiveRecord::Base
     self.token = nil
     self.save
   end
+  
 end

@@ -10,9 +10,7 @@ class Message < ActiveRecord::Base
   end
     
   belongs_to :conversation, :counter_cache => true 
-  
   belongs_to :user, :counter_cache => true
-  
   # FIXME: should this really have a double association to the same model?
   has_many :abuse_reports
   belongs_to :abuse_report
@@ -33,6 +31,9 @@ class Message < ActiveRecord::Base
   
   named_scope :published, :conditions => { :abuse_report_id => nil }
 
+  ##
+  # sphinx index
+  #
   define_index do
     indexes message
     has created_at
@@ -112,4 +113,5 @@ class Message < ActiveRecord::Base
   def date
     self.created_at.to_s(:simple)
   end
+  
 end

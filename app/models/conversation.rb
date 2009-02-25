@@ -1,14 +1,6 @@
 class Conversation < ActiveRecord::Base
   
   acts_as_taggable_on :tags
-  validates_presence_of :name
-  validates_presence_of :description
-
-  # do not validate the uniquness of the personal conversations names, they will be guaranteed to be unique since the user names will be
-  validates_uniqueness_of   :name,                       :unless => :personal? or :spawned?
-  validates_length_of       :name,    :within => 3..100, :unless => :personal? 
-  
-  validates_length_of       :description, :maximum => 10000
   
   has_many :messages #these are the conversations messages
   belongs_to :parent_message, #parent message it was spawned from, in case it was created by spawning
@@ -28,15 +20,26 @@ class Conversation < ActiveRecord::Base
   belongs_to :abuse_report #the abuse report record that made this convo disabled
 
   belongs_to :user, :counter_cache => true
+  
+  # do not validate the uniquness of the personal conversations names, they will be guaranteed to be unique since the user names will be
+  validates_presence_of     :name
+  validates_uniqueness_of   :name,                       :unless => :personal? or :spawned?
+  validates_length_of       :name,    :within => 3..100, :unless => :personal?
+
+  validates_presence_of     :description
+  validates_length_of       :description, :maximum => 10000
+  
+  def validate
+    self.errors.add(:something, "This field must be empty") unless self.something == ""
+  end
 
   named_scope :published, :conditions => { :abuse_report_id => nil }
   named_scope :not_personal, :conditions => { :personal_conversation => false }
   named_scope :personal, :conditions => { :personal_conversation => true }
 
-  def validate
-    self.errors.add(:something, "This field must be empty") unless self.something == ""
-  end
-  
+  ##
+  # sphinx index
+  #
   define_index do
     indexes :name
     indexes description

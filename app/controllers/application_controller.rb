@@ -1,9 +1,9 @@
 class ApplicationController < ActionController::Base
     
   helper_method :current_user_session, :current_user, :logged_in?
+  helper :all # include all helpers, all the time
   
   filter_parameter_logging "password"
-  helper :all # include all helpers, all the time
 
   protect_from_forgery
   
@@ -61,4 +61,5 @@ private
     redirect_to(session[:return_to] || default)
     session[:return_to] = nil
   end
+  
 end

@@ -1,19 +1,17 @@
 class ConversationsController < ApplicationController
   
   public :render_to_string # this is needed to make render_to_string public for message model to be able to use it
+  
   before_filter :require_user, :except => [:index, :show, :auto_complete_for_conversation_name, :complete_name ]
-  before_filter :find_conversation, :only => [:show, :follow, :follow_with_token, :unfollow, :readwrite_status, :private_status, :report, :invite, :invite_from_list, :add_tag, :remove_tag]
+  before_filter :find_conversation, :only => [:show, :follow, :follow_with_token, :unfollow,
+                                              :readwrite_status, :private_status, :report,
+                                              :invite, :invite_from_list, :add_tag, :remove_tag]
   before_filter :check_read_access, :only => [:show]
-  after_filter :store_location, :only => [:index, :new]  
+  
+  after_filter :store_location, :only => [:index, :new]
   
   auto_complete_with_scope_for 'published', :conversation, :name # multiple scopes can be chained like 'published.readonly'
-
   auto_complete_for :tag, :name
-
-  def complete_name
-    @conversation = Conversation.published.find_by_name(params[:id])
-    redirect_to conversation_path(@conversation)
-  end
 
   def index
     if params[:tag] != nil
@@ -230,6 +228,12 @@ class ConversationsController < ApplicationController
     @conversation.save    
   end
 
+  # TODO: remove this thing
+  def complete_name
+    @conversation = Conversation.published.find_by_name(params[:id])
+    redirect_to conversation_path(@conversation)
+  end
+  
 private
 
   def find_conversation

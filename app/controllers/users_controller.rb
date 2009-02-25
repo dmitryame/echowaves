@@ -1,15 +1,11 @@
 class UsersController < ApplicationController
 
-  before_filter :require_user, :except => [:index, :show, :auto_complete_for_user_name,
-    :complete_name, :signup, :new, :create, :activate, :forgot_password, :reset_password]  
-  after_filter :store_location, :only => [:index, :show]  
+  before_filter :require_user, :except => [ :index, :show, :auto_complete_for_user_name,
+                                            :complete_name, :signup, :new, :create, :activate,
+                                            :forgot_password, :reset_password ]  
+  after_filter :store_location, :only => [ :index, :show ]
   
   auto_complete_for :user, :name
-
-  def complete_name
-    @user = User.find_by_name(params[:id])
-    redirect_to user_path(@user)
-  end
 
   def index
     @users = User.active.paginate :page => params[:page], :order => 'created_at DESC'
@@ -128,6 +124,12 @@ class UsersController < ApplicationController
   
   def update_news
     @conversation = Conversation.find(params[:conversation_id])
+  end
+  
+  # TODO: can I remove this thing?
+  def complete_name
+    @user = User.find_by_name(params[:id])
+    redirect_to user_path(@user)
   end
   
 end

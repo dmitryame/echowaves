@@ -107,24 +107,4 @@ private
     end
   end
   
-  # def send_stomp_message(message)
-  #   newmessagescript = render_to_string :partial => 'message', :object => message
-  #   s = Stomp::Client.new
-  #   s.send("CONVERSATION_CHANNEL_" + params[:conversation_id], newmessagescript)
-  #   s.close
-  # rescue SystemCallError
-  #   logger.error "IO failed: " + $!
-  #   # raise
-  # end
-  
-  # def send_stomp_notifications
-  #   s = Stomp::Client.new
-  #   s.send("CONVERSATION_NOTIFY_CHANNEL_" + params[:conversation_id], "1")
-  #   # puts ("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! CONVERSATION_NOTIFY_CHANNEL_" + params[:conversation_id])
-  #   s.close
-  # rescue SystemCallError
-  #   logger.error "IO failed: " + $!
-  #   # raise
-  # end
-  
 end

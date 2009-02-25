@@ -1,7 +1,9 @@
 class PasswordResetsController < ApplicationController
+  
+  layout "users"
+  
   before_filter :load_user_using_perishable_token, :only => [:edit, :update]
   before_filter :require_no_user
-  layout "users"
   
   def edit
     render
@@ -40,6 +42,7 @@ class PasswordResetsController < ApplicationController
   end
   
 private
+
   def load_user_using_perishable_token
     @user = User.find_using_perishable_token(params[:id], 0)
     unless @user
@@ -50,4 +53,5 @@ private
       redirect_to "/"
     end
   end
+  
 end

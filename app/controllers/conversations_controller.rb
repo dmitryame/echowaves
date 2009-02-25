@@ -2,7 +2,7 @@ class ConversationsController < ApplicationController
   
   public :render_to_string # this is needed to make render_to_string public for message model to be able to use it
   before_filter :require_user, :except => [:index, :show, :auto_complete_for_conversation_name, :complete_name ]
-  before_filter :find_conversation, :only => [:show, :follow, :unfollow, :readwrite_status, :private_status, :report, :invite, :add_tag, :remove_tag]
+  before_filter :find_conversation, :only => [:show, :follow, :follow_with_token, :unfollow, :readwrite_status, :private_status, :report, :invite, :invite_from_list, :add_tag, :remove_tag]
   before_filter :check_read_access, :only => [:show]
   after_filter :store_location, :only => [:index, :new]  
   
@@ -123,7 +123,12 @@ class ConversationsController < ApplicationController
   def follow
     current_user.follow(@conversation)
   end
-
+  
+  def follow_with_token
+    current_user.follow(@conversation, params[:token])
+    redirect_to @conversation
+  end
+  
   def unfollow
     current_user.unfollow(@conversation)
   end
@@ -190,17 +195,23 @@ class ConversationsController < ApplicationController
     @invite.user_id = @user.id
     @invite.requestor = current_user
     @invite.conversation_id = params[:id]
-    @invite.save    
+    @invite.save
     
-    # now let's create a system message and send it to the convo channel
-    # TODO: how to translate this for the current user?
-    msg = " invites you to follow a convo: <a href='/conversations/#{params[:id]}'>#{@invite.conversation.name}</a>"
-    notification = current_user.messages.create( :conversation => @user.personal_conversation, :message => msg)
-    notification.system_message = true
+    if @conversation.private
+      @user.deliver_private_invite_instructions!(params[:id])
+      # flash[:error] = "<a href=\"#{HOST}/conversations/#{params[:id]}/follow_with_token?token=#{@user.activation_code}\">Click here to reset your password</a>" #want this notice it red, that's why it's error
+      flash[:error] =  follow_with_token_conversation_url(params[:id], :token => user.activation_code)
+    else
+      # now let's create a system message and send it to the convo channel
+      # TODO: how to translate this for the current user?
+      msg = " invites you to follow a convo: <a href='/conversations/#{params[:id]}'>#{@invite.conversation.name}</a>"
+      notification = current_user.messages.create( :conversation => @user.personal_conversation, :message => msg)
+      notification.system_message = true
+      
+      notification.save
+      notification.send_stomp_message(self)
+    end
     
-    notification.save
-    notification.send_stomp_message(self)
-
     render :update do |page| 
       page["user_" + @user.id.to_s].visual_effect :drop_out
     end 

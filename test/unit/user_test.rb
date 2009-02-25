@@ -163,18 +163,22 @@ class UserTest < ActiveSupport::TestCase
       assert_no_match %r{<email>}, @xml
     end
     
-    should "not serialize the password reset code" do
-      assert_no_match %r{<password-reset-code}, @xml
-    end
-    
     should "not serialize the remember token" do
       assert_no_match %r{<remember-token}, @xml
+    end
+    
+    should "not serialize the perishable token" do
+      assert_no_match %r{<perishable-token}, @xml
+    end
+    
+    should "not serialize the persistence token" do
+      assert_no_match %r{<persistence-token}, @xml
     end
     
     should "not serialize the remember token expiration date" do
       assert_no_match %r{<remember-token-expires-at}, @xml
     end
-    
+
     should "not serialize the password salt" do
       assert_no_match %r{<salt}, @xml
     end

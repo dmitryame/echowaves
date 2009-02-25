@@ -2,37 +2,17 @@ require 'gravtastic'
 
 class User < ActiveRecord::Base
   
-  acts_as_authentic :transition_from_restful_authentication => true               
-
-  acts_as_tagger
-  validates_presence_of     :login
-  validates_length_of       :login,    :within => 3..40
-  validates_uniqueness_of   :login
-  validates_format_of       :login,    :with => LOGIN_REGEX, :message => "use only letters, numbers, and .-_@ please.".freeze
-
-  validates_format_of       :name,     :with => NAME_REGEX,  :message => "avoid non-printing characters and \\&gt;&lt;&amp;/ please.".freeze, :allow_nil => true
-  validates_length_of       :name,     :maximum => 100
-
-  validates_presence_of     :email
-  validates_length_of       :email,    :within => 6..100 #r@a.wk
-  validates_uniqueness_of   :email
-  validates_format_of       :email,    :with => EMAIL_REGEX, :message => "should look like an email address.".freeze
   attr_accessor :email_confirmation
-  validates_confirmation_of :email 
   
-
-  # validates_presence_of     :personal_conversation_id #don't require it
-  validates_uniqueness_of   :personal_conversation_id, :if => Proc.new { |u| !u.personal_conversation_id.blank? } 
-  def validate
-    self.errors.add(:something, "This field must be empty") unless self.something == ""
-  end
+  is_gravtastic :size => 40, :default => "identicon" # "monsterid" or "identicon", or "wavatar"
+  acts_as_authentic :transition_from_restful_authentication => true
+  acts_as_tagger
   
   has_many :messages
 
   belongs_to :personal_conversation, #personal users conversation
     :class_name => "Conversation", 
     :foreign_key => "personal_conversation_id"
-
 
   has_many :subscriptions, :order => "activated_at DESC"
   has_many :subscribed_conversations, :through => :subscriptions, :uniq => true, :order => "name", :source => :conversation
@@ -46,15 +26,32 @@ class User < ActiveRecord::Base
            :order => "conversation_visits.updated_at DESC",
            :limit => 10
   
+  validates_presence_of     :login
+  validates_length_of       :login,    :within => 3..40
+  validates_uniqueness_of   :login
+  validates_format_of       :login,    :with => LOGIN_REGEX, :message => "use only letters, numbers, and .-_@ please.".freeze
 
+  validates_format_of       :name,     :with => NAME_REGEX,  :message => "avoid non-printing characters and \\&gt;&lt;&amp;/ please.".freeze, :allow_nil => true
+  validates_length_of       :name,     :maximum => 100
+
+  validates_presence_of     :email
+  validates_length_of       :email,    :within => 6..100 #r@a.wk
+  validates_uniqueness_of   :email
+  validates_format_of       :email,    :with => EMAIL_REGEX, :message => "should look like an email address.".freeze
+  validates_confirmation_of :email 
+  
+  validates_uniqueness_of   :personal_conversation_id, :if => Proc.new { |u| !u.personal_conversation_id.blank? } 
+
+  def validate
+    self.errors.add(:something, "This field must be empty") unless self.something == ""
+  end
+  
   named_scope :active, :conditions => "activated_at is not null"
-
+  
   # HACK HACK HACK -- how to do attr_accessible from here?
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
   attr_accessible :email, :email_confirmation, :name, :password, :password_confirmation, :time_zone, :something
-
-  is_gravtastic :size => 40, :default => "identicon" # "monsterid" or "identicon", or "wavatar"
 
   #this method returns a collection of all the convos with the new messages for the user.
   def news
@@ -84,13 +81,10 @@ class User < ActiveRecord::Base
   # Activates the user in the database.
   def activate!
     @activated = true
-    self.activated_at = Time.now.utc
-    # self.perishable_token = nil
-    
+    self.activated_at = Time.now.utc    
     # create initial personal conversation
     conversation = Conversation.add_personal(self)
     self.personal_conversation_id = conversation.id
-  
     self.save
   end
 
@@ -127,15 +121,14 @@ class User < ActiveRecord::Base
     if !convo.private? || self == convo.owner
       subscription = convo.add_subscription(self)
       subscription.mark_read
-      return true
     elsif convo.private? && !invite.blank? && ( token == invite.token )
       subscription = convo.add_subscription(self)
       subscription.mark_read
       invite.reset_token!
-      return true
     else
       return false
     end
+    return true
   end
   
   def unfollow(convo)
@@ -157,7 +150,6 @@ class User < ActiveRecord::Base
   
   def all_convos_tag_counts
     tag_counts = [] #have to initialize the array
-    # puts "subscriptions count: " + self.subscriptions.size.to_s
     self.subscriptions.each do |subscription|      
       tag_counts |= subscription.conversation.tag_counts
     end
@@ -177,9 +169,9 @@ class User < ActiveRecord::Base
   alias_method :unsafe_to_xml, :to_xml
   
   def to_xml(options = {})
-    excluded_by_default = [:crypted_password, :salt, :remember_token,
-                          :remember_token_expires_at, :activated_at, :perishable_token,
-                          :email, :password_reset_code]
+    excluded_by_default = [:crypted_password, :salt, :remember_token, :something,
+                          :remember_token_expires_at, :activated_at, :perishable_token, :persistence_token,
+                          :email, :password_reset_code] # TODO: remove unused password_reset_code field
     options[:except] = (options[:except] ? options[:except] + excluded_by_default : excluded_by_default)   
     unsafe_to_xml(options)
   end

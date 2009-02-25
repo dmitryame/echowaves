@@ -1,5 +1,5 @@
 class PasswordResetsController < ApplicationController
-  before_filter :load_user_using_activation_code, :only => [:edit, :update]
+  before_filter :load_user_using_perishable_token, :only => [:edit, :update]
   before_filter :require_no_user
   layout "users"
   
@@ -27,7 +27,7 @@ class PasswordResetsController < ApplicationController
     if @user
       @user.deliver_password_reset_instructions!
       if(SHOW_ACTIVATION_LINK)
-        flash[:error] = "<a href=\"#{HOST}/password_resets/#{@user.activation_code}/edit\">Click here to reset your password</a>" #want this notice it red, that's why it's error
+        flash[:error] = "<a href=\"#{HOST}/password_resets/#{@user.perishable_token}/edit\">Click here to reset your password</a>" #want this notice it red, that's why it's error
       else 
         flash[:notice] = "Instructions to reset your password have been emailed to you. " +
           "Please check your email."
@@ -40,8 +40,8 @@ class PasswordResetsController < ApplicationController
   end
   
 private
-  def load_user_using_activation_code
-    @user = User.find_using_activation_code(params[:id], 0)
+  def load_user_using_perishable_token
+    @user = User.find_using_perishable_token(params[:id], 0)
     unless @user
       flash[:notice] = "We're sorry, but we could not locate your account. " +
         "If you are having issues try copying and pasting the URL " +

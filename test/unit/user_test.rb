@@ -71,17 +71,17 @@ class UserTest < ActiveSupport::TestCase
     
     should "be able to suscribe to a convo if the convo is private and the user have a invitation token" do
       @user = Factory.create(:user, :login => "user")
-      @user.reset_activation_code!
+      @user.reset_perishable_token!
       @conversation = Factory.create(:conversation, :name => "converstaion", :private => true)
-      @invite = Factory.create(:invite, :user => @user, :conversation => @conversation, :token => @user.activation_code, :requestor_id => 13)
+      @invite = Factory.create(:invite, :user => @user, :conversation => @conversation, :token => @user.perishable_token, :requestor_id => 13)
       assert @user.follow(@conversation, @invite.token)
     end
     
     should "not be able to suscribe to a convo if the convo is private and the user have a wrong invitation token" do
       @user = Factory.create(:user, :login => "user")
-      @user.reset_activation_code!
+      @user.reset_perishable_token!
       @conversation = Factory.create(:conversation, :name => "converstaion", :private => true)
-      assert !@user.follow(@conversation, "hacked_activation_code")
+      assert !@user.follow(@conversation, "hacked_perishable_token")
     end
     
     should "be valid if honeypot field is blank" do

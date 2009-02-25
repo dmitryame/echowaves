@@ -195,7 +195,7 @@ class ConversationsController < ApplicationController
     @invite.user_id = @user.id
     @invite.requestor = current_user
     @invite.conversation_id = params[:id]
-    @invite.token = @user.activation_code if @conversation.private
+    @invite.token = @user.perishable_token if @conversation.private
     @invite.save
     
     if @conversation.private

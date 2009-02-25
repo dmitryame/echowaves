@@ -2,9 +2,8 @@ require 'gravtastic'
 
 class User < ActiveRecord::Base
   
-  acts_as_authentic :transition_from_restful_authentication => true,
-                    :perishable_token_field => 'activation_code'                    
-  
+  acts_as_authentic :transition_from_restful_authentication => true               
+
   acts_as_tagger
   validates_presence_of     :login
   validates_length_of       :login,    :within => 3..40
@@ -73,12 +72,12 @@ class User < ActiveRecord::Base
   end
   
   def deliver_password_reset_instructions!
-    reset_activation_code!
+    reset_perishable_token!
     UserMailer.deliver_password_reset_instructions(self)
   end
   
   def deliver_private_invite_instructions!(invite)
-    reset_activation_code!
+    reset_perishable_token!
     UserMailer.deliver_private_invite_instructions(self, invite.conversation_id, invite.token)
   end
   
@@ -86,7 +85,7 @@ class User < ActiveRecord::Base
   def activate!
     @activated = true
     self.activated_at = Time.now.utc
-    # self.activation_code = nil
+    # self.perishable_token = nil
     
     # create initial personal conversation
     conversation = Conversation.add_personal(self)
@@ -179,7 +178,7 @@ class User < ActiveRecord::Base
   
   def to_xml(options = {})
     excluded_by_default = [:crypted_password, :salt, :remember_token,
-                          :remember_token_expires_at, :activated_at, :activation_code,
+                          :remember_token_expires_at, :activated_at, :perishable_token,
                           :email, :password_reset_code]
     options[:except] = (options[:except] ? options[:except] + excluded_by_default : excluded_by_default)   
     unsafe_to_xml(options)

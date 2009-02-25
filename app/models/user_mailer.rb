@@ -4,7 +4,7 @@ class UserMailer < ActionMailer::Base
   def signup_notification(user)
     setup_email(user)
     @subject    += 'Please activate your new account'
-    @body[:url]  = "#{HOST}/activate/#{user.activation_code}"
+    @body[:url]  = "#{HOST}/activate/#{user.perishable_token}"
   end
   
   def activation(user)
@@ -16,7 +16,7 @@ class UserMailer < ActionMailer::Base
   def password_reset_instructions(user)
     setup_email(user)
     @subject    += "Password Reset Instructions"
-    body        :edit_password_reset_url => edit_password_reset_url(user.activation_code)
+    body        :edit_password_reset_url => edit_password_reset_url(user.perishable_token)
   end
   
   def private_invite_instructions(user, convo_id, token)

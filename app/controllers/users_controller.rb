@@ -58,7 +58,7 @@ class UsersController < ApplicationController
     success = @user && @user.save
     if success && @user.errors.empty?
       if(SHOW_ACTIVATION_LINK)
-        flash[:error] = "<a href='/activate/#{@user.activation_code}'>#{t("ui.click_to_activate")}</a>" # it's really a notice, but just to attract an attention, since errors are output in red
+        flash[:error] = "<a href='/activate/#{@user.perishable_token}'>#{t("ui.click_to_activate")}</a>" # it's really a notice, but just to attract an attention, since errors are output in red
       else
         flash[:notice] = t("ui.thanks_for_signup")
       end
@@ -87,13 +87,13 @@ class UsersController < ApplicationController
   end
   
   def activate
-    user = User.find_using_activation_code(params[:activation_code], 0) unless params[:activation_code].blank?
+    user = User.find_using_perishable_token(params[:perishable_token], 0) unless params[:perishable_token].blank?
     case
-    when (!params[:activation_code].blank?) && user && !user.active?
+    when (!params[:perishable_token].blank?) && user && !user.active?
       user.activate!
       flash[:notice] = t("users.signup_complete")
       redirect_to '/login'
-    when params[:activation_code].blank?
+    when params[:perishable_token].blank?
       flash[:error] = "The activation code was missing.  Please follow the URL from your email."
       redirect_back_or_default('/')
     else 

@@ -227,13 +227,13 @@ class ConversationTest < ActiveSupport::TestCase
 
     should "add a new user subscription" do
       assert_equal 1, @conversation.subscriptions.size # convo owner is subscribed by default
-      assert_equal false, @conversation.followed?( @user )
+      assert_equal false, @conversation.followed_by?( @user )
 
       @conversation.add_subscription( @user )
       @conversation.reload
 
       assert_equal 2, @conversation.subscriptions.size
-      assert @conversation.followed?( @user )
+      assert @conversation.followed_by?( @user )
     end
 
     should "remove a user subscription" do

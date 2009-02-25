@@ -168,7 +168,6 @@ class Conversation < ActiveRecord::Base
   def after_create 
     owner.follow(self)
     self.user.tag(self, :with => self.tag_list.to_s  + ", " + self.user.login, :on => :tags)      
-        
   end
 
   def total_visits
@@ -179,7 +178,6 @@ class Conversation < ActiveRecord::Base
     conversations = ConversationVisit.find(:all, :conditions => ["updated_at >= ?", Date.today - 30.days ], :group => :conversation_id, :order => "visits_count DESC", :limit => 10).map { |convo_visit| convo_visit.conversation }      
     conversations
   end
-  
   
 private
 

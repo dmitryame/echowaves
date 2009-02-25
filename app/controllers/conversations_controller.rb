@@ -2,6 +2,8 @@ class ConversationsController < ApplicationController
   
   public :render_to_string # this is needed to make render_to_string public for message model to be able to use it
   before_filter :require_user, :except => [:index, :show, :auto_complete_for_conversation_name, :complete_name ]
+  before_filter :find_conversation, :only => [:show, :follow, :unfollow, :readwrite_status, :report, :invite, :add_tag, :remove_tag]
+  before_filter :check_read_access, :only => [:show]
   after_filter :store_location, :only => [:index, :new]  
   
   auto_complete_with_scope_for 'published', :conversation, :name # multiple scopes can be chained like 'published.readonly'
@@ -28,7 +30,6 @@ class ConversationsController < ApplicationController
   end
 
   def show
-    @conversation = Conversation.published.find(params[:id])
     @messages = @conversation.messages.published.find(:all, :include => [:user], :limit => 100, :order => 'id DESC').reverse
     current_user.conversation_visit_update(@conversation) if logged_in?
 
@@ -120,12 +121,10 @@ class ConversationsController < ApplicationController
   end
 
   def follow
-    @conversation = Conversation.published.find(params[:id])
     current_user.follow(@conversation)
   end
 
   def unfollow
-    @conversation = Conversation.published.find(params[:id])
     current_user.unfollow(@conversation)
   end
 
@@ -139,17 +138,15 @@ class ConversationsController < ApplicationController
 
   def readwrite_status
     read_only = (params[:mode] == 'rw') ? false : true 
-    @conversation = Conversation.published.find( params[:id] )
     @conversation.update_attributes( :read_only => read_only ) if ( @conversation.owner == current_user )
     redirect_to conversation_path( @conversation )
   end
 
   def report
-    conversation = Conversation.published.find(params[:id])
-    conversation.report_abuse(current_user)
+    @conversation.report_abuse(current_user)
     # FIXME: refactor this or simplify if do not need to degrade if there is no javascript
     # what to do with the other users currently in this conversation if is disabled?
-    if conversation.disabled_by_abuse_report?
+    if @conversation.disabled_by_abuse_report?
       if request.xhr?
         render :update do |page|
           page.redirect_to(conversations_path)
@@ -163,7 +160,6 @@ class ConversationsController < ApplicationController
   end
   
   def invite
-    @conversation = Conversation.published.find(params[:id])
     @friends = current_user.friends    
     # should also remove the users if they were already invited
     @friends.delete_if do |user|
@@ -205,27 +201,26 @@ class ConversationsController < ApplicationController
   end
 
   def add_tag
-    @conversation = Conversation.published.find(params[:id])
     current_user.tag(@conversation, :with => @conversation.tags.collect{|tag| tag.name}.join(", ")  + ", " + params[:tag][:name].to_s, :on => :tags)
   end
   
   def remove_tag
-    @conversation = Conversation.published.find(params[:id])
     @conversation.tag_list.remove(params[:tag])
     @conversation.save    
   end
 
 private
 
-  # FIXME: this is redundunt method from the messages_controller, this has to be addressed
-  # def send_stomp_message(message)
-  #   newmessagescript = render_to_string :partial => 'messages/message', :object => message
-  #   s = Stomp::Client.new
-  #   s.send("CONVERSATION_CHANNEL_" + message.conversation.id.to_s, newmessagescript)
-  #   s.close
-  # rescue SystemCallError
-  #   logger.error "IO failed: " + $!
-  #   # raise
-  # end
+  def find_conversation
+    @conversation = Conversation.published.find( params[:id] )
+  end
+  
+  def check_read_access
+    unless @conversation.readable_by?(current_user) || !@conversation.private
+      flash[:error] = "Sorry, this is a private conversation. You can try anoter one"
+      redirect_to conversations_path
+      return
+    end
+  end
 
 end

@@ -6,12 +6,13 @@ ActionController::Routing::Routes.draw do |map|
     :tagged_convos => :get
   }
 
-  map.resources :conversations, :member => { 
-    :readwrite_status   => :put, 
-    :report             => :post, 
-    :follow             => :post, 
-    :unfollow           => :post, 
-    :follow_from_list   => :post, 
+  map.resources :conversations, :member => {
+    :private_status     => :put,
+    :readwrite_status   => :put,
+    :report             => :post,
+    :follow             => :post,
+    :unfollow           => :post,
+    :follow_from_list   => :post,
     :unfollow_from_list => :post,
     :invite             => :get,
     :invite_from_list   => :post

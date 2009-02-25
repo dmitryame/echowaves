@@ -2,7 +2,7 @@ class ConversationsController < ApplicationController
   
   public :render_to_string # this is needed to make render_to_string public for message model to be able to use it
   before_filter :require_user, :except => [:index, :show, :auto_complete_for_conversation_name, :complete_name ]
-  before_filter :find_conversation, :only => [:show, :follow, :unfollow, :readwrite_status, :report, :invite, :add_tag, :remove_tag]
+  before_filter :find_conversation, :only => [:show, :follow, :unfollow, :readwrite_status, :private_status, :report, :invite, :add_tag, :remove_tag]
   before_filter :check_read_access, :only => [:show]
   after_filter :store_location, :only => [:index, :new]  
   
@@ -142,6 +142,12 @@ class ConversationsController < ApplicationController
     redirect_to conversation_path( @conversation )
   end
 
+  def private_status
+    private_status = (params[:mode] == 'public') ? false : true 
+    @conversation.update_attributes( :private => private_status ) if ( @conversation.owner == current_user )
+    redirect_to conversation_path( @conversation )
+  end
+  
   def report
     @conversation.report_abuse(current_user)
     # FIXME: refactor this or simplify if do not need to degrade if there is no javascript

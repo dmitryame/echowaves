@@ -73,7 +73,8 @@ class UserTest < ActiveSupport::TestCase
       @user = Factory.create(:user, :login => "user")
       @user.reset_activation_code!
       @conversation = Factory.create(:conversation, :name => "converstaion", :private => true)
-      assert @user.follow(@conversation, @user.activation_code)
+      @invite = Factory.create(:invite, :user => @user, :conversation => @conversation, :token => @user.activation_code, :requestor_id => 13)
+      assert @user.follow(@conversation, @invite.token)
     end
     
     should "not be able to suscribe to a convo if the convo is private and the user have a wrong invitation token" do

@@ -27,11 +27,13 @@
 	    <% end %>
 	  <% end %>
 	  
-	  <%if logged_in? %>
+	  <% if logged_in? %>
 	    &#187;
 	    <%= link_to_remote t("ui.report"), :url => report_conversation_path(@conversation), :confirm => t("ui.reportconfirm_conversation") %>
-	    &#187;
-	    <%= link_to t("ui.invite"), invite_conversation_path(@conversation)%>
+	    <% unless ( @conversation.private? && current_user != @conversation.owner ) %>
+	      &#187;
+	      <%= link_to( t("ui.invite"), invite_conversation_path(@conversation) ) %>
+	    <% end %>
 	  <%end%>	
 	</div>
 	

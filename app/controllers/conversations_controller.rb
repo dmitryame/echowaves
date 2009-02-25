@@ -171,17 +171,22 @@ class ConversationsController < ApplicationController
   end
   
   def invite
-    @friends = current_user.friends    
-    # should also remove the users if they were already invited
-    @friends.delete_if do |user|
-      invite_for_user = Invite.find(:first, :conditions => ["user_id = ? and conversation_id = ?", user.id, @conversation.id ] )
-      true unless invite_for_user == nil
+    if @conversation.private? && @conversation.owner != current_user
+      flash[:error] = "Only the owner of this conversation can invite other users"
+      redirect_to conversation_path(@conversation)
+    else
+      @friends = current_user.friends    
+      # should also remove the users if they were already invited
+      @friends.delete_if do |user|
+        invite_for_user = Invite.find(:first, :conditions => ["user_id = ? and conversation_id = ?", user.id, @conversation.id ] )
+        true unless invite_for_user == nil
+      end
+      # should also remove the users that already follow proposed convo
+      # @friends.delete_if do |user|
+      #   user.conversations.detect {|convo| convo.id == @conversation.id}
+      # end
+      render :layout => "invite"
     end
-    # should also remove the users that already follow proposed convo
-    # @friends.delete_if do |user|
-    #   user.conversations.detect {|convo| convo.id == @conversation.id}
-    # end
-    render :layout => "invite"
   end
   
   def invite_from_list

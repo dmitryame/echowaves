@@ -96,7 +96,7 @@
 		<div id="col1" class="span-14">
 		    <%= flash_messages %>
   		  
-  		  <% if (logged_in? && @conversation.readable_by?(current_user)) || !@conversation.private %>
+  		  <% if (logged_in? && @conversation.readable_by?(current_user)) || !@conversation.private? %>
   		  
   		  <%= yield  %>
   		  

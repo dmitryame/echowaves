@@ -124,11 +124,11 @@ class User < ActiveRecord::Base
 
   def follow(convo, token=nil)
     invite = Invite.find(:first, :conditions => ["user_id = ? and conversation_id = ?", self, convo.id ])
-    if !convo.private || self == convo.owner
+    if !convo.private? || self == convo.owner
       subscription = convo.add_subscription(self)
       subscription.mark_read
       return true
-    elsif convo.private && !invite.blank? && ( token == invite.token )
+    elsif convo.private? && !invite.blank? && ( token == invite.token )
       subscription = convo.add_subscription(self)
       subscription.mark_read
       invite.reset_token!

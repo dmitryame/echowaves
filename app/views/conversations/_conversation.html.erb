@@ -1,5 +1,5 @@
 <li class="conversation">
-	<h3><%= link_to h(conversation.name), conversation_path(conversation) %></h3>
+	<h3><% if conversation.private? %><%= image_tag("/images/icons/icono_candado.gif") %> <% end %><%= link_to h(conversation.name), conversation_path(conversation) %></h3>
 	
 	<% if conversation.tag_counts and conversation.tag_counts.size > 0 %>
 		<% tag_cloud conversation.tag_counts, %w(nube1 nube2 nube3 nube4 nube5 nube6) do |tag, css_class| %>

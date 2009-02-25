@@ -195,10 +195,10 @@ class ConversationsController < ApplicationController
     @invite.user_id = @user.id
     @invite.requestor = current_user
     @invite.conversation_id = params[:id]
-    @invite.token = @user.perishable_token if @conversation.private
+    @invite.token = @user.perishable_token if @conversation.private?
     @invite.save
     
-    if @conversation.private
+    if @conversation.private?
       @user.deliver_private_invite_instructions!(@invite)
     else
       # now let's create a system message and send it to the convo channel
@@ -232,7 +232,7 @@ private
   end
   
   def check_read_access
-    unless @conversation.readable_by?(current_user) || !@conversation.private
+    unless @conversation.readable_by?(current_user) || !@conversation.private?
       flash[:error] = "Sorry, this is a private conversation. You can try anoter one"
       redirect_to conversations_path
       return

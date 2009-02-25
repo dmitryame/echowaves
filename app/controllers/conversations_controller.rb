@@ -195,10 +195,11 @@ class ConversationsController < ApplicationController
     @invite.user_id = @user.id
     @invite.requestor = current_user
     @invite.conversation_id = params[:id]
+    @invite.token = @user.activation_code if @conversation.private
     @invite.save
     
     if @conversation.private
-      @user.deliver_private_invite_instructions!(params[:id])
+      @user.deliver_private_invite_instructions!(@invite)
     else
       # now let's create a system message and send it to the convo channel
       # TODO: how to translate this for the current user?

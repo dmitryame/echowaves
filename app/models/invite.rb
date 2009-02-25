@@ -11,4 +11,8 @@ class Invite < ActiveRecord::Base
   validates_presence_of :user_id
   validates_presence_of :conversation_id
   
+  def reset_token!
+    self.token = nil
+    self.save
+  end
 end

@@ -19,10 +19,10 @@ class UserMailer < ActionMailer::Base
     body        :edit_password_reset_url => edit_password_reset_url(user.activation_code)
   end
   
-  def private_invite_instructions(user, convo_id)
+  def private_invite_instructions(user, convo_id, token)
     setup_email(user)
     @subject    += "You're invited to participate in a private conversation"
-    body        :follow_conversation_url => follow_with_token_conversation_url(convo_id, :token => user.activation_code)
+    body        :follow_conversation_url => follow_with_token_conversation_url(convo_id, :token => token)
   end
   
 protected

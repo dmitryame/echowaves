@@ -77,9 +77,9 @@ class User < ActiveRecord::Base
     UserMailer.deliver_password_reset_instructions(self)
   end
   
-  def deliver_private_invite_instructions!(convo_id)
+  def deliver_private_invite_instructions!(invite)
     reset_activation_code!
-    UserMailer.deliver_private_invite_instructions(self,convo_id)
+    UserMailer.deliver_private_invite_instructions(self, invite.conversation_id, invite.token)
   end
   
   # Activates the user in the database.
@@ -124,14 +124,15 @@ class User < ActiveRecord::Base
   end
 
   def follow(convo, token=nil)
+    invite = Invite.find(:first, :conditions => ["user_id = ? and conversation_id = ?", self, convo.id ])
     if !convo.private || self == convo.owner
       subscription = convo.add_subscription(self)
       subscription.mark_read
       return true
-    elsif convo.private && ( token == self.activation_code )
+    elsif convo.private && !invite.blank? && ( token == invite.token )
       subscription = convo.add_subscription(self)
       subscription.mark_read
-      self.reset_activation_code!
+      invite.reset_token!
       return true
     else
       return false

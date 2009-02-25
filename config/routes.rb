@@ -29,11 +29,10 @@ ActionController::Routing::Routes.draw do |map|
   map.signup '/signup', :controller => 'users', :action => 'new'
   map.activate '/activate/:perishable_token', :controller => "users", :action => "activate"
   
-  map.custom_styles '/stylesheets/custom.css', :controller => 'users', :action => "styles", :format => "css"
-
   map.complete_conversation_name '/complete_conversation_name', :controller => 'conversations', :action => "complete_name"
   map.complete_user_name '/complete_user_name', :controller => 'users', :action => "complete_name"
   
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
+  
 end

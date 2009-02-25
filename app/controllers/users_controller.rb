@@ -129,16 +129,5 @@ class UsersController < ApplicationController
   def update_news
     @conversation = Conversation.find(params[:conversation_id])
   end
-
-  #
-  # serve up custom style overrides
-  def styles
-    @user = User.find(session[:user_id])
-    respond_to do |format|
-      format.html { render :text => "/* html?! */" }
-      # format.css  { render :text => "/* CSS! */div#messages p {font-size: 1em;line-height:1.2em;}div#messages {width: 100%;}div.message p.messagemeta .date {font-size: .7em;line-height:1em;white-space:nowrap;}div.message p.messagemeta{float:left;margin-left: -4px;margin-right:5px;}p.messagemeta img.avatar{height: 20px;}" }
-      format.css  { render :text => "/* CSS! */" }
-    end
-  end
   
 end

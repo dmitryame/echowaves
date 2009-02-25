@@ -51,6 +51,38 @@ class UserTest < ActiveSupport::TestCase
 
     should_have_many :recent_conversations, :through => :conversation_visits
     
+    should "be able to suscribe to a convo if the convo is not private" do
+      @user = Factory.create(:user, :login => "user")
+      @conversation = Factory.create(:conversation, :name => "converstaion")
+      assert @user.follow(@conversation)
+    end
+    
+    should "be able to suscribe to a convo if the convo is private and the user is the owner" do
+      @user = Factory.create(:user, :login => "user")
+      @conversation = Factory.create(:conversation, :name => "converstaion", :user => @user, :private => true)
+      assert @user.follow(@conversation)
+    end
+    
+    should "not be able to suscribe to a convo if the convo is private" do
+      @user = Factory.create(:user, :login => "user")
+      @conversation = Factory.create(:conversation, :name => "converstaion", :private => true)
+      assert !@user.follow(@conversation)
+    end
+    
+    should "be able to suscribe to a convo if the convo is private and the user have a invitation token" do
+      @user = Factory.create(:user, :login => "user")
+      @user.reset_activation_code!
+      @conversation = Factory.create(:conversation, :name => "converstaion", :private => true)
+      assert @user.follow(@conversation, @user.activation_code)
+    end
+    
+    should "not be able to suscribe to a convo if the convo is private and the user have a wrong invitation token" do
+      @user = Factory.create(:user, :login => "user")
+      @user.reset_activation_code!
+      @conversation = Factory.create(:conversation, :name => "converstaion", :private => true)
+      assert !@user.follow(@conversation, "hacked_activation_code")
+    end
+    
     should "be valid if honeypot field is blank" do
       assert @user.valid?
     end

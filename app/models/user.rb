@@ -118,9 +118,19 @@ class User < ActiveRecord::Base
     self.update_last_viewed_subscription(conversation)
   end
 
-  def follow(convo)
-    subscription = convo.add_subscription(self)
-    subscription.mark_read
+  def follow(convo, token=nil)
+    if !convo.private? || self == convo.owner
+      subscription = convo.add_subscription(self)
+      subscription.mark_read
+      return true
+    elsif convo.private? && ( token == self.activation_code )
+      subscription = convo.add_subscription(self)
+      subscription.mark_read
+      self.reset_activation_code!
+      return true
+    else
+      return false
+    end
   end
   
   def unfollow(convo)

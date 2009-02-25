@@ -94,7 +94,7 @@ class Message < ActiveRecord::Base
 
   def after_create 
     unless subscription = Subscription.find_by_user_id_and_conversation_id(user.id, conversation.id)
-      subscription = user.subscriptions.create(:conversation => conversation) 
+      subscription = user.subscriptions.create(:conversation => conversation)
     end
     subscription.mark_read
   end

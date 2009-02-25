@@ -65,9 +65,17 @@ class Conversation < ActiveRecord::Base
   end
   
   def writable_by?(user)
-    self.owner == user || !self.read_only
+    self.owner == user || 
+    ( !self.read_only && !self.private ) ||
+    ( self.private && self.followed?(user) )
   end
 
+  def readable_by?(user)
+    self.owner == user ||
+    !self.private ||
+    self.followed?(user)
+  end
+  
   def personal?
     self.personal_conversation
   end
@@ -76,7 +84,7 @@ class Conversation < ActiveRecord::Base
     !self.parent_message_id.nil?
   end
   
-  def followed?(user)    
+  def followed?(user) # TODO: rename this method to followeb_by?
     self.subscriptions.find_by_user_id( user.id ).nil? ? false : true
   end
 

@@ -80,6 +80,41 @@ class ConversationTest < ActiveSupport::TestCase
     end
   end
   
+  context "A private conversation" do
+    setup do
+      @owner = Factory.create(:user, :login => "user1")
+      @conversation = Factory.create(:conversation, :user => @owner)      
+      @follower = Factory.create(:user, :login => "user2")
+      @follower.follow(@conversation)
+      @conversation.update_attributes(:private => true)
+      @no_follower = Factory.create(:user, :login => "user3")
+    end
+    
+    should "be writable by the owner" do
+      assert @conversation.writable_by?(@owner)
+    end
+    
+    should "not be writable by the users what are not followers of this convo" do
+      assert !@conversation.writable_by?(@no_follower)
+    end
+    
+    should "be writable by the users what are following this convo" do
+      assert @conversation.writable_by?(@follower)
+    end
+    
+    should "be readable by the owner" do
+      assert @conversation.readable_by?(@owner)
+    end
+    
+    should "not be readable by the users what are not followers of this convo" do
+      assert !@conversation.readable_by?(@no_follower)
+    end
+    
+    should "be readable by the users what are following this convo" do
+      assert @conversation.readable_by?(@follower)
+    end
+  end
+  
   context "A read only conversation" do  
     setup do
       @owner = Factory.create(:user, :login => "user1")

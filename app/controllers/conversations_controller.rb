@@ -199,8 +199,6 @@ class ConversationsController < ApplicationController
     
     if @conversation.private
       @user.deliver_private_invite_instructions!(params[:id])
-      # flash[:error] = "<a href=\"#{HOST}/conversations/#{params[:id]}/follow_with_token?token=#{@user.activation_code}\">Click here to reset your password</a>" #want this notice it red, that's why it's error
-      flash[:error] =  follow_with_token_conversation_url(params[:id], :token => @user.activation_code)
     else
       # now let's create a system message and send it to the convo channel
       # TODO: how to translate this for the current user?

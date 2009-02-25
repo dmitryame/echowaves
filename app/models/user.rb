@@ -140,6 +140,9 @@ class User < ActiveRecord::Base
   
   def unfollow(convo)
     convo.remove_subscription(self)
+    # remove invitation if exists so the user can be invited again
+    invite = Invite.find(:first, :conditions => ["user_id = ? and conversation_id = ?", self, convo.id ])
+    invite.destroy unless invite.blank?
   end
   
   def all_convos_tags

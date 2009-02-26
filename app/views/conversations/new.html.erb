@@ -13,6 +13,7 @@
       <%= f.label t("ui.name") %><br />
       <%= f.text_field :name %>
     </p>
+    <p><%= f.check_box :private %> <%= f.label t("ui.private_convo") %></p>
     <p>
       <%= f.label t("ui.description") %><br />
       <%= f.text_area :description, :rows => 8, :cols => 60 %>

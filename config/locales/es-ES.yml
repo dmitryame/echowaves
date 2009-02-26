@@ -88,6 +88,7 @@ es-ES:
     total_convos: "Convos"
     total_messages: "Mensajes"
     total_users: "Usuarios"
+    private_convo: "Conversacion privada"
   users:
     recently_joined_users: "usuarios registrados recientemente"
     sign_up_as_new_user: "registrate como usuario"

@@ -75,7 +75,7 @@ class User < ActiveRecord::Base
   
   def deliver_private_invite_instructions!(invite)
     reset_perishable_token!
-    UserMailer.deliver_private_invite_instructions(self, invite.conversation_id, invite.token)
+    UserMailer.deliver_private_invite_instructions(self, invite.conversation_id, invite.conversation.name, invite.token)
   end
   
   # Activates the user in the database.

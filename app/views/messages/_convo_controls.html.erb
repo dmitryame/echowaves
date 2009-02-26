@@ -21,9 +21,9 @@
 	    <% end %>
       &#187;
 	    <% if @conversation.private? %>
-	      <%= link_to "make public", private_status_conversation_path(@conversation, :mode => 'public'), :method => 'put' %>
+	      <%= link_to t("ui.make_public"), private_status_conversation_path(@conversation, :mode => 'public'), :method => 'put' %>
 	    <% else %>
-	      <%= link_to "make private", private_status_conversation_path(@conversation), :method => 'put' %>
+	      <%= link_to t("ui.make_private"), private_status_conversation_path(@conversation), :method => 'put' %>
 	    <% end %>
 	  <% end %>
 	  

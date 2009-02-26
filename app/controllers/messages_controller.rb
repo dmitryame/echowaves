@@ -6,7 +6,8 @@ class MessagesController < ApplicationController
   
   before_filter :require_user, :except => [:index, :show, :get_more_messages ]
   before_filter :find_conversation, :except => [ :send_data, :auto_complete_for_tag_name]
-  before_filter :check_write_access, :only => [ :create ]
+  before_filter :check_write_access, :only => [ :create, :upload_attachment ]
+  before_filter :check_read_access, :except => [ :index, :upload_attachment, :report ]
   after_filter :store_location, :only => [:index]  
 
   auto_complete_for :tag, :name
@@ -103,6 +104,14 @@ private
     unless @conversation.writable_by?(current_user)
       flash[:error] = t("conversations.not_allowed_to_write_warning")
       redirect_to conversation_path(@conversation)
+      return
+    end
+  end
+  
+  def check_read_access
+    unless @conversation.readable_by?(current_user) || !@conversation.private?
+      flash[:error] = "Sorry, this is a private conversation. You can try anoter one"
+      redirect_to conversations_path
       return
     end
   end

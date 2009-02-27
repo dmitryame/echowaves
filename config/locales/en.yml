@@ -91,6 +91,7 @@ en:
     private_convo: "Private conversation"
     make_public: "make public"
     make_private: "make private"
+    last_message: "last message"
   users:
     recently_joined_users: "recently joined users"
     sign_up_as_new_user: "sign up as new user"

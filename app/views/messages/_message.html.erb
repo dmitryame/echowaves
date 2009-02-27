@@ -46,5 +46,8 @@
 			<span class="date quiet small"><%= link_to message.created_at.to_s(:pretty_long), conversation_message_path(message.conversation, message) %></span>
 		</div>
 		<div class="clear"></div>
-	</div>
+	</div>	
+<%end%>
+<%if message.id == @last_message_id %>
+	<div><%= image_tag("/images/icons/redarrowright.png" , :size => "33x25", :alt => t('ui.last_message')) %></div>
 <%end%>

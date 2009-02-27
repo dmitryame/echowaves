@@ -4,6 +4,7 @@ class ConversationsController < ApplicationController
   
   before_filter :require_user, :except => [:index, :show, :auto_complete_for_conversation_name, :complete_name ]
   before_filter :find_conversation, :only => [:show, :follow, :follow_with_token, :unfollow,
+                                              :follow_from_list, :unfollow_from_list,
                                               :readwrite_status, :private_status, :report,
                                               :invite, :invite_from_list, :add_tag, :remove_tag]
   before_filter :check_read_access, :only => [:show]

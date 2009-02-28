@@ -31,12 +31,11 @@ class ConversationsController < ApplicationController
   def show
     @messages = @conversation.messages.published.find(:all, :include => [:user], :limit => 100, :order => 'id DESC').reverse
     
-    subscription = current_user.subscriptions.find_by_conversation_id(@conversation.id)
-    @last_message_id = subscription.last_message_id if (subscription && subscription.new_messages_count > 0)
-    puts "QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ"
-    puts @last_message_id
-    
-    current_user.conversation_visit_update(@conversation) if logged_in?
+    if logged_in?
+      subscription = current_user.subscriptions.find_by_conversation_id(@conversation.id)
+      @last_message_id = subscription.last_message_id if (subscription && subscription.new_messages_count > 0)
+      current_user.conversation_visit_update(@conversation)
+    end
 
     @has_more_messages = @conversation.has_messages_before?(@messages.first)
 

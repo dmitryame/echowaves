@@ -15,35 +15,44 @@
 		<div class="pagination"><%= will_paginate @messages %></div>
 		
 		<% @messages.each do |message| %>
-		<div class="message" id="<%=dom_id(message)%>">
-			<div class="messagelinks quiet small">
-				<%if current_user%>
-				<%= link_to_remote t("ui.report"), 
-				:url => {:controller => 'messages', :action => 'report', :id => message.id}, 
-				:confirm => t("ui.reportconfirm"), :method => :get %>
-				<%end%>
-			</div>
-			<div class="avatar"><%= link_to image_tag(message.user.gravatar_url, :border => 0, :wigth => 40, :height => 40, :class => "avatar"), user_path(message.user),
-			:class => 'tip', 
-			:title =>  t("users.since") + message.user.created_at.to_s(:pretty)  + 
-			'<br/>' + message.user.conversations.size.to_s  + '&nbsp;' + t('ui.convos') +
-			'<br/>' + message.user.messages.size.to_s       + '&nbsp;' + t('ui.messages') +
-			'<br/>' + message.user.subscriptions.size.to_s  + '&nbsp;' + t("ui.following") +
-			'<br/>' + message.user.personal_conversation.users.size.to_s               + '&nbsp;' + t("ui.followers")
-			%></div>
-			<div class="messagetext">
-				<span class="username"><%=link_to h(message.user.login), conversation_path(message.user.personal_conversation), 
-				:class => 'tip', 
-				:title => "personal convo for " + message.user.login  %></span>
-				<% if message.attachment.original_filename %>
-				<%= link_to(image_tag(message.attachment.url(:big)), message.attachment.url, :target => "_blank")%>		 
-				<% end %>
-				<%= highlight mark_up(message), params[:q].split %>
-				<span class="date quiet small"><%= link_to message.created_at.to_s(:pretty_long), conversation_message_path(message.conversation_id, message) %></span>
-			</div>
-			<div class="clear"></div>
-		</div>
-
+		  
+		  <%# FIXME: I don't know how to filter the messages in private convos with sphinx search without reindexing the database each time a convo troggles the private status %>
+		  <% if message.conversation.private? %>
+		    <% if logged_in? %>
+		      <% next if !message.conversation.followed_by?(current_user) && current_user != conversation.owner %>
+		    <% else %>
+		      <% next %>
+		    <%end%>
+		  <% end %>
+		              
+		  <div class="message" id="<%=dom_id(message)%>">
+		  	<div class="messagelinks quiet small">
+		  		<%if current_user%>
+		  		<%= link_to_remote t("ui.report"), 
+		  		:url => {:controller => 'messages', :action => 'report', :id => message.id}, 
+		  		:confirm => t("ui.reportconfirm"), :method => :get %>
+		  		<%end%>
+		  	</div>
+		  	<div class="avatar"><%= link_to image_tag(message.user.gravatar_url, :border => 0, :wigth => 40, :height => 40, :class => "avatar"), user_path(message.user),
+		  	:class => 'tip', 
+		  	:title =>  t("users.since") + message.user.created_at.to_s(:pretty)  + 
+		  	'<br/>' + message.user.conversations.size.to_s  + '&nbsp;' + t('ui.convos') +
+		  	'<br/>' + message.user.messages.size.to_s       + '&nbsp;' + t('ui.messages') +
+		  	'<br/>' + message.user.subscriptions.size.to_s  + '&nbsp;' + t("ui.following") +
+		  	'<br/>' + message.user.personal_conversation.users.size.to_s               + '&nbsp;' + t("ui.followers")
+		  	%></div>
+		  	<div class="messagetext">
+		  		<span class="username"><%=link_to h(message.user.login), conversation_path(message.user.personal_conversation), 
+		  		:class => 'tip', 
+		  		:title => "personal convo for " + message.user.login  %></span>
+		  		<% if message.attachment.original_filename %>
+		  		<%= link_to(image_tag(message.attachment.url(:big)), message.attachment.url, :target => "_blank")%>		 
+		  		<% end %>
+		  		<%= highlight mark_up(message), params[:q].split %>
+		  		<span class="date quiet small"><%= link_to message.created_at.to_s(:pretty_long), conversation_message_path(message.conversation_id, message) %></span>
+		  	</div>
+		  	<div class="clear"></div>
+		  </div>
 		<% end %>
 
 		<div class="pagination"><%= will_paginate @messages %></div>

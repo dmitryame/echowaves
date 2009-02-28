@@ -201,7 +201,7 @@ margin:0 auto;background:#151110;
 .message .messagelinks {position:absolute;top:0;right:20px;}
 .message .avatar {float:left;}
 .messagetext {padding-left:60px;}
-.messagetext p {padding-bottom:10px;}
+.container p {margin-bottom:10px;}
 .message .date {display:block;}
 .message .date a:link, .message .date a:visited {color:#bbb;}
 .system {padding:10px 15px 0 20px;}

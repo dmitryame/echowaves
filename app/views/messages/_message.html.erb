@@ -49,5 +49,5 @@
 	</div>	
 <%end%>
 <%if message.id == @last_message_id %>
-	<div><%= image_tag("/images/icons/redarrowright.png" , :size => "33x25", :alt => t('ui.last_message')) %></div>
+	<div class="last-read"><%= t("messages.new_messages") %></div>
 <%end%>

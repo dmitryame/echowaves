@@ -121,6 +121,7 @@ en:
     conversations: "convos"
   messages:
     original_message: "original message"
+    new_messages: "new messages"
     
   datetime:
     distance_in_words:

@@ -121,6 +121,7 @@ es-ES:
     conversations: "conversaciones"
   messages:
     original_message: "mensaje original"
+    new_messages: "nuevos mensajes"
     
   datetime:
     distance_in_words:

@@ -1,0 +1,1 @@
+page["follower_#{@user.id}"].visual_effect :fade

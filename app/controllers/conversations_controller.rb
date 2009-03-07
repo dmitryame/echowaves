@@ -6,7 +6,7 @@ class ConversationsController < ApplicationController
   before_filter :find_conversation, :only => [:show, :follow, :follow_with_token, :unfollow,
                                               :follow_from_list, :unfollow_from_list,
                                               :readwrite_status, :private_status, :report,
-                                              :invite, :invite_from_list, :add_tag, :remove_tag]
+                                              :invite, :invite_from_list, :add_tag, :remove_tag, :remove_user]
   before_filter :check_read_access, :only => [:show]
   
   after_filter :store_location, :only => [:index, :new]
@@ -146,6 +146,13 @@ class ConversationsController < ApplicationController
     unfollow
   end
 
+  def remove_user
+    if @conversation.private? && @conversation.owner == current_user && !params[:user_id].blank?
+      @user = User.find(params[:user_id])
+      @user.unfollow(@conversation)
+    end
+  end
+  
   def readwrite_status
     read_only = (params[:mode] == 'rw') ? false : true 
     @conversation.update_attributes( :read_only => read_only ) if ( @conversation.owner == current_user )

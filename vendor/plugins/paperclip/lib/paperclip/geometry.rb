@@ -16,7 +16,7 @@ module Paperclip
     def self.from_file file
       file = file.path if file.respond_to? "path"
       geometry = begin
-                   Paperclip.run("identify", %Q[-format "%wx%h" "#{file}"])
+                   Paperclip.run("identify", %Q[-format "%wx%h" "#{file}"[0]])
                  rescue PaperclipCommandLineError
                    ""
                  end
@@ -65,7 +65,8 @@ module Paperclip
     def to_s
       s = ""
       s << width.to_i.to_s if width > 0
-      s << "x#{height.to_i}#{modifier}" if height > 0
+      s << "x#{height.to_i}" if height > 0
+      s << modifier.to_s
       s
     end
 

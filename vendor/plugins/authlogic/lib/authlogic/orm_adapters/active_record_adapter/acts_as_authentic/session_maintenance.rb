@@ -16,10 +16,10 @@ module Authlogic
         module SessionMaintenance
           def acts_as_authentic_with_session_maintenance(options = {})
             acts_as_authentic_without_session_maintenance(options)
-          
+            
             before_save :get_session_information, :if => :update_sessions?
-            after_save :maintain_sessions!, :if => :update_sessions?
-          
+            before_save :maintain_sessions, :if => :update_sessions?
+            
             class_eval <<-"end_eval", __FILE__, __LINE__
               def save_without_session_maintenance(*args)
                 @skip_session_maintenance = true
@@ -27,49 +27,47 @@ module Authlogic
                 @skip_session_maintenance = false
                 result
               end
-            
+              
               protected
                 def update_sessions?
                   !@skip_session_maintenance && #{options[:session_class]}.activated? && !#{options[:session_ids].inspect}.blank? && #{options[:persistence_token_field]}_changed?
                 end
-            
+                
                 def get_session_information
                   # Need to determine if we are completely logged out, or logged in as another user
                   @_sessions = []
-                  @_logged_out = true
-          
+                  
                   #{options[:session_ids].inspect}.each do |session_id|
                     session = #{options[:session_class]}.find(session_id, self)
-                    if session && !session.record.blank?
-                      @_logged_out = false
-                      @_sessions << session if session.record == self
-                    end
+                    @_sessions << session if session && session.record && session.record == self
                   end
                 end
-        
-                def maintain_sessions!
-                  if @_logged_out
-                    create_session!
-                  elsif !@_sessions.blank?
-                    update_sessions!
+                
+                def maintain_sessions
+                  if @_sessions.empty?
+                    create_session
+                  else
+                    update_sessions
                   end
                 end
-        
-                def create_session!
+                
+                def create_session
                   # We only want to automatically login into the first session, since this is the main session. The other sessions are sessions
                   # that need to be created after logging into the main session.
                   session_id = #{options[:session_ids].inspect}.first
-                   
-                  # Log me in, only if we aren't already logged in
-                  #{options[:session_class]}.create(*[self, session_id].compact) if !#{options[:session_class]}.find(session_id, self)
+                  #{options[:session_class]}.create(*[self, self, session_id].compact)
+
+                  return true
                 end
-        
-                def update_sessions!
+                
+                def update_sessions
                   # We found sessions above, let's update them with the new info
                   @_sessions.each do |stale_session|
                     stale_session.unauthorized_record = self
                     stale_session.save
                   end
+
+                  return true
                 end
             end_eval
           end

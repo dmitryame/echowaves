@@ -102,6 +102,7 @@ en:
     could_not_login_as: "Couldn't log you in as {{login}}"
     profile_updated: "Profile updated correctly"
     signup_complete: "Signup complete! Please login to continue."
+    invite_users: "Invite users"
   conversations:
     this_is_an_read_only_convo: "This is a read only conversation"
     login_or_register_to_participate: "Please <a href=\"/login\">login</a> to participate.<br/>Don't have an account yet? <a href=\"/signup\">signup now</a>, it's free"

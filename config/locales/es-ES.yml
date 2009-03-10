@@ -102,6 +102,7 @@ es-ES:
     could_not_login_as: "No se ha podido iniciar la sesion para {{login}}"
     profile_updated: "Perfil actualizado correctamente"
     signup_complete: "Registro completado! Inicia sesión para continuar."
+    invite_users: "Invitar usuarios"
   conversations:
     this_is_an_read_only_convo: "Esta es una conversacion de solo lectura"
     login_or_register_to_participate: "Por favor <a href=\"/login\">entra</a> para participar.<br/>¿Aun no tienes una cuenta? <a href=\"/signup\">registrate ahora</a>, es gratis"

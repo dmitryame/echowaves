@@ -1,30 +1,45 @@
-<h4><%=@conversation.name%></h4>
-<%= link_to t("ui.back") , conversation_path(@conversation) %>
+<div class="balloon">
+  <h1><%= link_to @conversation.name , conversation_path(@conversation) %></h1>
+  <div>
+  	<%= t("users.invite_users") %>
+  </div>
+</div>
+<div class="arrow">&nbsp;</div>
 
-<% @friends.each do |user|%>
-	<div id="<%=dom_id user%>">
-		<span> <%= link_to_remote t("ui.invite"), :url => invite_from_list_conversation_path(@conversation, :user_id => user.id), :method => :post %>
-		&#187;
-		</span>
-		<span class="avatar">
-		  <%= link_to image_tag(user.gravatar_url, :border => 0, :width => 40, :height => 40, :class => "avatar", :alt => user.login), user_path(user),
-		  :class => 'tip', 
-		  :title =>  t("users.since") + user.created_at.to_s(:pretty)  + 
-		'<br/>' + user.conversations.size.to_s  + '&nbsp;' + t('ui.convos') +
-		'<br/>' + user.messages.size.to_s       + '&nbsp;' + t('ui.messages') +
-		'<br/>' + user.subscriptions.size.to_s  + '&nbsp;' + t("ui.following") +
-		'<br/>' + user.personal_conversation.users.size.to_s               + '&nbsp;' + t("ui.followers")
-		%>
-		</span>
-
-		<span class="username"><%=link_to h(user.login), conversation_path(user.personal_conversation), 
-		  :class => 'tip', 
-		  :title => "personal convo for " + user.login %></span>
-
-
-		<span class="user_real_name">
-		  <%= user.name unless user.name == user.login %>
-		</span>
-	</div>	
-<%end%>	
-
+<div class="item">
+  <ul id="users_list">
+    <% @friends.each do |user|%>
+	    
+	    <li id="<%=dom_id user%>">
+    		<span class="avatar">
+    		  <%= link_to image_tag(user.gravatar_url, :border => 0, :width => 40, :height => 40, :class => "avatar", :alt => user.login), user_path(user),
+    		  :class => 'tip', 
+    		  :title =>  t("users.since") + user.created_at.to_s(:pretty)  + 
+    		'<br/>' + user.conversations.size.to_s  + '&nbsp;' + t('ui.convos') +
+    		'<br/>' + user.messages.size.to_s       + '&nbsp;' + t('ui.messages') +
+    		'<br/>' + user.subscriptions.size.to_s  + '&nbsp;' + t("ui.following") +
+    		'<br/>' + user.personal_conversation.users.size.to_s               + '&nbsp;' + t("ui.followers")
+    		%>
+    		</span>
+        
+        <span class="username"><%=link_to h(user.login), conversation_path(user.personal_conversation), 
+    		  :class => 'tip', 
+    		  :title => "personal convo for " + user.login %>
+        	&#187;
+        	<%= link_to_remote t("ui.invite"), :url => invite_from_list_conversation_path(@conversation, :user_id => user.id),
+        	  :loading => "$('link_#{user.id}').hide();$('spinner_#{user.id}').show();",
+        	  :html => {:id => "link_#{user.id}"},
+        	  :method => :post %>
+        	<%= image_tag "/images/icons/spinner.gif", :style => 'display:none;', :id => "spinner_#{user.id}" %>
+        </span>
+        
+        
+        <span class="user_real_name">
+          <%= user.name unless user.name == user.login %>
+        </span>
+      </li>
+      
+	  <%end%>
+  </ul>
+  <div class="clear"></div>
+</div>

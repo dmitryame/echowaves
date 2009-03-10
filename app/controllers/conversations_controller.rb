@@ -197,7 +197,7 @@ class ConversationsController < ApplicationController
       # @friends.delete_if do |user|
       #   user.conversations.detect {|convo| convo.id == @conversation.id}
       # end
-      render :layout => "invite"
+      # render :layout => "invite"
     end
   end
   

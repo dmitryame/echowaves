@@ -99,14 +99,17 @@ class ConversationsController < ApplicationController
         end
         
         # now let's create a system message and send it to the the creator's followers
-        current_user.friends_convos.each do |personal_convo|
-          next  if (@conversation && @conversation.parent_message && personal_convo == @conversation.parent_message.conversation)
-          # TODO: how to translate this for the current user?
-          msg = " created a new convo: <a href='/conversations/#{@conversation.id}'>#{@conversation.name}</a>"
-          notification = current_user.messages.create( :conversation => personal_convo, :message => msg)
-          notification.system_message = true
-          notification.save
-          notification.send_stomp_message(self)
+        # unless the conversation is private
+        unless @conversation.private?
+          current_user.friends_convos.each do |personal_convo|
+            next  if (@conversation && @conversation.parent_message && personal_convo == @conversation.parent_message.conversation )
+            # TODO: how to translate this for the current user?
+            msg = " created a new convo: <a href='/conversations/#{@conversation.id}'>#{@conversation.name}</a>"
+            notification = current_user.messages.create( :conversation => personal_convo, :message => msg)
+            notification.system_message = true
+            notification.save
+            notification.send_stomp_message(self)
+          end
         end
         
         format.html { redirect_to(@conversation) }

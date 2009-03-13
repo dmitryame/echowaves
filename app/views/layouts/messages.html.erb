@@ -30,6 +30,15 @@
 	
  	<%= orbited_javascript %> 		
  	<script>
+  // FIXME: workaround for safari never ending loading issue
+  var orig_chooseTransport = Orbited.util.chooseTransport; 
+  Orbited.util.chooseTransport = function() { 
+      if (BrowserDetect.browser == "Safari") { 
+          return Orbited.CometTransports.LongPoll 
+      } 
+      return orig_chooseTransport(); 
+  }
+  
  	function stomp_function() {
  		 var output = $('connection_stat_data');
  		// set up shell.

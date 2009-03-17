@@ -25,34 +25,34 @@ Rails::Initializer.run do |config|
   # config.gem "bj"
   # config.gem "hpricot", :version => '0.6', :source => "http://code.whytheluckystiff.net"
   # config.gem "aws-s3", :lib => "aws/s3"
-  config.gem "rack", :version => '0.9.1'
-  config.gem "gravtastic"
+  # config.gem "rack", :version => '0.9.1'
+  # config.gem "gravtastic"
   # config.gem "BlueCloth"
   # config.gem "paperclip"
-  config.gem "stomp"
+  # config.gem "stomp"
   
   # crossblaim gems
-  config.gem "capistrano", :version => '2.5.5'
-  config.gem "cgi_multipart_eof_fix", :version => '2.5.0'
-  config.gem "columnize", :version => '0.3.0'
-  config.gem "daemons", :version => '1.0.10'
-  config.gem "dnssd", :version => '0.7.1'
-  config.gem "fastthread", :version => '1.0.1'
-  config.gem "fcgi", :version => '0.8.7'
-  config.gem "gem_plugin", :version => '0.2.3'
-  config.gem "highline"
-  config.gem "mongrel"
-  config.gem "needle"
-  config.gem "net-scp"
-  config.gem "net-sftp"
-  config.gem "net-ssh"
-  config.gem "net-ssh-gateway"
-  config.gem "rack"
-  config.gem "rake"
-  config.gem "rubygems-update"
-  config.gem "rubynode"
-  config.gem "stomp"
-  config.gem "termios"
+  # config.gem "capistrano", :version => '2.5.5'
+  # config.gem "cgi_multipart_eof_fix", :version => '2.5.0'
+  # config.gem "columnize", :version => '0.3.0'
+  # config.gem "daemons", :version => '1.0.10'
+  # config.gem "dnssd", :version => '0.7.1'
+  # config.gem "fastthread", :version => '1.0.1'
+  # config.gem "fcgi", :version => '0.8.7'
+  # config.gem "gem_plugin", :version => '0.2.3'
+  # config.gem "highline"
+  # config.gem "mongrel"
+  # config.gem "needle"
+  # config.gem "net-scp"
+  # config.gem "net-sftp"
+  # config.gem "net-ssh"
+  # config.gem "net-ssh-gateway"
+  # config.gem "rack"
+  # config.gem "rake"
+  # config.gem "rubygems-update"
+  # config.gem "rubynode"
+  # config.gem "stomp"
+  # config.gem "termios"
   
   # config.gem "authlogic"
   # Only load the plugins named here, in the order given. By default, all plugins 

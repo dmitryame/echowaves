@@ -4,12 +4,12 @@ SHELL = /bin/sh
 #### Start of system configuration section. ####
 
 srcdir = .
-topdir = /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/universal-darwin9.0
+topdir = /usr/local/lib/ruby/1.8/i686-darwin9.6.0
 hdrdir = $(topdir)
 VPATH = $(srcdir):$(topdir):$(hdrdir)
-prefix = $(DESTDIR)/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr
+prefix = $(DESTDIR)/usr/local
 exec_prefix = $(prefix)
-sitedir = $(DESTDIR)/Library/Ruby/Site
+sitedir = $(prefix)/lib/ruby/site_ruby
 rubylibdir = $(libdir)/ruby/$(ruby_version)
 docdir = $(datarootdir)/doc/$(PACKAGE)
 dvidir = $(docdir)
@@ -21,9 +21,9 @@ localedir = $(datarootdir)/locale
 htmldir = $(docdir)
 datadir = $(datarootdir)
 includedir = $(prefix)/include
-infodir = $(DESTDIR)/usr/share/info
+infodir = $(datarootdir)/info
 sysconfdir = $(prefix)/etc
-mandir = $(DESTDIR)/usr/share/man
+mandir = $(datarootdir)/man
 libdir = $(exec_prefix)/lib
 sharedstatedir = $(prefix)/com
 oldincludedir = $(DESTDIR)/usr/include
@@ -38,24 +38,24 @@ CC = gcc
 LIBRUBY = $(LIBRUBY_SO)
 LIBRUBY_A = lib$(RUBY_SO_NAME)-static.a
 LIBRUBYARG_SHARED = -l$(RUBY_SO_NAME)
-LIBRUBYARG_STATIC = -l$(RUBY_SO_NAME)
+LIBRUBYARG_STATIC = -l$(RUBY_SO_NAME)-static
 
 RUBY_EXTCONF_H = 
-CFLAGS   =  -fno-common -arch ppc -arch i386 -Os -pipe -fno-common -Wall 
-INCFLAGS = -I. -I. -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/universal-darwin9.0 -I.
+CFLAGS   =  -fno-common -D_XOPEN_SOURCE=1  -fno-common -pipe -fno-common -Wall 
+INCFLAGS = -I. -I. -I/usr/local/lib/ruby/1.8/i686-darwin9.6.0 -I.
 CPPFLAGS = -DHAVE_DNS_SD_H -DHAVE_UNISTD_H -DHAVE_SYS_TYPES_H -DHAVE_SYS_SOCKET_H -DHAVE_SYS_PARAM_H -DHAVE_NET_IF_H -DHAVE_HTONS -DHAVE_NTOHS -DHAVE_IF_INDEXTONAME -DHAVE_IF_NAMETOINDEX -DHAVE_GETHOSTNAME -DSIZEOF_VOID_=4 -DSIZEOF_DNSSERVICEFLAGS=4 
 CXXFLAGS = $(CFLAGS) 
-DLDFLAGS = -L. -arch ppc -arch i386  
-LDSHARED = cc -arch ppc -arch i386 -pipe -bundle -undefined dynamic_lookup
+DLDFLAGS = -L.   
+LDSHARED = cc -dynamic -bundle -undefined suppress -flat_namespace
 AR = ar
 EXEEXT = 
 
 RUBY_INSTALL_NAME = ruby
 RUBY_SO_NAME = ruby
-arch = universal-darwin9.0
-sitearch = universal-darwin9.0
+arch = i686-darwin9.6.0
+sitearch = i686-darwin9.6.0
 ruby_version = 1.8
-ruby = /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby
+ruby = /usr/local/bin/ruby
 RUBY = $(ruby)
 RM = rm -f
 MAKEDIRS = mkdir -p
@@ -79,7 +79,7 @@ extout =
 extout_prefix = 
 target_prefix = 
 LOCAL_LIBS = 
-LIBS = $(LIBRUBYARG_SHARED)  -lpthread -ldl -lm  
+LIBS = $(LIBRUBYARG_SHARED)  -lpthread -ldl -lobjc  
 SRCS = rdnssd.c rdnssd_service.c rdnssd_structs.c rdnssd_tr.c
 OBJS = rdnssd.o rdnssd_service.o rdnssd_structs.o rdnssd_tr.o
 TARGET = rdnssd
@@ -88,8 +88,8 @@ EXTSTATIC =
 STATIC_LIB = 
 
 RUBYCOMMONDIR = $(sitedir)$(target_prefix)
-RUBYLIBDIR = /Users/raquel/t/echowavescross/vendor/gems/dnssd-0.7.1/lib$(target_prefix)
-RUBYARCHDIR = /Users/raquel/t/echowavescross/vendor/gems/dnssd-0.7.1/lib$(target_prefix)
+RUBYLIBDIR = /Users/dmitry/hacks/echowaves/vendor/gems/dnssd-0.7.1/lib$(target_prefix)
+RUBYARCHDIR = /Users/dmitry/hacks/echowaves/vendor/gems/dnssd-0.7.1/lib$(target_prefix)
 
 TARGET_SO     = $(DLLIB)
 CLEANLIBS     = $(TARGET).bundle $(TARGET).il? $(TARGET).tds $(TARGET).map

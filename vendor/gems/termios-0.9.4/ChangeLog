@@ -1,0 +1,76 @@
+2002-10-13  akira yamada  <akira@arika.org>
+
+	* termios.c
+	(termios_set_ispeed): fixed typo.
+	(termios_initialize): 0-cleared "@cc".
+	(Termios_to_termios): unknown cc-values are treated as 0.
+
+	* examples/modem_check.rb: renamed examples/modem_check1.rb.
+
+	* examples/modem_check0.rb, exampes/modem_check2.rb: new.
+
+	* version 0.9.4.
+
+2002-10-12  akira yamada  <akira@arika.org>
+
+	* termios.c: revoked Termios::Termios#set_cc and removed some methods
+	such as Termios::Termios#iflag etc.  they became attr_reader.
+
+	* version 0.9.3.
+
+2002-10-12  akira yamada  <akira@arika.org>
+
+	* termios.c
+	(termios_cc): accepts index of c_cc.
+	(termios_set_a_cc): new function for Termios::Termios#set_cc.
+	(Init_termios): added new constants Termios::CCINDEX, Termios::IFLAGS,
+	Termios::OFLAGS, Termios::CFLAGS, Termios::LFLAGS and Termios::BAUD.
+
+	* examples/modem_check.rb: it did not work. rewrited.
+
+	* test/test0.rb: rewrited.
+
+	* version 0.9.2.
+
+2002-10-10  akira yamada  <akira@arika.org>
+
+	* termios.c
+	(Init_termios): revived Termios::Termios#c_foo/c_foo= for backward
+	compatibility.
+
+2002-09-25  akira yamada  <akira@arika.org>
+
+	* termios.c
+	(termios_clone): new method "clone" for Termios::Termios.
+	(Init_termios): revived Termios.new_termios for backward
+	compatibility.
+
+	* version 0.9.1.
+
+2002-09-25  akira yamada  <akira@arika.org>
+
+	* Termios module can be included to IO classes and can extend IO
+	objects.
+	
+	* now Termios::Termios is rb_cObject class.
+
+	* version 0.9.0.
+
+Wed Nov 15 19:03:06 2000  akira yamada  <akira@arika.org>
+
+	* renamed to ruby-termios.
+
+Wed Dec  1 21:27:23 1999  GOTO Kentaro <gotoken@math.sci.hokudai.ac.jp>
+
+	* termios.c: removed c_line.
+	* test1.rb: removed c_line.
+	* test3.rb: stty -echo.
+
+Fri Feb 19 00:05:20 1999  akira yamada  <akira@linux.or.jp>
+
+	* termios.c (Init_termios): now sTermios is hidden.
+	* test2.rb: rewrited.
+
+Fri Thu 18 02:24:21 1999  akira yamada  <akira@linux.or.jp>
+
+	* development started.

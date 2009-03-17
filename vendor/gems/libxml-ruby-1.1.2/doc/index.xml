@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<?xml-stylesheet href="layout.xsl" type="text/xsl" ?>
+
+<content>
+
+  <h2> Welcome to LibXml Ruby </h2>
+
+  <p>The <span style="color: red;">Libxml-Ruby</span> project provides Ruby
+  language bindings for the <a href="http://xmlsoft.org">GNOME Libxml2 XML toolkit</a>.
+  It is free software, released under the <a href="license.xml">MIT License</a>.</p>
+
+  <p>Libxml-ruby's primary advantage over REXML is performance - if speed is your need,
+  these are good libraries to consider, as demonstrated by the informal benchmark below.</p>
+
+  <table border="1" style="border: 1px solid red; margin: 30px;">
+  <tr><td colspan="3"><b>Speed Comparison libxml vs. rexml</b></td></tr>
+  <tr><th> in seconds    </th><th> libxml   </th><th> rexml    </th></tr>
+  <tr><td> opening       </td><td> 0.003954 </td><td> 0.104750 </td></tr>
+  <tr><td> attribute_add </td><td> 0.001895 </td><td> 0.011114 </td></tr>
+  <tr><td> subelems      </td><td> 0.000585 </td><td> 0.004729 </td></tr>
+  <tr><td> xpath         </td><td> 0.013269 </td><td> 2.981499 </td></tr>
+  </table>
+
+  <h2>Download</h2>
+
+  <p>You can find the latest release at:</p>
+
+  <pre>
+	  <a href="http://rubyforge.org/frs/?group_id=494">http://rubyforge.org/frs/?group_id=494</a>
+  </pre>
+
+  <p>Libxml-Ruby is also available for installation via <a href="http://rubygems.rubyforge.org">Rubygems</a>
+  -- see the <a href="install.xml">installation page</a>	for details.</p>
+
+  <h2> Project Status </h2>
+
+  <p>The code has now been updated to work with Ruby 1.8, and is compiling cleanly
+  and working well with GCC 4.x. We still have a number of open bugs to address,
+  which is being done as we work toward a 0.4.0 release and the library is
+  generally fairly stable in use.</p>
+
+</content>
+

@@ -1,0 +1,70 @@
+
+RubyNode
+========
+
+RubyNode is a library that allows read only access to Ruby's internal NODE
+structure. It can retrieve the node trees of methods and procs and it can use
+Ruby's parser to parse Ruby source code strings to node trees.
+
+It provides the class RubyNode, which wraps an internal NODE. Trees of RubyNode
+instances can also be transformed into trees of arrays and hashes (similar to
+s-expressions), which are easy to manipulate and work with.
+
+
+Requirements
+------------
+
+RubyNode is tested with Ruby 1.8.4, 1.8.5 and 1.8.6, but it should also work
+with other 1.8 versions. RubyNode worked (and still does work) with older Ruby
+1.9 snapshots (possibly some node types are not fully supported), but it
+currently does not work with the latest 1.9 snapshots and releases.
+
+
+Installation
+------------
+
+RubyNode generates some of its C source code from Ruby's source code, because
+the node types and other details differ between Ruby versions.
+
+For the official releases of Ruby 1.8.4, 1.8.5 and 1.8.6 the needed source
+files are included in the package. To compile RubyNode for any other Ruby
+version, you will need that version's source tar ball extracted somewhere.
+
+So, for Ruby 1.8.4, 1.8.5 and 1.8.6 just run (as root):
+
+  gem install rubynode
+
+Or if you do not use the gem:
+
+  ruby setup.rb
+
+That command will compile the C extension and install all files to their
+default location (to customize the non-gem installation, please see "ruby
+setup.rb --help")
+
+For other Ruby versions you need to provide the (absolute) path to the source
+directory for that Ruby version in the enviroment variable RUBY_SOURCE_DIR.
+Example (as root):
+
+  RUBY_SOURCE_DIR="/path/to/ruby_source" gem install rubynode
+
+Or if you do not use the gem:
+
+  RUBY_SOURCE_DIR="/path/to/ruby_source" ruby setup.rb
+
+
+Documentation
+-------------
+
+Please see doc/index.html for more documentation.
+
+
+License
+-------
+
+Copyright 2006-2007 Dominik Bathon <dbatml@gmx.de>
+
+RubyNode is licensed under the same terms as Ruby.
+
+The distribution contains some (extracts from) files from Ruby which are
+Copyright Yukihiro Matsumoto (see those files).

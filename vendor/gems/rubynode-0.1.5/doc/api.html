@@ -1,0 +1,434 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<title>RubyNode API</title>
+	<link href="style.css" media="all" rel="Stylesheet" type="text/css">
+</head>
+<body>
+<h1>RubyNode <span class="caps">API</span></h1>
+
+
+	<p>RubyNode consists of two parts: a C extension, which provides the core
+functionality, and a Ruby library, which adds additional functionality.</p>
+
+
+	<p>To get only the C extension <code>require "rubynode_ext"</code>, to get the full
+functionality (recommended) just <code>require "rubynode"</code>.</p>
+
+
+	<p>Sections: <a href="#section1">Introduction to Ruby NODEs</a>, <a href="#section2">Accessing the fields using RubyNode</a>, <a href="#section3">Aliases for better readability</a>, <a href="#section4">Getting RubyNodes</a>, <a href="#section5">Higher level methods</a>, <a href="#section6">More examples</a>.</p>
+
+
+	<h2 id="section1">Introduction to Ruby NODEs</h2>
+
+
+	<p>Ruby mainly uses the NODEs to store the <span class="caps">AST</span> (abstract syntax tree) of parsed
+Ruby files, but they are also used for some other things. On the C side <span class="caps">NODE</span>
+is a struct:</p>
+
+
+<pre><code>typedef struct RNode {
+    unsigned long flags;
+    char *nd_file;
+    union {
+        struct RNode *node;
+        ID id;
+        VALUE value;
+        VALUE (*cfunc)(ANYARGS);
+        ID *tbl;
+    } u1;
+    union {
+        struct RNode *node;
+        ID id;
+        long argc;
+        VALUE value;
+    } u2;
+    union {
+        struct RNode *node;
+        ID id;
+        long state;
+        struct global_entry *entry;
+        long cnt;
+        VALUE value;
+    } u3;
+} NODE;
+</code></pre>
+
+	<p>The important parts are the 3 unions <code>u1</code>, <code>u2</code> and <code>u3</code>, which can store
+values of different types. There is also a <code>nd_file</code> field, which contains the
+name of the file from which this node was parsed and there is a <code>flags</code> field,
+which contains some flags, the node type and the line number (all ORed
+together).</p>
+
+
+	<p>The node types are defined as an enum in C:</p>
+
+
+<pre><code>enum node_type {
+    NODE_METHOD,
+    NODE_FBODY,
+    NODE_CFUNC,
+    NODE_SCOPE,
+    NODE_BLOCK,
+...
+</code></pre>
+
+	<h2 id="section2">Accessing the fields using RubyNode</h2>
+
+
+	<p>If you have an instance of RubyNode, you can access all these fields using the
+following methods:</p>
+
+
+	<table>
+		<tr>
+			<td><code>file</code>  </td>
+			<td> the contents of <code>nd_file</code> as String</td>
+		</tr>
+		<tr>
+			<td><code>flags</code> </td>
+			<td> the raw <code>flags</code> field as Integer</td>
+		</tr>
+		<tr>
+			<td><code>line</code>  </td>
+			<td> the line number (extracted from <code>flags</code>) as Integer</td>
+		</tr>
+		<tr>
+			<td><code>type</code>  </td>
+			<td> the node type as Symbol (e.g. <code>NODE_SCOPE</code> =&gt; <code>:scope</code>)</td>
+		</tr>
+	</table>
+
+
+
+
+	<p>The unions can be accessed using the following methods:</p>
+
+
+<pre><code>u1_as_long
+u1_cfunc
+u1_id
+u1_node
+u1_tbl
+u1_value
+u2_argc
+u2_id
+u2_node
+u2_value
+u3_cnt
+u3_id
+u3_node
+u3_state
+u3_value
+</code></pre>
+
+	<p>The <code>*_id</code> methods return a Symbol, if the value of this union is a valid ID.
+If the value is <code>0</code> or <code>1</code> they will return the corresponding Fixnum (this is
+because some node types store <code>0</code> and <code>1</code> instead of an ID for special cases).
+Otherwise <code>nil</code> is returned.</p>
+
+
+	<p>The <code>*_value</code> and <code>*_node</code> methods return the object or the node (wrapped as
+RubyNode), that is stored in the union. If the union is no object or node,
+then <code>nil</code> is returned. The *_value and *_node methods can be used
+interchangeably, they are just aliases.</p>
+
+
+	<p><code>u1_as_long</code>, <code>u2_argc</code>, <code>u3_cnt</code> and <code>u3_state</code> always return the raw &#8220;long&#8221;,
+that is stored in the union, as Integer.</p>
+
+
+	<p><code>u1_cfunc</code> returns the unsigned value of the function pointer, that is stored
+in the union, as Integer.</p>
+
+
+	<p><code>u1_tbl</code> returns the local variable table for a scope node as an Array, for
+all other node types it returns <code>nil</code>.</p>
+
+
+	<p>All these methods never raise exceptions, they just return <code>nil</code>, if the
+value that is stored in the union does not have the requested type.</p>
+
+
+	<p><code>u3.entry</code> is not supported (for obvious reasons).</p>
+
+
+	<h2 id="section3">Aliases for better readability</h2>
+
+
+	<p>It would not be very readable to always access the unions directly, so Ruby
+uses defines on the C side to remedy this:</p>
+
+
+<pre><code>#define nd_head  u1.node
+#define nd_alen  u2.argc
+#define nd_next  u3.node
+
+#define nd_cond  u1.node
+#define nd_body  u2.node
+#define nd_else  u3.node
+...
+</code></pre>
+
+	<p>RubyNode also makes these aliases available. To get a full list of the
+available aliases for your Ruby version you can use something like the
+following in irb:</p>
+
+
+<pre><code>&gt;&gt; puts RubyNode.instance_methods.grep(/^nd_/).sort
+nd_1st
+nd_2nd
+nd_aid
+nd_alen
+nd_argc
+nd_args
+nd_beg
+nd_body
+...
+</code></pre>
+
+	<h2 id="section4">Getting RubyNodes</h2>
+
+
+	<p>Now that we know how to work with RubyNode instances, it would be nice to have
+some to try it out ;-). There is no way to instantiate RubyNode instances
+yourself, you can only get them through one of the following methods.</p>
+
+
+	<h3>(Unbound)Method</h3>
+
+
+	<p>You can access the body node of methods by using the <code>body_node</code> method.</p>
+
+
+	<h3>Proc</h3>
+
+
+	<p>Procs have three different nodes, the body node, which contains the actual
+code, the var node, which describes the arguments of the proc and the cref
+node, which is the lexical class/module nesting in which this proc was defined.
+Those nodes can be accessed using the methods <code>body_node</code>, <code>var_node</code> and
+<code>cref_node</code>.</p>
+
+
+	<h3>String</h3>
+
+
+	<p>RubyNode adds a <code>parse_to_nodes</code> method to String, which will parse the given
+string using Ruby&#8217;s parser. The parsing will be done in the current
+context/binding/scope, so it basically returns the <span class="caps">AST</span> that eval would see,
+given this string.</p>
+
+
+	<p>For Ruby 1.8.x there also is the method <code>parse_begin_to_nodes</code>, which returns
+the <span class="caps">AST</span> for all <code>BEGIN</code> blocks in the string.  Those <code>BEGIN</code> blocks won&#8217;t be in
+the <span class="caps">AST</span> returned by <code>parse_to_nodes</code>. In Ruby 1.9 <code>parse_to_nodes</code> returns a
+combined <span class="caps">AST</span>. <code>parse_to_nodes</code> and <code>parse_begin_to_nodes</code> also accept two
+optional arguments: file and line. The arguments work similar to those of
+Ruby&#8217;s <code>eval</code> and default to <code>"(string)"</code> and <code>1</code>.</p>
+
+
+	<p>For more details please see the examples below.</p>
+
+
+	<h2 id="section5">Higher level methods</h2>
+
+
+	<p>All the functionality described above is provided by the C extension. The
+following methods are only available if you <code>require "rubynode"</code> (instead of
+just <code>"rubynode_ext"</code>).</p>
+
+
+	<p>It would be a bit tedious to only work with the above methods to access the
+attributes of nodes. You would have to know which node type has what
+attributes for example. Fortunately RubyNode provides a nicer way: the method
+<code>attribs_hash</code>. This method returns a hash that contains all attributes of the
+node. Example:</p>
+
+
+<pre><code>&gt;&gt; n = "1 + 2".parse_to_nodes.nd_next
+=&gt; #&lt;RubyNode :call&gt;
+&gt;&gt; n.attribs_hash
+=&gt; {:mid=&gt;:+, :recv=&gt;#&lt;RubyNode :lit&gt;, :args=&gt;#&lt;RubyNode :array&gt;}
+</code></pre>
+
+	<p>This is nice but it is still a bit tedious, because you would then probably do
+something like the following:</p>
+
+
+<pre><code>&gt;&gt; n.attribs_hash[:recv].attribs_hash
+=&gt; {:lit=&gt;1}
+&gt;&gt; n.attribs_hash[:args].attribs_hash
+=&gt; {:next=&gt;false, :head=&gt;#&lt;RubyNode :lit&gt;, :alen=&gt;1}
+&gt;&gt; n.attribs_hash[:args].attribs_hash[:head].attribs_hash
+=&gt; {:lit=&gt;2}
+</code></pre>
+
+	<p>So, there is an even better way: the method <code>transform</code>. It is basically a
+recursive version of <code>attribs_hash</code>, it transforms a node tree into a tree of
+arrays and hashes. Example:</p>
+
+
+<pre><code>&gt;&gt; n.transform
+=&gt; [:call, {:mid=&gt;:+, :recv=&gt;[:lit, {:lit=&gt;1}], :args=&gt;[:array, [[:lit, {:lit=&gt;2}]]]}]
+</code></pre>
+
+	<p>So the <code>#&lt;RubyNode :call&gt;</code> became <code>[:call, "attribs_hash applied recursively"]</code>.
+You might have noticed, that the <code>:array</code> node doesn&#8217;t have a hash as second
+element in its array, this is some special magic to make it easier to work
+with <code>:array</code> nodes. If you really want to see the node tree of <code>:array</code>
+nodes, you can get that, too:</p>
+
+
+<pre><code>&gt;&gt; n.nd_args.transform
+=&gt; [:array, [[:lit, {:lit=&gt;2}]]]
+&gt;&gt; n.nd_args.transform(:keep_array_nodes =&gt; true)
+=&gt; [:array, {:next=&gt;false, :head=&gt;[:lit, {:lit=&gt;2}], :alen=&gt;1}]
+</code></pre>
+
+	<p>The same magic is also done for <code>:block</code> nodes:</p>
+
+
+<pre><code>&gt;&gt; bl = "foo; bar".parse_to_nodes
+=&gt; #&lt;RubyNode :block&gt;
+&gt;&gt; bl.transform
+=&gt; [:block, [[:vcall, {:mid=&gt;:foo}], [:vcall, {:mid=&gt;:bar}]]]
+&gt;&gt; pp bl.transform(:keep_block_nodes =&gt; true)
+[:block,
+ {:next=&gt;[:block, {:next=&gt;false, :head=&gt;[:vcall, {:mid=&gt;:bar}]}],
+  :head=&gt;[:vcall, {:mid=&gt;:foo}]}]
+</code></pre>
+
+	<p><code>transform</code> also strips <code>:newline</code> nodes (only useful for Ruby 1.8, 1.9
+doesn&#8217;t have <code>:newline</code> nodes), but if you really want those, you can get
+them:</p>
+
+
+<pre><code>&gt;&gt; pp bl.transform
+[:block, [[:vcall, {:mid=&gt;:foo}], [:vcall, {:mid=&gt;:bar}]]]
+=&gt; nil
+&gt;&gt; pp bl.transform(:keep_newline_nodes =&gt; true)
+[:block,
+ [[:newline, {:next=&gt;[:vcall, {:mid=&gt;:foo}]}],
+  [:newline, {:next=&gt;[:vcall, {:mid=&gt;:bar}]}]]]
+</code></pre>
+
+	<p>And finally <code>transform</code> can also include the original RubyNode instance in the
+hash, if you later need access to the filename, line number or the flags:</p>
+
+
+<pre><code>&gt;&gt; pp bl.transform(:include_node =&gt; true)
+[:block,
+ [[:vcall, {:mid=&gt;:foo, :node=&gt;#&lt;RubyNode :vcall&gt;}],
+  [:vcall, {:mid=&gt;:bar, :node=&gt;#&lt;RubyNode :vcall&gt;}]]]
+=&gt; nil
+&gt;&gt; pp n.transform(:include_node =&gt; true)
+[:call,
+ {:mid=&gt;:+,
+  :recv=&gt;[:lit, {:lit=&gt;1, :node=&gt;#&lt;RubyNode :lit&gt;}],
+  :args=&gt;[:array, [[:lit, {:lit=&gt;2, :node=&gt;#&lt;RubyNode :lit&gt;}]]],
+  :node=&gt;#&lt;RubyNode :call&gt;}]
+</code></pre>
+
+	<p>The options <code>:keep_array_nodes</code>, <code>:keep_block_nodes</code>, <code>:keep_newline_nodes</code>
+and <code>:include_node</code> can also be combined.</p>
+
+
+	<h2 id="section6">More examples</h2>
+
+
+	<h3>(Unbound)Method</h3>
+
+
+<pre><code>&gt;&gt; class A
+&gt;&gt;   def foo(x)
+&gt;&gt;     @bar + x
+&gt;&gt;   end
+&gt;&gt; end
+=&gt; nil
+&gt;&gt; pp A.instance_method(:foo).body_node.transform
+[:scope,
+ {:next=&gt;
+   [:block,
+    [[:args, {:rest=&gt;-1, :cnt=&gt;1, :opt=&gt;false}],
+     [:call,
+      {:mid=&gt;:+,
+       :recv=&gt;[:ivar, {:vid=&gt;:@bar}],
+       :args=&gt;[:array, [[:lvar, {:cnt=&gt;2, :vid=&gt;:x}]]]}]]],
+  :rval=&gt;[:cref, {:next=&gt;[:cref, {:next=&gt;false, :clss=&gt;Object}], :clss=&gt;A}],
+  :tbl=&gt;[:x]}]
+=&gt; nil
+&gt;&gt; pp A.new.method(:foo).body_node.transform
+[:scope,
+ {:next=&gt;
+   [:block,
+    [[:args, {:rest=&gt;-1, :cnt=&gt;1, :opt=&gt;false}],
+     [:call,
+      {:mid=&gt;:+,
+       :recv=&gt;[:ivar, {:vid=&gt;:@bar}],
+       :args=&gt;[:array, [[:lvar, {:cnt=&gt;2, :vid=&gt;:x}]]]}]]],
+  :rval=&gt;[:cref, {:next=&gt;[:cref, {:next=&gt;false, :clss=&gt;Object}], :clss=&gt;A}],
+  :tbl=&gt;[:x]}]
+</code></pre>
+
+	<h3>Proc</h3>
+
+
+<pre><code>&gt;&gt; add_23 = proc { |x| x + 23 }
+=&gt; #&lt;Proc:0xb7edafd8@(irb):9&gt;
+&gt;&gt; add_23.body_node.transform
+=&gt; [:call, {:mid=&gt;:+, :recv=&gt;[:dvar, {:vid=&gt;:x}], :args=&gt;[:array, [[:lit, {:lit=&gt;23}]]]}]
+&gt;&gt; add_23.var_node.transform
+=&gt; [:dasgn_curr, {:value=&gt;false, :vid=&gt;:x}]
+&gt;&gt; add_23.cref_node.transform
+=&gt; [:cref, {:next=&gt;false, :clss=&gt;Object}]
+</code></pre>
+
+	<h3>Parsing strings</h3>
+
+
+	<p>As mentioned above, the parsing is done in the current context, so the result
+can differ depending on local variables:</p>
+
+
+<pre><code>&gt;&gt; defined? z
+=&gt; nil
+&gt;&gt; "z".parse_to_nodes.transform
+=&gt; [:vcall, {:mid=&gt;:z}]
+&gt;&gt; z = 42
+=&gt; 42
+&gt;&gt; defined? z
+=&gt; "local-variable" 
+&gt;&gt; "z".parse_to_nodes.transform
+=&gt; [:lvar, {:cnt=&gt;4, :vid=&gt;:z}]
+</code></pre>
+
+	<h3><code>BEGIN</code> blocks</h3>
+
+
+	<p>Ruby 1.8:</p>
+
+
+<pre><code>&gt;&gt; "BEGIN { p 1 }; p 2".parse_to_nodes.transform
+=&gt; [:fcall, {:mid=&gt;:p, :args=&gt;[:array, [[:lit, {:lit=&gt;2}]]]}]
+&gt;&gt; pp "BEGIN { p 1 }; p 2".parse_begin_to_nodes.transform
+[:scope,
+ {:next=&gt;[:fcall, {:mid=&gt;:p, :args=&gt;[:array, [[:lit, {:lit=&gt;1}]]]}],
+  :rval=&gt;false,
+  :tbl=&gt;nil}]
+</code></pre>
+
+	<p>Ruby 1.9:</p>
+
+
+<pre><code>&gt;&gt; pp "BEGIN { p 1 }; p 2".parse_to_nodes.transform
+[:prelude,
+ {:head=&gt;
+   [:scope,
+    {:rval=&gt;false,
+     :tbl=&gt;nil,
+     :next=&gt;[:fcall, {:args=&gt;[:array, [[:lit, {:lit=&gt;1}]]], :mid=&gt;:p}]}],
+  :body=&gt;[:fcall, {:args=&gt;[:array, [[:lit, {:lit=&gt;2}]]], :mid=&gt;:p}]}]
+</code></pre>
+</body>
+</html>

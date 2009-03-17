@@ -1,0 +1,4 @@
+#!/bin/bash
+
+rdoc -w 2 -S *.c 
+

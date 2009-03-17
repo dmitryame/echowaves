@@ -1,0 +1,30 @@
+Sun Jun 25 12:46:14 JST 2006  moonwolf@moonwolf.com
+  * patch from http://www.kbmj.com/tech/index.php?itemid=26
+  * patch from http://sean.treadway.info/articles/2005/12/24/open-season-for-eagain
+
+Fri Apr  1 10:20:14 JST 2005  sugi@nemui.org
+  * Include errno.h
+
+Fri Apr  1 08:09:13 JST 2005  aredridel@nbtsc.org
+  * Report actual errors
+  
+  Adds reporting of errors fcgi experiences. Credit to David Heinemier Hansson 
+  for discovery.
+
+Fri Apr  1 08:08:07 JST 2005  aredridel@nbtsc.org
+  * FHS Include Paths
+
+Wed Mar 30 21:45:11 JST 2005  sugi@nemui.org
+  * 16k+request-memleak
+  fix memory leak when 16k+/reqest.
+  from http://enigo.com/projects/iowa/fcgipatch.html
+
+Wed Mar 30 21:43:02 JST 2005  sugi@nemui.org
+  * fix-check_stream_error
+  Simple fix in CHECK_STREAM_ERROR for Potential DoS
+  see http://groups-beta.google.com/group/comp.lang.ruby/browse_thread/thread/f51e79974a454b70/54fe207411e9eb05
+  for details.
+
+Wed Mar 30 21:40:22 JST 2005  sugi@nemui.org
+  * init-from-0.8.5
+  Initalize DARCS repository from MoonWolf's 0.8.5 release.

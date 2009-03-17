@@ -1,0 +1,408 @@
+<html>
+  <head>
+    <title>SQLite3/Ruby FAQ</title>
+    <style type="text/css">
+      a, a:visited, a:active {
+        color: #00F;
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .faq-list {
+        color: #000;
+        font-family: vera-sans, verdana, arial, sans-serif;
+      }
+
+      .faq-title {
+        background: #007;
+        color: #FFF;
+        font-family: vera-sans, verdana, arial, sans-serif;
+        padding-left: 1em;
+        padding-top: 0.5em;
+        padding-bottom: 0.5em;
+        font-weight: bold;
+        font-size: large;
+        border: 1px solid #000;
+      }
+
+      .faq-answer {
+        margin-left: 1em;
+        color: #000;
+        font-family: vera-sans, verdana, arial, sans-serif;
+      }
+
+      .faq-answer pre {
+        margin-left: 1em;
+        color: #000;
+        background: #FFE;
+        font-size: normal;
+        border: 1px dotted #CCC;
+        padding: 1em;
+      }
+
+      h1 {
+        background: #005;
+        color: #FFF;
+        font-family: vera-sans, verdana, arial, sans-serif;
+        padding-left: 1em;
+        padding-top: 1em;
+        padding-bottom: 1em;
+        font-weight: bold;
+        font-size: x-large;
+        border: 1px solid #00F;
+      }
+    </style>
+  </head>
+  <body>
+  <h1>SQLite/Ruby FAQ</h1>
+  <div class="faq-list">
+<ul>
+<li>How do I do a database query?
+<ul>
+<li><a href='#9126850'>I just want an array of the rows&#8230;</a></li>
+<li><a href='#9126780'>I&#8217;d like to use a block to iterate through the rows&#8230;</a></li>
+<li><a href='#9126710'>I need to get the column names as well as the rows&#8230;</a></li>
+<li><a href='#9126640'>I just want the first row of the result set&#8230;</a></li>
+<li><a href='#9126570'>I just want the first value of the first row of the result set&#8230;</a></li>
+</ul>
+</li>
+<li><a href='#9126450'>How do I prepare a statement for repeated execution?</a></li>
+<li><a href='#9126380'>How do I use placeholders in an <span class="caps">SQL</span> statement?</a></li>
+<li><a href='#9126310'>How do I discover metadata about a query?</a></li>
+<li><a href='#9126240'>I&#8217;d like the rows to be indexible by column name.</a></li>
+<li><a href='#9126170'>I&#8217;d like the values from a query to be the correct types, instead of String.</a></li>
+<li><a href='#9126100'>How do insert binary data into the database?</a></li>
+<li><a href='#9126030'>How do I do a <span class="caps">DDL</span> (insert, update, delete) statement?</a></li>
+<li><a href='#9125960'>How do I execute multiple statements in a single string?</a></li>
+<li><a href='#9125890'>How do I begin/end a transaction?</a></li>
+</ul>
+</div>
+<a name='9126850'></a>
+<div class='faq-title'>How do I do a database query? I just want an array of the rows&#8230;</div>
+<div class='faq-answer'><p>Use the <a href='http://sqlite-ruby.rubyforge.org/classes/SQLite/Database.html'>Database#execute</a> method. If you don&#8217;t give it a block, it will return an array of all the rows:</p>
+
+
+<pre>
+  require 'sqlite3'
+
+  db = SQLite3::<a href='http://sqlite-ruby.rubyforge.org/classes/SQLite/Database.html'>Database</a>.new( "test.db" )
+  rows = db.execute( "select * from test" )
+</pre></div>
+<a name='9126780'></a>
+<div class='faq-title'>How do I do a database query? I&#8217;d like to use a block to iterate through the rows&#8230;</div>
+<div class='faq-answer'><p>Use the <a href='http://sqlite-ruby.rubyforge.org/classes/SQLite/Database.html'>Database#execute</a> method. If you give it a block, each row of the result will be yielded to the block:</p>
+
+
+<pre>
+  require 'sqlite3'
+
+  db = SQLite3::<a href='http://sqlite-ruby.rubyforge.org/classes/SQLite/Database.html'>Database</a>.new( "test.db" )
+  db.execute( "select * from test" ) do |row|
+    ...
+  end
+</pre></div>
+<a name='9126710'></a>
+<div class='faq-title'>How do I do a database query? I need to get the column names as well as the rows&#8230;</div>
+<div class='faq-answer'><p>Use the <a href='http://sqlite-ruby.rubyforge.org/classes/SQLite/Database.html'>Database#execute2</a> method. This works just like <a href='http://sqlite-ruby.rubyforge.org/classes/SQLite/Database.html'>Database#execute</a>; if you don&#8217;t give it a block, it returns an array of rows; otherwise, it will yield each row to the block. <em>However</em>, the first row returned is always an array of the column names from the query:</p>
+
+
+<pre>
+  require 'sqlite3'
+
+  db = SQLite3::<a href='http://sqlite-ruby.rubyforge.org/classes/SQLite/Database.html'>Database</a>.new( "test.db" )
+  columns, *rows = db.execute2( "select * from test" )
+
+  # or use a block:
+
+  columns = nil
+  db.execute2( "select * from test" ) do |row|
+    if columns.nil?
+      columns = row
+    else
+      # process row
+    end
+  end
+</pre></div>
+<a name='9126640'></a>
+<div class='faq-title'>How do I do a database query? I just want the first row of the result set&#8230;</div>
+<div class='faq-answer'><p>Easy. Just call <a href='http://sqlite-ruby.rubyforge.org/classes/SQLite/Database.html'>Database#get_first_row</a>:</p>
+
+
+<pre>
+  row = db.get_first_row( "select * from table" )
+</pre>
+
+	<p>This also supports bind variables, just like <a href='http://sqlite-ruby.rubyforge.org/classes/SQLite/Database.html'>Database#execute</a> and friends.</p></div>
+<a name='9126570'></a>
+<div class='faq-title'>How do I do a database query? I just want the first value of the first row of the result set&#8230;</div>
+<div class='faq-answer'><p>Also easy. Just call <a href='http://sqlite-ruby.rubyforge.org/classes/SQLite/Database.html'>Database#get_first_value</a>:</p>
+
+
+<pre>
+  count = db.get_first_value( "select count(*) from table" )
+</pre>
+
+	<p>This also supports bind variables, just like <a href='http://sqlite-ruby.rubyforge.org/classes/SQLite/Database.html'>Database#execute</a> and friends.</p></div>
+<a name='9126450'></a>
+<div class='faq-title'>How do I prepare a statement for repeated execution?</div>
+<div class='faq-answer'><p>If the same statement is going to be executed repeatedly, you can speed things up a bit by <em>preparing</em> the statement. You do this via the <a href='http://sqlite-ruby.rubyforge.org/classes/SQLite/Database.html'>Database#prepare</a> method. It returns a <a href='http://sqlite-ruby.rubyforge.org/classes/SQLite/Statement.html'>Statement</a> object, and you can then invoke #execute on that to get the <a href='http://sqlite-ruby.rubyforge.org/classes/SQLite/ResultSet.html'>ResultSet</a>:</p>
+
+
+<pre>
+  stmt = db.prepare( "select * from person" )
+
+  1000.times do
+    stmt.execute do |result|
+      ...
+    end
+  end
+
+  stmt.close
+
+  # or, use a block
+
+  db.prepare( "select * from person" ) do |stmt|
+    1000.times do
+      stmt.execute do |result|
+        ...
+      end
+    end
+  end
+</pre>
+
+	<p>This is made more useful by the ability to bind variables to placeholders via the <a href='http://sqlite-ruby.rubyforge.org/classes/SQLite/Statement.html'>Statement#bind_param</a> and <a href='http://sqlite-ruby.rubyforge.org/classes/SQLite/Statement.html'>Statement#bind_params</a> methods. (See the next <span class="caps">FAQ</span> for details.)</p></div>
+<a name='9126380'></a>
+<div class='faq-title'>How do I use placeholders in an <span class="caps">SQL</span> statement?</div>
+<div class='faq-answer'><p>Placeholders in an <span class="caps">SQL</span> statement take any of the following formats:</p>
+
+
+	<ul>
+	<li><code>?</code></li>
+		<li><code>?_nnn_</code></li>
+		<li><code>:_word_</code></li>
+	</ul>
+
+
+	<p>Where <em>n_ is an integer, and _word</em> is an alpha-numeric identifier (or number). When the placeholder is associated with a number, that number identifies the index of the bind variable to replace it with. When it is an identifier, it identifies the name of the correponding bind variable. (In the instance of the first format-<del>a single question mark</del>-the placeholder is assigned a number one greater than the last index used, or 1 if it is the first.)</p>
+
+
+	<p>For example, here is a query using these placeholder formats:</p>
+
+
+<pre>
+  select *
+    from table
+   where ( c = ?2 or c = ? )
+     and d = :name
+     and e = :1
+</pre>
+
+	<p>This defines 5 different placeholders: 1, 2, 3, and &#8220;name&#8221;.</p>
+
+
+	<p>You replace these placeholders by <em>binding</em> them to values. This can be accomplished in a variety of ways.</p>
+
+
+	<p>The <a href='http://sqlite-ruby.rubyforge.org/classes/SQLite/Database.html'>Database#execute</a>, and <a href='http://sqlite-ruby.rubyforge.org/classes/SQLite/Database.html'>Database#execute2</a> methods all accept additional arguments following the <span class="caps">SQL</span> statement. These arguments are assumed to be bind parameters, and they are bound (positionally) to their corresponding placeholders:</p>
+
+
+<pre>
+  db.execute( "select * from table where a = ? and b = ?",
+              "hello",
+              "world" )
+</pre>
+
+	<p>The above would replace the first question mark with &#8216;hello&#8217; and the second with &#8216;world&#8217;. If the placeholders have an explicit index given, they will be replaced with the bind parameter at that index (1-based).</p>
+
+
+	<p>If a Hash is given as a bind parameter, then its key/value pairs are bound to the placeholders. This is how you bind by name:</p>
+
+
+<pre>
+  db.execute( "select * from table where a = :name and b = :value",
+              "name" =&gt; "bob",
+              "value" =&gt; "priceless" )
+</pre>
+
+	<p>You can also bind explicitly using the <a href='http://sqlite-ruby.rubyforge.org/classes/SQLite/Statement.html'>Statement</a> object itself. Just pass additional parameters to the <a href='http://sqlite-ruby.rubyforge.org/classes/SQLite/Statement.html'>Statement#execute</a> statement:</p>
+
+
+<pre>
+  db.prepare( "select * from table where a = :name and b = ?" ) do |stmt|
+    stmt.execute "value", "name" =&gt; "bob" 
+  end
+</pre>
+
+	<p>Or do a <a href='http://sqlite-ruby.rubyforge.org/classes/SQLite/Database.html'>Database#prepare</a> to get the <a href='http://sqlite-ruby.rubyforge.org/classes/SQLite/Statement.html'>Statement</a>, and then use either <a href='http://sqlite-ruby.rubyforge.org/classes/SQLite/Statement.html'>Statement#bind_param</a> or <a href='http://sqlite-ruby.rubyforge.org/classes/SQLite/Statement.html'>Statement#bind_params</a>:</p>
+
+
+<pre>
+  stmt = db.prepare( "select * from table where a = :name and b = ?" )
+
+  stmt.bind_param( "name", "bob" )
+  stmt.bind_param( 1, "value" )
+
+  # or
+
+  stmt.bind_params( "value", "name" =&gt; "bob" )
+</pre></div>
+<a name='9126310'></a>
+<div class='faq-title'>How do I discover metadata about a query?</div>
+<div class='faq-answer'><p>If you ever want to know the names or types of the columns in a result set, you can do it in several ways.</p>
+
+
+	<p>The first way is to ask the row object itself. Each row will have a property &#8220;fields&#8221; that returns an array of the column names. The row will also have a property &#8220;types&#8221; that returns an array of the column types:</p>
+
+
+<pre>
+  rows = db.execute( "select * from table" )
+  p rows[0].fields
+  p rows[0].types
+</pre>
+
+	<p>Obviously, this approach requires you to execute a statement that actually returns data. If you don&#8217;t know if the statement will return any rows, but you still need the metadata, you can use <a href='http://sqlite-ruby.rubyforge.org/classes/SQLite/Database.html'>Database#query</a> and ask the <a href='http://sqlite-ruby.rubyforge.org/classes/SQLite/ResultSet.html'>ResultSet</a> object itself:</p>
+
+
+<pre>
+  db.query( "select * from table" ) do |result|
+    p result.columns
+    p result.types
+    ...
+  end
+</pre>
+
+	<p>Lastly, you can use <a href='http://sqlite-ruby.rubyforge.org/classes/SQLite/Database.html'>Database#prepare</a> and ask the <a href='http://sqlite-ruby.rubyforge.org/classes/SQLite/Statement.html'>Statement</a> object what the metadata are:</p>
+
+
+<pre>
+  stmt = db.prepare( "select * from table" )
+  p stmt.columns
+  p stmt.types
+</pre></div>
+<a name='9126240'></a>
+<div class='faq-title'>I&#8217;d like the rows to be indexible by column name.</div>
+<div class='faq-answer'><p>By default, each row from a query is returned as an Array of values. This means that you can only obtain values by their index. Sometimes, however, you would like to obtain values by their column name.</p>
+
+
+	<p>The first way to do this is to set the <a href='http://sqlite-ruby.rubyforge.org/classes/SQLite/Database.html'>Database</a> property &#8220;results_as_hash&#8221; to true. If you do this, then all rows will be returned as Hash objects, with the column names as the keys. (In this case, the &#8220;fields&#8221; property is unavailable on the row, although the &#8220;types&#8221; property remains.)</p>
+
+
+<pre>
+  db.results_as_hash = true
+  db.execute( "select * from table" ) do |row|
+    p row['column1']
+    p row['column2']
+  end
+</pre>
+
+	<p>The other way is to use Ara Howard&#8217;s <a href="http://rubyforge.org/projects/arrayfields">ArrayFields</a> module. Just require &#8220;arrayfields&#8221;, and all of your rows will be indexable by column name, even though they are still arrays!</p>
+
+
+<pre>
+  require 'arrayfields'
+
+  ...
+  db.execute( "select * from table" ) do |row|
+    p row[0] == row['column1']
+    p row[1] == row['column2']
+  end
+</pre></div>
+<a name='9126170'></a>
+<div class='faq-title'>I&#8217;d like the values from a query to be the correct types, instead of String.</div>
+<div class='faq-answer'><p>You can turn on &#8220;type translation&#8221; by setting <a href='http://sqlite-ruby.rubyforge.org/classes/SQLite/Database.html'>Database#type_translation</a> to true:</p>
+
+
+<pre>
+  db.type_translation = true
+  db.execute( "select * from table" ) do |row|
+    p row
+  end
+</pre>
+
+	<p>By doing this, each return value for each row will be translated to its correct type, based on its declared column type.</p>
+
+
+	<p>You can even declare your own translation routines, if (for example) you are using an <span class="caps">SQL</span> type that is not handled by default:</p>
+
+
+<pre>
+  # assume "objects" table has the following schema:
+  #   create table objects (
+  #     name varchar2(20),
+  #     thing object
+  #   )
+
+  db.type_translation = true
+  db.translator.add_translator( "object" ) do |type, value|
+    db.decode( value )
+  end
+
+  h = { :one=&gt;:two, "three"=&gt;"four", 5=&gt;6 }
+  dump = db.encode( h )
+
+  db.execute( "insert into objects values ( ?, ? )", "bob", dump )
+
+  obj = db.get_first_value( "select thing from objects where name='bob'" )
+  p obj == h
+</pre></div>
+<a name='9126100'></a>
+<div class='faq-title'>How do insert binary data into the database?</div>
+<div class='faq-answer'><p>Use blobs. Blobs are new features of SQLite3. You have to use bind variables to make it work:</p>
+
+
+<pre>
+  db.execute( "insert into foo ( ?, ? )",
+    SQLite3::Blob.new( "\0\1\2\3\4\5" ),
+    SQLite3::Blob.new( "a\0b\0c\0d ) )
+</pre>
+
+	<p>The blob values must be indicated explicitly by binding each parameter to a value of type SQLite3::Blob.</p></div>
+<a name='9126030'></a>
+<div class='faq-title'>How do I do a <span class="caps">DDL</span> (insert, update, delete) statement?</div>
+<div class='faq-answer'><p>You can actually do inserts, updates, and deletes in exactly the same way as selects, but in general the <a href='http://sqlite-ruby.rubyforge.org/classes/SQLite/Database.html'>Database#execute</a> method will be most convenient:</p>
+
+
+<pre>
+  db.execute( "insert into table values ( ?, ? )", *bind_vars )
+</pre></div>
+<a name='9125960'></a>
+<div class='faq-title'>How do I execute multiple statements in a single string?</div>
+<div class='faq-answer'><p>The standard query methods (<a href='http://sqlite-ruby.rubyforge.org/classes/SQLite/Database.html'>Database#execute</a>, <a href='http://sqlite-ruby.rubyforge.org/classes/SQLite/Database.html'>Database#execute2</a>, <a href='http://sqlite-ruby.rubyforge.org/classes/SQLite/Database.html'>Database#query</a>, and <a href='http://sqlite-ruby.rubyforge.org/classes/SQLite/Statement.html'>Statement#execute</a>) will only execute the first statement in the string that is given to them. Thus, if you have a string with multiple <span class="caps">SQL</span> statements, each separated by a string, you can&#8217;t use those methods to execute them all at once.</p>
+
+
+	<p>Instead, use <a href='http://sqlite-ruby.rubyforge.org/classes/SQLite/Database.html'>Database#execute_batch</a>:</p>
+
+
+<pre>
+  sql = &lt;&lt;SQL
+    create table the_table (
+      a varchar2(30),
+      b varchar2(30)
+    );
+
+    insert into the_table values ( 'one', 'two' );
+    insert into the_table values ( 'three', 'four' );
+    insert into the_table values ( 'five', 'six' );
+  SQL
+
+  db.execute_batch( sql )
+</pre>
+
+	<p>Unlike the other query methods, <a href='http://sqlite-ruby.rubyforge.org/classes/SQLite/Database.html'>Database#execute_batch</a> accepts no block. It will also only ever return <ins>nil</ins>. Thus, it is really only suitable for batch processing of <span class="caps">DDL</span> statements.</p></div>
+<a name='9125890'></a>
+<div class='faq-title'>How do I begin/end a transaction?</div>
+<div class='faq-answer'><p>Use <a href='http://sqlite-ruby.rubyforge.org/classes/SQLite/Database.html'>Database#transaction</a> to start a transaction. If you give it a block, the block will be automatically committed at the end of the block, unless an exception was raised, in which case the transaction will be rolled back. (Never explicitly call <a href='http://sqlite-ruby.rubyforge.org/classes/SQLite/Database.html'>Database#commit</a> or <a href='http://sqlite-ruby.rubyforge.org/classes/SQLite/Database.html'>Database#rollback</a> inside of a transaction block&#8212;you&#8217;ll get errors when the block terminates!)</p>
+
+
+<pre> database.transaction do |db| db.execute( "insert into table values ( 'a', 'b', 'c' )" ) ... end </pre>
+
+	<p>Alternatively, if you don&#8217;t give a block to <a href='http://sqlite-ruby.rubyforge.org/classes/SQLite/Database.html'>Database#transaction</a>, the transaction remains open until you explicitly call <a href='http://sqlite-ruby.rubyforge.org/classes/SQLite/Database.html'>Database#commit</a> or <a href='http://sqlite-ruby.rubyforge.org/classes/SQLite/Database.html'>Database#rollback</a>.</p>
+
+
+<pre> db.transaction db.execute( "insert into table values ( 'a', 'b', 'c' )" ) db.commit </pre>
+
+	<p>Note that SQLite does not allow nested transactions, so you&#8217;ll get errors if you try to open a new transaction while one is already active. Use <a href='http://sqlite-ruby.rubyforge.org/classes/SQLite/Database.html'>Database#transaction_active</a>? to determine whether a transaction is active or not.</p></div>
+</body></html>

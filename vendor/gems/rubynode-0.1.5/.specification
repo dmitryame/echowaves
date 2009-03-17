@@ -1,0 +1,74 @@
+--- !ruby/object:Gem::Specification 
+name: rubynode
+version: !ruby/object:Gem::Version 
+  version: 0.1.5
+platform: ruby
+authors: 
+- Dominik Bathon
+autorequire: 
+bindir: bin
+cert_chain: []
+
+date: 2008-02-14 00:00:00 +01:00
+default_executable: 
+dependencies: []
+
+description: 
+email: dbatml@gmx.de
+executables: []
+
+extensions: 
+- ext/rubynode_ext/extconf.rb
+extra_rdoc_files: []
+
+files: 
+- ext/rubynode_ext
+- ext/rubynode_ext/ruby_src
+- ext/rubynode_ext/ruby_src/d0efe17fed21c8d9954851abd9dab16fac1e35b8
+- ext/rubynode_ext/ruby_src/d0efe17fed21c8d9954851abd9dab16fac1e35b8/gc.c
+- ext/rubynode_ext/ruby_src/d0efe17fed21c8d9954851abd9dab16fac1e35b8/eval.c
+- ext/rubynode_ext/ruby_src/4bfe0d24de6089aca6af9bf4d690df7a7f481276
+- ext/rubynode_ext/ruby_src/4bfe0d24de6089aca6af9bf4d690df7a7f481276/gc.c
+- ext/rubynode_ext/ruby_src/4bfe0d24de6089aca6af9bf4d690df7a7f481276/eval.c
+- ext/rubynode_ext/ruby_src/061ef3a38d01ac9917e7aaff0bc5ff6be60becf3
+- ext/rubynode_ext/ruby_src/061ef3a38d01ac9917e7aaff0bc5ff6be60becf3/gc.c
+- ext/rubynode_ext/ruby_src/061ef3a38d01ac9917e7aaff0bc5ff6be60becf3/eval.c
+- ext/rubynode_ext/ruby_src/d03d2652e0a6a8ae8bd0575d58f0c093d97d694d
+- ext/rubynode_ext/ruby_src/d03d2652e0a6a8ae8bd0575d58f0c093d97d694d/gc.c
+- ext/rubynode_ext/ruby_src/d03d2652e0a6a8ae8bd0575d58f0c093d97d694d/eval.c
+- ext/rubynode_ext/extconf.rb
+- ext/rubynode_ext/rubynode_ext.c
+- lib/rubynode.rb
+- doc/api.html
+- doc/index.html
+- doc/style.css
+- README
+- Changelog
+has_rdoc: false
+homepage: http://rubynode.rubyforge.org/
+post_install_message: 
+rdoc_options: []
+
+require_paths: 
+- lib
+required_ruby_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      version: "0"
+  version: 
+required_rubygems_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      version: "0"
+  version: 
+requirements: []
+
+rubyforge_project: 
+rubygems_version: 1.3.1
+signing_key: 
+specification_version: 2
+summary: RubyNode is a library that allows read only access to Ruby's internal NODE structure.
+test_files: []
+

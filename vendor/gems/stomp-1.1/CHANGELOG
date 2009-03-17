@@ -1,0 +1,25 @@
+== 1.1 2009-27-02
+
+* Ruby 1.9 Support
+* Add support for connect_headers, to control the CONNECT command.
+* Refactored lib dir to separate concerns.
+* Better test coverage
+* General code cleanup. 
+
+== 1.0.6 2008-05-08
+
+* Whitespace cleanup
+* Refactored Rakefile and added stomp.gemspec for GitHub friendliness.
+* Added .gitignore file
+* Refactored layout of lib dir to separate concerns
+* Cleanup of initializers, and provide Client accessors for reading values (for testing)
+* Removed test/test_url_* files as they only differed from the test_client.rb in their
+  setup.  Super UnDry.  Added URL tests to cover stomp URL as param.
+* Created initial RSpec specs which stub/mock objects and should not require a running
+  Stomp server instance.
+
+== v1.0.5
+
+SVN rev 86 clone from http://svn.codehaus.org/stomp/ruby/trunk
+
+git-svn-id: http://svn.codehaus.org/stomp/ruby/trunk@86 fd4e7336-3dff-0310-b68a-b6615a75f13b

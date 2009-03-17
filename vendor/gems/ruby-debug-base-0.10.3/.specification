@@ -1,0 +1,82 @@
+--- !ruby/object:Gem::Specification 
+name: ruby-debug-base
+version: !ruby/object:Gem::Version 
+  version: 0.10.3
+platform: ruby
+authors: 
+- Kent Sibilev
+autorequire: 
+bindir: bin
+cert_chain: []
+
+date: 2008-11-17 00:00:00 +01:00
+default_executable: 
+dependencies: 
+- !ruby/object:Gem::Dependency 
+  name: linecache
+  type: :runtime
+  version_requirement: 
+  version_requirements: !ruby/object:Gem::Requirement 
+    requirements: 
+    - - ">="
+      - !ruby/object:Gem::Version 
+        version: "0.3"
+    version: 
+description: ruby-debug is a fast implementation of the standard Ruby debugger debug.rb. It is implemented by utilizing a new Ruby C API hook. The core component  provides support that front-ends can build on. It provides breakpoint  handling, bindings for stack frames among other things.
+email: ksibilev@yahoo.com
+executables: []
+
+extensions: 
+- ext/extconf.rb
+extra_rdoc_files: 
+- README
+- ext/ruby_debug.c
+files: 
+- AUTHORS
+- CHANGES
+- LICENSE
+- README
+- Rakefile
+- ext/breakpoint.c
+- ext/extconf.rb
+- ext/ruby_debug.c
+- ext/ruby_debug.h
+- ext/win32/Makefile
+- ext/win32/ruby_debug.o
+- ext/win32/breakpoint.o
+- ext/win32/ruby_debug.so
+- lib/ruby-debug-base.rb
+- lib/ChangeLog
+- test/base/base.rb
+- test/base/binding.rb
+- test/base/catchpoint.rb
+has_rdoc: true
+homepage: http://rubyforge.org/projects/ruby-debug/
+post_install_message: 
+rdoc_options: []
+
+require_paths: 
+- lib
+required_ruby_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      version: 1.8.2
+  version: 
+required_rubygems_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      version: "0"
+  version: 
+requirements: []
+
+rubyforge_project: ruby-debug
+rubygems_version: 1.3.1
+signing_key: 
+specification_version: 2
+summary: Fast Ruby debugger - core component
+test_files: 
+- test/base/base.rb
+- test/base/binding.rb
+- test/base/catchpoint.rb

@@ -1,0 +1,81 @@
+--- !ruby/object:Gem::Specification 
+name: stomp
+version: !ruby/object:Gem::Version 
+  version: "1.1"
+platform: ruby
+authors: 
+- Brian McCallister
+- Marius Mathiesen
+autorequire: 
+bindir: bin
+cert_chain: []
+
+date: 2009-02-27 00:00:00 +01:00
+default_executable: 
+dependencies: []
+
+description: Ruby client for the Stomp messaging protocol
+email: 
+- brianm@apache.org
+- marius@stones.com
+executables: 
+- catstomp
+- stompcat
+extensions: []
+
+extra_rdoc_files: 
+- README.rdoc
+- CHANGELOG
+- LICENSE
+files: 
+- README.rdoc
+- LICENSE
+- CHANGELOG
+- Rakefile
+- lib/stomp.rb
+- lib/stomp/client.rb
+- lib/stomp/connection.rb
+- lib/stomp/message.rb
+- test/test_client.rb
+- test/test_connection.rb
+- test/test_helper.rb
+- bin/catstomp
+- bin/stompcat
+has_rdoc: true
+homepage: http://stomp.codehaus.org/
+post_install_message: 
+rdoc_options: 
+- --quiet
+- --title
+- stomp documentation
+- --opname
+- index.html
+- --line-numbers
+- --main
+- README.rdoc
+- --inline-source
+require_paths: 
+- lib
+required_ruby_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      version: "0"
+  version: 
+required_rubygems_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      version: "0"
+  version: 
+requirements: []
+
+rubyforge_project: 
+rubygems_version: 1.3.1
+signing_key: 
+specification_version: 2
+summary: Ruby client for the Stomp messaging protocol
+test_files: 
+- test/test_client.rb
+- test/test_connection.rb
+- test/test_helper.rb

@@ -1,0 +1,36 @@
+==README
+
+http://stomp.rubyforge.org/
+
+===Overview
+
+An implementation of the Stomp protocol (http://stomp.codehaus.org/Protocol) for Ruby.
+
+
+===Example Usage
+
+    client = Stomp::Client.new("test", "user", "localhost", 61613)
+    client.send("/my/queue", "hello world!")
+    client.subscribe("/my/queue") do |msg|
+      p msg
+    end
+
+===Contact info 
+
+Up until March 2009 the project was maintained and primarily developed by Brian McCallister. 
+
+The project is now maintained by Johan Sørensen <johan@johansorensen.com>
+
+===Source Code
+
+  http://gitorious.org/projects/stomp/
+  http://github.com/js/stomp/
+
+===Project urls
+
+Project Home :
+  http://gitorious.org/projects/stomp/
+  http://rubyforge.org/projects/stomp/
+
+Stomp Protocol Info :
+  http://stomp.codehaus.org/Protocol

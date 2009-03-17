@@ -1,0 +1,182 @@
+/*
+ * Uncopyrighted 2005 Ross Bamford.
+ *
+ * rosco at roscopeco dot co dot uk
+ */
+body {
+	background: #ffffff;
+	color: #000000;
+	font-family: Microsoft sans-serif, sans-serif, arial, helvetica;
+	font-size: 12px;
+	padding: 0px;
+	margin: 0px 0px 0px 0px;
+}
+
+.container {
+  width: 800px;
+  margin: 0 auto;
+}
+
+/* ** links ** */
+a {
+	color: red;
+	text-decoration: none;
+}
+
+a:hover {
+	color: red;
+	text-decoration: underline;
+}
+
+a:active {
+	color: red;
+	text-decoration: underline;
+}
+
+.navlinks a {
+	color: red;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+.navlinks a:hover {
+	color: red;
+	text-decoration: underline;
+	font-weight: bold;
+}
+
+.navlinks {
+	padding: 10px; 
+	background: white;
+	white-space: nowrap
+}
+
+div.copyright {
+	/* Copyright bit on pages */
+	color: #909090;
+	position: relative;	
+	top: 5em;
+	right: 2%;
+	text-align: right;
+	font-size: 8pt;	
+}
+
+/* * page styles *** */
+
+h1.title {
+  font-size: 48px;
+  padding-left: 0;
+}
+
+h1 {
+  padding: 10px;
+}
+
+h2 {
+	border-bottom: thin #959595 solid;
+}
+
+h3 {
+	border-bottom: thin #b8c8c8 solid;
+}
+
+h5 {
+	border-bottom: thin #c0c0d8 solid;
+}
+
+div.note {
+	background: #e8e8fa;
+	border: thin dashed #3e5972;
+	position: relative;
+	width: 90%;
+	left: 5%;
+	right: 5%;
+	text-align: right;
+	font-size: 10pt;	
+	padding: 5px;
+	margin-bottom: 5px;
+}
+
+/* * syntax ******** */
+pre.ruby {
+	background: #f5f5f5;
+	border: thin dashed #3e5972;
+	padding: 10px;
+	margin-left: 2em;
+}
+
+pre.ruby span.normal {
+	color: #000000;
+}
+
+pre.ruby span.comment {
+	color: #789a86;
+	text-decoration: oblique;
+}
+
+pre.ruby span.ident {
+	color: #0b0202;
+}
+
+pre.ruby span.punct {
+	color: #8a7070;
+}
+
+pre.ruby span.symbol {
+	color: #aa1010;
+	font-weight: bold;
+}
+
+pre.ruby span.keyword {
+	color: #903030;
+	font-weight: bold;
+}
+
+pre.ruby span.constant {
+	color: #3e5972;
+	font-weight: bold;
+}
+
+pre.ruby span.string {
+	color: #2020f0;	
+}
+
+pre.ruby span.char {
+	color: #2020f0;	
+	font-weight: bold;
+}
+
+pre.ruby span.number {
+	color: #aa1010;	
+}
+
+pre.ruby span.regex {
+	color: #552090;	
+}
+
+pre.ruby span.expr {
+	color: #101080;
+	font-weight: bold;
+}
+
+pre.ruby span.global {
+	color: #557462;
+}
+
+pre.ruby span.class {
+	color: #3e5972;
+	font-weight: bold;
+}
+
+pre.ruby span.method {
+	color: #aa1010;
+}
+
+pre.ruby span.attribute {
+	color: #3e5972;
+}
+
+pre.ruby span.escape { 
+	color: #2020f0;	
+	font-weight: bold;
+}

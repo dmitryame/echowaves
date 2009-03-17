@@ -1,0 +1,61 @@
+--- !ruby/object:Gem::Specification 
+name: columnize
+version: !ruby/object:Gem::Version 
+  version: 0.3.0
+platform: ruby
+authors: 
+- R. Bernstein
+autorequire: 
+bindir: bin
+cert_chain: 
+date: 2009-01-10 00:00:00 +01:00
+default_executable: 
+dependencies: []
+
+description: Columnize is a module for reading and caching lines. This may be useful for example in a debugger where the same lines are shown many times.
+email: rockyb@rubyforge.net
+executables: []
+
+extensions: []
+
+extra_rdoc_files: 
+- README
+- lib/columnize.rb
+files: 
+- AUTHORS
+- COPYING
+- ChangeLog
+- NEWS
+- README
+- Rakefile
+- VERSION
+- lib/columnize.rb
+- test/test-columnize.rb
+has_rdoc: true
+homepage: http://rubyforge.org/projects/rocky-hacks/columnize
+post_install_message: 
+rdoc_options: []
+
+require_paths: 
+- lib
+required_ruby_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      version: 1.8.2
+  version: 
+required_rubygems_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      version: "0"
+  version: 
+requirements: []
+
+rubyforge_project: rocky-hacks
+rubygems_version: 1.3.1
+signing_key: 
+specification_version: 1
+summary: Read file with caching
+test_files: []
+

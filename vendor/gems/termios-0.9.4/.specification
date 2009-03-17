@@ -1,0 +1,66 @@
+--- !ruby/object:Gem::Specification 
+name: termios
+version: !ruby/object:Gem::Version 
+  version: 0.9.4
+platform: ruby
+authors: []
+
+autorequire: termios
+bindir: bin
+cert_chain: 
+date: 2004-09-24 00:00:00 +02:00
+default_executable: 
+dependencies: []
+
+description: 
+email: akira@ruby-lang.org
+executables: []
+
+extensions: 
+- extconf.rb
+extra_rdoc_files: 
+- README
+- termios.rd
+files: 
+- ChangeLog
+- extconf.rb
+- README
+- TODO.ja
+- termios.c
+- termios.rd
+- MANIFEST
+- test/test0.rb
+- examples/modem_check0.rb
+- examples/modem_check1.rb
+- examples/modem_check2.rb
+- examples/secret_input1.rb
+- examples/secret_input2.rb
+has_rdoc: false
+homepage: http://arika.org/ruby/termios
+post_install_message: 
+rdoc_options: []
+
+require_paths: 
+- lib
+- .
+required_ruby_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">"
+    - !ruby/object:Gem::Version 
+      version: 0.0.0
+  version: 
+required_rubygems_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      version: "0"
+  version: 
+requirements: []
+
+rubyforge_project: 
+rubygems_version: 1.3.1
+signing_key: 
+specification_version: 1
+summary: Termios module are simple wrapper for termios(3). It can be included into IO-family classes and can extend IO-family objects. In addition, the methods can use as module function.
+test_files: []
+

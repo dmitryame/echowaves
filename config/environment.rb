@@ -41,8 +41,6 @@ Rails::Initializer.run do |config|
   config.gem "fcgi", :version => '0.8.7'
   config.gem "gem_plugin", :version => '0.2.3'
   config.gem "highline"
-  config.gem "hpricot"
-  config.gem "libxml-ruby"
   config.gem "mongrel"
   config.gem "needle"
   config.gem "net-scp"
@@ -51,12 +49,8 @@ Rails::Initializer.run do |config|
   config.gem "net-ssh-gateway"
   config.gem "rack"
   config.gem "rake"
-  config.gem "RedCloth"
-  config.gem "ruby-openid"
-  config.gem "ruby-yadis"
   config.gem "rubygems-update"
   config.gem "rubynode"
-  config.gem "sqlite3-ruby"
   config.gem "stomp"
   config.gem "termios"
   

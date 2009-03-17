@@ -41,9 +41,9 @@ LIBRUBYARG_SHARED = -l$(RUBY_SO_NAME)
 LIBRUBYARG_STATIC = -l$(RUBY_SO_NAME)
 
 RUBY_EXTCONF_H = 
-CFLAGS   =  -fno-common -arch ppc -arch i386 -Os -pipe -fno-common 
+CFLAGS   =  -fno-common -arch ppc -arch i386 -Os -pipe -fno-common -Wall 
 INCFLAGS = -I. -I. -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/universal-darwin9.0 -I.
-CPPFLAGS = -DHAVE_SQLITE3_H -I/usr/local/include 
+CPPFLAGS = -DHAVE_DNS_SD_H -DHAVE_UNISTD_H -DHAVE_SYS_TYPES_H -DHAVE_SYS_SOCKET_H -DHAVE_SYS_PARAM_H -DHAVE_NET_IF_H -DHAVE_HTONS -DHAVE_NTOHS -DHAVE_IF_INDEXTONAME -DHAVE_IF_NAMETOINDEX -DHAVE_GETHOSTNAME -DSIZEOF_VOID_=4 -DSIZEOF_DNSSERVICEFLAGS=4 
 CXXFLAGS = $(CFLAGS) 
 DLDFLAGS = -L. -arch ppc -arch i386  
 LDSHARED = cc -arch ppc -arch i386 -pipe -bundle -undefined dynamic_lookup
@@ -68,8 +68,8 @@ COPY = cp
 
 preload = 
 
-libpath = . $(libdir) /usr/local/lib
-LIBPATH =  -L"." -L"$(libdir)" -L"/usr/local/lib"
+libpath = . $(libdir)
+LIBPATH =  -L"." -L"$(libdir)"
 DEFFILE = 
 
 CLEANFILES = mkmf.log
@@ -79,17 +79,17 @@ extout =
 extout_prefix = 
 target_prefix = 
 LOCAL_LIBS = 
-LIBS = $(LIBRUBYARG_SHARED) -lsqlite3  -lpthread -ldl -lm  
-SRCS = sqlite3_api_wrap.c
-OBJS = sqlite3_api_wrap.o
-TARGET = sqlite3_api
+LIBS = $(LIBRUBYARG_SHARED)  -lpthread -ldl -lm  
+SRCS = rdnssd.c rdnssd_service.c rdnssd_structs.c rdnssd_tr.c
+OBJS = rdnssd.o rdnssd_service.o rdnssd_structs.o rdnssd_tr.o
+TARGET = rdnssd
 DLLIB = $(TARGET).bundle
 EXTSTATIC = 
 STATIC_LIB = 
 
 RUBYCOMMONDIR = $(sitedir)$(target_prefix)
-RUBYLIBDIR = /Users/raquel/t/echowavescross/vendor/gems/sqlite3-ruby-1.2.4/lib$(target_prefix)
-RUBYARCHDIR = /Users/raquel/t/echowavescross/vendor/gems/sqlite3-ruby-1.2.4/lib$(target_prefix)
+RUBYLIBDIR = /Users/raquel/t/echowavescross/vendor/gems/dnssd-0.7.1/lib$(target_prefix)
+RUBYARCHDIR = /Users/raquel/t/echowavescross/vendor/gems/dnssd-0.7.1/lib$(target_prefix)
 
 TARGET_SO     = $(DLLIB)
 CLEANLIBS     = $(TARGET).bundle $(TARGET).il? $(TARGET).tds $(TARGET).map

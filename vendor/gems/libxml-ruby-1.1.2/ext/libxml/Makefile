@@ -40,10 +40,10 @@ LIBRUBY_A = lib$(RUBY_SO_NAME)-static.a
 LIBRUBYARG_SHARED = -l$(RUBY_SO_NAME)
 LIBRUBYARG_STATIC = -l$(RUBY_SO_NAME)
 
-RUBY_EXTCONF_H = 
-CFLAGS   =  -fno-common -arch ppc -arch i386 -Os -pipe -fno-common 
-INCFLAGS = -I. -I. -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/universal-darwin9.0 -I.
-CPPFLAGS = -DHAVE_SQLITE3_H -I/usr/local/include 
+RUBY_EXTCONF_H = extconf.h
+CFLAGS   =  -fno-common -arch ppc -arch i386 -Os -pipe -fno-common -I/usr/include/libxml2 -I. -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/universal-darwin9.0 -I. -I/usr/local/include 
+INCFLAGS = -I. -I. -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/universal-darwin9.0 -I. -I/usr/local/include
+CPPFLAGS = -DRUBY_EXTCONF_H=\"$(RUBY_EXTCONF_H)\" 
 CXXFLAGS = $(CFLAGS) 
 DLDFLAGS = -L. -arch ppc -arch i386  
 LDSHARED = cc -arch ppc -arch i386 -pipe -bundle -undefined dynamic_lookup
@@ -68,8 +68,8 @@ COPY = cp
 
 preload = 
 
-libpath = . $(libdir) /usr/local/lib
-LIBPATH =  -L"." -L"$(libdir)" -L"/usr/local/lib"
+libpath = . $(libdir) /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib
+LIBPATH =  -L"." -L"$(libdir)" -L"/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib"
 DEFFILE = 
 
 CLEANFILES = mkmf.log
@@ -79,17 +79,17 @@ extout =
 extout_prefix = 
 target_prefix = 
 LOCAL_LIBS = 
-LIBS = $(LIBRUBYARG_SHARED) -lsqlite3  -lpthread -ldl -lm  
-SRCS = sqlite3_api_wrap.c
-OBJS = sqlite3_api_wrap.o
-TARGET = sqlite3_api
+LIBS = $(LIBRUBYARG_SHARED) -L/usr/lib -lxml2 -lz -lpthread -licucore -lm -liconv -lz -lm  -lpthread -ldl -lm  
+SRCS = libxml.c ruby_xml.c ruby_xml_attr.c ruby_xml_attr_decl.c ruby_xml_attributes.c ruby_xml_cbg.c ruby_xml_document.c ruby_xml_dtd.c ruby_xml_encoding.c ruby_xml_error.c ruby_xml_html_parser.c ruby_xml_html_parser_context.c ruby_xml_html_parser_options.c ruby_xml_input_cbg.c ruby_xml_io.c ruby_xml_namespace.c ruby_xml_namespaces.c ruby_xml_node.c ruby_xml_parser.c ruby_xml_parser_context.c ruby_xml_parser_options.c ruby_xml_reader.c ruby_xml_relaxng.c ruby_xml_sax2_handler.c ruby_xml_sax_parser.c ruby_xml_schema.c ruby_xml_xinclude.c ruby_xml_xpath.c ruby_xml_xpath_context.c ruby_xml_xpath_expression.c ruby_xml_xpath_object.c ruby_xml_xpointer.c
+OBJS = libxml.o ruby_xml.o ruby_xml_attr.o ruby_xml_attr_decl.o ruby_xml_attributes.o ruby_xml_cbg.o ruby_xml_document.o ruby_xml_dtd.o ruby_xml_encoding.o ruby_xml_error.o ruby_xml_html_parser.o ruby_xml_html_parser_context.o ruby_xml_html_parser_options.o ruby_xml_input_cbg.o ruby_xml_io.o ruby_xml_namespace.o ruby_xml_namespaces.o ruby_xml_node.o ruby_xml_parser.o ruby_xml_parser_context.o ruby_xml_parser_options.o ruby_xml_reader.o ruby_xml_relaxng.o ruby_xml_sax2_handler.o ruby_xml_sax_parser.o ruby_xml_schema.o ruby_xml_xinclude.o ruby_xml_xpath.o ruby_xml_xpath_context.o ruby_xml_xpath_expression.o ruby_xml_xpath_object.o ruby_xml_xpointer.o
+TARGET = libxml_ruby
 DLLIB = $(TARGET).bundle
 EXTSTATIC = 
 STATIC_LIB = 
 
 RUBYCOMMONDIR = $(sitedir)$(target_prefix)
-RUBYLIBDIR = /Users/raquel/t/echowavescross/vendor/gems/sqlite3-ruby-1.2.4/lib$(target_prefix)
-RUBYARCHDIR = /Users/raquel/t/echowavescross/vendor/gems/sqlite3-ruby-1.2.4/lib$(target_prefix)
+RUBYLIBDIR = /Users/raquel/t/echowavescross/vendor/gems/libxml-ruby-1.1.2/lib$(target_prefix)
+RUBYARCHDIR = /Users/raquel/t/echowavescross/vendor/gems/libxml-ruby-1.1.2/lib$(target_prefix)
 
 TARGET_SO     = $(DLLIB)
 CLEANLIBS     = $(TARGET).bundle $(TARGET).il? $(TARGET).tds $(TARGET).map
@@ -146,4 +146,4 @@ $(DLLIB): $(OBJS)
 
 
 
-$(OBJS): ruby.h defines.h
+$(OBJS): ruby.h defines.h $(RUBY_EXTCONF_H)

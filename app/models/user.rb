@@ -53,19 +53,29 @@ class User < ActiveRecord::Base
   # anything else you want your user to change should be added here.
   attr_accessible :email, :email_confirmation, :name, :password, :password_confirmation, :time_zone, :something
 
-  #this method returns a collection of all the convos with the new messages for the user.
+  # this method returns a collection of all the convos with the new messages for the user.
   def news
     subscriptions = self.subscriptions.reject { |subscription| subscription.new_messages_count == 0 }
   end
 
-  #this returns friends convos
+  # this returns friends convos
   def friends_convos
     self.subscribed_conversations.published.personal - [self.personal_conversation]
   end
 
-  #this returns friends (users)
+  # this returns friends (users)
+  # friends are the people you follow
   def friends
     self.friends_convos.map {|convo| convo.user}
+  end
+  
+  def followers
+    users = Subscription.all(:conditions => ['conversation_id = ?',self.personal_conversation_id], :include => :user).map {|s| s.user}
+    return users - [self]
+  end
+  
+  def followers_convos
+    followers.map { |f| f.personal_conversation }
   end
   
   def deliver_password_reset_instructions!

@@ -101,7 +101,7 @@ class ConversationsController < ApplicationController
         # now let's create a system message and send it to the the creator's followers
         # unless the conversation is private
         unless @conversation.private?
-          current_user.friends_convos.each do |personal_convo|
+          current_user.followers_convos.each do |personal_convo|
             next  if (@conversation && @conversation.parent_message && personal_convo == @conversation.parent_message.conversation )
             # TODO: how to translate this for the current user?
             msg = " created a new convo: <a href='/conversations/#{@conversation.id}'>#{@conversation.name}</a>"

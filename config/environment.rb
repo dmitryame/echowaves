@@ -22,39 +22,10 @@ Rails::Initializer.run do |config|
 
   # Specify gems that this application depends on. 
   # They can then be installed with "rake gems:install" on new installations.
-  # config.gem "bj"
-  # config.gem "hpricot", :version => '0.6', :source => "http://code.whytheluckystiff.net"
-  # config.gem "aws-s3", :lib => "aws/s3"
-  # config.gem "rack", :version => '0.9.1'
-  # config.gem "gravtastic"
-  # config.gem "BlueCloth"
-  # config.gem "paperclip"
-  # config.gem "stomp"
-  
-  # crossblaim gems
-  # config.gem "capistrano", :version => '2.5.5'
-  # config.gem "cgi_multipart_eof_fix", :version => '2.5.0'
-  # config.gem "columnize", :version => '0.3.0'
-  # config.gem "daemons", :version => '1.0.10'
-  # config.gem "dnssd", :version => '0.7.1'
-  # config.gem "fastthread", :version => '1.0.1'
-  # config.gem "fcgi", :version => '0.8.7'
-  # config.gem "gem_plugin", :version => '0.2.3'
-  # config.gem "highline"
-  # config.gem "mongrel"
-  # config.gem "needle"
-  # config.gem "net-scp"
-  # config.gem "net-sftp"
-  # config.gem "net-ssh"
-  # config.gem "net-ssh-gateway"
-  # config.gem "rack"
-  # config.gem "rake"
-  # config.gem "rubygems-update"
-  # config.gem "rubynode"
-  # config.gem "stomp"
-  # config.gem "termios"
-  
-  # config.gem "authlogic"
+
+  config.gem "gravtastic"
+  config.gem "stomp"
+
   # Only load the plugins named here, in the order given. By default, all plugins 
   # in vendor/plugins are loaded in alphabetical order.
   # :all can be used as a placeholder for all plugins not explicitly named
@@ -101,7 +72,6 @@ Rails::Initializer.run do |config|
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
 end
-
 
 # active mailer configuration
 # First, specify the Host that we will be using later for user_notifier.rb

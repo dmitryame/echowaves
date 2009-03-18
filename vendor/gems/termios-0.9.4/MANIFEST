@@ -1,8 +1,0 @@
-MANIFEST
-README
-extconf.rb
-termios.c
-test/test0.rb
-test/test1.rb
-test/test2.rb
-test/test3.rb

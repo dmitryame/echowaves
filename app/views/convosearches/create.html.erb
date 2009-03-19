@@ -14,7 +14,7 @@
             <br/>
             <%= highlight(conversation.escaped_description, params[:q].split) %>
             <br/>
-            <span class="quiet small"><%= conversation.created_at.to_s(:date_time12) %></span>
+            <span class="quiet small"><%= conversation.date_time12 %></span>
           </li>
         <% end %>
       </ul>

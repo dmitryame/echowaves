@@ -176,6 +176,10 @@ class User < ActiveRecord::Base
     convos
   end
 
+  def date
+    self.created_at.strftime '%b %d, %Y'
+  end
+  
   alias_method :unsafe_to_xml, :to_xml
   
   def to_xml(options = {})

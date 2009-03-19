@@ -111,7 +111,11 @@ class Message < ActiveRecord::Base
   end
   
   def date
-    self.created_at.to_s(:simple)
+    self.created_at.strftime '%Y/%m/%d'
+  end
+  
+  def date_pretty_long
+    self.created_at.strftime '%b %d, %Y %I:%M%p'
   end
   
 end

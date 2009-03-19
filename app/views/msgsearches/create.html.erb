@@ -35,7 +35,7 @@
 		  	</div>
 		  	<div class="avatar"><%= link_to image_tag(message.user.gravatar_url, :border => 0, :wigth => 40, :height => 40, :class => "avatar"), user_path(message.user),
 		  	:class => 'tip', 
-		  	:title =>  t("users.since") + message.user.created_at.to_s(:pretty)  + 
+		  	:title =>  t("users.since") + message.user.date  + 
 		  	'<br/>' + message.user.conversations.size.to_s  + '&nbsp;' + t('ui.convos') +
 		  	'<br/>' + message.user.messages.size.to_s       + '&nbsp;' + t('ui.messages') +
 		  	'<br/>' + message.user.subscriptions.size.to_s  + '&nbsp;' + t("ui.following") +
@@ -49,7 +49,7 @@
 		  		<%= link_to(image_tag(message.attachment.url(:big)), message.attachment.url, :target => "_blank")%>		 
 		  		<% end %>
 		  		<%= highlight mark_up(message), params[:q].split %>
-		  		<span class="date quiet small"><%= link_to message.created_at.to_s(:pretty_long), conversation_message_path(message.conversation_id, message) %></span>
+		  		<span class="date quiet small"><%= link_to message.date_pretty_long, conversation_message_path(message.conversation_id, message) %></span>
 		  	</div>
 		  	<div class="clear"></div>
 		  </div>

@@ -11,7 +11,7 @@
   </span>
 	
   <span class="userinfo">                                        
-    <%= t("users.since") + " " + @user.created_at.to_s(:pretty)   + ' | ' +
+    <%= t("users.since") + " " + @user.date   + ' | ' +
     @user.conversations.size.to_s  + '&nbsp;' + t('ui.convos')    + ' | ' +
     @user.messages.size.to_s       + '&nbsp;' + t('ui.messages')  + ' | ' +
     @user.subscriptions.size.to_s  + '&nbsp;' + t("ui.following") + ' | ' +

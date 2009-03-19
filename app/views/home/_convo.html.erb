@@ -1,7 +1,7 @@
 <span>
 	<h5><% if convo.private? %><%= image_tag("/images/icons/icono_candado.gif") %> <% end %> <%= link_to h(convo.name), conversation_path(convo) %></h5>	
 	<span class="quiet small">
-	  <%= convo.created_at.to_s(:date_time12) %> -
+	  <%= convo.date_time12 %> -
 	  <%= pluralize convo.messages.size, 'message' %> -
 	  <%= pluralize convo.subscriptions.size, 'follower' %> -
 	  <%= render :partial => 'conversations/follow_from_list', :object => convo %>

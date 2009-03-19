@@ -186,6 +186,10 @@ class Conversation < ActiveRecord::Base
     conversations
   end
   
+  def date_time12
+    self.created_at.strftime '%m/%d/%Y %I:%M%p'
+  end
+  
 private
 
   def escaped(value)

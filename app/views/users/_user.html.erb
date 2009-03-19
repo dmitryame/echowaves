@@ -2,7 +2,7 @@
 <span class="avatar">
   <%= link_to image_tag(user.gravatar_url, :border => 0, :width => 40, :height => 40, :class => "avatar", :alt => user.login), user_path(user),
   :class => 'tip', 
-  :title =>  t("users.since") + user.created_at.to_s(:pretty)  + 
+  :title =>  t("users.since") + user.date  + 
 	'<br/>' + user.conversations.size.to_s  + '&nbsp;' + t('ui.convos') +
 	'<br/>' + user.messages.size.to_s       + '&nbsp;' + t('ui.messages') +
 	'<br/>' + user.subscriptions.size.to_s  + '&nbsp;' + t("ui.following") +

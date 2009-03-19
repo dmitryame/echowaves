@@ -10,7 +10,7 @@
 	
 	<div class="description"><%= conversation.escaped_description %></div>
 	<span class="quiet small">
-	  <%= conversation.created_at.to_s(:date_time12) %> -
+	  <%= conversation.date_time12 %> -
 	  <%= pluralize conversation.messages.size, 'message' %> -
 	  <%= pluralize conversation.subscriptions.size, 'follower' %> -
 	  <%= render :partial => 'conversations/follow_from_list', :object => conversation %>

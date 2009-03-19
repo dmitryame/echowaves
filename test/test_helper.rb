@@ -8,7 +8,7 @@ class ActiveSupport::TestCase
 
   self.use_transactional_fixtures = true
   self.use_instantiated_fixtures  = false
-  # fixtures :all
+  fixtures :all
 
   #this method creates a admin/admin account, sets all the models with the relationships to give full authorization to the whole site, and authenticates
   def create_user_and_authenticate

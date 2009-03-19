@@ -1,0 +1,38 @@
+crossblaim_personal_convo:
+  name: "crossblaim personal convo"
+  description: "this is a personal convo for crossblaim"
+  personal_conversation: true
+  read_only: false
+  private: false
+  user: crossblaim
+  # abuse_report
+  # parent_message
+  something: ""
+  created_at: <%= Time.now %>
+  updated_at: <%= Time.now %>
+  
+dmitry_personal_convo:
+  name: "dmitry personal convo"
+  description: "this is a personal convo for dmitry"
+  personal_conversation: true
+  read_only: false
+  private: false
+  user: dmitry
+  # abuse_report
+  # parent_message
+  something: ""
+  created_at: <%= Time.now %>
+  updated_at: <%= Time.now %>
+  
+akira_personal_convo:
+  name: "akira personal convo"
+  description: "this is a personal convo for akira"
+  personal_conversation: true
+  read_only: false
+  private: false
+  user: akira
+  # abuse_report
+  # parent_message
+  something: ""
+  created_at: <%= Time.now %>
+  updated_at: <%= Time.now %>

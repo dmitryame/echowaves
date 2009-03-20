@@ -1,8 +1,6 @@
 class UsersController < ApplicationController
 
-  before_filter :require_user, :except => [ :index, :show, :auto_complete_for_user_name,
-                                            :complete_name, :signup, :new, :create, :activate,
-                                            :forgot_password, :reset_password ]  
+  before_filter :require_user, :only => [ :edit, :update, :update_news, :change_password ]
   after_filter :store_location, :only => [ :index, :show ]
   
   auto_complete_for :user, :name
@@ -19,11 +17,10 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-
     @tag_counts = @user.all_convos_tag_counts
     
     respond_to do |format|
-      format.html # show.html.erb
+      format.html
       format.atom
       format.xml  { render :xml => @user }
     end
@@ -50,7 +47,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     @user.login = params[:user][:login]
-    @user.name=@user.login
+    @user.name = @user.login
     success = @user && @user.save
     if success && @user.errors.empty?
       if(SHOW_ACTIVATION_LINK)
@@ -58,7 +55,6 @@ class UsersController < ApplicationController
       else
         flash[:notice] = t("ui.thanks_for_signup")
       end
-      
       redirect_to home_path
     else
       flash[:error]  = t("ui.signup_error")

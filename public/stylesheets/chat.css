@@ -97,3 +97,5 @@ html,body{background:#ccc;
 .user_label {
   padding-right:10px;
 }
+#flash_messages .notice {margin:0;}
+#flash_messages .error {margin:0;}

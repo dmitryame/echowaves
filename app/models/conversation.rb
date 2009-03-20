@@ -48,16 +48,14 @@ class Conversation < ActiveRecord::Base
     set_property :delta => true
   end
   
-  class << self
-    def add_personal(user)
-      name = user.name || user.login
-      desc = "This is a personal conversation for #{name}. If you wish to collaborate with #{name}, do it here."
-      convo = user.conversations.create(:name => user.login, :personal_conversation => true, :description => desc)
-      convo.tag_list.add("personal_convo")
-      convo.save
-      convo
-    end
-  end # class << self
+  def self.add_personal(user)
+    name = user.name || user.login
+    desc = "This is a personal conversation for #{name}. If you wish to collaborate with #{name}, do it here."
+    convo = user.conversations.create(:name => user.login, :personal_conversation => true, :description => desc)
+    convo.tag_list.add("personal_convo")
+    convo.save
+    convo
+  end
 
   def published?
     self.abuse_report.nil?

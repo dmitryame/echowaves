@@ -90,7 +90,6 @@ class User < ActiveRecord::Base
   
   # Activates the user in the database.
   def activate!
-    @activated = true
     self.activated_at = Time.now.utc
     # create initial personal conversation
     conversation = Conversation.add_personal(self)

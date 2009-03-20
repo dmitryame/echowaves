@@ -47,7 +47,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     @user.login = params[:user][:login]
-    @user.name = @user.login
+    @user.name = @user.login if params[:user][:name].blank?
     success = @user && @user.save
     if success && @user.errors.empty?
       if(SHOW_ACTIVATION_LINK)

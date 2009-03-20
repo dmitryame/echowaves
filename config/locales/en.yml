@@ -123,6 +123,9 @@ en:
   messages:
     original_message: "original message"
     new_messages: "new messages"
+  notices:
+    you_must_be_logged_out: "You must be logged out to access this page"
+    you_must_be_logged_in: "You must be logged in to access this page"
     
   datetime:
     distance_in_words:

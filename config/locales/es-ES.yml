@@ -123,7 +123,10 @@ es-ES:
   messages:
     original_message: "mensaje original"
     new_messages: "nuevos mensajes"
-    
+  notices:
+    you_must_be_logged_out: "Tienes que terminar la sesion para acceder a esta pagina"
+    you_must_be_logged_in: "Tienes que iniciar sesion para acceder a esta pagina"
+        
   datetime:
     distance_in_words:
       half_a_minute: 'hace medio minuto'

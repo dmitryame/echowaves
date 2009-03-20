@@ -126,6 +126,9 @@ en:
   notices:
     you_must_be_logged_out: "You must be logged out to access this page"
     you_must_be_logged_in: "You must be logged in to access this page"
+  errors:
+    sorry_this_is_a_private_convo: "Sorry, this is a private conversation. You can try anoter one"
+    only_the_owner_can_invite: "Only the owner of this conversation can invite other users"
     
   datetime:
     distance_in_words:

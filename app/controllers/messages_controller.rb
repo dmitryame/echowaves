@@ -110,7 +110,7 @@ private
   
   def check_read_access
     unless @conversation.readable_by?(current_user) || !@conversation.private?
-      flash[:error] = "Sorry, this is a private conversation. You can try anoter one"
+      flash[:error] = t("errors.sorry_this_is_a_private_convo")
       redirect_to conversations_path
       return
     end

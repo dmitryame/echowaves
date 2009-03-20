@@ -126,7 +126,10 @@ es-ES:
   notices:
     you_must_be_logged_out: "Tienes que terminar la sesion para acceder a esta pagina"
     you_must_be_logged_in: "Tienes que iniciar sesion para acceder a esta pagina"
-        
+  errors:
+    sorry_this_is_a_private_convo: "Lo sentimos mucho, esta es una conversacion privada. Puedes intentarlo con alguna otra"
+    only_the_owner_can_invite: "Solo el propietario de esta conversacion puede invitar a otros usuarios"
+    
   datetime:
     distance_in_words:
       half_a_minute: 'hace medio minuto'

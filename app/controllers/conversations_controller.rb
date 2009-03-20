@@ -88,8 +88,7 @@ class ConversationsController < ApplicationController
           @copied_message = @conversation.parent_message.clone
           @copied_message.conversation = @conversation
           @copied_message.save
-        else
-          # create a first message that is the same as the convo description
+        else # create a first message that is the same as the convo description
           message = current_user.messages.create!( :conversation => @conversation, :message => @conversation.description)
         end
         
@@ -97,7 +96,7 @@ class ConversationsController < ApplicationController
         # unless the conversation is private
         unless @conversation.private?
           current_user.followers_convos.each do |personal_convo|
-            next  if (@conversation && @conversation.parent_message && personal_convo == @conversation.parent_message.conversation )
+            next  if ( @conversation && @conversation.parent_message && personal_convo == @conversation.parent_message.conversation )
             # TODO: how to translate this for the current user?
             msg = " created a new convo: <a href='/conversations/#{@conversation.id}'>#{@conversation.name}</a>"
             notification = current_user.messages.create( :conversation => personal_convo, :message => msg)
@@ -132,14 +131,14 @@ class ConversationsController < ApplicationController
     redirect_to @conversation
   end
   
-  def unfollow
-    current_user.unfollow(@conversation)
-  end
-
   def follow_from_list
     follow
   end
   
+  def unfollow
+    current_user.unfollow(@conversation)
+  end
+
   def unfollow_from_list
     unfollow
   end
@@ -182,7 +181,7 @@ class ConversationsController < ApplicationController
   
   def invite
     if @conversation.private? && @conversation.owner != current_user
-      flash[:error] = "Only the owner of this conversation can invite other users"
+      flash[:error] = t("errors.only_the_owner_can_invite")
       redirect_to conversation_path(@conversation)
     else
       @friends = current_user.friends    
@@ -201,11 +200,11 @@ class ConversationsController < ApplicationController
   
   def invite_from_list
     current_user.friends.each do |user| 
-      @user = user if(user.id.to_s == params[:user_id]) #search for the user in friends collection
+      @user = user if(user.id.to_s == params[:user_id]) # search for the user in friends collection
     end
     # TODO this whole thing preferebly should move into the model
     existing_invite = Invite.find(:first, :conditions => ["user_id = ? and requestor_id = ? and conversation_id = ?", @user.id, current_user.id, params[:id] ] )
-    return if(existing_invite != nil)#don't do anything, already invited
+    return if(existing_invite != nil) # don't do anything, already invited
     @invite = Invite.new
     @invite.user_id = @user.id
     @invite.requestor = current_user
@@ -221,7 +220,6 @@ class ConversationsController < ApplicationController
       msg = " invites you to follow a convo: <a href='/conversations/#{params[:id]}'>#{@invite.conversation.name}</a>"
       notification = current_user.messages.create( :conversation => @user.personal_conversation, :message => msg)
       notification.system_message = true
-      
       notification.save
       notification.send_stomp_message(self)
     end

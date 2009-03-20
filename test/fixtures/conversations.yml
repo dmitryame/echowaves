@@ -8,8 +8,6 @@ crossblaim_personal_convo:
   # abuse_report
   # parent_message
   something: ""
-  created_at: <%= Time.now %>
-  updated_at: <%= Time.now %>
   
 dmitry_personal_convo:
   name: "dmitry personal convo"
@@ -21,8 +19,6 @@ dmitry_personal_convo:
   # abuse_report
   # parent_message
   something: ""
-  created_at: <%= Time.now %>
-  updated_at: <%= Time.now %>
   
 akira_personal_convo:
   name: "akira personal convo"
@@ -34,5 +30,14 @@ akira_personal_convo:
   # abuse_report
   # parent_message
   something: ""
-  created_at: <%= Time.now %>
-  updated_at: <%= Time.now %>
+  
+crossblaim_test_public_convo:
+  name: "crossblaim test public convo"
+  description: "this is a test public convo for crossblaim"
+  personal_conversation: false
+  read_only: false
+  private: false
+  user: crossblaim
+  # abuse_report
+  # parent_message
+  something: ""

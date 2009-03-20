@@ -9,9 +9,7 @@ crossblaim:
   time_zone: UTC
   something: ""
   personal_conversation: crossblaim_personal_convo
-  created_at: <%= Time.now %>
-  updated_at: <%= Time.now %>
-  activated_at: <%= Time.now %>
+  activated_at: <%= Time.now.to_s(:db) %>
   
 dmitry:
   login: dmitry
@@ -24,9 +22,7 @@ dmitry:
   time_zone: UTC
   something: ""
   personal_conversation: dmitry_personal_convo
-  created_at: <%= Time.now %>
-  updated_at: <%= Time.now %>
-  activated_at: <%= Time.now %>
+  activated_at: <%= Time.now.to_s(:db) %>
   
 akira:
   login: akira
@@ -39,6 +35,4 @@ akira:
   time_zone: UTC
   something: ""
   personal_conversation: akira_personal_convo
-  created_at: <%= Time.now %>
-  updated_at: <%= Time.now %>
-  activated_at: <%= Time.now %>
+  activated_at: <%= Time.now.to_s(:db) %>

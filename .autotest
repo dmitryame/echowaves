@@ -1,11 +1,5 @@
 #require 'autotest/timestamp'
-#
-#Autotest.send(:alias_method, :real_make_test_cmd, :make_test_cmd)
-#Autotest.send(:define_method, :make_test_cmd) do |*args|
-#  real_make_test_cmd(*args).sub('test/unit', %[rubygems -e "require 'redgreen'"])
-#end
-#
-#
+#require 'redgreen/autotest'
 #
 #module Autotest::Growl
 #  def self.growl title, msg, img, pri=0, stick="" 

@@ -2,10 +2,8 @@ class ConversationsController < ApplicationController
   
   public :render_to_string # this is needed to make render_to_string public for message model to be able to use it
   
-  before_filter :require_user, :except => [:index, :show, :auto_complete_for_conversation_name, :complete_name ]
-                                              
+  before_filter :require_user, :except => [:index, :show, :auto_complete_for_conversation_name, :complete_name ]                                            
   before_filter :find_conversation, :except => [:complete_name, :create, :spawn, :new, :index]
-                                                                                          
   before_filter :check_read_access, :only => [:show]
   
   after_filter :store_location, :only => [:index, :new]
@@ -38,7 +36,6 @@ class ConversationsController < ApplicationController
 
     @has_more_messages = @conversation.has_messages_before?(@messages.first)
 
-    
     respond_to do |format|
       format.html { render :layout => 'messages' }
       format.xml  { render :xml => @conversation }
@@ -93,8 +90,7 @@ class ConversationsController < ApplicationController
           @copied_message.save
         else
           # create a first message that is the same as the convo description
-          message = current_user.messages.create( :conversation => @conversation, :message => @conversation.description)
-          message.save
+          message = current_user.messages.create!( :conversation => @conversation, :message => @conversation.description)
         end
         
         # now let's create a system message and send it to the the creator's followers

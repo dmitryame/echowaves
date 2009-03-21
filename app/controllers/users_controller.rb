@@ -25,6 +25,8 @@ class UsersController < ApplicationController
     end
   end
   
+  # TODO: optimize each method as needed, or refactor
+  # followers, followed_users, followed_convos
   def followers
     @user = User.find(params[:id])
     

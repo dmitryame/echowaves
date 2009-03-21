@@ -75,12 +75,21 @@ CREATE TABLE `betas` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS `animals`;
+DROP TABLE IF EXISTS `searches`;
 
-CREATE TABLE `animals` (
+CREATE TABLE `searches` (
   `id` int(11) NOT NULL auto_increment,
   `name` varchar(50) NOT NULL,
-  `type` varchar(50) NOT NULL,
-  `delta` tinyint(1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `tags`;
+
+CREATE TABLE `tags` (
+  `id` int(11) NOT NULL auto_increment,
+  `person_id` int(11) NOT NULL,
+  `football_team_id` int(11) NOT NULL,
+  `cricket_team_id` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

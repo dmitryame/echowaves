@@ -1,6 +1,7 @@
 require 'fileutils'
+
 # Load the environment
-ENV['RAILS_ENV'] = 'sqlite3'
+ENV['RAILS_ENV'] = 'test'
 
 rails_root = File.dirname(__FILE__) + '/rails_root'
 
@@ -31,3 +32,4 @@ class Test::Unit::TestCase #:nodoc:
 end
 
 require 'test/fail_macros'
+require 'test/model_builder'

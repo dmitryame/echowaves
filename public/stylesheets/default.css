@@ -256,8 +256,41 @@ textarea:focus, input[type='text']:focus, input[type='password']:focus, select:f
 }
 
 .pagination {
-  padding: 10px;
-}
+  margin:10px 0;
+  background: white;
+  /* self-clearing method: */ }
+.pagination a, .pagination span {
+  padding: .2em .5em;
+  display: block;
+  float: left;
+  margin-right: 1px; }
+.pagination span.disabled {
+  color: #999;
+  border: 1px solid #DDD; }
+.pagination span.current {
+  font-weight: bold;
+  background: #B3E4Ef;
+  color: #3366CC;
+  border: 1px solid #3366CC; }
+.pagination a {
+  text-decoration: none;
+  color: #105CB6;
+  border: 1px solid #9AAFE5; }
+.pagination a:hover, .pagination a:focus {
+  color: #3366CC;
+  background: #B3E4Ef;
+  border-color: #3366CC; }
+.pagination:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden; }
+* html .pagination {
+  height: 1%; }
+*:first-child+html .pagination {
+  overflow: hidden; }
+
 .container ul {margin:0;}
 .container ul li {margin:0;}
 .msgcount {background:#cc3333;padding:2px 4px;font-weight:bold;color:#fff;margin-right:5px;}

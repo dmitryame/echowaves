@@ -5,35 +5,12 @@
 <h6>Convos followed by <%= @user.login %></h6>
 <div class="item">
 	<div id="convos">
+	  <%= will_paginate @conversations %>
 		<ul class="list">
 			<%= render :partial => 'conversations/conversation',
-			          :collection => @user.subscribed_conversations.published.not_personal.no_owned_by(@user.id) %>
+			          :collection => @conversations %>
 		</ul>
+		<%= will_paginate @conversations %>
 	</div>
   <%= link_to t("ui.back"), users_path %>
 </div>
-
-
-<!--
-<div class="item">
-	<div id="subscriptions_for_user">
-		<ul id="user_tabs" class="subsection_tabs">  
-			<li class="tab"><%=t("ui.following")%>:</li>  			
-			<li class="tab"><a href="#convos"><%=t("ui.convos")%></a></li>  
-			<li class="tab"><a href="#friends"><%=t("ui.users")%></a></li>  
-		</ul>  
-		<div id="convos">
-			<ul class="list">
-				<%= render :partial => 'conversations/conversation', :collection => @user.subscribed_conversations.published.not_personal %>
-			</ul>			
-		</div>  
-		<div id="friends">
-			<ul class="list">
-				<%= render :partial => 'conversations/personal_conversation', :collection => @user.friends_convos %>			  
-			</ul>
-		</div>
-	</div>
-  
-  <%= link_to t("ui.back"), users_path %>
-</div>
--->

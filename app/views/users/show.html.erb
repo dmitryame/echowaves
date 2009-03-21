@@ -13,10 +13,12 @@
 
 <div class="item">
 	<div id="convos">
+	  <%= will_paginate @conversations %>
 		<ul class="list">
 			<%= render :partial => 'conversations/conversation',
-			          :collection => @user.conversations.published.not_personal %>
+			          :collection => @conversations %>
 		</ul>
+		<%= will_paginate @conversations %>
 	</div>
   <%= link_to t("ui.back"), users_path %>
 </div>

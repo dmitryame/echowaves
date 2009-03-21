@@ -17,7 +17,6 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @tag_counts = @user.all_convos_tag_counts
     
     respond_to do |format|
       format.html

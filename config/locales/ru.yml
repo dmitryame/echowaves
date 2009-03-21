@@ -1,10 +1,10 @@
 ru:
   home:
     index:
-      headline1: "EchoWaves.com is an opensource group chat social network."
+      headline1: "EchoWaves.com является открытыми групповой чат социальная сеть."
       headline2: 'The source code is hosted at: <a href="http://github.com/dmitryame/echowaves">http://github.com/dmitryame/echowaves</a>.'
       p1: "<h5>If you like to chat, or blog, or post pictures, or share updates with friends, or just socialize -- you will enjoy EchoWaves.</h5>EchoWaves is a <span class=\"highlight\">Collaboration Tool</span> and a <span class=\"highlight\">Social Network</span>. EchoWaves is as powerful as <span class=\"highlight\">CampFire</span>, and as simple to use as <span class=\"highlight\">Twitter</span>. It's built around conversations (convos) rather than users. Isn't it more natural for humans to socialize around convos? If you have any other ideas or suggestions feel free to talk about it in"
-      p2: "-- it's free and anyone can join. Start your own convos, invite all your friends to join your convos, follow other convos that look interesting to you. Have fun!"
+      p2: "-- Это бесплатно и каждый может присоединиться. Начать свой разговор, пригласить всех своих друзей присоединиться к вашей беседы, последуют и другие разговоры, что смотреть интересно вам. Удачи!"
       p3: "Take it for a spin, post messages to our "
       feedback_advice: 'If you find an issue or would like to make a suggestion on what functionality you would like to see in echowaves, you can do it at <a href="http://code.google.com/p/echowaves/issues/list">http://echowaves.googlecode.com/</a>'
   ui:

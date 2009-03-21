@@ -10,7 +10,7 @@ class SubscriptionTest < ActiveSupport::TestCase
      should_belong_to :conversation
      
      should_have_indices :user_id, :conversation_id, :activated_at
-     should_require_attributes :user_id, :conversation_id
+     should_validate_presence_of :user_id, :conversation_id
   end
 
   context "marking as read" do

@@ -12,10 +12,10 @@ class UserTest < ActiveSupport::TestCase
     
 
     
-    should_require_attributes :login
-    should_require_attributes :email
+    should_validate_presence_of :login
+    should_validate_presence_of :email
 
-    should_require_unique_attributes :login, :email
+    should_validate_uniqueness_of :login, :email
 
     
     should_ensure_length_in_range :login, (3..40) 

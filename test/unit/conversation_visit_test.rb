@@ -9,7 +9,7 @@ class ConversationVisitTest < ActiveSupport::TestCase
      should_belong_to :user
      should_belong_to :conversation
      
-     should_require_attributes :conversation_id
+     should_validate_presence_of :conversation_id
 
      should_have_indices :user_id, :conversation_id, :created_at
    end

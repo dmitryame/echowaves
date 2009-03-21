@@ -6,8 +6,8 @@ class ConversationTest < ActiveSupport::TestCase
       @conversation = Factory.create(:conversation)
     end
     
-    should_require_attributes :name, :description
-    should_require_unique_attributes :name
+    should_validate_presence_of :name, :description
+    should_validate_uniqueness_of :name
 
     should_have_index :name
     should_have_index :created_at

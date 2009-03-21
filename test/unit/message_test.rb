@@ -37,8 +37,8 @@ class MessageTest < ActiveSupport::TestCase
     should_have_index :conversation_id
     should_have_index :created_at
 
-    should_require_attributes :message
-    should_require_attributes :user_id, :conversation_id
+    should_validate_presence_of :message
+    should_validate_presence_of :user_id, :conversation_id
 
     should_have_attached_file :attachment
     

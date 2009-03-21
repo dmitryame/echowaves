@@ -32,9 +32,10 @@
 				<li class="users"><%= link_to t('ui.users'), users_path %></li>
 				<li class="conversations"><%= link_to t('ui.conversations'), conversations_path %></li>
 
+        <li><%= link_to image_tag("/images/flags/ru.gif"), "?locale=ru" %></li>
 				<li><%= link_to image_tag("/images/flags/es.gif"), "?locale=es-ES" %></li>
 				<li><%= link_to image_tag("/images/flags/us.gif"), "?locale=en" %></li>
-
+				
 				<li><div id="connection_stat"><div id="connection_stat_data"></div></div></li>
 			</ul>
 			<div class="clear"></div>

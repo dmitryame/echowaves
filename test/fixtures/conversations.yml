@@ -1,3 +1,7 @@
+##
+# If you add a new convo fixture here, make sure to update the conversations_count
+# in the appropiate user fixture
+#
 crossblaim_personal_convo:
   name: "crossblaim personal convo"
   description: "this is a personal convo for crossblaim"

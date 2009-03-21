@@ -9,6 +9,9 @@ crossblaim:
   time_zone: UTC
   something: ""
   personal_conversation: crossblaim_personal_convo
+  conversations_count: 2
+  messages_count: 0
+  subscriptions_count: 2
   activated_at: <%= Time.now.to_s(:db) %>
   
 dmitry:
@@ -22,6 +25,9 @@ dmitry:
   time_zone: UTC
   something: ""
   personal_conversation: dmitry_personal_convo
+  conversations_count: 1
+  messages_count: 0
+  subscriptions_count: 1
   activated_at: <%= Time.now.to_s(:db) %>
   
 akira:
@@ -35,4 +41,7 @@ akira:
   time_zone: UTC
   something: ""
   personal_conversation: akira_personal_convo
+  conversations_count: 1
+  messages_count: 0
+  subscriptions_count: 1
   activated_at: <%= Time.now.to_s(:db) %>

@@ -1,0 +1,5 @@
+<%= link_to "#{@user.login} convos", user_path(@user), :class => 'button' %>
+<%= link_to "followers", followers_user_path(@user), :class => 'button' %>
+<%= link_to "following", followed_users_user_path(@user), :class => 'button' %>
+<%= link_to "followed convos", followed_convos_user_path(@user), :class => 'button' %>
+<div class="clear"></div>

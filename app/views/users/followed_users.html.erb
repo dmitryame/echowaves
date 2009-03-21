@@ -1,0 +1,14 @@
+<%= render :partial => 'convo_stats' %>
+
+<%= render "user_links" %>
+
+<h6><%= @user.login %> is following these users</h6>
+<div class="item">
+	<div id="convos">
+		<ul class="list">
+			<%= render :partial => 'conversations/conversation',
+			          :collection => @user.friends_convos %>
+		</ul>
+	</div>
+  <%= link_to t("ui.back"), users_path %>
+</div>

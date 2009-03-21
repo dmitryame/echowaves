@@ -12,7 +12,7 @@
 		'<br/>' + message.user.conversations.size.to_s  + '&nbsp;' + t('ui.convos') +
 		'<br/>' + message.user.messages.size.to_s       + '&nbsp;' + t('ui.messages') +
 		'<br/>' + message.user.subscriptions.size.to_s  + '&nbsp;' + t("ui.following") +
-		'<br/>' + message.user.personal_conversation.users.size.to_s               + '&nbsp;' + t("ui.followers")
+		'<br/>' + message.user.followers.size.to_s      + '&nbsp;' + t("ui.followers")
 	   %></div>
 		<div class="messagetext">
 	    <span class="username"><%=link_to h(message.user.login), conversation_path(message.user.personal_conversation), :class => 'tip', :title =>  "personal convo for #{message.user.login}" %></span>
@@ -35,7 +35,7 @@
 		'<br/>' + message.user.conversations.size.to_s  + '&nbsp;' + t('ui.convos') +
 		'<br/>' + message.user.messages.size.to_s       + '&nbsp;' + t('ui.messages') +
 		'<br/>' + message.user.subscriptions.size.to_s  + '&nbsp;' + t("ui.following") +
-		'<br/>' + message.user.personal_conversation.users.size.to_s               + '&nbsp;' + t("ui.followers")
+		'<br/>' + message.user.followers.size.to_s      + '&nbsp;' + t("ui.followers")
 	   %></div>
 		<div class="messagetext">
 	    <span class="username"><%=link_to h(message.user.login), conversation_path(message.user.personal_conversation), :class => 'tip', :title =>  "personal convo for #{message.user.login}" %></span>

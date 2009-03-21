@@ -26,6 +26,33 @@ class UsersController < ApplicationController
     end
   end
   
+  def followers
+    @user = User.find(params[:id])
+    
+    respond_to do |format|
+      format.html
+      format.xml  { render :xml => @user }
+    end
+  end
+  
+  def followed_users
+    @user = User.find(params[:id])
+    
+    respond_to do |format|
+      format.html
+      format.xml  { render :xml => @user }
+    end
+  end
+  
+  def followed_convos
+    @user = User.find(params[:id])
+    
+    respond_to do |format|
+      format.html
+      format.xml  { render :xml => @user }
+    end
+  end
+  
   def tagged_convos
     @user = User.find(params[:id])
     @tag = params[:tag]

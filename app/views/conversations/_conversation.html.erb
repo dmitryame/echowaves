@@ -1,14 +1,13 @@
 <li class="conversation">
 	<h3><% if conversation.private? %><%= image_tag("/images/icons/icono_candado.gif") %> <% end %><%= link_to h(conversation.name), conversation_path(conversation) %></h3>
+
+	<div class="description"><%= conversation.escaped_description %></div>
 	
-	<% if conversation.tag_counts and conversation.tag_counts.size > 0 %>
-		<% tag_cloud conversation.tag_counts, %w(nube1 nube2 nube3 nube4 nube5 nube6) do |tag, css_class| %>
-			<span class="<%= css_class %> tag"><%= link_to tag, conversations_path(:tag => tag.to_s) %></span>
-		<% end %>
+	<% conversation.tags.each do |tag| %>
+		<span class="tag"><%= link_to tag, conversations_path(:tag => tag.to_s) %></span>
 	<% end %>
 	<div class="clear"></div>
 	
-	<div class="description"><%= conversation.escaped_description %></div>
 	<span class="quiet small">
 	  <%= conversation.date_time12 %> -
 	  <%= pluralize conversation.messages.size, 'message' %> -

@@ -36,7 +36,8 @@ class Conversation < ActiveRecord::Base
   named_scope :published, :conditions => { :abuse_report_id => nil }
   named_scope :not_personal, :conditions => { :personal_conversation => false }
   named_scope :personal, :conditions => { :personal_conversation => true }
-
+  named_scope :no_owned_by, lambda { |user_id| { :conditions => ['conversations.user_id <> ?', user_id] }}
+  
   ##
   # sphinx index
   #

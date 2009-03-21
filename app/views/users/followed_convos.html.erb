@@ -1,21 +1,13 @@
 <%= render :partial => 'convo_stats' %>
 
-<!-- <%= render :partial => 'users/user_tags'%> -->
-
-<div class="notice">
-  <p>you can chat with me in my <%= link_to "personal convo", conversation_path(@user.personal_conversation) %></p>
-  <%= @user.personal_conversation.description %>
-</div>
-
 <%= render "user_links" %>
 
-<h6>Convos started by <%= @user.login %></h6>
-
+<h6>Convos followed by <%= @user.login %></h6>
 <div class="item">
 	<div id="convos">
 		<ul class="list">
 			<%= render :partial => 'conversations/conversation',
-			          :collection => @user.conversations.published.not_personal %>
+			          :collection => @user.subscribed_conversations.published.not_personal.no_owned_by(@user.id) %>
 		</ul>
 	</div>
   <%= link_to t("ui.back"), users_path %>

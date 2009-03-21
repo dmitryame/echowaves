@@ -1,24 +1,30 @@
 <div class="balloon">
+  <h1><%= link_to image_tag("/images/icons/16px-feed-icon.png"),
+        user_url(params[:id], :format => :atom), 
+        :type => "application/atom+xml",
+        :rel => "alternate" %> <%= @user.login %> profile</h1>
+  <br/>
   <div class="avatar">
-    <%= link_to image_tag(@user.gravatar_url, :border => 0, :width => 40, :height => 40, :class => "avatar", :alt => @user.login), user_path(@user) %>		
+    <%= link_to image_tag(@user.gravatar_url, :border => 0, :width => 40,
+                          :height => 40, :class => "avatar", :alt => @user.login),
+                          user_path(@user) %>		
   </div>
+  
   <span class="username">
-	<%=link_to h(@user.login), conversation_path(@user.personal_conversation) %>
-	&#187;
-	<%= render :partial => 'conversations/follow_from_list', :object => @user.personal_conversation %>
+	  <%=link_to h(@user.login), conversation_path(@user.personal_conversation) %>
+	  &#187;
+	  <%= render :partial => 'conversations/follow_from_list', :object => @user.personal_conversation %>
 
-	<%= link_to image_tag("/images/icons/16px-feed-icon.png"), user_url(params[:id], :format => :atom), :type => 		"application/atom+xml", :rel => "alternate" %> 
+	  
   </span>
 	
   <span class="userinfo">                                        
     <%= t("users.since") + " " + @user.date   + ' | ' +
-    @user.conversations.size.to_s  + '&nbsp;' + t('ui.convos')    + ' | ' +
-    @user.messages.size.to_s       + '&nbsp;' + t('ui.messages')  + ' | ' +
-    @user.subscriptions.size.to_s  + '&nbsp;' + t("ui.following") + ' | ' +
-	@user.personal_conversation.users.size.to_s + '&nbsp;' + t("ui.followers")
-
- 	%>
-
+      @user.conversations.size.to_s  + '&nbsp;' + t('ui.convos')    + ' | ' +
+      @user.messages.size.to_s       + '&nbsp;' + t('ui.messages')  + ' | ' +
+      @user.subscriptions.size.to_s  + '&nbsp;' + t("ui.following") + ' | ' +
+	    @user.followers.size.to_s + '&nbsp;' + t("ui.followers")
+ 	  %>
   </span>
   <div class="clear"></div>
 </div>

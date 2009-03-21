@@ -4,7 +4,11 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :password_resets
   map.resource  :msgsearch, :only => [:show, :create]
   map.resource  :convosearch, :only => [:show, :create]
-  map.resources :users, :member => { :tagged_convos => :get }
+  map.resources :users, :member =>  { :tagged_convos => :get,
+                                      :followers => :get,
+                                      :followed_users => :get,
+                                      :followed_convos => :get
+                                    }
 
   map.resources :conversations, :member => {
     :private_status     => :put,

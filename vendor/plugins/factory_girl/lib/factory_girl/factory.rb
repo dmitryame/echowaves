@@ -1,38 +1,81 @@
 class Factory
-  
-  cattr_accessor :factories #:nodoc:
-  self.factories = {}
 
-  attr_reader :factory_name
+  # Raised when a factory is defined that attempts to instantiate itself.
+  class AssociationDefinitionError < RuntimeError
+  end
+  
+  class << self
+    attr_accessor :factories #:nodoc:
+
+    # An Array of strings specifying locations that should be searched for
+    # factory definitions. By default, factory_girl will attempt to require
+    # "factories," "test/factories," and "spec/factories." Only the first
+    # existing file will be loaded.
+    attr_accessor :definition_file_paths
+  end
+
+  self.factories = {}
+  self.definition_file_paths = %w(factories test/factories spec/factories)
+
+  attr_reader :factory_name #:nodoc:
+  attr_reader :attributes #:nodoc:
 
   # Defines a new factory that can be used by the build strategies (create and
   # build) to build new objects.
   #
   # Arguments:
-  #   name: (Symbol)
-  #     A unique name used to identify this factory.
-  #   options: (Hash)
-  #     class: the class that will be used when generating instances for this
-  #            factory. If not specified, the class will be guessed from the 
-  #            factory name.
+  # * name: +Symbol+ or +String+
+  #   A unique name used to identify this factory.
+  # * options: +Hash+
   #
-  # Yields:
-  #    The newly created factory (Factory)
+  # Options:
+  # * class: +Symbol+, +Class+, or +String+
+  #   The class that will be used when generating instances for this factory. If not specified, the class will be guessed from the factory name.
+  # * parent: +Symbol+
+  #   The parent factory. If specified, the attributes from the parent
+  #   factory will be copied to the current one with an ability to override
+  #   them.
+  # * default_strategy: +Symbol+
+  #   The strategy that will be used by the Factory shortcut method.
+  #   Defaults to :create.
+  #
+  # Yields: +Factory+
+  # The newly created factory.
   def self.define (name, options = {})
     instance = Factory.new(name, options)
     yield(instance)
+    if parent = options.delete(:parent)
+      instance.inherit_from(Factory.factory_by_name(parent))
+    end    
     self.factories[instance.factory_name] = instance
+  end
+  
+  def class_name #:nodoc:
+    @options[:class] || factory_name
   end
 
   def build_class #:nodoc:
-    @build_class ||= class_for(@options[:class] || factory_name)
+    @build_class ||= class_for(class_name)
+  end
+  
+  def default_strategy #:nodoc:
+    @options[:default_strategy] || :create
   end
 
   def initialize (name, options = {}) #:nodoc:
-    options.assert_valid_keys(:class)
+    assert_valid_options(options)
     @factory_name = factory_name_for(name)
-    @options      = options
+    @options      = options      
     @attributes   = []
+  end
+  
+  def inherit_from(parent) #:nodoc:
+    @options[:class] ||= parent.class_name
+    parent.attributes.each do |attribute|
+      unless attribute_defined?(attribute.name)
+        @attributes << attribute.clone
+      end
+    end
   end
 
   # Adds an attribute that should be assigned on generated instances for this
@@ -43,18 +86,26 @@ class Factory
   # instance is generated. Lazy attribute blocks will not be called if that
   # attribute is overriden for a specific instance.
   #
-  # When defining lazy attributes, an instance of Factory::AttributeProxy will
+  # When defining lazy attributes, an instance of Factory::Proxy will
   # be yielded, allowing associations to be built using the correct build
   # strategy.
   #
   # Arguments:
-  #   name: (Symbol)
-  #     The name of this attribute. This will be assigned using :"#{name}=" for
-  #     generated instances.
-  #   value: (Object)
-  #     If no block is given, this value will be used for this attribute.
+  # * name: +Symbol+ or +String+
+  #   The name of this attribute. This will be assigned using :"#{name}=" for
+  #   generated instances.
+  # * value: +Object+
+  #   If no block is given, this value will be used for this attribute.
   def add_attribute (name, value = nil, &block)
-    attribute = Attribute.new(name, value, block)
+    if block_given?
+      if value
+        raise AttributeDefinitionError, "Both value and block given"
+      else
+        attribute = Attribute::Dynamic.new(name, block)
+      end
+    else
+      attribute = Attribute::Static.new(name, value)
+    end
 
     if attribute_defined?(attribute.name)
       raise AttributeDefinitionError, "Attribute already defined: #{name}"
@@ -94,119 +145,163 @@ class Factory
   #   end
   #
   # Arguments:
-  #   name: (Symbol)
-  #     The name of this attribute.
-  #   options: (Hash)
-  #     factory: (Symbol)
-  #       The name of the factory to use when building the associated instance.
-  #       If no name is given, the name of the attribute is assumed to be the
-  #       name of the factory. For example, a "user" association will by
-  #       default use the "user" factory.
+  # * name: +Symbol+
+  #   The name of this attribute.
+  # * options: +Hash+
+  #
+  # Options:
+  # * factory: +Symbol+ or +String+
+  #    The name of the factory to use when building the associated instance.
+  #    If no name is given, the name of the attribute is assumed to be the
+  #    name of the factory. For example, a "user" association will by
+  #    default use the "user" factory.
   def association (name, options = {})
-    name    = name.to_sym
-    options = options.symbolize_keys
-    association_factory = options[:factory] || name
-
-    add_attribute(name) {|a| a.association(association_factory) }
+    factory_name = options.delete(:factory) || name
+    if factory_name_for(factory_name) == self.factory_name
+      raise AssociationDefinitionError, "Self-referencing association '#{name}' in factory '#{self.factory_name}'"
+    end
+    @attributes << Attribute::Association.new(name, factory_name, options)
   end
 
-  def attributes_for (attrs = {}) #:nodoc:
-    build_attributes_hash(attrs, :attributes_for)
+  # Adds an attribute that will have unique values generated by a sequence with
+  # a specified format.
+  #
+  # The result of:
+  #   Factory.define :user do |f|
+  #    f.sequence(:email) { |n| "person#{n}@example.com" }
+  #   end
+  #
+  # Is equal to:
+  #   Factory.sequence(:email) { |n| "person#{n}@example.com" }
+  #
+  #   Factory.define :user do |f|
+  #    f.email { Factory.next(:email) }
+  #   end
+  #
+  # Except that no globally available sequence will be defined.
+  def sequence (name, &block)
+    s = Sequence.new(&block)
+    add_attribute(name) { s.next }
+  end
+  
+  # Generates and returns a Hash of attributes from this factory. Attributes
+  # can be individually overridden by passing in a Hash of attribute => value
+  # pairs.
+  #
+  # Arguments:
+  # * name: +Symbol+ or +String+
+  #   The name of the factory that should be used.
+  # * overrides: +Hash+
+  #   Attributes to overwrite for this set.
+  #
+  # Returns: +Hash+
+  # A set of attributes that can be used to build an instance of the class
+  # this factory generates. 
+  def self.attributes_for (name, overrides = {})
+    factory_by_name(name).run(Proxy::AttributesFor, overrides)
   end
 
-  def build (attrs = {}) #:nodoc:
-    build_instance(attrs, :build)
+  # Generates and returns an instance from this factory. Attributes can be
+  # individually overridden by passing in a Hash of attribute => value pairs.
+  #
+  # Arguments:
+  # * name: +Symbol+ or +String+
+  #   The name of the factory that should be used.
+  # * overrides: +Hash+
+  #   Attributes to overwrite for this instance.
+  #
+  # Returns: +Object+
+  # An instance of the class this factory generates, with generated attributes
+  # assigned.
+  def self.build (name, overrides = {})
+    factory_by_name(name).run(Proxy::Build, overrides)
   end
 
-  def create (attrs = {}) #:nodoc:
-    instance = build_instance(attrs, :create)
-    instance.save!
-    instance
+  # Generates, saves, and returns an instance from this factory. Attributes can
+  # be individually overridden by passing in a Hash of attribute => value
+  # pairs.
+  #
+  # Instances are saved using the +save!+ method, so ActiveRecord models will
+  # raise ActiveRecord::RecordInvalid exceptions for invalid attribute sets.
+  #
+  # Arguments:
+  # * name: +Symbol+ or +String+
+  #   The name of the factory that should be used.
+  # * overrides: +Hash+
+  #   Attributes to overwrite for this instance.
+  #
+  # Returns: +Object+
+  # A saved instance of the class this factory generates, with generated
+  # attributes assigned.
+  def self.create (name, overrides = {})
+    factory_by_name(name).run(Proxy::Create, overrides)
+  end
+  
+  # Generates and returns an object with all attributes from this factory
+  # stubbed out. Attributes can be individually overridden by passing in a Hash
+  # of attribute => value pairs.
+  #
+  # Arguments:
+  # * name: +Symbol+ or +String+
+  #   The name of the factory that should be used.
+  # * overrides: +Hash+
+  #   Attributes to overwrite for this instance.
+  #
+  # Returns: +Object+
+  # An object with generated attributes stubbed out.
+  def self.stub (name, overrides = {})
+    factory_by_name(name).run(Proxy::Stub, overrides)
+  end
+  
+  # Executes the default strategy for the given factory. This is usually create,
+  # but it can be overridden for each factory.
+  #
+  # Arguments:
+  # * name: +Symbol+ or +String+
+  #   The name of the factory that should be used.
+  # * overrides: +Hash+
+  #   Attributes to overwrite for this instance.
+  #
+  # Returns: +Object+
+  # The result of the default strategy.
+  def self.default_strategy (name, overrides = {})  
+    self.send(factory_by_name(name).default_strategy, name, overrides)
   end
 
-  class << self
+  def self.find_definitions #:nodoc:
+    definition_file_paths.each do |path|
+      require("#{path}.rb") if File.exists?("#{path}.rb")
 
-    # Generates and returns a Hash of attributes from this factory. Attributes
-    # can be individually overridden by passing in a Hash of attribute => value
-    # pairs.
-    #
-    # Arguments:
-    #   attrs: (Hash)
-    #     Attributes to overwrite for this set.
-    #
-    # Returns:
-    #   A set of attributes that can be used to build an instance of the class
-    #   this factory generates. (Hash)
-    def attributes_for (name, attrs = {})
-      factory_by_name(name).attributes_for(attrs)
+      if File.directory? path
+        Dir[File.join(path, '*.rb')].each do |file|
+          require file
+        end
+      end
     end
+  end
 
-    # Generates and returns an instance from this factory. Attributes can be
-    # individually overridden by passing in a Hash of attribute => value pairs.
-    #
-    # Arguments:
-    #   attrs: (Hash)
-    #     See attributes_for
-    #
-    # Returns:
-    #   An instance of the class this factory generates, with generated
-    #   attributes assigned.
-    def build (name, attrs = {})
-      factory_by_name(name).build(attrs)
+  def run (proxy_class, overrides) #:nodoc:
+    proxy = proxy_class.new(build_class)
+    overrides = symbolize_keys(overrides)
+    overrides.each {|attr, val| proxy.set(attr, val) }
+    passed_keys = overrides.keys.collect {|k| Factory.aliases_for(k) }.flatten
+    @attributes.each do |attribute|
+      unless passed_keys.include?(attribute.name)
+        attribute.add_to(proxy)
+      end
     end
-
-    # Generates, saves, and returns an instance from this factory. Attributes can
-    # be individually overridden by passing in a Hash of attribute => value
-    # pairs.
-    #
-    # If the instance is not valid, an ActiveRecord::Invalid exception will be
-    # raised.
-    #
-    # Arguments:
-    #   attrs: (Hash)
-    #     See attributes_for
-    #
-    # Returns:
-    #   A saved instance of the class this factory generates, with generated
-    #   attributes assigned.
-    def create (name, attrs = {})
-      factory_by_name(name).create(attrs)
-    end
-
-    private
-
-    def factory_by_name (name)
-      factories[name.to_sym] or raise ArgumentError.new("No such factory: #{name.to_s}")
-    end
-
+    proxy.result
   end
 
   private
 
-  def build_attributes_hash (values, strategy)
-    values = values.symbolize_keys
-    passed_keys = values.keys.collect {|key| Factory.aliases_for(key) }.flatten
-    @attributes.each do |attribute|
-      unless passed_keys.include?(attribute.name)
-        proxy = AttributeProxy.new(self, attribute.name, strategy, values)
-        values[attribute.name] = attribute.value(proxy)
-      end
-    end
-    values
+  def self.factory_by_name (name)
+    factories[name.to_sym] or raise ArgumentError.new("No such factory: #{name.to_s}")
   end
-
-  def build_instance (override, strategy)
-    instance = build_class.new
-    attrs = build_attributes_hash(override, strategy)
-    attrs.each do |attr, value|
-      instance.send(:"#{attr}=", value)
-    end
-    instance
-  end
-
+  
   def class_for (class_or_to_s)
     if class_or_to_s.respond_to?(:to_sym)
-      class_or_to_s.to_s.classify.constantize
+      Object.const_get(variable_name_to_class_name(class_or_to_s))
     else
       class_or_to_s
     end
@@ -216,12 +311,50 @@ class Factory
     if class_or_to_s.respond_to?(:to_sym)
       class_or_to_s.to_sym
     else
-      class_or_to_s.to_s.underscore.to_sym
+      class_name_to_variable_name(class_or_to_s).to_sym
     end
   end
 
   def attribute_defined? (name)
     !@attributes.detect {|attr| attr.name == name }.nil?
+  end
+
+  def assert_valid_options(options)
+    invalid_keys = options.keys - [:class, :parent, :default_strategy] 
+    unless invalid_keys == []
+      raise ArgumentError, "Unknown arguments: #{invalid_keys.inspect}"
+    end
+    assert_valid_strategy(options[:default_strategy]) if options[:default_strategy]
+  end
+  
+  def assert_valid_strategy(strategy)
+    unless Factory::Proxy.const_defined? variable_name_to_class_name(strategy)
+      raise ArgumentError, "Unknown strategy: #{strategy}"
+    end
+  end
+
+  # Based on ActiveSupport's underscore inflector
+  def class_name_to_variable_name(name)
+    name.to_s.gsub(/::/, '/').
+      gsub(/([A-Z]+)([A-Z][a-z])/,'\1_\2').
+      gsub(/([a-z\d])([A-Z])/,'\1_\2').
+      tr("-", "_").
+      downcase
+  end
+
+  # Based on ActiveSupport's camelize inflector
+  def variable_name_to_class_name(name)
+    name.to_s.
+      gsub(/\/(.?)/) { "::#{$1.upcase}" }.
+      gsub(/(?:^|_)(.)/) { $1.upcase }
+  end
+
+  # From ActiveSupport
+  def symbolize_keys(hash)
+    hash.inject({}) do |options, (key, value)|
+      options[(key.to_sym rescue key) || key] = value
+      options
+    end
   end
 
 end

@@ -1,5 +1,9 @@
 class Factory
 
+  # Raised when defining an invalid attribute:
+  # * Defining an attribute which has a name ending in "="
+  # * Defining an attribute with both a static and lazy value
+  # * Defining an attribute twice in the same factory
   class AttributeDefinitionError < RuntimeError
   end
   
@@ -7,32 +11,18 @@ class Factory
 
     attr_reader :name
 
-    def initialize (name, static_value, lazy_block)
-      name = name.to_sym
+    def initialize(name)
+      @name = name.to_sym
 
-      if name.to_s =~ /=$/
+      if @name.to_s =~ /=$/
         raise AttributeDefinitionError, 
-          "factory_girl uses 'f.#{name.to_s.chop} value' syntax " +
-          "rather than 'f.#{name} = value'" 
-      end
-
-      unless static_value.nil? || lazy_block.nil?
-        raise AttributeDefinitionError, "Both value and block given"
-      end
-
-      @name         = name
-      @static_value = static_value
-      @lazy_block   = lazy_block
-    end
-
-    def value (proxy)
-      if @lazy_block.nil?
-        @static_value
-      else
-        @lazy_block.call(proxy)
+          "factory_girl uses 'f.#{@name.to_s.chop} value' syntax " +
+          "rather than 'f.#{@name} = value'" 
       end
     end
 
+    def add_to(proxy)
+    end
   end
 
 end

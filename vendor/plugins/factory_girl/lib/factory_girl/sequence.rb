@@ -1,5 +1,7 @@
 class Factory
 
+  # Sequences are defined using Factory.sequence. Sequence values are generated
+  # using next.
   class Sequence
 
     def initialize (&proc) #:nodoc:
@@ -15,7 +17,9 @@ class Factory
 
   end
 
-  cattr_accessor :sequences #:nodoc:
+  class << self
+    attr_accessor :sequences #:nodoc:
+  end
   self.sequences = {}
 
   # Defines a new sequence that can be used to generate unique values in a specific format.

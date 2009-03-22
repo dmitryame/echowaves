@@ -56,6 +56,24 @@ class MessageTest < ActiveSupport::TestCase
     end
   end
 
+  context "filter message (video, links, html, ...)" do
+    setup do
+      @message = Message.create(:message => '<script>dangerous</script>', :user_id => Factory(:user).id, :conversation_id => Factory(:conversation).id)
+    end
+    
+    should "filter message on create" do
+      assert_equal "<p>&lt;script&gt;dangerous&lt;/script&gt;</p>", @message.message_html
+    end
+    
+    # messages can't be edited by the users, so this is not a problem, this way the system can modify
+    # the message_html to add custom html code
+    should "not filter message on save or update" do
+      @message.message = @message.message + "<script>this code should not be filtered and added to message_html</script>"
+      @message.save
+      assert_equal "<p>&lt;script&gt;dangerous&lt;/script&gt;</p>", @message.message_html
+    end
+  end
+  
   def test_should_check_over_abuse_reports_limit?
     @message1 = Factory.create(:message)
     @message2 = Factory.create(:message)

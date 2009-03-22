@@ -88,6 +88,9 @@ class ConversationsController < ApplicationController
           @copied_message = @conversation.parent_message.clone
           @copied_message.conversation = @conversation
           @copied_message.save
+          # now add the attachment markup to the copied message if the original message has an attachment
+          @copied_message.message_html = @copied_message.message_html + attachment_markup(@conversation.parent_message) if @conversation.parent_message.has_attachment?            
+          @copied_message.save
         else # create a first message that is the same as the convo description
           message = current_user.messages.create!( :conversation => @conversation, :message => @conversation.description)
         end
@@ -257,5 +260,14 @@ private
       return
     end
   end
-
+  
+  def attachment_markup(message)
+    if message.has_image?
+      %Q( <div class="img_attachment"><a href="#{message.attachment.url}"><img src="#{message.attachment.url(:big)}" alt="#{message.message}"/></a></div> )
+    elsif message.has_pdf?
+      %Q( <div class="file_attachment"><a href="#{message.attachment.url}"><img src="/images/icons/pdf_large.jpg" alt="PDF Document" width="100" /></a></div> )
+    elsif message.has_zip?
+      %Q( <div class="file_attachment"><a href="#{message.attachment.url}"><img src="/images/icons/zip_large.jpg" alt="ZIP File" width="82" /></a></div> )
+    end
+  end
 end

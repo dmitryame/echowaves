@@ -13,7 +13,7 @@ module AutoHtmlFor
   module ClassMethods
     def auto_html_for(raw_attrs, &proc)
       include AutoHtmlFor::InstanceMethods
-      before_save :auto_html_prepare
+      before_create :auto_html_prepare
 
       define_method("auto_html_prepare") do
         auto_html_methods = self.methods.select { |m| m=~/^auto_html_prepare_/ }

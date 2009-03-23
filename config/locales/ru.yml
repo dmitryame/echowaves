@@ -1,167 +1,167 @@
 ru:
   home:
     index:
-      headline1: "EchoWaves.com является открытыми групповой чат социальная сеть."
-      headline2: 'The source code is hosted at: <a href="http://github.com/dmitryame/echowaves">http://github.com/dmitryame/echowaves</a>.'
-      p1: "<h5>If you like to chat, or blog, or post pictures, or share updates with friends, or just socialize -- you will enjoy EchoWaves.</h5>EchoWaves is a <span class=\"highlight\">Collaboration Tool</span> and a <span class=\"highlight\">Social Network</span>. EchoWaves is as powerful as <span class=\"highlight\">CampFire</span>, and as simple to use as <span class=\"highlight\">Twitter</span>. It's built around conversations (convos) rather than users. Isn't it more natural for humans to socialize around convos? If you have any other ideas or suggestions feel free to talk about it in"
-      p2: "-- Это бесплатно и каждый может присоединиться. Начать свой разговор, пригласить всех своих друзей присоединиться к вашей беседы, последуют и другие разговоры, что смотреть интересно вам. Удачи!"
-      p3: "Take it for a spin, post messages to our "
-      feedback_advice: 'If you find an issue or would like to make a suggestion on what functionality you would like to see in echowaves, you can do it at <a href="http://code.google.com/p/echowaves/issues/list">http://echowaves.googlecode.com/</a>'
+      headline1: "EchoWaves.com это социальная сеть на основе группового чата, разрабатываемая как опенсорс."
+      headline2: 'Исходные коды находятся на: <a href="http://github.com/dmitryame/echowaves">http://github.com/dmitryame/echowaves</a>.'
+      p1: "<h5>Если Вам нравится чатиться, или вести BLOG, или публиковать в интернете фотки, или делиться с друзьями новостями -- EchoWaves Вам понравится.</h5>EchoWaves это <span class=\"highlight\">Средство Общения</span> и <span class=\"highlight\">Социальняа Сеть</span>. Сайт EchoWaves такойже мощный как <span class=\"highlight\">CampFire</span>, и так же прост в использовании как <span class=\"highlight\">Twitter</span>.  Вы можете оставить Ваши идеи и пожелания здесь"
+      p2: "-- Это бесплатно и каждый может присоединиться. Начни свой чат, пригласи всех своих друзей присоединиться, начни наблюдать за другими чатами. Удачи!"
+      p3: "Убедитесь сами, напишите в пробный разговор "
+      feedback_advice: 'Если найдете проблеммы или хотите поделиться своим мнением, это можно сделать здесь <a href="http://code.google.com/p/echowaves/issues/list">http://echowaves.googlecode.com/</a>'
   ui:
-    cancel: "cancel"
-    name: "name"
-    description: "description"
-    create: "create"
-    signup: "SignUp"
-    login: "login"
-    login_name: "login name"
-    email: "email"
-    email_confirmation: "confirm email"
-    logout: "logout"
-    echowaves_conversation: "EcHoWaVeS.CoM convo"
-    test_conversation: "TEST convo"
-    home: "home"
-    users: "users"
-    convos: "convos"
-    edit_profile: "edit profile"
-    update_your_profile: "Update your profile"
-    get_an_gravatar_here: "get a gravatar here"
-    conversations: "convos"
-    back: "back"
-    more_messages: "more messages"
-    password: "password"
-    password_confirmation: "confirm password"
-    forgot_password: "forgot password?"
-    its_free: "it's free and anyone can join"
-    users_conversations: "Users convos"
-    follow: "follow"
-    unfollow: "unfollow"
-    report: "report"
-    reportconfirm: "Are you sure you would like to report this message? The abuser will be punished."
-    reportconfirm_conversation: "Are you sure you would like to report this convo? The abuser will be punished."
-    spawn: "spawn"
-    spawnconfirm: "Are you sure you want to spawn a new convo off of this message?"
-    invite: "invite"
-    tagged_with: "Tagged with"
-    tags: "tags"
-    add_tag: "add tag"
-    view_all: "view all"
-    view_all_users: "view all users"
-    view_all_convos: "view all convos"
-    view_all_or_add_a_tag: "<a href=\"#tags\">view all</a> or <a href=\"#tags\">add a tag</a>"
-    confirm_remove_tag: "Are you sure you want to untag?"
-    back_to_parent: "back to parent"
-    this_is_the_newest_message: "This is the newest message"
-    attach: "Attach"
-    attach_file: "attach file"
-    send: "send"
-    shift_enter: "(shift+Enter to insert new line)"
-    my_conversations: "My convos"
-    news: "New Messages"
-    recently_visited: "Recently visited"
-    time_zone: "time zone"
-    update: "update"
-    recent_followers: "Recent followers"
-    recent_tags: "Recent tags"
-    followers: "Followers"
-    following: "Following"
-    convos: "Convos"
-    messages: "Messages"
-    search_messages: "search messages"
-    search_conversations: "search convos"
-    search: "search"
-    search_advice: "write something and click search!"
-    make_read_only: "set as read only"
-    make_writable: "make writable"
-    read_only: "read only"
-    connected: "connected"
-    transport_opened: "transport opened"
-    transport_closed: "transport closed"
-    code: "code"
-    click_to_activate: "Click here to activate your account"
-    thanks_for_signup: "Thanks for signing up! We're sending you an email with your activation code."
-    signup_error: "We couldn't set up that account, sorry. Please try again, or contact an admin (link is above)."
-    started_by: "started by"
-    recently_joined: "Recently joined"
-    recent_convos: "Recent convos"
-    popular_convos: "Popular convos"
-    total_convos: "Total convos"
-    total_messages: "Total messages"
-    total_users: "Total users"
-    private_convo: "Private conversation"
-    make_public: "make public"
-    make_private: "make private"
-    last_message: "last message"
+    cancel: "отменить"
+    name: "имя"
+    description: "описание"
+    create: "создать"
+    signup: "Подписаться"
+    login: "логин"
+    login_name: "логин имя"
+    email: "емаил"
+    email_confirmation: "емаил подтверждение"
+    logout: "выйти"
+    echowaves_conversation: "EcHoWaVeS.CoM разговор"
+    test_conversation: "TEST разговор"
+    home: "домой"
+    users: "пользователи"
+    convos: "разговоры"
+    edit_profile: "редактировать профиль"
+    update_your_profile: "Обновить профиль"
+    get_an_gravatar_here: "получить картинку пользователя здесь"
+    conversations: "разговоры"
+    back: "назад"
+    more_messages: "больше сообщений"
+    password: "пароль"
+    password_confirmation: "пароль подтверждение"
+    forgot_password: "пароль забыт?"
+    its_free: "Это совершенно бесплатно и любой может присоедениться"
+    users_conversations: "разговоры пользователя"
+    follow: "последовать"
+    unfollow: "покинуть"
+    report: "донести"
+    reportconfirm: "Вы уверренны что хотите донести о злоупотреблении? Нарушитель будет наказан."
+    reportconfirm_conversation: "Вы уверренны что хотите донести о злоупотреблении? Нарушитель будет наказан."
+    spawn: "ответвить"
+    spawnconfirm: "Вы уверенны что хотите ответвить новый разговор из текущего сообщения?"
+    invite: "пригласить"
+    tagged_with: "Помечено как"
+    tags: "пометки"
+    add_tag: "добавить пометку"
+    view_all: "посмотреть все"
+    view_all_users: "посмотреть всех пользователей"
+    view_all_convos: "посмотреть все разговоры"
+    view_all_or_add_a_tag: "<a href=\"#tags\">посмотреть все</a> or <a href=\"#tags\">add a tag</a>"
+    confirm_remove_tag: "Уверены что хотите удальть пометку?"
+    back_to_parent: "обратно к исходному разговору"
+    this_is_the_newest_message: "Новое сообщение"
+    attach: "Присоединить"
+    attach_file: "присоединить файл"
+    send: "послать"
+    shift_enter: "(shift+Enter что бы добавить новую строку)"
+    my_conversations: "Мои разговоры"
+    news: "Новые сообщения"
+    recently_visited: "Недавние посещения"
+    time_zone: "временная зона"
+    update: "обновить"
+    recent_followers: "Недавние последователи"
+    recent_tags: "Недавние пометки"
+    followers: "Последователи"
+    following: "Следую"
+    convos: "Разговоры"
+    messages: "Сообщения"
+    search_messages: "поиск сообщений"
+    search_conversations: "поиск разговоров"
+    search: "поиск"
+    search_advice: "напиши строку и нажми поиск!"
+    make_read_only: "сделать только для чтения"
+    make_writable: "сделать для чтения и записей"
+    read_only: "только для чтения"
+    connected: "соединение"
+    transport_opened: "передача открыта"
+    transport_closed: "передача закрыта"
+    code: "код"
+    click_to_activate: "нажать для активации"
+    thanks_for_signup: "Спасибо за подписку! Мы высылаем Вам емаил с кодом ацтивизации."
+    signup_error: "Извините, но произошла ошибка регистрации. Пожалуйста попробуйте снава или сообщите администратору (ссылка выше)"
+    started_by: "Начат "
+    recently_joined: "Недавно присоединились"
+    recent_convos: "Недавние разговоры"
+    popular_convos: "Популярные разговоры"
+    total_convos: "Всего разговоров"
+    total_messages: "Всего сообщений"
+    total_users: "Всего пользователей"
+    private_convo: "Закрытые разговоры"
+    make_public: "сделать открытым"
+    make_private: "сделать закрытым"
+    last_message: "последнее сообщение"
   users:
-    recently_joined_users: "recently joined users"
-    sign_up_as_new_user: "sign up as new user"
-    look_for_users: "look for users"
-    since: "since:"
-    logged_in_sucesfully: "Logged in successfully"
-    logged_out: "You have been logged out."
-    could_not_login_as: "Couldn't log you in as {{login}}"
-    profile_updated: "Profile updated correctly"
-    signup_complete: "Signup complete! Please login to continue."
-    invite_users: "Invite users"
+    recently_joined_users: "недавно присоединившиеся пользователи"
+    sign_up_as_new_user: "подписаться как новый пользователь"
+    look_for_users: "поиск пользователей"
+    since: "присоединился:"
+    logged_in_sucesfully: "Успешно вошли в систему"
+    logged_out: "Вышли из системы"
+    could_not_login_as: "Не смогли войти в систему как {{login}}"
+    profile_updated: "Профиль успешно обновлен"
+    signup_complete: "Регистрация успешно завершена! Чтобы продолжить -- логин."
+    invite_users: "пригласить пользователей"
   conversations:
-    this_is_an_read_only_convo: "This is a read only conversation"
-    login_or_register_to_participate: "Please <a href=\"/login\">login</a> to participate.<br/>Don't have an account yet? <a href=\"/signup\">signup now</a>, it's free"
-    recently_started_conversations: "recently started convos"
-    start_new_conversation: "start new convo"
-    look_for_conversations: "look for convos"
-    new_conversation: "new convo"
-    convo_sucesfully_created: "Conversation was successfully created."
-    new_spawned_conversation: "new spawned convo"
-    user_spawned_convo_description: "{{login}} spawned this convo, following the message {{original_message_link}}\n\nPlease provide a description and an appropriate title for this new conversation"
-    already_spawned_warning: "You already spawned a new conversation from this message."
-    not_allowed_to_write_warning: "You are not allowed to add messages to this conversation."
+    this_is_an_read_only_convo: "Только для чтения"
+    login_or_register_to_participate: "Пожалуйста <a href=\"/login\">логин </a> чтобы поучаствовать.<br/>Нет аккаунта? <a href=\"/signup\">Подписаться Сдесь</a>, это бесплатно"
+    recently_started_conversations: "недавно начатые разговоры"
+    start_new_conversation: "начать новый разговор"
+    look_for_conversations: "поиск разговоров"
+    new_conversation: "новый разговор"
+    convo_sucesfully_created: "Разговор успешно создан."
+    new_spawned_conversation: "новый ответвленный разговор"
+    user_spawned_convo_description: "{{login}} ответвил разговор от {{original_message_link}}\n\n Опишите новый разговор"
+    already_spawned_warning: "Разговор от даного сообщения уже был ответвлен."
+    not_allowed_to_write_warning: "Вы не можете добавить сообщение в данный разговор."
   footer:
     uptime_monitoring: "Website Uptime Monitoring By"
-    report_problems_or_abuse: "Report problems or Abuse to"
+    report_problems_or_abuse: "Сообщить о проблеммах"
     terms_and_conditions: "Terms&Conditions"    
-    conversations: "convos"
+    conversations: "разговоры"
   messages:
-    original_message: "original message"
-    new_messages: "new messages"
+    original_message: "исходное сообщение"
+    new_messages: "новое сообщение"
   notices:
-    you_must_be_logged_out: "You must be logged out to access this page"
-    you_must_be_logged_in: "You must be logged in to access this page"
+    you_must_be_logged_out: "Вы должны выйти из системы чтобы посмотреть эту страницу"
+    you_must_be_logged_in: "Вы должны войти в систему чтобы посмотреть эту страницу"
   errors:
-    sorry_this_is_a_private_convo: "Sorry, this is a private conversation. You can try anoter one"
-    only_the_owner_can_invite: "Only the owner of this conversation can invite other users"
+    sorry_this_is_a_private_convo: "Извините, Этот разговор закрыт."
+    only_the_owner_can_invite: "Только владелец этого разговора может приглашать других пользователей"
     
   datetime:
     distance_in_words:
-      half_a_minute: 'half a minute'
+      half_a_minute: 'пол минуты'
       less_than_x_seconds:
-        zero: 'less than 1 second'
-        one: '1 second'
-        other: '{{count}} seconds'
+        zero: 'меньше чем одна секунда'
+        one: '1 секунда'
+        other: '{{count}} секунд'
       x_seconds:
-        one: '1 second'
-        other: '{{count}} seconds'
+        one: '1 секунда'
+        other: '{{count}} секунд'
       less_than_x_minutes:
-        zero: 'less than a minute'
-        one: '1 minute'
-        other: '{{count}} minutes'
+        zero: 'меньше чем одна минута'
+        one: '1 минута'
+        other: '{{count}} минут'
       x_minutes:
-        one: "1 minute"
-        other: "{{count}} minutes"
+        one: "1 минута"
+        other: "{{count}} минут"
       about_x_hours:
-        one: 'about 1 hour'
-        other: '{{count}} hours'
+        one: 'около 1 часа'
+        other: '{{count}} часов'
       x_days:
-        one: '1 day'
-        other: '{{count}} days'
+        one: '1 день'
+        other: '{{count}} дня/дней'
       about_x_months:
-        one: 'about 1 month'
-        other: '{{count}} months'
+        one: 'около 1 месяца'
+        other: '{{count}} месяцев'
       x_months:
-        one: '1 month'
-        other: '{{count}} months'
+        one: '1 месяц'
+        other: '{{count}} месяцев'
       about_x_years:
-        one: 'about 1 year'
-        other: '{{count}} years'
+        one: 'около 1 года'
+        other: '{{count}} года/лет'
       over_x_years:
-        one: 'over 1 year'
-        other: '{{count}} years'
+        one: 'больше 1 года'
+        other: '{{count}} года/лет'

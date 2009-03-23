@@ -5,7 +5,11 @@ class User < ActiveRecord::Base
   attr_accessor :email_confirmation
   
   is_gravtastic :size => 40, :default => "identicon" # "monsterid" or "identicon", or "wavatar"
-  acts_as_authentic :transition_from_restful_authentication => true
+
+  acts_as_authentic do |c|
+    c.transition_from_restful_authentication = true
+  end
+  
   acts_as_tagger
   
   has_many :messages

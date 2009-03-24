@@ -31,7 +31,9 @@ class Message < ActiveRecord::Base
     :url  => PAPERCLIP_URL
   
   named_scope :published, :conditions => { :abuse_report_id => nil }
-
+  named_scope :with_file, :conditions => ["attachment_content_type like ?","application%"]
+  named_scope :with_image, :conditions => ["attachment_content_type like ?",'image%']
+  
   ##
   # sphinx index
   #

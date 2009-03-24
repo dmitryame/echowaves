@@ -21,7 +21,9 @@ ActionController::Routing::Routes.draw do |map|
     :unfollow_from_list => :post,
     :invite             => :get,
     :invite_from_list   => :post,
-    :remove_user        => :post
+    :remove_user        => :post,
+    :files              => :get,
+    :images             => :get
     }, :new => { :spawn => :get } do |conversation|
       conversation.resources :messages, :member => { :report => :post }, 
                                         :except => [:edit, :update, :destroy]

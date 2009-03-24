@@ -196,6 +196,13 @@
 		        <%= render :partial => 'users/news' %>
 		      </div>
 		      <div class="span-4 last">
+		        <div id="recent_followers" class="item2 page">
+            	<h6><%= t("ui.messages") %>:</h6>
+            	<%= link_to t("ui.all"), conversation_path(@conversation)%><br/>
+              <%= link_to t("ui.with_files"), files_conversation_path(@conversation)%><br/>
+              <%= link_to t("ui.with_images"), images_conversation_path(@conversation)%>
+            </div>
+		        
 		        <%= render :partial => 'conversations/recent_followers' %>
 		        <%= render :partial => 'conversations/last_convo_tags' %>
 		      </div>

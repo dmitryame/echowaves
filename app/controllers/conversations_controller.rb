@@ -42,6 +42,40 @@ class ConversationsController < ApplicationController
     end
   end
 
+  def files
+    @messages = @conversation.messages.with_file.published.find(:all, :include => [:user], :limit => 100, :order => 'id DESC').reverse
+    
+    if logged_in?
+      subscription = current_user.subscriptions.find_by_conversation_id(@conversation.id)
+      @last_message_id = subscription.last_message_id if (subscription && subscription.new_messages_count > 0)
+      current_user.conversation_visit_update(@conversation)
+    end
+
+    @has_more_messages = @conversation.has_messages_before?(@messages.first)
+
+    respond_to do |format|
+      format.html { render :layout => 'messages' }
+      format.xml  { render :xml => @conversation }
+    end
+  end
+  
+  def images
+    @messages = @conversation.messages.with_image.published.find(:all, :include => [:user], :limit => 100, :order => 'id DESC').reverse
+    
+    if logged_in?
+      subscription = current_user.subscriptions.find_by_conversation_id(@conversation.id)
+      @last_message_id = subscription.last_message_id if (subscription && subscription.new_messages_count > 0)
+      current_user.conversation_visit_update(@conversation)
+    end
+
+    @has_more_messages = @conversation.has_messages_before?(@messages.first)
+
+    respond_to do |format|
+      format.html { render :layout => 'messages' }
+      format.xml  { render :xml => @conversation }
+    end
+  end
+  
   def new
     @conversation = Conversation.new
     respond_to do |format|

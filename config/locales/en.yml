@@ -8,6 +8,9 @@ en:
       p3: "Take it for a spin, post messages to our "
       feedback_advice: 'If you find an issue or would like to make a suggestion on what functionality you would like to see in echowaves, you can do it at <a href="http://code.google.com/p/echowaves/issues/list">http://echowaves.googlecode.com/</a>'
   ui:
+    all: "all"
+    with_files: "with files"
+    with_images: "with images"
     cancel: "cancel"
     name: "name"
     description: "description"

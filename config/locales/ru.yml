@@ -8,6 +8,9 @@ ru:
       p3: "Убедитесь сами, напишите в пробный разговор "
       feedback_advice: 'Если найдете проблеммы или хотите поделиться своим мнением, это можно сделать здесь <a href="http://code.google.com/p/echowaves/issues/list">http://echowaves.googlecode.com/</a>'
   ui:
+    all: "все"
+    with_files: "с файлы"
+    with_images: "с картинки"
     cancel: "отменить"
     name: "имя"
     description: "описание"

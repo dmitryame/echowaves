@@ -3,7 +3,7 @@
 
 	<%if @has_more_messages%>
 		<%= link_to_remote t("ui.more_messages"), 
-		:url => {:action => 'get_more_messages', :conversation_id => @conversation},
-		:with => "'before='+#{@messages.first.id}" %>
+		:url => {:controller => 'messages', :action => 'get_more_messages', :conversation_id => @conversation},
+		:with => "'before='+#{@messages.first.id}" %>		
 	<%end%>
 </div>

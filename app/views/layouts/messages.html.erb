@@ -73,6 +73,19 @@
  				message_output.insert({"bottom":frame.body});
  				Misc.pageScroll();
 				Sound.play('/sounds/sound39.mp3');
+				(function(){
+          var script = document.createElement('script'), loaded = false;
+          script.setAttribute('type', 'text/javascript');
+          script.setAttribute('src', 'http://gist.github.com/80392.js');
+          script.onload = script.onreadystatechange = function() {
+            if (this.readyState && this.readyState!='complete') return;
+            if (loaded) return;
+            loaded = true;
+            document.body.removeChild(script);
+            // YOUR CODE HERE //
+          };
+          document.body.appendChild(script);
+        })();
  			}	
 			// this is a notify conversation message
  			if(frame.headers['destination'].startsWith("CONVERSATION_NOTIFY_CHANNEL_") ) {

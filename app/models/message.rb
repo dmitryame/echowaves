@@ -2,6 +2,7 @@ class Message < ActiveRecord::Base
   
   auto_html_for(:message) do
     html_escape
+    gist
     youtube(:width => 400, :height => 250)
     vimeo
     image

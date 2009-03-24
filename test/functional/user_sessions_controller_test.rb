@@ -21,7 +21,7 @@ class UserSessionsControllerTest < ActionController::TestCase
     post :create, :user_session => { :login => "admin", :password => "password" }
     assert user_session = UserSession.find
     assert_equal @user, user_session.user
-    assert_redirected_to "/"
+    assert_redirected_to user_path(user_session.user)
   end
   
   should "destroy user session" do

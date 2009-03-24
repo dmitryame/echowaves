@@ -157,6 +157,7 @@ class ConversationsControllerTest < ActionController::TestCase
       Conversation.expects( :published ).returns( @convos )
       @convos.expects( :not_personal ).returns( @convos )
       @convos.expects( :paginate ).returns( @convos )
+      @convos.expects( :non_private ).returns( @convos )
       @convos.stubs( :total_pages ).returns( 1 )
       @convos.stubs( :to_xml ).returns( 'XML' )
     end

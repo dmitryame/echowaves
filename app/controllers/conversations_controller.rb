@@ -15,7 +15,7 @@ class ConversationsController < ApplicationController
     if params[:tag] != nil
       @conversations = Conversation.tagged_with(params[:tag], :on => :tags).published.non_private.paginate :page => params[:page], :order => 'created_at DESC'
     else
-      @conversations = Conversation.published.not_personal.paginate :page => params[:page], :conditions => "private = false", :order => 'created_at DESC'
+      @conversations = Conversation.published.non_private.not_personal.paginate :page => params[:page], :order => 'created_at DESC'
     end
 
     respond_to do |format|

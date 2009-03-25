@@ -5,7 +5,7 @@ html, body {margin:0;background:#d0e4eb;}
 .container .search_link {
   display: block;
   margin-bottom:5px;
-  background:#fff url(/images/icons/magnifier.png) 2px 5px no-repeat;
+  background:#151110 url(/images/icons/magnifier.png) 2px 5px no-repeat;
   padding-left:20px;
   }
 .conversation_for_user {

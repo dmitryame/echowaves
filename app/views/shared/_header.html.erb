@@ -10,6 +10,10 @@
 				<li><%= link_to image_tag("/images/icons/star.png"), bookmarked_conversations_path %></li>
 				<li><%= link_to t("ui.logout"), logout_path %></li>
 				<li><%= link_to t("ui.edit_profile"), edit_user_path(current_user) %></li>
+				<li><%= link_to h(current_user.login), conversation_path(current_user.personal_conversation)	, 
+				:class => 'tip', 
+				:title => "personal convo for " + current_user.name %>
+				</li>
 				<li>
 					<%= link_to image_tag(current_user.gravatar_url, :border => 0, :alt => current_user.login, :width => 20, :height => 20),
 					user_path(current_user),
@@ -20,16 +24,16 @@
 					'<br/>' + current_user.subscriptions.size.to_s  + '&nbsp;' + t("ui.following") +
 					'<br/>' + current_user.personal_conversation.users.size.to_s               + '&nbsp;' + t("ui.followers")
 					%>
-				</li>				
-				<li><%= link_to h(current_user.login), conversation_path(current_user.personal_conversation)	, 
-				:class => 'tip', 
-				:title => "personal convo for " + current_user.name %>
-				</li>				
+				</li>
 				<%else%>
 				<li><%= link_to t("ui.login"), new_user_session_path %></li>
 				<li><%= link_to t("ui.signup"), new_user_path %></li>
 				<%end%>
-				<li><%= link_to t("ui.search_messages"), msgsearch_path, :class => 'search_link' %></li>
+				<li>
+				  <form method="get" id="sform" action="/msgsearch" class="search_link">
+  					<input type="text" id="q" value="" name="q" size="15" />
+  				</form>
+				</li>
 				<li class="users"><%= link_to t('ui.users'), users_path %></li>
 				<li class="conversations"><%= link_to t('ui.conversations'), conversations_path %></li>
 

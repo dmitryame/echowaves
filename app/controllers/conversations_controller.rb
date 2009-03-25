@@ -267,11 +267,11 @@ class ConversationsController < ApplicationController
   end
 
   def toogle_bookmark
-    if @conversation.bookmark_list.include?(current_user.bookmark_tag)
-      @conversation.bookmark_list.remove(current_user.bookmark_tag)
+    if @conversation.tag_list_on(:bookmarks).include?(current_user.bookmark_tag)
+      @conversation.tag_list_on(:bookmarks).remove(current_user.bookmark_tag)
       @conversation.save
     else
-      current_user.tag(@conversation, :with => current_user.bookmark_tag, :on => :bookmarks)
+      current_user.tag(@conversation, :with => @conversation.bookmarks.collect{|tag| tag.name}.join(", ")  + ", " + current_user.bookmark_tag, :on => :bookmarks)
     end
   end
   

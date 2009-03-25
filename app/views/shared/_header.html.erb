@@ -31,7 +31,7 @@
 				<%end%>
 				<li>
 				  <form method="get" id="sform" action="/msgsearch" class="search_link">
-  					<input type="text" id="q" value="" name="q" size="15" />
+  					<input type="text" id="q" onfocus="if(document.getElementById('q').value == 'search messages') { document.getElementById('q').value = ''; }" value="search messages" name="q" size="15" style="color:#888;"/>
   				</form>
 				</li>
 				<li class="users"><%= link_to t('ui.users'), users_path %></li>

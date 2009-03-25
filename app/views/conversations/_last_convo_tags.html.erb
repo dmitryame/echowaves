@@ -1,7 +1,7 @@
 <div id="last_convo_tags" class="item2 page">
 	<h6><%=t("ui.recent_tags")-%>:</h6>
 	<div id="conversations_tags">
-		<%= render :partial => 'conversations/tag', :collection => @conversation.taggings[0..20] %>
+		<%= render :partial => 'conversations/tag', :collection => @conversation.tag_taggings[0..20] %>
 	</div>
 	<div class="clear"></div>
 	<div>

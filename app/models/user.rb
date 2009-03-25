@@ -183,6 +183,10 @@ class User < ActiveRecord::Base
     self.created_at.strftime '%b %d, %Y'
   end
   
+  def name_and_nick
+    (self.name.blank? or self.name == self.login) ? self.login : "#{self.name} (#{self.login})"
+  end
+  
   def bookmark_tag
     "star_#{self.id}"
   end

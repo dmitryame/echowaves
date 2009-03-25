@@ -1,0 +1,6 @@
+if @conversation.bookmark_list.include? current_user.bookmark_tag
+  page.replace_html "#{current_user.bookmark_tag}_#{@conversation.id}", "<img src=\"/images/icons/star.png\"/>"
+else
+  page.replace_html "#{current_user.bookmark_tag}_#{@conversation.id}", "<img src=\"/images/icons/star_empty.png\"/>"
+end
+  

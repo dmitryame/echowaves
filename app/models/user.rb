@@ -183,6 +183,10 @@ class User < ActiveRecord::Base
     self.created_at.strftime '%b %d, %Y'
   end
   
+  def bookmark_tag
+    "star_#{self.id}"
+  end
+  
   alias_method :unsafe_to_xml, :to_xml
   
   def to_xml(options = {})

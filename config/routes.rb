@@ -10,10 +10,11 @@ ActionController::Routing::Routes.draw do |map|
                                       :followed_convos => :get
                                     }
 
-  map.resources :conversations, :member => {
+  map.resources :conversations, :collection => {:bookmarked => :get}, :member => {
     :private_status     => :put,
     :readwrite_status   => :put,
     :report             => :post,
+    :toogle_bookmark    => :post,
     :follow             => :post,
     :follow_with_token  => :get,
     :unfollow           => :post,

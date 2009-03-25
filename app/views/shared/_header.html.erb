@@ -7,6 +7,7 @@
 		<div id="menu">
 			<ul>
 				<% if logged_in? %>
+				<li><%= link_to image_tag("/images/icons/star.png"), bookmarked_conversations_path %></li>
 				<li><%= link_to t("ui.logout"), logout_path %></li>
 				<li><%= link_to t("ui.edit_profile"), edit_user_path(current_user) %></li>
 				<li>

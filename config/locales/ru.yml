@@ -107,6 +107,7 @@ ru:
     signup_complete: "Регистрация успешно завершена! Чтобы продолжить -- логин."
     invite_users: "пригласить пользователей"
   conversations:
+    bookmarked_conversations: "bookmarked conversations"
     this_is_an_read_only_convo: "Только для чтения"
     login_or_register_to_participate: "Пожалуйста <a href=\"/login\">логин </a> чтобы поучаствовать.<br/>Нет аккаунта? <a href=\"/signup\">Подписаться Сдесь</a>, это бесплатно"
     recently_started_conversations: "недавно начатые разговоры"

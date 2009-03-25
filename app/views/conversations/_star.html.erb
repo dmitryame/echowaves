@@ -1,0 +1,3 @@
+<%if current_user%>
+	<%= link_to_remote( image_tag(conversation.bookmark_list.include?(current_user.bookmark_tag) ? "/images/icons/star.png" : "/images/icons/star_empty.png"), :url => {:controller => 'conversations', :action => 'toogle_bookmark', :id => conversation.id}, :html => {:id => "#{current_user.bookmark_tag}_#{conversation.id}"}) %>
+<% end %>

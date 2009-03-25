@@ -3,7 +3,7 @@ class ConversationsController < ApplicationController
   public :render_to_string # this is needed to make render_to_string public for message model to be able to use it
   
   before_filter :require_user, :except => [:index, :show, :auto_complete_for_conversation_name, :complete_name ]                                            
-  before_filter :find_conversation, :except => [:complete_name, :create, :spawn, :new, :index]
+  before_filter :find_conversation, :except => [:bookmarked, :complete_name, :create, :spawn, :new, :index]
   before_filter :check_read_access, :only => [:show]
   
   after_filter :store_location, :only => [:index, :new]
@@ -266,6 +266,25 @@ class ConversationsController < ApplicationController
     end 
   end
 
+  def toogle_bookmark
+    if @conversation.bookmark_list.include?(current_user.bookmark_tag)
+      @conversation.bookmark_list.remove(current_user.bookmark_tag)
+      @conversation.save
+    else
+      current_user.tag(@conversation, :with => current_user.bookmark_tag, :on => :bookmarks)
+    end
+  end
+  
+  def bookmarked
+    @conversations = Conversation.tagged_with(current_user.bookmark_tag, :on => :bookmarks).published.paginate :page => params[:page], :order => 'created_at DESC'
+
+    respond_to do |format|
+      format.html
+      format.atom
+      format.xml { render :xml => @conversations }
+    end
+  end
+  
   def add_tag
     current_user.tag(@conversation, :with => @conversation.tags.collect{|tag| tag.name}.join(", ")  + ", " + params[:tag][:name].to_s, :on => :tags)
   end

@@ -1,6 +1,6 @@
 class Conversation < ActiveRecord::Base
   
-  acts_as_taggable_on :tags
+  acts_as_taggable_on :tags, :bookmarks
   
   has_many :messages #these are the conversations messages
   belongs_to :parent_message, #parent message it was spawned from, in case it was created by spawning

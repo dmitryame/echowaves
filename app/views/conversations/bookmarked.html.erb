@@ -1,0 +1,41 @@
+<% content_for :header do %>
+	<%= tag(:link, :rel => "alternate",
+	:type => "application/atom+xml",
+	:href => conversations_url(:format => :atom)) %>
+<% end %>
+
+<div class="balloon">
+  <h1><%= image_tag("/images/icons/star.png") %> <%= t("conversations.bookmarked_conversations") %></h1>
+  <div>
+    <% form_tag convosearch_path, :method => :get do %>
+      <%= t("conversations.look_for_conversations") %>: <%= text_field_tag :q %>
+      <%= submit_tag t("ui.search"), :name => nil  %>
+    <% end %>
+  </div>
+<!--
+  <div>
+  	<%= t("conversations.look_for_conversations") %>:
+  	<%= text_field_with_auto_complete :conversation, :name, { :size => 35 }, :skip_style => true,
+  	:after_update_element => 
+  	"function(element,value) " +
+  	  "{ window.location=('/complete_conversation_name?id='+element.value);}"
+  	-%>
+  </div>
+-->
+</div>
+<div class="arrow">&nbsp;</div>
+
+<div class="item">
+  <div>
+    <%= link_to t('conversations.start_new_conversation'), new_conversation_path, :class => 'button' %>
+    <div class="clear"></div>
+	<%if params[:tag]%>
+		<h6><%=t("ui.tagged_with")%>:<br/><span class="tag"><%=params[:tag]%></span></h6>
+	<%end%>
+  </div>
+  <%= will_paginate @conversations %>
+  <ul class="list">
+	  <%= render @conversations %>
+  </ul>
+  <%= will_paginate @conversations %>
+</div>

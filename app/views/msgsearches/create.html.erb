@@ -19,7 +19,7 @@
 		  <%# FIXME: I don't know how to filter the messages in private convos with sphinx search without reindexing the database each time a convo troggles the private status %>
 		  <% if message.conversation.private? %>
 		    <% if logged_in? %>
-		      <% next if !message.conversation.followed_by?(current_user) && current_user != conversation.owner %>
+		      <% next if !message.conversation.followed_by?(current_user) && current_user != message.conversation.owner %>
 		    <% else %>
 		      <% next %>
 		    <%end%>

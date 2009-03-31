@@ -95,6 +95,8 @@ es-ES:
     make_public: "hacer publica"
     make_private: "hacer privada"
     last_message: "ultimo mensaje"
+    sound_on: "sound on"
+    sound_off: "sound off"
   users:
     recently_joined_users: "usuarios registrados recientemente"
     sign_up_as_new_user: "registrate como usuario"

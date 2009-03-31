@@ -95,6 +95,8 @@ ru:
     make_public: "сделать открытым"
     make_private: "сделать закрытым"
     last_message: "последнее сообщение"
+    sound_on: "звук вкл"
+    sound_off: "звук выкл"
   users:
     recently_joined_users: "недавно присоединившиеся пользователи"
     sign_up_as_new_user: "подписаться как новый пользователь"

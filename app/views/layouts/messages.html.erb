@@ -72,7 +72,9 @@
  			if(frame.headers['destination'].startsWith("CONVERSATION_CHANNEL_") ) {
  				message_output.insert({"bottom":frame.body});
  				Misc.pageScroll();
+				<% if session[:sound] == "on" %>
 				Sound.play('/sounds/sound39.mp3');
+				<% end %>
  			}	
 			// this is a notify conversation message
  			if(frame.headers['destination'].startsWith("CONVERSATION_NOTIFY_CHANNEL_") ) {

@@ -95,6 +95,8 @@ en:
     make_public: "make public"
     make_private: "make private"
     last_message: "last message"
+    sound_on: "sound on"
+    sound_off: "sound off"
   users:
     recently_joined_users: "recently joined users"
     sign_up_as_new_user: "sign up as new user"

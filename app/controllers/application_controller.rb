@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   
   before_filter :set_locale
+  before_filter :set_sound
   before_filter :set_timezone
 
   def set_locale   
@@ -17,6 +18,10 @@ class ApplicationController < ActionController::Base
 
   def set_timezone
     Time.zone = current_user.time_zone if current_user
+  end
+  
+  def set_sound
+    session[:sound] = params[:sound] if params[:sound]
   end
   
 private

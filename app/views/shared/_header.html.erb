@@ -1,9 +1,9 @@
 <div id="header" class="container">
-	<div class="span-6">
+	<div class="span-5" style="background:red;">
 		<h1><%= link_to image_tag("/images/echowaves.png", :height => 32), home_path %></h1>
 	</div>
 
-	<div class="span-18 last">
+	<div class="span-19 last">
 		<div id="menu">
 			<ul>
 				<li><%= link_to session[:sound]=="on" ? image_tag("/images/icons/sound-on.png") : image_tag("/images/icons/sound-off.png"), "?sound="+(session[:sound] == "on" ? "off" : "on") %></li>

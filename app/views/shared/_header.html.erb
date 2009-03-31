@@ -32,6 +32,7 @@
 				<li>
 				  <form method="get" id="sform" action="/msgsearch" class="search_link">
   					<input type="text" id="q" onfocus="if(document.getElementById('q').value == 'search messages') { document.getElementById('q').value = ''; }" value="search messages" name="q" size="15" style="color:#888;"/>
+					<%= image_submit_tag("/images/icons/magnifier.png")%>
   				</form>
 				</li>
 				<li class="users"><%= link_to t('ui.users'), users_path %></li>

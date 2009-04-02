@@ -30,8 +30,9 @@
 		  		<%if current_user%>
 		  		<%= link_to_remote t("ui.report"), 
 		  		:url => {:controller => 'messages', :action => 'report', :id => message.id}, 
-		  		:confirm => t("ui.reportconfirm"), :method => :get %>
+		  		:confirm => t("ui.reportconfirm"), :method => :get %> |
 		  		<%end%>
+		  		<%= link_to t("conversations.go_to_conversation"), conversation_path(message.conversation_id) %>
 		  	</div>
 		  	<div class="avatar"><%= link_to image_tag(message.user.gravatar_url, :border => 0, :wigth => 40, :height => 40, :class => "avatar"), user_path(message.user),
 		  	:class => 'tip', 

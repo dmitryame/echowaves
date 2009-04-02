@@ -109,6 +109,7 @@ es-ES:
     signup_complete: "Registro completado! Inicia sesión para continuar."
     invite_users: "Invitar usuarios"
   conversations:
+    go_to_conversation: "ir a conversacion"
     bookmarked_conversations: "conversaciones favoritas"
     this_is_an_read_only_convo: "Esta es una conversacion de solo lectura"
     login_or_register_to_participate: "Por favor <a href=\"/login\">entra</a> para participar.<br/>¿Aun no tienes una cuenta? <a href=\"/signup\">registrate ahora</a>, es gratis"

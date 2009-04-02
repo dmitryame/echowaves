@@ -2,7 +2,7 @@
 <div id="recently_visited" class="item2 page">
 	<h6><%= t("ui.recently_visited") %>:</h6>
 	<ul>		
-		<%= render :partial => 'users/conversation', :collection => current_user.recent_conversations %> 
+		<%= render :partial => 'users/conversation', :collection => ( current_user.recent_conversations - [@conversation] ) %> 
 	</ul>
 </div>
 <% end %>

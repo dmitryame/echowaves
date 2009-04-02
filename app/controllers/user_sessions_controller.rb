@@ -10,7 +10,7 @@ class UserSessionsController < ApplicationController
   def create
     @user_session = UserSession.new(params[:user_session])
     if @user_session.save
-      redirect_to user_path( @user_session.user )
+      redirect_back_or_default user_path( @user_session.user )
       flash[:notice] = t("users.logged_in_sucesfully")
     else
       note_failed_signin

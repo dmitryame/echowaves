@@ -6,7 +6,7 @@ class ConversationsController < ApplicationController
   before_filter :find_conversation, :except => [:bookmarked, :complete_name, :create, :spawn, :new, :index]
   before_filter :check_read_access, :only => [:show]
   
-  after_filter :store_location, :only => [:index, :new]
+  after_filter :store_location, :only => [:show, :new]
   
   auto_complete_with_scope_for 'published', :conversation, :name # multiple scopes can be chained like 'published.readonly'
   auto_complete_for :tag, :name

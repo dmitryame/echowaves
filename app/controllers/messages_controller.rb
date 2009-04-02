@@ -8,7 +8,6 @@ class MessagesController < ApplicationController
   before_filter :find_conversation, :except => [ :send_data, :auto_complete_for_tag_name]
   before_filter :check_write_access, :only => [ :create, :upload_attachment ]
   before_filter :check_read_access, :except => [ :index, :upload_attachment, :report ]
-  after_filter :store_location, :only => [:index]  
 
   auto_complete_for :tag, :name
   

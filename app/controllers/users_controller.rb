@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
 
   before_filter :require_user, :only => [ :edit, :update, :update_news, :change_password ]
-  after_filter :store_location, :only => [ :index, :show ]
   
   auto_complete_for :user, :name
 

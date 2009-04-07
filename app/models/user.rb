@@ -196,7 +196,7 @@ class User < ActiveRecord::Base
   def to_xml(options = {})
     excluded_by_default = [:crypted_password, :salt, :remember_token, :something,
                           :remember_token_expires_at, :activated_at, :perishable_token, :persistence_token,
-                          :email]
+                          :single_access_token, :email]
     options[:except] = (options[:except] ? options[:except] + excluded_by_default : excluded_by_default)   
     unsafe_to_xml(options)
   end

@@ -1,0 +1,7 @@
+<div class="notice">
+  <%= link_to_function("show access token", nil, :id => "show_token") do |page|
+    page.visual_effect(:toggle_blind, 'api_key')
+    page[:show_token].replace_html "show access token"
+  end %>
+  <span id="api_key" style="display:none;"><b><%= @user.single_access_token %></b></span>
+</div>

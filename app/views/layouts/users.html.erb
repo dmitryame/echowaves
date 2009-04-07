@@ -49,6 +49,10 @@
         <% end %>
         
 		    <div id="col2" class="span-6">
+          <% if logged_in? && @user && @current_user == @user %>
+            <%= render :partial => 'users/api_key' %>
+          <% end %>
+          
 		      <%= render :partial => 'users/recently_visited' %>
 		      <%= render :partial => 'users/news' %>
 		    </div>

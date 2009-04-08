@@ -38,7 +38,7 @@ class ConversationsController < ApplicationController
 
     respond_to do |format|
       format.html { render :layout => 'messages' }
-      format.xml  { render :xml => @conversation }
+      format.xml  { render :xml => {:conversation => @conversation, :messages => @messages} }
     end
   end
 

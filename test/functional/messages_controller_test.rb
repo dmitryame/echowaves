@@ -13,7 +13,7 @@ class MessagesControllerTest < ActionController::TestCase
   context "index action" do
     should "redirect to the conversation_path" do
       get :index, :conversation_id => @conversation.id
-      assert_redirected_to conversation_path( @conversation.id )
+      assert_redirected_to "http://test.host/conversations/#{@conversation.to_param}"
     end
   end # context index action
 

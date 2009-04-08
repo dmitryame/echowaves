@@ -201,4 +201,8 @@ class User < ActiveRecord::Base
     unsafe_to_xml(options)
   end
   
+  def to_param
+    "#{id}-#{login.parameterize}"
+  end
+  
 end

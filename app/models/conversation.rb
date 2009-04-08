@@ -190,6 +190,10 @@ class Conversation < ActiveRecord::Base
     self.created_at.strftime '%m/%d/%Y %I:%M%p'
   end
   
+  def to_param
+    "#{id}-#{name.parameterize}"
+  end
+  
 private
 
   def escaped(value)

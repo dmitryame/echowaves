@@ -104,7 +104,7 @@ class Message < ActiveRecord::Base
   end
 
   def send_stomp_message(context)
-    newmessagescript = context.render_to_string(:partial => 'messages/message', :object => self)
+    newmessagescript = context.render_to_string(:partial => 'messages/message.html', :object => self)
     s = Stomp::Client.new
     s.send("CONVERSATION_CHANNEL_" + self.conversation.id.to_s, newmessagescript)
     s.close

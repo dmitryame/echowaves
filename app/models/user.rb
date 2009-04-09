@@ -13,7 +13,10 @@ class User < ActiveRecord::Base
   acts_as_tagger
   
   has_many :messages
-
+  
+  has_many :client_applications
+  has_many :tokens, :class_name=>"OauthToken", :order=>"authorized_at desc", :include=>[:client_application]
+    
   belongs_to :personal_conversation, #personal users conversation
     :class_name => "Conversation", 
     :foreign_key => "personal_conversation_id"

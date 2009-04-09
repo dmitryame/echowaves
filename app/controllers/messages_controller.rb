@@ -51,7 +51,7 @@ class MessagesController < ApplicationController
     respond_to do |format|
       if current_user.messages << @message
         format.html { redirect_to(conversation_path(@conversation)) }
-        format.xml { render :xml => @message, :status => :created, :location => @message }
+        format.xml { render :xml => @message, :status => :created, :location => conversation_message_url(@message.conversation_id, @message) }
         format.js {
           # send a stomp message for everyone else to pick it up
           @message.send_stomp_message(self)

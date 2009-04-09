@@ -30,7 +30,13 @@ ActionController::Routing::Routes.draw do |map|
                                         :except => [:edit, :update, :destroy]
     end
   
-  
+  # OAuth routes
+  map.resources :oauth_clients
+  map.authorize '/oauth/authorize',:controller=>'oauth',:action=>'authorize'
+  map.request_token '/oauth/request_token',:controller=>'oauth',:action=>'request_token'
+  map.access_token '/oauth/access_token',:controller=>'oauth',:action=>'access_token'
+  map.test_request '/oauth/test_request',:controller=>'oauth',:action=>'test_request'
+            
   map.home '/', :controller => "home", :action => "index"
   map.login '/login', :controller => 'user_sessions', :action => 'new'
   map.logout '/logout', :controller => 'user_sessions', :action => 'destroy'

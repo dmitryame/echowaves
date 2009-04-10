@@ -1,5 +1,5 @@
 class OauthClientsController < ApplicationController
-  before_filter :login_required
+  before_filter :require_user
   
   def index
     @client_applications = current_user.client_applications

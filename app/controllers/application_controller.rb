@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   
   filter_parameter_logging "password"
 
-  protect_from_forgery
+  # protect_from_forgery
   
   before_filter :set_locale
   before_filter :set_sound
@@ -49,12 +49,28 @@ private
     end
   end
   
+  alias_method :login_required, :require_user
+  
   def require_no_user
     if current_user
       store_location
       flash[:notice] = t("notices.you_must_be_logged_out")
       redirect_to "/"
       return false
+    end
+  end
+  
+  def verify_oauth_signature
+    begin
+      valid = ClientApplication.verify_request(request) do |request|
+        self.current_token = ClientApplication.find_token(request.token)
+        logger.info "self=#{self.class.to_s}"
+        logger.info "token=#{self.current_token}"
+        [(current_token.nil? ? nil : current_token.secret), (current_client_application.nil? ? nil : current_client_application.secret)]
+      end
+      valid
+    rescue
+      false
     end
   end
   

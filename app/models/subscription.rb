@@ -17,7 +17,7 @@ class Subscription < ActiveRecord::Base
     self.update_attributes(:last_message_id => self.conversation.messages.last.id) unless self.conversation.messages.blank?
   end
   
-  def activate
+  def activate!
     self.mark_read
     self.activated_at = Time.now
     self.save

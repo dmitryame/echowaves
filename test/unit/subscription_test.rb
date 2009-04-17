@@ -49,13 +49,13 @@ class SubscriptionTest < ActiveSupport::TestCase
 
     should "update activated_at timestamp" do
       assert_nil @subscription.activated_at
-      @subscription.activate
+      @subscription.activate!
       assert_not_nil @subscription.activated_at
     end
 
     should "update last_message_id" do
       assert_equal 0, @subscription.last_message_id
-      @subscription.activate
+      @subscription.activate!
       assert_equal @msg1.id, @subscription.last_message_id
     end
   end

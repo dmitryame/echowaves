@@ -109,7 +109,7 @@ class User < ActiveRecord::Base
 
   def update_last_viewed_subscription(conversation)
     if sub = self.subscriptions.find_by_conversation_id(conversation.id)
-      sub.activate
+      sub.activate!
     end
   end
 

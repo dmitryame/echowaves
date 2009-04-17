@@ -49,9 +49,7 @@ class User < ActiveRecord::Base
   
   validates_uniqueness_of   :personal_conversation_id, :if => Proc.new { |u| !u.personal_conversation_id.blank? } 
 
-  def validate
-    self.errors.add(:something, "This field must be empty") unless self.something == ""
-  end
+  validates_format_of       :something, :with => /^$/ # anti spam, honeypot field must be blank
   
   named_scope :active, :conditions => "activated_at is not null"
   

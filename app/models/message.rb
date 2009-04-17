@@ -50,10 +50,8 @@ class Message < ActiveRecord::Base
   
   validates_presence_of :user_id, :conversation_id, :message
 
-  def validate
-    self.errors.add(:something, "This field must be empty") unless self.something == ""
-  end
-  
+  validates_format_of       :something, :with => /^$/ # anti spam, honeypot field must be blank
+    
   def published?
     self.abuse_report.nil?
   end

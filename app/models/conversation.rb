@@ -2,13 +2,13 @@ class Conversation < ActiveRecord::Base
   
   acts_as_taggable_on :tags, :bookmarks
   
-  has_many :messages #these are the conversations messages
-  belongs_to :parent_message, #parent message it was spawned from, in case it was created by spawning
+  has_many :messages # these are the conversations messages
+  belongs_to :parent_message, # parent message it was spawned from, in case it was created by spawning
     :class_name => "Message",
     :foreign_key => "parent_message_id"
 
   has_many :subscriptions
-  has_many :users, :through => :subscriptions, :uniq => true,:order => "login ASC" #followers,  subscribers
+  has_many :users, :through => :subscriptions, :uniq => true,:order => "login ASC" # followers,  subscribers
   has_many :recent_followers, 
     :through => :subscriptions, 
     :source => :user, 
@@ -16,8 +16,8 @@ class Conversation < ActiveRecord::Base
     :order => "subscriptions.created_at DESC",
     :limit => 10
 
-  has_many :abuse_reports #all the abuse report that were filed agains this convi
-  belongs_to :abuse_report #the abuse report record that made this convo disabled
+  has_many :abuse_reports # all the abuse report that were filed against this convo
+  belongs_to :abuse_report # the abuse report record that made this convo disabled
 
   belongs_to :user, :counter_cache => true
   
@@ -28,10 +28,8 @@ class Conversation < ActiveRecord::Base
 
   validates_presence_of     :description
   validates_length_of       :description, :maximum => 10000
-  
-  def validate
-    self.errors.add(:something, "This field must be empty") unless self.something == ""
-  end
+
+  validates_format_of       :something, :with => /^$/ # anti spam, honeypot field must be blank
 
   named_scope :published, :conditions => { :abuse_report_id => nil }
   named_scope :non_private, :conditions => { :private => false }

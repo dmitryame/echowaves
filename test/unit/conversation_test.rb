@@ -94,6 +94,8 @@ class ConversationTest < ActiveSupport::TestCase
     should "not be valid if honeypot field is not blank" do
       @conversation.something = "spam"
       assert !@conversation.valid?
+      @conversation.something = " "
+      assert !@conversation.valid?
     end
   end
   

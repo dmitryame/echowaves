@@ -29,7 +29,7 @@ protected
   def setup_email(user)
     default_url_options[:host] = HOST[7..-1]
     @recipients  = "#{user.email}"
-    @bcc         = "dmitry@rootlocusinc.com" #email monitoring log, do not erase
+    @bcc         = "dmitry@rootlocusinc.com" # email monitoring log, do not erase
     @from        = "support@echowaves.com"
     @subject     = "[echowaves.com] "
     @sent_on     = Time.now

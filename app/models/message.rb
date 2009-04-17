@@ -1,5 +1,7 @@
 class Message < ActiveRecord::Base
   
+  attr_protected :system_message #add more attributes as needed to protect from mass assignment
+  
   auto_html_for(:message) do
     html_escape
     gist
@@ -12,14 +14,12 @@ class Message < ActiveRecord::Base
     
   belongs_to :conversation, :counter_cache => true 
   belongs_to :user, :counter_cache => true
-  # FIXME: should this really have a double association to the same model?
-  has_many :abuse_reports
-  belongs_to :abuse_report
+  belongs_to :abuse_report # FIXME: should this really have a double association to the same model?
   
+  has_many :abuse_reports # FIXME: should this really have a double association to the same model?
   has_many :conversations, # these are the conversations spawned from the message
            :foreign_key => "parent_message_id"
 
-  attr_protected :system_message #add more attributes as needed to protect from mass assignment
 
   has_attached_file :attachment,
     :styles => {
@@ -47,10 +47,8 @@ class Message < ActiveRecord::Base
           
   validates_attachment_size :attachment, :less_than => 5.megabytes
   validates_attachment_content_type :attachment, :content_type => [ 'application/msword', 'application/pdf', 'application/x-pdf', 'application/x-download', 'application/rtf', 'image/gif', 'image/jpeg', 'image/png', 'image/tiff', 'image/rgb', 'application/zip', 'application/x-gzip' ]
-  
   validates_presence_of :user_id, :conversation_id, :message
-
-  validates_format_of       :something, :with => /^$/ # anti spam, honeypot field must be blank
+  validates_format_of :something, :with => /^$/ # anti spam, honeypot field must be blank
     
   def published?
     self.abuse_report.nil?

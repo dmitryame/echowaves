@@ -86,6 +86,10 @@ ActionMailer::Base.smtp_settings = {
   :domain => "rmg-ny.com"
 }
 
+# emails sent from echowaves will use these parameters
+BCC         = "dmitry@rootlocusinc.com" # email monitoring log
+FROM        = "support@echowaves.com"
+SUBJECT     = "[echowaves.com] "
 
 ORBITED_HOST = 'localhost'
 ORBITED_PORT = '8500'

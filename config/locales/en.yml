@@ -1,4 +1,7 @@
 en:
+  ie6update:
+    msg: 'Internet Explorer is missing updates required to view this site. Click here to update... '
+    url: 'http://www.microsoft.com/windows/internet-explorer/default.aspx'
   home:
     index:
       headline1: "EchoWaves.com is an opensource group chat social network."

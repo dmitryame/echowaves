@@ -1,4 +1,7 @@
 es-ES:
+  ie6update:
+    msg: 'Faltan actualizaciones importantes de Internet Explorer necesarias para ver este sitio. Haga clic aquí para actualizar... '
+    url: 'http://www.microsoft.com/spain/windows/internet-explorer/'
   home:
     index:
       headline1: "Echowaves.com es un programa de chat y red social"

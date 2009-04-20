@@ -4,6 +4,7 @@ tmp/**/*
 .DS_Store
 *~
 config/database.yml
+config/deploy.rb
 config/*.sphinx.conf
 db/*.sqlite3
 db/*.db

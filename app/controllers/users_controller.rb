@@ -75,6 +75,9 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     @user.login = params[:user][:login]
     @user.name = @user.login if params[:user][:name].blank?
+    @user.email              = params[:user][:email] 
+    @user.email_confirmation = params[:user][:email_confirmation] 
+
     success = @user && @user.save
     if success && @user.errors.empty?
       if(SHOW_ACTIVATION_LINK)

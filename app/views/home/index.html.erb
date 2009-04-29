@@ -3,7 +3,13 @@
 </div>
 
 <div id="signup_headline">
-  <h2><%= link_to t("ui.signup"), new_user_path, :class => "button" -%> <%= t("home.index.p2") %></h2>
+	<h2>
+		<%= link_to t("ui.signup"), new_user_path, :class => "button" -%>
+		<%= t("home.index.p2") -%>
+	</h2>
+	<h2>
+		<%= link_to t('conversations.start_new_conversation'), new_conversation_path, :class => 'button' -%>
+	</h2>
 </div>
 
 <div id="main_description">

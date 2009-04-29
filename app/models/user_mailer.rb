@@ -24,10 +24,10 @@ class UserMailer < ActionMailer::Base
     body        :follow_conversation_url => follow_with_token_conversation_url(convo_id, :token => token), :convo_name => convo_name
   end
 
-  def public_invite_instructions(user, convo_id, convo_name, token)
+  def public_invite_instructions(user, convo_id, convo_name)
     setup_email(user)
     @subject    += "You're invited to participate in a conversation"
-    body        :follow_conversation_url => follow_with_token_conversation_url(convo_id, :token => token), :convo_name => convo_name
+    body        :follow_conversation_url => follow_with_token_conversation_url(convo_id, :token => nil), :convo_name => convo_name
   end
   
 protected

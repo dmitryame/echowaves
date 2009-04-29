@@ -23,6 +23,12 @@ class UserMailer < ActionMailer::Base
     @subject    += "You're invited to participate in a private conversation"
     body        :follow_conversation_url => follow_with_token_conversation_url(convo_id, :token => token), :convo_name => convo_name
   end
+
+  def public_invite_instructions(user, convo_id, convo_name, token)
+    setup_email(user)
+    @subject    += "You're invited to participate in a conversation"
+    body        :follow_conversation_url => follow_with_token_conversation_url(convo_id, :token => token), :convo_name => convo_name
+  end
   
 protected
   

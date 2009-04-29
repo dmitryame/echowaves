@@ -82,6 +82,12 @@ class User < ActiveRecord::Base
     reset_perishable_token!
     UserMailer.deliver_private_invite_instructions(self, invite.conversation_id, invite.conversation.name, invite.token)
   end
+
+  def deliver_public_invite_instructions!(invite)
+    reset_perishable_token!
+    UserMailer.deliver_public_invite_instructions(self, invite.conversation_id, invite.conversation.name, invite.token)
+  end
+
   
   def activate!
     self.activated_at = Time.now.utc

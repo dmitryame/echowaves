@@ -250,8 +250,10 @@ class ConversationsController < ApplicationController
     @invite.save
     
     if @conversation.private?
+      # private convo only sends invite via email
       @user.deliver_private_invite_instructions!(@invite)
     else
+      @user.deliver_public_invite_instructions!(@invite)
       # now let's create a system message and send it to the convo channel
       # TODO: how to translate this for the current user?
       msg = " invites you to follow a convo: <a href='/conversations/#{params[:id]}'>#{@invite.conversation.name}</a>"

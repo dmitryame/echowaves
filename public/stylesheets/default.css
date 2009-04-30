@@ -202,7 +202,7 @@ margin:0 auto;background:#151110;
 .message .systemusername {position:absolute;top:3px;right:3px;}
 .message .messagedate {position:absolute;top:3px;right:200px;}
 .message .messagelinks {position:absolute;top:3px;right:20px;}
-.message .avatar {position:absolute;top:8px;left:3px;}
+.message .avatar {position:absolute;top:3px;left:3px;}
 .message .systemavatar {position:absolute;top:20px;right:3px;}
 .messagetext {margin-top:15px;}
 .container p {margin-bottom:3px;margin-left:0px;padding-left:3px;}

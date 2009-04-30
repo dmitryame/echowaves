@@ -3,6 +3,7 @@ log/*.pid
 tmp/**/*
 .DS_Store
 *~
+config/environment.rb
 config/database.yml
 config/deploy.rb
 config/*.sphinx.conf

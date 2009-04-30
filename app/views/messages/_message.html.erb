@@ -1,33 +1,48 @@
-<div class="message" id="<%=dom_id(message)%>">
-	<div class="username"><%=link_to h(message.user.login), conversation_path(message.user.personal_conversation), :class => 'tip', :title =>  "personal convo for #{message.user.login}" %></div>
-	<div class="messagedate date quiet small"><%= link_to message.time_pretty, conversation_message_path(message.conversation, message) %></div>
-	
-	<%if message.system_message == false%>
-	<div class="messagelinks">
-		<% if logged_in? %>
-		<%= link_to_remote t("ui.report"), :url => report_conversation_message_path(message.conversation, message), :confirm => t("ui.reportconfirm") %>
-		<%= link_to t("ui.spawn"), spawn_new_conversation_path(:message_id => message.id), :confirm => t("ui.spawnconfirm"), :method => :get %> <% #has to be the get in order for auth token to work %>
-		<% end %>
-	</div>
-	<div class="avatar">
-		<%= link_to image_tag(message.user.gravatar_url, :border => 0, :width => 20, :height => 20, :alt => message.user.login), user_path(message.user),
+<%if message.system_message == false%>
+	<div class="message" id="<%=dom_id(message)%>">
+	  	<div class="messagelinks quiet small">
+			<% if logged_in? %>
+				<%= link_to_remote t("ui.report"), :url => report_conversation_message_path(message.conversation, message), :confirm => t("ui.reportconfirm") %>
+	      <%= link_to t("ui.spawn"), spawn_new_conversation_path(:message_id => message.id), :confirm => t("ui.spawnconfirm"), :method => :get %> <% #has to be the get in order for auth token to work %>
+			<% end %>
+		</div>
+	  <div class="avatar"><%= link_to image_tag(message.user.gravatar_url, :border => 0, :width => 30, :height => 30, :class => "avatar", :alt => message.user.login), user_path(message.user),
 		:class => 'tip', 
 		:title =>  t("users.since") + message.user.date  + 
 		'<br/>' + message.user.conversations.size.to_s  + '&nbsp;' + t('ui.convos') +
 		'<br/>' + message.user.messages.size.to_s       + '&nbsp;' + t('ui.messages') +
 		'<br/>' + message.user.subscriptions.size.to_s  + '&nbsp;' + t("ui.following") +
 		'<br/>' + message.user.followers.size.to_s      + '&nbsp;' + t("ui.followers")
-		%>
+	   %></div>
+		<div class="messagetext">
+	    
+	    <span class="date quiet small">
+				<%= link_to message.time_pretty,
+			 conversation_message_path(message.conversation, message) %>
+			</span>
+			<span class="username"><%=link_to h(message.user.login), conversation_path(message.user.personal_conversation), :class => 'tip', :title =>  "personal convo for #{message.user.login}" %></span>
+			<% if message.has_attachment? %>
+	      <%= display_attachment(message) %>
+			<% end %>
+			<%= mark_up message %>
+			
+		</div>
+		<div class="clear"></div>
 	</div>
-	<%end%>
-	<div class="messagetext">
-		<% if message.has_attachment? %>
-		<%= display_attachment(message) %>
-		<% end %>
-		<%= mark_up message %>
-	</div>
-	<div class="clear"></div>
-</div>
+<%else #system_message%>
+	<div class="message system" id="<%=dom_id(message)%>">
+	  <div class="avatar"><%= image_tag "/images/icon.png", :width => 30 %></div>
+		<div class="messagetext">
+	    <span class="username"><%=link_to h(message.user.login), conversation_path(message.user.personal_conversation), :class => 'tip', :title =>  "personal convo for #{message.user.login}" %></span>
+			<% if message.has_attachment? %>
+	      <%= display_attachment(message) %>
+			<% end %>
+			<%= mark_up message %>
+			<span class="date quiet small"><%= link_to message.time_pretty, conversation_message_path(message.conversation, message) %></span>
+		</div>
+		<div class="clear"></div>
+	</div>	
+<%end%>
 <%if message.id == @last_message_id %>
 	<div class="last-read"><%= t("messages.new_messages") %></div>
 <%end%>

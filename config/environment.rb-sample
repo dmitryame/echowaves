@@ -25,7 +25,7 @@ Rails::Initializer.run do |config|
 
   config.gem "gravtastic"
   config.gem "stomp"
-  config.gem "oauth", :version => '>= 0.2.1'
+  config.gem "oauth", :version => '0.3.2'
   
   # Only load the plugins named here, in the order given. By default, all plugins 
   # in vendor/plugins are loaded in alphabetical order.

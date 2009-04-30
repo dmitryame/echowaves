@@ -197,19 +197,13 @@ margin:0 auto;background:#151110;
 .balloon2 h1 {margin:0;}
 /* messages */
 #messages {background:#fff;}
-.message {padding:5px 0px 0 0px;position:relative;border-bottom:1px dashed #ccc;overflow:hidden;}
-.message .username {position:absolute;top:3px;left:90px;}
-.message .systemusername {position:absolute;top:3px;right:3px;}
-.message .messagedate {position:absolute;top:3px;left:5px;}
-.message .messagelinks {position:absolute;top:3px;right:20px;}
-.message .avatar {position:absolute;top:1px;left:60px;}
-.message .systemavatar {position:absolute;top:20px;right:3px;}
-.messagetext {margin-top:15px;}
-.container p {margin-bottom:3px;margin-left:0px;padding-left:3px;}
-.message .date {display:block;}
+.message {padding:8px 8px 0 8px;position:relative;border-bottom:1px dashed #ccc;overflow:hidden;}
+.message .messagelinks {position:absolute;top:0;right:10px;}
+.message .avatar {float:left;}
+.messagetext {padding-left:40px;}
+.container p {margin-bottom:10px;}
 .message .date a:link, .message .date a:visited {color:#bbb;}
-.system {padding:10px 15px 0 20px;}
-.system .date {margin-bottom:10px;}
+.system {padding:8px 8px 0 8px;}
 
 /* messages form */
 #messagesform {
@@ -387,7 +381,7 @@ font-weight:bold;
   margin-top:2px;
 }
 .groupdate {
-  padding: 15px 0 0 0;
+  padding: 16px 0 0 0;
   color:#333;
   font-weight:bold;
   font-size:130%;
@@ -397,6 +391,6 @@ font-weight:bold;
 .groupdate span {
   border-top:1px solid #a7a7a7;
   display:block;
-  padding:0 0 0 0px;
+  padding:10px 0 0 10px;
 }
 .last-read {color:#fff;background:#f00 url("/images/icons/little-down-arrow.gif") right no-repeat;display:inline;font-weight:bold;padding:0 12px 0 5px;}

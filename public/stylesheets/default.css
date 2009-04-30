@@ -200,6 +200,7 @@ margin:0 auto;background:#151110;
 .message {padding:8px 8px 0 8px;position:relative;border-bottom:1px dashed #ccc;overflow:hidden;}
 .message .messagelinks {position:absolute;top:0;right:10px;}
 .message .messagelinks a:link, .message .messagelinks a:visited {color:#bbb;}
+.message .username a:link, .message .username a:visited {color:#bbb;}
 
 .message .avatar {float:left;}
 .messagetext {padding-left:40px;}

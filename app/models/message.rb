@@ -117,4 +117,8 @@ class Message < ActiveRecord::Base
     self.created_at.strftime '%b %d, %Y %I:%M%p'
   end
   
+  def time_pretty
+    self.created_at.strftime '%I:%M%p'
+  end
+  
 end

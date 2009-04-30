@@ -197,15 +197,13 @@ margin:0 auto;background:#151110;
 .balloon2 h1 {margin:0;}
 /* messages */
 #messages {background:#fff;}
-.message {padding:15px 20px 0 20px;position:relative;border-bottom:1px dashed #ccc;overflow:hidden;}
-.message .messagelinks {position:absolute;top:0;right:20px;}
+.message {padding:8px 8px 0 8px;position:relative;border-bottom:1px dashed #ccc;overflow:hidden;}
+.message .messagelinks {position:absolute;top:0;right:10px;}
 .message .avatar {float:left;}
-.messagetext {padding-left:60px;}
+.messagetext {padding-left:40px;}
 .container p {margin-bottom:10px;}
-.message .date {display:block;}
 .message .date a:link, .message .date a:visited {color:#bbb;}
-.system {padding:10px 15px 0 20px;}
-.system .date {margin-bottom:10px;}
+.system {padding:8px 8px 0 8px;}
 
 /* messages form */
 #messagesform {

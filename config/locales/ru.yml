@@ -69,6 +69,7 @@ ru:
     update: "обновить"
     recent_followers: "Недавние последователи"
     recent_tags: "Недавние пометки"
+    receive_email_notifications: "Receive email notifications"
     followers: "Последователи"
     following: "Следую"
     convos: "Разговоры"

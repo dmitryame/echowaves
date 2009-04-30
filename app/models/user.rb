@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
-  attr_accessible :name, :password, :password_confirmation, :time_zone, :something
+  attr_accessible :name, :password, :password_confirmation, :time_zone, :something, :receive_email_notifications
   attr_accessor :email_confirmation
     
   is_gravtastic :size => 40, :default => "identicon" # "monsterid" or "identicon", or "wavatar"
@@ -84,6 +84,7 @@ class User < ActiveRecord::Base
   end
 
   def deliver_public_invite_instructions!(invite)
+    return unless self.receive_email_notifications
     UserMailer.deliver_public_invite_instructions(self, invite.conversation_id, invite.conversation.name)
   end
 
@@ -191,7 +192,7 @@ class User < ActiveRecord::Base
   def to_xml(options = {})
     excluded_by_default = [:crypted_password, :salt, :remember_token, :something,
                           :remember_token_expires_at, :activated_at, :perishable_token, :persistence_token,
-                          :single_access_token, :email]
+                          :single_access_token, :email, :receive_email_notifications]
     options[:except] = (options[:except] ? options[:except] + excluded_by_default : excluded_by_default)   
     unsafe_to_xml(options)
   end

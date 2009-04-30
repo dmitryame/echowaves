@@ -69,6 +69,7 @@ es-ES:
     update: "actualizar"
     recent_followers: "Seguidores recientes"
     recent_tags: "Recent tags"
+    receive_email_notifications: "Recibir notificaciones por email"
     followers: "Seguidores"
     following: "Siguiendo"
     convos: "Convos"

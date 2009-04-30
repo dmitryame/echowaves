@@ -1,6 +1,6 @@
 <div class="message" id="<%=dom_id(message)%>">
 	<div class="username"><%=link_to h(message.user.login), conversation_path(message.user.personal_conversation), :class => 'tip', :title =>  "personal convo for #{message.user.login}" %></div>
-	<div class="messagedate date quiet small"><%= link_to message.date_pretty_long, conversation_message_path(message.conversation, message) %></div>
+	<div class="messagedate date quiet small"><%= link_to message.time_pretty, conversation_message_path(message.conversation, message) %></div>
 	
 	<%if message.system_message == false%>
 	<div class="messagelinks">

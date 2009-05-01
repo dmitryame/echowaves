@@ -3,9 +3,14 @@
 
 	<div class="description"><%= conversation.escaped_description %></div>
 	
+<!--
+  # removed tag stuff
+  #------------------------------------------------------------------------------
 	<% conversation.tags.each do |tag| %>
 		<span class="tag"><%= link_to tag, conversations_path(:tag => tag.to_s) %></span>
 	<% end %>
+-->
+
 	<div class="clear"></div>
 	
 	<span class="quiet small">

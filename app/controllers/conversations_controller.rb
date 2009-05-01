@@ -9,7 +9,7 @@ class ConversationsController < ApplicationController
   after_filter :store_location, :only => [:show, :new]
   
   auto_complete_with_scope_for 'published', :conversation, :name # multiple scopes can be chained like 'published.readonly'
-  auto_complete_for :tag, :name
+  # auto_complete_for :tag, :name
 
   def index
     if params[:tag] != nil
@@ -287,14 +287,14 @@ class ConversationsController < ApplicationController
     end
   end
   
-  def add_tag
-    current_user.tag(@conversation, :with => @conversation.tags.collect{|tag| tag.name}.join(", ")  + ", " + params[:tag][:name].to_s, :on => :tags)
-  end
-  
-  def remove_tag
-    @conversation.tag_list.remove(params[:tag])
-    @conversation.save    
-  end
+  # def add_tag
+  #   current_user.tag(@conversation, :with => @conversation.tags.collect{|tag| tag.name}.join(", ")  + ", " + params[:tag][:name].to_s, :on => :tags)
+  # end
+  # 
+  # def remove_tag
+  #   @conversation.tag_list.remove(params[:tag])
+  #   @conversation.save    
+  # end
 
   # TODO: remove this thing
   def complete_name

@@ -188,7 +188,7 @@
         
       	<ul id="convo_tabs" class="subsection_tabs span-10">  
       		<li class="tab"><a href="#dashboard">dashboard</a></li>  
-      		<li class="tab"><a href="#tags">tags</a></li>
+      		<!-- <li class="tab"><a href="#tags">tags</a></li> -->
       		<li class="tab"><a href="#followers">followers</a></li>
       	</ul>
       		
@@ -206,13 +206,17 @@
             </div>
 		        
 		        <%= render :partial => 'conversations/recent_followers' %>
-		        <%= render :partial => 'conversations/last_convo_tags' %>
+		        <%# render :partial => 'conversations/last_convo_tags' %>
 		      </div>
 		    </div>
 		    
-		    <div id="tags"  class="span-10">
-		      <%= render :partial => 'conversations/convo_tags' %>
-        </div>
+		    <!--
+		      # removed tags stuff
+		      #------------------------------------------------------------------------------
+		      <div id="tags"  class="span-10">
+		        <%= render :partial => 'conversations/convo_tags' %>
+          </div>
+        -->
         
         <div id="followers"  class="span-10">
 		      <%= render :partial => 'conversations/users_in_conversation' %>

@@ -5,8 +5,8 @@
         :rel => "alternate" %> <%= @user.name_and_nick %> profile</h1>
   <br/>
   <div class="avatar">
-    <%= link_to image_tag(@user.gravatar_url, :border => 0, :width => 40,
-                          :height => 40, :class => "avatar", :alt => @user.name_and_nick),
+    <%= link_to image_tag(@user.gravatar_url, :border => 0, :width => 60,
+                          :height => 60, :class => "avatar", :alt => @user.name_and_nick),
                           user_path(@user) %>		
   </div>
   

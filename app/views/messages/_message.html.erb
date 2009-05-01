@@ -3,12 +3,8 @@
 	  	
 	  <div class="avatar"><%= link_to image_tag(message.user.gravatar_url, :border => 0, :width => 30, :height => 30, :class => "avatar", :alt => message.user.login), user_path(message.user),
 		:class => 'tip', 
-		:title =>  t("users.since") + message.user.date  + 
-		'<br/>' + message.user.conversations.size.to_s  + '&nbsp;' + t('ui.convos') +
-		'<br/>' + message.user.messages.size.to_s       + '&nbsp;' + t('ui.messages') +
-		'<br/>' + message.user.subscriptions.size.to_s  + '&nbsp;' + t("ui.following") +
-		'<br/>' + message.user.followers.size.to_s      + '&nbsp;' + t("ui.followers")
-	   %></div>
+		:title =>  user_popup(message.user) %>
+		</div>
 		<div class="messagetext">
 	    <% if message.has_attachment? %>
 	      <%= display_attachment(message) %>

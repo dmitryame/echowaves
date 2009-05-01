@@ -19,11 +19,7 @@
 					<%= link_to image_tag(current_user.gravatar_url, :border => 0, :alt => current_user.login, :width => 20, :height => 20),
 					user_path(current_user),
 					:class => 'tip', 
-					:title =>  t("users.since") + current_user.date  + 
-					'<br/>' + current_user.conversations.size.to_s  + '&nbsp;' + t('ui.convos') +
-					'<br/>' + current_user.messages.size.to_s       + '&nbsp;' + t('ui.messages') +
-					'<br/>' + current_user.subscriptions.size.to_s  + '&nbsp;' + t("ui.following") +
-					'<br/>' + current_user.personal_conversation.users.size.to_s               + '&nbsp;' + t("ui.followers")
+					:title => user_popup(current_user)
 					%>
 				</li>
 				<%else%>

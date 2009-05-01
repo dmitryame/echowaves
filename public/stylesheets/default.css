@@ -187,8 +187,8 @@ margin:0 auto;background:#151110;
 }
 .balloon h1 {margin:0;}
 .balloon .avatar {float:left;}
-.balloon .username {padding-left:50px;display:block;font-size:130%;}
-.balloon .userinfo {padding-left:50px;display:block;color:#3366cc;}
+.balloon .username {padding-left:70px;display:block;font-size:130%;}
+.balloon .userinfo {padding-left:70px;display:block;color:#3366cc;}
 .page {
   padding:5px;
   background:#fcfcfc;

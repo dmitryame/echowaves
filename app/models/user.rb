@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   attr_accessible :name, :password, :password_confirmation, :time_zone, :something, :receive_email_notifications
   attr_accessor :email_confirmation
     
-  is_gravtastic :size => 40, :default => "identicon" # "monsterid" or "identicon", or "wavatar"
+  is_gravtastic :size => 60, :default => "identicon" # "monsterid" or "identicon", or "wavatar"
 
   acts_as_tagger
   acts_as_authentic do |c|

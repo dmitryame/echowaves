@@ -20,6 +20,7 @@ html, body {margin:0;background:#d0e4eb;}
 .container .quiet {color:#999;}
 #flash_messages .notice {background:#68bd53;padding:4px 10px;border:none;margin:0 0 10px 0;color:#fff;font-weight:strong;}
 #flash_messages .error {background:#cc3333;padding:4px 10px;border:none;margin:0 0 10px 0;color:#fff;font-weight:strong;}
+#connection_stat_data {position:fixed;bottom:5px;right:10px;width:10px;height:10px;border:1px solid #335b61;background:#426467;}
 div.auto_complete {
   width: 340px;
   background: #fff;
@@ -252,9 +253,9 @@ textarea:focus, input[type='text']:focus, input[type='password']:focus, select:f
   margin:0 0 4px 0;
   background:#EEEEEE;
 }
-.status_yellow {display:block;background:#ffff33;padding:0px 4px;margin-top:2px;}
-.status_green {display:block;background:#bcd784;padding:0px 4px;margin-top:2px;}
-.status_red {display:block;background:#cc3333;padding:0px 4px;color:#fff;margin-top:2px;}
+.status_yellow {display:block;background:#ffff33;}
+.status_green {display:block;background:#bcd784;}
+.status_red {display:block;background:#cc3333;}
 .list {list-style: none;}
 .list li {
   border-bottom:1px dashed #ccc;

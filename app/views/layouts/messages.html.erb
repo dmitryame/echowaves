@@ -45,10 +45,10 @@
  		// set up stomp client.
  		stomp = new STOMPClient();
  		stomp.onopen = function() {
- 			output.update('<span class="status_yellow"><%= t("ui.transport_opened") %></span>');
+ 			output.update('<span class="status_yellow">&nbsp;</span>');
  		};
  		stomp.onclose = function(code) {
- 			output.update('<span class="status_red"><%= t("ui.transport_closed") %> (<%= t("ui.code") %>: ' + code + ')</span>');
+ 			output.update('<span class="status_red">&nbsp;</span>');
  			//try to reconnect
  			// stomp.connect(document.domain, 61613, 'UNIQUE_ID_PER_CLIENT', '');
 			stomp.connect('<%=STOMP_HOST%>', <%=STOMP_PORT%>, '<%=current_user%>', '');
@@ -56,14 +56,14 @@
  		};
  		stomp.onerror = function(error) {
  			alert("onerror: " + error);
- 			output.update('<span class="status_red">onerror: ' + error + '</span>');
+ 			output.update('<span class="status_red">&nbsp;</span>');
  		};
  		stomp.onerrorframe = function(frame) {
  			alert("onerrorframe: " + frame.body);
- 			output.update('<span class="status_red">onerrorframe: ' + frame.body + '</span>');
+ 			output.update('<span class="status_red">&nbsp;</span>');
  		};
  		stomp.onconnectedframe = function() {
- 			output.update('<span class="status_green"><%= t("ui.connected") %></span>');
+ 			output.update('<span class="status_green">&nbsp;</span>');
 			stomp.subscribe('CONVERSATION_CHANNEL_<%=@conversation.id%>', {exchange:''});
  		};
  		stomp.onmessageframe = function(frame) {

@@ -13,8 +13,8 @@
 			
 			<div class="meta">
 	      <span class="date quiet small">
-			  	<%= link_to message.date_pretty_long,
-			   conversation_message_path(message.conversation, message) %> -
+			  	<%= link_to message.time_pretty,
+			   conversation_message_path(message.conversation, message), :title => message.date_pretty_long %> -
 			  </span>
 			  <span class="username"><%=link_to h(message.user.login), conversation_path(message.user.personal_conversation), :class => 'tip', :title =>  "personal convo for #{message.user.login}" %></span>
 			  <div class="messagelinks quiet small">
@@ -36,7 +36,7 @@
 	      <%= display_attachment(message) %>
 			<% end %>
 			<%= mark_up message %>
-			<span class="date quiet small"><%= link_to message.date_pretty_long, conversation_message_path(message.conversation, message) %></span>
+			<span class="date quiet small"><%= link_to message.time_pretty, conversation_message_path(message.conversation, message), :title => message.date_pretty_long %></span>
 		</div>
 		<div class="clear"></div>
 	</div>	

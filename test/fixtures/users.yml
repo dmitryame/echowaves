@@ -7,6 +7,7 @@ crossblaim:
   persistence_token: 5ac5aa7d394e645236678ec838ba248d967b2ee3aa9f3252e990f34d7c45dc3ae19bb29438046890ed3c3ac426db22da0f15e3c1f734dbfff31d913936b2abbb
   perishable_token: <%= Authlogic::Random.friendly_token %>
   single_access_token: <%= Authlogic::Random.friendly_token %>
+  receive_email_notifications: true
   time_zone: UTC
   something: ""
   personal_conversation: crossblaim_personal_convo
@@ -24,6 +25,7 @@ dmitry:
   persistence_token: eae9ad75d75e56ad5794d39147a30bfca843c197749735e5b5f894566d66cab1ba10933f0e2879a407b1d7d345c13136bee860ef9247b8503d821eab9967e022
   perishable_token: <%= Authlogic::Random.friendly_token %>
   single_access_token: <%= Authlogic::Random.friendly_token %>
+  receive_email_notifications: true
   time_zone: UTC
   something: ""
   personal_conversation: dmitry_personal_convo
@@ -41,6 +43,7 @@ akira:
   persistence_token: 5b932f3b220eee6086aa40b03a69d7a02b913e21c2e5e5cef9243166b8e5fe9064dcad3bab7022a43b5bf78132128254920283d5badee6848ddd9b6036af9f70
   perishable_token: <%= Authlogic::Random.friendly_token %>
   single_access_token: <%= Authlogic::Random.friendly_token %>
+  receive_email_notifications: true
   time_zone: UTC
   something: ""
   personal_conversation: akira_personal_convo

@@ -26,7 +26,7 @@ class ConversationsController < ApplicationController
   end
 
   def show
-    @messages = @conversation.messages.published.find(:all, :include => [:user], :limit => 100, :order => 'id DESC').reverse
+    @messages = @conversation.messages.published.find(:all, :include => [:user], :limit => 50, :order => 'id DESC').reverse
     
     if logged_in?
       subscription = current_user.subscriptions.find_by_conversation_id(@conversation.id)
@@ -43,7 +43,7 @@ class ConversationsController < ApplicationController
   end
 
   def files
-    @messages = @conversation.messages.with_file.published.find(:all, :include => [:user], :limit => 100, :order => 'id DESC').reverse
+    @messages = @conversation.messages.with_file.published.find(:all, :include => [:user], :limit => 50, :order => 'id DESC').reverse
     
     if logged_in?
       subscription = current_user.subscriptions.find_by_conversation_id(@conversation.id)
@@ -60,7 +60,7 @@ class ConversationsController < ApplicationController
   end
   
   def images
-    @messages = @conversation.messages.with_image.published.find(:all, :include => [:user], :limit => 100, :order => 'id DESC').reverse
+    @messages = @conversation.messages.with_image.published.find(:all, :include => [:user], :limit => 50, :order => 'id DESC').reverse
     
     if logged_in?
       subscription = current_user.subscriptions.find_by_conversation_id(@conversation.id)

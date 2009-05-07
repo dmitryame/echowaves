@@ -66,16 +66,8 @@
 	<%= periodically_call_remote :url => {:controller => 'users', :action => 'update_news'}, 
 		:frequency => 60*5, :complete => 'ShowUnreadMessagesInFLuidapp();' %> 
 	
-  	<!--[if IE 6]>
-    	<script type="text/javascript"> 
-    		/*Load jQuery if not already loaded*/ if(typeof jQuery == 'undefined'){ document.write("<script type=\"text/javascript\"   src=\"http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js\"></"+"script>"); var __noconflict = true; } 
-    		var IE6UPDATE_OPTIONS = {
-    			icons_path: "/images/ie6update/",
-    			message: "<%= t('ie6update.msg') %>",
-    			url: "<%= t('ie6update.url') %>"
-    		}
-    	</script>
-    	<script type="text/javascript" src="/javascripts/ie6update.js"></script>
-  	<![endif]-->
+  <%#do not remove rhis scrips tag, used by google stats, ie6 detector, etc...%>
+  <%#----------------------------------------------------------------------------%>
+  <%= render :partial => "shared/scripts"%>
 </body>
 </html>

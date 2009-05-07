@@ -76,6 +76,7 @@
  			  //---------------------------------------------------------------------------
  			  html = JsonToHtml(json)
  				message_output.insert({"bottom":html});
+        unitipize($('tip_'+json.message.id));
  				Misc.pageScroll();
 				<% if session[:sound] == "on" %>
 				Sound.play('/sounds/sound39.mp3');

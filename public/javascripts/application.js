@@ -5,7 +5,7 @@
 //---------------------------------------------------------------------------
 var messageTopTemplate = new Template(
 "<div class=\"message\" id=\"message_#{message.id}\">\
-	  <div class=\"avatar\"><a href=\"/users/#{user.id}-#{user.login}\" class=\"tip\" title=\"&lt;img alt=&quot;#{user.login}&quot; border=&quot;0&quot; height=&quot;60&quot; src=&quot;#{user.gravatar_url}?d=identicon&amp;r=PG&amp;s=60&quot; style=&quot;float:left;margin-right:15px;margin-bottom:15px;&quot; width=&quot;60&quot; /&gt;#{user.since}&lt;br/&gt;#{user.convos_started}&lt;br/&gt;#{user.messages_posted}&lt;br/&gt;#{user.following}&lt;br/&gt;#{user.followers}\"><img alt=\"#{message.user.login}\" border=\"0\" class=\"avatar\" height=\"30\" src=\"#{user.gravatar_url}?d=identicon&amp;r=PG&amp;s=60\" width=\"30\" /></a>\
+	  <div class=\"avatar\"><a href=\"/users/#{user.id}-#{user.login}\" id=\"tip_#{message.id}\" title=\"&lt;img alt=&quot;#{user.login}&quot; border=&quot;0&quot; height=&quot;60&quot; src=&quot;#{user.gravatar_url}?d=identicon&amp;r=PG&amp;s=60&quot; style=&quot;float:left;margin-right:15px;margin-bottom:15px;&quot; width=&quot;60&quot; /&gt;#{user.since}&lt;br/&gt;#{user.convos_started}&lt;br/&gt;#{user.messages_posted}&lt;br/&gt;#{user.following}&lt;br/&gt;#{user.followers}\"><img alt=\"#{message.user.login}\" border=\"0\" class=\"avatar\" height=\"30\" src=\"#{user.gravatar_url}?d=identicon&amp;r=PG&amp;s=60\" width=\"30\" /></a>\
 		</div>\
 		<div class=\"messagetext\">"
 );

@@ -29,7 +29,7 @@
   <![endif]-->
 	
  	<%= orbited_javascript %> 		
- 	<script>
+ 	<script>  
   // FIXME: workaround for safari never ending loading issue
   var orig_chooseTransport = Orbited.util.chooseTransport; 
   Orbited.util.chooseTransport = function() { 
@@ -67,10 +67,15 @@
 			stomp.subscribe('CONVERSATION_CHANNEL_<%=@conversation.id%>', {exchange:''});
  		};
  		stomp.onmessageframe = function(frame) {
+ 		  console.log(frame.body);
+ 		  var json = frame.body.evalJSON();
  			var message_output = $('messages');
 			// this is an actual message for current conversation
  			if(frame.headers['destination'].startsWith("CONVERSATION_CHANNEL_") ) {
- 				message_output.insert({"bottom":frame.body});
+ 			  // render message from JSON
+ 			  //---------------------------------------------------------------------------
+ 			  html = JsonToHtml(json)
+ 				message_output.insert({"bottom":html});
  				Misc.pageScroll();
 				<% if session[:sound] == "on" %>
 				Sound.play('/sounds/sound39.mp3');

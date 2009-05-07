@@ -153,7 +153,7 @@ class Message < ActiveRecord::Base
         "time": "#{self.time_pretty}"
       },
       "attachment": {
-        "big_image_url": "#{self.has_image? ? self.attachment.url(:big) : nil}",
+        "image_url": "#{self.has_image? ? self.attachment.url(:big) : nil}",
         "url": "#{self.has_attachment? ? self.attachment.url : nil}"
       },
       "convo": {

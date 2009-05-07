@@ -67,7 +67,7 @@
 			stomp.subscribe('CONVERSATION_CHANNEL_<%=@conversation.id%>', {exchange:''});
  		};
  		stomp.onmessageframe = function(frame) {
- 		  console.log(frame.body);
+ 		  // console.log(frame.body);
  		  var json = frame.body.evalJSON();
  			var message_output = $('messages');
 			// this is an actual message for current conversation

@@ -51,7 +51,7 @@ class User < ActiveRecord::Base
   
   # this method returns a collection of all the convos with the new messages for the user.
   def news
-    #subscriptions = self.subscriptions.reject { |subscription| subscription.new_messages_count == 0 }
+    subscriptions = self.subscriptions.reject { |subscription| subscription.new_messages_count == 0 }
   end
 
   # friends are the people you follow (you follow their personal convos)

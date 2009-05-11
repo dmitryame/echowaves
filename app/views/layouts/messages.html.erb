@@ -74,11 +74,11 @@
  			if(frame.headers['destination'].startsWith("CONVERSATION_CHANNEL_") ) {
  			  // render message from JSON
  			  //---------------------------------------------------------------------------
- 			  html = JsonToHtml(json)
+ 			  html = JsonToHtml(json);
  				message_output.insert({"bottom":html});
         unitipize($('tip_'+json.message.id));
  				Misc.pageScroll();
- 				Effect.Pulsate('connection_stat_data');
+				Effect.Pulsate('connection_stat_data'); 
 				<% if session[:sound] == "on" %>
 				Sound.play('/sounds/sound39.mp3');
 				<% end %>

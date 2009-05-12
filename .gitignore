@@ -1,6 +1,8 @@
 log/*.log
 log/*.pid
 tmp/**/*
+tmp/restart.txt
+spec
 .DS_Store
 *~
 config/environment.rb

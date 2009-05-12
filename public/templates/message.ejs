@@ -1,0 +1,52 @@
+<% if(meta.system) { %>
+  
+  <div class="message system" id="message_<%= message.id %>">
+    <div class="avatar"><img alt="Icon" src="/images/icon.png" width="30" /></div>
+  	<div class="messagetext">
+      <span class="username"><a href="/conversations/<%= convo.id %>-<%= convo.name %>" class="tip" title="Personal convo for <%= user.login %>"><%= user.login %></a></span>
+      <%= message.unfiltered_body %>
+  		<span class="date quiet small"><a href="/conversations/<%= convo.id %>-<%= convo.name %>/messages/<%= message.id %>" title="<%= message.date %>"><%= message.time %></a></span>
+  	</div>
+  	<div class="clear"></div>
+  </div>
+  
+<% } else { %>
+  
+  <div class="message" id="message_<%= message.id %>">
+  	<div class="avatar"><a href="/users/<%= user.id %>-<%= user.login %>" id="tip_<%= message.id %>" title="&lt;img alt=&quot;<%= user.login %>&quot; border=&quot;0&quot; height=&quot;60&quot; src=&quot;<%= user.gravatar_url %>?d=identicon&amp;r=PG&amp;s=60&quot; style=&quot;float:left;margin-right:15px;margin-bottom:15px;&quot; width=&quot;60&quot; /&gt;<%= user.since %>&lt;br/&gt;<%= user.convos_started %>&lt;br/&gt;<%= user.messages_posted %>&lt;br/&gt;<%= user.following %>&lt;br/&gt;<%= user.followers %>"><img alt="<%= user.login %>" border="0" class="avatar" height="30" src="<%= user.gravatar_url %>?d=identicon&amp;r=PG&amp;s=60" width="30" /></a>
+  	</div>
+  	<div class="messagetext">
+      
+      <% if(meta.has_image) { %>
+        <div class="img_attachment"><a href="<%= attachment.url %>" target="_blank"><img src="<%= attachment.image_url %>" /></a></div>
+      <% } %>
+      
+      <% if(meta.has_zip) { %>
+        <div class="file_attachment">
+          <a href="<%= attachment.url %>" target="_blank"><img alt="ZIP File" src="/images/icons/zip_large.jpg" width="82" /></a>
+        </div>
+      <% } %>
+      
+      <% if(meta.has_pdf) { %>
+        <div class="file_attachment">
+          <a href="<%= attachment.url %>" target="_blank"><img alt="PDF Document" src="/images/icons/pdf_large.jpg" width="100" /></a>
+        </div>
+      <% } %>
+      
+  		<%= message.body %>
+  		
+  		<div class="meta">
+  	    <span class="date quiet small">
+  		  	<a href="/conversations/<%= convo.id %>-<%= convo.name %>/messages/<%= message.id %>" title="<%= message.date %>"><%= message.time %></a> -
+  		  </span>
+  		  <span class="username"><a href="/conversations/<%= convo.id %>-<%= convo.name %>" class="tip" title="Personal convo for <%= user.login %>"><%= user.login %></a></span>
+  		  <div class="messagelinks quiet small">
+    			<a href="#" onclick="if (confirm(\'<%= t.report_confirmation %>\')) { new Ajax.Request(\'/conversations/<%= convo.id %>-<%= convo.name %>/messages/<%= message.id %>/report\', {asynchronous:true, evalScripts:true}); }; return false;"><%= t.report %></a>
+          <a href="/conversations/new/spawn?message_id=<%= message.id %>}" onclick="if (confirm(\'<%= t.spawn_confirmation %>\')) { var f = document.createElement(\'form\'); f.style.display = \'none\'; this.parentNode.appendChild(f); f.method = \'POST\'; f.action = this.href;var m = document.createElement(\'input\'); m.setAttribute(\'type\', \'hidden\'); m.setAttribute(\'name\', \'_method\'); m.setAttribute(\'value\', \'get\'); f.appendChild(m);f.submit(); };return false;"><%= t.spawn %></a>
+    	  </div>
+      </div>
+  	</div>
+  	<div class=\"clear\"></div>
+  </div>
+
+<% } %>

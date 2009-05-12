@@ -72,6 +72,8 @@ ru:
     receive_email_notifications: "Receive email notifications"
     followers: "Последователи"
     following: "Следую"
+    followed_users: "Следуемые Пользователи"
+    followed_convos: "Следуемые Разговоры"
     convos: "Разговоры"
     messages: "Сообщения"
     search_messages: "поиск сообщений"

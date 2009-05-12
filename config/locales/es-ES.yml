@@ -72,6 +72,8 @@ es-ES:
     receive_email_notifications: "Recibir notificaciones por email"
     followers: "Seguidores"
     following: "Siguiendo"
+    followed_users: "Followed Users"
+    followed_convos: "Followed Convos"
     convos: "Convos"
     messages: "Messages"
     search_messages: "buscar mensajes"

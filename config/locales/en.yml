@@ -72,6 +72,8 @@ en:
     receive_email_notifications: "Receive email notifications"
     followers: "Followers"
     following: "Following"
+    followed_users: "Followed Users"
+    followed_convos: "Followed Convos"
     convos: "Convos"
     messages: "Messages"
     search_messages: "search messages"

@@ -99,3 +99,8 @@ html,body{background:#ccc;
 }
 #flash_messages .notice {margin:0;}
 #flash_messages .error {margin:0;}
+#load-indicator {
+  font-size:25px;
+  color:#999;
+  margin-top:20px;
+}

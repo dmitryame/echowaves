@@ -111,6 +111,7 @@
           console.log(response);
           var html = new EJS({url: '/templates/chat.ejs'}).render(json);
           $('messages').insert({"bottom":html});
+          $('load-indicator').hide();
           Misc.pageScroll();
         },
         onFailure: function(){ alert('Something went wrong...') }

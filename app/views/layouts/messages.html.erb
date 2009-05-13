@@ -46,12 +46,10 @@
  		stomp = new STOMPClient();
  		stomp.onopen = function() {
 			output.title = "connecting"
- 			output.update('<span class="status_yellow">&nbsp;</span>');
+ 			output.update('<span class="status_yellow tip">&nbsp;</span>');
  		};
  		stomp.onclose = function(code) {
-			output.title = "disconnected"
-	
- 			output.update('<span class="status_red">&nbsp;</span>');
+ 			output.update('<span class="status_red tip" title="disconnected">&nbsp;</span>');
  			//try to reconnect
  			// stomp.connect(document.domain, 61613, 'UNIQUE_ID_PER_CLIENT', '');
 			stomp.connect('<%=STOMP_HOST%>', <%=STOMP_PORT%>, '<%=current_user%>', '');
@@ -59,19 +57,14 @@
  		};
  		stomp.onerror = function(error) {
  			alert("onerror: " + error);
-			output.title = "error"
-
- 			output.update('<span class="status_red">&nbsp;</span>');
+ 			output.update('<span class="status_red tip" title="error">&nbsp;</span>');
  		};
  		stomp.onerrorframe = function(frame) {
  			alert("onerrorframe: " + frame.body);
-			output.title = "frame error"
-
- 			output.update('<span class="status_red">&nbsp;</span>');
+ 			output.update('<span class="status_red tip" title="frame error">&nbsp;</span>');
  		};
  		stomp.onconnectedframe = function() {
- 			output.update('<span class="status_green">&nbsp;</span>');
-			output.title = "receiving messages"
+ 			output.update('<span class="status_green tip" title="receiving message">&nbsp;</span>');
 			stomp.subscribe('CONVERSATION_CHANNEL_<%=@conversation.id%>', {exchange:''});
  		};
  		stomp.onmessageframe = function(frame) {
@@ -87,9 +80,9 @@
         if(json.meta.system == false) { unitipize($('tip_'+json.message.id)); }
  				Misc.pageScroll();
 				Effect.Pulsate('connection_stat_data'); 
-				<% if session[:sound] == "on" %>
+			<% if session[:sound] == "on" %>
 				Sound.play('/sounds/sound39.mp3');
-				<% end %>
+			<% end %>
  			}	
 			// this is a notify conversation message
  			if(frame.headers['destination'].startsWith("CONVERSATION_NOTIFY_CHANNEL_") ) {

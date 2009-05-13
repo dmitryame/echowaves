@@ -135,6 +135,20 @@ p {margin-bottom:10px;}
   -webkit-border-radius: 5px;
   background:#fff;
 }
+#recently_visited {
+  margin-top:10px;
+  margin-bottom:10px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  background:#fff;
+}
+#recentl_news {
+  margin-top:10px;
+  margin-bottom:10px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  background:#fff;
+}
 
 #main_description h5 {margin-top:0;}
 #col1 {

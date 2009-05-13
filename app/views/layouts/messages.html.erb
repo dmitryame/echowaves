@@ -108,7 +108,6 @@
         onSuccess: function(transport){
           var response = transport.responseText || "error, no responseText";
           var json = response.evalJSON();
-          console.log(response);
           var html = new EJS({url: '/templates/chat.ejs'}).render(json);
           $('messages').insert({"bottom":html});
           $('load-indicator').hide();

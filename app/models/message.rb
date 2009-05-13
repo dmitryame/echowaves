@@ -109,7 +109,7 @@ class Message < ActiveRecord::Base
 
   #----------------------------------------------------------------------------
   def send_stomp_message
-    json = self.json_for_template
+    json = self.custom_json
     s = Stomp::Client.new
     s.send("CONVERSATION_CHANNEL_" + self.conversation.id.to_s, json)
     s.close
@@ -136,47 +136,47 @@ class Message < ActiveRecord::Base
   # custom JSON for javascript templates
   # TODO: use localization placeholders
   #----------------------------------------------------------------------------
-  def json_for_template
-    %Q({
-      "meta": {
-        "system": #{self.system_message},
-        "has_attachment": #{self.has_attachment?},
-        "has_image": #{self.has_image?},
-        "has_pdf": #{self.has_pdf?},
-        "has_zip": #{self.has_zip?}
+  def custom_json
+    {
+      :meta => {
+        :system => self.system_message,
+        :has_attachment => self.has_attachment?,
+        :has_image => self.has_image?,
+        :has_pdf => self.has_pdf?,
+        :has_zip => self.has_zip?
       },
-      "message": {
-        "id": "#{self.id}",
-        "body": "#{self.message_html}",
-        "unfiltered_body": "#{self.message}",
-        "date": "#{self.date_pretty_long}",
-        "time": "#{self.time_pretty}"
+      :message => {
+        :id => self.id,
+        :body => self.message_html,
+        :unfiltered_body => self.message,
+        :date => self.date_pretty_long,
+        :time => self.time_pretty
       },
-      "attachment": {
-        "image_url": "#{self.has_image? ? self.attachment.url(:big) : nil}",
-        "url": "#{self.has_attachment? ? self.attachment.url : nil}"
+      :attachment => {
+        :image_url => self.has_image? ? self.attachment.url(:big) : nil,
+        :url => self.has_attachment? ? self.attachment.url : nil
       },
-      "convo": {
-        "id": "#{self.conversation_id}",
-        "name": "#{self.conversation.name}"
+      :convo => {
+        :id => self.conversation_id,
+        :name => self.conversation.name
       },
-      "user": {
-        "id": "#{self.user.id}",
-        "login": "#{self.user.login.parameterize}",
-        "gravatar_url": "#{self.user.gravatar_url}",
-        "since": "#{I18n.t("users.since")} #{self.user.date}",
-        "convos_started": "#{user.conversations.size} #{I18n.t('ui.convos')}",
-        "messages_posted": "#{user.messages.size} #{I18n.t('ui.messages')}",
-        "following": "#{user.subscriptions.size} #{I18n.t("ui.following")}",
-        "followers": "#{user.followers.size} #{I18n.t("ui.followers")}"
+      :user => {
+        :id => self.user.id,
+        :login => self.user.login.parameterize.to_s,
+        :gravatar_url => self.user.gravatar_url,
+        :since => "#{I18n.t('users.since')} #{self.user.date}",
+        :convos_started => "#{user.conversations.size} #{I18n.t('ui.convos')}",
+        :messages_posted => "#{user.messages.size} #{I18n.t('ui.messages')}",
+        :following => "#{user.subscriptions.size} #{I18n.t('ui.following')}",
+        :followers => "#{user.followers.size} #{I18n.t('ui.followers')}"
       },
-      "t": {
-        "report": "#{I18n.t("ui.report")}",
-        "report_confirmation": "#{I18n.t("ui.reportconfirm")}",
-        "spawn": "#{I18n.t("ui.spawn")}",
-        "spawn_confirmation": "#{I18n.t("ui.spawnconfirm")}"
+      :t => {
+        :report => I18n.t('ui.report'),
+        :report_confirmation => I18n.t('ui.reportconfirm'),
+        :spawn => I18n.t('ui.spawn'),
+        :spawn_confirmation => I18n.t('ui.spawnconfirm')
       }
-    }).gsub!("\n","")
+    }.to_json
   end
   
 end

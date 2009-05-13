@@ -39,6 +39,15 @@ class ConversationsController < ApplicationController
     respond_to do |format|
       format.html { render :layout => 'messages' }
       format.xml  { render :xml => {:conversation => @conversation, :messages => @messages} }
+      format.js   do
+        data = []
+        @messages.group_by(&:date).each do |date, grouped_messages|
+        	group = { :date => date }
+        	group.merge!({ :messages => grouped_messages.map { |message| message.data_for_templates } })
+        	data << group
+        end
+        render :text => {:message_groups => data, :last_message_id => @last_message_id}.to_json
+      end
     end
   end
 

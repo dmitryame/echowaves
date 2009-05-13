@@ -20,10 +20,11 @@
  	<%= javascript_include_tag "misc" %>
  	<%= javascript_include_tag "windowmanager" %>
  	<%= javascript_include_tag "keyboard" %>
-  <%= javascript_include_tag "ejs" %>
  	
 	<%= stylesheet_link_tag 'unitip' %>
 	<%= javascript_include_tag 'unitip' %>
+	<%= javascript_include_tag "ejs" %>
+  
 	<!--[if IE]>
     <link rel="stylesheet" href="/stylesheets/ie.css" type="text/css" media="screen, projection">
   <![endif]-->
@@ -68,7 +69,6 @@
 			stomp.subscribe('CONVERSATION_CHANNEL_<%=@conversation.id%>', {exchange:''});
  		};
  		stomp.onmessageframe = function(frame) {
- 		  // console.log(frame.body);
  		  var json = frame.body.evalJSON();
  			var message_output = $('messages');
 			// this is an actual message for current conversation
@@ -101,11 +101,26 @@
   <script>
   	document.observe('dom:loaded',function(){
   	new Control.Tabs('convo_tabs');
+  	
+  	new Ajax.Request('/conversations/<%= @conversation.id %>',
+      {
+        method:'get',
+        onSuccess: function(transport){
+          var response = transport.responseText || "error, no responseText";
+          var json = response.evalJSON();
+          console.log(response);
+          var html = new EJS({url: '/templates/chat.ejs'}).render(json);
+          $('messages').insert({"bottom":html});
+          Misc.pageScroll();
+        },
+        onFailure: function(){ alert('Something went wrong...') }
+      });
+      
   	});
   </script>
 </head>
 
-<body id="messages_layout" onLoad="Misc.focusInput('message_message');Misc.pageScroll();stomp_function();">
+<body id="messages_layout" onLoad="Misc.focusInput('message_message');stomp_function();">
 
 	<div id="header_container"><%= render(:partial => "shared/header") %></div>
 	

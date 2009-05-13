@@ -136,7 +136,7 @@ class Message < ActiveRecord::Base
   # custom JSON for javascript templates
   # TODO: use localization placeholders
   #----------------------------------------------------------------------------
-  def custom_json
+  def data_for_templates
     {
       :meta => {
         :system => self.system_message,
@@ -176,7 +176,11 @@ class Message < ActiveRecord::Base
         :spawn => I18n.t('ui.spawn'),
         :spawn_confirmation => I18n.t('ui.spawnconfirm')
       }
-    }.to_json
+    }
+  end
+  
+  def custom_json
+    data_for_templates.to_json
   end
   
 end

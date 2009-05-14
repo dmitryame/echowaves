@@ -8,10 +8,9 @@ class AbuseReportTest < ActiveSupport::TestCase
      
      should_belong_to :user
      should_belong_to :message
-     should_belong_to :conversation
           
      should_validate_presence_of :user_id
 
-     should_have_indices :user_id, :message_id, :conversation_id, :created_at
+     should_have_indices :user_id, :message_id, :created_at
    end
 end

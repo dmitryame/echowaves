@@ -16,7 +16,6 @@ class ConvosearchesController < ApplicationController
   def create
     @conversations = Conversation.search(
       params[:q],
-      :with => {:abuse_report_id => '@nil@'},
       :page => (params[:page] || 1),
       :per_page => 10,
       :order => 'created_at DESC'

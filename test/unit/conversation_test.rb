@@ -78,9 +78,6 @@ class ConversationTest < ActiveSupport::TestCase
     should_have_many :users, :through => :subscriptions
     should_have_many :recent_followers, :through => :subscriptions          
     
-    should_have_many :abuse_reports
-    should_belong_to :abuse_report
-
     should_belong_to :parent_message #parent message it was spawned from
     should_have_index :parent_message_id
     
@@ -270,45 +267,6 @@ class ConversationTest < ActiveSupport::TestCase
       assert_equal 1, @conversation.subscriptions.size
     end
   end
-
-  context "Abuse reports" do
-    setup do
-      @owner = Factory.create( :user )
-      @conversation = Factory.create( :conversation, :user => @owner )
-    end
-
-    should "create a new abuse report" do
-      assert_equal 0, @conversation.abuse_reports.size
-      @conversation.report_abuse( Factory.create( :user ) )
-      assert_equal 1, @conversation.abuse_reports.size
-    end
-
-    should "only allow one abuse report per user" do
-      user = Factory.create( :user )
-      @conversation.report_abuse( user )
-      assert_equal 1, @conversation.abuse_reports.size
-      @conversation.report_abuse( user )
-      assert_equal 1, @conversation.abuse_reports.size
-    end
-
-    should "check against abuse report limit" do
-      assert_equal false, @conversation.over_abuse_reports_limit?
-      assert @conversation.published?
-      (1..CONVERSATION_ABUSE_THRESHOLD).each do |num|
-        @conversation.report_abuse( Factory.create( :user ) )
-        assert_equal false, @conversation.over_abuse_reports_limit?
-      end
-      @conversation.report_abuse( Factory.create( :user ) )
-      assert @conversation.over_abuse_reports_limit?
-      assert_equal false, @conversation.published?
-    end
-
-    should "unpublish if conversation owner reported the abuse" do
-      assert @conversation.published?
-      @conversation.report_abuse( @owner )
-      assert_equal false, @conversation.published?
-    end
-  end # context 'Abuse reports'
 
   context "notify of new spawn" do
     setup do

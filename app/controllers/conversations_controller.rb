@@ -8,14 +8,14 @@ class ConversationsController < ApplicationController
   
   after_filter :store_location, :only => [:show, :new]
   
-  auto_complete_with_scope_for 'published', :conversation, :name # multiple scopes can be chained like 'published.readonly'
+  auto_complete_for :conversation, :name # multiple scopes can be chained like 'published.readonly'
   # auto_complete_for :tag, :name
 
   def index
     if params[:tag] != nil
-      @conversations = Conversation.tagged_with(params[:tag], :on => :tags).published.non_private.paginate :page => params[:page], :order => 'created_at DESC'
+      @conversations = Conversation.tagged_with(params[:tag], :on => :tags).non_private.paginate :page => params[:page], :order => 'created_at DESC'
     else
-      @conversations = Conversation.published.non_private.not_personal.paginate :page => params[:page], :order => 'created_at DESC'
+      @conversations = Conversation.non_private.not_personal.paginate :page => params[:page], :order => 'created_at DESC'
     end
 
     respond_to do |format|
@@ -207,24 +207,7 @@ class ConversationsController < ApplicationController
     @conversation.update_attributes( :private => private_status ) if ( @conversation.owner == current_user )
     redirect_to conversation_path( @conversation )
   end
-  
-  def report
-    @conversation.report_abuse(current_user)
-    # FIXME: refactor this or simplify if do not need to degrade if there is no javascript
-    # what to do with the other users currently in this conversation if is disabled?
-    if @conversation.disabled_by_abuse_report?
-      if request.xhr?
-        render :update do |page|
-          page.redirect_to(conversations_path)
-        end
-      else
-        redirect_to conversations_path
-      end
-    else
-      render(:nothing => true)
-    end
-  end
-  
+    
   def invite
     if @conversation.private? && @conversation.owner != current_user
       flash[:error] = t("errors.only_the_owner_can_invite")
@@ -287,7 +270,7 @@ class ConversationsController < ApplicationController
   end
   
   def bookmarked
-    @conversations = Conversation.tagged_with(current_user.bookmark_tag, :on => :bookmarks).published.paginate :page => params[:page], :order => 'created_at DESC'
+    @conversations = Conversation.tagged_with(current_user.bookmark_tag, :on => :bookmarks).paginate :page => params[:page], :order => 'created_at DESC'
 
     respond_to do |format|
       format.html
@@ -307,14 +290,14 @@ class ConversationsController < ApplicationController
 
   # TODO: remove this thing
   def complete_name
-    @conversation = Conversation.published.find_by_name(params[:id])
+    @conversation = Conversation.find_by_name(params[:id])
     redirect_to conversation_path(@conversation)
   end
   
 private
 
   def find_conversation
-    @conversation = Conversation.published.find( params[:id] )
+    @conversation = Conversation.find( params[:id] )
   end
   
   def check_read_access

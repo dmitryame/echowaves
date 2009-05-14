@@ -63,9 +63,10 @@ class SubscriptionTest < ActiveSupport::TestCase
   context "new messages counter" do
     setup do
       @user = Factory.create( :user )
-      @convo = Factory.create( :conversation )
       @user_personal_convo = Factory.create( :conversation, :name => @user.login, :user => @user, :personal_conversation => true )
+      @convo = Factory.create( :conversation )
       @user.personal_conversation_id = @user_personal_convo.id
+      
       @subscription = Factory.create( :subscription, :user => @user, :conversation => @convo )
       @subscription_to_personal_convo = Factory.create( :subscription, :user => @user, :conversation => @user_personal_convo )
     end

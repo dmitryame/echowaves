@@ -154,7 +154,6 @@ class ConversationsControllerTest < ActionController::TestCase
     setup do
       @convo = Factory.create( :conversation )
       @convos = [@convo]
-      Conversation.expects( :published ).returns( @convos )
       @convos.expects( :not_personal ).returns( @convos )
       @convos.expects( :paginate ).returns( @convos )
       @convos.expects( :non_private ).returns( @convos )
@@ -255,24 +254,6 @@ class ConversationsControllerTest < ActionController::TestCase
       end
     end
   end # context readwrite_status action
-
-  context "report action" do
-    setup do
-      @convo = Factory.create( :conversation )
-      Conversation.expects( :find ).with( '1' ).returns( @convo )
-      @convo.stubs( :report_abuse )
-    end
-
-    should "call report abuse" do
-      @convo.expects( :report_abuse ).with( @current_user )
-      put :report, :id => '1'
-    end
-
-    should "render nothing" do
-      put :report, :id => '1'
-      assert_response 200
-    end
-  end # context report action
 
   context "follow action" do
     setup do

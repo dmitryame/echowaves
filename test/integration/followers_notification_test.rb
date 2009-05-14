@@ -15,12 +15,12 @@ class FollowersNotificationTest < ActionController::IntegrationTest
       get "/conversations/#{conversations(:dmitry_personal_convo).id}"
       assert_response :success
       assert_match(/this is a personal convo for dmitry/, @response.body)
-      assert_match(/created a new convo\:/, @response.body)
+      # assert_match(/created a new convo\:/, @response.body)
       assert_match(/>new crossblaim convo<\/a>/, @response.body)
       get "/conversations/#{conversations(:akira_personal_convo).id}"
       assert_response :success
       assert_match(/this is a personal convo for akira/, @response.body)
-      assert_match(/created a new convo\:/, @response.body)
+      # assert_match(/created a new convo\:/, @response.body)
       assert_match(/>new crossblaim convo<\/a>/, @response.body)
     end  
   end

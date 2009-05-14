@@ -2,13 +2,11 @@ class Conversation < ActiveRecord::Base
   
   acts_as_taggable_on :tags, :bookmarks
   
-  belongs_to :abuse_report # the abuse report record that made this convo disabled
   belongs_to :user, :counter_cache => true
   belongs_to :parent_message, # parent message it was spawned from, in case it was created by spawning
     :class_name => "Message",
     :foreign_key => "parent_message_id"
 
-  has_many :abuse_reports # all the abuse report that were filed against this convo
   has_many :messages # these are the conversations messages
   has_many :subscriptions
   has_many :users, :through => :subscriptions, :uniq => true,:order => "login ASC" # followers,  subscribers
@@ -27,7 +25,6 @@ class Conversation < ActiveRecord::Base
   validates_length_of       :description, :maximum => 10000
   validates_format_of       :something, :with => /^$/ # anti spam, honeypot field must be blank
 
-  named_scope :published, :conditions => { :abuse_report_id => nil }
   named_scope :non_private, :conditions => { :private => false }
   named_scope :not_personal, :conditions => { :personal_conversation => false }
   named_scope :personal, :conditions => { :personal_conversation => true }
@@ -38,7 +35,6 @@ class Conversation < ActiveRecord::Base
     indexes :name
     indexes description
     has created_at
-    has abuse_report_id
     set_property :delta => true
   end
   
@@ -97,11 +93,7 @@ class Conversation < ActiveRecord::Base
   def personal?
     self.personal_conversation
   end
-  
-  def published?
-    self.abuse_report.nil?
-  end
-  
+    
   def private?
     self.private
   end
@@ -109,15 +101,7 @@ class Conversation < ActiveRecord::Base
   def spawned?
     !self.parent_message_id.nil?
   end
-  
-  def over_abuse_reports_limit?
-    self.abuse_reports.size > CONVERSATION_ABUSE_THRESHOLD
-  end
-  
-  def disabled_by_abuse_report?
-    self.abuse_report_id == nil ? false : true
-  end
-  
+      
   def add_visit(user)
     if cv = ConversationVisit.find_by_user_id_and_conversation_id(user.id, self.id)
       cv.increment!( :visits_count ) 
@@ -133,17 +117,6 @@ class Conversation < ActiveRecord::Base
   def remove_subscription(user)
     sub = self.subscriptions.find_all_by_user_id( user.id )
     sub.empty? ? true : sub.each { |s| s.destroy }
-  end
-
-  def report_abuse(user)
-    unless abuse_report = self.abuse_reports.find_by_user_id( user.id )
-      abuse_report = self.abuse_reports.create( :user => user )
-    end
-    self.reload
-    # check if we should deactivate the convo for abuse
-    if (user == self.owner and self != self.user.personal_conversation) or self.over_abuse_reports_limit?
-      self.update_attributes( :abuse_report => abuse_report )
-    end
   end
 
   def notify_of_new_spawn(user)

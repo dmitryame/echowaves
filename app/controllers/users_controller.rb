@@ -16,7 +16,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @conversations = @user.conversations.published.not_personal.paginate :page => params[:page], :order => 'created_at DESC', :per_page => 20
+    @conversations = @user.conversations.not_personal.paginate :page => params[:page], :order => 'created_at DESC', :per_page => 20
     respond_to do |format|
       format.html
       format.atom
@@ -46,7 +46,7 @@ class UsersController < ApplicationController
   
   def followed_convos
     @user = User.find(params[:id])
-    @conversations = @user.subscribed_conversations.published.not_personal.no_owned_by(@user.id).paginate :page => params[:page], :order => 'created_at DESC', :per_page => 20
+    @conversations = @user.subscribed_conversations.not_personal.no_owned_by(@user.id).paginate :page => params[:page], :order => 'created_at DESC', :per_page => 20
     respond_to do |format|
       format.html
       format.xml  { render :xml => @user }

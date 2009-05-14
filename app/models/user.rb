@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   attr_accessible :name, :password, :password_confirmation, :time_zone, :something, :receive_email_notifications
   attr_accessor :email_confirmation
     
-  is_gravtastic :size => 60, :default => "identicon" # "monsterid" or "identicon", or "wavatar"
+  is_gravtastic :size => 60, :rating => 'G', :default => "identicon" # "monsterid" or "identicon", or "wavatar"
 
   acts_as_tagger
   acts_as_authentic do |c|
@@ -29,7 +29,6 @@ class User < ActiveRecord::Base
   has_many :recent_conversations, 
            :through => :conversation_visits, 
            :source => :conversation,
-           :conditions => { :abuse_report_id => nil },
            :order => "conversation_visits.updated_at DESC",
            :limit => 10
   
@@ -60,7 +59,7 @@ class User < ActiveRecord::Base
   end
   
   def friends_convos
-    self.subscribed_conversations.published.personal - [self.personal_conversation]
+    self.subscribed_conversations.personal - [self.personal_conversation]
   end
 
   # followers are the users that follow your personal convo
@@ -127,12 +126,18 @@ class User < ActiveRecord::Base
 
   def follow(convo, token=nil)
     invite = Invite.find(:first, :conditions => ["user_id = ? and conversation_id = ?", self, convo.id ])
-    if !convo.private? || self == convo.owner
-      subscription = convo.add_subscription(self)
-      subscription.mark_read
+    if !convo.private? || self == convo.owner      
+      #create a subscription if not created yet
+      if (!Subscription.find_by_conversation_id_and_user_id(convo, self))
+        subscription = convo.add_subscription(self) 
+        subscription.mark_read
+      end
     elsif convo.private? && !invite.blank? && ( token == invite.token )
-      subscription = convo.add_subscription(self)
-      subscription.mark_read
+      #create a subscription if not created yet
+      if (!Subscription.find_by_conversation_id_and_user_id(convo, self))
+        subscription = convo.add_subscription(self) 
+        subscription.mark_read
+      end
       invite.reset_token!
     else
       return false

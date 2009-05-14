@@ -1,0 +1,181 @@
+en:
+  ie6update:
+    msg: 'O seu Internet Explorer tá precisando ser atualizado pra poder visualizar esse site. Clique aqui pra atualizar... '
+    url: 'http://www.microsoft.com/windows/internet-explorer/default.aspx'
+  home:
+    index:
+      headline1: "EchoWaves.com é um grupo de chat social opensource"
+      headline2: 'O código fonte está hospedado em: <a href="http://github.com/dmitryame/echowaves">http://github.com/dmitryame/echowaves</a>.'
+      p1: "<h5>Se você gosta de conversar, participar de blogs, enviar fotos,  compartilhar atualizações com seus amigos, ou simplesmente socializar -- Você vai adorar o EchoWaves.</h5> Se você tem algumas ideias ou sugestões sinta-se livre para falar sobre isso aqui"
+      p2: "-- É de graça e qualquer um pode entrar. Inicie seus próprios convos, convide todos os seus amigos para entrar nos seus convos, siga outros convos que pareçam interessante para você. Divirta-se!"
+      p3: "Dê um giro e nos mande uma mensagem"
+      feedback_advice: 'Se você encontrar alguma falha ou gostaria de mandar uma sugestão sobre qual funcionalidade você gostaria de ver no echowaves, você pode fazer isso <a href="http://code.google.com/p/echowaves/issues/list">http://echowaves.googlecode.com/</a>'
+  ui:
+    all: "todo"
+    with_files: "com arquivos"
+    with_images: "com imagens"
+    cancel: "cancelar"
+    name: "nome"
+    description: "descrição"
+    create: "criar"
+    signup: "Registrar-se"
+    login: "Entrar"
+    login_name: "Nome de usuário"
+    email: "e-mail"
+    email_confirmation: "confirmar e-mail"
+    logout: "sair"
+    echowaves_conversation: "EcHoWaVeS.CoM convo"
+    test_conversation: "convo TESTE"
+    home: "início"
+    users: "usuários"
+    convos: "convos"
+    edit_profile: "editar perfil"
+    update_your_profile: "Atualizar seu perfil"
+    get_an_gravatar_here: "pegar um aqui"
+    conversations: "convos"
+    back: "voltar"
+    more_messages: "mais mensagens"
+    password: "senha"
+    password_confirmation: "confirmar senha"
+    forgot_password: "esqueceu sua senha?"
+    its_free: "é de graça qualquer um pode entrar"
+    users_conversations: "Convos de usuários"
+    follow: "seguir"
+    unfollow: "deixar de seguir"
+    report: "denunciar"
+    reportconfirm: "Tem certeza que você quer denunciar essa mensagem? O abuso será punido."
+    reportconfirm_conversation: "Tem certeza que você quer denunciar esse convo? O abuso será punido."
+    spawn: "ramificar"
+    spawnconfirm: "Você tem certeza que deseja ramificar um novo convo a partir dessa mensagem?"
+    invite: "convidar"
+    tagged_with: "Rotulado com"
+    tags: "rótulos"
+    add_tag: "adicionar rótulo"
+    view_all: "visualizar tudo"
+    view_all_users: "visualizar todos os usuários"
+    view_all_convos: "visualizar todos os convos"
+    view_all_or_add_a_tag: "<a href=\"#tags\">visualizar tudo all</a> ou <a href=\"#tags\">adicionar um rótulo</a>"
+    confirm_remove_tag: "Tem certeza que quer desrotular?"
+    back_to_parent: "voltar para cima"
+    this_is_the_newest_message: "Essa é a mensagem mais nova"
+    attach: "Anexar"
+    attach_file: "anexar arquivo"
+    send: "enviar"
+    shift_enter: "(shift+Enter para inserir uma nova linha)"
+    my_conversations: "Meus convos"
+    news: "Novas mensagens"
+    recently_visited: "Visitado recentemente"
+    time_zone: "fuso-horário"
+    update: "atualizar"
+    recent_followers: "Seguidores recentes"
+    recent_tags: "Rótulos recentes"
+    receive_email_notifications: "Receber notificações por e-mail"
+    followers: "Seguidores"
+    following: "Seguindo"
+    followed_users: "Usuários seguidos"
+    followed_convos: "Convos seguidos"
+    convos: "Convos"
+    messages: "Mensagens"
+    search_messages: "procurar mensagens"
+    search_conversations: "procurar convos"
+    search: "procurar"
+    search_advice: "escreva algo e clique para procurar!"
+    make_read_only: "tornar somente leitura"
+    make_writable: "tornar editável"
+    read_only: "somente leitura"
+    connected: "conectado"
+    transport_opened: "conexão aberta"
+    transport_closed: "conexão fechada"
+    code: "código"
+    click_to_activate: "Clique aqui para ativar sua conta"
+    thanks_for_signup: "Obrigado por se registrar! Nos estamos mandando um e-mail para você com o seu código de ativação."
+    signup_error: "Nós não conseguimos configurar sua conta, desculpe-nos. Por favor tente novamente, ou contacte algum Administrador (o link está acima)."
+    started_by: "iniciado por"
+    recently_joined: "Entrou recentemente"
+    recent_convos: "Convos recentes"
+    popular_convos: "Convos Populares"
+    total_convos: "convos"
+    total_messages: "Mensagens"
+    total_users: "Usuários"
+    private_convo: "Conversação privada"
+    make_public: "tornar público"
+    make_private: "tornar privado"
+    last_message: "última mensagem"
+    sound_on: "ligar som"
+    sound_off: "desligar som"
+  users:
+    recently_joined_users: "usuários registrados recentemente"
+    sign_up_as_new_user: "registrar-se como um novo usuário"
+    look_for_users: "buscar por usuários"
+    since: "desde:"
+    logged_in_sucesfully: "Conectado com sucesso"
+    logged_out: "Você fechou a sessão."
+    could_not_login_as: "Não conseguiu logar como {{login}}"
+    profile_updated: "Perfil atualizado corretamente"
+    signup_complete: "Registro completo! Por favor entre no sistema para continuar."
+    invite_users: "Convidar usuários"
+  conversations:
+    go_to_conversation: "ir para a conversação"
+    bookmarked_conversations: "conversações favoritas"
+    this_is_an_read_only_convo: "Essa é uma conversação somente leitura"
+    login_or_register_to_participate: "Por favor <a href=\"/login\">entre</a> para participar.<br/>Ainda não tem uma conta? <a href=\"/signup\">Registre-se agora</a>, é de graça"
+    recently_started_conversations: "convos iniciadas recentemente"
+    start_new_conversation: "iniciar um novo convo"
+    look_for_conversations: "buscar conversações"
+    new_conversation: "novo convo"
+    convo_sucesfully_created: "Conversação criada com sucesso."
+    new_spawned_conversation: "nova conversação ramificada"
+    user_spawned_convo_description: "{{login}} ramificou esse convo, seguindo essa mensagem {{original_message_link}}\n\nPor favor forneça uma descrição e um título apropriado para a nova conversação"
+    already_spawned_warning: "Você já ramificou uma nova conversação dessa mensagem."
+    not_allowed_to_write_warning: "Você não tem permissão para adicionar novas mensagens a essa conversação."
+  footer:
+    uptime_monitoring: "Website Uptime Monitorado por"
+    report_problems_or_abuse: "Denuncie problemas ou abusos para"
+    terms_and_conditions: "Termos e condições"    
+    conversations: "convos"
+  messages:
+    original_message: "mensagem original"
+    new_messages: "mensagens novas"
+  notices:
+    you_must_be_logged_out: "Você precisa sair do sistema para acessar essa página"
+    you_must_be_logged_in: "Você precisa entrar no sistema para acessar essa página"
+  errors:
+    sorry_this_is_a_private_convo: "Desculpe, essa á uma conversação privada. Você pode tentar uma outra"
+    only_the_owner_can_invite: "Apenas os donos dessa conversação podem convidar novos usuários"
+    
+  datetime:
+    distance_in_words:
+      half_a_minute: 'metade de um minuto'
+      less_than_x_seconds:
+        zero: 'menos que 1 segundo'
+        one: '1 segundo'
+        other: '{{count}} segundos'
+      x_seconds:
+        one: '1 segundo'
+        other: '{{count}} segundos'
+      less_than_x_minutes:
+        zero: 'menos que 1 minuto'
+        one: '1 minuto'
+        other: '{{count}} minutos'
+      x_minutes:
+        one: "1 minuto"
+        other: "{{count}} minutos"
+      about_x_hours:
+        one: 'cerca de 1 hora'
+        other: '{{count}} horas'
+      x_days:
+        one: '1 dia'
+        other: '{{count}} dias'
+      about_x_months:
+        one: 'cerca de 1 mês'
+        other: '{{count}} meses'
+      x_months:
+        one: '1 mes'
+        other: '{{count}} meses'
+      about_x_years:
+        one: 'cerca 1 ano'
+        other: '{{count}} anos'
+      over_x_years:
+        one: 'mais de 1 ano'
+        other: '{{count}} anos'
+  

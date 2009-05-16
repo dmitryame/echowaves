@@ -1,0 +1,177 @@
+nl:
+  ie6update:
+    msg: 'Internet Explorer mist een update die nodig is om deze site te bekijken. Klik hier om Internet Explorer te updaten... '
+    url: 'http://www.microsoft.com/windows/internet-explorer/default.aspx'
+  home:
+    index:
+        headline1: "Welkom op Echowaves."      
+        headline2: 'The source code is hosted at: <a href="http://github.com/dmitryame/echowaves">http://github.com/dmitryame/echowaves</a>.'
+        p1: "<H5>Als je van kletsen, bloggen, foto's laten zien aan je vrienden of gewoon socializen met je vrienden houdt, is Echowaves iets voor jou!"
+        p2: "-- het is gratis en iedereen kan meedoen. Begin je eigen convos, nodig al je vrienden uit voor jouw convos of neem deel aan convos die je interessant lijken. Veel plezier!"
+        p3: "Klik op 'registeren' om een account te maken"
+        feedback_advice: 'Als je een fout vindt of een suggestie wil doen, kun je dat doen op <a href="http://code.google.com/p/echowaves/issues/list">http://echowaves.googlecode.com/</a>'
+  ui:
+    all: "allemaal"
+    with_files: "met bestanden"
+    with_images: "met afbeeldingen"
+    cancel: "stoppen"
+    name: "naam"
+    description: "beschrijving"
+    create: "maak"
+    signup: "Registreren"
+    login: "Inloggen"
+    login_name: "gebruikersnaam"
+    email: "email"
+    email_confirmation: "bevestig email"
+    logout: "uitloggen"
+    echowaves_conversation: "EcHoWaVeS.CoM convo"
+    test_conversation: "TEST convo"
+    home: "home"
+    users: "Gebruikers"
+    convos: "convos"
+    edit_profile: "verander profiel"
+    update_your_profile: "Update je profiel"
+    get_an_gravatar_here: "maak je eigen gravatar"
+    conversations: "convos"
+    back: "terug"
+    more_messages: "meer berichten"
+    password: "Wachtwoord"
+    password_confirmation: "Bevestig wachtwoord"
+    forgot_password: "Wachtwoord vergeten?"
+    forgotnew: "Vergeten"
+    its_free: "Heb je nog geen account? Registreer je dan!"
+    users_conversations: "Gebruikers convos"
+    follow: "follow"
+    unfollow: "unfollow"
+    report: "dit is niet OK"
+    reportconfirm: "Weet je zeker dat je dit wilt melden?"
+    reportconfirm_conversation: "Weet je zeker dat je dit wilt melden?"
+    spawn: "spawn"
+    spawnconfirm: "Weet je zeker dat je een nieuwe convo wilt maken van dit bericht?"
+    invite: "uitnodigen"
+    tagged_with: "Tagged met"
+    tags: "tags"
+    add_tag: "voeg een tag toe"
+    view_all: "laat alles zien"
+    view_all_users: "laat alle gebruikers zien"
+    view_all_convos: "laat alle convos zien"
+    view_all_or_add_a_tag: "<a href=\"#tags\">laat zien</a> of <a href=\"#tags\">voeg een tag toe</a>"
+    confirm_remove_tag: "Weet je zeker dat je deze tag ongedaan wil maken?"
+    back_to_parent: "terug naar oorspronkelijk bericht/convo"
+    this_is_the_newest_message: "Dit is het nieuwste bericht"
+    attach: "Attach"
+    attach_file: "Voeg bestand toe als bijlage"
+    send: "verstuur"
+    shift_enter: "(shift+Enter om naar een nieuwe regel te gaan)"
+    my_conversations: "Mijn convos"
+    news: "Nieuw bericht"
+    recently_visited: "Recentelijk bezocht"
+    time_zone: "tijd zone"
+    update: "update"
+    recent_followers: "Recente followers"
+    recent_tags: "Recente tags"
+    followers: "Followers"
+    following: "Following"
+    convos: "Convos"
+    messages: "Berichten"
+    search_messages: "zoek berichten"
+    search_conversations: "zoek convos"
+    search: "zoek"
+    search_advice: "typ iets en klik hier!"
+    make_read_only: "maak alleen lezen"
+    make_writable: "maak schrijfbaar"
+    read_only: "alleen lezen"
+    connected: "verbonden"
+    transport_opened: "transport opened"
+    transport_closed: "transport closed"
+    code: "code"
+    click_to_activate: "Klik hier op je account te bevestigen"
+    thanks_for_signup: "Bedankt voor het registreren! We sturen je een mail met een activatielink."
+    signup_error: "We konden je niet registreren. Probeer het nog eens of neem contact op met een admin."
+    started_by: "gemaakt door"
+    recently_joined: "Recentelijk lid geworden"
+    recent_convos: "Recente convos"
+    popular_convos: "Populaire convos"
+    total_convos: "Totaal aantal convos"
+    total_messages: "Totaal aantal berichten"
+    total_users: "Totaal aantal gebruikers"
+    private_convo: "privé gesprek"
+    make_public: "maak openbaar"
+    make_private: "maak privé"
+    last_message: "laatste bericht"
+    sound_on: "geluid aan"
+    sound_off: "geluid uit"
+  users:
+    recently_joined_users: "nieuwe gebruikers"
+    sign_up_as_new_user: "registreren"
+    look_for_users: "zoek nieuwe gebruikers"
+    since: "sinds:"
+    logged_in_sucesfully: "succesvol ingelogd"
+    logged_out: "Je bent uitgelogd."
+    could_not_login_as: "Kon niet inloggen als {{login}}"
+    profile_updated: "Profiel geupdate"
+    signup_complete: "Registratie compleet! Login om je account te activeren."
+    invite_users: "Nodig gebruikers uit"
+  conversations:
+    go_to_conversation: "Ga naar gesprek"
+    bookmarked_conversations: "gemarkeerde gesprekken"
+    this_is_an_read_only_convo: "Dit is een alleen-lezen gesprek"
+    login_or_register_to_participate: "Registreer <a href=\"/login\">login</a> om deel te nemen.<br/>Heb je nog geen account? <a href=\"/signup\">Registreer</a>, het is gratis"
+    recently_started_conversations: "nieuwe convos"
+    start_new_conversation: "begin een nieuwe convo"
+    look_for_conversations: "zoek convos"
+    new_conversation: "nieuwe convos"
+    convo_sucesfully_created: "Gesprek succesvol gemaakt."
+    new_spawned_conversation: "nieuw gesprek van bericht"
+    user_spawned_convo_description: "{{login}} maakte dit bericht van het bericht {{original_message_link}}\n\nBedenk alsjeblieft een nieuwe titel en beschrijving voor dit gesprek"
+    already_spawned_warning: "Je hebt al een nieuw gesprek gemaakt van dit bericht!"
+    not_allowed_to_write_warning: "Je mag geen berichten toevoegen aan dit gesprek."
+  footer:
+    uptime_monitoring: "Website wordt gecheckt door"
+    report_problems_or_abuse: "Problemen of misbruik melden aan:"
+    terms_and_conditions: "Voorwaarden"    
+    conversations: "convos"
+  messages:
+    original_message: "eerste bericht"
+    new_messages: "nieuw bericht"
+  notices:
+    you_must_be_logged_out: "Je moet uitgelogd zijn om dit te kunnen zien"
+    you_must_be_logged_in: "Je moet ingelogd zijn om dit te kunnen zien"
+  errors:
+    sorry_this_is_a_private_convo: "Sorry, dit is een privé gesprek."
+    only_the_owner_can_invite: "Alleen de eigenaar kan mensen uitnodigen"    
+  datetime:
+    distance_in_words:
+      half_a_minute: 'halve minuut'
+      less_than_x_seconds:
+        zero: 'minder dan 1 seconde'
+        one: '1 seconde'
+        other: '{{count}} seconden'
+      x_seconds:
+        one: '1 seconde'
+        other: '{{count}} seconden'
+      less_than_x_minutes:
+        zero: 'minder dan een minuut'
+        one: '1 minute'
+        other: '{{count}} minuten'
+      x_minutes:
+        one: "1 minuut"
+        other: "{{count}} minuten"
+      about_x_hours:
+        one: 'ongeveer een uur'
+        other: '{{count}} uren'
+      x_days:
+        one: '1 dag'
+        other: '{{count}} dag'
+      about_x_months:
+        one: 'ongeveer 1 maand'
+        other: '{{count}} maanden'
+      x_months:
+        one: '1 maand'
+        other: '{{count}} maanden'
+      about_x_years:
+        one: 'ongeveer een jaar'
+        other: '{{count}} jaren'
+      over_x_years:
+        one: 'meer dan een jaar'
+        other: '{{count}} jaren'

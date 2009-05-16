@@ -39,7 +39,7 @@
   	    <span class="date quiet small">
   		  	<a href="/conversations/<%= convo.id %>-<%= convo.name %>/messages/<%= message.id %>" title="<%= message.date %>"><%= message.time %></a> -
   		  </span>
-  		  <span class="username"><a href="/conversations/<%= convo.id %>-<%= convo.name %>" class="tip" title="Personal convo for <%= user.login %>"><%= user.login %></a></span>
+  		  <span class="username"><a href="/conversations/<%= user.personal_convo_id %>-<%= user.login %>" class="tip" title="Personal convo for <%= user.login %>"><%= user.login %></a></span>
   		  <div class="messagelinks quiet small">
     			<a href="#" onclick="if (confirm('<%= t.report_confirmation %>')) { new Ajax.Request('/conversations/<%= convo.id %>-<%= convo.name %>/messages/<%= message.id %>/report', {asynchronous:true, evalScripts:true}); }; return false;"><%= t.report %></a>
           <a href="/conversations/new/spawn?message_id=<%= message.id %>" onclick="if (confirm('<%= t.spawn_confirmation %>')) { var f = document.createElement('form'); f.style.display = 'none'; this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href;var m = document.createElement('input'); m.setAttribute('type', 'hidden'); m.setAttribute('name', '_method'); m.setAttribute('value', 'get'); f.appendChild(m);f.submit(); };return false;"><%= t.spawn %></a>

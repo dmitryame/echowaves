@@ -169,7 +169,8 @@ class Message < ActiveRecord::Base
         :convos_started => "#{user.conversations.size} #{I18n.t('ui.convos')}",
         :messages_posted => "#{user.messages.size} #{I18n.t('ui.messages')}",
         :following => "#{user.subscriptions.size} #{I18n.t('ui.following')}",
-        :followers => "#{user.followers.size} #{I18n.t('ui.followers')}"
+        :followers => "#{user.followers.size} #{I18n.t('ui.followers')}",
+        :personal_convo_id => self.user.personal_conversation_id
       },
       :t => {
         :report => I18n.t('ui.report'),

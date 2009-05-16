@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
   has_many :client_applications
   has_many :tokens, :class_name => "OauthToken", :order => "authorized_at desc", :include => [:client_application]
   has_many :subscriptions, :order => "activated_at DESC"
-  has_many :subscribed_conversations, :through => :subscriptions, :uniq => true, :order => "name", :source => :conversation
+  has_many :subscribed_conversations, :through => :subscriptions, :uniq => true, :order => "name", :source => :conversation  
   has_many :conversations
   has_many :conversation_visits
   has_many :recent_conversations, 
@@ -50,7 +50,15 @@ class User < ActiveRecord::Base
   
   # this method returns a collection of all the convos with the new messages for the user.
   def news
-    subscriptions = self.subscriptions.reject { |subscription| subscription.new_messages_count == 0 }
+    # the old way
+    # subscriptions = self.subscriptions.reject { |subscription| subscription.new_messages_count == 0 }
+    # the new way, slightly more efficient
+    subscriptions = Subscription.find(:all, 
+    :joins => "JOIN conversations ON subscriptions.conversation_id=conversations.id JOIN messages ON conversations.id = messages.conversation_id and messages.id > subscriptions.last_message_id",
+    :conditions => ["subscriptions.user_id = ? ", self.id ], 
+    :group => "conversations.id",
+    :order => "messages.id ASC",
+    :limit => 12)
   end
 
   # friends are the people you follow (you follow their personal convos)

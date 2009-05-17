@@ -34,12 +34,12 @@
 				</li>
 				<li class="users"><%= link_to t('ui.users'), users_path %></li>
 				<li class="conversations"><%= link_to t('ui.conversations'), conversations_path %></li>
-
-				<li><%= link_to image_tag("/images/flags/nl.gif"), "?locale=nl" %></li>
-				<li><%= link_to image_tag("/images/flags/ru.gif"), "?locale=ru" %></li>
-				<li><%= link_to image_tag("/images/flags/es.gif"), "?locale=es-ES" %></li>
-				<li><%= link_to image_tag("/images/flags/us.gif"), "?locale=en" %></li>
 			</ul>
+			<div class="multilingual">
+			  <% form_tag '' do %>
+          <%= select_tag("locale", options_for_select([["English","en"], ["Español","es-ES"], ["Русский", "ru"], ["Português Br.","pt-BR"], ["Nederlands","nl"]],I18n.locale), { :index => nil, :onchange => 'this.form.submit()'}) %>
+        <% end %>
+      </div>
 			<div class="clear"></div>
 		</div>
 	</div>

@@ -1,3 +1,15 @@
+# == Schema Info
+# Schema version: 20090514235226
+#
+# Table name: conversation_visits
+#
+#  id              :integer(4)      not null, primary key
+#  conversation_id :integer(4)
+#  user_id         :integer(4)
+#  visits_count    :integer(4)      default(1)
+#  created_at      :datetime
+#  updated_at      :datetime
+#----------------------------------------------------------------------------
 class ConversationVisit < ActiveRecord::Base
   
   belongs_to :user

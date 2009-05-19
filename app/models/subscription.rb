@@ -1,3 +1,16 @@
+# == Schema Info
+# Schema version: 20090514235226
+#
+# Table name: subscriptions
+#
+#  id              :integer(4)      not null, primary key
+#  conversation_id :integer(4)
+#  last_message_id :integer(4)      default(0)
+#  user_id         :integer(4)
+#  activated_at    :datetime
+#  created_at      :datetime
+#  updated_at      :datetime
+#----------------------------------------------------------------------------
 class Subscription < ActiveRecord::Base
   
   belongs_to :user, :counter_cache => true

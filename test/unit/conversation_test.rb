@@ -1,3 +1,24 @@
+# == Schema Info
+# Schema version: 20090514235226
+#
+# Table name: conversations
+#
+#  id                    :integer(4)      not null, primary key
+#  parent_message_id     :integer(4)
+#  user_id               :integer(4)
+#  delta                 :boolean(1)
+#  description           :text
+#  messages_count        :integer(4)      default(0)
+#  name                  :string(255)
+#  personal_conversation :boolean(1)
+#  private               :boolean(1)
+#  read_only             :boolean(1)
+#  something             :string(255)     default("")
+#  subscriptions_count   :integer(4)      default(0)
+#  created_at            :datetime
+#  posted_at             :datetime
+#  updated_at            :datetime
+
 require File.dirname(__FILE__) + '/../test_helper'
 
 class ConversationTest < ActiveSupport::TestCase

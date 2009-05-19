@@ -1,3 +1,24 @@
+# == Schema Info
+# Schema version: 20090514235226
+#
+# Table name: messages
+#
+#  id                      :integer(4)      not null, primary key
+#  abuse_report_id         :integer(4)
+#  conversation_id         :integer(4)
+#  user_id                 :integer(4)
+#  attachment_content_type :string(255)
+#  attachment_file_name    :string(255)
+#  attachment_file_size    :integer(4)
+#  delta                   :boolean(1)
+#  message                 :text
+#  message_html            :text
+#  something               :string(255)     default("")
+#  system_message          :boolean(1)
+#  attachment_updated_at   :datetime
+#  created_at              :datetime
+#  updated_at              :datetime
+
 require File.dirname(__FILE__) + '/../test_helper'
 
 class MessageTest < ActiveSupport::TestCase

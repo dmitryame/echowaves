@@ -1,3 +1,16 @@
+# == Schema Info
+# Schema version: 20090514235226
+#
+# Table name: subscriptions
+#
+#  id              :integer(4)      not null, primary key
+#  conversation_id :integer(4)
+#  last_message_id :integer(4)      default(0)
+#  user_id         :integer(4)
+#  activated_at    :datetime
+#  created_at      :datetime
+#  updated_at      :datetime
+
 require File.dirname(__FILE__) + '/../test_helper'
 
 class SubscriptionTest < ActiveSupport::TestCase

@@ -1,3 +1,30 @@
+# == Schema Info
+# Schema version: 20090514235226
+#
+# Table name: users
+#
+#  id                          :integer(4)      not null, primary key
+#  personal_conversation_id    :integer(4)
+#  conversations_count         :integer(4)      default(0)
+#  crypted_password            :string(128)     not null, default("")
+#  email                       :string(100)
+#  login                       :string(40)
+#  messages_count              :integer(4)      default(0)
+#  name                        :string(100)     default("")
+#  perishable_token            :string(40)
+#  persistence_token           :string(255)
+#  receive_email_notifications :boolean(1)      default(TRUE)
+#  remember_token              :string(40)
+#  salt                        :string(128)     not null, default("")
+#  single_access_token         :string(255)     not null
+#  something                   :string(255)     default("")
+#  subscriptions_count         :integer(4)      default(0)
+#  time_zone                   :string(255)     default("UTC")
+#  activated_at                :datetime
+#  created_at                  :datetime
+#  remember_token_expires_at   :datetime
+#  updated_at                  :datetime
+#----------------------------------------------------------------------------
 require 'gravtastic'
 
 class User < ActiveRecord::Base

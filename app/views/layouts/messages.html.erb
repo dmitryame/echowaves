@@ -143,7 +143,7 @@
     	    	  <p id="attach_msgtextarea">        
                 <%= f.text_area :message, :onkeyup => "FitToTextAndMoveMessagesUp(this, (document.viewport.getHeight() - 300));Misc.pageScroll();", :class => 'messageinput', :id => "attch_message" %>  
               </p>
-              <p class="out_of_screen"><%= label_tag "important" %><%= f.text_field :something %></p>
+              <p class="out_of_screen"><%= label_tag "important" %><input id="message_something" name="message[something]" onfocus="javascript:$('attch_message').focus()" size="30" type="text" /></p>
     	    	  <%= submit_tag t("ui.attach") %>
     	    	  <%= link_to_function t("ui.cancel") do |page|
                 page[:attachment_form].hide
@@ -170,7 +170,7 @@
                 :condition => "$('message_message').value.strip().length > 0",
                 :html => {:id => 'msgform'}) do |f| %>
                  
-                <p class="out_of_screen"><%= label_tag "important" %><%= f.text_field :something %></p>
+                <p class="out_of_screen"><%= label_tag "important" %><input id="message_something" name="message[something]" onfocus="javascript:$('message_message').focus()" size="30" type="text" /></p>
                 
                 <p id="msgtextarea">        
                   <%= f.text_area :message, :onkeyup => "FitToTextAndMoveMessagesUp(this, (document.viewport.getHeight() - 300));Misc.pageScroll();", :class => 'messageinput' %>  

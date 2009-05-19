@@ -22,3 +22,4 @@ config.action_controller.allow_forgery_protection    = false
 config.action_mailer.delivery_method = :test
 
 config.gem "mocha", :version => '>= 0.9.5'
+config.gem "nokogiri", :version => '>= 1.2.3' # required for webrat

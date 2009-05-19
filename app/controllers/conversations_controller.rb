@@ -31,7 +31,6 @@ class ConversationsController < ApplicationController
     if logged_in?
       subscription = current_user.subscriptions.find_by_conversation_id(@conversation.id)
       @last_message_id = subscription.last_message_id if (subscription && subscription.new_messages_count > 0)
-      current_user.conversation_visit_update(@conversation)
     end
 
     @has_more_messages = @conversation.has_messages_before?(@messages.first)
@@ -46,6 +45,8 @@ class ConversationsController < ApplicationController
         	group.merge!({ :messages => grouped_messages.map { |message| message.data_for_templates } })
         	data << group
         end
+        # mark all the messages as read AFTER the ajax request for the messages list
+        current_user.conversation_visit_update(@conversation)
         render :text => {:message_groups => data, :last_message_id => @last_message_id}.to_json
       end
     end

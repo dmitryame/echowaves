@@ -53,7 +53,7 @@
  			output.update('<span class="status_red tip" title="disconnected">&nbsp;</span>');
  			//try to reconnect
  			// stomp.connect(document.domain, 61613, 'UNIQUE_ID_PER_CLIENT', '');
-			stomp.connect('<%=STOMP_HOST%>', <%=STOMP_PORT%>, '<%=current_user%>', '');
+			stomp.connect('<%=STOMP_HOST%>', <%=STOMP_PORT%>, '<%=h current_user %>', '');
 			// stomp.subscribe('CONVERSATION_CHANNEL_<%=@conversation.id%>', {exchange:''});	 		
  		};
  		stomp.onerror = function(error) {
@@ -89,7 +89,7 @@
 			}
 
  		};
-		stomp.connect('<%=STOMP_HOST%>', <%=STOMP_PORT%>, 'user_<%=current_user%>', '');
+		stomp.connect('<%=STOMP_HOST%>', <%=STOMP_PORT%>, 'user_<%=h current_user %>', '');
  		// setTimeout("stomp.subscribe('CONVERSATION_CHANNEL_<%=@conversation.id%>', {exchange:''})", 5000);
 
  	};

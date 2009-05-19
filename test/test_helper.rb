@@ -4,6 +4,11 @@ require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 require File.expand_path(File.dirname(__FILE__) + "/factories")
 require 'authlogic/testing/test_unit_helpers'
 
+require "webrat"
+Webrat.configure do |config|
+  config.mode = :rails
+end
+  
 class ActiveSupport::TestCase
 
   self.use_transactional_fixtures = true

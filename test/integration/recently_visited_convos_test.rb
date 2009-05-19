@@ -8,13 +8,15 @@ class RecentlyVisitedConvosTest < ActionController::IntegrationTest
       post_via_redirect "/user_session", :user_session => { :login => "crossblaim", :password => "secret" }
       assert_response :success
       
-      # this is the #1 convo crossblaim visit, the recently visited list should be empty
+      # this is the #1 convo crossblaim visit, the recently visited list should be empty 
+      get "/conversations/#{conversations(:crossblaim_personal_convo).id}.js"
       get "/conversations/#{conversations(:crossblaim_personal_convo).id}"
       assert_response :success
       assert_select "div#recently_visited>ul>li", 0
       
       # this is the #2 convo crossblaim visit, the recently visited list
       # should contain the previusly visited convo (crossblaim_personal_convo)
+      get "/conversations/#{conversations(:dmitry_personal_convo).id}.js"
       get "/conversations/#{conversations(:dmitry_personal_convo).id}"
       assert_response :success
       assert_select "div#recently_visited>ul>li", 1
@@ -22,6 +24,7 @@ class RecentlyVisitedConvosTest < ActionController::IntegrationTest
       
       # crossblaim visit again his personal convo, the recently visited list
       # should contain the previusly visited convo (dmitry_personal_convo)
+      get "/conversations/#{conversations(:crossblaim_personal_convo).id}.js"
       get "/conversations/#{conversations(:crossblaim_personal_convo).id}"
       assert_response :success
       assert_select "div#recently_visited>ul>li", 1

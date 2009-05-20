@@ -46,7 +46,7 @@ class ConversationsController < ApplicationController
         	data << group
         end
         # mark all the messages as read AFTER the ajax request for the messages list
-        current_user.conversation_visit_update(@conversation)
+        current_user.conversation_visit_update(@conversation) if logged_in?
         render :text => {:message_groups => data, :last_message_id => @last_message_id}.to_json
       end
     end

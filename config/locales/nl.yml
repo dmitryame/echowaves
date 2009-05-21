@@ -139,39 +139,4 @@ nl:
     you_must_be_logged_in: "Je moet ingelogd zijn om dit te kunnen zien"
   errors:
     sorry_this_is_a_private_convo: "Sorry, dit is een privé gesprek."
-    only_the_owner_can_invite: "Alleen de eigenaar kan mensen uitnodigen"    
-  datetime:
-    distance_in_words:
-      half_a_minute: 'halve minuut'
-      less_than_x_seconds:
-        zero: 'minder dan 1 seconde'
-        one: '1 seconde'
-        other: '{{count}} seconden'
-      x_seconds:
-        one: '1 seconde'
-        other: '{{count}} seconden'
-      less_than_x_minutes:
-        zero: 'minder dan een minuut'
-        one: '1 minute'
-        other: '{{count}} minuten'
-      x_minutes:
-        one: "1 minuut"
-        other: "{{count}} minuten"
-      about_x_hours:
-        one: 'ongeveer een uur'
-        other: '{{count}} uren'
-      x_days:
-        one: '1 dag'
-        other: '{{count}} dag'
-      about_x_months:
-        one: 'ongeveer 1 maand'
-        other: '{{count}} maanden'
-      x_months:
-        one: '1 maand'
-        other: '{{count}} maanden'
-      about_x_years:
-        one: 'ongeveer een jaar'
-        other: '{{count}} jaren'
-      over_x_years:
-        one: 'meer dan een jaar'
-        other: '{{count}} jaren'
+    only_the_owner_can_invite: "Alleen de eigenaar kan mensen uitnodigen"

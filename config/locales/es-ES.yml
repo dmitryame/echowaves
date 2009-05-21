@@ -142,39 +142,3 @@ es-ES:
   errors:
     sorry_this_is_a_private_convo: "Lo sentimos mucho, esta es una conversacion privada. Puedes intentarlo con alguna otra"
     only_the_owner_can_invite: "Solo el propietario de esta conversacion puede invitar a otros usuarios"
-    
-  datetime:
-    distance_in_words:
-      half_a_minute: 'hace medio minuto'
-      less_than_x_seconds:
-        zero: 'hace menos de 1 segundo'
-        one: 'hace 1 segundo'
-        other: 'hace {{count}} segundos'
-      x_seconds:
-        one: 'hace 1 segundo'
-        other: 'hace {{count}} segundos'
-      less_than_x_minutes:
-        zero: 'hace menos de 1 minuto'
-        one: 'hace 1 minuto'
-        other: 'hace {{count}} minutos'
-      x_minutes:
-        one: "hace 1 minuto"
-        other: "hace {{count}} minutos"
-      about_x_hours:
-        one: 'hace aproximadamente 1 hora'
-        other: 'hace {{count}} horas'
-      x_days:
-        one: 'hace 1 día'
-        other: 'hace {{count}} días'
-      about_x_months:
-        one: 'hace aproximandamente 1 mes'
-        other: 'hace {{count}} mes'
-      x_months:
-        one: 'hace 1 mes'
-        other: 'hace {{count}} mes'
-      about_x_years:
-        one: 'hace aproximadamente 1 año'
-        other: 'hace {{count}} años'
-      over_x_years:
-        one: 'hace más de 1 año'
-        other: 'hace {{count}} años'

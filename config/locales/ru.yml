@@ -142,39 +142,3 @@ ru:
   errors:
     sorry_this_is_a_private_convo: "Извините, Этот разговор закрыт."
     only_the_owner_can_invite: "Только владелец этого разговора может приглашать других пользователей"
-    
-  datetime:
-    distance_in_words:
-      half_a_minute: 'пол минуты'
-      less_than_x_seconds:
-        zero: 'меньше чем одна секунда'
-        one: '1 секунда'
-        other: '{{count}} секунд'
-      x_seconds:
-        one: '1 секунда'
-        other: '{{count}} секунд'
-      less_than_x_minutes:
-        zero: 'меньше чем одна минута'
-        one: '1 минута'
-        other: '{{count}} минут'
-      x_minutes:
-        one: "1 минута"
-        other: "{{count}} минут"
-      about_x_hours:
-        one: 'около 1 часа'
-        other: '{{count}} часов'
-      x_days:
-        one: '1 день'
-        other: '{{count}} дня/дней'
-      about_x_months:
-        one: 'около 1 месяца'
-        other: '{{count}} месяцев'
-      x_months:
-        one: '1 месяц'
-        other: '{{count}} месяцев'
-      about_x_years:
-        one: 'около 1 года'
-        other: '{{count}} года/лет'
-      over_x_years:
-        one: 'больше 1 года'
-        other: '{{count}} года/лет'

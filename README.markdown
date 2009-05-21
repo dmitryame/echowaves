@@ -84,6 +84,12 @@ In that case, you'll probably want to comment out the (currently last) line in c
 
 so that actionmailer failures are more visible.
 
+## LOCALIZATION
+
+We are using Rails I18n, and [javascript_i18n](http://github.com/qoobaa/javascript_i18n/tree/master) for localization. The javascript localization is generated from the rails one (in config/locales) by running the next rake task:
+
+    rake js:i18n:build
+    
 ## REPORTING ISSUES
 
 If you find an issue or would like to make a suggestion on what functionality you would like to see in echowaves, you can do it at the [echowaves issues tracker](http://code.google.com/p/echowaves/issues)

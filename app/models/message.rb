@@ -186,18 +186,12 @@ class Message < ActiveRecord::Base
         :id => self.user.id,
         :login => self.user.login.parameterize.to_s,
         :gravatar_url => self.user.gravatar_url,
-        :since => "#{I18n.t('users.since')} #{self.user.date}",
-        :convos_started => "#{user.conversations.size} #{I18n.t('ui.convos')}",
-        :messages_posted => "#{user.messages.size} #{I18n.t('ui.messages')}",
-        :following => "#{user.subscriptions.size} #{I18n.t('ui.following')}",
-        :followers => "#{user.followers.size} #{I18n.t('ui.followers')}",
+        :since => self.user.date,
+        :convos_started => user.conversations.size,
+        :messages_posted => user.messages.size,
+        :following => user.subscriptions.size,
+        :followers => user.followers.size,
         :personal_convo_id => self.user.personal_conversation_id
-      },
-      :t => {
-        :report => I18n.t('ui.report'),
-        :report_confirmation => I18n.t('ui.reportconfirm'),
-        :spawn => I18n.t('ui.spawn'),
-        :spawn_confirmation => I18n.t('ui.spawnconfirm')
       }
     }
   end

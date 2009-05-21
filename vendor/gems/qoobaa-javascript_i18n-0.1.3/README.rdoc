@@ -1,0 +1,63 @@
+= javascript_i18n
+
+Dead simple JavaScript i18n tool. It contains JavaScript builder to
+generate static files with translations in /public/javascripts/i18n
+directory. Each language is stored in separate file, so if we have
+e.g. 10 languages in our application, client needs to download only
+the language he uses (10 times smaller than in Babilu). Because of
+that fact we don't need to set any cookies to tell the client which
+locale he uses. To use the gem put the following line into your
+environment.rb:
+
+  config.gem "qoobaa-javascript_i18n", :lib => "javascript_i18n"
+
+and run:
+
+  gem sources -a http://gems.github.com # (you only have to do this once)
+  sudo rake gems:install
+
+After installing the gem, use the generator:
+
+  ruby script/generate javascript_i18n
+
+That's it! If you want to build javascript files based on current
+translation files use the rake task:
+
+  rake js:i18n:build
+
+To include translations, put the code below in your
+layout file (or somewhere in the view):
+
+  <%= javascript_include_tag "i18n/#{I18n.locale}" %>
+
+If you often change the translations files, you may generate files on
+every request in development mode, putting the code in your
+/app/controllers/application_controller.rb:
+
+  before_filter :build_javascript_i18n
+
+  protected
+
+  def build_javascript_i18n
+    JavascriptI18n.build unless Rails.env.production?
+  end
+
+You can use I18n.t function in your JavaScript files, it's similar to
+ActiveSupport I18n.t:
+
+  I18n.t("hello");
+  // "Hello World!"
+  I18n.t("foo.bar")
+  // "baz"
+  I18n.t("non.existing")
+  // null
+  I18n.t("non.existing", { defaultValue: "foo" })
+  // "foo"
+  I18n.t("bar", { count: 1 })
+  // "foo"
+  I18n.t("bar", { count: 2 })
+  // "foos"
+
+== Copyright
+
+Copyright (c) 2009 Jakub Kuźma. See LICENSE for details.

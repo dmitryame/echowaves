@@ -1,0 +1,68 @@
+--- !ruby/object:Gem::Specification 
+name: qoobaa-javascript_i18n
+version: !ruby/object:Gem::Version 
+  version: 0.1.3
+platform: ruby
+authors: 
+- "Jakub Ku\xC5\xBAma"
+autorequire: 
+bindir: bin
+cert_chain: []
+
+date: 2009-05-17 00:00:00 +02:00
+default_executable: 
+dependencies: []
+
+description: 
+email: qoobaa@gmail.com
+executables: []
+
+extensions: []
+
+extra_rdoc_files: 
+- LICENSE
+- README.rdoc
+files: 
+- .document
+- .gitignore
+- LICENSE
+- README.rdoc
+- Rakefile
+- VERSION
+- generators/javascript_i18n/javascript_i18n_generator.rb
+- generators/javascript_i18n/templates/javascripts/base.js
+- generators/javascript_i18n/templates/tasks/javascript_i18n.rake
+- lib/javascript_i18n.rb
+- test/javascript_i18n_test.rb
+- test/test_helper.rb
+has_rdoc: false
+homepage: http://github.com/qoobaa/javascript_i18n
+licenses: []
+
+post_install_message: 
+rdoc_options: 
+- --charset=UTF-8
+require_paths: 
+- lib
+required_ruby_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      version: "0"
+  version: 
+required_rubygems_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      version: "0"
+  version: 
+requirements: []
+
+rubyforge_project: 
+rubygems_version: 1.3.2
+signing_key: 
+specification_version: 3
+summary: Dead simple JavaScript i18n
+test_files: 
+- test/javascript_i18n_test.rb
+- test/test_helper.rb

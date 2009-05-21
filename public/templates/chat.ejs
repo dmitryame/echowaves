@@ -4,7 +4,7 @@
   <% for(var m=0; m<message_groups[i].messages.length; m++) { %>
     <%= this.partial({url: '/templates/message.ejs'},message_groups[i].messages[m]) %>    
     <% if(message_groups[i].messages[m].message.id == last_message_id) { %> 
-    	<div class="last-read">new messages</div>
+    	<div class="last-read"><%= I18n.t('messages.new_messages') %></div>
     <% } %>
     
   <% } %>

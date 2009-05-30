@@ -1,0 +1,12 @@
+<%= render :partial => 'messages/messages_controls' %>
+
+<div id='messages'>
+	<div id="first_message"></div>
+	<% @messages.group_by(&:date).each do |date, grouped_messages| %>
+	  <p class="groupdate"><span><%= date %></span></p>
+	  <% grouped_messages.each do |message| %>
+	    <%= render message %>
+	  <% end %>
+	<% end %>
+	<%# render :partial => 'message', :collection => @messages %>
+</div>

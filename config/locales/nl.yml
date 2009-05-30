@@ -14,6 +14,7 @@ nl:
     all: "allemaal"
     with_files: "met bestanden"
     with_images: "met afbeeldingen"
+    system_messages: "system messages"
     cancel: "stoppen"
     name: "naam"
     description: "beschrijving"

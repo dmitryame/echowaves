@@ -23,7 +23,8 @@ ActionController::Routing::Routes.draw do |map|
     :invite_from_list   => :post,
     :remove_user        => :post,
     :files              => :get,
-    :images             => :get
+    :images             => :get,
+    :system_messages    => :get
     }, :new => { :spawn => :get } do |conversation|
       conversation.resources :messages, :member => { :report => :post }, 
                                         :except => [:edit, :update, :destroy]

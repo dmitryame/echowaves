@@ -51,9 +51,11 @@ class Message < ActiveRecord::Base
     :path => PAPERCLIP_PATH,
     :url  => PAPERCLIP_URL
   
-  named_scope :published, :conditions => { :abuse_report_id => nil }
-  named_scope :with_file, :conditions => ["attachment_content_type like ?","application%"]
+  named_scope :published,  :conditions => { :abuse_report_id => nil }
+  named_scope :with_file,  :conditions => ["attachment_content_type like ?","application%"]
   named_scope :with_image, :conditions => ["attachment_content_type like ?",'image%']
+  named_scope :non_system, :conditions => [ "system_message = false" ]
+  named_scope :system,     :conditions => [ "system_message = true" ]
   
 
   # sphinx index

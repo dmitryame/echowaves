@@ -182,7 +182,7 @@ class Message < ActiveRecord::Base
       },
       :convo => {
         :id => self.conversation_id,
-        :name => self.conversation.name
+        :name => "#{self.conversation.name.parameterize}"
       },
       :user => {
         :id => self.user.id,

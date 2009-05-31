@@ -1,9 +1,9 @@
 <div id="messages_controls" class="item">
 	<%= link_to t('ui.back'), conversations_path %>
 
-	<%if @has_more_messages%>
+	<% if @has_more_messages %>
 		<%= link_to_remote t("ui.more_messages"), 
 		:url => {:controller => 'messages', :action => 'get_more_messages', :conversation_id => @conversation},
-		:with => "'before='+#{@messages.first.id}" %>		
-	<%end%>
+		:with => "'before='+#{@last_message_id}" %>		
+	<% end %>
 </div>

@@ -4,3 +4,19 @@
 	<div id="first_message"></div>
   <div class="center" id="load-indicator"><div>LOADING MESSAGES</div><%= image_tag("/images/big_spinner.gif") %></div>
 </div>
+
+<script>
+	new Ajax.Request('/conversations/<%= @conversation.id %>/messages.json',
+    {
+      method:'get',
+      onSuccess: function(transport){
+        var response = transport.responseText || "error, no responseText";
+        var json = response.evalJSON();
+        var html = new EJS({url: '/templates/chat.ejs'}).render(json);
+        $('messages').insert({"bottom":html});
+        $('load-indicator').hide();
+        Misc.pageScroll();
+      },
+      onFailure: function(){ alert('Something went wrong...') }
+    });
+</script>

@@ -12,10 +12,81 @@ class MessagesController < ApplicationController
   auto_complete_for :tag, :name
   
   def index
-    headers["Status"] = "301 Moved Permanently"
-    redirect_to conversation_path(@conversation) 
+    respond_to do |format|
+      format.html do
+        headers["Status"] = "301 Moved Permanently"
+        redirect_to conversation_path(@conversation)
+      end
+      format.json do
+        @messages = @conversation.messages.non_system.published.find(:all, :include => [:user], :limit => Message::PER_PAGE, :order => 'id DESC').reverse
+        if logged_in?
+          subscription = current_user.subscriptions.find_by_conversation_id(@conversation.id)
+          current_user.conversation_visit_update(@conversation) if logged_in?
+          @last_message_id = subscription.last_message_id if (subscription && subscription.new_messages_count > 0)  
+        end
+        data = group_and_json( @messages )
+        render :text => {:message_groups => data, :last_message_id => @last_message_id}.to_json
+      end
+    end    
   end
-
+  
+  def images
+    respond_to do |format|
+      format.html do
+        headers["Status"] = "301 Moved Permanently"
+        redirect_to conversation_path(@conversation)
+      end
+      format.json do
+        @messages = @conversation.messages.with_image.published.find(:all, :include => [:user], :limit => Message::PER_PAGE, :order => 'id DESC').reverse
+        if logged_in?
+          subscription = current_user.subscriptions.find_by_conversation_id(@conversation.id)
+          current_user.conversation_visit_update(@conversation) if logged_in?
+          @last_message_id = subscription.last_message_id if (subscription && subscription.new_messages_count > 0)  
+        end
+        data = group_and_json( @messages )
+        render :text => {:message_groups => data, :last_message_id => @last_message_id}.to_json
+      end
+    end    
+  end
+  
+  def files
+    respond_to do |format|
+      format.html do
+        headers["Status"] = "301 Moved Permanently"
+        redirect_to conversation_path(@conversation)
+      end
+      format.json do
+        @messages = @conversation.messages.with_file.published.find(:all, :include => [:user], :limit => Message::PER_PAGE, :order => 'id DESC').reverse
+        if logged_in?
+          subscription = current_user.subscriptions.find_by_conversation_id(@conversation.id)
+          current_user.conversation_visit_update(@conversation) if logged_in?
+          @last_message_id = subscription.last_message_id if (subscription && subscription.new_messages_count > 0)  
+        end
+        data = group_and_json( @messages )
+        render :text => {:message_groups => data, :last_message_id => @last_message_id}.to_json
+      end
+    end    
+  end
+  
+  def system_messages
+    respond_to do |format|
+      format.html do
+        headers["Status"] = "301 Moved Permanently"
+        redirect_to conversation_path(@conversation)
+      end
+      format.json do
+        @messages = @conversation.messages.system.published.find(:all, :include => [:user], :limit => Message::PER_PAGE, :order => 'id DESC').reverse
+        if logged_in?
+          subscription = current_user.subscriptions.find_by_conversation_id(@conversation.id)
+          current_user.conversation_visit_update(@conversation) if logged_in?
+          @last_message_id = subscription.last_message_id if (subscription && subscription.new_messages_count > 0)  
+        end
+        data = group_and_json( @messages )
+        render :text => {:message_groups => data, :last_message_id => @last_message_id}.to_json
+      end
+    end    
+  end
+    
   #TODO: get_more_messages, get_more_messages_on_top, get_more_messages_on_bottom need to be refactored into something more generic
   def get_more_messages
     @messages = @conversation.get_messages_before(params[:before]).reverse
@@ -116,6 +187,16 @@ private
       redirect_to conversations_path
       return
     end
+  end       
+  
+  def group_and_json(messages)
+    data = []
+    messages.group_by(&:date).each do |date, grouped_messages|
+    	group = { :date => date }
+    	group.merge!({ :messages => grouped_messages.map { |message| message.data_for_templates } })
+    	data << group
+    end
+    return data
   end
   
 end

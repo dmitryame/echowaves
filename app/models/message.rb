@@ -21,6 +21,8 @@
 #----------------------------------------------------------------------------
 class Message < ActiveRecord::Base
   
+  PER_PAGE = 50
+  
   attr_protected :system_message #add more attributes as needed to protect from mass assignment
   
   auto_html_for(:message) do
@@ -56,8 +58,6 @@ class Message < ActiveRecord::Base
   named_scope :with_image, :conditions => ["attachment_content_type like ?",'image%']
   named_scope :non_system, :conditions => [ "system_message = false" ]
   named_scope :system,     :conditions => [ "system_message = true" ]
-  
-
   # sphinx index
   #----------------------------------------------------------------------------
   define_index do

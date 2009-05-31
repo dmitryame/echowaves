@@ -17,7 +17,6 @@ class ConversationsController < ApplicationController
     else
       @conversations = Conversation.non_private.not_personal.paginate :page => params[:page], :order => 'created_at DESC'
     end
-
     respond_to do |format|
       format.html
       format.atom
@@ -25,83 +24,18 @@ class ConversationsController < ApplicationController
     end
   end
 
-  def show    
-    @messages = @conversation.messages.published.non_system.find(:all, :include => [:user], :limit => 50, :order => 'id DESC').reverse      
-    if logged_in?
-      subscription = current_user.subscriptions.find_by_conversation_id(@conversation.id)
-      @last_message_id = subscription.last_message_id if (subscription && subscription.new_messages_count > 0)
-    end
-
-    @has_more_messages = @conversation.has_messages_before?(@messages.first)
-
+  def show
+    @has_more_messages = @conversation.messages.published.count > Message::PER_PAGE # the number of messages loaded in a convo
+    @last_message_id = @conversation.messages.published.first(:offset => Message::PER_PAGE-1, :order => 'id DESC').id if @has_more_messages
     respond_to do |format|
       format.html { render :layout => 'messages' }
       format.xml  { render :xml => {:conversation => @conversation, :messages => @messages} }
-      format.js   do
-        data = []
-        @messages.group_by(&:date).each do |date, grouped_messages|
-        	group = { :date => date }
-        	group.merge!({ :messages => grouped_messages.map { |message| message.data_for_templates } })
-        	data << group
-        end
-        # mark all the messages as read AFTER the ajax request for the messages list
-        current_user.conversation_visit_update(@conversation) if logged_in?
-        render :text => {:message_groups => data, :last_message_id => @last_message_id}.to_json
-      end
     end
   end
 
-  def files
-    @messages = @conversation.messages.with_file.published.non_system.find(:all, :include => [:user], :limit => 50, :order => 'id DESC').reverse
-    
-    if logged_in?
-      subscription = current_user.subscriptions.find_by_conversation_id(@conversation.id)
-      @last_message_id = subscription.last_message_id if (subscription && subscription.new_messages_count > 0)
-      current_user.conversation_visit_update(@conversation)
-    end
-
-    @has_more_messages = @conversation.has_messages_before?(@messages.first)
-
-    respond_to do |format|
-      format.html { render :layout => 'messages' }
-      format.xml  { render :xml => @conversation }
-    end
-  end
-  
-  def images
-    @messages = @conversation.messages.with_image.published.non_system.find(:all, :include => [:user], :limit => 50, :order => 'id DESC').reverse
-    
-    if logged_in?
-      subscription = current_user.subscriptions.find_by_conversation_id(@conversation.id)
-      @last_message_id = subscription.last_message_id if (subscription && subscription.new_messages_count > 0)
-      current_user.conversation_visit_update(@conversation)
-    end
-
-    @has_more_messages = @conversation.has_messages_before?(@messages.first)
-
-    respond_to do |format|
-      format.html { render :layout => 'messages' }
-      format.xml  { render :xml => @conversation }
-    end
-  end
-
-  def system_messages
-    @messages = @conversation.messages.system.published.find(:all, :include => [:user], :limit => 50, :order => 'id DESC').reverse
-    
-    if logged_in?
-      subscription = current_user.subscriptions.find_by_conversation_id(@conversation.id)
-      @last_message_id = subscription.last_message_id if (subscription && subscription.new_messages_count > 0)
-      current_user.conversation_visit_update(@conversation)
-    end
-
-    @has_more_messages = @conversation.has_messages_before?(@messages.first)
-
-    respond_to do |format|
-      format.html { render :layout => 'messages' }
-      format.xml  { render :xml => @conversation }
-    end
-  end
-
+  alias_method :images, :show
+  alias_method :files, :show
+  alias_method :system_messages, :show
   
   def new
     @conversation = Conversation.new

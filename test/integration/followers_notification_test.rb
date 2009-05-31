@@ -14,15 +14,16 @@ class FollowersNotificationTest < ActionController::IntegrationTest
       assert_equal "Conversation was successfully created.", flash[:notice]
       @messages = users(:crossblaim).messages.find(:all, :conditions => ['system_message = ?', true], :limit => 2)
       assert_equal 2, @messages.length
-      # the actual messages for this convo are requested in js after tha page loads
-      get "/conversations/#{conversations(:dmitry_personal_convo).id}.js"
-      # assert_match(/created a new convo\:/, @response.body)
-      # assert_match(/>new crossblaim convo<\/a>/, @response.body)
-      # the actual messages for this convo are requested in js after tha page loads
-      get "/conversations/#{conversations(:akira_personal_convo).id}.js"
+      # the actual messages for this convo are requested in js after the page loads
+      get "/conversations/#{conversations(:dmitry_personal_convo).id}/messages/system_messages.json"    
       assert_response :success
-      # assert_match(/created a new convo\:/, @response.body)
-      # assert_match(/>new crossblaim convo<\/a>/, @response.body)
+      assert_match(/created a new convo\:/, @response.body)
+      assert_match(/>new crossblaim convo<\/a>/, @response.body)
+      # the actual messages for this convo are requested in js after the page loads
+      get "/conversations/#{conversations(:akira_personal_convo).id}/messages/system_messages.json"
+      assert_response :success
+      assert_match(/created a new convo\:/, @response.body)
+      assert_match(/>new crossblaim convo<\/a>/, @response.body)
     end  
   end
 

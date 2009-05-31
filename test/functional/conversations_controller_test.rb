@@ -307,11 +307,6 @@ class ConversationsControllerTest < ActionController::TestCase
       @message.stubs( :to_xml ).returns( 'XML' )
     end
     
-    should "call user#conversation_visit_update when logged_in? AJAX" do
-      @current_user.expects( :conversation_visit_update ).with( @conversation )
-      xhr :get, :show, :id => @conversation
-    end
-    
     # should "find the conversation" do
     #   Conversation.stubs( :find ).with( '1' ).returns( @convo )
     #   get :show, :id => '1'

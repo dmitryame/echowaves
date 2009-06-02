@@ -8,7 +8,9 @@
 <div>
 	<h2>
 		<%= link_to_remote t("users.invite_all_followers"), :url => invite_all_my_followers_conversation_path(@conversation),
+		  :loading => "$('spinner_0').show();",
     	  :method => :post %>	
+      	<%= image_tag "/images/icons/spinner.gif", :style => 'display:none;', :id => "spinner_0" %>
 	</h2>
 </div>
 <div class="arrow">&nbsp;</div>

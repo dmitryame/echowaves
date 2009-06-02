@@ -197,8 +197,9 @@ class ConversationsController < ApplicationController
         user.invite @conversation, current_user        
       end
     end
-    
-    render :nothing => true
+    render :update do |page| 
+      page["spinner_0"].visual_effect :drop_out
+    end 
   end
 
   def toogle_bookmark

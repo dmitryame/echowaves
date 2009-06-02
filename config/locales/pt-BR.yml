@@ -121,7 +121,7 @@ pt-BR:
     signup_complete: "Registro completo! Por favor entre no sistema para continuar."
     invite_users: "Convidar usuários"
     invite_followed_users: "Invite followed users"
-    invite_all_followers: "Invite all followers"
+    invite_all_followers: "Invite all my followers"
   conversations:
     go_to_conversation: "ir para a conversação"
     bookmarked_conversations: "conversações favoritas"

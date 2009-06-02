@@ -121,7 +121,7 @@ en:
     signup_complete: "Signup complete! Please login to continue."
     invite_users: "Invite users"
     invite_followed_users: "Invite followed users"
-    invite_all_followers: "Invite all followers"
+    invite_all_followers: "Invite all my followers"
   conversations:
     go_to_conversation: "go to conversation"
     bookmarked_conversations: "bookmarked conversations"

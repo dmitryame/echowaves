@@ -191,6 +191,16 @@ class ConversationsController < ApplicationController
     end 
   end
 
+  def invite_all_my_followers
+    current_user.followers.each do |user| 
+      if(user.id != current_user.id) 
+        user.invite @conversation, current_user        
+      end
+    end
+    
+    render :nothing => true
+  end
+
   def toogle_bookmark
     if @conversation.tag_list_on(:bookmarks).include?(current_user.bookmark_tag)
       @conversation.tag_list_on(:bookmarks).remove(current_user.bookmark_tag)

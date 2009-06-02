@@ -11,20 +11,21 @@ ActionController::Routing::Routes.draw do |map|
                                     }
 
   map.resources :conversations, :collection => {:bookmarked => :get}, :member => {
-    :private_status     => :put,
-    :readwrite_status   => :put,
-    :toogle_bookmark    => :post,
-    :follow             => :post,
-    :follow_with_token  => :get,
-    :unfollow           => :post,
-    :follow_from_list   => :post,
-    :unfollow_from_list => :post,
-    :invite             => :get,
-    :invite_from_list   => :post,
-    :remove_user        => :post,
-    :files              => :get,
-    :images             => :get,
-    :system_messages    => :get
+    :private_status          => :put,
+    :readwrite_status        => :put,
+    :toogle_bookmark         => :post,
+    :follow                  => :post,
+    :follow_with_token       => :get,
+    :unfollow                => :post,
+    :follow_from_list        => :post,
+    :unfollow_from_list      => :post,
+    :invite                  => :get,
+    :invite_from_list        => :post,
+    :invite_all_my_followers => :post,
+    :remove_user             => :post,
+    :files                   => :get,
+    :images                  => :get,
+    :system_messages         => :get
     }, :new => { :spawn => :get } do |conversation|
       conversation.resources :messages, :member => { :report => :post }, 
                                         :collection => {:images => :get, :files => :get, :system_messages => :get},

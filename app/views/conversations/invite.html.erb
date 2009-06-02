@@ -6,7 +6,10 @@
 </div>
 
 <div>
-	<h2><%= t("users.invite_all_followers") %></h2>
+	<h2>
+		<%= link_to_remote t("users.invite_all_followers"), :url => invite_all_my_followers_conversation_path(@conversation),
+    	  :method => :post %>	
+	</h2>
 </div>
 <div class="arrow">&nbsp;</div>
 

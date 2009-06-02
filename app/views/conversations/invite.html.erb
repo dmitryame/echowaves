@@ -1,10 +1,18 @@
 <div class="balloon">
-  <h1><%= link_to @conversation.name , conversation_path(@conversation) %></h1>
-  <div>
-  	<%= t("users.invite_users") %>
-  </div>
+	<h1><%= link_to @conversation.name , conversation_path(@conversation) %></h1>
+	<div>
+		<%= t("users.invite_users") %>
+	</div>
+</div>
+
+<div>
+	<h2><%= t("users.invite_all_followers") %></h2>
 </div>
 <div class="arrow">&nbsp;</div>
+
+<div class="balloon">
+	<h2><%= t("users.invite_followed_users") %></h2>
+</div>
 
 <div class="item">
   <ul id="users_list">

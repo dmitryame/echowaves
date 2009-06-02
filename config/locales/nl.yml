@@ -118,6 +118,8 @@ nl:
     profile_updated: "Profiel geupdate"
     signup_complete: "Registratie compleet! Login om je account te activeren."
     invite_users: "Nodig gebruikers uit"
+    invite_followed_users: "Invite followed users"
+    invite_all_followers: "Invite all followers"
   conversations:
     go_to_conversation: "Ga naar gesprek"
     bookmarked_conversations: "gemarkeerde gesprekken"

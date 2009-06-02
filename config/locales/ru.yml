@@ -120,6 +120,8 @@ ru:
     profile_updated: "Профиль успешно обновлен"
     signup_complete: "Регистрация успешно завершена! Чтобы продолжить -- логин."
     invite_users: "пригласить пользователей"
+    invite_followed_users: "пригласить следуемых пользователей"
+    invite_all_followers: "пригласить всех следующих"        
   conversations:
     go_to_conversation: "go to conversation"
     bookmarked_conversations: "bookmarked conversations"

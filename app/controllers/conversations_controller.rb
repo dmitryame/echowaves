@@ -183,29 +183,8 @@ class ConversationsController < ApplicationController
     current_user.friends.each do |user| 
       @user = user if(user.id.to_s == params[:user_id]) # search for the user in friends collection
     end
-    # TODO this whole thing preferebly should move into the model
-    existing_invite = Invite.find(:first, :conditions => ["user_id = ? and requestor_id = ? and conversation_id = ?", @user.id, current_user.id, params[:id] ] )
-    return if(existing_invite != nil) # don't do anything, already invited
-    @invite = Invite.new
-    @invite.user_id = @user.id
-    @invite.requestor = current_user
-    @invite.conversation_id = params[:id]
-    @invite.token = @user.perishable_token if @conversation.private?
-    @invite.save
     
-    if @conversation.private?
-      # private convo only sends invite via email
-      @user.deliver_private_invite_instructions!(@invite)
-    else
-      @user.deliver_public_invite_instructions!(@invite)
-      # now let's create a system message and send it to the convo channel
-      # TODO: how to translate this for the current user?
-      msg = " invites you to follow a convo: <a href='/conversations/#{params[:id]}'>#{@invite.conversation.name}</a>"
-      notification = current_user.messages.create( :conversation => @user.personal_conversation, :message => msg)
-      notification.system_message = true
-      notification.save
-      notification.send_stomp_message
-    end
+    @user.invite @conversation, current_user
     
     render :update do |page| 
       page["user_" + @user.id.to_s].visual_effect :drop_out

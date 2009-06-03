@@ -224,4 +224,20 @@ class UserTest < ActiveSupport::TestCase
 
     should "update last viewed subscription" 
   end
+
+  context "inviting a user" do
+    setup do
+      @user = Factory.create( :user, :receive_email_notifications => false )
+      @convo = Factory.create(:conversation)
+      @invitee = Factory.create(:user)
+      # @user.invite(@convo, @invitee) #defer this for now TODO: figure out how to test mock orbited
+    end
+
+    should "have an invite" do
+      # @invite = Invite.find_by_user_id_and_requestor_id_and_conversation_id(@user, @invite, @convo) #eghh
+      # assert_not_nil @invite
+    end
+
+  end
+
 end

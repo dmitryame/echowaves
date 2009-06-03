@@ -114,12 +114,12 @@ class User < ActiveRecord::Base
   
   def deliver_private_invite_instructions!(invite)
     reset_perishable_token!
-    UserMailer.deliver_private_invite_instructions(self, invite.conversation_id, invite.conversation.name, invite.token)
+    UserMailer.deliver_private_invite_instructions(self, invite.conversation_id, invite.conversation.name, invite.requestor, invite.token)
   end
 
   def deliver_public_invite_instructions!(invite)
     return unless self.receive_email_notifications
-    UserMailer.deliver_public_invite_instructions(self, invite.conversation_id, invite.conversation.name)
+    UserMailer.deliver_public_invite_instructions(self, invite.conversation_id, invite.conversation.name, invite.requestor)
   end
 
   

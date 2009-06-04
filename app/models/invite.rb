@@ -20,7 +20,7 @@ class Invite < ActiveRecord::Base
     :foreign_key => "requestor_id"
 
   validates_presence_of :requestor_id
-  validates_presence_of :user_id
+  # validates_presence_of :user_id
   validates_presence_of :conversation_id
   
   def reset_token!

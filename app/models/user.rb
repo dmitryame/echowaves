@@ -220,7 +220,6 @@ class User < ActiveRecord::Base
       notification.save
       notification.send_stomp_message
     end
-    
   end
   
   def all_convos_tag_counts

@@ -128,6 +128,15 @@ class ConversationsController < ApplicationController
     current_user.follow(@conversation, params[:token])
     redirect_to @conversation
   end
+
+  def follow_email_with_token
+    # resolve invite
+    invite = Invite.find_by_conversation_id_and_token(params[:id], params[:token].to_s)        
+    invite.update_attribute( :user_id, current_user.id)
+    
+    current_user.follow(@conversation, params[:token].to_s)
+    redirect_to @conversation
+  end
   
   def follow_from_list
     follow
@@ -209,6 +218,17 @@ class ConversationsController < ApplicationController
     emails_string.to_s.split(/(,| |\r\n|\n|\r)/).each do |email|    
       if(email =~ EMAIL_REGEX)
         #here we've got a valid email address lets send the invite
+        # existing_invite = Invite.find(:first, :conditions => ["user_id = ? and requestor_id = ? and conversation_id = ?", self.id, invitee.id, conversation.id ] )
+        #         return if(existing_invite != nil) # don't do anything, already invited
+        invite = Invite.new
+        # invite.user_id = self.id
+        invite.requestor = current_user
+        invite.conversation_id = @conversation.id
+        invite.token = Authlogic::Random::friendly_token
+        invite.save
+
+        UserMailer.deliver_email_invite(email, invite)
+        
       end
     end
     

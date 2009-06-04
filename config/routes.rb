@@ -16,6 +16,7 @@ ActionController::Routing::Routes.draw do |map|
     :toogle_bookmark         => :post,
     :follow                  => :post,
     :follow_with_token       => :get,
+    :follow_email_with_token => :get,
     :unfollow                => :post,
     :follow_from_list        => :post,
     :unfollow_from_list      => :post,

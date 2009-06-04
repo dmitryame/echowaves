@@ -25,6 +25,6 @@ class InviteTest < ActiveSupport::TestCase
      should_belong_to :conversation
      
      should_have_indices :user_id, :requestor_id, :conversation_id
-     should_validate_presence_of :user_id, :requestor_id, :conversation_id
+     should_validate_presence_of :requestor_id, :conversation_id
    end
 end

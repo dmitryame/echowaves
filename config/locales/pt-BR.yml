@@ -122,6 +122,7 @@ pt-BR:
     invite_users: "Convidar usuários"
     invite_followed_users: "Invite followed users"
     invite_all_followers: "Invite all my followers"
+    email_invites: "Email invites"
   conversations:
     go_to_conversation: "ir para a conversação"
     bookmarked_conversations: "conversações favoritas"

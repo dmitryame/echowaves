@@ -1,7 +1,20 @@
 <div class="balloon">
 	<h1><%= link_to @conversation.name , conversation_path(@conversation) %></h1>
 </div>
-
+<div>
+	<h2>
+		<%= t("users.email_invites")%>
+		
+		<% form_remote_tag :url => invite_via_email_conversation_path(@conversation), :loading => "$('spinner_1').show();" do %> 
+			<%= text_area :emails, {}, :cols => 30, :rows => 3 %>
+			<%= submit_tag t("ui.invite") %> 
+		<% end %> 
+      	<%= image_tag "/images/icons/spinner.gif", :style => 'display:none;', :id => "spinner_1" %>
+		
+		
+	</h2>
+</div>
+<hr/>
 <div>
 	<h2>
 		<%= link_to_remote t("users.invite_all_followers"), :url => invite_all_my_followers_conversation_path(@conversation),
@@ -11,6 +24,8 @@
       	<%= image_tag "/images/icons/spinner.gif", :style => 'display:none;', :id => "spinner_0" %>
 	</h2>
 </div>
+<hr/>
+
 <div class="arrow">&nbsp;</div>
 
 <div class="balloon">

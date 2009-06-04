@@ -120,6 +120,7 @@ nl:
     invite_users: "Nodig gebruikers uit"
     invite_followed_users: "Invite followed users"
     invite_all_followers: "Invite all my followers"
+    email_invites: "Email invites"
   conversations:
     go_to_conversation: "Ga naar gesprek"
     bookmarked_conversations: "gemarkeerde gesprekken"

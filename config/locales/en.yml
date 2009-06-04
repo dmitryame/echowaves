@@ -122,6 +122,7 @@ en:
     invite_users: "Invite users"
     invite_followed_users: "Invite followed users"
     invite_all_followers: "Invite all my followers"
+    email_invites: "Email invites"
   conversations:
     go_to_conversation: "go to conversation"
     bookmarked_conversations: "bookmarked conversations"

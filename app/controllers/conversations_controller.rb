@@ -202,6 +202,23 @@ class ConversationsController < ApplicationController
     end 
   end
 
+
+  def invite_via_email
+    emails_string = params[:emails]
+        
+    emails_string.to_s.split(/(,| |\r\n|\n|\r)/).each do |email|    
+      if(email =~ EMAIL_REGEX)
+        #here we've got a valid email address lets send the invite
+      end
+    end
+    
+    render :update do |page| 
+      page["spinner_1"].visual_effect :drop_out
+      page["emails_"].clear
+    end 
+  end
+
+
   def toogle_bookmark
     if @conversation.tag_list_on(:bookmarks).include?(current_user.bookmark_tag)
       @conversation.tag_list_on(:bookmarks).remove(current_user.bookmark_tag)
@@ -210,6 +227,8 @@ class ConversationsController < ApplicationController
       current_user.tag(@conversation, :with => @conversation.bookmarks.collect{|tag| tag.name}.join(", ")  + ", " + current_user.bookmark_tag, :on => :bookmarks)
     end
   end
+
+
   
   def bookmarked
     @conversations = Conversation.tagged_with(current_user.bookmark_tag, :on => :bookmarks).paginate :page => params[:page], :order => 'created_at DESC'

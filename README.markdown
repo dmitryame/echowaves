@@ -1,6 +1,6 @@
 # ECHOWAVES
 
-### [echowaves](http://echowaves.com/) is an opensource group chat social network.
+### [echowaves](http://echowaves.com/) is an opensource Social Group Chat.
 
 EchoWaves is a Collaboration Tool and a Social Network. EchoWaves is as powerful as CampFire, and as simple to use as Twitter. It's built around conversations (convos) rather than users. Isn't it more natural for humans to socialize around convos?
 

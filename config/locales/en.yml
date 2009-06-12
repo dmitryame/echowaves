@@ -4,7 +4,7 @@ en:
     url: 'http://www.microsoft.com/windows/internet-explorer/default.aspx'
   home:
     index:
-      headline1: "EchoWaves.com is an opensource group chat social network."
+      headline1: "EchoWaves.com is an opensource Social Group Chat."
       headline2: 'The source code is hosted at: <a href="http://github.com/dmitryame/echowaves">http://github.com/dmitryame/echowaves</a>.'
       p1: "<h5>If you like to chat, or blog, or post pictures, or share updates with friends, or just socialize -- you will enjoy EchoWaves.</h5> If you have any ideas or suggestions feel free to talk about it in"
       p2: "-- it's free and anyone can join. Start your own convos, invite all your friends to join your convos, follow other convos that look interesting to you. Have fun!"

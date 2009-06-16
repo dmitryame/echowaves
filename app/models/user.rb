@@ -25,7 +25,6 @@
 #  remember_token_expires_at   :datetime
 #  updated_at                  :datetime
 #----------------------------------------------------------------------------
-require 'gravtastic'
 
 class User < ActiveRecord::Base
   

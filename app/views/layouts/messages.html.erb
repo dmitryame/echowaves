@@ -79,7 +79,13 @@
  			  var html = new EJS({url: '/templates/message.ejs'}).render(json);
  				message_output.insert({"bottom":html});
         if(json.meta.system == false) { unitipize($('tip_'+json.message.id)); }
- 				Misc.pageScroll();
+				if (
+					((document.body.clientHeight - document.viewport.getScrollOffsets().top ) - document.viewport.getHeight())
+				< 15 // just some arbitrary number that seems to work best in FF and Safari
+				) {
+					// alert(((document.body.clientHeight - document.viewport.getScrollOffsets().top ) - document.viewport.getHeight()));					
+ 					Misc.pageScroll();
+				}
 				Effect.Pulsate('connection_stat_data'); 
 			<% if session[:sound] == "on" %>
 				Sound.play('/sounds/sound39.mp3');

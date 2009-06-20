@@ -58,6 +58,15 @@ class User < ActiveRecord::Base
            :order => "conversation_visits.updated_at DESC",
            :limit => 10
   
+  # sphinx index
+  define_index do
+    indexes :login
+    indexes :name
+    has created_at
+    where "activated_at != '@nil@'"
+    set_property :delta => true
+  end
+           
   validates_presence_of     :login
   validates_length_of       :login,    :within => 3..40
   validates_uniqueness_of   :login

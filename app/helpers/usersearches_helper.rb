@@ -1,0 +1,2 @@
+module UsersearchesHelper
+end

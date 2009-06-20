@@ -1,23 +1,28 @@
 require 'spec/spec_helper'
 
 describe ThinkingSphinx::Attribute do
+  before :each do
+    @index  = ThinkingSphinx::Index.new(Person)
+    @source = ThinkingSphinx::Source.new(@index)
+  end
+  
   describe '#initialize' do
     it 'raises if no columns are provided so that configuration errors are easier to track down' do
       lambda {
-        ThinkingSphinx::Attribute.new([])
+        ThinkingSphinx::Attribute.new(@source, [])
       }.should raise_error(RuntimeError)
     end
 
     it 'raises if an element of the columns param is an integer - as happens when you use id instead of :id - so that configuration errors are easier to track down' do
       lambda {
-        ThinkingSphinx::Attribute.new([1234])
+        ThinkingSphinx::Attribute.new(@source, [1234])
       }.should raise_error(RuntimeError)
     end
   end
   
   describe "unique_name method" do
     before :each do
-      @attribute = ThinkingSphinx::Attribute.new [
+      @attribute = ThinkingSphinx::Attribute.new @source, [
         Object.stub_instance(:__stack => [], :__name => "col_name")
       ]
     end
@@ -42,21 +47,21 @@ describe ThinkingSphinx::Attribute do
   
   describe "column_with_prefix method" do
     before :each do
-      @attribute = ThinkingSphinx::Attribute.new [
+      @attribute = ThinkingSphinx::Attribute.new @source, [
         ThinkingSphinx::Index::FauxColumn.new(:col_name)
       ]
       @attribute.columns.each { |col| @attribute.associations[col] = [] }
       @attribute.model = Person
       
-      @first_join   = Object.stub_instance(:aliased_table_name => "tabular")
-      @second_join  = Object.stub_instance(:aliased_table_name => "data")
+      @first_join   = Object.new
+      @first_join.stub!(:aliased_table_name => "tabular")
+      @second_join  = Object.new
+      @second_join.stub!(:aliased_table_name => "data")
       
-      @first_assoc  = ThinkingSphinx::Association.stub_instance(
-        :join => @first_join, :has_column? => true
-      )
-      @second_assoc = ThinkingSphinx::Association.stub_instance(
-        :join => @second_join, :has_column? => true
-      )
+      @first_assoc  = ThinkingSphinx::Association.new nil, nil
+      @first_assoc.stub!(:join => @first_join, :has_column? => true)
+      @second_assoc = ThinkingSphinx::Association.new nil, nil
+      @second_assoc.stub!(:join => @second_join, :has_column? => true)
     end
     
     it "should return the column name if the column is a string" do
@@ -88,7 +93,7 @@ describe ThinkingSphinx::Attribute do
       @assoc_c = Object.stub_instance(:is_many? => true)
       
       @attribute = ThinkingSphinx::Attribute.new(
-        [ThinkingSphinx::Index::FauxColumn.new(:col_name)]
+        @source, [ThinkingSphinx::Index::FauxColumn.new(:col_name)]
       )
       @attribute.associations = {
         :a => @assoc_a, :b => @assoc_b, :c => @assoc_c
@@ -122,7 +127,7 @@ describe ThinkingSphinx::Attribute do
       @col_c = ThinkingSphinx::Index::FauxColumn.new("c")
 
       @attribute = ThinkingSphinx::Attribute.new(
-        [@col_a, @col_b, @col_c]
+        @source, [@col_a, @col_b, @col_c]
       )
     end
     
@@ -146,7 +151,7 @@ describe ThinkingSphinx::Attribute do
   describe "type method" do
     before :each do
       @column = ThinkingSphinx::Index::FauxColumn.new(:col_name)
-      @attribute = ThinkingSphinx::Attribute.new([@column])
+      @attribute = ThinkingSphinx::Attribute.new(@source, [@column])
       @attribute.model = Person
       @attribute.stub_method(:is_many? => false)
     end
@@ -177,7 +182,7 @@ describe ThinkingSphinx::Attribute do
   
   describe "all_ints? method" do
     it "should return true if all columns are integers" do
-      attribute = ThinkingSphinx::Attribute.new(
+      attribute = ThinkingSphinx::Attribute.new(@source,
         [ ThinkingSphinx::Index::FauxColumn.new(:id),
           ThinkingSphinx::Index::FauxColumn.new(:team_id) ]
       )
@@ -188,7 +193,7 @@ describe ThinkingSphinx::Attribute do
     end
     
     it "should return false if only some columns are integers" do
-      attribute = ThinkingSphinx::Attribute.new(
+      attribute = ThinkingSphinx::Attribute.new(@source,
         [ ThinkingSphinx::Index::FauxColumn.new(:id),
           ThinkingSphinx::Index::FauxColumn.new(:first_name) ]
       )
@@ -199,7 +204,7 @@ describe ThinkingSphinx::Attribute do
     end
     
     it "should return false if no columns are integers" do
-      attribute = ThinkingSphinx::Attribute.new(
+      attribute = ThinkingSphinx::Attribute.new(@source,
         [ ThinkingSphinx::Index::FauxColumn.new(:first_name),
           ThinkingSphinx::Index::FauxColumn.new(:last_name) ]
       )
@@ -210,10 +215,116 @@ describe ThinkingSphinx::Attribute do
     end
   end
   
+  describe "MVA with source query" do
+    before :each do
+      @attribute = ThinkingSphinx::Attribute.new(@source,
+        [ThinkingSphinx::Index::FauxColumn.new(:tags, :id)],
+        :as => :tag_ids, :source => :query
+      )
+    end
+    
+    it "should use a query" do
+      @attribute.type_to_config.should == :sql_attr_multi
+      
+      declaration, query = @attribute.config_value.split('; ')
+      declaration.should == "uint tag_ids from query"
+      query.should       == "SELECT `tags`.`person_id` #{ThinkingSphinx.unique_id_expression} AS `id`, `tags`.`id` AS `tag_ids` FROM `tags`"
+    end
+  end
+  
+  describe "MVA via a HABTM association with a source query" do
+    before :each do
+      @attribute = ThinkingSphinx::Attribute.new(@source,
+        [ThinkingSphinx::Index::FauxColumn.new(:links, :id)],
+        :as => :link_ids, :source => :query
+      )
+    end
+    
+    it "should use a ranged query" do
+      @attribute.type_to_config.should == :sql_attr_multi
+      
+      declaration, query = @attribute.config_value.split('; ')
+      declaration.should == "uint link_ids from query"
+      query.should       == "SELECT `links_people`.`person_id` #{ThinkingSphinx.unique_id_expression} AS `id`, `links_people`.`link_id` AS `link_ids` FROM `links_people`"
+    end
+  end
+  
+  describe "MVA with ranged source query" do
+    before :each do
+      @attribute = ThinkingSphinx::Attribute.new(@source,
+        [ThinkingSphinx::Index::FauxColumn.new(:tags, :id)],
+        :as => :tag_ids, :source => :ranged_query
+      )
+    end
+    
+    it "should use a ranged query" do
+      @attribute.type_to_config.should == :sql_attr_multi
+      
+      declaration, query, range_query = @attribute.config_value.split('; ')
+      declaration.should == "uint tag_ids from ranged-query"
+      query.should       == "SELECT `tags`.`person_id` #{ThinkingSphinx.unique_id_expression} AS `id`, `tags`.`id` AS `tag_ids` FROM `tags` WHERE `tags`.`person_id` >= $start AND `tags`.`person_id` <= $end"
+      range_query.should == "SELECT MIN(`tags`.`person_id`), MAX(`tags`.`person_id`) FROM `tags`"
+    end
+  end
+  
+  describe "MVA via a has-many :through with a ranged source query" do
+    before :each do
+      @attribute = ThinkingSphinx::Attribute.new(@source,
+        [ThinkingSphinx::Index::FauxColumn.new(:football_teams, :id)],
+        :as => :football_team_ids, :source => :ranged_query
+      )
+    end
+    
+    it "should use a ranged query" do
+      @attribute.type_to_config.should == :sql_attr_multi
+      
+      declaration, query, range_query = @attribute.config_value.split('; ')
+      declaration.should == "uint football_team_ids from ranged-query"
+      query.should       == "SELECT `tags`.`person_id` #{ThinkingSphinx.unique_id_expression} AS `id`, `tags`.`football_team_id` AS `football_team_ids` FROM `tags` WHERE `tags`.`person_id` >= $start AND `tags`.`person_id` <= $end"
+      range_query.should == "SELECT MIN(`tags`.`person_id`), MAX(`tags`.`person_id`) FROM `tags`"
+    end
+  end
+  
+  describe "MVA via a has-many :through using a foreign key with a ranged source query" do
+    before :each do
+      @attribute = ThinkingSphinx::Attribute.new(@source,
+        [ThinkingSphinx::Index::FauxColumn.new(:friends, :id)],
+        :as => :friend_ids, :source => :ranged_query
+      )
+    end
+    
+    it "should use a ranged query" do
+      @attribute.type_to_config.should == :sql_attr_multi
+      
+      declaration, query, range_query = @attribute.config_value.split('; ')
+      declaration.should == "uint friend_ids from ranged-query"
+      query.should       == "SELECT `friendships`.`person_id` #{ThinkingSphinx.unique_id_expression} AS `id`, `friendships`.`friend_id` AS `friend_ids` FROM `friendships` WHERE `friendships`.`person_id` >= $start AND `friendships`.`person_id` <= $end"
+      range_query.should == "SELECT MIN(`friendships`.`person_id`), MAX(`friendships`.`person_id`) FROM `friendships`"
+    end
+  end
+  
+  describe "MVA via a HABTM with a ranged source query" do
+    before :each do
+      @attribute = ThinkingSphinx::Attribute.new(@source,
+        [ThinkingSphinx::Index::FauxColumn.new(:links, :id)],
+        :as => :link_ids, :source => :ranged_query
+      )
+    end
+    
+    it "should use a ranged query" do
+      @attribute.type_to_config.should == :sql_attr_multi
+      
+      declaration, query, range_query = @attribute.config_value.split('; ')
+      declaration.should == "uint link_ids from ranged-query"
+      query.should       == "SELECT `links_people`.`person_id` #{ThinkingSphinx.unique_id_expression} AS `id`, `links_people`.`link_id` AS `link_ids` FROM `links_people` WHERE `links_people`.`person_id` >= $start AND `links_people`.`person_id` <= $end"
+      range_query.should == "SELECT MIN(`links_people`.`person_id`), MAX(`links_people`.`person_id`) FROM `links_people`"
+    end
+  end
+  
   describe "with custom queries" do
     before :each do
       index = CricketTeam.sphinx_indexes.first
-      @statement = index.to_riddle_for_core(0, 0).sql_attr_multi.first
+      @statement = index.sources.first.to_riddle_for_core(0, 0).sql_attr_multi.last
     end
     
     it "should track the query type accordingly" do

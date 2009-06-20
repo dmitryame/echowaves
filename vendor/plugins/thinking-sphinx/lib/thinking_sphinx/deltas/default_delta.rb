@@ -17,7 +17,7 @@ module ThinkingSphinx
         client = Riddle::Client.new config.address, config.port
         rotate = ThinkingSphinx.sphinx_running? ? "--rotate" : ""
         
-        output = `#{config.bin_path}indexer --config #{config.config_file} #{rotate} #{delta_index_name model}`
+        output = `#{config.bin_path}#{config.indexer_binary_name} --config #{config.config_file} #{rotate} #{delta_index_name model}`
         puts(output) unless ThinkingSphinx.suppress_delta_output?
         
         client.update(
@@ -39,11 +39,12 @@ module ThinkingSphinx
       
       def reset_query(model)
         "UPDATE #{model.quoted_table_name} SET " +
-        "#{@index.quote_column(@column.to_s)} = #{adapter.boolean(false)}"
+        "#{model.connection.quote_column_name(@column.to_s)} = #{adapter.boolean(false)} " +
+        "WHERE #{model.connection.quote_column_name(@column.to_s)} = #{adapter.boolean(true)}"
       end
       
       def clause(model, toggled)
-        "#{model.quoted_table_name}.#{@index.quote_column(@column.to_s)}" +
+        "#{model.quoted_table_name}.#{model.connection.quote_column_name(@column.to_s)}" +
         " = #{adapter.boolean(toggled)}"
       end
       

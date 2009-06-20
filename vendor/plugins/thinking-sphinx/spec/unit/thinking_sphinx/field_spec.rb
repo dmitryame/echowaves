@@ -1,23 +1,28 @@
 require 'spec/spec_helper'
 
 describe ThinkingSphinx::Field do
+  before :each do
+    @index     = ThinkingSphinx::Index.new(Alpha)
+    @source    = ThinkingSphinx::Source.new(@index)
+  end
+  
   describe '#initialize' do
     it 'raises if no columns are provided so that configuration errors are easier to track down' do
       lambda {
-        ThinkingSphinx::Field.new([])
+        ThinkingSphinx::Field.new(@source, [])
       }.should raise_error(RuntimeError)
     end
 
     it 'raises if an element of the columns param is an integer - as happens when you use id instead of :id - so that configuration errors are easier to track down' do
       lambda {
-        ThinkingSphinx::Field.new([1234])
+        ThinkingSphinx::Field.new(@source, [1234])
       }.should raise_error(RuntimeError)
     end
   end
   
   describe "unique_name method" do
     before :each do
-      @field = ThinkingSphinx::Field.new [
+      @field = ThinkingSphinx::Field.new @source, [
         Object.stub_instance(:__stack => [], :__name => "col_name")
       ]
     end
@@ -42,13 +47,15 @@ describe ThinkingSphinx::Field do
 
   describe "prefixes method" do
     it "should default to false" do
-      @field = ThinkingSphinx::Field.new([Object.stub_instance(:__stack => [])])
+      @field = ThinkingSphinx::Field.new(
+        @source, [Object.stub_instance(:__stack => [])]
+      )
       @field.prefixes.should be_false
     end
     
     it "should be true if the corresponding option is set" do
       @field = ThinkingSphinx::Field.new(
-        [Object.stub_instance(:__stack => [])], :prefixes => true
+        @source, [Object.stub_instance(:__stack => [])], :prefixes => true
       )
       @field.prefixes.should be_true
     end
@@ -56,13 +63,15 @@ describe ThinkingSphinx::Field do
   
   describe "infixes method" do
     it "should default to false" do
-      @field = ThinkingSphinx::Field.new([Object.stub_instance(:__stack => [])])
+      @field = ThinkingSphinx::Field.new(
+        @source, [Object.stub_instance(:__stack => [])]
+      )
       @field.infixes.should be_false
     end
     
     it "should be true if the corresponding option is set" do
       @field = ThinkingSphinx::Field.new(
-        [Object.stub_instance(:__stack => [])], :infixes => true
+        @source, [Object.stub_instance(:__stack => [])], :infixes => true
       )
       @field.infixes.should be_true
     end
@@ -70,21 +79,21 @@ describe ThinkingSphinx::Field do
   
   describe "column_with_prefix method" do
     before :each do
-      @field = ThinkingSphinx::Field.new [
+      @field = ThinkingSphinx::Field.new @source, [
         ThinkingSphinx::Index::FauxColumn.new(:col_name)
       ]
       @field.columns.each { |col| @field.associations[col] = [] }
       @field.model = Person
       
-      @first_join   = Object.stub_instance(:aliased_table_name => "tabular")
-      @second_join  = Object.stub_instance(:aliased_table_name => "data")
+      @first_join   = Object.new
+      @first_join.stub!(:aliased_table_name => "tabular")
+      @second_join  = Object.new
+      @second_join.stub!(:aliased_table_name => "data")
       
-      @first_assoc  = ThinkingSphinx::Association.stub_instance(
-        :join => @first_join, :has_column? => true
-      )
-      @second_assoc = ThinkingSphinx::Association.stub_instance(
-        :join => @second_join, :has_column? => true
-      )
+      @first_assoc  = ThinkingSphinx::Association.new nil, nil
+      @first_assoc.stub!(:join => @first_join, :has_column? => true)
+      @second_assoc = ThinkingSphinx::Association.new nil, nil
+      @second_assoc.stub!(:join => @second_join, :has_column? => true)
     end
     
     it "should return the column name if the column is a string" do
@@ -116,7 +125,7 @@ describe ThinkingSphinx::Field do
       @assoc_c = Object.stub_instance(:is_many? => true)
       
       @field = ThinkingSphinx::Field.new(
-        [ThinkingSphinx::Index::FauxColumn.new(:col_name)]
+        @source, [ThinkingSphinx::Index::FauxColumn.new(:col_name)]
       )
       @field.associations = {
         :a => @assoc_a, :b => @assoc_b, :c => @assoc_c

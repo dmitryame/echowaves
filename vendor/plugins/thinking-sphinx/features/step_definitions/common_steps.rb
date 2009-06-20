@@ -16,6 +16,10 @@ Given /^I am searching on (.+)$/ do |model|
   @model = model.gsub(/\s/, '_').singularize.camelize.constantize
 end
 
+Given /^updates are (\w+)$/ do |action|
+  ThinkingSphinx.updates_enabled = (action == "enabled")
+end
+
 When /^I am searching for ids$/ do
   @results = nil
   @method = :search_for_ids
@@ -74,6 +78,11 @@ end
 When /^I filter between (\d+) and (\d+) days ago on (\w+)$/ do |last, first, attribute|
   @results = nil
   @with[attribute.to_sym] = first.to_i.days.ago..last.to_i.days.ago
+end
+
+When /^I filter by (\w+) between (\d+) and (\d+)$/ do |attribute, first, last|
+  @results = nil
+  @with[attribute.to_sym] = Time.utc(first.to_i)..Time.utc(last.to_i)
 end
 
 When /^I order by (\w+)$/ do |attribute|

@@ -20,12 +20,16 @@ describe ThinkingSphinx::HashExcept do
   end
   
   describe "extends Hash" do
+    before :each do
+      @instance_methods = Hash.instance_methods.collect { |m| m.to_s }
+    end
+    
     it 'with except' do
-      Hash.instance_methods.include?('except').should be_true
+      @instance_methods.include?('except').should be_true
     end
 
     it 'with except!' do
-      Hash.instance_methods.include?('except!').should be_true
+      @instance_methods.include?('except!').should be_true
     end
   end
 end
@@ -45,7 +49,7 @@ describe ThinkingSphinx::ArrayExtractOptions do
   
   describe "extends Array" do
     it 'with extract_options!' do
-      Array.instance_methods.include?('extract_options!').should be_true
+      Array.instance_methods.collect { |m| m.to_s }.include?('extract_options!').should be_true
     end
   end
 end
@@ -53,7 +57,7 @@ end
 describe ThinkingSphinx::AbstractQuotedTableName do
   describe 'quote_table_name method' do
     it 'calls quote_column_name' do
-      adapter = ActiveRecord::ConnectionAdapters::AbstractAdapter.new('mysql')
+      adapter = ActiveRecord::ConnectionAdapters::AbstractAdapter.new(defined?(JRUBY_VERSION) ? 'jdbcmysql' : 'mysql')
       adapter.should_receive(:quote_column_name).with('messages')
       adapter.quote_table_name('messages')
     end
@@ -61,23 +65,27 @@ describe ThinkingSphinx::AbstractQuotedTableName do
   
   describe "extends ActiveRecord::ConnectionAdapters::AbstractAdapter" do
     it 'with quote_table_name' do
-      ActiveRecord::ConnectionAdapters::AbstractAdapter.instance_methods.include?('quote_table_name').should be_true
+      ActiveRecord::ConnectionAdapters::AbstractAdapter.instance_methods.collect { |m|
+        m.to_s
+      }.include?('quote_table_name').should be_true
     end
   end
 end
 
 describe ThinkingSphinx::MysqlQuotedTableName do
   describe "quote_table_name method" do
-    it 'calls quote_column_name' do
+    it 'correctly quotes' do
       adapter = ActiveRecord::Base.connection
-      adapter.should_receive(:quote_column_name).with('messages').and_return('`message`')
-      adapter.quote_table_name('messages')
+      adapter.quote_table_name('thinking_sphinx.messages').should == "`thinking_sphinx`.`messages`"
     end
   end
   
   describe "extends ActiveRecord::ConnectionAdapters::MysqlAdapter" do
     it 'with quote_table_name' do
-      ActiveRecord::ConnectionAdapters::MysqlAdapter.instance_methods.include?("quote_table_name").should be_true
+      adapter = defined?(JRUBY_VERSION) ? :JdbcAdapter : :MysqlAdapter
+      ActiveRecord::ConnectionAdapters.const_get(adapter).instance_methods.collect { |m|
+        m.to_s
+      }.include?("quote_table_name").should be_true
     end
   end  
 end

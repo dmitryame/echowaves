@@ -10,11 +10,11 @@ describe ThinkingSphinx::Configuration do
     
     it "should use the Merb environment value if set" do
       unless defined?(Merb)
-        module Merb; end
+        module ::Merb; end
       end
             
       ThinkingSphinx::Configuration.stub_method(:defined? => true)
-      Merb.stub_method(:environment => "merb_production")
+      Merb.stub!(:environment => "merb_production")
       ThinkingSphinx::Configuration.environment.should == "merb_production"
       
       Object.send(:remove_const, :Merb)
@@ -48,7 +48,9 @@ describe ThinkingSphinx::Configuration do
           "morphology"        => "stem_ru",
           "charset_type"      => "latin1",
           "charset_table"     => "table",
-          "ignore_chars"      => "e"
+          "ignore_chars"      => "e",
+          "searchd_binary_name" => "sphinx-searchd",
+          "indexer_binary_name" => "sphinx-indexer"
         }
       }
       
@@ -62,7 +64,7 @@ describe ThinkingSphinx::Configuration do
       config.send(:parse_config)
       
       %w(config_file searchd_log_file query_log_file pid_file searchd_file_path
-        address port).each do |key|
+        address port searchd_binary_name indexer_binary_name).each do |key|
         config.send(key).should == @settings["development"][key]
       end
     end
@@ -71,7 +73,16 @@ describe ThinkingSphinx::Configuration do
       FileUtils.rm "#{RAILS_ROOT}/config/sphinx.yml"
     end
   end
-    
+
+  describe "block configuration" do
+    it "should let the user set-up a custom app_root" do
+      ThinkingSphinx::Configuration.configure do |config|
+        config.app_root = "/here/somewhere"
+      end
+      ThinkingSphinx::Configuration.instance.app_root.should == "/here/somewhere"
+    end
+  end
+  
   describe "initialisation" do
     it "should have a default bin_path of nothing" do
       ThinkingSphinx::Configuration.instance.bin_path.should == ""
@@ -90,6 +101,81 @@ describe ThinkingSphinx::Configuration do
       
       ThinkingSphinx::Configuration.instance.send(:parse_config)
       ThinkingSphinx::Configuration.instance.bin_path.should match(/\/$/)
+    end
+  end
+  
+  describe "index options" do
+    before :each do
+      @settings = {
+        "development" => {"disable_range" => true}
+      }
+      
+      open("#{RAILS_ROOT}/config/sphinx.yml", "w") do |f|
+        f.write  YAML.dump(@settings)
+      end
+      
+      @config = ThinkingSphinx::Configuration.instance
+      @config.send(:parse_config)
+    end
+    
+    it "should collect disable_range" do
+      @config.index_options[:disable_range].should be_true
+    end
+  end
+  
+  describe "#load_models" do
+    before :each do
+      @config = ThinkingSphinx::Configuration.instance
+      @config.model_directories = ['']
+      
+      @file_name        = 'a.rb'
+      @model_name_lower = 'a'
+      @class_name       = 'A'
+      
+      @file_name.stub!(:gsub).and_return(@model_name_lower)
+      @model_name_lower.stub!(:camelize).and_return(@class_name)
+      Dir.stub(:[]).and_return([@file_name])
+    end
+    
+    it "should load the files by guessing the file name" do
+      @class_name.should_receive(:constantize).and_return(true)
+      
+      @config.load_models
+    end
+    
+    it "should not raise errors if the model name is nil" do
+      @file_name.stub!(:gsub).and_return(nil)
+      
+      lambda {
+        @config.load_models
+      }.should_not raise_error
+    end
+    
+    it "should not raise errors if the file name does not represent a class name" do
+      @class_name.should_receive(:constantize).and_raise(NameError)
+      
+      lambda {
+        @config.load_models
+      }.should_not raise_error
+    end
+    
+    it "should retry if the first pass fails and contains a directory" do
+      @model_name_lower.stub!(:gsub!).and_return(true, nil)
+      @class_name.stub(:constantize).and_raise(LoadError)
+      @model_name_lower.should_receive(:camelize).twice
+      
+      lambda {
+        @config.load_models
+      }.should_not raise_error
+    end
+    
+    it "should catch database errors with a warning" do
+      @class_name.should_receive(:constantize).and_raise(Mysql::Error)
+      @config.should_receive(:puts).with('Warning: Error loading a.rb')
+      
+      lambda {
+        @config.load_models
+      }.should_not raise_error
     end
   end
   

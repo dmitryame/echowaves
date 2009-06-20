@@ -1,3 +1,5 @@
+require 'thinking_sphinx/search/facets'
+
 module ThinkingSphinx
   # Once you've got those indexes in and built, this is the stuff that
   # matters - how to search! This class provides a generic search
@@ -13,6 +15,8 @@ module ThinkingSphinx
     }
     
     class << self
+      include ThinkingSphinx::Search::Facets
+      
       # Searches for results that match the parameters provided. Will only
       # return the ids for the matching objects. See #search for syntax
       # examples.
@@ -213,7 +217,70 @@ module ThinkingSphinx
       # you read all the relevant
       # documentation[http://sphinxsearch.com/doc.html#clustering] first.
       # 
-      # Yes this section will be expanded, but this is a start.
+      # Grouping is done via three parameters within the options hash
+      # * <tt>:group_function</tt> determines the way grouping is done
+      # * <tt>:group_by</tt> determines the field which is used for grouping
+      # * <tt>:group_clause</tt> determines the sorting order 
+      #
+      # As a convenience, you can also use
+      # * <tt>:group</tt>
+      # which sets :group_by and defaults to :group_function of :attr
+      # 
+      # === group_function
+      #  
+      # Valid values for :group_function are
+      # * <tt>:day</tt>, <tt>:week</tt>, <tt>:month</tt>, <tt>:year</tt> - Grouping is done by the respective timeframes. 
+      # * <tt>:attr</tt>, <tt>:attrpair</tt> - Grouping is done by the specified attributes(s)
+      # 
+      # === group_by
+      #
+      # This parameter denotes the field by which grouping is done. Note that the
+      # specified field must be a sphinx attribute or index.
+      #
+      # === group_clause
+      #
+      # This determines the sorting order of the groups. In a grouping search,
+      # the matches within a group will sorted by the <tt>:sort_mode</tt> and <tt>:order</tt> parameters.
+      # The group matches themselves however, will be sorted by <tt>:group_clause</tt>. 
+      # 
+      # The syntax for this is the same as an order parameter in extended sort mode.
+      # Namely, you can specify an SQL-like sort expression with up to 5 attributes 
+      # (including internal attributes), eg: "@relevance DESC, price ASC, @id DESC"
+      #
+      # === Grouping by timestamp
+      # 
+      # Timestamp grouping groups off items by the day, week, month or year of the
+      # attribute given. In order to do this you need to define a timestamp attribute,
+      # which pretty much looks like the standard defintion for any attribute.
+      #
+      #   define_index do
+      #     #
+      #     # All your other stuff
+      #     #
+      #     has :created_at
+      #   end
+      #
+      # When you need to fire off your search, it'll go something to the tune of
+      #   
+      #   Fruit.search "apricot", :group_function => :day, :group_by => 'created_at'
+      #
+      # The <tt>@groupby</tt> special attribute will contain the date for that group.
+      # Depending on the <tt>:group_function</tt> parameter, the date format will be
+      #
+      # * <tt>:day</tt> - YYYYMMDD
+      # * <tt>:week</tt> - YYYYNNN (NNN is the first day of the week in question, 
+      #   counting from the start of the year )
+      # * <tt>:month</tt> - YYYYMM
+      # * <tt>:year</tt> - YYYY
+      #
+      #
+      # === Grouping by attribute
+      #
+      # The syntax is the same as grouping by timestamp, except for the fact that the 
+      # <tt>:group_function</tt> parameter is changed
+      #
+      #   Fruit.search "apricot", :group_function => :attr, :group_by => 'size'
+      # 
       #
       # == Geo/Location Searching
       #
@@ -295,10 +362,8 @@ module ThinkingSphinx
         
         retry_search_on_stale_index(query, options) do
           results, client = search_results(*(query + [options]))
-        
-          ::ActiveRecord::Base.logger.error(
-            "Sphinx Error: #{results[:error]}"
-          ) if results[:error]
+          
+          log "Sphinx Error: #{results[:error]}", :error if results[:error]
         
           klass   = options[:class]
           page    = options[:page] ? options[:page].to_i : 1
@@ -331,9 +396,9 @@ module ThinkingSphinx
           options[:without_ids] = Array(options[:without_ids]) | e.ids  # Actual exclusion
 
           tries = stale_retries_left
-          ::ActiveRecord::Base.logger.debug("Sphinx Stale Ids (%s %s left): %s" % [
-              tries, (tries==1 ? 'try' : 'tries'), stale_ids.join(', ')
-          ])
+          log "Sphinx Stale Ids (%s %s left): %s" % [
+            tries, (tries==1 ? 'try' : 'tries'), stale_ids.join(', ')
+          ]
           
           retry
         end
@@ -373,21 +438,6 @@ module ThinkingSphinx
         end
       end
       
-      # Model.facets *args
-      # ThinkingSphinx::Search.facets *args
-      # ThinkingSphinx::Search.facets *args, :all_attributes  => true
-      # ThinkingSphinx::Search.facets *args, :class_facet     => false
-      # 
-      def facets(*args)
-        options = args.extract_options!
-        
-        if options[:class]
-          facets_for_model options[:class], args, options
-        else
-          facets_for_all_models args, options
-        end
-      end
-      
       private
       
       # This method handles the common search functionality, and returns both
@@ -415,11 +465,14 @@ module ThinkingSphinx
         page          = options[:page] ? options[:page].to_i : 1
         page          = 1 if page <= 0
         client.offset = (page - 1) * client.limit
-
+        
         begin
-          ::ActiveRecord::Base.logger.debug "Sphinx: #{query}"
-          results = client.query query
-          ::ActiveRecord::Base.logger.debug "Sphinx Result: #{results[:matches].collect{|m| m[:attributes]["sphinx_internal_id"]}.inspect}"
+          log "Sphinx: #{query}"
+          results = client.query(query, '*', options[:comment] || '')
+          log "Sphinx Result:"
+          log results[:matches].collect { |m|
+            m[:attributes]["sphinx_internal_id"]
+          }.inspect
         rescue Errno::ECONNREFUSED => err
           raise ThinkingSphinx::ConnectionError, "Connection to Sphinx Daemon (searchd) failed."
         end
@@ -457,6 +510,12 @@ module ThinkingSphinx
             end
             hash
           end
+        end
+        
+        # Group by defaults using :group
+        if options[:group]
+          options[:group_by] = options[:group].to_s
+          options[:group_function] ||= :attr
         end
         
         [
@@ -583,11 +642,11 @@ module ThinkingSphinx
         }.flatten : []
         
         lat_attr = klass ? klass.sphinx_indexes.collect { |index|
-          index.options[:latitude_attr]
+          index.local_options[:latitude_attr]
         }.compact.first : nil
         
         lon_attr = klass ? klass.sphinx_indexes.collect { |index|
-          index.options[:longitude_attr]
+          index.local_options[:longitude_attr]
         }.compact.first : nil
         
         lat_attr = options[:latitude_attr] if options[:latitude_attr]
@@ -636,7 +695,7 @@ module ThinkingSphinx
             client.sort_by = order.to_s
           end
         when String
-          client.sort_mode = :extended
+          client.sort_mode = :extended unless options[:sort_mode]
           client.sort_by   = sorted_fields_to_attributes(order, fields)
         else
           # do nothing
@@ -659,62 +718,9 @@ module ThinkingSphinx
         string
       end
       
-      def facets_for_model(klass, args, options)
-        hash    = ThinkingSphinx::FacetCollection.new args + [options]
-        options = options.clone.merge! :group_function => :attr
-        
-        klass.sphinx_facets.inject(hash) do |hash, facet|
-          unless facet.name == :class && !options[:class_facet]
-            options[:group_by] = facet.attribute_name
-            hash.add_from_results facet, search(*(args + [options]))
-          end
-          
-          hash
-        end
-      end
-      
-      def facets_for_all_models(args, options)
-        options = GlobalFacetOptions.merge(options)
-        hash    = ThinkingSphinx::FacetCollection.new args + [options]
-        options = options.merge! :group_function => :attr
-        
-        facet_names(options).inject(hash) do |hash, name|
-          options[:group_by] = name
-          hash.add_from_results name, search(*(args + [options]))
-          hash
-        end
-      end
-      
-      def facet_classes(options)
-        options[:classes] || ThinkingSphinx.indexed_models.collect { |model|
-          model.constantize
-        }
-      end
-      
-      def facet_names(options)
-        classes = facet_classes(options)
-        names   = options[:all_attributes] ?
-          facet_names_for_all_classes(classes) :
-          facet_names_common_to_all_classes(classes)
-        
-        names.delete "class_crc" unless options[:class_facet]
-        names
-      end
-      
-      def facet_names_for_all_classes(classes)
-        classes.collect { |klass|
-          klass.sphinx_facets.collect { |facet| facet.attribute_name }
-        }.flatten.uniq
-      end
-      
-      def facet_names_common_to_all_classes(classes)
-        facet_names_for_all_classes(classes).select { |name|
-          classes.all? { |klass|
-            klass.sphinx_facets.detect { |facet|
-              facet.attribute_name == name
-            }
-          }
-        }
+      def log(message, method = :debug)
+        return if ::ActiveRecord::Base.logger.nil?
+        ::ActiveRecord::Base.logger.send method, message
       end
     end
   end

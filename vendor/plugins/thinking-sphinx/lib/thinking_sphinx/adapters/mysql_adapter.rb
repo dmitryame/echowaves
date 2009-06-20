@@ -38,7 +38,8 @@ module ThinkingSphinx
       value ? 1 : 0
     end
     
-    def crc(clause)
+    def crc(clause, blank_to_null = false)
+      clause = "NULLIF(#{clause},'')" if blank_to_null
       "CRC32(#{clause})"
     end
     

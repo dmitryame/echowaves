@@ -8,8 +8,8 @@ module ThinkingSphinx
   # generate SQL statements, you'll need to set the base model, and all the
   # associations. Which can get messy. Use Index.link!, it really helps.
   # 
-  class Attribute
-    attr_accessor :alias, :columns, :associations, :model, :faceted, :source
+  class Attribute < ThinkingSphinx::Property
+    attr_accessor :query_source
     
     # To create a new attribute, you'll need to pass in either a single Column
     # or an array of them, and some (optional) options.
@@ -67,20 +67,17 @@ module ThinkingSphinx
     # If you're creating attributes for latitude and longitude, don't forget
     # that Sphinx expects these values to be in radians.
     #  
-    def initialize(columns, options = {})
-      @columns      = Array(columns)
-      @associations = {}
+    def initialize(source, columns, options = {})
+      super
       
-      raise "Cannot define a field with no columns. Maybe you are trying to index a field with a reserved name (id, name). You can fix this error by using a symbol rather than a bare name (:id instead of id)." if @columns.empty? || @columns.any? { |column| !column.respond_to?(:__stack) }
+      @type           = options[:type]
+      @query_source   = options[:source]
+      @crc            = options[:crc]
       
-      @alias    = options[:as]
-      @type     = options[:type]
-      @faceted  = options[:facet]
-      @source   = options[:source]
-      @crc      = options[:crc]
+      @type         ||= :multi    unless @query_source.nil?
+      @type           = :integer  if @type == :string && @crc
       
-      @type   ||= :multi    unless @source.nil?
-      @type     = :integer  if @type == :string && @crc
+      source.attributes << self
     end
     
     # Get the part of the SELECT clause related to this attribute. Don't forget
@@ -92,36 +89,19 @@ module ThinkingSphinx
     def to_select_sql
       return nil unless include_as_association?
       
+      separator = all_ints? || @crc ? ',' : ' '
+      
       clause = @columns.collect { |column|
-        column_with_prefix(column)
+        part = column_with_prefix(column)
+        type == :string ? adapter.convert_nulls(part) : part
       }.join(', ')
       
-      separator = all_ints? ? ',' : ' '
-      
+      clause = adapter.cast_to_datetime(clause)             if type == :datetime
+      clause = adapter.crc(clause)                          if @crc
       clause = adapter.concatenate(clause, separator)       if concat_ws?
       clause = adapter.group_concatenate(clause, separator) if is_many?
-      clause = adapter.cast_to_datetime(clause)             if type == :datetime
-      clause = adapter.convert_nulls(clause)                if type == :string
-      clause = adapter.crc(clause)                          if @crc
       
       "#{clause} AS #{quote_column(unique_name)}"
-    end
-    
-    # Get the part of the GROUP BY clause related to this attribute - if one is
-    # needed. If not, all you'll get back is nil. The latter will happen if
-    # there isn't actually a real column to get data from, or if there's
-    # multiple data values (read: a has_many or has_and_belongs_to_many
-    # association).
-    # 
-    def to_group_sql
-      case
-      when is_many?, is_string?, ThinkingSphinx.use_group_by_shortcut?
-        nil
-      else
-        @columns.collect { |column|
-          column_with_prefix(column)
-        }
-      end
     end
     
     def type_to_config
@@ -136,7 +116,7 @@ module ThinkingSphinx
     end
     
     def include_as_association?
-      ! (type == :multi && (source == :query || source == :ranged_query))
+      ! (type == :multi && (query_source == :query || query_source == :ranged_query))
     end
     
     # Returns the configuration value that should be used for
@@ -147,26 +127,13 @@ module ThinkingSphinx
     def config_value(offset = nil)
       if type == :multi
         multi_config = include_as_association? ? "field" :
-          source_value(offset).gsub(/\n\s*/, " ")
+          source_value(offset).gsub(/\n\s*/, " ").strip
         "uint #{unique_name} from #{multi_config}"
       else
         unique_name
       end
     end
-    
-    # Returns the unique name of the attribute - which is either the alias of
-    # the attribute, or the name of the only column - if there is only one. If
-    # there isn't, there should be an alias. Else things probably won't work.
-    # Consider yourself warned.
-    # 
-    def unique_name
-      if @columns.length == 1
-        @alias || @columns.first.__name
-      else
-        @alias
-      end
-    end
-    
+        
     # Returns the type of the column. If that's not already set, it returns
     # :multi if there's the possibility of more than one value, :string if
     # there's more than one association, otherwise it figures out what the
@@ -192,18 +159,34 @@ module ThinkingSphinx
       end
     end
     
-    def to_facet
-      return nil unless @faceted
-      
-      ThinkingSphinx::Facet.new(self)
+    def updatable?
+      [:integer, :datetime, :boolean].include?(type) && !is_string?
+    end
+    
+    def live_value(instance)
+      object = instance
+      column = @columns.first
+      column.__stack.each { |method| object = object.send(method) }
+      object.send(column.__name)
+    end
+    
+    def all_ints?
+      @columns.all? { |col|
+        klasses = @associations[col].empty? ? [@model] :
+          @associations[col].collect { |assoc| assoc.reflection.klass }
+        klasses.all? { |klass|
+          column = klass.columns.detect { |column| column.name == col.__name.to_s }
+          !column.nil? && column.type == :integer
+        }
+      }
     end
     
     private
     
     def source_value(offset)
       if is_string?
-        "#{source.to_s.dasherize}; #{columns.first.__name}"
-      elsif source == :ranged_query
+        "#{query_source.to_s.dasherize}; #{columns.first.__name}"
+      elsif query_source == :ranged_query
         "ranged-query; #{query offset} #{query_clause}; #{range_query}"
       else
         "query; #{query offset}"
@@ -249,84 +232,10 @@ FROM #{quote_table_name assoc.table}
       }
     end
     
-    def adapter
-      @adapter ||= @model.sphinx_database_adapter
-    end
-    
-    def quote_with_table(table, column)
-      "#{quote_table_name(table)}.#{quote_column(column)}"
-    end
-    
-    def quote_column(column)
-      @model.connection.quote_column_name(column)
-    end
-    
-    def quote_table_name(table_name)
-      @model.connection.quote_table_name(table_name)
-    end
-    
-    # Indication of whether the columns should be concatenated with a space
-    # between each value. True if there's either multiple sources or multiple
-    # associations.
-    # 
-    def concat_ws?
-      multiple_associations? || @columns.length > 1
-    end
-        
-    # Checks whether any column requires multiple associations (which only
-    # happens for polymorphic situations).
-    # 
-    def multiple_associations?
-      associations.any? { |col,assocs| assocs.length > 1 }
-    end
-    
-    # Builds a column reference tied to the appropriate associations. This
-    # dives into the associations hash and their corresponding joins to
-    # figure out how to correctly reference a column in SQL.
-    # 
-    def column_with_prefix(column)
-      if column.is_string?
-        column.__name
-      elsif associations[column].empty?
-        "#{@model.quoted_table_name}.#{quote_column(column.__name)}"
-      else
-        associations[column].collect { |assoc|
-          assoc.has_column?(column.__name) ?
-          "#{quote_table_name(assoc.join.aliased_table_name)}" + 
-          ".#{quote_column(column.__name)}" :
-          nil
-        }.compact.join(', ')
-      end
-    end
-    
-    # Could there be more than one value related to the parent record? If so,
-    # then this will return true. If not, false. It's that simple.
-    # 
-    def is_many?
-      associations.values.flatten.any? { |assoc| assoc.is_many? }
-    end
-    
     def is_many_ints?
       concat_ws? && all_ints?
     end
-    
-    # Returns true if any of the columns are string values, instead of database
-    # column references.
-    def is_string?
-      columns.all? { |col| col.is_string? }
-    end
-    
-    def all_ints?
-      @columns.all? { |col|
-        klasses = @associations[col].empty? ? [@model] :
-          @associations[col].collect { |assoc| assoc.reflection.klass }
-        klasses.all? { |klass|
-          column = klass.columns.detect { |column| column.name == col.__name.to_s }
-          !column.nil? && column.type == :integer
-        }
-      }
-    end
-    
+        
     def type_from_database
       klass = @associations.values.flatten.first ? 
         @associations.values.flatten.first.reflection.klass : @model
@@ -347,9 +256,10 @@ FROM #{quote_table_name assoc.table}
       else
         raise <<-MESSAGE
 
-Cannot automatically map column type #{type_from_db} to an equivalent Sphinx
-type (integer, float, boolean, datetime, string as ordinal). You could try to
-explicitly convert the column's value in your define_index block:
+Cannot automatically map attribute #{unique_name} in #{@model.name} to an
+equivalent Sphinx type (integer, float, boolean, datetime, string as ordinal).
+You could try to explicitly convert the column's value in your define_index
+block:
   has "CAST(column AS INT)", :type => :integer, :as => :column
         MESSAGE
       end

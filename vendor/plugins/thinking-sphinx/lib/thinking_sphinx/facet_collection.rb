@@ -3,24 +3,25 @@ module ThinkingSphinx
     attr_accessor :arguments
     
     def initialize(arguments)
-      @arguments        = arguments.clone
-      @attribute_values = {}
-      @facets           = []
+      @arguments    = arguments.clone
+      @facet_names  = []
     end
     
     def add_from_results(facet, results)
-      facet = facet_from_object(results.first, facet) if facet.is_a?(String)
+      name = ThinkingSphinx::Facet.name_for(facet)
       
-      self[facet.name]              ||= {}
-      @attribute_values[facet.name] ||= {}
-      @facets << facet
+      self[name]  ||= {}
+      @facet_names << name
+      
+      return if results.empty?
+      
+      facet = facet_from_object(results.first, facet) if facet.is_a?(String)
       
       results.each_with_groupby_and_count { |result, group, count|
         facet_value = facet.value(result, group)
         
-        self[facet.name][facet_value]              ||= 0
-        self[facet.name][facet_value]              += count
-        @attribute_values[facet.name][facet_value]  = group
+        self[name][facet_value] ||= 0
+        self[name][facet_value]  += count
       }
     end
     
@@ -30,7 +31,7 @@ module ThinkingSphinx
       options[:with] ||= {}
       
       hash.each do |key, value|
-        attrib = facet_for_key(key).attribute_name
+        attrib = ThinkingSphinx::Facet.attribute_name_from_value(key, value)
         options[:with][attrib] = underlying_value key, value
       end
       
@@ -44,13 +45,11 @@ module ThinkingSphinx
       case value
       when Array
         value.collect { |item| underlying_value(key, item) }
+      when String
+        value.to_crc32
       else
-        @attribute_values[key][value]
+        value
       end
-    end
-    
-    def facet_for_key(key)
-      @facets.detect { |facet| facet.name == key }
     end
     
     def facet_from_object(object, name)

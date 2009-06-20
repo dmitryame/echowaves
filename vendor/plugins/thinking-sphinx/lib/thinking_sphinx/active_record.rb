@@ -1,3 +1,4 @@
+require 'thinking_sphinx/active_record/attribute_updates'
 require 'thinking_sphinx/active_record/delta'
 require 'thinking_sphinx/active_record/search'
 require 'thinking_sphinx/active_record/has_many_association'
@@ -65,7 +66,7 @@ module ThinkingSphinx
             return unless ThinkingSphinx.define_indexes?
             
             self.sphinx_indexes ||= []
-            index = Index.new(self, &block)
+            index = ThinkingSphinx::Index::Builder.generate(self, &block)
             
             self.sphinx_indexes << index
             unless ThinkingSphinx.indexed_models.include?(self.name)
@@ -79,7 +80,20 @@ module ThinkingSphinx
             
             after_destroy :toggle_deleted
             
+            include ThinkingSphinx::ActiveRecord::AttributeUpdates
+            
             index
+            
+            # We want to make sure that if the database doesn't exist, then Thinking
+            # Sphinx doesn't mind when running non-TS tasks (like db:create, db:drop
+            # and db:migrate). It's a bit hacky, but I can't think of a better way.
+          rescue StandardError => err
+            case err.class.name
+            when "Mysql::Error", "Java::JavaSql::SQLException", "ActiveRecord::StatementInvalid"
+              return
+            else
+              raise err
+            end
           end
           alias_method :sphinx_index, :define_index
           
@@ -148,7 +162,9 @@ module ThinkingSphinx
             self.sphinx_indexes.select { |ts_index|
               ts_index.model == self
             }.each_with_index do |ts_index, i|
-              index.sources << ts_index.to_riddle_for_core(offset, i)
+              index.sources += ts_index.sources.collect { |source|
+                source.to_riddle_for_core(offset, i)
+              }
             end
             
             index
@@ -160,7 +176,9 @@ module ThinkingSphinx
             index.path = File.join(ThinkingSphinx::Configuration.instance.searchd_file_path, index.name)
             
             self.sphinx_indexes.each_with_index do |ts_index, i|
-              index.sources << ts_index.to_riddle_for_delta(offset, i) if ts_index.delta?
+              index.sources += ts_index.sources.collect { |source|
+                source.to_riddle_for_delta(offset, i)
+              } if ts_index.delta?
             end
             
             index
@@ -241,7 +259,7 @@ module ThinkingSphinx
         {self.sphinx_document_id => 1}
       ) if ThinkingSphinx.deltas_enabled? &&
         self.class.sphinx_indexes.any? { |index| index.delta? } &&
-        self.delta
+        self.toggled_delta?
     rescue ::ThinkingSphinx::ConnectionError
       # nothing
     end

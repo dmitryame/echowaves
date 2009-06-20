@@ -7,6 +7,7 @@ require 'riddle'
 require 'after_commit'
 
 require 'thinking_sphinx/core/string'
+require 'thinking_sphinx/property'
 require 'thinking_sphinx/active_record'
 require 'thinking_sphinx/association'
 require 'thinking_sphinx/attribute'
@@ -17,6 +18,7 @@ require 'thinking_sphinx/class_facet'
 require 'thinking_sphinx/facet_collection'
 require 'thinking_sphinx/field'
 require 'thinking_sphinx/index'
+require 'thinking_sphinx/source'
 require 'thinking_sphinx/rails_additions'
 require 'thinking_sphinx/search'
 require 'thinking_sphinx/deltas'
@@ -35,7 +37,7 @@ module ThinkingSphinx
   module Version #:nodoc:
     Major = 1
     Minor = 1
-    Tiny  = 6
+    Tiny  = 21
     
     String = [Major, Minor, Tiny].join('.')
   end
@@ -129,16 +131,46 @@ module ThinkingSphinx
   # or if not using MySQL, this will return false.
   # 
   def self.use_group_by_shortcut?
-    ::ActiveRecord::ConnectionAdapters.constants.include?("MysqlAdapter") &&
-    ::ActiveRecord::Base.connection.is_a?(
-      ::ActiveRecord::ConnectionAdapters::MysqlAdapter
-    ) &&
-    ::ActiveRecord::Base.connection.select_all(
-      "SELECT @@global.sql_mode, @@session.sql_mode;"
-    ).all? { |key,value| value.nil? || value[/ONLY_FULL_GROUP_BY/].nil? }
+    !!(
+      mysql? && ::ActiveRecord::Base.connection.select_all(
+        "SELECT @@global.sql_mode, @@session.sql_mode;"
+      ).all? { |key,value| value.nil? || value[/ONLY_FULL_GROUP_BY/].nil? }
+    )
   end
   
+  @@remote_sphinx = false
+  
+  # An indication of whether Sphinx is running on a remote machine instead of
+  # the same machine.
+  # 
+  def self.remote_sphinx?
+    @@remote_sphinx
+  end
+  
+  # Tells Thinking Sphinx that Sphinx is running on a different machine, and
+  # thus it can't reliably guess whether it is running or not (ie: the 
+  # #sphinx_running? method), and so just assumes it is.
+  # 
+  # Useful for multi-machine deployments. Set it in your production.rb file.
+  # 
+  #   ThinkingSphinx.remote_sphinx = true
+  # 
+  def self.remote_sphinx=(value)
+    @@remote_sphinx = value
+  end
+  
+  # Check if Sphinx is running. If remote_sphinx is set to true (indicating
+  # Sphinx is on a different machine), this will always return true, and you
+  # will have to handle any connection errors yourself.
+  # 
   def self.sphinx_running?
+    remote_sphinx? || sphinx_running_by_pid?
+  end
+  
+  # Check if Sphinx is actually running, provided the pid is on the same
+  # machine as this code.
+  # 
+  def self.sphinx_running_by_pid?
     !!sphinx_pid && pid_active?(sphinx_pid)
   end
   
@@ -159,8 +191,8 @@ module ThinkingSphinx
     return true if microsoft?
     
     begin
-      Process.getpgid(pid.to_i)
-      true
+      # In JRuby this returns -1 if the process doesn't exist
+      Process.getpgid(pid.to_i) != -1
     rescue Exception => e
       false
     end
@@ -168,5 +200,16 @@ module ThinkingSphinx
   
   def self.microsoft?
     RUBY_PLATFORM =~ /mswin/
+  end
+  
+  def self.jruby?
+    defined?(JRUBY_VERSION)
+  end
+  
+  def self.mysql?
+    ::ActiveRecord::Base.connection.class.name.demodulize == "MysqlAdapter" ||
+    ::ActiveRecord::Base.connection.class.name.demodulize == "MysqlplusAdapter" || (
+      jruby? && ::ActiveRecord::Base.connection.config[:adapter] == "jdbcmysql"
+    )
   end
 end

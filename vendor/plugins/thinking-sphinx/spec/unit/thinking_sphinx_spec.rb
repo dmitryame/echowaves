@@ -51,15 +51,33 @@ describe ThinkingSphinx do
     ThinkingSphinx.updates_enabled?.should be_true
   end
   
+  it "should always say Sphinx is running if flagged as being on a remote machine" do
+    ThinkingSphinx.remote_sphinx = true
+    ThinkingSphinx.stub_method(:sphinx_running_by_pid? => false)
+    
+    ThinkingSphinx.sphinx_running?.should be_true
+  end
+  
+  it "should actually pay attention to Sphinx if not on a remote machine" do
+    ThinkingSphinx.remote_sphinx = false
+    ThinkingSphinx.stub_method(:sphinx_running_by_pid? => false)
+    ThinkingSphinx.sphinx_running?.should be_false
+    
+    ThinkingSphinx.stub_method(:sphinx_running_by_pid? => true)
+    ThinkingSphinx.sphinx_running?.should be_true
+  end
+  
   describe "use_group_by_shortcut? method" do
     before :each do
-      unless ::ActiveRecord::ConnectionAdapters.const_defined?(:MysqlAdapter)
+      adapter = defined?(JRUBY_VERSION) ? :JdbcAdapter : :MysqlAdapter
+      unless ::ActiveRecord::ConnectionAdapters.const_defined?(adapter)
         pending "No MySQL"
         return
       end
       
-      @connection = ::ActiveRecord::ConnectionAdapters::MysqlAdapter.stub_instance(
-        :select_all => true
+      @connection = ::ActiveRecord::ConnectionAdapters.const_get(adapter).stub_instance(
+        :select_all => true,
+        :config => {:adapter => defined?(JRUBY_VERSION) ? 'jdbcmysql' : 'mysql'}
       )
       ::ActiveRecord::Base.stub_method(
         :connection => @connection
@@ -103,12 +121,16 @@ describe ThinkingSphinx do
     
     describe "if not using MySQL" do
       before :each do
-        unless ::ActiveRecord::ConnectionAdapters.const_defined?(:PostgreSQLAdapter)
+        adapter = defined?(JRUBY_VERSION) ? 'JdbcAdapter' : 'PostgreSQLAdapter'
+        unless ::ActiveRecord::ConnectionAdapters.const_defined?(adapter)
           pending "No PostgreSQL"
           return
         end
-        @connection = ::ActiveRecord::ConnectionAdapters::PostgreSQLAdapter.stub_instance(
-          :select_all => true
+        
+        @connection = stub(adapter).as_null_object
+        @connection.stub!(
+          :select_all => true,
+          :config => {:adapter => defined?(JRUBY_VERSION) ? 'jdbcpostgresql' : 'postgresql'}
         )
         ::ActiveRecord::Base.stub_method(
           :connection => @connection
@@ -120,9 +142,9 @@ describe ThinkingSphinx do
       end
     
       it "should not call select_all" do
-        ThinkingSphinx.use_group_by_shortcut?
+        @connection.should_not_receive(:select_all)
         
-        @connection.should_not have_received(:select_all)
+        ThinkingSphinx.use_group_by_shortcut?
       end
     end
   end

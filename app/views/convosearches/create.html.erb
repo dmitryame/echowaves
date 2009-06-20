@@ -2,8 +2,13 @@
   <%= flash_messages %>
 	<div class="page">
     <div class="balloon">
-      <h1>search conversations for:</h1>
-      <h2><%= params[:q] %></h2>
+      <h1>search conversations for: "<%= params[:q] %>"</h1>
+      <div>
+        <% form_tag convosearch_path, :method => :get do %>
+          <%= text_field_tag :q %>
+          <%= submit_tag t("ui.search"), :name => nil  %>
+        <% end %>
+      </div>
     </div>
 
     <div class="item">

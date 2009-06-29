@@ -178,7 +178,8 @@ class Message < ActiveRecord::Base
       },
       :attachment => {
         :image_url => self.has_image? ? self.attachment.url(:big) : nil,
-        :url => self.has_attachment? ? self.attachment.url : nil
+        :url => self.has_attachment? ? self.attachment.url : nil,
+        :height => self.has_image? ? Paperclip::Geometry.from_file(self.attachment.path(:big)).height : nil
       },
       :convo => {
         :id => self.conversation_id,

@@ -318,22 +318,5 @@ class ConversationsControllerTest < ActionController::TestCase
     #   assert assigns( :messages )
     # end
   end # context show action
-
-  context "complete_name action" do
-    setup do
-      @convo = Factory.create( :conversation )
-    end
-
-    should "find the conversation by name" do
-      Conversation.expects( :find_by_name ).with( 'foobar' ).returns( @convo )
-      get :complete_name, :id => 'foobar'
-    end
-
-    should "redirect to the conversation path" do
-      Conversation.expects( :find_by_name ).with( 'foobar' ).returns( @convo )
-      get :complete_name, :id => 'foobar'
-      assert_redirected_to conversation_path( @convo )
-    end
-  end # context complete_name action
-
+  
 end

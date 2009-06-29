@@ -2,8 +2,8 @@ class ConversationsController < ApplicationController
   
   public :render_to_string # this is needed to make render_to_string public for message model to be able to use it
   
-  before_filter :login_or_oauth_required, :except => [:index, :show, :auto_complete_for_conversation_name, :complete_name ]                                            
-  before_filter :find_conversation, :except => [:bookmarked, :complete_name, :create, :spawn, :new, :index]
+  before_filter :login_or_oauth_required, :except => [:index, :show, :auto_complete_for_conversation_name, :complete_name]                                            
+  before_filter :find_conversation, :except => [:bookmarked, :complete_name, :create, :spawn, :new, :index, :new_messages]
   before_filter :check_read_access, :only => [:show]
   
   after_filter :store_location, :only => [:show, :new]
@@ -269,12 +269,29 @@ class ConversationsController < ApplicationController
   #   @conversation.save    
   # end
 
-  # TODO: remove this thing
-  def complete_name
-    @conversation = Conversation.find_by_name(params[:id])
-    redirect_to conversation_path(@conversation)
-  end
   
+  def new_messages
+    @news = current_user.news
+    respond_to do |format|
+      format.html do
+        headers["Status"] = "403 Forbidden"
+        redirect_to(conversations_url)
+      end
+      
+      format.xml do
+        render :xml => @news.to_xml(
+                         :except => [:id, :activated_at, :created_at, :updated_at, :last_message_id, :user_id],
+                         :methods => [:new_messages_count, :convo_name])
+      end
+      
+      format.json do
+        render :json => @news.to_json(
+                         :except => [:id, :activated_at, :created_at, :updated_at, :last_message_id, :user_id],
+                         :methods => [:new_messages_count, :convo_name])
+      end
+    end
+  end
+    
 private
 
   def find_conversation

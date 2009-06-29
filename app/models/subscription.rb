@@ -36,4 +36,9 @@ class Subscription < ActiveRecord::Base
     self.save
   end
   
+  # for use in json and xml serialization
+  def convo_name
+    self.conversation.name
+  end
+  
 end

@@ -289,6 +289,8 @@ class ConversationsController < ApplicationController
                          :except => [:id, :activated_at, :created_at, :updated_at, :last_message_id, :user_id],
                          :methods => [:new_messages_count, :convo_name])
       end
+      
+      format.atom
     end
   end
     

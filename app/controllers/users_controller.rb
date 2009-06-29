@@ -19,7 +19,6 @@ class UsersController < ApplicationController
     @conversations = @user.conversations.not_personal.paginate :page => params[:page], :order => 'created_at DESC', :per_page => 20
     respond_to do |format|
       format.html
-      format.atom
       format.xml  { render :xml => @user }
     end
   end

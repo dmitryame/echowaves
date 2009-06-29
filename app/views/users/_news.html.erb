@@ -1,6 +1,6 @@
 <% if logged_in? %>
   <div id="news" class="item2 page">
   	<h6><%= t("ui.news") %>:</h6>
-  	<%= render :partial => 'users/subscription', :collection => current_user.news %>
+  	<%= render :partial => 'users/subscription', :collection => @news %>
   </div>
 <% end %>

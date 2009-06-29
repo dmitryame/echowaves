@@ -60,7 +60,7 @@
 	<div id="footer_container"><%= render(:partial => "shared/footer") %></div>
   	<%#for now lets poll for new messages in conversations that are off the screen%>  
 	<%= periodically_call_remote :url => {:controller => 'users', :action => 'update_news'}, 
-		:frequency => 60*5, :complete => 'ShowUnreadMessagesInFLuidapp();' %> 
+		:frequency => UPDATE_NEW_MESSAGES_FREQUENCY*5, :complete => 'ShowUnreadMessagesInFLuidapp();' %> 
 	
 
   <%#do not remove rhis scrips tag, used by google stats, ie6 detector, etc...%>

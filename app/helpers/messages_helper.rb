@@ -18,7 +18,7 @@ module MessagesHelper
     elsif message.has_pdf?
       %Q(
         <div class="file_attachment">
-        #{link_to( image_tag( 'icons/pdf_large.jpg', :alt => 'PDF Document', :width => 100 ), message.attachment.url, :target => '_blank' )}
+        #{link_to( image_tag( 'icons/pdf_large.jpg', :alt => 'PDF Document', :width => '100' ), message.attachment.url, :target => '_blank' )}
         </div>
       )
     elsif message.has_zip?

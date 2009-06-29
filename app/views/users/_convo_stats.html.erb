@@ -1,6 +1,6 @@
 <div class="balloon">
   <h1><%= link_to image_tag("/images/icons/16px-feed-icon.png"),
-        user_url(params[:id], :format => :atom, :user_credentials => @user.single_access_token), 
+        new_messages_conversations_url(params[:id], :format => :atom, :user_credentials => @user.single_access_token), 
         :type => "application/atom+xml",
         :rel => "alternate" if (logged_in? && current_user == @user) %> <%= @user.name_and_nick %> profile</h1>
   <br/>

@@ -30,7 +30,8 @@ class Message < ActiveRecord::Base
     gist
     youtube(:width => 400, :height => 250)
     vimeo
-    image
+    # TODO: fix rendering of image urls
+    # image
     link(:target => "_blank", :rel => "nofollow")
     simple_format
   end

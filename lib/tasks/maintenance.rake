@@ -16,6 +16,9 @@ namespace :maintenance do
           begin
             m.attachment_height = Paperclip::Geometry.from_file(m.attachment.path(:big)).height.to_i          
             m.save(false)
+            puts "#----------------------------------------------------------------------------"
+            puts "#{m.attachment_height} px: #{m.attachment.path(:big)}"
+            puts "#----------------------------------------------------------------------------"
           rescue
             RAILS_DEFAULT_LOGGER.error "[ Maintenance ] There is a problem with the attachment #{m.id}"
           end

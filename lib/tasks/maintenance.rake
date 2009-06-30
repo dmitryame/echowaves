@@ -5,7 +5,7 @@ namespace :maintenance do
     task :regenerate_html => :environment do
       Message.find_each(:batch_size => 100) do |m|
         m.auto_html_prepare
-        m.save!
+        m.save(false)
       end
     end
     

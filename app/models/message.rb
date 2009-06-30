@@ -54,6 +54,14 @@ class Message < ActiveRecord::Base
     :path => PAPERCLIP_PATH,
     :url  => PAPERCLIP_URL
   
+  after_attachment_post_process  :post_process_attachment
+  
+  def post_process_attachment
+    if attachment.content_type.include?("image")
+      self.attachment_height = Paperclip::Geometry.from_file(attachment.queued_for_write[:big].path).height.to_i  
+    end
+  end
+    
   named_scope :published,  :conditions => { :abuse_report_id => nil }
   named_scope :with_file,  :conditions => ["attachment_content_type like ?","application%"]
   named_scope :with_image, :conditions => ["attachment_content_type like ?",'image%']
@@ -180,7 +188,7 @@ class Message < ActiveRecord::Base
       :attachment => {
         :image_url => self.has_image? ? self.attachment.url(:big) : nil,
         :url => self.has_attachment? ? self.attachment.url : nil,
-        :height => self.has_image? ? Paperclip::Geometry.from_file(self.attachment.path(:big)).height : nil
+        :height => self.has_image? ? self.attachment_height : nil
       },
       :convo => {
         :id => self.conversation_id,

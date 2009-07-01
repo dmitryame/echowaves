@@ -15,7 +15,8 @@ namespace :maintenance do
       spawned_convos.each do |c|
         parent_message = c.parent_message
         spawned_message = c.messages.first
-        if parent_message.has_attachment?          
+        if parent_message.has_attachment?
+          spawned_message.auto_html_prepare          
           spawned_message.message_html = spawned_message.message_html + attachment_markup(parent_message)
           spawned_message.save(false)
         end

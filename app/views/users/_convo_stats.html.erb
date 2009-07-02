@@ -12,10 +12,7 @@
   
   <span class="username">
 	  <%=link_to h(@user.login), conversation_path(@user.personal_conversation) %>
-	  &#187;
-	  <%= render :partial => 'conversations/follow_from_list', :object => @user.personal_conversation %>
-
-	  
+	  <%= render :partial => 'conversations/follow_from_list', :object => @user.personal_conversation %>	  
   </span>
 	
   <span class="userinfo">                                        

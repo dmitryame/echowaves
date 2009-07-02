@@ -3,7 +3,9 @@
 		<% if follow_from_list.followed_by?(current_user) %>
 			<%= "&#187; " + link_to_remote( t("ui.unfollow"), :url => unfollow_from_list_conversation_path(follow_from_list) ) %>
 		<% else %>
-			<%= "&#187; " + link_to_remote( t("ui.follow"), :url => follow_from_list_conversation_path(follow_from_list) ) unless follow_from_list.private? %>
+		  <% if !follow_from_list.private? || follow_from_list.user_id == current_user.id %>
+			  <%= "&#187; " + link_to_remote( t("ui.follow"), :url => follow_from_list_conversation_path(follow_from_list) ) %>
+			<% end %>
 		<% end %>
   </span>
 <% end %>

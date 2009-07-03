@@ -149,7 +149,6 @@ class UsersController < ApplicationController
   
   def update_news
     @conversation = Conversation.find(params[:conversation_id])
-    @news = current_user.news
   end
   
   # TODO: can I remove this thing?

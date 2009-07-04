@@ -12,13 +12,14 @@ class MessagesController < ApplicationController
   auto_complete_for :tag, :name
   
   def index
+    @messages = @conversation.messages.non_system.published.find(:all, :include => [:user], :limit => Message::PER_PAGE, :order => 'id DESC').reverse
+    
     respond_to do |format|
       format.html do
         headers["Status"] = "301 Moved Permanently"
         redirect_to conversation_path(@conversation)
       end
       format.json do
-        @messages = @conversation.messages.non_system.published.find(:all, :include => [:user], :limit => Message::PER_PAGE, :order => 'id DESC').reverse
         if logged_in?
           subscription = current_user.subscriptions.find_by_conversation_id(@conversation.id)
           current_user.conversation_visit_update(@conversation) if logged_in?
@@ -26,6 +27,14 @@ class MessagesController < ApplicationController
         end
         data = group_and_json( @messages )
         render :text => {:message_groups => data, :last_message_id => @last_message_id}.to_json
+      end
+      format.xml do
+        if logged_in?
+          subscription = current_user.subscriptions.find_by_conversation_id(@conversation.id)
+          current_user.conversation_visit_update(@conversation) if logged_in?
+          @last_message_id = subscription.last_message_id if (subscription && subscription.new_messages_count > 0)  
+        end
+        render :xml => @messages.to_xml(:include => [:user])
       end
     end    
   end

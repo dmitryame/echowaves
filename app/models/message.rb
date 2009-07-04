@@ -212,4 +212,16 @@ class Message < ActiveRecord::Base
     data_for_templates.to_json
   end
   
+  # XML
+  #----------------------------------------------------------------------------
+  alias_method :unsafe_to_xml, :to_xml
+  
+  def to_xml(options = {})
+    excluded_by_default = [:abuse_report_id, :delta, :message, :something, :updated_at,
+                           :attachment_file_size, :attachment_file_name, :attachment_height, 
+                           :attachment_updated_at ]
+    options[:except] = (options[:except] ? options[:except] + excluded_by_default : excluded_by_default)   
+    unsafe_to_xml(options)
+  end
+  
 end

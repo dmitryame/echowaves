@@ -1,5 +1,9 @@
 # PAPERCLIP_URL  = "/attachments/:id/:style/:basename.:extension"
-
+                                                                             
+# Set USE_X_SENDFILE to true if you want your web server to do the hard work
+# to serve the attachments. Remember to enable the x_sendfile module for your
+# web server. This option is highly recommended.
+#----------------------------------------------------------------------------
 USE_X_SENDFILE = false
 PAPERCLIP_PATH = ":rails_root/public/attachments/:id/:style/:basename.:extension"
 

@@ -57,6 +57,13 @@ You can install it quite easily via apt, yum, or port, or the package manager of
 
 install sphinx from http://sphinxsearch.com/
 
+## SERVING ATTACHMENTS
+
+Attachments are send to the browser by a rails controller to protect them for unauthorized access, the problem is that this is very inefficient.
+However you can let your web server to do the hard work, for this, you must enable the x-sendfile module for the web server and set the USE_X_SENDFILE constant in #{RAILS_ROOT}/configuration/initializers/constants.rb
+
+  USE_X_SENDFILE = true
+  
 ## POST INSTALL
 
 Index data for Sphinx using Thinking Sphinx's settings (this rake task will create the settings file at #{RAILS_ROOT}/configuration/development.sphinx.conf)

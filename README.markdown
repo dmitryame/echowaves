@@ -65,6 +65,13 @@ if you use Apache or the USE_X_ACCEL_REDIRECT constant if you use NGINX
 
   USE_X_SENDFILE = true # if you use Apache                                          
   USE_X_ACCEL_REDIRECT = true # if you use NGINX
+
+If you use NGINX and the x_accel_redirect feature you should tell NGINX about where the attachments are located:
+
+  location /attachments {
+    root /path/to/rails_app;  
+    internal;  
+  }
   
 ## POST INSTALL
 

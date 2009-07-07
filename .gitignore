@@ -17,6 +17,7 @@ db/schema.rb
 db/development_structure.sql
 db/sphinx/*
 public/attachments
+attachments
 *.log
 coverage.data
 coverage/*

@@ -5,7 +5,7 @@
 # web server. This option is highly recommended.
 #----------------------------------------------------------------------------
 USE_X_SENDFILE = false
-PAPERCLIP_PATH = ":rails_root/public/attachments/:id/:style/:basename.:extension"
+PAPERCLIP_PATH = ":rails_root/attachments/:id/:style/:basename.:extension"
 
 MESSAGE_ABUSE_THRESHOLD = 2 # number of abuse_reports a message can receive before being deactivated
 

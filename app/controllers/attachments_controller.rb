@@ -9,7 +9,7 @@ class AttachmentsController < ApplicationController
   def find_message_and_check_read_access
     @message = Message.published.find(params[:id])
     unless (logged_in? && @message.conversation.readable_by?(current_user)) || !@message.conversation.private?
-      flash[:error] = "Sorry, this attacment is unavailable."
+      flash[:error] = "Sorry, this attachment is unavailable."
       redirect_to home_path
       return
     end

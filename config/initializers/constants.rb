@@ -1,10 +1,13 @@
 # PAPERCLIP_URL  = "/attachments/:id/:style/:basename.:extension"
                                                                              
-# Set USE_X_SENDFILE to true if you want your web server to do the hard work
-# to serve the attachments. Remember to enable the x_sendfile module for your
-# web server. This option is highly recommended.
+# Set USE_X_SENDFILE or USE_X_ACCEL_REDIRECT to true if you want your web
+# server to do the hard work to serve the attachments. Remember to enable
+# the x_sendfile module for your web server. This option is highly
+# recommended.
 #----------------------------------------------------------------------------
-USE_X_SENDFILE = false
+USE_X_SENDFILE = false # APACHE
+USE_X_ACCEL_REDIRECT = false # you should use NGINX
+
 PAPERCLIP_PATH = ":rails_root/attachments/:id/:style/:basename.:extension"
 
 MESSAGE_ABUSE_THRESHOLD = 2 # number of abuse_reports a message can receive before being deactivated

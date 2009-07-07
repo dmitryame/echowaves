@@ -60,9 +60,11 @@ install sphinx from http://sphinxsearch.com/
 ## SERVING ATTACHMENTS
 
 Attachments are send to the browser by a rails controller to protect them for unauthorized access, the problem is that this is very inefficient.
-However you can let your web server to do the hard work, for this, you must enable the x-sendfile module for the web server and set the USE_X_SENDFILE constant in #{RAILS_ROOT}/configuration/initializers/constants.rb
+However you can let your web server to do the hard work, for this, you must enable the x-sendfile module and set the USE_X_SENDFILE constant in #{RAILS_ROOT}/configuration/initializers/constants.rb
+if you use Apache or the USE_X_ACCEL_REDIRECT constant if you use NGINX
 
-  USE_X_SENDFILE = true
+  USE_X_SENDFILE = true # if you use Apache                                          
+  USE_X_ACCEL_REDIRECT = true # if you use NGINX
   
 ## POST INSTALL
 

@@ -52,7 +52,7 @@ class Message < ActiveRecord::Base
       :big   => "400x400>" 
     },
     :path => PAPERCLIP_PATH,
-    :url  => PAPERCLIP_URL
+    :url  => "/attachments/:id?style=:style"
   
   after_attachment_post_process  :post_process_attachment
   

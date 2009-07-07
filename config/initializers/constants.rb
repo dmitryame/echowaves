@@ -1,4 +1,6 @@
-PAPERCLIP_URL  = "/attachments/:id/:style/:basename.:extension"
+# PAPERCLIP_URL  = "/attachments/:id/:style/:basename.:extension"
+
+USE_X_SENDFILE = false
 PAPERCLIP_PATH = ":rails_root/public/attachments/:id/:style/:basename.:extension"
 
 MESSAGE_ABUSE_THRESHOLD = 2 # number of abuse_reports a message can receive before being deactivated

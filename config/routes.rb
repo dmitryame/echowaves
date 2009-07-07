@@ -2,6 +2,7 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resource  :user_session
   map.resources :password_resets
+  map.resources :attachments, :only => [:show]
   map.resource  :msgsearch, :only => [:show, :create]
   map.resource  :convosearch, :only => [:show, :create]
   map.resource  :usersearch, :only => [:show, :create]

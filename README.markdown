@@ -63,15 +63,15 @@ Attachments are send to the browser by a rails controller to protect them for un
 However you can let your web server to do the hard work, for this, you must enable the x-sendfile module and set the USE_X_SENDFILE constant in #{RAILS_ROOT}/configuration/initializers/constants.rb
 if you use Apache or the USE_X_ACCEL_REDIRECT constant if you use NGINX
 
-  USE_X_SENDFILE = true # if you use Apache                                          
-  USE_X_ACCEL_REDIRECT = true # if you use NGINX
+    USE_X_SENDFILE = true # if you use Apache                                          
+    USE_X_ACCEL_REDIRECT = true # if you use NGINX
 
 If you use NGINX and the x_accel_redirect feature you should tell NGINX about where the attachments are located:
 
-  location /attachments {
-    root /path/to/rails_app;  
-    internal;  
-  }
+    location /attachments {
+      root /path/to/rails_app;  
+      internal;  
+    }
   
 ## POST INSTALL
 

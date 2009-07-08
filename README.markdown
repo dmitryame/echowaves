@@ -68,7 +68,7 @@ if you use Apache or the USE_X_ACCEL_REDIRECT constant if you use NGINX
 
 If you use NGINX and the x_accel_redirect feature you should tell NGINX about where the attachments are located:
 
-    location /attachments {
+    location /files {
       root /path/to/rails_app;  
       internal;  
     }

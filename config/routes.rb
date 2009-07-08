@@ -43,7 +43,7 @@ ActionController::Routing::Routes.draw do |map|
   map.access_token '/oauth/access_token',:controller=>'oauth',:action=>'access_token'
   map.test_request '/oauth/test_request',:controller=>'oauth',:action=>'test_request'
             
-  map.home '/', :controller => "home", :action => "index"
+  map.root :controller => "home"
   map.login '/login', :controller => 'user_sessions', :action => 'new'
   map.logout '/logout', :controller => 'user_sessions', :action => 'destroy'
   map.signup '/signup', :controller => 'users', :action => 'new'

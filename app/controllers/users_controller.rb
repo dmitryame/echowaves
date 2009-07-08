@@ -84,7 +84,7 @@ class UsersController < ApplicationController
       else
         flash[:notice] = t("ui.thanks_for_signup")
       end
-      redirect_to home_path
+      redirect_to root_path
     else
       flash[:error]  = t("ui.signup_error")
       render :new

@@ -5,6 +5,7 @@ tmp/restart.txt
 spec
 .DS_Store
 *~
+files
 config/environment.rb
 config/database.yml
 config/deploy.rb

@@ -175,16 +175,11 @@ class ConversationsController < ApplicationController
       redirect_to conversation_path(@conversation)
     else
       @friends = current_user.friends    
-      # should also remove the users if they were already invited
+      # should also remove the users if they were already invited or the users already follow the convo
       @friends.delete_if do |user|
         invite_for_user = Invite.find(:first, :conditions => ["user_id = ? and conversation_id = ?", user.id, @conversation.id ] )
-        true unless invite_for_user == nil
+        true unless invite_for_user == nil || !@conversation.users.include?(user)
       end
-      # should also remove the users that already follow proposed convo
-      # @friends.delete_if do |user|
-      #   user.conversations.detect {|convo| convo.id == @conversation.id}
-      # end
-      # render :layout => "invite"
     end
   end
   
@@ -203,7 +198,7 @@ class ConversationsController < ApplicationController
   def invite_all_my_followers
     current_user.followers.each do |user| 
       if(user.id != current_user.id) 
-        user.invite @conversation, current_user        
+        user.invite @conversation, current_user unless !@conversation.users.include?(user)        
       end
     end
     render :update do |page| 

@@ -152,7 +152,7 @@ class User < ActiveRecord::Base
   end
 
   def mark_last_viewed_as_read
-    self.subscriptions(:order => 'activated_at DESC').first.mark_read unless self.subscriptions.empty?
+    self.subscriptions(:order => 'activated_at DESC').first.mark_read! unless self.subscriptions.empty?
   end
 
   def update_last_viewed_subscription(conversation)
@@ -173,13 +173,13 @@ class User < ActiveRecord::Base
       #create a subscription if not created yet
       if (!Subscription.find_by_conversation_id_and_user_id(convo, self))
         subscription = convo.add_subscription(self) 
-        subscription.mark_read
+        subscription.mark_read!
       end
     elsif convo.private? && !invite.blank? && ( token == invite.token )
       #create a subscription if not created yet
       if (!Subscription.find_by_conversation_id_and_user_id(convo, self))
         subscription = convo.add_subscription(self) 
-        subscription.mark_read
+        subscription.mark_read!
       end
       invite.reset_token!
     else

@@ -275,7 +275,7 @@ class ConversationsControllerTest < ActionController::TestCase
     end
 
     should "mark subscription as read" do
-      @subscription.expects( :mark_read )
+      @subscription.expects( :mark_read! )
       xhr :post, :follow, :id => '1'
     end
   end # context follow action

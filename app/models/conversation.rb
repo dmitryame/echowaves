@@ -109,7 +109,7 @@ class Conversation < ActiveRecord::Base
   def writable_by?(user)
     self.owner == user || 
     ( !self.read_only && !self.private? ) ||
-    ( self.private? && self.followed_by?(user) )
+    ( self.private? && self.followed_by?(user) && !self.read_only )
   end
 
   def personal?

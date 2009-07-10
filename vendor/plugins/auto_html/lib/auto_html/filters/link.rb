@@ -3,7 +3,7 @@
 # ActionView::Helpers::TextHelper
 #
 AutoHtml.add_filter(:link).with({}) do |text, options|
-  
+
   def tag_options(options)
     unless options.blank?
       attrs = []
@@ -28,7 +28,7 @@ AutoHtml.add_filter(:link).with({}) do |text, options|
         (?:\.[-\w]+)*            # remaining subdomains or domain
         (?::\d+)?                # port
         (?:/(?:[~\w\+@%=\(\)-]|(?:[,.;:'][^\s$]))*)* # path
-        (?:\?[\w\+@%&=.;:-]+)?     # query string
+        (?:\?|\#[\w\+@%&=.;:-]+)?     # query string
         (?:\#[\w\-]*)?           # trailing anchor
       )
       ([[:punct:]]|<|$|)       # trailing text

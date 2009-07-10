@@ -29,7 +29,8 @@ class Message < ActiveRecord::Base
     html_escape
     gist
     youtube(:width => 400, :height => 250)
-    vimeo
+    vimeo(:width => 400, :height => 250)
+    google_video(:width => 400, :height => 250)
     # TODO: fix rendering of image urls
     # image
     link(:target => "_blank", :rel => "nofollow")

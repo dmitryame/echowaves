@@ -24,37 +24,38 @@
 		      <% next %>
 		    <%end%>
 		  <% end %>
-		              
-		  <div class="message" id="<%=dom_id(message)%>">
-		  	<div class="messagelinks quiet small">
-		  		<%if current_user%>
-		  		<%= link_to_remote t("ui.report"), 
-		  		:url => {:controller => 'messages', :action => 'report', :id => message.id}, 
-		  		:confirm => t("ui.reportconfirm"), :method => :get %> |
-		  		<%end%>
-		  		<%= link_to t("conversations.go_to_conversation"), conversation_path(message.conversation_id) %>
-		  	</div>
-		  	<div class="avatar"><%= link_to image_tag(message.user.gravatar_url, :border => 0, :wigth => 40, :height => 40, :class => "avatar"), user_path(message.user),
-		  	:class => 'tip', 
-		  	:title =>  t("users.since") + message.user.date  + 
-		  	'<br/>' + message.user.conversations.size.to_s  + '&nbsp;' + t('ui.convos') +
-		  	'<br/>' + message.user.messages.size.to_s       + '&nbsp;' + t('ui.messages') +
-		  	'<br/>' + message.user.subscriptions.size.to_s  + '&nbsp;' + t("ui.following") +
-		  	'<br/>' + message.user.personal_conversation.users.size.to_s               + '&nbsp;' + t("ui.followers")
-		  	%></div>
-		  	<div class="messagetext">
-		  		<span class="username"><%=link_to h(message.user.login), conversation_path(message.user.personal_conversation), 
-		  		:class => 'tip', 
-		  		:title => "personal convo for " + message.user.login  %></span>
-		  		<% if message.attachment.original_filename %>
-		  		<%= link_to(image_tag(message.attachment.url(:big)), message.attachment.url, :target => "_blank")%>		 
-		  		<% end %>
+		  
+		  <%# REFACTOR DRY: this markup is used in some places %>
+    	<div class="message" id="<%=dom_id(message)%>">
+    	  <div class="avatar"><%= link_to image_tag(message.user.gravatar_url, :border => 0, :width => 30, :height => 30, :class => "avatar", :alt => message.user.login), user_path(message.user),
+    		:class => 'tip', 
+    		:title =>  user_popup(message.user) %>
+    		</div>
+    		<div class="messagetext">
+    	    <% if message.has_attachment? %>
+    	      <%= display_attachment(message) %>
+    			<% end %>
 		  		<%= highlight mark_up(message), params[:q].split %>
-		  		<span class="date quiet small"><%= link_to message.date_pretty_long, conversation_message_path(message.conversation_id, message) %></span>
-		  	</div>
-		  	<div class="clear"></div>
-		  </div>
-		<% end %>
+
+    			<div class="meta">
+    	      <span class="date quiet small">
+    			  	<%= link_to message.time_pretty,
+    			   conversation_message_path(message.conversation, message), :title => message.date_pretty_long %> -
+    			  </span>
+    			  <span class="username"><%=link_to h(message.user.login), conversation_path(message.user.personal_conversation), :class => 'tip', :title =>  "personal convo for #{message.user.login}" %></span>
+    			  <div class="messagelinks quiet small">
+      			<% if logged_in? %>
+      				<%= link_to_remote t("ui.report"), :url => report_conversation_message_path(message.conversation, message), :confirm => t("ui.reportconfirm") %>
+      	      <%= link_to t("ui.spawn"), spawn_new_conversation_path(:message_id => message.id), :confirm => t("ui.spawnconfirm"), :method => :get %> <% #has to be the get in order for auth token to work %>
+      			<% end %>
+      			<%= link_to t("conversations.go_to_conversation"), conversation_path(message.conversation_id) %>
+      		  </div>
+          </div>
+    		</div>
+    		<div class="clear"></div>
+    	</div>
+    	
+	  <% end %>
 
 		<div class="pagination"><%= will_paginate @messages %></div>
 

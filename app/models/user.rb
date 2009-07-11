@@ -129,7 +129,6 @@ class User < ActiveRecord::Base
     return unless self.receive_email_notifications
     UserMailer.deliver_public_invite_instructions(self, invite.conversation_id, invite.conversation.name, invite.requestor)
   end
-
   
   def activate!
     self.activated_at = Time.now.utc

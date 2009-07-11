@@ -180,9 +180,7 @@ class Conversation < ActiveRecord::Base
     #invite all my followers, if the convo is public
     unless(self.private?)
       self.user.followers.each do |u| 
-        if(u.id != self.user.id) 
-          u.invite self, self.user        
-        end
+          u.invite self, self.user
       end
     end    
   end

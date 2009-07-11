@@ -15,6 +15,7 @@
 #  updated_at            :datetime
 #----------------------------------------------------------------------------
 class OauthToken < ActiveRecord::Base
+  
   belongs_to :client_application
   belongs_to :user
   validates_uniqueness_of :token
@@ -44,4 +45,5 @@ protected
     self.token = @oauth_token[0]
     self.secret = @oauth_token[1]
   end
+
 end

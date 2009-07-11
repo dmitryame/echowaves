@@ -1,4 +1,5 @@
 class OauthClientsController < ApplicationController
+
   before_filter :require_user
   
   def index
@@ -44,4 +45,5 @@ class OauthClientsController < ApplicationController
     flash[:notice] = "Destroyed the client application registration"
     redirect_to :action => "index"
   end
+  
 end

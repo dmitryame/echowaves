@@ -222,8 +222,7 @@ class ConversationsController < ApplicationController
         invite.token = Authlogic::Random::friendly_token
         invite.save
 
-        UserMailer.deliver_email_invite(email, invite)
-        
+        UserMailer.deliver_email_invite(email, invite)        
       end
     end
     

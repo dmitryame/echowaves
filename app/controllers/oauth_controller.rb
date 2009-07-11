@@ -1,4 +1,5 @@
 class OauthController < ApplicationController
+  
   before_filter :require_user, :except => [:request_token, :access_token, :test_request]
   before_filter :login_or_oauth_required, :only => [:test_request]
   before_filter :verify_oauth_consumer_signature, :only => [:request_token]

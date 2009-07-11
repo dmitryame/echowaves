@@ -15,6 +15,7 @@
 #  updated_at            :datetime
 #----------------------------------------------------------------------------
 class RequestToken < OauthToken
+  
   def authorize!(user)
     return false if authorized?
     self.user = user
@@ -30,4 +31,5 @@ class RequestToken < OauthToken
       access_token
     end
   end
+  
 end

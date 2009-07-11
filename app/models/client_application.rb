@@ -16,6 +16,7 @@
 #----------------------------------------------------------------------------
 require 'oauth'
 class ClientApplication < ActiveRecord::Base
+  
   belongs_to :user
   has_many :tokens, :class_name => "OauthToken"
   validates_presence_of :name, :url, :key, :secret
@@ -67,4 +68,5 @@ protected
     self.key = @oauth_client.key
     self.secret = @oauth_client.secret
   end
+  
 end

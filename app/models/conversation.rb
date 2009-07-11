@@ -184,8 +184,7 @@ class Conversation < ActiveRecord::Base
           u.invite self, self.user        
         end
       end
-    end
-    
+    end    
   end
   
   def date_time12

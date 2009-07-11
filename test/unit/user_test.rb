@@ -224,7 +224,16 @@ class UserTest < ActiveSupport::TestCase
 
     should "update last viewed subscription" 
   end
-
+  
+  context "#followers method" do
+    fixtures :users
+    should "return all the followers of the user but not the user himself" do
+      assert users(:crossblaim).followers.include?( users(:akira) )
+      assert users(:crossblaim).followers.include?( users(:dmitry) )
+      assert !users(:crossblaim).followers.include?( users(:crossblaim) )
+    end
+  end
+  
   context "inviting a user" do
     setup do
       @user = Factory.create( :user, :receive_email_notifications => false )
@@ -237,7 +246,6 @@ class UserTest < ActiveSupport::TestCase
       # @invite = Invite.find_by_user_id_and_requestor_id_and_conversation_id(@user, @invite, @convo) #eghh
       # assert_not_nil @invite
     end
-
   end
 
 end

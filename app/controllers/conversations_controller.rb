@@ -197,9 +197,7 @@ class ConversationsController < ApplicationController
 
   def invite_all_my_followers
     current_user.followers.each do |user| 
-      if(user.id != current_user.id) 
-        user.invite @conversation, current_user unless !@conversation.users.include?(user)        
-      end
+      user.invite @conversation, current_user unless !@conversation.users.include?(user)
     end
     render :update do |page| 
       page["spinner_0"].visual_effect :drop_out

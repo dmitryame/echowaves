@@ -80,6 +80,7 @@ end
 #----------------------------------------------------------------------------
 USE_WORKLING = false
 # use the Starling runner
+Workling::Clients::MemcacheQueue.memcache_client_class = RudeQ::Client # use rude queue instead the real starling
 Workling::Remote.dispatcher = Workling::Remote::Runners::StarlingRunner.new
 
 # active mailer configuration

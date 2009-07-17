@@ -75,6 +75,10 @@ Rails::Initializer.run do |config|
   config.action_mailer.delivery_method = :smtp
 end
 
+# set to true to make some tasks asyncronous and use workling, please read
+# the documentation
+#----------------------------------------------------------------------------
+USE_WORKLING = false
 # use the Starling runner
 Workling::Remote.dispatcher = Workling::Remote::Runners::StarlingRunner.new
 

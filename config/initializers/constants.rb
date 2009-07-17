@@ -8,11 +8,6 @@
 USE_X_SENDFILE = false # APACHE
 USE_X_ACCEL_REDIRECT = false # you should use NGINX
 
-# set to true to make some tasks asyncronous and use workling, please read
-# the documentation
-#----------------------------------------------------------------------------
-USE_WORKLING = false
-
 PAPERCLIP_PATH = ":rails_root/files/:id/:style/:basename.:extension"
 
 MESSAGE_ABUSE_THRESHOLD = 2 # number of abuse_reports a message can receive before being deactivated

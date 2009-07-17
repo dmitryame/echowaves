@@ -120,13 +120,30 @@ class User < ActiveRecord::Base
     UserMailer.deliver_password_reset_instructions(self)
   end
   
+  def deliver_private_invite_instructions(invite)
+    if USE_WORKLING
+      MailerWorker.asynch_deliver_private_invite_instructions(:user_id => id, :invite_id => invite.id)
+    else
+      deliver_private_invite_instructions!(invite)
+    end
+  end
+  
   def deliver_private_invite_instructions!(invite)
     reset_perishable_token!
     UserMailer.deliver_private_invite_instructions(self, invite.conversation_id, invite.conversation.name, invite.requestor, invite.token)
   end
 
-  def deliver_public_invite_instructions!(invite)
+  def deliver_public_invite_instructions(invite)
     return unless self.receive_email_notifications
+    if USE_WORKLING
+      MailerWorker.asynch_deliver_public_invite_instructions(:user_id => id, :invite_id => invite.id)
+    else
+      deliver_public_invite_instructions!(invite)
+    end
+  end
+  
+  def deliver_public_invite_instructions!(invite)
+    # return unless self.receive_email_notifications
     UserMailer.deliver_public_invite_instructions(self, invite.conversation_id, invite.conversation.name, invite.requestor)
   end
   
@@ -216,9 +233,10 @@ class User < ActiveRecord::Base
  
     if conversation.private?
       # private convo only sends invite via email
-      self.deliver_private_invite_instructions!(invite)
+      # self.deliver_private_invite_instructions!(invite)
+      self.deliver_private_invite_instructions(invite)      
     else
-      self.deliver_public_invite_instructions!(invite)
+      self.deliver_public_invite_instructions(invite)
       # now let's create a system message and send it to the convo channel
       # TODO: how to translate this for the invitee user?
       msg = " invites you to follow a convo: <a href='/conversations/#{conversation.id}'>#{invite.conversation.name}</a>"

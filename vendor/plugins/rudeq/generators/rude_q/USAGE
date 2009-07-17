@@ -1,0 +1,24 @@
+Description:
+    The rude_q generator creates a fully functioning RudeQ.
+
+    The generator takes a model name as its argument.  The model name may be
+    given in CamelCase or under_score and should not be suffixed with 'Model'.
+
+    The generator creates a model class in app/models, an RSpec spec in
+    spec/models, database fixtures in spec/fixtures/plural_name.yml, and a migration
+    in db/migrate.
+
+    All the generated files are fully functioning, and no extra work should be necessary.
+
+Example:
+    ./script/generate rude_q ProcessQueue
+
+    This will create a ProcessQueue model:
+        Model:      app/models/process_queue.rb
+        Spec:       spec/models/process_queue_spec.rb
+        Fixtures:   spec/fixtures/process_queues.yml
+        Migration:  db/migrate/XXX_add_process_queues.rb
+
+    Run migrations, and you can use it immediately;
+        ProcessQueue.set(queue_name, value)
+        ProcessQueue.get(queue_name)

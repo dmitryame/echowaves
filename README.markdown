@@ -72,7 +72,15 @@ If you use NGINX and the x_accel_redirect feature you should tell NGINX about wh
       root /path/to/rails_app;  
       internal;  
     }
-  
+
+## ASYNCRONOUS JOBS
+
+If you want to make some tasks asyncronous, set the USE_WORKLING constant in environment.rb to true. By default we are using RudeQ for store the jobs in the db, so no extra proccess to take care.
+
+To start processing jobs, run
+
+    script/workling_client start
+    
 ## POST INSTALL
 
 Index data for Sphinx using Thinking Sphinx's settings (this rake task will create the settings file at #{RAILS_ROOT}/configuration/development.sphinx.conf)

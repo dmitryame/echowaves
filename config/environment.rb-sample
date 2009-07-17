@@ -75,6 +75,9 @@ Rails::Initializer.run do |config|
   config.action_mailer.delivery_method = :smtp
 end
 
+# use the Starling runner
+Workling::Remote.dispatcher = Workling::Remote::Runners::StarlingRunner.new
+
 # active mailer configuration
 # First, specify the Host that we will be using later for user_notifier.rb
 HOST = 'http://localhost:3000'

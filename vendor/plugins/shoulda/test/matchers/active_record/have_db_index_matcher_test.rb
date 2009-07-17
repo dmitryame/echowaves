@@ -1,10 +1,10 @@
 require File.join(File.dirname(__FILE__), '..', '..', 'test_helper')
 
-class HaveIndexMatcherTest < Test::Unit::TestCase # :nodoc:
+class HaveDbIndexMatcherTest < ActiveSupport::TestCase # :nodoc:
   
-  context "have_index" do
+  context "have_db_index" do
     setup do
-      @matcher = have_index(:age)
+      @matcher = have_db_index(:age)
     end
 
     should "accept an existing index" do
@@ -22,9 +22,9 @@ class HaveIndexMatcherTest < Test::Unit::TestCase # :nodoc:
     end
   end
   
-  context "have_index with unique option" do
+  context "have_db_index with unique option" do
     setup do
-      @matcher = have_index(:ssn).unique(true)
+      @matcher = have_db_index(:ssn).unique(true)
     end
 
     should "accept an index of correct unique" do
@@ -46,9 +46,9 @@ class HaveIndexMatcherTest < Test::Unit::TestCase # :nodoc:
     end
   end
   
-  context "have_index on multiple columns" do
+  context "have_db_index on multiple columns" do
     setup do
-      @matcher = have_index([:geocodable_type, :geocodable_id])
+      @matcher = have_db_index([:geocodable_type, :geocodable_id])
     end
 
     should "accept an existing index" do
@@ -69,6 +69,23 @@ class HaveIndexMatcherTest < Test::Unit::TestCase # :nodoc:
       define_model_class 'Geocoding'
       assert_rejects @matcher, Geocoding.new
     end
+  end
+
+  should "join columns with and describing multiple columns" do
+    assert_match /on columns user_id and post_id/,
+      have_db_index([:user_id, :post_id]).description
+  end
+
+  should "describe a unique index as unique" do
+    assert_match /a unique index/, have_db_index(:user_id).unique(true).description
+  end
+
+  should "describe a non-unique index as non-unique" do
+    assert_match /a non-unique index/, have_db_index(:user_id).unique(false).description
+  end
+
+  should "not describe an index's uniqueness when it isn't important" do
+    assert_no_match /unique/, have_db_index(:user_id).description
   end
   
 end

@@ -17,12 +17,13 @@ class ConversationVisitTest < ActiveSupport::TestCase
      setup do
        @conversation_visit = Factory(:conversation_visit)
      end
+     subject { @conversation_visit }
      
      should_belong_to :user
      should_belong_to :conversation
      
      should_validate_presence_of :conversation_id
 
-     should_have_indices :user_id, :conversation_id, :created_at
+     should_have_db_indices :user_id, :conversation_id, :created_at
    end
 end

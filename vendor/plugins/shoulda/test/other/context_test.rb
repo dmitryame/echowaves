@@ -1,6 +1,6 @@
 require File.join(File.dirname(__FILE__), '..', 'test_helper')
 
-class ContextTest < Test::Unit::TestCase # :nodoc:
+class ContextTest < ActiveSupport::TestCase # :nodoc:
   
   def self.context_macro(&blk)
     context "with a subcontext made by a macro" do
@@ -141,5 +141,49 @@ class ContextTest < Test::Unit::TestCase # :nodoc:
     context "with nested subcontexts" do
       should_eventually "only print this statement once for a should_eventually"
     end
+  end
+
+  class ::SomeModel; end
+
+  context "given a test named after a class" do
+    setup do
+      self.class.stubs(:name).returns("SomeModelTest")
+    end
+
+    should "determine the described type" do
+      assert_equal SomeModel, self.class.described_type
+    end
+
+    should "return a new instance of the described type as the subject if none exists" do
+      assert_kind_of SomeModel, subject
+    end
+
+    should "return an existing instance of the described type as the subject" do
+      @some_model = SomeModel.new
+      assert_equal @some_model, subject
+    end
+
+    context "with an explicit subject block" do
+      setup { @expected = SomeModel.new }
+      subject { @expected }
+      should "return the result of the block as the subject" do
+        assert_equal @expected, subject
+      end
+    end
+  end
+end
+
+class Subject; end
+
+class SubjectTest < ActiveSupport::TestCase
+
+  def setup
+    @expected = Subject.new
+  end
+
+  subject { @expected }
+
+  should "return a specified subject" do
+    assert_equal @expected, subject
   end
 end

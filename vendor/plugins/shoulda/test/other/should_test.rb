@@ -1,6 +1,6 @@
 require File.join(File.dirname(__FILE__), '..', 'test_helper')
 
-class ShouldTest < Test::Unit::TestCase # :nodoc:
+class ShouldTest < ActiveSupport::TestCase # :nodoc:
   should "be able to define a should statement outside of a context" do
     assert true
   end
@@ -13,6 +13,10 @@ class ShouldTest < Test::Unit::TestCase # :nodoc:
     should "be able to see class methods" do
       assert true
     end
+  end
+
+  def self.should_be_able_to_setup_a_should_eventually_in_a_class_method
+    should "be able to setup a should eventually in a class method"
   end
 
   def self.should_see_a_context_block_like_a_Test_Unit_class
@@ -46,6 +50,7 @@ class ShouldTest < Test::Unit::TestCase # :nodoc:
     should_see_class_methods
     should_see_a_context_block_like_a_Test_Unit_class
     should_be_able_to_make_context_macros("Context ")
+    should_be_able_to_setup_a_should_eventually_in_a_class_method
 
     should "not define @blah" do
       assert ! self.instance_variables.include?("@blah")
@@ -177,7 +182,7 @@ class ShouldTest < Test::Unit::TestCase # :nodoc:
   end
 
   def test_should_create_test_methods_on_build
-    tu_class = Test::Unit::TestCase
+    tu_class = ActiveSupport::TestCase
     context = Shoulda::Context.new("A Context", tu_class) do
       should "define the test" do; end
     end
@@ -187,7 +192,7 @@ class ShouldTest < Test::Unit::TestCase # :nodoc:
   end
 
   def test_should_create_test_methods_on_build_when_subcontext
-    tu_class = Test::Unit::TestCase
+    tu_class = ActiveSupport::TestCase
     context = Shoulda::Context.new("A Context", tu_class) do
       context "with a child" do
         should "define the test" do; end

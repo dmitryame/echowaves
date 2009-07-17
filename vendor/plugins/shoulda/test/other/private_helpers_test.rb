@@ -1,6 +1,6 @@
 require File.join(File.dirname(__FILE__), '..', 'test_helper')
 
-class PrivateHelpersTest < Test::Unit::TestCase # :nodoc:
+class PrivateHelpersTest < ActiveSupport::TestCase # :nodoc:
   include Shoulda::Private
   context "get_options!" do
     should "remove opts from args" do
@@ -22,13 +22,11 @@ class PrivateHelpersTest < Test::Unit::TestCase # :nodoc:
         get_options!(args, :one)
       end
     end
-  end
-
-  class ::SomeModel; end
-  context "model_class" do
-    should "sniff the class constant from the test class" do
-      self.expects(:name).returns("SomeModelTest")
-      assert_equal SomeModel, model_class
+    
+    should "return single wanted option" do
+      args = [:a, :b, {:class => Object}]
+      klass = get_options!(args,:class)
+      assert_equal Object, klass
     end
   end
 end

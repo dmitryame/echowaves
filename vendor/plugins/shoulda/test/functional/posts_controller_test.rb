@@ -4,7 +4,7 @@ require 'posts_controller'
 # Re-raise errors caught by the controller.
 class PostsController; def rescue_action(e) raise e end; end
 
-class PostsControllerTest < Test::Unit::TestCase
+class PostsControllerTest < ActionController::TestCase
   fixtures :all
 
   def setup
@@ -43,13 +43,11 @@ class PostsControllerTest < Test::Unit::TestCase
         get :index, :user_id => users(:first)
       end
       should_respond_with :success
-      should_assign_to :user, :class => User, :equals => 'users(:first)'
+      should_assign_to :user, :class => User
+      should_render_template :index
       should_assign_to(:user) { users(:first) }
       should_fail do
         should_assign_to :user, :class => Post
-      end
-      should_fail do
-        should_assign_to :user, :equals => 'posts(:first)'
       end
       should_fail do
         should_assign_to(:user) { posts(:first) }
@@ -69,20 +67,11 @@ class PostsControllerTest < Test::Unit::TestCase
       should_respond_with_content_type 'application/rss+xml'
       should_respond_with_content_type :rss
       should_respond_with_content_type /rss/
-      context "deprecated" do # to avoid redefining a test
-        should_return_from_session :special, "'$2 off your next purchase'"
-      end
-      should_fail do
-        should_return_from_session :special, "'not special'"
-      end
       should_set_session(:mischief) { nil }
-      should_return_from_session :malarky, "nil"
-      should_set_session :special, "'$2 off your next purchase'"
-      should_set_session :special_user_id, '@user.id'
-      context "with a block" do
-        should_set_session(:special_user_id) { @user.id }
-      end
-      should_fail do # to avoid redefining a test
+      should_set_session(:special) { '$2 off your next purchase' }
+      should_set_session(:special_user_id) { @user.id }
+      should_set_session(:false_var) { false }
+      should_fail do
         should_set_session(:special_user_id) { 'value' }
       end
       should_assign_to :user, :posts
@@ -96,11 +85,17 @@ class PostsControllerTest < Test::Unit::TestCase
         should_render_with_layout :wide
       end
       should_assign_to :false_flag
+      should_set_the_flash_to nil
+      should_fail do
+        should_set_the_flash_to /.*/
+      end
     end
 
     context "on GET to #new" do
       setup { get :new, :user_id => users(:first) }
       should_render_without_layout
+      should_not_set_the_flash
+      should_render_a_form
     end
 
     context "on POST to #create" do
@@ -110,14 +105,15 @@ class PostsControllerTest < Test::Unit::TestCase
                                     :body  => 'blah blah blah' }
       end
 
-      should_redirect_to 'user_post_url(@post.user, @post)'
       should_redirect_to('the created post') { user_post_url(users(:first),
                                                              assigns(:post)) }
       should_fail do
-        should_redirect_to 'user_posts_url(@post.user)'
-      end
-      should_fail do
         should_redirect_to('elsewhere') { user_posts_url(users(:first)) }
+      end
+
+      should_set_the_flash_to /success/
+      should_fail do
+        should_not_set_the_flash
       end
     end
   end

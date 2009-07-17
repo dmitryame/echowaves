@@ -18,11 +18,12 @@ class SubscriptionTest < ActiveSupport::TestCase
      setup do
        @subscription = Factory(:subscription)
      end
+     subject { @subscription }
      
      should_belong_to :user
      should_belong_to :conversation
      
-     should_have_indices :user_id, :conversation_id, :activated_at
+     should_have_db_indices :user_id, :conversation_id, :activated_at
      should_validate_presence_of :user_id, :conversation_id
   end
 

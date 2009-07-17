@@ -2,7 +2,7 @@ require File.join(File.dirname(__FILE__), '..', 'test_helper')
 require 'action_mailer'
 require 'mocha'
 
-class HelpersTest < Test::Unit::TestCase # :nodoc:
+class HelpersTest < ActiveSupport::TestCase # :nodoc:
 
   context "given delivered emails" do
     setup do
@@ -88,6 +88,13 @@ class HelpersTest < Test::Unit::TestCase # :nodoc:
         @a.push(4)
       end
 
+      should_change("the number of elements", :by => 1) { @a.length }
+      should_change("the number of elements", :from => 3) { @a.length }
+      should_change("the number of elements", :to => 4) { @a.length }
+      should_change("the first element", :by => 0) { @a[0] }
+      should_not_change("the first element") { @a[0] }
+
+      # tests for deprecated behavior
       should_change "@a.length", :by => 1
       should_change "@a.length", :from => 3
       should_change "@a.length", :to => 4
@@ -100,6 +107,14 @@ class HelpersTest < Test::Unit::TestCase # :nodoc:
         @a = %w(a b c d e f)
       end
 
+      should_change("the number of elements", :by => 3) { @a.length }
+      should_change("the number of elements", :from => 3, :to => 6, :by => 3) { @a.length }
+      should_change("the first element") { @a[0] }
+      should_change("the second element", :from => 2, :to => "b") { @a[1] }
+      should_change("the third element", :from => /\d/, :to => /\w/) { @a[2] }
+      should_change("the last element", :to => String) { @a[3] }
+
+      # tests for deprecated behavior
       should_change "@a.length", :by => 3
       should_change "@a.length", :from => 3, :to => 6, :by => 3
       should_change "@a[0]"
@@ -188,8 +203,18 @@ class HelpersTest < Test::Unit::TestCase # :nodoc:
                                  :negative_failure_message => 'big time failure')
     end
 
-    should "pass when given to assert_accepts" do
+    should "pass when given to assert_accepts with no message expectation" do
       assert_accepts @matcher, 'target'
+    end
+
+    should "pass when given to assert_accepts with a matching message" do
+      assert_accepts @matcher, 'target', :message => /big time/
+    end
+
+    should "fail when given to assert_accepts with non-matching message" do
+      assert_raise Test::Unit::AssertionFailedError do
+        assert_accepts @matcher, 'target', :message => /small time/
+      end
     end
 
     context "when given to assert_rejects" do
@@ -217,8 +242,18 @@ class HelpersTest < Test::Unit::TestCase # :nodoc:
                                  :negative_failure_message => 'bad failure message')
     end
 
-    should "pass when given to assert_rejects" do
+    should "pass when given to assert_rejects with no message expectation" do
       assert_rejects @matcher, 'target'
+    end
+
+    should "pass when given to assert_rejects with a matching message" do
+      assert_rejects @matcher, 'target', :message => /big time/
+    end
+
+    should "fail when given to assert_rejects with a non-matching message" do
+      assert_raise Test::Unit::AssertionFailedError do
+        assert_rejects @matcher, 'target', :message => /small time/
+      end
     end
 
     context "when given to assert_accepts" do
@@ -235,6 +270,70 @@ class HelpersTest < Test::Unit::TestCase # :nodoc:
 
       should "use the error message from the matcher" do
         assert_equal 'big time failure', @error.message
+      end
+    end
+  end
+
+  context "given one treat exists and one post exists" do
+    setup do
+      Treat.create!
+      Post.create!(:title => 'title', :body => 'body', :user_id => 1)
+    end
+
+    teardown do
+      Treat.delete_all
+      Post.delete_all
+    end
+
+    context "creating a treat" do
+      setup do
+        Treat.create!
+      end
+
+      should_create :treat
+      should_fail do
+        should_create :post
+      end
+    end
+
+    context "creating a treat and a post" do
+      setup do
+        Treat.create!
+        Post.create!(:title => 'title 2', :body => 'body', :user_id => 1)
+      end
+
+      should_create :treat
+      should_create :post
+    end
+
+    context "destroying a treat" do
+      setup do
+        Treat.first.destroy
+      end
+
+      should_destroy :treat
+      should_fail do
+        should_destroy :post
+      end
+    end
+
+    context "destroying a treat and a post" do
+      setup do
+        Treat.first.destroy
+        Post.first.destroy
+      end
+
+      should_destroy :treat
+      should_destroy :post
+    end
+
+    context "doing nothing" do
+      should_fail do
+        should_create :treat
+      end
+
+      should_fail do
+        should_destroy :treat
       end
     end
   end

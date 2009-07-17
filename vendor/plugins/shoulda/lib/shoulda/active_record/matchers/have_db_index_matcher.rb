@@ -14,15 +14,15 @@ module Shoulda # :nodoc:
       #
       # Examples:
       #
-      #   it { should have_index(:age) }
-      #   it { should have_index([:commentable_type, :commentable_id]) }
-      #   it { should have_index(:ssn).unique(true) }
+      #   it { should have_db_index(:age) }
+      #   it { should have_db_index([:commentable_type, :commentable_id]) }
+      #   it { should have_db_index(:ssn).unique(true) }
       #
-      def have_index(columns)
-        HaveIndexMatcher.new(:have_index, columns)
+      def have_db_index(columns)
+        HaveDbIndexMatcher.new(:have_index, columns)
       end
 
-      class HaveIndexMatcher # :nodoc:
+      class HaveDbIndexMatcher # :nodoc:
         def initialize(macro, columns)
           @macro = macro
           @columns = normalize_columns_to_array(columns)
@@ -47,7 +47,7 @@ module Shoulda # :nodoc:
         end
 
         def description
-          "have a #{index_type} index on columns #{@columns}"
+          "have a #{index_type} index on columns #{@columns.join(' and ')}"
         end
 
         protected
@@ -88,7 +88,14 @@ module Shoulda # :nodoc:
         end
         
         def index_type
-          @unique ? "unique" : "non-unique"
+          case @unique
+          when nil
+            ''
+          when false
+            'non-unique'
+          else
+            'unique'
+          end
         end
         
         def normalize_columns_to_array(columns)

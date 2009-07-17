@@ -1,10 +1,10 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class AddressTest < Test::Unit::TestCase
+class AddressTest < ActiveSupport::TestCase
   fixtures :all
 
   should_belong_to :addressable
   should_validate_uniqueness_of :title, :scoped_to => [:addressable_id, :addressable_type]
   should_ensure_length_at_least :zip, 5
-  should_only_allow_numeric_values_for :zip
+  should_validate_numericality_of :zip
 end

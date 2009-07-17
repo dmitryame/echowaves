@@ -19,12 +19,13 @@ class InviteTest < ActiveSupport::TestCase
        user = Factory.create(:user, :login => "user1")              
        @invite = Factory.create(:invite, :requestor => user)
      end
+     subject { @invite }
      
      should_belong_to :user
      should_belong_to :requestor
      should_belong_to :conversation
      
-     should_have_indices :user_id, :requestor_id, :conversation_id
+     should_have_db_indices :user_id, :requestor_id, :conversation_id
      should_validate_presence_of :requestor_id, :conversation_id
    end
 end

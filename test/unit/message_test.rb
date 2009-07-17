@@ -31,6 +31,7 @@ class MessageTest < ActiveSupport::TestCase
       @deactivated_message.abuse_report = @abuse_report
       @deactivated_message.save
     end
+    subject { @message }
     
     should "return 2 messages when find" do
       assert_equal Message.find(:all).length, 2
@@ -43,9 +44,10 @@ class MessageTest < ActiveSupport::TestCase
   
   context "A Message instance" do    
     setup do
-      @message = Factory(:message)
+      @message = Factory.create(:message)
     end
-
+    subject { @message }
+    
     should_belong_to :conversation
     should_belong_to :user
 
@@ -54,15 +56,13 @@ class MessageTest < ActiveSupport::TestCase
     
     should_have_many :conversations #conversations spawned from this message
 
-    should_have_index :user_id
-    should_have_index :conversation_id
-    should_have_index :created_at
-
+    should_have_db_index :user_id
+    should_have_db_index :conversation_id
+    should_have_db_index :created_at
+    
     should_validate_presence_of :message
     should_validate_presence_of :user_id, :conversation_id
-
-    should_have_attached_file :attachment
-    
+        
     should "be valid if honeypot field is blank" do
       assert @message.valid?
     end
@@ -81,6 +81,7 @@ class MessageTest < ActiveSupport::TestCase
     setup do
       @message = Message.create(:message => '<script>dangerous</script>', :user_id => Factory(:user).id, :conversation_id => Factory(:conversation).id)
     end
+    subject { @message }
     
     should "filter message on create" do
       assert_equal "<p>&lt;script&gt;dangerous&lt;/script&gt;</p>", @message.message_html

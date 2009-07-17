@@ -24,31 +24,35 @@ module Shoulda # :nodoc:
     module Macros
       include Matchers
 
-      # Macro that creates a test asserting that the flash contains the given value.
-      # val can be a String, a Regex, or nil (indicating that the flash should not be set)
+      # Macro that creates a test asserting that the flash contains the given
+      # value. Expects a +String+ or +Regexp+.
+      #
+      # If the argument is +nil+, it will assert that the flash is not set.
+      # This behavior is deprecated.
       #
       # Example:
       #
       #   should_set_the_flash_to "Thank you for placing this order."
       #   should_set_the_flash_to /created/i
-      #   should_set_the_flash_to nil
       def should_set_the_flash_to(val)
-        matcher = set_the_flash.to(val)
         if val
+          matcher = set_the_flash.to(val)
           should matcher.description do
             assert_accepts matcher, @controller
           end
         else
-          should "not #{matcher.description}" do
-            assert_rejects matcher, @controller
-          end
+          warn "[DEPRECATION] should_set_the_flash_to nil is deprecated. " <<
+               "Use should_not_set_the_flash instead."
+          should_not_set_the_flash
         end
       end
 
-      # Macro that creates a test asserting that the flash is empty.  Same as
-      # @should_set_the_flash_to nil@
+      # Macro that creates a test asserting that the flash is empty.
       def should_not_set_the_flash
-        should_set_the_flash_to nil
+        matcher = set_the_flash
+        should "not #{matcher.description}" do
+          assert_rejects matcher, @controller
+        end
       end
 
       # Macro that creates a test asserting that filter_parameter_logging
@@ -71,8 +75,9 @@ module Shoulda # :nodoc:
       #
       # Options:
       # * <tt>:class</tt> - The expected class of the instance variable being checked.
-      # * <tt>:equals</tt> - A string which is evaluated and compared for equality with
-      # the instance variable being checked.
+      #
+      # If a block is passed, the assigned variable is expected to be equal to
+      # the return value of that block.
       #
       # Example:
       #
@@ -80,25 +85,11 @@ module Shoulda # :nodoc:
       #   should_assign_to :user, :class => User
       #   should_assign_to(:user) { @user }
       def should_assign_to(*names, &block)
-        opts = names.extract_options!
-        if opts[:equals]
-          warn "[DEPRECATION] should_assign_to :var, :equals => 'val' " <<
-               "is deprecated. Use should_assign_to(:var) { 'val' } instead."
-        end
+        klass = get_options!(names, :class)
         names.each do |name|
-          matcher = assign_to(name).with_kind_of(opts[:class])
-          test_name = matcher.description
-          test_name << " which is equal to #{opts[:equals]}" if opts[:equals]
-          should test_name do
-            if opts[:equals]
-              instantiate_variables_from_assigns do
-                expected_value = eval(opts[:equals],
-                                      self.send(:binding),
-                                      __FILE__,
-                                      __LINE__)
-                matcher = matcher.with(expected_value)
-              end
-            elsif block
+          matcher = assign_to(name).with_kind_of(klass)
+          should matcher.description do
+            if block
               expected_value = instance_eval(&block)
               matcher = matcher.with(expected_value)
             end
@@ -141,47 +132,27 @@ module Shoulda # :nodoc:
       #   should_respond_with_content_type :rss
       #   should_respond_with_content_type /rss/
       def should_respond_with_content_type(content_type)
-        should "respond with content type of #{content_type}" do
-          matcher = respond_with_content_type(content_type)
+        matcher = respond_with_content_type(content_type)
+        should matcher.description do
           assert_accepts matcher, @controller
         end
       end
 
-      # Macro that creates a test asserting that a value returned from the session is correct.
-      # The given string is evaled to produce the resulting redirect path.  All of the instance variables
-      # set by the controller are available to the evaled string.
+      # Macro that creates a test asserting that a value returned from the
+      # session is correct. Expects the session key as a parameter, and a block
+      # that returns the expected value.
+      #
       # Example:
       #
-      #   should_set_session(:user_id) { '@user.id' }
+      #   should_set_session(:user_id) { @user.id }
       #   should_set_session(:message) { "Free stuff" }
-      def should_set_session(key, expected = nil, &block)
+      def should_set_session(key, &block)
         matcher = set_session(key)
-        if expected
-          warn "[DEPRECATION] should_set_session :key, 'val' is deprecated. " <<
-               "Use should_set_session(:key) { 'val' } instead."
-        end
         should matcher.description do
-          if expected
-            instantiate_variables_from_assigns do
-              expected_value = eval(expected, 
-                                    self.send(:binding),
-                                    __FILE__,
-                                    __LINE__)
-              matcher = matcher.to(expected_value)
-            end
-          else
-            expected_value = instance_eval(&block)
-            matcher = matcher.to(expected_value)
-          end
+          expected_value = instance_eval(&block)
+          matcher = matcher.to(expected_value)
           assert_accepts matcher, @controller
         end
-      end
-
-      # Deprecated. See should_set_session
-      def should_return_from_session(key, expected)
-        warn "[DEPRECATION] should_return_from_session is deprecated. " <<
-             "Use should_set_session instead."
-        should_set_session(key, expected)
       end
 
       # Macro that creates a test asserting that the controller rendered the given template.
@@ -217,26 +188,18 @@ module Shoulda # :nodoc:
         should_render_with_layout nil
       end
 
-      # Macro that creates a test asserting that the controller returned a redirect to the given path.
-      # The given string is evaled to produce the resulting redirect path.  All of the instance variables
-      # set by the controller are available to the evaled string.
+      # Macro that creates a test asserting that the controller returned a
+      # redirect to the given path. The passed description will be used when
+      # generating a test name. Expects a block that returns the expected path
+      # for the redirect.
+      #
       # Example:
       #
       #   should_redirect_to("the user's profile") { user_url(@user) }
       def should_redirect_to(description, &block)
-        unless block
-          warn "[DEPRECATION] should_redirect_to without a block is " <<
-               "deprecated. Use should_redirect_to('somewhere') { } instead."
-        end
         should "redirect to #{description}" do
-          if block
-            url = instance_eval(&block)
-          else
-            instantiate_variables_from_assigns do
-              url = eval(description, self.send(:binding), __FILE__, __LINE__)
-            end
-          end
-          assert_redirected_to url
+          expected_url = instance_eval(&block)
+          assert_redirected_to expected_url
         end
       end
 

@@ -43,12 +43,13 @@ class ConversationTest < ActiveSupport::TestCase
     setup do
       @conversation = Factory.create(:conversation)
     end
+    subject { @conversation }
     
     should_validate_presence_of :name, :description
     should_validate_uniqueness_of :name
 
-    should_have_index :name
-    should_have_index :created_at
+    should_have_db_index :name
+    should_have_db_index :created_at
     
     should_ensure_length_in_range :name, (3..100) 
  
@@ -100,10 +101,10 @@ class ConversationTest < ActiveSupport::TestCase
     should_have_many :recent_followers, :through => :subscriptions          
     
     should_belong_to :parent_message #parent message it was spawned from
-    should_have_index :parent_message_id
+    should_have_db_index :parent_message_id
     
     should_belong_to :user
-    should_have_index :user_id
+    should_have_db_index :user_id
     
     should "be valid if honeypot field is blank" do
       assert @conversation.valid?

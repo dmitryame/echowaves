@@ -32,10 +32,11 @@ class UserTest < ActiveSupport::TestCase
     setup do
       @user = Factory.create(:user)
     end
+    subject { @user }
     
-    should_have_index :login
-    should_have_index :email
-    should_have_index :crypted_password
+    should_have_db_index :login
+    should_have_db_index :email
+    should_have_db_index :crypted_password
     
 
     

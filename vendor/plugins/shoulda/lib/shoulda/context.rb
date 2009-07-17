@@ -59,7 +59,7 @@ module Shoulda
 
     def should(name, options = {}, &blk)
       if Shoulda.current_context
-        block_given? ? Shoulda.current_context.should(name, options, &blk) : Should.current_context.should_eventually(name)
+        block_given? ? Shoulda.current_context.should(name, options, &blk) : Shoulda.current_context.should_eventually(name)
       else
         context_name = self.name.gsub(/Test/, "")
         context = Shoulda::Context.new(context_name, self) do
@@ -170,6 +170,98 @@ module Shoulda
         context.build
       end
     end
+
+    # Returns the class being tested, as determined by the test class name.
+    #
+    #   class UserTest; described_type; end
+    #   # => User
+    def described_type
+      self.name.gsub(/Test$/, '').constantize
+    end
+
+    # Sets the return value of the subject instance method:
+    #
+    #   class UserTest < Test::Unit::TestCase
+    #     subject { User.first }
+    #
+    #     # uses the existing user
+    #     should_validate_uniqueness_of :email
+    #   end
+    def subject(&block)
+      @subject_block = block
+    end
+
+    def subject_block # :nodoc:
+      @subject_block
+    end
+  end
+
+  module InstanceMethods
+    # Returns an instance of the class under test.
+    #
+    #   class UserTest
+    #     should "be a user" do
+    #       assert_kind_of User, subject # passes
+    #     end
+    #   end
+    #
+    # The subject can be explicitly set using the subject class method:
+    #
+    #   class UserTest
+    #     subject { User.first }
+    #     should "be an existing user" do
+    #       assert !subject.new_record? # uses the first user
+    #     end
+    #   end
+    #
+    # If an instance variable exists named after the described class, that
+    # instance variable will be used as the subject. This behavior is
+    # deprecated, and will be removed in a future version of Shoulda. The
+    # recommended approach for using a different subject is to use the subject
+    # class method.
+    #
+    #   class UserTest
+    #     should "be the existing user" do
+    #       @user = User.new
+    #       assert_equal @user, subject # passes
+    #     end
+    #   end
+    #
+    # The subject is used by all macros that require an instance of the class
+    # being tested.
+    def subject
+      if subject_block
+        instance_eval(&subject_block)
+      else
+        get_instance_of(self.class.described_type)
+      end
+    end
+
+    def subject_block # :nodoc:
+      (@shoulda_context && @shoulda_context.subject_block) || self.class.subject_block
+    end
+
+    def get_instance_of(object_or_klass) # :nodoc:
+      if object_or_klass.is_a?(Class)
+        klass = object_or_klass
+        ivar = "@#{instance_variable_name_for(klass)}"
+        if instance = instance_variable_get(ivar)
+          warn "[WARNING] Using #{ivar} as the subject. Future versions " <<
+               "of Shoulda will require an explicit subject using the " <<
+               "subject class method. Add this after your setup to avoid " <<
+               "this warning: subject { #{ivar} }"
+          instance
+        else
+          klass.new
+        end
+      else
+        object_or_klass
+      end
+    end
+
+    def instance_variable_name_for(klass) # :nodoc:
+      klass.to_s.split('::').last.underscore
+    end
   end
 
   class Context # :nodoc:
@@ -181,6 +273,7 @@ module Shoulda
     attr_accessor :teardown_blocks    # blocks given via teardown methods
     attr_accessor :shoulds            # array of hashes representing the should statements
     attr_accessor :should_eventuallys # array of hashes representing the should eventually statements
+    attr_accessor :subject_block
 
     def initialize(name, parent, &blk)
       Shoulda.add_context(self)
@@ -224,6 +317,10 @@ module Shoulda
       self.should_eventuallys << { :name => name, :block => blk }
     end
 
+    def subject(&block)
+      self.subject_block = block
+    end
+
     def full_name
       parent_name = parent.full_name if am_subcontext?
       return [parent_name, name].join(" ").strip
@@ -246,6 +343,7 @@ module Shoulda
 
       context = self
       test_unit_class.send(:define_method, test_name) do
+        @shoulda_context = context
         begin
           context.run_parent_setup_blocks(self)
           should[:before].bind(self).call if should[:before]

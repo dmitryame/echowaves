@@ -1,5 +1,6 @@
 log/*.log
 log/*.pid
+log/workling.output
 tmp/**/*
 tmp/restart.txt
 spec

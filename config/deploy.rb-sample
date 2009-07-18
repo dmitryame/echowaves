@@ -85,7 +85,7 @@ namespace :deploy do
   
   desc "Write current revision to app/views/shared/_revision.html.erb"
   task :publish_revision do
-    run "git log -1 #{release_path} | grep ^commit > #{release_path}/app/views/shared/_revision.html.erb"
+    run "git log -1 /u/apps/#{application}/shared/cached-copy | grep ^commit > #{release_path}/app/views/shared/_revision.html.erb"
   end
   
   after "deploy:update_code", "deploy:copy_prod_configuration", "deploy:after_symlink_sphinx", "deploy:publish_revision"#, "deploy:restart_sphinx", "deploy:reindex_sphinx"

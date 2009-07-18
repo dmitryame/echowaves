@@ -5,6 +5,11 @@
 		<%= t("footer.report_problems_or_abuse") %> <a href="mailto:webmaster@echowaves.com">webmaster@echowaves.com</a> |
 		<%= link_to t('footer.terms_and_conditions'), :controller => "home", :action => "terms"-%> |
 		<%= link_to "OAuth", oauth_clients_path %>
+		<% if logged_in? && DEV_TEAM.include?( current_user.login ) %>
+		  <% rev = "#{ render :partial => 'shared/revision' }" %>
+		  <% rev = rev.split.join("/") if rev.match(/commit/) %>
+		| <%= link_to "git", "http://github.com/dmitryame/echowaves/#{ rev }", :title => "#{ rev }" %>
+		<% end %>
 	</span>
 </div>
 

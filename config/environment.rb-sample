@@ -111,5 +111,8 @@ STOMP_PORT = '61613'
 HOME_CONVERSATION = 1
 TEST_CONVERSATION = 3
 
-#override to false in production
+# override to false in production
 SHOW_ACTIVATION_LINK=true
+
+# show deployed git revision to these users
+DEV_TEAM = ['dmitry','crossblaim']

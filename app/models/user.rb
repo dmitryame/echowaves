@@ -224,7 +224,6 @@ class User < ActiveRecord::Base
  
     if conversation.private?
       # private convo only sends invite via email
-      # self.deliver_private_invite_instructions!(invite)
       self.deliver_private_invite_instructions!(invite)      
     else
       self.deliver_public_invite_instructions!(invite)

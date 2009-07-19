@@ -223,8 +223,7 @@ class ConversationsController < ApplicationController
 
   #----------------------------------------------------------------------------
   def invite_via_email
-    emails_string = params[:emails]
-        
+    emails_string = params[:emails]        
     emails_string.to_s.split(/(,| |\r\n|\n|\r)/).each do |email|    
       if(email =~ EMAIL_REGEX)
         # here we've got a valid email address lets send the invite
@@ -236,11 +235,14 @@ class ConversationsController < ApplicationController
         invite.conversation_id = @conversation.id
         invite.token = Authlogic::Random::friendly_token
         invite.save
-        # TODO: send the invite asynchronously
-        UserMailer.deliver_email_invite(email, invite)        
+        # send the invite by email
+        if USE_WORKLING
+          MailerWorker.asynch_deliver_email_invite(:email => email, :invite_id => invite.id)
+        else
+          UserMailer.deliver_email_invite(email, invite)
+        end               
       end
-    end
-    
+    end    
     render :update do |page| 
       page["spinner_1"].visual_effect :drop_out
       page["emails_"].clear

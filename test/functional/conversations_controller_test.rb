@@ -255,6 +255,44 @@ class ConversationsControllerTest < ActionController::TestCase
     end
   end # context toogle_readwrite_status action
 
+  context "toogle_private_status action" do
+    setup do
+      @owner = Factory.create(:user, :login => 'user1')
+      @conversation = Factory.create(:conversation, :user => @current_user)
+    end
+
+    context "convo belongs to other user " do
+      setup do
+        @other_conversation = Factory.create(:conversation, :user => @owner)
+      end
+
+      should "only allow changes if the current_user is the conversation owner" do
+        # try to change to public
+        @other_conversation.update_attribute(:private, true)
+        put :toogle_private_status, :id => @other_conversation, :mode => 'public'
+        assert_equal false, assigns(:conversation).public?
+
+        # try to change to readonly
+        @other_conversation.update_attribute(:private, false)
+        put :toogle_private_status, :id => @other_conversation
+        assert_equal false, assigns(:conversation).private?
+      end
+    end
+
+    context "convo belongs to current_user" do
+      should "make private" do
+        put :toogle_private_status, :id => @conversation
+        assert_equal true, assigns(:conversation).private?
+      end
+
+      should "make public" do
+        @conversation.update_attribute(:private, true)
+        put :toogle_private_status, :id => @conversation, :mode => 'public'
+        assert_equal true, assigns(:conversation).public? 
+      end
+    end
+  end # context toogle_private_status action
+
   context "follow action" do
     setup do
       @convo = Factory.create( :conversation )

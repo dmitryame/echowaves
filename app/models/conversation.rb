@@ -120,6 +120,10 @@ class Conversation < ActiveRecord::Base
     self.private
   end
   
+  def public?
+    !self.private
+  end
+  
   def spawned?
     !self.parent_message_id.nil?
   end

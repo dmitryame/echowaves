@@ -25,6 +25,10 @@ class SubscriptionTest < ActiveSupport::TestCase
      
      should_have_db_indices :user_id, :conversation_id, :activated_at
      should_validate_presence_of :user_id, :conversation_id
+     
+     should "respond to convo_name" do
+       assert_equal @subscription.conversation.name, @subscription.convo_name
+     end
   end
 
   context "marking as read" do

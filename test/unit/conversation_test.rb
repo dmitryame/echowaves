@@ -151,6 +151,14 @@ class ConversationTest < ActiveSupport::TestCase
     should "be readable by the users what are following this convo" do
       assert @conversation.readable_by?(@follower)
     end
+    
+    should "respond to #private? positively" do
+      assert @conversation.private?
+    end
+    
+    should "respond to #public? negatively" do
+      assert !@conversation.public?
+    end
   end
   
   context "A read only conversation" do  

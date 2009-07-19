@@ -1,5 +1,7 @@
 class AttachmentsController < ApplicationController
+  
   before_filter :find_message_and_check_read_access
+  
   def show
     if USE_X_ACCEL_REDIRECT # nginx
       head(:x_accel_redirect => @message.attachment.path.sub(RAILS_ROOT,''),  
@@ -10,7 +12,7 @@ class AttachmentsController < ApplicationController
     end
   end
   
-  private
+private
   
   def find_message_and_check_read_access
     @message = Message.published.find(params[:id])

@@ -17,15 +17,15 @@
 	  <% if current_user == @conversation.owner %>
 	    &#187;
 	    <% if @conversation.read_only %>
-	      <%= link_to t("ui.make_writable"), readwrite_status_conversation_path(@conversation, :mode => 'rw'), :method => 'put' %>
+	      <%= link_to t("ui.make_writable"), toogle_readwrite_status_conversation_path(@conversation, :mode => 'rw'), :method => 'put' %>
 	    <% else %>
-	      <%= link_to t("ui.make_read_only"), readwrite_status_conversation_path(@conversation), :method => 'put' %>
+	      <%= link_to t("ui.make_read_only"), toogle_readwrite_status_conversation_path(@conversation), :method => 'put' %>
 	    <% end %>
       &#187;
 	    <% if @conversation.private? %>
-	      <%= link_to t("ui.make_public"), private_status_conversation_path(@conversation, :mode => 'public'), :method => 'put' %>
+	      <%= link_to t("ui.make_public"), toogle_private_status_conversation_path(@conversation, :mode => 'public'), :method => 'put' %>
 	    <% else %>
-	      <%= link_to t("ui.make_private"), private_status_conversation_path(@conversation), :method => 'put' %>
+	      <%= link_to t("ui.make_private"), toogle_private_status_conversation_path(@conversation), :method => 'put' %>
 	    <% end %>
 	  <% end %>
 	  

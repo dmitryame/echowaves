@@ -11,6 +11,7 @@ class ConversationsController < ApplicationController
   auto_complete_for :conversation, :name # multiple scopes can be chained like 'published.readonly'
   # auto_complete_for :tag, :name
 
+  #----------------------------------------------------------------------------
   def index
     if params[:tag] != nil
       @conversations = Conversation.tagged_with(params[:tag], :on => :tags).non_private.paginate :page => params[:page], :order => 'created_at DESC'
@@ -24,6 +25,7 @@ class ConversationsController < ApplicationController
     end
   end
 
+  #----------------------------------------------------------------------------
   def show
     @has_more_messages = @conversation.messages.published.count > Message::PER_PAGE # the number of messages loaded in a convo
     @last_message_id = @conversation.messages.published.first(:offset => Message::PER_PAGE-1, :order => 'id DESC').id if @has_more_messages
@@ -37,6 +39,7 @@ class ConversationsController < ApplicationController
   alias_method :files, :show
   alias_method :system_messages, :show
   
+  #----------------------------------------------------------------------------
   def new
     @conversation = Conversation.new
     respond_to do |format|
@@ -44,7 +47,8 @@ class ConversationsController < ApplicationController
       format.xml  { render :xml => @conversation }
     end
   end
-
+  
+  #----------------------------------------------------------------------------
   def spawn
     @conversation = Conversation.new
     if params[:message_id]
@@ -67,6 +71,7 @@ class ConversationsController < ApplicationController
     end
   end
   
+  #----------------------------------------------------------------------------
   def create
     @conversation = Conversation.new(params[:conversation])
     
@@ -120,15 +125,18 @@ class ConversationsController < ApplicationController
     end
   end
 
+  #----------------------------------------------------------------------------
   def follow
     current_user.follow(@conversation)
   end
   
+  #----------------------------------------------------------------------------
   def follow_with_token
     current_user.follow(@conversation, params[:token])
     redirect_to @conversation
   end
 
+  #----------------------------------------------------------------------------
   def follow_email_with_token
     # resolve invite
     invite = Invite.find_by_conversation_id_and_token(params[:id], params[:token].to_s)        
@@ -138,18 +146,22 @@ class ConversationsController < ApplicationController
     redirect_to @conversation
   end
   
+  #----------------------------------------------------------------------------
   def follow_from_list
     follow
   end
   
+  #----------------------------------------------------------------------------
   def unfollow
     current_user.unfollow(@conversation)
   end
 
+  #----------------------------------------------------------------------------
   def unfollow_from_list
     unfollow
   end
 
+  #----------------------------------------------------------------------------
   def remove_user
     if @conversation.private? && @conversation.owner == current_user && !params[:user_id].blank?
       @user = User.find(params[:user_id])
@@ -157,18 +169,21 @@ class ConversationsController < ApplicationController
     end
   end
   
-  def readwrite_status
+  #----------------------------------------------------------------------------
+  def toogle_readwrite_status
     read_only = (params[:mode] == 'rw') ? false : true 
     @conversation.update_attributes( :read_only => read_only ) if ( @conversation.owner == current_user )
     redirect_to conversation_path( @conversation )
   end
 
-  def private_status
+  #----------------------------------------------------------------------------
+  def toogle_private_status
     private_status = (params[:mode] == 'public') ? false : true 
     @conversation.update_attributes( :private => private_status ) if ( @conversation.owner == current_user )
     redirect_to conversation_path( @conversation )
   end
-    
+  
+  #----------------------------------------------------------------------------  
   def invite
     if @conversation.private? && @conversation.owner != current_user
       flash[:error] = t("errors.only_the_owner_can_invite")
@@ -183,6 +198,7 @@ class ConversationsController < ApplicationController
     end
   end
   
+  #----------------------------------------------------------------------------
   def invite_from_list
     current_user.friends.each do |user| 
       @user = user if(user.id.to_s == params[:user_id]) # search for the user in friends collection
@@ -195,6 +211,7 @@ class ConversationsController < ApplicationController
     end 
   end
 
+  #----------------------------------------------------------------------------
   def invite_all_my_followers
     current_user.followers.each do |user| 
       user.invite @conversation, current_user unless !@conversation.users.include?(user)
@@ -204,13 +221,13 @@ class ConversationsController < ApplicationController
     end 
   end
 
-
+  #----------------------------------------------------------------------------
   def invite_via_email
     emails_string = params[:emails]
         
     emails_string.to_s.split(/(,| |\r\n|\n|\r)/).each do |email|    
       if(email =~ EMAIL_REGEX)
-        #here we've got a valid email address lets send the invite
+        # here we've got a valid email address lets send the invite
         # existing_invite = Invite.find(:first, :conditions => ["user_id = ? and requestor_id = ? and conversation_id = ?", self.id, invitee.id, conversation.id ] )
         #         return if(existing_invite != nil) # don't do anything, already invited
         invite = Invite.new
@@ -219,7 +236,7 @@ class ConversationsController < ApplicationController
         invite.conversation_id = @conversation.id
         invite.token = Authlogic::Random::friendly_token
         invite.save
-
+        # TODO: send the invite asynchronously
         UserMailer.deliver_email_invite(email, invite)        
       end
     end
@@ -230,7 +247,7 @@ class ConversationsController < ApplicationController
     end 
   end
 
-
+  #----------------------------------------------------------------------------
   def toogle_bookmark
     if @conversation.tag_list_on(:bookmarks).include?(current_user.bookmark_tag)
       @conversation.tag_list_on(:bookmarks).remove(current_user.bookmark_tag)
@@ -240,8 +257,7 @@ class ConversationsController < ApplicationController
     end
   end
 
-
-  
+  #----------------------------------------------------------------------------
   def bookmarked
     @conversations = Conversation.tagged_with(current_user.bookmark_tag, :on => :bookmarks).paginate :page => params[:page], :order => 'created_at DESC'
 
@@ -252,6 +268,8 @@ class ConversationsController < ApplicationController
     end
   end
   
+  # temporary removed feature
+  #----------------------------------------------------------------------------
   # def add_tag
   #   current_user.tag(@conversation, :with => @conversation.tags.collect{|tag| tag.name}.join(", ")  + ", " + params[:tag][:name].to_s, :on => :tags)
   # end
@@ -260,38 +278,37 @@ class ConversationsController < ApplicationController
   #   @conversation.tag_list.remove(params[:tag])
   #   @conversation.save    
   # end
-
   
+  #----------------------------------------------------------------------------
   def new_messages
     @news = current_user.news
     respond_to do |format|
       format.html do
         headers["Status"] = "403 Forbidden"
         redirect_to(conversations_url)
-      end
-      
+      end      
       format.xml do
         render :xml => @news.to_xml(
                          :except => [:id, :activated_at, :created_at, :updated_at, :last_message_id, :user_id],
                          :methods => [:new_messages_count, :convo_name])
       end
-      
       format.json do
         render :json => @news.to_json(
                          :except => [:id, :activated_at, :created_at, :updated_at, :last_message_id, :user_id],
                          :methods => [:new_messages_count, :convo_name])
       end
-      
       format.atom
     end
   end
     
 private
 
+  #----------------------------------------------------------------------------
   def find_conversation
     @conversation = Conversation.find( params[:id] )
   end
   
+  #----------------------------------------------------------------------------
   def check_read_access
     unless @conversation.readable_by?(current_user) || !@conversation.private?
       flash[:error] = "Sorry, this is a private conversation. You can try anoter one"
@@ -300,6 +317,7 @@ private
     end
   end
   
+  #----------------------------------------------------------------------------
   def attachment_markup(message)
     if message.has_image?
       %Q( <div class="img_attachment"><a href="#{message.attachment.url}" style="display:block;height:#{message.attachment_height+40}px;"><img src="#{message.attachment.url(:big)}" alt="#{message.message}" height="#{message.attachment_height}" /></a></div> )

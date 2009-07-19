@@ -28,4 +28,12 @@ class Invite < ActiveRecord::Base
     self.save
   end
   
+  def private?
+    token.present?
+  end
+  
+  def public?
+    token.blank?
+  end
+  
 end

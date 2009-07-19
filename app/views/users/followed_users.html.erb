@@ -7,7 +7,7 @@
 	<div id="convos">
 		<ul class="list">
 			<%= render :partial => 'conversations/conversation',
-			          :collection => @user.friends_convos %>
+			          :collection => @friends_convos %>
 		</ul>
 	</div>
   <%= link_to t("ui.back"), users_path %>

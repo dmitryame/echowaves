@@ -27,7 +27,7 @@ class UsersController < ApplicationController
   # followers, followed_users, followed_convos
   def followers
     @user = User.find(params[:id])
-    
+    @followers_convos = @user.followers_convos
     respond_to do |format|
       format.html
       format.xml  { render :xml => @user }
@@ -36,7 +36,7 @@ class UsersController < ApplicationController
   
   def followed_users
     @user = User.find(params[:id])
-    
+    @friends_convos = @user.friends_convos
     respond_to do |format|
       format.html
       format.xml  { render :xml => @user }

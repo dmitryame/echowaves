@@ -192,8 +192,7 @@ class ConversationsController < ApplicationController
       @friends = current_user.friends    
       # should also remove the users if they were already invited or the users already follow the convo
       @friends.delete_if do |user|
-        invite_for_user = Invite.find(:first, :conditions => ["user_id = ? and conversation_id = ?", user.id, @conversation.id ] )
-        true unless invite_for_user == nil || !@conversation.users.include?(user)
+        true if !user.can_be_invited_to?(@conversation, current_user) || @conversation.users.include?(user)
       end
     end
   end

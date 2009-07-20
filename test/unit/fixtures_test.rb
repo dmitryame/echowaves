@@ -5,7 +5,7 @@ class FixturesTest < ActiveSupport::TestCase
   
   test "fixtures should be correct" do
     assert_equal 3, User.all.length
-    assert_equal 4, Conversation.all.length
+    assert_equal 5, Conversation.all.length
     # personal convos
     assert conversations(:crossblaim_personal_convo).personal?
     assert_equal conversations(:crossblaim_personal_convo), users(:crossblaim).personal_conversation

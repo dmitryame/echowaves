@@ -66,3 +66,14 @@ crossblaim_test_public_convo:
   # abuse_report
   # parent_message
   something: ""
+  
+crossblaim_test_private_convo:
+  name: "crossblaim test private convo"
+  description: "this is a test private convo for crossblaim"
+  personal_conversation: false
+  read_only: false
+  private: true
+  user: crossblaim
+  # abuse_report
+  # parent_message
+  something: ""

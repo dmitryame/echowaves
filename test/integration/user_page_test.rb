@@ -21,8 +21,8 @@ class UserPageTest < ActionController::IntegrationTest
     
     should "show all convos created by the user" do
       assert_select 'ul.list' do
-        assert_select 'li', (@crossblaim.conversations.size - 1) # all convos minus the personal convo
         assert_select 'li', /crossblaim test public convo/
+        assert_select 'li', /crossblaim test private convo/
       end
     end
     

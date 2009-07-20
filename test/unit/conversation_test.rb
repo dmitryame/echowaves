@@ -30,7 +30,7 @@ class ConversationTest < ActiveSupport::TestCase
       @no_from_crossblaim = Conversation.no_owned_by(users(:crossblaim).id)
       @no_from_dmitry = Conversation.no_owned_by(users(:dmitry).id)
       assert_equal 2, @no_from_crossblaim.size
-      assert_equal 3, @no_from_dmitry.size
+      assert_equal 4, @no_from_dmitry.size
       assert @no_from_crossblaim.include?(conversations(:dmitry_personal_convo))
       assert @no_from_crossblaim.include?(conversations(:akira_personal_convo))
       assert @no_from_dmitry.include?(conversations(:crossblaim_personal_convo))

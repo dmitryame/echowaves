@@ -235,18 +235,81 @@ class UserTest < ActiveSupport::TestCase
     end
   end
   
-  context "inviting a user" do
+  context "inviting a user who does not have already an invitation" do
+    fixtures :users, :conversations
     setup do
-      @user = Factory.create( :user, :receive_email_notifications => false )
-      @convo = Factory.create(:conversation)
-      @invitee = Factory.create(:user)
-      # @user.invite(@convo, @invitee) #defer this for now TODO: figure out how to test mock orbited
+      @user = users(:dmitry)
+      @convo = conversations(:crossblaim_test_public_convo)
+      @invitee = users(:crossblaim)
     end
 
-    should "have an invite" do
-      # @invite = Invite.find_by_user_id_and_requestor_id_and_conversation_id(@user, @invite, @convo) #eghh
-      # assert_not_nil @invite
+    should "have a public invite if the convo is public" do
+      @user.invite(@convo, @invitee)
+      @invite = Invite.find_by_user_id_and_requestor_id_and_conversation_id(@user, @invitee, @convo) #eghh
+      assert @invite.present?
+      assert @invite.public?
+    end
+    
+    should "have a private invite if the convo is private" do
+      @convo = conversations(:crossblaim_test_private_convo)
+      @user.invite(@convo, @invitee)
+      @invite = Invite.find_by_user_id_and_requestor_id_and_conversation_id(@user, @invitee, @convo) #eghh
+      assert @invite.present?
+      assert @invite.private?
     end
   end
 
+  context "inviting a user who already have an invitation" do
+    fixtures :users, :conversations
+    setup do
+      @user = users(:dmitry)
+      @public_convo = conversations(:crossblaim_test_public_convo)
+      @private_convo = conversations(:crossblaim_test_private_convo)
+      @invitee = users(:crossblaim)
+      @user.invite(@public_convo, @invitee)
+      @user.invite(@private_convo, @invitee)
+    end
+
+    should "not be invited again if the convo is public and the old invite is public" do
+      @old_invite = Invite.find_by_user_id_and_requestor_id_and_conversation_id(@user, @invitee, @public_convo)
+      @user.invite(@public_convo, @invitee)
+      @invite = Invite.find_by_user_id_and_requestor_id_and_conversation_id(@user, @invitee, @public_convo)
+      assert_equal @old_invite, @invite
+    end
+    
+    should "not be invited again if the convo is private and the old invite is private" do
+      @old_invite = Invite.find_by_user_id_and_requestor_id_and_conversation_id(@user, @invitee, @private_convo)
+      @user.invite(@private_convo, @invitee)
+      @invite = Invite.find_by_user_id_and_requestor_id_and_conversation_id(@user, @invitee, @private_convo)
+      assert_equal @old_invite, @invite
+    end
+    
+    should "get a new invite if the convo is private and the old invite is public" do
+      @old_invite = Invite.find_by_user_id_and_requestor_id_and_conversation_id(@user, @invitee, @public_convo)
+      @public_convo.private = true
+      @public_convo.save
+      @user.invite(@public_convo, @invitee) # @public_convo is now private
+      @invite = Invite.find_by_user_id_and_requestor_id_and_conversation_id(@user, @invitee, @public_convo)
+      assert @invite.private?
+      assert_not_equal @old_invite, @invite
+      # should have only one invite
+      @invites = Invite.all(:conditions => {:user_id => @user.id, :requestor_id => @invitee.id, :conversation_id => @public_convo.id})
+      assert_equal 1, @invites.length
+    end
+    
+    should "get a new invite if the convo is public and the old invite is private" do
+      @old_invite = Invite.find_by_user_id_and_requestor_id_and_conversation_id(@user, @invitee, @private_convo)
+      @private_convo.private = false
+      @private_convo.save
+      @user.invite(@private_convo, @invitee) # @private_convo is now public
+      @invite = Invite.find_by_user_id_and_requestor_id_and_conversation_id(@user, @invitee, @private_convo)
+      assert @invite.public?
+      assert_not_equal @old_invite, @invite
+      # should have only one invite
+      @invites = Invite.all(:conditions => {:user_id => @user.id, :requestor_id => @invitee.id, :conversation_id => @private_convo.id})
+      assert_equal 1, @invites.length
+    end
+    
+  end
+  
 end

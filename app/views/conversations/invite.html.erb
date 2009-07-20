@@ -19,7 +19,7 @@
 	<h2>
 		<%= link_to_remote t("users.invite_all_followers"), :url => invite_all_my_followers_conversation_path(@conversation),
    		  :confirm => t("users.invite_all_followers") + "?",
-		  :loading => "$('spinner_0').show();",
+		    :loading => "$('spinner_0').show();",
     	  :method => :post %>	
       	<%= image_tag "/images/icons/spinner.gif", :style => 'display:none;', :id => "spinner_0" %>
 	</h2>

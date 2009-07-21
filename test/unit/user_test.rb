@@ -241,6 +241,8 @@ class UserTest < ActiveSupport::TestCase
       @user = users(:dmitry)
       @convo = conversations(:crossblaim_test_public_convo)
       @invitee = users(:crossblaim)
+      UserMailer.stubs(:deliver_public_invite_instructions).with(any_parameters).returns(true)
+      UserMailer.stubs(:deliver_private_invite_instructions).with(any_parameters).returns(true)
     end
 
     should "have a public invite if the convo is public" do
@@ -266,6 +268,8 @@ class UserTest < ActiveSupport::TestCase
       @public_convo = conversations(:crossblaim_test_public_convo)
       @private_convo = conversations(:crossblaim_test_private_convo)
       @invitee = users(:crossblaim)
+      UserMailer.stubs(:deliver_public_invite_instructions).with(any_parameters).returns(true)
+      UserMailer.stubs(:deliver_private_invite_instructions).with(any_parameters).returns(true)
       @user.invite(@public_convo, @invitee)
       @user.invite(@private_convo, @invitee)
     end

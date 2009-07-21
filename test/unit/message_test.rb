@@ -34,11 +34,11 @@ class MessageTest < ActiveSupport::TestCase
     subject { @message }
     
     should "return 2 messages when find" do
-      assert_equal Message.find(:all).length, 2
+      assert_equal 2, Message.find(:all).length
     end
     
     should "return only activated messages when find with published named_scope" do
-      assert_equal Message.published.length, 1
+      assert_equal 1, Message.published.length
     end
   end
   
@@ -73,7 +73,7 @@ class MessageTest < ActiveSupport::TestCase
     end
     
     should "return the date of creation in m/d/Y format" do
-      assert_equal @message.date, @message.created_at.strftime("%Y/%m/%d")
+      assert_equal @message.created_at.strftime("%Y/%m/%d"), @message.date
     end
   end
 

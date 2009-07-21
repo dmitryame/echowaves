@@ -69,7 +69,7 @@ class ConversationTest < ActiveSupport::TestCase
       @message8 = Factory.create(:message, :conversation => @conversation, :user => @user3)
       @message9 = Factory.create(:message, :conversation => @conversation, :user => @user1)
       
-      assert_equal @conversation.users.size, 4 # it has to be one more user, the one who created the convo
+      assert_equal 4, @conversation.users.size # it has to be one more user, the one who created the convo
     end
 
     # FIXME: could not get it to work :(
@@ -204,16 +204,16 @@ class ConversationTest < ActiveSupport::TestCase
     end
 
     should "create a new ConversationVisit on a users first visit" do
-      assert_equal ConversationVisit.all.length, 0
+      assert_equal 0, ConversationVisit.all.length
       @conversation.add_visit(@user)
-      assert_equal ConversationVisit.all.length, 1
+      assert_equal 1, ConversationVisit.all.length
     end
 
     should "update the existing ConversationVisit record on repeat visit" do
       @cv = Factory.create(:conversation_visit, :conversation => @conversation, :user => @user)
       pre_size = ConversationVisit.all.length
       @conversation.add_visit(@user)
-      assert_equal ConversationVisit.all.length, pre_size
+      assert_equal pre_size, ConversationVisit.all.length
     end
   end
 

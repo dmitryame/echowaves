@@ -2,7 +2,9 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class SingleAccessTokenTest < ActionController::IntegrationTest
   fixtures :users, :conversations, :subscriptions
-
+  setup do
+    User.any_instance.stubs(:invite).returns(true)
+  end
   context "creating a convo" do
     should "don't create a convo" do
       post_via_redirect "/conversations", :conversation => { :name => 'new crossblaim convo', :description => 'test convo'}
@@ -11,19 +13,13 @@ class SingleAccessTokenTest < ActionController::IntegrationTest
     
     should "create a convo" do
       post_via_redirect "/conversations", :conversation => { :name => 'new crossblaim convo', :description => 'test convo'}, :user_credentials => users(:crossblaim).single_access_token
-      # TODO: defered 
-      # assert_template "conversations/show.html.erb"
-      # TODO: defered 
-      # assert_response :success
-      # TODO: defered 
-      # assert_equal "Conversation was successfully created.", flash[:notice]
-      # TODO: defered 
-      # assert_equal users(:crossblaim), Conversation.find_by_name("new crossblaim convo").user
+      assert_template "conversations/show.html.erb"
+      assert_response :success
+      assert_equal "Conversation was successfully created.", flash[:notice]
+      assert_equal users(:crossblaim), Conversation.find_by_name("new crossblaim convo").user
     end  
   end
   
-
-
   context "posting a message" do
     
     should "don't post a message" do

@@ -101,6 +101,7 @@ class Conversation < ActiveRecord::Base
   end
   
   def readable_by?(user)
+    return false if user.blank?
     self.owner == user ||
     !self.private? ||
     self.followed_by?(user)

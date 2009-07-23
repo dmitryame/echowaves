@@ -76,7 +76,7 @@ class MessageTest < ActiveSupport::TestCase
       assert_equal @message.created_at.strftime("%Y/%m/%d"), @message.date
     end
   end
-
+  
   context "filter message (video, links, html, ...)" do
     setup do
       @message = Message.create(:message => '<script>dangerous</script>', :user_id => Factory(:user).id, :conversation_id => Factory(:conversation).id)

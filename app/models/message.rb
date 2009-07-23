@@ -132,7 +132,7 @@ class Message < ActiveRecord::Base
       subscription = user.subscriptions.create(:conversation => conversation)
     end
     subscription.mark_read!
-    conversation.update_attribute :posted_at, Time.now#have to do it to make it update updated_at
+    conversation.touch(:posted_at) #have to do it to make it update updated_at
   end
 
   #----------------------------------------------------------------------------

@@ -32,8 +32,7 @@ class Subscription < ActiveRecord::Base
   
   def activate!
     self.mark_read!
-    self.activated_at = Time.now
-    self.save
+    self.touch(:activated_at)
   end
   
   # for use in json and xml serialization

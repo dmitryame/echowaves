@@ -82,10 +82,8 @@ USE_WORKLING = false
 # use the Starling runner
 # Workling::Remote.dispatcher = Workling::Remote::Runners::StarlingRunner.new
 # use the RudeQ
-config.after_initialize do
-  Workling::Clients::MemcacheQueueClient.memcache_client_class = RudeQ::Client
-  Workling::Remote.dispatcher = Workling::Remote::Runners::ClientRunner.new
-end
+Workling::Clients::MemcacheQueueClient.memcache_client_class = RudeQ::Client
+Workling::Remote.dispatcher = Workling::Remote::Runners::ClientRunner.new
 
 # active mailer configuration
 # First, specify the Host that we will be using later for user_notifier.rb

@@ -2,6 +2,7 @@
 
 # Uncomment below to force Rails into production mode when
 # you don't control web/app server and can't set it the proper way
+# uncomment it on production to make workling happy
 # ENV['RAILS_ENV'] ||= 'production'
 
 # Specifies gem version of Rails to use when vendor/rails is not present
@@ -27,6 +28,11 @@ Rails::Initializer.run do |config|
   config.gem "stomp"
   config.gem "oauth", :version => '0.3.2'
   config.gem "qoobaa-javascript_i18n", :lib => "javascript_i18n"
+  
+  # these are only required if you want to use workling (see below)
+  #----------------------------------------------------------------------------
+  config.gem "eventmachine"
+  config.gem "memcache-client"
   
   # Only load the plugins named here, in the order given. By default, all plugins 
   # in vendor/plugins are loaded in alphabetical order.

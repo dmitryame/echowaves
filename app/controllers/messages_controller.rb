@@ -12,8 +12,16 @@ class MessagesController < ApplicationController
   auto_complete_for :tag, :name
   
   def index
-    @messages = @conversation.messages.non_system.published.find(:all, :include => [:user], :limit => Message::PER_PAGE, :order => 'id DESC').reverse
-    
+    case params[:action]
+    when 'images'
+      @messages = @conversation.messages.with_image.published.find(:all, :include => [:user], :limit => Message::PER_PAGE, :order => 'id DESC').reverse
+    when 'system_messages'
+      @messages = @conversation.messages.system.published.find(:all, :include => [:user], :limit => Message::PER_PAGE, :order => 'id DESC').reverse
+    when 'files'
+      @messages = @conversation.messages.with_file.published.find(:all, :include => [:user], :limit => Message::PER_PAGE, :order => 'id DESC').reverse
+    else
+      @messages = @conversation.messages.non_system.published.find(:all, :include => [:user], :limit => Message::PER_PAGE, :order => 'id DESC').reverse
+    end
     respond_to do |format|
       format.html do
         headers["Status"] = "301 Moved Permanently"
@@ -39,62 +47,9 @@ class MessagesController < ApplicationController
     end    
   end
   
-  def images
-    respond_to do |format|
-      format.html do
-        headers["Status"] = "301 Moved Permanently"
-        redirect_to conversation_path(@conversation)
-      end
-      format.json do
-        @messages = @conversation.messages.with_image.published.find(:all, :include => [:user], :limit => Message::PER_PAGE, :order => 'id DESC').reverse
-        if logged_in?
-          subscription = current_user.subscriptions.find_by_conversation_id(@conversation.id)
-          current_user.conversation_visit_update(@conversation) if logged_in?
-          @last_message_id = subscription.last_message_id if (subscription && subscription.new_messages_count > 0)  
-        end
-        data = group_and_json( @messages )
-        render :text => {:message_groups => data, :last_message_id => @last_message_id}.to_json
-      end
-    end    
-  end
-  
-  def files
-    respond_to do |format|
-      format.html do
-        headers["Status"] = "301 Moved Permanently"
-        redirect_to conversation_path(@conversation)
-      end
-      format.json do
-        @messages = @conversation.messages.with_file.published.find(:all, :include => [:user], :limit => Message::PER_PAGE, :order => 'id DESC').reverse
-        if logged_in?
-          subscription = current_user.subscriptions.find_by_conversation_id(@conversation.id)
-          current_user.conversation_visit_update(@conversation) if logged_in?
-          @last_message_id = subscription.last_message_id if (subscription && subscription.new_messages_count > 0)  
-        end
-        data = group_and_json( @messages )
-        render :text => {:message_groups => data, :last_message_id => @last_message_id}.to_json
-      end
-    end    
-  end
-  
-  def system_messages
-    respond_to do |format|
-      format.html do
-        headers["Status"] = "301 Moved Permanently"
-        redirect_to conversation_path(@conversation)
-      end
-      format.json do
-        @messages = @conversation.messages.system.published.find(:all, :include => [:user], :limit => Message::PER_PAGE, :order => 'id DESC').reverse
-        if logged_in?
-          subscription = current_user.subscriptions.find_by_conversation_id(@conversation.id)
-          current_user.conversation_visit_update(@conversation) if logged_in?
-          @last_message_id = subscription.last_message_id if (subscription && subscription.new_messages_count > 0)  
-        end
-        data = group_and_json( @messages )
-        render :text => {:message_groups => data, :last_message_id => @last_message_id}.to_json
-      end
-    end    
-  end
+  alias_method :images, :index
+  alias_method :files, :index
+  alias_method :system_messages, :index
     
   #TODO: get_more_messages, get_more_messages_on_top, get_more_messages_on_bottom need to be refactored into something more generic
   def get_more_messages

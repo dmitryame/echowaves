@@ -235,6 +235,25 @@ class UserTest < ActiveSupport::TestCase
     end
   end
   
+  context "#friends method" do
+    fixtures :users
+    should "return all the friends of the user but not the user himself" do
+      assert_equal 1, users(:crossblaim).friends.length
+      assert users(:crossblaim).friends.include?( users(:akira) )
+    end
+  end
+  
+  context "#friend_of? method" do
+    fixtures :users
+    should "return true if user is a friend" do
+      assert users(:crossblaim).friend_of?( users(:akira) )
+    end
+    
+    should "return false if user is not a friend" do
+      assert !users(:crossblaim).friend_of?( users(:dmitry) )
+    end
+  end
+  
   context "inviting a user who does not have already an invitation" do
     fixtures :users, :conversations
     setup do

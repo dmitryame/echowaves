@@ -101,6 +101,10 @@ class User < ActiveRecord::Base
     self.friends_convos.map {|convo| convo.user}
   end
   
+  def friend_of?(user)
+    friend = Subscription.first(:conditions => ['conversation_id = ? AND user_id = ?', user.personal_conversation.id, id])
+  end
+  
   def friends_convos
     self.subscribed_conversations.personal - [self.personal_conversation]
   end

@@ -199,12 +199,8 @@ class ConversationsController < ApplicationController
   
   #----------------------------------------------------------------------------
   def invite_from_list
-    current_user.friends.each do |user| 
-      @user = user if(user.id.to_s == params[:user_id]) # search for the user in friends collection
-    end
-    
-    @user.invite @conversation, current_user
-    
+    @user = User.active.find(params[:user_id])    
+    @user.invite( @conversation, current_user ) if @user.friend_of?( current_user )
     render :update do |page| 
       page["user_" + @user.id.to_s].visual_effect :drop_out
     end 

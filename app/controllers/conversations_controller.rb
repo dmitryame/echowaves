@@ -83,7 +83,7 @@ class ConversationsController < ApplicationController
           # create a message in the original conversation notifying about this spawning
           # and send realtime notification to everyone who's listening
           notification_message = @conversation.notify_of_new_spawn( current_user )
-          notification_message.send_stomp_message unless notification_message == nil
+          notification_message.send_to_msg_broker unless notification_message == nil
           # copy the original message in the recient create convo
           copied_message = @conversation.parent_message.clone
           copied_message.conversation = @conversation
@@ -105,7 +105,7 @@ class ConversationsController < ApplicationController
             notification = current_user.messages.create( :conversation => personal_convo, :message => msg)
             notification.system_message = true
             notification.save
-            notification.send_stomp_message
+            notification.send_to_msg_broker
           end
         end
         

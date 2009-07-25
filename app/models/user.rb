@@ -251,7 +251,7 @@ class User < ActiveRecord::Base
       notification = invitee.messages.create( :conversation => self.personal_conversation, :message => msg)
       notification.system_message = true
       notification.save
-      notification.send_stomp_message
+      notification.send_to_msg_broker
     end
   end
   

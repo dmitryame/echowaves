@@ -88,12 +88,12 @@ class MessagesController < ApplicationController
       if current_user.messages << @message
         format.html { redirect_to(conversation_path(@conversation)) }
         format.xml { 
-          @message.send_stomp_message
+          @message.send_to_msg_broker
           render :xml => @message, :status => :created, :location => conversation_message_url(@message.conversation_id, @message)
         }
         format.js {
-          # send a stomp message for everyone else to pick it up
-          @message.send_stomp_message
+          # send a message for everyone else to pick it up
+          @message.send_to_msg_broker
           render :nothing => true
         }
       else
@@ -112,7 +112,7 @@ class MessagesController < ApplicationController
 
     if @conversation.messages << @message
       # send a stomp message for everyone else to pick it up
-      @message.send_stomp_message
+      @message.send_to_msg_broker
     end
     # FIXME: this not work yet, because we are calling this action from an iframe,
     # and the RJS can't access the document.

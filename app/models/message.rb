@@ -136,14 +136,14 @@ class Message < ActiveRecord::Base
   end
 
   #----------------------------------------------------------------------------
-  def send_stomp_message
-    json = self.custom_json
+  def send_to_msg_broker
+    msg = self.custom_json
+    channel = "CONVERSATION_CHANNEL_" + self.conversation.id.to_s
     s = Stomp::Client.new
-    s.send("CONVERSATION_CHANNEL_" + self.conversation.id.to_s, json)
+    s.send(channel, msg)
     s.close
   rescue SystemCallError
     logger.error "IO failed: " + $!
-    # raise
   end
   
   #----------------------------------------------------------------------------

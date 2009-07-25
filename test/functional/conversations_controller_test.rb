@@ -14,7 +14,7 @@ class ConversationsControllerTest < ActionController::TestCase
   #    Message.stubs( :find ).returns( @message )
   #    #Conversation.any_instance.stubs( :notify_of_new_spawn ).returns( @notify_message )
   #    #@controller.stubs( :current_user ).returns( @user )
-  #    #@controller.stubs( :send_stomp_message )
+  #    #@controller.stubs( :send_to_msg_broker )
   #  end
   #
   #  should "find the message to spawn from" do
@@ -54,7 +54,7 @@ class ConversationsControllerTest < ActionController::TestCase
   #  # end
   #  # 
   #  # should "send stomp message" do
-  #  #   # @controller.expects( :send_stomp_message ).with( @notify_message )
+  #  #   # @controller.expects( :send_to_msg_broker ).with( @notify_message )
   #  #   get :spawn_conversation, :conversation_id => @conversation.id, :id => '1'
   #  # end
   #  # 

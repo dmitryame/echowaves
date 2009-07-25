@@ -45,3 +45,8 @@ crossblaim_follow_crossblaim:
   user: crossblaim
   conversation: crossblaim_personal_convo
   activated_at: <%= Time.now.to_s(:db) %>
+
+akira_follow_crossblaim_test_private_convo:
+  user: akira
+  conversation: crossblaim_test_private_convo
+  activated_at: <%= Time.now.to_s(:db) %>

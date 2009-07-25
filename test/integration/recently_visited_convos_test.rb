@@ -5,27 +5,24 @@ class RecentlyVisitedConvosTest < ActionController::IntegrationTest
 
   context "crossblaim visit some convos" do
     should "see any recently visited convos minus the current convo" do
-      post_via_redirect "/user_session", :user_session => { :login => "crossblaim", :password => "secret" }
+      login_as('crossblaim')
       assert_response :success
       
       # this is the #1 convo crossblaim visit, the recently visited list should be empty 
-      get "/conversations/#{conversations(:crossblaim_personal_convo).id}/messages.json"
-      get "/conversations/#{conversations(:crossblaim_personal_convo).id}"
+      goto_convo(:crossblaim_personal_convo)
       assert_response :success
       assert_select "div#recently_visited>ul>li", 0
       
       # this is the #2 convo crossblaim visit, the recently visited list
       # should contain the previusly visited convo (crossblaim_personal_convo)
-      get "/conversations/#{conversations(:dmitry_personal_convo).id}/messages.json"
-      get "/conversations/#{conversations(:dmitry_personal_convo).id}"
+      goto_convo(:dmitry_personal_convo)
       assert_response :success
       assert_select "div#recently_visited>ul>li", 1
       assert_select "div#recently_visited>ul>li", /crossblaim/
       
       # crossblaim visit again his personal convo, the recently visited list
       # should contain the previusly visited convo (dmitry_personal_convo)
-      get "/conversations/#{conversations(:crossblaim_personal_convo).id}/messages.json"
-      get "/conversations/#{conversations(:crossblaim_personal_convo).id}"
+      goto_convo(:crossblaim_personal_convo)
       assert_response :success
       assert_select "div#recently_visited>ul>li", 1
       assert_select "div#recently_visited>ul>li", /dmitry/

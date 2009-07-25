@@ -59,4 +59,18 @@ class ActiveSupport::TestCase
       assert_equal Paperclip::Attachment, klass.new.send(attachment.to_sym).class
     end
   end
+  
+  #----------------------------------------------------------------------------
+  def login_as(login)
+    post_via_redirect "/user_session", :user_session => { :login => login, :password => "secret" }
+  end
+  
+  def goto_convo(convo)
+    get "/conversations/#{conversations(convo).id}/messages.json"
+    get "/conversations/#{conversations(convo).id}"
+  end
+  
+  def goto_convo_api(convo, format)
+    get "/conversations/#{conversations(convo).id}/messages.#{format}"
+  end
 end

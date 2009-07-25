@@ -55,6 +55,7 @@ class MessagesController < ApplicationController
   def get_more_messages
     @messages = @conversation.get_messages_before(params[:before]).reverse
     @has_more_messages = @conversation.has_messages_before?(@messages.first)
+    @last_message_id = @messages.first.id
   end
 
   def get_more_messages_on_top

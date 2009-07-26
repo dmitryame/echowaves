@@ -25,6 +25,11 @@
 #  remember_token_expires_at   :datetime
 #  updated_at                  :datetime
 
+Factory.sequence :uuid do |n|
+  # TODO: generate valid UUIDs
+  "uuid-#{n}"
+end
+
 Factory.sequence :name do |n|
   "testname#{n}" 
 end
@@ -52,6 +57,7 @@ Factory.define :conversation do |conversation|
   conversation.name { Factory.next :name }
   conversation.description "this is a test conversation that serves no other purpose but test"
   conversation.association :user
+  conversation.uuid { Factory.next :uuid }
 end
 
 Factory.define :message do |message|

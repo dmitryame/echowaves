@@ -33,6 +33,7 @@ crossblaim_personal_convo:
   # abuse_report
   # parent_message
   something: ""
+  uuid: "a72ee27d-51e6-4b50-a6c9-38c08d544006"
   
 dmitry_personal_convo:
   name: "dmitry personal convo"
@@ -44,6 +45,7 @@ dmitry_personal_convo:
   # abuse_report
   # parent_message
   something: ""
+  uuid: "12444b2b-318d-475e-b159-ac4954ead7dd"
   
 akira_personal_convo:
   name: "akira personal convo"
@@ -55,6 +57,7 @@ akira_personal_convo:
   # abuse_report
   # parent_message
   something: ""
+  uuid: "ccebc124-25b1-4651-a667-cdc3d46c9da6"
   
 crossblaim_test_public_convo:
   name: "crossblaim test public convo"
@@ -66,6 +69,7 @@ crossblaim_test_public_convo:
   # abuse_report
   # parent_message
   something: ""
+  uuid: "5810dd5c-d661-4159-a6f2-9a8ceba1cd0d"
   
 crossblaim_test_private_convo:
   name: "crossblaim test private convo"
@@ -77,3 +81,4 @@ crossblaim_test_private_convo:
   # abuse_report
   # parent_message
   something: ""
+  uuid: "d01b270f-e9d1-4d57-8f81-ef7901ba4373"

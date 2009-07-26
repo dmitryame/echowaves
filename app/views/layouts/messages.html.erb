@@ -67,7 +67,7 @@
  		};
  		stomp.onconnectedframe = function() {
  			output.update('<span class="status_green tip" title="receiving message">&nbsp;</span>');
-			stomp.subscribe('CONVERSATION_CHANNEL_<%=@conversation.id%>', {exchange:''});
+			stomp.subscribe('CONVERSATION_CHANNEL_<%= @conversation.private? ? @conversation.uuid : @conversation.id %>', {exchange:''});
  		};
  		stomp.onmessageframe = function(frame) {
  		  var json = frame.body.evalJSON();

@@ -45,6 +45,7 @@ class ConversationTest < ActiveSupport::TestCase
     end
     subject { @conversation }
     
+    should_validate_presence_of :uuid
     should_validate_presence_of :name, :description
     should_validate_uniqueness_of :name
 
@@ -117,6 +118,9 @@ class ConversationTest < ActiveSupport::TestCase
       assert !@conversation.valid?
     end
   end
+  
+
+
   
   context "A private conversation" do
     setup do

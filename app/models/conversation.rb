@@ -19,8 +19,11 @@
 #  posted_at             :datetime
 #  updated_at            :datetime
 #----------------------------------------------------------------------------
+require File.expand_path(File.dirname(__FILE__) + "/../../lib/uuid")
+
 class Conversation < ActiveRecord::Base
   
+  before_validation_on_create :generate_uuid
   acts_as_taggable_on :tags, :bookmarks
   
   belongs_to :user, :counter_cache => true
@@ -45,7 +48,8 @@ class Conversation < ActiveRecord::Base
   validates_presence_of     :description
   validates_length_of       :description, :maximum => 10000
   validates_format_of       :something, :with => /^$/ # anti spam, honeypot field must be blank
-
+  validates_presence_of     :uuid
+  
   named_scope :non_private, :conditions => { :private => false }
   named_scope :not_personal, :conditions => { :personal_conversation => false }
   named_scope :personal, :conditions => { :personal_conversation => true }
@@ -196,6 +200,15 @@ class Conversation < ActiveRecord::Base
   
   def to_param
     "#{id}-#{name.parameterize}"
+  end
+  
+  def reset_uuid!
+    generate_uuid
+    self.save
+  end
+  
+  def generate_uuid
+    self.uuid = UUID.create_v4.to_s
   end
   
 private

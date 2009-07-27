@@ -163,7 +163,7 @@ class Conversation < ActiveRecord::Base
     return notification
   end
 
-  def get_messages_before(first_message_id)
+  def messages_before(first_message_id)
     self.messages.published.find(:all, :include => [:user], :conditions => ["id < ?", first_message_id], :limit => 100, :order => 'id DESC')
   end
   
@@ -173,7 +173,7 @@ class Conversation < ActiveRecord::Base
     messages ? true : false
   end
 
-  def get_messages_after(last_message_id)
+  def messages_after(last_message_id)
    self.messages.published.find(:all, :include => [:user], :conditions => ["id > ?", last_message_id], :limit => 100, :order => 'id ASC').reverse
   end
   

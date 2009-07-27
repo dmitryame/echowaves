@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
   end
   
   def set_sound
-    session[:sound] = "on" if(!session[:sound]) # set default sound on
+    session[:sound] ||= "on" # set default sound on
     session[:sound] = params[:sound] if params[:sound]
   end
   

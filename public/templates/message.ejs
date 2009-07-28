@@ -18,7 +18,7 @@
   	<div class="messagetext">
       
       <% if(meta.has_image) { %>
-        <div class="img_attachment"><a href="<%= attachment.url %>" target="_blank" style="display:block;height:<%= attachment.height+40 %>px;"><img src="<%= attachment.image_url %>" height="<%= attachment.height %>" /></a></div>
+        <div class="img_attachment"><a href="<%= attachment.url %>" target="_blank" style="display:block;height:<%= attachment.height+40 %>px;width:<%= attachment.width+40 %>px;"><img src="<%= attachment.image_url %>" height="<%= attachment.height %>" width="<%= attachment.width %>" /></a></div>
       <% } %>
       
       <% if(meta.has_zip) { %>

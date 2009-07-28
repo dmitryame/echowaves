@@ -60,6 +60,7 @@ class Message < ActiveRecord::Base
   def post_process_attachment
     if attachment.content_type.include?("image")
       self.attachment_height = Paperclip::Geometry.from_file(attachment.queued_for_write[:big].path).height.to_i  
+      self.attachment_width = Paperclip::Geometry.from_file(attachment.queued_for_write[:big].path).width.to_i
     end
   end
     
@@ -183,7 +184,8 @@ class Message < ActiveRecord::Base
       :attachment => {
         :image_url => self.has_image? ? self.attachment.url(:big) : nil,
         :url => self.has_attachment? ? self.attachment.url : nil,
-        :height => self.has_image? ? self.attachment_height : nil
+        :height => self.has_image? ? self.attachment_height : nil,
+        :width => self.has_image? ? self.attachment_width : nil
       },
       :convo => {
         :id => self.conversation_id,
@@ -214,7 +216,7 @@ class Message < ActiveRecord::Base
   def to_xml(options = {})
     excluded_by_default = [:abuse_report_id, :delta, :message, :something, :updated_at,
                            :attachment_file_size, :attachment_file_name, :attachment_height, 
-                           :attachment_updated_at ]
+                           :attachment_width, :attachment_updated_at ]
     options[:except] = (options[:except] ? options[:except] + excluded_by_default : excluded_by_default)   
     unsafe_to_xml(options)
   end

@@ -104,3 +104,6 @@ html,body{background:#ccc;
   color:#999;
   margin-top:20px;
 }
+.img_attachment img {
+  background:url('/images/big_spinner.gif') center no-repeat;
+}

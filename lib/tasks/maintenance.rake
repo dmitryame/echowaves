@@ -23,15 +23,16 @@ namespace :maintenance do
       end
     end
     
-    desc "Save attachment height in the database"
-    task :save_attachment_height => :environment do
+    desc "Save attachment size in the database"
+    task :save_attachment_size => :environment do
       Message.with_image.find_in_batches(:batch_size => 100 ) do |messages|
         messages.each do |m|
           begin
-            m.attachment_height = Paperclip::Geometry.from_file(m.attachment.path(:big)).height.to_i          
+            m.attachment_height = Paperclip::Geometry.from_file(m.attachment.path(:big)).height.to_i
+            m.attachment_width = Paperclip::Geometry.from_file(m.attachment.path(:big)).width.to_i          
             m.save(false)
             puts "#----------------------------------------------------------------------------"
-            puts "#{m.attachment_height} px: #{m.attachment.path(:big)}"
+            puts "#{m.attachment_width}x#{m.attachment_height} px: #{m.attachment.path(:big)}"
             puts "#----------------------------------------------------------------------------"
           rescue
             RAILS_DEFAULT_LOGGER.error "[ Maintenance ] There is a problem with the attachment #{m.id}"
@@ -42,7 +43,7 @@ namespace :maintenance do
     
     def attachment_markup(message)
       if message.has_image?
-        %Q( <div class="img_attachment"><a href="#{message.attachment.url}" style="display:block;height:#{message.attachment_height+40}px;"><img src="#{message.attachment.url(:big)}" alt="#{message.message}" height="#{message.attachment_height}" /></a></div> )
+        %Q( <div class="img_attachment"><a href="#{message.attachment.url}" style="display:block;height:#{message.attachment_height+40}px;width:#{message.attachment_width+40}px;"><img src="#{message.attachment.url(:big)}" alt="#{message.message}" height="#{message.attachment_height}" width="#{message.attachment_width}" /></a></div> )
       elsif message.has_pdf?
         %Q( <div class="file_attachment"><a href="#{message.attachment.url}" style="display:block;height:100px;"><img src="/images/icons/pdf_large.jpg" alt="PDF Document" height="100" /></a></div> )
       elsif message.has_zip?

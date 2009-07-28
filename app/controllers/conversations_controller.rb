@@ -317,7 +317,7 @@ private
   #----------------------------------------------------------------------------
   def attachment_markup(message)
     if message.has_image?
-      %Q( <div class="img_attachment"><a href="#{message.attachment.url}" style="display:block;height:#{message.attachment_height+40}px;"><img src="#{message.attachment.url(:big)}" alt="#{message.message}" height="#{message.attachment_height}" /></a></div> )
+      %Q( <div class="img_attachment"><a href="#{message.attachment.url}" style="display:block;height:#{message.attachment_height+40}px;with:#{message.attachment_width+40}px;"><img src="#{message.attachment.url(:big)}" alt="#{message.message}" height="#{message.attachment_height}" width="#{message.attachment_width}" /></a></div> )
     elsif message.has_pdf?
       %Q( <div class="file_attachment"><a href="#{message.attachment.url}" style="display:block;height:100px;"><img src="/images/icons/pdf_large.jpg" alt="PDF Document" height="100" /></a></div> )
     elsif message.has_zip?

@@ -105,7 +105,7 @@ class ConversationsController < ApplicationController
             notification = current_user.messages.create( :conversation => personal_convo, :message => msg)
             notification.system_message = true
             notification.save
-            notification.send_to_msg_broker
+            notification.send_to_msg_broker_later
           end
         end
         

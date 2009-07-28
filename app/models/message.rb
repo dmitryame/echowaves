@@ -135,7 +135,16 @@ class Message < ActiveRecord::Base
     subscription.mark_read!
     conversation.touch(:posted_at) #have to do it to make it update updated_at
   end
-
+  
+  #----------------------------------------------------------------------------
+  def send_to_msg_broker_later
+    if USE_WORKLING
+      StompWorker.asynch_send_to_msg_broker(:message_id => id)
+    else
+      self.send_to_msg_broker
+    end
+  end
+  
   #----------------------------------------------------------------------------
   def send_to_msg_broker
     msg = self.custom_json

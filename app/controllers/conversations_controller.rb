@@ -98,14 +98,14 @@ class ConversationsController < ApplicationController
         # now let's create a system message and send it to the the creator's followers
         # unless the conversation is private
         unless @conversation.private?
-          current_user.followers_convos.each do |personal_convo|
-            next  if ( @conversation && @conversation.parent_message && personal_convo == @conversation.parent_message.conversation )
-            # TODO: how to translate this for the current user?
-            msg = " created a new convo: <a href='/conversations/#{@conversation.id}'>#{@conversation.name}</a>"
-            notification = current_user.messages.create( :conversation => personal_convo, :message => msg)
-            notification.system_message = true
-            notification.save
-            notification.send_to_msg_broker_later
+          if USE_WORKLING
+            EchowavesWorker.asynch_invite_followers_to_new_convo(:user_id => current_user.id, :conversation_id => @conversation.id)
+          else # painfully slow if the user has many followers
+            #invite all my followers, if the convo is public
+            current_user.followers.each do |u|
+              # next  if ( @conversation && @conversation.parent_message && personal_convo == @conversation.parent_message.conversation ) 
+              u.invite @conversation, current_user
+            end
           end
         end
         
@@ -232,7 +232,7 @@ class ConversationsController < ApplicationController
         invite.save
         # send the invite by email
         if USE_WORKLING
-          MailerWorker.asynch_deliver_email_invite(:email => email, :invite_id => invite.id)
+          EchowavesWorker.asynch_deliver_email_invite(:email => email, :invite_id => invite.id)
         else
           UserMailer.deliver_email_invite(email, invite)
         end               

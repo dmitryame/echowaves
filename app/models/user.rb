@@ -127,7 +127,7 @@ class User < ActiveRecord::Base
   def deliver_private_invite_instructions!(invite)
     reset_perishable_token!
     if USE_WORKLING
-      MailerWorker.asynch_deliver_private_invite_instructions(:user_id => id, :invite_id => invite.id)
+      EchowavesWorker.asynch_deliver_private_invite_instructions(:user_id => id, :invite_id => invite.id)
     else
       UserMailer.deliver_private_invite_instructions(self, invite.conversation_id, invite.conversation.name, invite.requestor, invite.token)
     end
@@ -136,7 +136,7 @@ class User < ActiveRecord::Base
   def deliver_public_invite_instructions!(invite)
     return unless self.receive_email_notifications
     if USE_WORKLING
-      MailerWorker.asynch_deliver_public_invite_instructions(:user_id => id, :invite_id => invite.id)
+      EchowavesWorker.asynch_deliver_public_invite_instructions(:user_id => id, :invite_id => invite.id)
     else
       UserMailer.deliver_public_invite_instructions(self, invite.conversation_id, invite.conversation.name, invite.requestor)
     end    

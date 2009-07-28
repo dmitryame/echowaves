@@ -1,6 +1,4 @@
-# handle asynchronous mailing
-#----------------------------------------------------------------------------
-class MailerWorker < Workling::Base
+class EchowavesWorker < Workling::Base
   
   def deliver_private_invite_instructions(options)
     user = User.find(options[:user_id])
@@ -18,6 +16,19 @@ class MailerWorker < Workling::Base
     email = options[:email]
     invite = Invite.find(options[:invite_id])
     UserMailer.deliver_email_invite(email, invite)
+  end
+  
+  def send_to_msg_broker(options)
+    msg = Message.find(options[:message_id])
+    msg.send_to_msg_broker
+  end
+  
+  def invite_followers_to_new_convo(options)
+    user = User.find(options[:user_id])
+    convo = Conversation.find(options[:conversation_id])
+    user.followers.each do |u| 
+      u.invite convo, user
+    end
   end
   
 end

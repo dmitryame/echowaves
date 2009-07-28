@@ -139,7 +139,7 @@ class Message < ActiveRecord::Base
   #----------------------------------------------------------------------------
   def send_to_msg_broker_later
     if USE_WORKLING
-      StompWorker.asynch_send_to_msg_broker(:message_id => id)
+      EchowavesWorker.asynch_send_to_msg_broker(:message_id => id)
     else
       self.send_to_msg_broker
     end

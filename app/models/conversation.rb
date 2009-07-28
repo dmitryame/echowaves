@@ -185,13 +185,7 @@ class Conversation < ActiveRecord::Base
 
   def after_create 
     owner.follow(self)
-    self.user.tag(self, :with => self.tag_list.to_s  + ", " + self.user.login, :on => :tags)      
-    #invite all my followers, if the convo is public
-    unless(self.private?)
-      self.user.followers.each do |u| 
-        u.invite self, self.user
-      end
-    end    
+    self.user.tag(self, :with => self.tag_list.to_s  + ", " + self.user.login, :on => :tags)    
   end
   
   def date_time12

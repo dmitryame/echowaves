@@ -10,6 +10,7 @@ RAILS_GEM_VERSION = '2.3.3' unless defined? RAILS_GEM_VERSION
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
+require File.join(File.dirname(__FILE__), '/../lib/stompclient')
 
 Rails::Initializer.run do |config|
   # Settings in config/environments/* take precedence over those specified here.
@@ -25,7 +26,7 @@ Rails::Initializer.run do |config|
   # They can then be installed with "rake gems:install" on new installations.
   
   config.gem 'chrislloyd-gravtastic', :version => '>= 2.1.2', :lib => "gravtastic"
-  config.gem "stomp"
+  config.gem "eventmachine"
   config.gem "oauth", :version => '0.3.2'
   config.gem "qoobaa-javascript_i18n", :lib => "javascript_i18n"
   

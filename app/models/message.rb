@@ -140,9 +140,12 @@ class Message < ActiveRecord::Base
   def send_to_msg_broker
     msg = self.custom_json
     channel = "CONVERSATION_CHANNEL_" + (self.conversation.private? ? self.conversation.uuid : self.conversation.id.to_s)
-    s = Stomp::Client.new
-    s.send(channel, msg)
-    s.close
+    EM.run do
+      EM.connect 'localhost', 61613, StompClient do |c|
+        c.connect
+        c.send channel, msg
+      end
+    end
   rescue SystemCallError
     logger.error "IO failed: " + $!
   end

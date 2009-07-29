@@ -1,5 +1,3 @@
-require 'stomp'
-
 class MessagesController < ApplicationController
   
   public :render_to_string # this is needed to make render_to_string public for message model to be able to use it

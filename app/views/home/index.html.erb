@@ -20,9 +20,6 @@
  <%= t("home.index.p3") %> <%= link_to t("ui.test_conversation"), conversation_path(TEST_CONVERSATION), :action => "index" -%>.
 </div>
 
-<!--div id="home_stats">
-	<h2><%= t("ui.total_convos")-%>: <%=@total_convos-%> - <%= t("ui.total_messages")-%>: <%=@total_messages-%> - <%= t("ui.total_users")-%>: <%=@total_users-%></h2>
-</div-->
 
 <%= render :partial => 'recent_convos'%>	
 

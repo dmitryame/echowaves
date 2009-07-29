@@ -228,23 +228,28 @@ class ConversationsController < ApplicationController
     emails_string.to_s.split(/(,| |\r\n|\n|\r)/).each do |email|    
       if(email =~ EMAIL_REGEX)
         # here we've got a valid email address lets send the invite
-        # existing_invite = Invite.find(:first, :conditions => ["user_id = ? and requestor_id = ? and conversation_id = ?", self.id, invitee.id, conversation.id ] )
-        #         return if(existing_invite != nil) # don't do anything, already invited
-        invite = Invite.new
-        # invite.user_id = self.id
-        invite.requestor = current_user
-        invite.conversation_id = @conversation.id
-        invite.token = Authlogic::Random::friendly_token
-        invite.save
-        # send the invite by email
-        if USE_WORKLING
-          EchowavesWorker.asynch_deliver_email_invite(:email => email, :invite_id => invite.id)
-        else
-          UserMailer.deliver_email_invite(email, invite)
+        # first lets see if the email belongs to an existing user
+        @existing_user = User.active.find_by_email(email)
+        if @existing_user.present?
+          @existing_user.invite( @conversation, current_user )
+        else # the email does not belongs to any existing user
+          invite = Invite.new
+          # invite.user_id = self.id
+          invite.requestor = current_user
+          invite.conversation_id = @conversation.id
+          invite.token = Authlogic::Random::friendly_token
+          invite.save
+          # send the invite by email
+          if USE_WORKLING
+            EchowavesWorker.asynch_deliver_email_invite(:email => email, :invite_id => invite.id)
+          else
+            UserMailer.deliver_email_invite(email, invite)
+          end
         end               
       end
     end    
-    render :update do |page| 
+    render :update do |page|
+      page["user_" + @existing_user.id.to_s].visual_effect :drop_out if @existing_user.present?
       page["spinner_1"].visual_effect :drop_out
       page["emails_"].clear
     end 

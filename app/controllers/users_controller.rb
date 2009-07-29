@@ -151,10 +151,4 @@ class UsersController < ApplicationController
     @conversation = Conversation.find(params[:conversation_id])
   end
   
-  # TODO: can I remove this thing?
-  def complete_name
-    @user = User.find_by_name(params[:id])
-    redirect_to user_path(@user)
-  end
-  
 end

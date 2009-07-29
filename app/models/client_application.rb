@@ -1,5 +1,5 @@
 # == Schema Info
-# Schema version: 20090514235226
+# Schema version: 20090728125500
 #
 # Table name: client_applications
 #
@@ -13,7 +13,7 @@
 #  url          :string(255)
 #  created_at   :datetime
 #  updated_at   :datetime
-#----------------------------------------------------------------------------
+
 require 'oauth'
 class ClientApplication < ActiveRecord::Base
   

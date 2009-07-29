@@ -1,5 +1,5 @@
 # == Schema Info
-# Schema version: 20090514235226
+# Schema version: 20090728125500
 #
 # Table name: invites
 #
@@ -10,7 +10,7 @@
 #  token           :string(255)
 #  created_at      :datetime
 #  updated_at      :datetime
-#----------------------------------------------------------------------------
+
 class Invite < ActiveRecord::Base
   
   belongs_to :user

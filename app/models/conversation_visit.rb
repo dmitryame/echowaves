@@ -1,5 +1,5 @@
 # == Schema Info
-# Schema version: 20090514235226
+# Schema version: 20090728125500
 #
 # Table name: conversation_visits
 #
@@ -9,7 +9,7 @@
 #  visits_count    :integer(4)      default(1)
 #  created_at      :datetime
 #  updated_at      :datetime
-#----------------------------------------------------------------------------
+
 class ConversationVisit < ActiveRecord::Base
   
   belongs_to :user

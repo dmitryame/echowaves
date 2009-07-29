@@ -1,5 +1,5 @@
 # == Schema Info
-# Schema version: 20090514235226
+# Schema version: 20090728125500
 #
 # Table name: subscriptions
 #
@@ -10,7 +10,7 @@
 #  activated_at    :datetime
 #  created_at      :datetime
 #  updated_at      :datetime
-#----------------------------------------------------------------------------
+
 class Subscription < ActiveRecord::Base
   
   belongs_to :user, :counter_cache => true

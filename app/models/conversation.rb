@@ -1,5 +1,5 @@
 # == Schema Info
-# Schema version: 20090514235226
+# Schema version: 20090728125500
 #
 # Table name: conversations
 #
@@ -15,10 +15,11 @@
 #  read_only             :boolean(1)
 #  something             :string(255)     default("")
 #  subscriptions_count   :integer(4)      default(0)
+#  uuid                  :string(255)
 #  created_at            :datetime
 #  posted_at             :datetime
 #  updated_at            :datetime
-#----------------------------------------------------------------------------
+
 require File.expand_path(File.dirname(__FILE__) + "/../../lib/uuid")
 
 class Conversation < ActiveRecord::Base

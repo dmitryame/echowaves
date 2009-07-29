@@ -1,5 +1,5 @@
 # == Schema Info
-# Schema version: 20090514235226
+# Schema version: 20090728125500
 #
 # Table name: oauth_tokens
 #
@@ -13,7 +13,7 @@
 #  created_at            :datetime
 #  invalidated_at        :datetime
 #  updated_at            :datetime
-#----------------------------------------------------------------------------
+
 class OauthToken < ActiveRecord::Base
   
   belongs_to :client_application

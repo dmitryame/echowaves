@@ -1,5 +1,5 @@
 # == Schema Info
-# Schema version: 20090514235226
+# Schema version: 20090728125500
 #
 # Table name: users
 #
@@ -7,6 +7,7 @@
 #  personal_conversation_id    :integer(4)
 #  conversations_count         :integer(4)      default(0)
 #  crypted_password            :string(128)     not null, default("")
+#  delta                       :boolean(1)
 #  email                       :string(100)
 #  login                       :string(40)
 #  messages_count              :integer(4)      default(0)

@@ -1,5 +1,5 @@
 # == Schema Info
-# Schema version: 20090514235226
+# Schema version: 20090728125500
 #
 # Table name: abuse_reports
 #
@@ -8,7 +8,7 @@
 #  user_id    :integer(4)
 #  created_at :datetime
 #  updated_at :datetime
-#----------------------------------------------------------------------------
+
 class AbuseReport < ActiveRecord::Base
   
   belongs_to :user

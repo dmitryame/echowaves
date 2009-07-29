@@ -1,5 +1,5 @@
 # == Schema Info
-# Schema version: 20090514235226
+# Schema version: 20090728125500
 #
 # Table name: oauth_nonces
 #
@@ -8,7 +8,6 @@
 #  timestamp  :integer(4)
 #  created_at :datetime
 #  updated_at :datetime
-#----------------------------------------------------------------------------
 
 # Simple store of nonces. The OAuth Spec requires that any given pair of nonce and timestamps are unique.
 # Thus you can use the same nonce with a different timestamp and viceversa.

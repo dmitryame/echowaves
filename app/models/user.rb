@@ -218,6 +218,7 @@ class User < ActiveRecord::Base
 
   # check if user can be invited to conversation by invitee
   def can_be_invited_to?(conversation, invitee)
+    return false if conversation.users.include? self
     existing_invite = Invite.find( :first, :conditions => [ "user_id = ? and requestor_id = ? and conversation_id = ?", self.id, invitee.id, conversation.id ] )
     afirmative_condition_1 = existing_invite.blank?
     afirmative_condition_2 = existing_invite.present? && existing_invite.private? && conversation.public?
@@ -227,10 +228,8 @@ class User < ActiveRecord::Base
   
   #----------------------------------------------------------------------------
   def invite(conversation, invitee) 
+    return unless self.can_be_invited_to?(conversation, invitee)
     existing_invite = Invite.find( :first, :conditions => [ "user_id = ? and requestor_id = ? and conversation_id = ?", self.id, invitee.id, conversation.id ] )
-    # don't do anything, already invited and the convo have the same privacy settings
-    return if( existing_invite.present? && existing_invite.private? && conversation.private? )
-    return if( existing_invite.present? && existing_invite.public? && conversation.public? )
     # destroy the old invite if present
     existing_invite.destroy if( existing_invite.present? )
     invite = Invite.new

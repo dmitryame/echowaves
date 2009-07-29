@@ -192,7 +192,7 @@ class ConversationsController < ApplicationController
       @friends = current_user.friends    
       # should also remove the users if they were already invited or the users already follow the convo
       @friends.delete_if do |user|
-        true if !user.can_be_invited_to?(@conversation, current_user) || @conversation.users.include?(user)
+        true if !user.can_be_invited_to?(@conversation, current_user)
       end
     end
   end
@@ -208,8 +208,14 @@ class ConversationsController < ApplicationController
 
   #----------------------------------------------------------------------------
   def invite_all_my_followers
-    current_user.followers.each do |user| 
-      user.invite @conversation, current_user unless !@conversation.users.include?(user)
+    if USE_WORKLING
+      EchowavesWorker.asynch_invite_followers_to_new_convo(:user_id => current_user.id, :conversation_id => @conversation.id)
+    else # painfully slow if the user has many followers
+      #invite all my followers, if the convo is public
+      current_user.followers.each do |u|
+        # next  if ( @conversation && @conversation.parent_message && personal_convo == @conversation.parent_message.conversation ) 
+        u.invite @conversation, current_user unless @conversation.users.include?(user)
+      end
     end
     render :update do |page| 
       page["spinner_0"].visual_effect :drop_out

@@ -1,0 +1,8 @@
+<div id='messages'>
+	<% @messages.group_by(&:date).each do |date, grouped_messages| %>
+	  <p class="groupdate"><span><%= date %></span></p>
+	  <% grouped_messages.each do |message| %>
+	    <%= render message %>
+	  <% end %>
+	<% end %>
+</div>

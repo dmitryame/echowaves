@@ -2,7 +2,7 @@ class MessagesController < ApplicationController
   
   public :render_to_string # this is needed to make render_to_string public for message model to be able to use it
   
-  before_filter :login_or_oauth_required, :except => [:index, :show, :get_more_messages ]
+  before_filter :login_or_oauth_required, :except => [:index, :show, :get_more_messages, :export ]
   before_filter :find_conversation, :except => [ :send_data, :auto_complete_for_tag_name]
   before_filter :check_write_access, :only => [ :create, :upload_attachment ]
   before_filter :check_read_access, :except => [ :upload_attachment, :report ]
@@ -48,7 +48,12 @@ class MessagesController < ApplicationController
   alias_method :images, :index
   alias_method :files, :index
   alias_method :system_messages, :index
-    
+  
+  def export
+    @messages = @conversation.messages.non_system.published.find(:all, :include => [:user], :order => 'id DESC').reverse
+    render :layout => 'export'
+  end  
+  
   #TODO: get_more_messages, get_more_messages_on_top, get_more_messages_on_bottom need to be refactored into something more generic
   def get_more_messages
     @messages = @conversation.messages_before(params[:before]).reverse

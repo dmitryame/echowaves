@@ -83,6 +83,7 @@
 				//---------------------------------------------------------------------------
  			  var in_the_bottom = ((document.body.clientHeight - document.viewport.getScrollOffsets().top ) - document.viewport.getHeight()) <= 0 ? true : false
  				message_output.insert({"bottom":html});
+				new Effect.ScrollTo('message_' + json.message.id);
         if(json.meta.system == false) { unitipize($('tip_'+json.message.id)); }
 				if ( in_the_bottom ) { Misc.pageScroll(); }
 				new Effect.Pulsate('connection_stat_data');

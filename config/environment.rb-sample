@@ -121,4 +121,6 @@ TEST_CONVERSATION = 3
 SHOW_ACTIVATION_LINK=true
 
 # show deployed git revision to these users
-DEV_TEAM = ['dmitry','crossblaim']
+DEV_TEAM = ['dmitry','crossblaim']  
+
+ThinkingSphinx.suppress_delta_output = true

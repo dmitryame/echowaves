@@ -78,7 +78,7 @@ class Message < ActiveRecord::Base
     has created_at
     has abuse_report_id
     has system_message
-    set_property :delta => true
+    set_property :delta => :delayed
   end
           
   validates_attachment_size :attachment, :less_than => 5.megabytes

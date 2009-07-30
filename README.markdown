@@ -94,7 +94,11 @@ You will see a warning like the following – it’s safe to ignore, it’s just
 Start a Sphinx searchd daemon using Thinking Sphinx's settings
 
     rake thinking_sphinx:start
-      
+
+Then start the delayed_job for re-index the database for changed records
+
+    rake ts:dd
+    
 Also – you can run the index task while Sphinx is running, and it’ll reload the indexes automatically. Prior to 0.9.9 though, Sphinx doesn’t reload the configuration file, so if you’ve changed your index structure or other Sphinx settings, you will need to stop and start it for those changes to take effect.
 
 setup a cron tab to run "rake thinking_sphinx:index" periodically or do it manually when you need it

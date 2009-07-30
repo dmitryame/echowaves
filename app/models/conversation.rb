@@ -61,7 +61,7 @@ class Conversation < ActiveRecord::Base
     indexes :name
     indexes description
     has created_at
-    set_property :delta => true
+    set_property :delta => :delayed
   end
   
   ##

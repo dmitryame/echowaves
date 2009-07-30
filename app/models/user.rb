@@ -64,7 +64,7 @@ class User < ActiveRecord::Base
     indexes :name
     has created_at
     where "activated_at != '@nil@'"
-    set_property :delta => true
+    set_property :delta => :delayed
   end
            
   validates_presence_of     :login

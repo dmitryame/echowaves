@@ -85,7 +85,12 @@
  				message_output.insert({"bottom":html});
 			
         if(json.meta.system == false) { unitipize($('tip_'+json.message.id)); }
-				if ( in_the_bottom ) { 	new Effect.ScrollTo('message_' + json.message.id);}
+				if ( in_the_bottom ) { 	
+					new Effect.ScrollTo('message_' + json.message.id);
+					$("message_" + json.message.id).hide();
+					$("message_" + json.message.id).appear();
+					
+				}
 				new Effect.Pulsate('connection_stat_data');
 			<% if session[:sound] == "on" %>
 				Sound.play('/sounds/sound39.mp3');

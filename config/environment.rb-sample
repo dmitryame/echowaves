@@ -26,6 +26,7 @@ Rails::Initializer.run do |config|
   
   config.gem 'chrislloyd-gravtastic', :version => '>= 2.1.2', :lib => "gravtastic"
   config.gem "stomp"
+  config.gem "json"
   config.gem "oauth", :version => '0.3.2'
   config.gem "qoobaa-javascript_i18n", :lib => "javascript_i18n"
   
@@ -79,6 +80,9 @@ Rails::Initializer.run do |config|
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
 end
+
+ActiveSupport::JSON.backend = 'JSONGem'
+
 
 # set to true to make some tasks asyncronous and use workling, please read
 # the documentation

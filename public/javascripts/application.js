@@ -1,16 +1,34 @@
 // Place your application-specific JavaScript functions and classes here
 // This file is automatically included by javascript_include_tag :defaults
 
+// Misc stuff
+//----------------------------------------------------------------------------
+
+var Misc = {
+  pageScroll: function() {
+    window.scrollBy(0,50000); // horizontal and vertical scroll increments
+  },
+
+  // try to focus an input field, if we can find it
+  focusInput: function(inputId) {
+    if ($(inputId)) {
+      $(inputId).focus();
+    }
+  },
+
+  showAndHide: function(toshow, tohide) {
+    $$(toshow).each(function(e) {e.show()});
+    $$(tohide).each(function(e) {e.hide()});
+  }
+}
+
 Array.prototype.sum = function() {
   return (! this.length) ? 0 : this.slice(1).sum() +
       ((typeof this[0] == 'number') ? this[0] : 0);
 };
 
-var Textarea = {
-  sync:function(ta_orig, ta_dest) {
-    $(ta_dest).value = $F(ta_orig);
-  }
-}
+// Fluid stuff
+//----------------------------------------------------------------------------
 
 function ShowUnreadMessagesInFLuidapp()
 {
@@ -18,6 +36,15 @@ function ShowUnreadMessagesInFLuidapp()
     return parseInt(n.innerHTML);
   });
   window.fluid.dockBadge = numbers.sum();
+}
+
+// Text area stuff
+//----------------------------------------------------------------------------
+
+var Textarea = {
+  sync:function(ta_orig, ta_dest) {
+    $(ta_dest).value = $F(ta_orig);
+  }
 }
 
 function FitToTextAndMoveMessagesUp(id, maxHeight)
@@ -38,6 +65,9 @@ function FitToTextAndMoveMessagesUp(id, maxHeight)
       }
    }
 }
+
+// Browser detection stuff
+//----------------------------------------------------------------------------
 
 var BrowserDetect = {
 	init: function () {

@@ -321,7 +321,6 @@ private
     unless @conversation.readable_by?(current_user) || @conversation.public?
       flash[:error] = "Sorry, this is a private conversation. You can try anoter one"
       redirect_to conversations_path
-      return
     end
   end
   

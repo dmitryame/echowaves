@@ -145,7 +145,6 @@ private
     unless @conversation.writable_by?(current_user)
       flash[:error] = t("conversations.not_allowed_to_write_warning")
       redirect_to conversation_path(@conversation)
-      return
     end
   end
   
@@ -153,7 +152,6 @@ private
     unless @conversation.readable_by?(current_user) || !@conversation.private?
       flash[:error] = t("errors.sorry_this_is_a_private_convo")
       redirect_to conversations_path
-      return
     end
   end       
   

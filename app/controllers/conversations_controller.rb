@@ -87,7 +87,7 @@ class ConversationsController < ApplicationController
           copied_message.conversation = @conversation
           copied_message.save
           # now add the attachment markup to the copied message if the original message has an attachment
-          copied_message.message_html = copied_message.message_html + @conversation.parent_message.attachment_markup if @conversation.parent_message.has_attachment?            
+          copied_message.message_html = @conversation.parent_message.attachment_markup + copied_message.message_html if @conversation.parent_message.has_attachment?            
           copied_message.save
         else # create a first message that is the same as the convo description
           message = current_user.messages.create!( :conversation => @conversation, :message => @conversation.description)

@@ -7,9 +7,7 @@ class ApplicationController < ActionController::Base
 
   # protect_from_forgery
   
-  before_filter :set_locale
-  before_filter :set_sound
-  before_filter :set_timezone
+  before_filter :set_locale, :set_sound, :set_timezone
 
   def set_locale   
     session[:locale] = params[:locale] if params[:locale]

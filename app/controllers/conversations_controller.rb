@@ -1,7 +1,5 @@
 class ConversationsController < ApplicationController
   
-  public :render_to_string # this is needed to make render_to_string public for message model to be able to use it
-  
   before_filter :login_or_oauth_required, :except => [:index, :show, :auto_complete_for_conversation_name, :complete_name]                                            
   before_filter :find_conversation, :except => [:bookmarked, :complete_name, :create, :spawn, :new, :index, :new_messages]
   before_filter :check_read_access, :only => [:show]

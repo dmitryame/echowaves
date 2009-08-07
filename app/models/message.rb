@@ -238,4 +238,17 @@ class Message < ActiveRecord::Base
     unsafe_to_xml(options)
   end
   
+  # IMPORTANT: update the markup in /public/templates/message.ejs if you change
+  # the markup below
+  #----------------------------------------------------------------------------
+  def attachment_markup
+    if self.has_image?
+      %Q( <div class="img_attachment"><a href="#{self.attachment.url}" style="display:block;height:#{self.attachment_height+40}px;width:#{self.attachment_width+40}px;"><img src="#{self.attachment.url(:big)}" alt="#{self.message}" height="#{self.attachment_height}" width="#{self.attachment_width}" /></a></div> )
+    elsif self.has_pdf?
+      %Q( <div class="file_attachment"><a href="#{self.attachment.url}" style="display:block;height:100px;"><img src="/images/icons/pdf_large.jpg" alt="PDF Document" height="100" /></a></div> )
+    elsif self.has_zip?
+      %Q( <div class="file_attachment"><a href="#{self.attachment.url}" style="display:block;height:99px;"><img src="/images/icons/zip_large.jpg" alt="ZIP File" height="99" /></a></div> )
+    end
+  end
+  
 end

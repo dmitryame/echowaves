@@ -6,9 +6,7 @@
 		:title =>  user_popup(message.user) %>
 		</div>
 		<div class="messagetext">
-	    <% if message.has_attachment? %>
-	      <%= display_attachment(message) %>
-			<% end %>
+		  
 			<%= mark_up message %>
 			
 			<div class="meta">
@@ -32,9 +30,6 @@
 	  <div class="avatar"><%= image_tag "/images/icon.png", :width => 30 %></div>
 		<div class="messagetext">
 	    <span class="username"><%= link_to h(message.user.login), conversation_path(message.user.personal_conversation), :class => 'tip', :title =>  "personal convo for #{message.user.login}" %></span>
-			<% if message.has_attachment? %>
-	      <%= display_attachment(message) %>
-			<% end %>
 			<%= mark_up message %>
 			<span class="date quiet small"><%= link_to message.time_pretty, conversation_message_path(message.conversation, message), :title => message.date_pretty_long %></span>
 		</div>

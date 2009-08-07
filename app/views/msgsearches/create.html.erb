@@ -32,9 +32,7 @@
     		:title =>  user_popup(message.user) %>
     		</div>
     		<div class="messagetext">
-    	    <% if message.has_attachment? %>
-    	      <%= display_attachment(message) %>
-    			<% end %>
+
 		  		<%= highlight mark_up(message), params[:q].split %>
 
     			<div class="meta">

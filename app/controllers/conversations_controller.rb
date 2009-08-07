@@ -87,7 +87,7 @@ class ConversationsController < ApplicationController
           copied_message.conversation = @conversation
           copied_message.save
           # now add the attachment markup to the copied message if the original message has an attachment
-          copied_message.message_html = copied_message.message_html + attachment_markup(@conversation.parent_message) if @conversation.parent_message.has_attachment?            
+          copied_message.message_html = copied_message.message_html + @conversation.parent_message.attachment_markup if @conversation.parent_message.has_attachment?            
           copied_message.save
         else # create a first message that is the same as the convo description
           message = current_user.messages.create!( :conversation => @conversation, :message => @conversation.description)
@@ -319,17 +319,6 @@ private
     unless @conversation.readable_by?(current_user) || @conversation.public?
       flash[:error] = "Sorry, this is a private conversation. You can try anoter one"
       redirect_to conversations_path
-    end
-  end
-  
-  #----------------------------------------------------------------------------
-  def attachment_markup(message)
-    if message.has_image?
-      %Q( <div class="img_attachment"><a href="#{message.attachment.url}" style="display:block;height:#{message.attachment_height+40}px;with:#{message.attachment_width+40}px;"><img src="#{message.attachment.url(:big)}" alt="#{message.message}" height="#{message.attachment_height}" width="#{message.attachment_width}" /></a></div> )
-    elsif message.has_pdf?
-      %Q( <div class="file_attachment"><a href="#{message.attachment.url}" style="display:block;height:100px;"><img src="/images/icons/pdf_large.jpg" alt="PDF Document" height="100" /></a></div> )
-    elsif message.has_zip?
-      %Q( <div class="file_attachment"><a href="#{message.attachment.url}" style="display:block;height:99px;"><img src="/images/icons/zip_large.jpg" alt="ZIP File" height="99" /></a></div> )
     end
   end
 

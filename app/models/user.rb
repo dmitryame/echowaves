@@ -97,12 +97,15 @@ class User < ActiveRecord::Base
   end
 
   # friends are the people you follow (you follow their personal convos)
+  # FIXME: we must fix the definition of friend because it does not looks right to me
   def friends
     self.friends_convos.map {|convo| convo.user}
   end
   
+  # if user follow you, then you're friend of user.
+  # FIXME: we must fix the definition of friend because it does not looks right to me
   def friend_of?(user)
-    friend = Subscription.first(:conditions => ['conversation_id = ? AND user_id = ?', user.personal_conversation.id, id])
+    friend = Subscription.first(:conditions => ['conversation_id = ? AND user_id = ?', self.personal_conversation_id, user.id])
   end
   
   def friends_convos

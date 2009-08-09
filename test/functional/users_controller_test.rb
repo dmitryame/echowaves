@@ -44,15 +44,6 @@ class UsersControllerTest < ActionController::TestCase
       assert_response :success
     end
   end
-
-  def test_complete_name_action
-    user = Factory.create( :user )    
-    
-    User.expects( :find_by_name ).with( user.name ).returns( user )
-    get :complete_name, :id => user.name 
-    assert assigns( :user )
-    assert_redirected_to user_path( user ) 
-  end
   
   def test_should_return_users_on_index
     user = Factory.create( :user )

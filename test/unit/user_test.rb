@@ -247,11 +247,13 @@ class UserTest < ActiveSupport::TestCase
   context "#friend_of? method" do
     fixtures :users
     should "return true if user is a friend" do
-      assert users(:crossblaim).friend_of?( users(:akira) )
+      # crossblaim follow dmitry
+      assert users(:akira).friend_of?( users(:crossblaim) )
     end
     
     should "return false if user is not a friend" do
-      assert !users(:crossblaim).friend_of?( users(:dmitry) )
+      # crossblaim don't follow dmitry
+      assert !users(:dmitry).friend_of?( users(:crossblaim) )
     end
   end
   

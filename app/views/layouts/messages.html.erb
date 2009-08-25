@@ -1,12 +1,12 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
-   "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+  "http://www.w3.org/TR/html4/loose.dtd">
 
 <html lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<meta name="Description" content="Opensource Social Group Chat written in Ruby On Rails, Conversation: <%= @conversation.name %>">
 	<title><%=@conversation.name-%> | EchoWaves (Social Group Chat)</title>
-  <link rel="shortcut icon" href="/favicon.ico" />
+  <link rel="shortcut icon" href="/favicon.ico">
  	
   <link rel="stylesheet" href="/stylesheets/screen.css" type="text/css" media="screen, projection">
   <link rel="stylesheet" href="/stylesheets/print.css" type="text/css" media="print"> 
@@ -30,7 +30,7 @@
   <![endif]-->
 	
  	<%= orbited_javascript %> 		
- 	<script>  
+ 	<script type="text/javascript">  
   // FIXME: workaround for safari never ending loading issue
   var orig_chooseTransport = Orbited.util.chooseTransport; 
   Orbited.util.chooseTransport = function() { 
@@ -109,7 +109,7 @@
   <%= javascript_include_tag "livepipe/livepipe" %>
   <%= javascript_include_tag "livepipe/tabs" %>
 
-  <script>
+  <script type="text/javascript">
   	document.observe('dom:loaded',function(){
   	  new Control.Tabs('convo_tabs');
   	});
@@ -120,22 +120,22 @@
 
 	<div id="header_container"><%= render(:partial => "shared/header") %></div>
 	
-
-	<div id="main_content" class="container">
-    
+	<div id="main_content" class="container">  
+		
 		<div id="col1" class="span-14">
-		    <%= flash_messages %>
-  		  <% if (logged_in? && @conversation.readable_by?(current_user)) || !@conversation.private? %>
+		  <%= flash_messages %>
+  		<% if (logged_in? && @conversation.readable_by?(current_user)) || !@conversation.private? %>
   		  
   		  <%= yield  %>
   		  
-  		  <div id="attachment_form" style="display:none"><div id="attachment_form_padding">
+  		  <div id="attachment_form" style="display:none">
+  		    <div id="attachment_form_padding">
     	    <%#this form is purely for attachments handling%>
     	    <% form_for(:message, 
     	    	:url  => { :controller => "messages", :action => "upload_attachment", :conversation_id => @conversation.id },
     	      :html => { :multipart => true, :target => "upload_frame", :id => 'atchform' } ) do |f| %>
     	        <%= f.file_field :attachment %>
-    	    	  <input type="hidden" name="conversation_id" id="conversation_id" value="<%= @conversation.id %>" />
+    	    	  <input type="hidden" name="conversation_id" id="conversation_id" value="<%= @conversation.id %>">
     	    	  <p id="attach_msgtextarea">        
                 <%= f.text_area :message, :onkeyup => "FitToTextAndMoveMessagesUp(this, (document.viewport.getHeight() - 300));Misc.pageScroll();", :class => 'messageinput', :id => "attch_message" %>  
               </p>
@@ -149,54 +149,20 @@
               end %>
     	    <% end %>
     	    
-    	    <iframe id='upload_frame' name="upload_frame" style="width:0px;height:0px;border:0px" src="about:blank"></iframe>
-        </div></div>
+    	    <iframe id="upload_frame" name="upload_frame" style="width:0px;height:0px;border:0px" src="about:blank"></iframe>
+          </div><!-- attachment_form_padding -->
+        </div><!-- attachment_form -->
         
-		    <div id="messagesform"><div id="messagesform_padding">
-		      <span id="working" style="display:none;"><%= image_tag "/images/icons/waves.png" %></span>
-			    <div id="messageinputdiv">
-		        <% if logged_in? && @conversation.writable_by?(current_user) %>
-              <% remote_form_for(:message,
-              	:update => 'messages', :position => 'bottom',
-                :url => conversation_messages_path(@conversation),
-                :loading => "$('message_message').value = '';$('message_attachment').value = '';$('message_message').style.height = '3em';$('message_message').focus();$('messages').setStyle('padding-bottom: 96px');",
-                :complete => "$('working').fade({ duration: 0 });",
-                # don't poll right now, and set the "after" value
-                :before => "$('working').appear({ duration: 0 });",
-                :condition => "$('message_message').value.strip().length > 0",
-                :html => {:id => 'msgform'}) do |f| %>
-                 
-                <p class="out_of_screen"><%= label_tag "important" %><input id="message_something" name="message[something]" onfocus="javascript:$('message_message').focus()" size="30" type="text" /></p>
-                
-                <p id="msgtextarea">        
-                  <%= f.text_area :message, :onkeyup => "FitToTextAndMoveMessagesUp(this, (document.viewport.getHeight() - 300));Misc.pageScroll();", :class => 'messageinput' %>  
-                </p>
-                  
-                <p id="msgcontrols">
-                  <%= submit_tag t("ui.send") %> <span class="mute"><%= t("ui.shift_enter") %></span>
-                    
-                  <%= link_to_function t("ui.attach_file"), :id => 'attachment_link' do |page|
-                    page[:attachment_form].show
-                    page[:attachment_link].hide
-                    page.textarea.sync('message_message','attch_message')
-                  end %>
-                </p>
-              <% end %>
-            <% else %>
-              <% if logged_in? %>
-                <h4 class="center"><%= t("conversations.this_is_an_read_only_convo") %></h4>
-              <% else %>
-                <h4 class="center"><%= t("conversations.login_or_register_to_participate") %></h4>
-              <% end %>
-		        <% end#if current_user%>
-          </div>
-          
-        
-        </div></div>
-        <% else %>
-  		    <h4 class="center">Sorry, this is a private conversation</h4>
-  		  <% end %>
-		</div>
+		    <div id="messagesform">
+		      <div id="messagesform_padding">
+		        <span id="working" style="display:none;"><%= image_tag "/images/icons/waves.png" %></span>
+			      <div id="messageinputdiv"></div>
+          </div><!-- messagesform_padding -->
+        </div><!-- messagesform -->
+      <% else %>
+  		  <h4 class="center">Sorry, this is a private conversation</h4>
+  		<% end %>
+		</div><!-- col1 -->
 		
     <div id="sidebars" class="span-10 last">
       &nbsp;
@@ -215,20 +181,20 @@
 		      <div  class="span-6">
 		        <%= render :partial => 'users/recently_visited' %>
 		        <%= render :partial => 'users/news' %>
-		      </div>
+		      </div><!-- span-6 -->
 		      <div class="span-4 last">
-		        <div id="recent_followers" class="item2 page">
+		        <div id="filters" class="item2 page">
             	<h6><%= t("ui.messages") %>:</h6>
             	<%= link_to t("ui.all"), conversation_path(@conversation)%><br/>
               <%= link_to t("ui.with_files"), files_conversation_path(@conversation)%><br/>
               <%= link_to t("ui.with_images"), images_conversation_path(@conversation)%><br/>
               <%= link_to t("ui.system_messages"), system_messages_conversation_path(@conversation)%><br/>
-            </div>
+            </div><!-- filters -->
 		        
 		        <%= render :partial => 'conversations/recent_followers' %>
 		        <%# render :partial => 'conversations/last_convo_tags' %>
-		      </div>
-		    </div>
+		      </div><!-- span-4 -->
+		    </div><!-- dashboard -->
 		    
 		    <!--
 		      # removed tags stuff
@@ -241,11 +207,11 @@
 		      <%= render :partial => 'conversations/users_in_conversation' %>
         </div>
         
-      </div>
+      </div><!-- sidebars_container -->
       
-   </div>
-	</div>
-
+    </div><!-- sidebars -->
+    
+	</div><!-- main_content -->
 	<div id="footer_container"><%= render(:partial => "shared/footer") %></div>
 
 	<%#for now lets poll for new messages in conversations that are off the screen%>  

@@ -38,7 +38,6 @@ crossblaim:
   receive_email_notifications: true
   time_zone: UTC
   something: ""
-  personal_conversation: crossblaim_personal_convo
   conversations_count: 2
   messages_count: 0
   subscriptions_count: 2
@@ -56,7 +55,6 @@ dmitry:
   receive_email_notifications: true
   time_zone: UTC
   something: ""
-  personal_conversation: dmitry_personal_convo
   conversations_count: 1
   messages_count: 0
   subscriptions_count: 1
@@ -74,7 +72,6 @@ akira:
   receive_email_notifications: true
   time_zone: UTC
   something: ""
-  personal_conversation: akira_personal_convo
   conversations_count: 1
   messages_count: 0
   subscriptions_count: 1

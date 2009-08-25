@@ -24,10 +24,9 @@
 # If you add a new convo fixture here, make sure to update the conversations_count
 # in the appropiate user fixture
 #
-crossblaim_personal_convo:
-  name: "crossblaim personal convo"
-  description: "this is a personal convo for crossblaim"
-  personal_conversation: true
+crossblaim_convo:
+  name: "crossblaim convo"
+  description: "this is a convo for crossblaim"
   read_only: false
   private: false
   user: crossblaim
@@ -36,10 +35,9 @@ crossblaim_personal_convo:
   something: ""
   uuid: "a72ee27d-51e6-4b50-a6c9-38c08d544006"
   
-dmitry_personal_convo:
-  name: "dmitry personal convo"
-  description: "this is a personal convo for dmitry"
-  personal_conversation: true
+dmitry_convo:
+  name: "dmitry convo"
+  description: "this is a convo for dmitry"
   read_only: false
   private: false
   user: dmitry
@@ -48,10 +46,9 @@ dmitry_personal_convo:
   something: ""
   uuid: "12444b2b-318d-475e-b159-ac4954ead7dd"
   
-akira_personal_convo:
-  name: "akira personal convo"
-  description: "this is a personal convo for akira"
-  personal_conversation: true
+akira_convo:
+  name: "akira convo"
+  description: "this is a convo for akira"
   read_only: false
   private: false
   user: akira
@@ -63,7 +60,6 @@ akira_personal_convo:
 crossblaim_test_public_convo:
   name: "crossblaim test public convo"
   description: "this is a test public convo for crossblaim"
-  personal_conversation: false
   read_only: false
   private: false
   user: crossblaim
@@ -75,7 +71,6 @@ crossblaim_test_public_convo:
 crossblaim_test_private_convo:
   name: "crossblaim test private convo"
   description: "this is a test private convo for crossblaim"
-  personal_conversation: false
   read_only: false
   private: true
   user: crossblaim

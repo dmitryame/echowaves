@@ -2,13 +2,10 @@
   <h6><%= t("ui.followers") %>:</h6>
   <% @conversation.users.each do |u| %>
     <span class="user_label" id="follower_<%= u.id %>">
-	    <%if u.personal_conversation%>
 	      <% if current_user == @conversation.owner && @conversation.private? %>
 	        <em class="tag_controls"><%= link_to_remote "X", :url => remove_user_conversation_path(:user_id => u.id), :method => :post %></em>
 	      <% end %>
-	    	<%= link_to h(u.login), conversation_path(u.personal_conversation),:class => 'tip', 
-	    	:title => "personal convo for " + u.personal_conversation.name %>
-	    <%end%>
+	    	<%= link_to h(u.login), user_path(u) %>
 	  </span>	
   <% end %>
 </div>

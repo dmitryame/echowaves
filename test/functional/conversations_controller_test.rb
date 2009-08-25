@@ -155,7 +155,6 @@ class ConversationsControllerTest < ActionController::TestCase
       @convo = Factory.create( :conversation )
       @convos = [@convo]
       Conversation.expects( :non_private ).returns( @convos )
-      @convos.expects( :not_personal ).returns( @convos )
       @convos.expects( :paginate ).returns( @convos )
       @convos.stubs( :total_pages ).returns( 1 )
       @convos.stubs( :to_xml ).returns( 'XML' )

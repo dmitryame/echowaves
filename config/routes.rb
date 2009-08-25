@@ -6,10 +6,15 @@ ActionController::Routing::Routes.draw do |map|
   map.resource  :msgsearch, :only => [:show, :create]
   map.resource  :convosearch, :only => [:show, :create]
   map.resource  :usersearch, :only => [:show, :create]
-  map.resources :users, :member =>  { :tagged_convos => :get,
-                                      :followers => :get,
-                                      :followed_users => :get,
-                                      :followed_convos => :get
+  map.resources :users, :member =>  { :tagged_convos            => :get,
+                                      :friends                  => :get,
+                                      :followers                => :get,
+                                      :followed_users           => :get,
+                                      :followed_convos          => :get,
+                                      :follow                   => :post,
+                                      :unfollow                 => :post,
+                                      :follow_from_list         => :post,
+                                      :unfollow_from_list       => :post
                                     }
 
   map.resources :conversations, :collection => {:bookmarked => :get, :new_messages => :get}, :member => {

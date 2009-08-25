@@ -16,12 +16,12 @@ class FollowersNotificationTest < ActionController::IntegrationTest
       assert_response :success
       assert_equal "Conversation was successfully created.", flash[:notice]
       # the actual messages for this convo are requested in js after the page loads
-      get "/conversations/#{conversations(:dmitry_personal_convo).id}/messages/system_messages.json"    
+      get "/conversations/#{conversations(:dmitry_convo).id}/messages/system_messages.json"    
       assert_response :success
       #assert_match(/invites you to follow a convo\:/, @response.body)
       #assert_match(/>new crossblaim convo<\/a>/, @response.body)
       # the actual messages for this convo are requested in js after the page loads
-      get "/conversations/#{conversations(:akira_personal_convo).id}/messages/system_messages.json"
+      get "/conversations/#{conversations(:akira_convo).id}/messages/system_messages.json"
       assert_response :success
       #assert_match(/invites you to follow a convo\:/, @response.body)
       #assert_match(/>new crossblaim convo<\/a>/, @response.body)

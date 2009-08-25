@@ -32,10 +32,10 @@ class ConversationTest < ActiveSupport::TestCase
       @no_from_dmitry = Conversation.no_owned_by(users(:dmitry).id)
       assert_equal 2, @no_from_crossblaim.size
       assert_equal 4, @no_from_dmitry.size
-      assert @no_from_crossblaim.include?(conversations(:dmitry_personal_convo))
-      assert @no_from_crossblaim.include?(conversations(:akira_personal_convo))
-      assert @no_from_dmitry.include?(conversations(:crossblaim_personal_convo))
-      assert @no_from_dmitry.include?(conversations(:akira_personal_convo))
+      assert @no_from_crossblaim.include?(conversations(:dmitry_convo))
+      assert @no_from_crossblaim.include?(conversations(:akira_convo))
+      assert @no_from_dmitry.include?(conversations(:crossblaim_convo))
+      assert @no_from_dmitry.include?(conversations(:akira_convo))
       assert @no_from_dmitry.include?(conversations(:crossblaim_test_public_convo))
     end
   end
@@ -219,28 +219,6 @@ class ConversationTest < ActiveSupport::TestCase
       pre_size = ConversationVisit.all.length
       @conversation.add_visit(@user)
       assert_equal pre_size, ConversationVisit.all.length
-    end
-  end
-
-  context "Conversation#add_personal method" do
-    setup do
-      @user = Factory.create( :user )
-      @conversation = Conversation.add_personal( @user )
-      @user.reload
-    end
-
-    should "create a new personal conversation for the user" do
-      assert_equal 1, @user.conversations.size  
-      assert @conversation.description.include?("This is a personal conversation for #{@user.name}")
-    end
-
-    should "create a subscription to the new personal conversation for the user" do
-      assert_equal 1, @user.subscriptions.size
-      assert_equal @conversation, @user.subscriptions.first.conversation
-    end
-
-    should "respond to #personal?" do
-      assert @conversation.personal?
     end
   end
 

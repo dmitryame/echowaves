@@ -42,18 +42,15 @@ class Conversation < ActiveRecord::Base
     :order => "subscriptions.created_at DESC",
     :limit => 10
 
-  # do not validate the uniquness of the personal conversations names, they will be guaranteed to be unique since the user names will be
   validates_presence_of     :name
-  validates_uniqueness_of   :name,                       :unless => :personal? or :spawned?
-  validates_length_of       :name,    :within => 3..100, :unless => :personal?
+  validates_uniqueness_of   :name,                       :unless => :spawned?
+  validates_length_of       :name,    :within => 3..100
   validates_presence_of     :description
   validates_length_of       :description, :maximum => 10000
   validates_format_of       :something, :with => /^$/ # anti spam, honeypot field must be blank
   validates_presence_of     :uuid
   
   named_scope :non_private, :conditions => { :private => false }
-  named_scope :not_personal, :conditions => { :personal_conversation => false }
-  named_scope :personal, :conditions => { :personal_conversation => true }
   named_scope :no_owned_by, lambda { |user_id| { :conditions => ['conversations.user_id <> ?', user_id] }}
   
   # sphinx index
@@ -67,14 +64,14 @@ class Conversation < ActiveRecord::Base
   ##
   # class methods
   #
-  def self.add_personal(user)
-    name = user.name || user.login
-    desc = "This is a personal conversation for #{name}. If you wish to collaborate with #{name}, do it here."
-    convo = user.conversations.create(:name => user.login, :personal_conversation => true, :description => desc)
-    convo.tag_list.add("personal_convo")
-    convo.save
-    convo
-  end
+  # def self.add_personal(user)
+  #   name = user.name || user.login
+  #   desc = "This is a personal conversation for #{name}. If you wish to collaborate with #{name}, do it here."
+  #   convo = user.conversations.create(:name => user.login, :personal_conversation => true, :description => desc)
+  #   convo.tag_list.add("personal_convo")
+  #   convo.save
+  #   convo
+  # end
 
   def self.most_popular
     #conversations = ConversationVisit.find(:all, :conditions => ["updated_at >= ?", Date.today - 30.days ], :group => :conversation_id, :order => "visits_count DESC", :limit => 10).map { |convo_visit| convo_visit.conversation }          
@@ -116,10 +113,6 @@ class Conversation < ActiveRecord::Base
     self.owner == user || 
     ( !self.read_only && !self.private? ) ||
     ( self.private? && self.followed_by?(user) && !self.read_only )
-  end
-
-  def personal?
-    self.personal_conversation
   end
     
   def private?

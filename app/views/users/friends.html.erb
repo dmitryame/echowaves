@@ -2,10 +2,10 @@
 
 <%= render "user_links" %>
 
-<h6>Users following <%= @user.login %></h6>
+<h6>Friends of <%= @user.login %></h6>
 <div class="item">
 	<ul id="users_list">
-		<%= render :partial => 'user', :collection => @followers %>
+		<%= render :partial => 'user', :collection => @friends %>
 	</ul>
   <%= link_to t("ui.back"), users_path %>
 </div>

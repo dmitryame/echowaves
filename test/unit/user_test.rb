@@ -52,8 +52,6 @@ class UserTest < ActiveSupport::TestCase
     should_ensure_length_in_range :name, (0..100) 
           
     should_have_many :messages
-
-    should_belong_to :personal_conversation
     
     should "have subscriptions" do 
       @conversation1 = Factory.create(:conversation, :name => "converstaion1")
@@ -163,10 +161,6 @@ class UserTest < ActiveSupport::TestCase
       assert_match %r{<subscriptions-count}, @xml
     end
     
-    should "serialize the personal conversation id" do
-      assert_match %r{<personal-conversation-id}, @xml
-    end
-    
     should "serialize the time zone" do
       assert_match %r{<time-zone}, @xml
     end
@@ -247,12 +241,10 @@ class UserTest < ActiveSupport::TestCase
   context "#friend_of? method" do
     fixtures :users
     should "return true if user is a friend" do
-      # crossblaim follow dmitry
       assert users(:akira).friend_of?( users(:crossblaim) )
     end
     
     should "return false if user is not a friend" do
-      # crossblaim don't follow dmitry
       assert !users(:dmitry).friend_of?( users(:crossblaim) )
     end
   end

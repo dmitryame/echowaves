@@ -16,7 +16,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @conversations = @user.conversations.not_personal.paginate :page => params[:page], :order => 'created_at DESC', :per_page => 20
+    @conversations = @user.conversations.paginate :page => params[:page], :order => 'created_at DESC', :per_page => 20
     respond_to do |format|
       format.html
       format.xml  { render :xml => @user }
@@ -27,7 +27,7 @@ class UsersController < ApplicationController
   # followers, followed_users, followed_convos
   def followers
     @user = User.find(params[:id])
-    @followers_convos = @user.followers_convos
+    @followers = @user.followers
     respond_to do |format|
       format.html
       format.xml  { render :xml => @user }
@@ -36,7 +36,16 @@ class UsersController < ApplicationController
   
   def followed_users
     @user = User.find(params[:id])
-    @friends_convos = @user.friends_convos
+    @followed_users = @user.following
+    respond_to do |format|
+      format.html
+      format.xml  { render :xml => @user }
+    end
+  end
+  
+  def friends
+    @user = User.find(params[:id])
+    @friends = @user.friends
     respond_to do |format|
       format.html
       format.xml  { render :xml => @user }
@@ -45,12 +54,36 @@ class UsersController < ApplicationController
   
   def followed_convos
     @user = User.find(params[:id])
-    @conversations = @user.subscribed_conversations.not_personal.no_owned_by(@user.id).paginate :page => params[:page], :order => 'created_at DESC', :per_page => 20
+    @conversations = @user.subscribed_conversations.no_owned_by(@user.id).paginate :page => params[:page], :order => 'created_at DESC', :per_page => 20
     respond_to do |format|
       format.html
       format.xml  { render :xml => @user }
     end
   end
+  
+  
+  #----------------------------------------------------------------------------
+  def follow
+    @user = User.find(params[:id])
+    current_user.follow_user(@user)
+  end
+  
+  #----------------------------------------------------------------------------
+  def follow_from_list
+    follow
+  end
+  
+  #----------------------------------------------------------------------------
+  def unfollow
+    @user = User.find(params[:id])
+    current_user.unfollow_user(@user)
+  end
+
+  #----------------------------------------------------------------------------
+  def unfollow_from_list
+    unfollow
+  end
+  
   
   def tagged_convos
     @user = User.find(params[:id])
@@ -97,9 +130,8 @@ class UsersController < ApplicationController
 
   def update
     @user = current_user
-    @personal_conversation = @user.personal_conversation
     params[:user].delete(:login)
-    if @user.update_attributes(params[:user]) && @personal_conversation.update_attributes(params[:conversation])
+    if @user.update_attributes(params[:user])
       flash[:notice] = t("users.profile_updated")
       redirect_to user_path(current_user)
     else

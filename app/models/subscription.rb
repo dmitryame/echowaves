@@ -19,11 +19,7 @@ class Subscription < ActiveRecord::Base
   validates_presence_of :user_id, :conversation_id
   
   def new_messages_count
-    if self.conversation_id == user.personal_conversation_id
-      self.conversation.messages.count :conditions => ["id > ?", self.last_message_id]
-    else
-      self.conversation.messages.count :conditions => ["id > ? and system_message is FALSE", self.last_message_id]
-    end
+    self.conversation.messages.count :conditions => ["id > ? and system_message is FALSE", self.last_message_id]
   end
   
   def mark_read!

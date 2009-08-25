@@ -12,7 +12,6 @@ class HomeControllerTest < ActionController::TestCase
       user = Factory.create( :user )
       followers = [ Factory.create( :user ), Factory.create(:user) ]
       convo = Factory.create( :conversation )
-      user.stubs( :personal_conversation ).returns( convo )
       convo.stubs( :users ).returns( followers )
       User.expects( :find ).returns( [user] )
       

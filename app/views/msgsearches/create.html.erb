@@ -40,7 +40,7 @@
     			  	<%= link_to message.time_pretty,
     			   conversation_message_path(message.conversation, message), :title => message.date_pretty_long %> -
     			  </span>
-    			  <span class="username"><%=link_to h(message.user.login), conversation_path(message.user.personal_conversation), :class => 'tip', :title =>  "personal convo for #{message.user.login}" %></span>
+    			  <span class="username"><%=link_to h(message.user.login), user_path(message.user) %></span>
     			  <div class="messagelinks quiet small">
       			<% if logged_in? %>
       				<%= link_to_remote t("ui.report"), :url => report_conversation_message_path(message.conversation, message), :confirm => t("ui.reportconfirm") %>

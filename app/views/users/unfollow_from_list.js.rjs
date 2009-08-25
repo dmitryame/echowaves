@@ -1,0 +1,2 @@
+page.replace "follow_user_#{@user.id}", :partial => 'follow_from_list', :object => @user
+page["follow_user_#{@user.id}"].visual_effect :pulsate

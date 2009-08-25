@@ -14,7 +14,7 @@ class ConversationsController < ApplicationController
     if params[:tag] != nil
       @conversations = Conversation.tagged_with(params[:tag], :on => :tags).non_private.paginate :page => params[:page], :order => 'created_at DESC'
     else
-      @conversations = Conversation.non_private.not_personal.paginate :page => params[:page], :order => 'created_at DESC'
+      @conversations = Conversation.non_private.paginate :page => params[:page], :order => 'created_at DESC'
     end
     respond_to do |format|
       format.html
@@ -98,11 +98,12 @@ class ConversationsController < ApplicationController
         unless @conversation.private?
           if USE_WORKLING
             EchowavesWorker.asynch_invite_followers_to_new_convo(:user_id => current_user.id, :conversation_id => @conversation.id)
+            EchowavesWorker.asynch_force_followers_to_follow_new_convo(:user_id => current_user.id, :conversation_id => @conversation.id)
           else # painfully slow if the user has many followers
             #invite all my followers, if the convo is public
             current_user.followers.each do |u|
-              # next  if ( @conversation && @conversation.parent_message && personal_convo == @conversation.parent_message.conversation ) 
               u.invite @conversation, current_user
+              u.follow @conversation # force all my followers to follow my new convo
             end
           end
         end

@@ -1,5 +1,6 @@
-<%= link_to "#{@user.login} " + t("ui.convos") , user_path(@user), :class => 'button' %>
+<%= link_to "User Convos" , user_path(@user), :class => 'button' %>
 <%= link_to t("ui.followers"), followers_user_path(@user), :class => 'button' %>
 <%= link_to t("ui.followed_users"), followed_users_user_path(@user), :class => 'button' %>
+<%= link_to "Friends", friends_user_path(@user), :class => 'button' %>
 <%= link_to t("ui.followed_convos"), followed_convos_user_path(@user), :class => 'button' %>
 <div class="clear"></div>

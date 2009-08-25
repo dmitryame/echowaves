@@ -19,7 +19,7 @@ class LoginTest < ActionController::IntegrationTest
     end
     
     should "be redirected back to the convo crossblaim was reading before login" do
-      get "/conversations/#{conversations(:crossblaim_personal_convo).id}"
+      get "/conversations/#{conversations(:crossblaim_convo).id}"
       assert_response :success
       post_via_redirect "/user_session", :user_session => { :login => "crossblaim", :password => "secret" }
       assert_template "conversations/show.html.erb"

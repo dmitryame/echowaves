@@ -9,20 +9,20 @@ class RecentlyVisitedConvosTest < ActionController::IntegrationTest
       assert_response :success
       
       # this is the #1 convo crossblaim visit, the recently visited list should be empty 
-      goto_convo(:crossblaim_personal_convo)
+      goto_convo(:crossblaim_convo)
       assert_response :success
       assert_select "div#recently_visited>ul>li", 0
       
       # this is the #2 convo crossblaim visit, the recently visited list
       # should contain the previusly visited convo (crossblaim_personal_convo)
-      goto_convo(:dmitry_personal_convo)
+      goto_convo(:dmitry_convo)
       assert_response :success
       assert_select "div#recently_visited>ul>li", 1
       assert_select "div#recently_visited>ul>li", /crossblaim/
       
       # crossblaim visit again his personal convo, the recently visited list
       # should contain the previusly visited convo (dmitry_personal_convo)
-      goto_convo(:crossblaim_personal_convo)
+      goto_convo(:crossblaim_convo)
       assert_response :success
       assert_select "div#recently_visited>ul>li", 1
       assert_select "div#recently_visited>ul>li", /dmitry/

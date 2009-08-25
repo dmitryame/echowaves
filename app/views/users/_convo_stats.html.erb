@@ -11,8 +11,8 @@
   </div>
   
   <span class="username">
-	  <%=link_to h(@user.login), conversation_path(@user.personal_conversation) %>
-	  <%= render :partial => 'conversations/follow_from_list', :object => @user.personal_conversation %>
+	  <%=link_to h(@user.login), user_path(@user) %>
+	  <%= render :partial => 'users/follow_from_list', :object => @user %>
   </span>
 	
   <span class="userinfo">                                        

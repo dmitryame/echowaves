@@ -11,24 +11,24 @@
 #  created_at      :datetime
 #  updated_at      :datetime
 
-dmitry_follow_crossblaim:
+dmitry_follow_crossblaim_convo:
   user: dmitry
-  conversation: crossblaim_personal_convo
+  conversation: crossblaim_convo
   activated_at: <%= Time.now.to_s(:db) %>
   
-crossblaim_follow_akira:
+crossblaim_follow_akira_convo:
   user: crossblaim
-  conversation: akira_personal_convo
+  conversation: akira_convo
   activated_at: <%= Time.now.to_s(:db) %>
   
-akira_follow_dmitry:
+akira_follow_dmitry_convo:
   user: akira
-  conversation: dmitry_personal_convo
+  conversation: dmitry_convo
   activated_at: <%= Time.now.to_s(:db) %>
     
-akira_follow_crossblaim:
+akira_follow_crossblaim_convo:
   user: akira
-  conversation: crossblaim_personal_convo
+  conversation: crossblaim_convo
   activated_at: <%= Time.now.to_s(:db) %>
 
 crossblaim_follow_crossblaim_test_public_convo:
@@ -41,9 +41,9 @@ crossblaim_follow_crossblaim_test_private_convo:
   conversation: crossblaim_test_private_convo
   activated_at: <%= Time.now.to_s(:db) %>
   
-crossblaim_follow_crossblaim:
+crossblaim_follow_crossblaim_convo:
   user: crossblaim
-  conversation: crossblaim_personal_convo
+  conversation: crossblaim_convo
   activated_at: <%= Time.now.to_s(:db) %>
 
 akira_follow_crossblaim_test_private_convo:

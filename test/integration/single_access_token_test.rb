@@ -23,13 +23,13 @@ class SingleAccessTokenTest < ActionController::IntegrationTest
   context "posting a message" do
     
     should "don't post a message" do
-      post_via_redirect "/conversations/#{conversations(:dmitry_personal_convo).id}/messages", :message => { :message => 'no token, no message' }
+      post_via_redirect "/conversations/#{conversations(:dmitry_convo).id}/messages", :message => { :message => 'no token, no message' }
       assert_template "user_sessions/new.html.erb"
     end
     
     should "post a message" do
       %w(crossblaim dmitry akira).each do |u|
-        post_via_redirect "/conversations/#{conversations(:dmitry_personal_convo).id}/messages", :message => { :message => 'no token, no message' }, :user_credentials => users(u).single_access_token
+        post_via_redirect "/conversations/#{conversations(:dmitry_convo).id}/messages", :message => { :message => 'no token, no message' }, :user_credentials => users(u).single_access_token
         assert_template "conversations/show.html.erb"
         assert_response :success
         assert_equal 'no token, no message', Message.last.message

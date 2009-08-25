@@ -4,11 +4,8 @@
 
 <h6><%= @user.login %> is following these users</h6>
 <div class="item">
-	<div id="convos">
-		<ul class="list">
-			<%= render :partial => 'conversations/conversation',
-			          :collection => @friends_convos %>
-		</ul>
-	</div>
+	<ul id="users_list">
+		<%= render :partial => 'user', :collection => @followed_users %>
+	</ul>
   <%= link_to t("ui.back"), users_path %>
 </div>

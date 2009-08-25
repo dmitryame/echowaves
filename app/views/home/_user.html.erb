@@ -6,6 +6,6 @@
 	'<br/>' + user.conversations.size.to_s  + '&nbsp;' + t('ui.convos') +
 	'<br/>' + user.messages.size.to_s       + '&nbsp;' + t('ui.messages') +
 	'<br/>' + user.subscriptions.size.to_s  + '&nbsp;' + t("ui.following") +
-	'<br/>' + user.personal_conversation.users.size.to_s  + '&nbsp;' + t("ui.followers")
+	'<br/>' + user.followers.size.to_s      + '&nbsp;' + t("ui.followers")
 	%>
 </span>

@@ -216,8 +216,7 @@ class Message < ActiveRecord::Base
         :convos_started => user.conversations.size,
         :messages_posted => user.messages.size,
         :following => user.subscriptions.size,
-        :followers => user.followers.size,
-        :personal_convo_id => self.user.personal_conversation_id
+        :followers => user.followers.size
       }
     }
   end

@@ -44,13 +44,11 @@
     		'<br/>' + user.conversations.size.to_s  + '&nbsp;' + t('ui.convos') +
     		'<br/>' + user.messages.size.to_s       + '&nbsp;' + t('ui.messages') +
     		'<br/>' + user.subscriptions.size.to_s  + '&nbsp;' + t("ui.following") +
-    		'<br/>' + user.personal_conversation.users.size.to_s               + '&nbsp;' + t("ui.followers")
+    		'<br/>' + user.followers.size.to_s      + '&nbsp;' + t("ui.followers")
     		%>
     		</span>
         
-        <span class="username"><%=link_to h(user.login), conversation_path(user.personal_conversation), 
-    		  :class => 'tip', 
-    		  :title => "personal convo for " + user.login %>
+        <span class="username"><%=link_to h(user.login), user_path(user) %>
         	&#187;
         	<%= link_to_remote t("ui.invite"), :url => invite_from_list_conversation_path(@conversation, :user_id => user.id),
         	  :loading => "$('link_#{user.id}').hide();$('spinner_#{user.id}').show();",

@@ -1,5 +1,5 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-  "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
 
 <html lang="en">
 <head>
@@ -156,7 +156,54 @@
 		    <div id="messagesform">
 		      <div id="messagesform_padding">
 		        <span id="working" style="display:none;"><%= image_tag "/images/icons/waves.png" %></span>
-			      <div id="messageinputdiv"></div>
+			      <div id="messageinputdiv">
+			        
+			        
+			        
+			        <% if logged_in? && @conversation.writable_by?(current_user) %>
+                <% remote_form_for(:message,
+                  :update => 'messages', :position => 'bottom',
+                  :url => conversation_messages_path(@conversation),
+                  :loading => "$('message_message').value = '';$('message_attachment').value = '';$('message_message').style.height = '3em';$('message_message').focus();$('messages').setStyle('padding-bottom: 96px');",
+                  :complete => "$('working').fade({ duration: 0 });",
+                  # don't poll right now, and set the "after" value
+                  :before => "$('working').appear({ duration: 0 });",
+                  :condition => "$('message_message').value.strip().length > 0",
+                  :html => {:id => 'msgform'}) do |f| %>
+
+                  <p class="out_of_screen">
+                    <%= label_tag "important" %><input id="message_something" name="message[something]" onfocus="javascript:$('message_message').focus()" size="30" type="text" />
+                  </p>
+
+                  <p id="msgtextarea">        
+                    <%= f.text_area :message, :onkeyup => "FitToTextAndMoveMessagesUp(this, (document.viewport.getHeight() - 300));Misc.pageScroll();", :class => 'messageinput' %>  
+                  </p>
+
+                  <p id="msgcontrols">
+                    <%= submit_tag t("ui.send") %> <span class="mute"><%= t("ui.shift_enter") %></span>
+                  
+                    <%= link_to_function t("ui.attach_file"), :id => 'attachment_link' do |page|
+                      page[:attachment_form].show
+                      page[:attachment_link].hide
+                      page.textarea.sync('message_message','attch_message')
+                    end %>
+                  </p>
+                <% end %>
+              <% else %>
+                <% if logged_in? %>
+                  <h4 class="center"><%= t("conversations.this_is_an_read_only_convo") %></h4>
+                <% else %>
+                  <h4 class="center"><%= t("conversations.login_or_register_to_participate") %></h4>
+                <% end %>
+       		    <% end %>
+			        
+			        
+			        
+			        
+			        
+			        
+			        
+			      </div><!-- messageinputdiv -->
           </div><!-- messagesform_padding -->
         </div><!-- messagesform -->
       <% else %>
@@ -167,51 +214,52 @@
     <div id="sidebars" class="span-10 last">
       &nbsp;
       <div id="sidebars_container">
-	      
+	        
 			  <%= render :partial => 'messages/convo_controls' %>
-		
-        
-      	<ul id="convo_tabs" class="subsection_tabs span-10">  
-      		<li class="tab"><a href="#dashboard">dashboard</a></li>  
-      		<!-- <li class="tab"><a href="#tags">tags</a></li> -->
-      		<li class="tab"><a href="#followers">followers</a></li>
-      	</ul>
-      		
+		      
+        <ul id="convo_tabs" class="subsection_tabs span-10">  
+        	<li class="tab"><a href="#dashboard">dashboard</a></li>  
+        	<!-- <li class="tab"><a href="#tags">tags</a></li> -->
+        	<li class="tab"><a href="#followers">followers</a></li>
+        </ul>
+        		
 		    <div id="dashboard" class="span-10">
 		      <div  class="span-6">
 		        <%= render :partial => 'users/recently_visited' %>
 		        <%= render :partial => 'users/news' %>
 		      </div><!-- span-6 -->
+		      
 		      <div class="span-4 last">
 		        <div id="filters" class="item2 page">
-            	<h6><%= t("ui.messages") %>:</h6>
-            	<%= link_to t("ui.all"), conversation_path(@conversation)%><br/>
+              <h6><%= t("ui.messages") %>:</h6>
+              <%= link_to t("ui.all"), conversation_path(@conversation)%><br/>
               <%= link_to t("ui.with_files"), files_conversation_path(@conversation)%><br/>
               <%= link_to t("ui.with_images"), images_conversation_path(@conversation)%><br/>
               <%= link_to t("ui.system_messages"), system_messages_conversation_path(@conversation)%><br/>
             </div><!-- filters -->
-		        
+		          
 		        <%= render :partial => 'conversations/recent_followers' %>
 		        <%# render :partial => 'conversations/last_convo_tags' %>
 		      </div><!-- span-4 -->
 		    </div><!-- dashboard -->
-		    
-		    <!--
-		      # removed tags stuff
-		      <div id="tags"  class="span-10">
-		        <%# render :partial => 'conversations/convo_tags' %>
-          </div>
-        	-->
-        
+		      
+		      <!--
+		        # removed tags stuff
+		        <div id="tags"  class="span-10">
+		          <%# render :partial => 'conversations/convo_tags' %>
+            </div>
+          	-->
+          
         <div id="followers"  class="span-10">
 		      <%= render :partial => 'conversations/users_in_conversation' %>
         </div>
-        
+          
       </div><!-- sidebars_container -->
       
     </div><!-- sidebars -->
     
 	</div><!-- main_content -->
+	
 	<div id="footer_container"><%= render(:partial => "shared/footer") %></div>
 
 	<%#for now lets poll for new messages in conversations that are off the screen%>  

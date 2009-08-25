@@ -81,12 +81,11 @@ class SubscriptionTest < ActiveSupport::TestCase
   context "new messages counter" do
     setup do
       @user = Factory.create( :user )
-      @user_personal_convo = Factory.create( :conversation, :name => @user.login, :user => @user, :personal_conversation => true )
+      @user_convo = Factory.create( :conversation, :name => @user.login, :user => @user )
       @convo = Factory.create( :conversation )
-      @user.personal_conversation_id = @user_personal_convo.id
       
       @subscription = Factory.create( :subscription, :user => @user, :conversation => @convo )
-      @subscription_to_personal_convo = Subscription.find_by_user_id_and_conversation_id(@user.id, @user_personal_convo.id)
+      @subscription_to_convo = Subscription.find_by_user_id_and_conversation_id(@user.id, @user_convo.id)
     end
 
     should "return 0 if no messages at all" do
@@ -106,22 +105,6 @@ class SubscriptionTest < ActiveSupport::TestCase
       @subscription.mark_read!
       (1..5).each { Factory.create( :message, :conversation => @convo ) }
       assert_equal 5, @subscription.new_messages_count
-    end
-    
-    should "return count if new system messages exist in personal convo" do
-      assert_equal 0, @subscription_to_personal_convo.new_messages_count
-      msg1 = Factory.create( :message, :conversation => @user_personal_convo, :system_message => true )
-      @subscription_to_personal_convo.mark_read!
-      (1..5).each { Factory.create( :message, :conversation => @user_personal_convo, :system_message => false ) }
-      assert_equal 5, @subscription_to_personal_convo.new_messages_count
-    end
-    
-    should "return 0 if new system messages exist in no personal convos" do
-      assert_equal 0, @subscription.new_messages_count
-      msg1 = Factory.create( :message, :conversation => @convo, :system_message => true )
-      @subscription.mark_read!
-      (1..5).each { Factory.create( :message, :conversation => @convo, :system_message => true ) }
-      assert_equal 0, @subscription.new_messages_count
     end
     
   end

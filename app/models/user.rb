@@ -39,12 +39,7 @@ class User < ActiveRecord::Base
   acts_as_authentic do |c|
     c.transition_from_restful_authentication = true
   end
-  
-  belongs_to :personal_conversation, # personal users conversation
-    :class_name => "Conversation", 
-    :foreign_key => "personal_conversation_id"
-  
-  
+    
   has_many :messages
   has_many :client_applications
   has_many :tokens, :class_name => "OauthToken", :order => "authorized_at desc", :include => [:client_application]
@@ -57,6 +52,16 @@ class User < ActiveRecord::Base
            :source => :conversation,
            :order => "conversation_visits.updated_at DESC",
            :limit => 10
+  
+  has_many :friendships
+  has_many :friend_requests_by_me,  :foreign_key => :user_id,   :class_name => "Friendship"
+  has_many :friend_requests_for_me, :foreign_key => :friend_id, :class_name => "Friendship"
+  has_many :following,
+           :through => :friend_requests_by_me,
+           :source => :requested_for_me
+  has_many :followers,
+           :through => :friend_requests_for_me,
+           :source => :requested_by_me
   
   # sphinx index
   define_index do
@@ -78,7 +83,6 @@ class User < ActiveRecord::Base
   validates_uniqueness_of   :email
   validates_format_of       :email,    :with => EMAIL_REGEX, :message => "should look like an email address.".freeze
   validates_confirmation_of :email 
-  validates_uniqueness_of   :personal_conversation_id, :if => Proc.new { |u| !u.personal_conversation_id.blank? } 
   validates_format_of       :something, :with => /^$/ # anti spam, honeypot field must be blank
   
   named_scope :active, :conditions => "activated_at is not null"
@@ -95,33 +99,30 @@ class User < ActiveRecord::Base
     :order => "messages.id ASC",
     :limit => 12)
   end
-
-  # friends are the people you follow (you follow their personal convos)
-  # FIXME: we must fix the definition of friend because it does not looks right to me
+  
+  # friends system
+  # you can follow or be followed by other users
+  # if two users are mutually following each other, the two users become friends
+  def follow_user(user)
+    Friendship.create!(:user_id => self.id, :friend_id => user.id) unless user.id == self.id
+  end
+    
   def friends
-    self.friends_convos.map {|convo| convo.user}
+    (self.following & self.followers).uniq  
   end
   
-  # if user follow you, then you're friend of user.
-  # FIXME: we must fix the definition of friend because it does not looks right to me
-  def friend_of?(user)
-    friend = Subscription.first(:conditions => ['conversation_id = ? AND user_id = ?', self.personal_conversation_id, user.id])
-  end
-  
-  def friends_convos
-    self.subscribed_conversations.personal - [self.personal_conversation]
+  def unfollow_user(user)
+    Friendship.find(:first, :conditions => ['user_id = ? AND friend_id = ?', self.id, user.id] ).destroy
   end
 
-  # followers are the users that follow your personal convo
-  def followers
-    users = Subscription.all(:conditions => ['conversation_id = ?',self.personal_conversation_id], :include => :user).map {|s| s.user}
-    return users - [self]
+  def following?(friend)
+    self.following.include?(friend)
   end
   
-  def followers_convos
-    followers.map { |f| f.personal_conversation }
+  def friend_of?(friend)
+    self.following?(friend) and friend.following?(self)
   end
-  
+      
   def deliver_password_reset_instructions!
     reset_perishable_token!
     UserMailer.deliver_password_reset_instructions(self)
@@ -148,8 +149,8 @@ class User < ActiveRecord::Base
   def activate!
     self.activated_at = Time.now.utc
     # create initial personal conversation
-    conversation = Conversation.add_personal(self)
-    self.personal_conversation_id = conversation.id
+    # conversation = Conversation.add_personal(self)
+    # self.personal_conversation_id = conversation.id
     self.save
   end
 
@@ -247,13 +248,6 @@ class User < ActiveRecord::Base
       self.deliver_private_invite_instructions!(invite)      
     else
       self.deliver_public_invite_instructions!(invite)
-      # now let's create a system message and send it to the convo channel
-      # TODO: how to translate this for the invitee user?
-      msg = " invites you to follow a convo: <a href='/conversations/#{conversation.id}'>#{invite.conversation.name}</a>"
-      notification = invitee.messages.create( :conversation => self.personal_conversation, :message => msg)
-      notification.system_message = true
-      notification.save
-      notification.send_to_msg_broker
     end
   end
   

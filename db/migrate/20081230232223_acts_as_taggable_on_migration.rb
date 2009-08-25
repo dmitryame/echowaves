@@ -25,11 +25,6 @@ class ActsAsTaggableOnMigration < ActiveRecord::Migration
     add_index :taggings, :tag_id
     add_index :taggings, [:taggable_id, :taggable_type, :context]
     
-    #tag personal convols
-    Conversation.personal.each do |c|
-      puts c.name
-      c.user.tag(c, :with => "personal_convo", :on => :tags)
-    end
     Conversation.all.each do |c|
       puts c.name
       c.user.tag(c, :with => c.tag_list.to_s  + ", " + c.user.login, :on => :tags)      

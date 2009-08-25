@@ -9,11 +9,15 @@ class AddFriendshipsTable < ActiveRecord::Migration
     add_index :friendships, :friend_id
     
     Subscription.all.each do |s|
-      convo = Conversation.find(s.conversation_id)
-      if convo.personal_conversation
-        user = User.find(s.user_id)
-        user_to_follow = User.find(convo.user_id)
-        user.follow_user(user_to_follow) unless user.id == user_to_follow.id
+      begin
+        convo = Conversation.find(s.conversation_id)
+        if convo && convo.personal_conversation
+          user = User.find(s.user_id)
+          user_to_follow = User.find(convo.user_id)
+          user.follow_user(user_to_follow) unless user.id == user_to_follow.id
+        end
+      rescue
+        puts "convo #{s.conversation_id} for suscription #{s.id} does not exist"
       end
     end
     

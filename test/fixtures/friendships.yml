@@ -1,3 +1,14 @@
+# == Schema Info
+# Schema version: 20090825132952
+#
+# Table name: friendships
+#
+#  id         :integer(4)      not null, primary key
+#  friend_id  :integer(4)      not null
+#  user_id    :integer(4)      not null
+#  created_at :datetime
+#  updated_at :datetime
+
 dmitry_follow_crossblaim:
   requested_by_me: dmitry
   requested_for_me: crossblaim

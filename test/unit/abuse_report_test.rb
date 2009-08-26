@@ -1,5 +1,5 @@
 # == Schema Info
-# Schema version: 20090728125500
+# Schema version: 20090825132952
 #
 # Table name: abuse_reports
 #

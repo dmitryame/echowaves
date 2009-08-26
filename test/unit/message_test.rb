@@ -1,5 +1,5 @@
 # == Schema Info
-# Schema version: 20090728125500
+# Schema version: 20090825132952
 #
 # Table name: messages
 #
@@ -13,7 +13,7 @@
 #  attachment_height       :integer(4)
 #  attachment_width        :integer(4)
 #  delta                   :boolean(1)
-#  message                 :text
+#  message                 :text(16777215)
 #  message_html            :text
 #  something               :string(255)     default("")
 #  system_message          :boolean(1)

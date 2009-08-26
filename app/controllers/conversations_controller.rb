@@ -1,9 +1,10 @@
 class ConversationsController < ApplicationController
-  
-  before_filter :login_or_oauth_required, :except => [:index, :show, :auto_complete_for_conversation_name, :complete_name]                                            
-  before_filter :find_conversation, :except => [:bookmarked, :complete_name, :create, :spawn, :new, :index, :new_messages]
+
+  before_filter :login_or_oauth_required,
+    :except => [:index, :show, :auto_complete_for_conversation_name, :complete_name]
+  before_filter :find_conversation, 
+    :except => [:bookmarked, :complete_name, :create, :spawn, :new, :index, :new_messages]
   before_filter :check_read_access, :only => [:show]
-  
   after_filter :store_location, :only => [:show, :new]
   
   auto_complete_for :conversation, :name # multiple scopes can be chained like 'published.readonly'
@@ -51,17 +52,12 @@ class ConversationsController < ApplicationController
     @conversation = Conversation.new
     if params[:message_id]
       @message = Message.find(params[:message_id])
-
       if current_user.conversations.find_by_parent_message_id( @message.id )
         flash[:error] = t("conversations.already_spawned_warning")
         redirect_to conversation_path(@message.conversation_id)
         return
       end
-
       @conversation.parent_message_id = @message.id
-      @conversation.description = %Q(
-#{ t( "conversations.user_spawned_convo_description", :login => current_user.login, :original_message_link => conversation_message_url(@message.conversation_id, @message) ) }
-      )
     end
     respond_to do |format|
       format.html # new.html.erb
@@ -89,8 +85,6 @@ class ConversationsController < ApplicationController
           # now add the attachment markup to the copied message if the original message has an attachment
           copied_message.message_html = @conversation.parent_message.attachment_markup + copied_message.message_html if @conversation.parent_message.has_attachment?            
           copied_message.save
-        else # create a first message that is the same as the convo description
-          message = current_user.messages.create!( :conversation => @conversation, :message => @conversation.description)
         end
         
         # now let's create a system message and send it to the the creator's followers

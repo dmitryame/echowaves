@@ -23,3 +23,4 @@ attachments
 *.log
 coverage.data
 coverage/*
+*.swp

@@ -7,7 +7,6 @@
 #  parent_message_id   :integer(4)
 #  user_id             :integer(4)
 #  delta               :boolean(1)
-#  description         :text(16777215)
 #  messages_count      :integer(4)      default(0)
 #  name                :string(255)
 #  private             :boolean(1)
@@ -42,38 +41,23 @@ class Conversation < ActiveRecord::Base
     :limit => 10
 
   validates_presence_of     :name
-  validates_uniqueness_of   :name,                       :unless => :spawned?
-  validates_length_of       :name,    :within => 3..100
-  validates_presence_of     :description
-  validates_length_of       :description, :maximum => 10000
+  validates_uniqueness_of   :name,      :unless => :spawned?
+  validates_length_of       :name,      :within => 3..100
   validates_format_of       :something, :with => /^$/ # anti spam, honeypot field must be blank
   validates_presence_of     :uuid
-  
+
   named_scope :non_private, :conditions => { :private => false }
   named_scope :no_owned_by, lambda { |user_id| { :conditions => ['conversations.user_id <> ?', user_id] }}
-  
+
   # sphinx index
   define_index do
     indexes :name
-    indexes description
     has created_at
     set_property :delta => :delayed
   end
-  
-  ##
-  # class methods
-  #
-  # def self.add_personal(user)
-  #   name = user.name || user.login
-  #   desc = "This is a personal conversation for #{name}. If you wish to collaborate with #{name}, do it here."
-  #   convo = user.conversations.create(:name => user.login, :personal_conversation => true, :description => desc)
-  #   convo.tag_list.add("personal_convo")
-  #   convo.save
-  #   convo
-  # end
 
   def self.most_popular
-    #conversations = ConversationVisit.find(:all, :conditions => ["updated_at >= ?", Date.today - 30.days ], :group => :conversation_id, :order => "visits_count DESC", :limit => 10).map { |convo_visit| convo_visit.conversation }          
+    #conversations = ConversationVisit.find(:all, :conditions => ["updated_at >= ?", Date.today - 30.days ], :group => :conversation_id, :order => "visits_count DESC", :limit => 10).map { |convo_visit| convo_visit.conversation }
     #conversations
     Conversation.find(:all, :order => "posted_at DESC", :limit => 10)
   end
@@ -85,47 +69,43 @@ class Conversation < ActiveRecord::Base
     ConversationVisit.find(:first, :group => :conversation_id, :conditions => ["conversation_id = ?", self.id]).visits_count
   end
 
-  def owner 
+  def owner
     self.user
   end
-  
+
   def escaped_name
     escaped(self.name)
   end
 
-  def escaped_description
-    escaped(self.description)
-  end
-  
   def followed_by?(user)
     self.subscriptions.find_by_user_id( user.id ).nil? ? false : true
   end
-  
+
   def readable_by?(user)
     return false if user.blank?
     self.owner == user ||
     !self.private? ||
     self.followed_by?(user)
   end
-  
+
   def writable_by?(user)
     self.owner == user || 
     ( !self.read_only && !self.private? ) ||
     ( self.private? && self.followed_by?(user) && !self.read_only )
   end
-    
+
   def private?
     self.private
   end
-  
+
   def public?
     !self.private
   end
-  
+
   def spawned?
     !self.parent_message_id.nil?
   end
-      
+
   def add_visit(user)
     if cv = ConversationVisit.find_by_user_id_and_conversation_id(user.id, self.id)
       cv.increment!( :visits_count ) 
@@ -159,7 +139,7 @@ class Conversation < ActiveRecord::Base
   def messages_before(first_message_id)
     self.messages.published.find(:all, :include => [:user], :conditions => ["id < ?", first_message_id], :limit => 100, :order => 'id DESC')
   end
-  
+
   def has_messages_before?(first_message)
     return false if(first_message == nil)
     messages = self.messages.published.find(:first, :conditions => ["id < ?", first_message.id], :order => 'id DESC') 
@@ -169,39 +149,39 @@ class Conversation < ActiveRecord::Base
   def messages_after(last_message_id)
    self.messages.published.find(:all, :include => [:user], :conditions => ["id > ?", last_message_id], :limit => 100, :order => 'id ASC').reverse
   end
-  
+
   def has_messages_after?(last_message)
     return false if(last_message == nil)
-    messages = self.messages.published.find(:first, :conditions => ["id > ?", last_message.id], :order => 'id ASC') 
+    messages = self.messages.published.find(:first, :conditions => ["id > ?", last_message.id], :order => 'id ASC')
     messages ? true : false
   end
 
-  def after_create 
+  def after_create
     owner.follow(self)
-    self.user.tag(self, :with => self.tag_list.to_s  + ", " + self.user.login, :on => :tags)    
+    self.user.tag(self, :with => self.tag_list.to_s  + ", " + self.user.login, :on => :tags)
   end
-  
+
   def date_time12
     self.created_at.strftime '%m/%d/%Y %I:%M%p'
   end
-  
+
   def to_param
     "#{id}-#{name.parameterize}"
   end
-  
+
   def reset_uuid!
     generate_uuid
     self.save
   end
-  
+
   def generate_uuid
     self.uuid = UUID.create_v4.to_s
   end
-  
+
 private
 
   def escaped(value)
     value.gsub(/"/, '&quot;').gsub(/'/, '.').gsub(/(\r\n|\n|\r)/,' <br />')
   end
-  
+
 end

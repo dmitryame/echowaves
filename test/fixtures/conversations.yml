@@ -7,7 +7,6 @@
 #  parent_message_id   :integer(4)
 #  user_id             :integer(4)
 #  delta               :boolean(1)
-#  description         :text(16777215)
 #  messages_count      :integer(4)      default(0)
 #  name                :string(255)
 #  private             :boolean(1)
@@ -25,7 +24,6 @@
 #
 crossblaim_convo:
   name: "crossblaim convo"
-  description: "this is a convo for crossblaim"
   read_only: false
   private: false
   user: crossblaim
@@ -36,7 +34,6 @@ crossblaim_convo:
   
 dmitry_convo:
   name: "dmitry convo"
-  description: "this is a convo for dmitry"
   read_only: false
   private: false
   user: dmitry
@@ -47,7 +44,6 @@ dmitry_convo:
   
 akira_convo:
   name: "akira convo"
-  description: "this is a convo for akira"
   read_only: false
   private: false
   user: akira
@@ -58,7 +54,6 @@ akira_convo:
   
 crossblaim_test_public_convo:
   name: "crossblaim test public convo"
-  description: "this is a test public convo for crossblaim"
   read_only: false
   private: false
   user: crossblaim
@@ -69,7 +64,6 @@ crossblaim_test_public_convo:
   
 crossblaim_test_private_convo:
   name: "crossblaim test private convo"
-  description: "this is a test private convo for crossblaim"
   read_only: false
   private: true
   user: crossblaim

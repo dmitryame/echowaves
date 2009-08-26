@@ -209,7 +209,7 @@ class MessagesControllerTest < ActionController::TestCase
     setup do
       @u2 = Factory.create( :user )
       @c2 = Factory.create( :conversation, :user => @u2 )
-      Conversation.expects( :find ).with( @c2.id.to_s ).returns( @c2 )
+      Conversation.expects( :find ).returns( @c2 )
       Message.any_instance.stubs( :save ).returns( true )
     end
 

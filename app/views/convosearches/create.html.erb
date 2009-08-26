@@ -17,8 +17,6 @@
           <li>
             <%= link_to highlight(h(conversation.name), params[:q].split), conversation_path(conversation) %>
             <br/>
-            <%= highlight(conversation.escaped_description, params[:q].split) %>
-            <br/>
             <span class="quiet small"><%= conversation.date_time12 %></span>
           </li>
         <% end %>

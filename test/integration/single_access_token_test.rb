@@ -7,12 +7,12 @@ class SingleAccessTokenTest < ActionController::IntegrationTest
   end
   context "creating a convo" do
     should "don't create a convo" do
-      post_via_redirect "/conversations", :conversation => { :name => 'new crossblaim convo', :description => 'test convo'}
+      post_via_redirect "/conversations", :conversation => { :name => 'new crossblaim convo' }
       assert_template "user_sessions/new.html.erb"
     end
     
     should "create a convo" do
-      post_via_redirect "/conversations", :conversation => { :name => 'new crossblaim convo', :description => 'test convo'}, :user_credentials => users(:crossblaim).single_access_token
+      post_via_redirect "/conversations", :conversation => { :name => 'new crossblaim convo' }, :user_credentials => users(:crossblaim).single_access_token
       assert_template "conversations/show.html.erb"
       assert_response :success
       assert_equal "Conversation was successfully created.", flash[:notice]

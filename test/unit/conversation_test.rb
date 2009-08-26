@@ -7,7 +7,6 @@
 #  parent_message_id   :integer(4)
 #  user_id             :integer(4)
 #  delta               :boolean(1)
-#  description         :text(16777215)
 #  messages_count      :integer(4)      default(0)
 #  name                :string(255)
 #  private             :boolean(1)
@@ -46,7 +45,6 @@ class ConversationTest < ActiveSupport::TestCase
     subject { @conversation }
     
     should_validate_presence_of :uuid
-    should_validate_presence_of :name, :description
     should_validate_uniqueness_of :name
 
     should_have_db_index :name
@@ -224,7 +222,7 @@ class ConversationTest < ActiveSupport::TestCase
   context "A regular conversation instance" do
     setup do
       @user = Factory.create( :user )
-      @conversation = Factory.create( :conversation, :user => @user, :name => 'Convo name', :description => 'convo description' )
+      @conversation = Factory.create( :conversation, :user => @user, :name => 'Convo name' )
     end
 
     should "respond to #owner" do

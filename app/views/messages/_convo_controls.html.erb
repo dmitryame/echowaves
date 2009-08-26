@@ -3,7 +3,7 @@
   <div id="convos_links" class="padding5">
 	  <h4>
 	    <% if @conversation.private? %><%= image_tag("/images/icons/icono_candado.gif") %> <% end %>
-	  	<% if @conversation.read_only %><span class="highlight"><%= t("ui.read_only") %></span> <% end %><%= link_to h(@conversation.name), conversation_path(@conversation), :class => 'tip', :title => @conversation.escaped_description %>
+	  	<% if @conversation.read_only %><span class="highlight"><%= t("ui.read_only") %></span> <% end %><%= link_to h(@conversation.name), conversation_path(@conversation) %>
 	  </h4>
 	  
 	  <%= render :partial => 'conversations/star', :locals => { :conversation => @conversation } %>

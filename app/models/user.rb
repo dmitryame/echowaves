@@ -99,6 +99,15 @@ class User < ActiveRecord::Base
     :limit => 12)
   end
   
+  def self.find_by_id_or_username(user)
+    id = /^(\d+)-/.match(user)
+    if id
+      User.find(user)
+    else
+      User.find_by_login(user)
+    end
+  end
+
   # friends system
   # you can follow or be followed by other users
   # if two users are mutually following each other, the two users become friends

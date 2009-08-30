@@ -15,11 +15,16 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
-    @conversations = @user.conversations.paginate :page => params[:page], :order => 'created_at DESC', :per_page => 20
-    respond_to do |format|
-      format.html
-      format.xml  { render :xml => @user }
+    @user = User.find_by_id_or_username(params[:id])
+    if @user.blank?
+      flash[:error] = "Sorry but we can't find this user, may be you misspelled the name?"
+      redirect_to users_path
+    else
+      @conversations = @user.conversations.paginate :page => params[:page], :order => 'created_at DESC', :per_page => 20
+      respond_to do |format|
+        format.html
+        format.xml  { render :xml => @user }
+      end
     end
   end
   

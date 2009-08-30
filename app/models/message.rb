@@ -33,6 +33,7 @@ class Message < ActiveRecord::Base
     youtube(:width => 400, :height => 250)
     vimeo(:width => 400, :height => 250)
     google_video(:width => 400, :height => 250)
+    user
     # TODO: fix rendering of image urls
     # image
     link(:target => "_blank", :rel => "nofollow")

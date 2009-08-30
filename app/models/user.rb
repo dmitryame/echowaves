@@ -100,7 +100,7 @@ class User < ActiveRecord::Base
   end
   
   def self.find_by_id_or_username(user)
-    id = /^(\d+)-/.match(user)
+    id = /^(\d+)/.match(user.to_s)
     if id
       User.find(user)
     else

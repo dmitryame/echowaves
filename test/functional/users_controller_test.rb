@@ -57,7 +57,7 @@ class UsersControllerTest < ActionController::TestCase
     assert_template "users/index"
   end 
 
-  def test_should_find_and_return_user_on_show
+  def test_should_find_and_return_user_on_show_with_id
     user = Factory.create( :user )
     user.activate!    
     get :show, :id => user.id
@@ -65,7 +65,25 @@ class UsersControllerTest < ActionController::TestCase
     assert_response :success
     assert_template "users/show"
   end
-
+  
+  def test_should_find_and_return_user_on_show_with_id_plus_username
+    user = Factory.create( :user )
+    user.activate!    
+    get :show, :id => "#{user.id}-#{user.login}"
+    assert assigns( :user )
+    assert_response :success
+    assert_template "users/show"
+  end
+  
+  def test_should_find_and_return_user_on_show_with_username
+    user = Factory.create( :user )
+    user.activate!    
+    get :show, :id => user.login
+    assert assigns( :user )
+    assert_response :success
+    assert_template "users/show"
+  end
+  
   def test_should_return_new_blank_user_on_new 
     get :new
     assert assigns( :user )

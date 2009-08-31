@@ -193,6 +193,9 @@ margin:0 auto;background:#151110;
   -webkit-border-radius: 10px;
 	margin-bottom:10px;
 }
+.balloon div form {
+	margin:10px 0px 0px 0px;
+}
 .balloon h1 {margin:0;}
 .balloon .avatar {float:left;}
 .balloon .username {padding-left:70px;display:block;font-size:130%;}
@@ -267,6 +270,9 @@ textarea:focus, input[type='text']:focus, input[type='password']:focus, select:f
 .list li {
   border-bottom:1px dashed #ccc;
   padding:10px 0;
+}
+.list li.conversation h3 {
+	margin:0;
 }
 
 .pagination {

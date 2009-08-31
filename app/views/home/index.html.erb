@@ -12,11 +12,11 @@
 	</h2>
 </div>
 
-<div id="main_description">
+<div id="main_description" class="wbox round padding">
  <%= t("home.index.p1") %> <%= link_to t("ui.echowaves_conversation"), conversation_path(HOME_CONVERSATION), :action => "index" -%>.
 </div>
 
-<div id="test_convo_description">
+<div id="test_convo_description" class="wbox round center padding">
  <%= t("home.index.p3") %> <%= link_to t("ui.test_conversation"), conversation_path(TEST_CONVERSATION), :action => "index" -%>.
 </div>
 
@@ -32,7 +32,7 @@
 		<%= render :partial => 'users/recently_visited' %>
 	</div></div>
 
-	<div id="recentl_news" class = "span-6 last"><div class="padding">
+	<div id="recentl_news" class = "span-6 last round wbox"><div class="padding">
 		<%= render :partial => 'users/news' %>
 	</div></div>
 <%end%>

@@ -199,6 +199,7 @@ margin:0 auto;background:#151110;
   background:#b3e4ef;
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
+	margin-bottom:10px;
 }
 .balloon h1 {margin:0;}
 .balloon .avatar {float:left;}

@@ -155,6 +155,10 @@ class UserTest < ActiveSupport::TestCase
     should "serialize the name" do
       assert_match %r{<name>}, @xml
     end
+
+    should "serialize the about info" do
+      assert_match %r{<about>}, @xml
+    end
     
     should "serialize the subscriptions count" do
       assert_match %r{<subscriptions-count}, @xml

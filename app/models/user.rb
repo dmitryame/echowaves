@@ -29,7 +29,9 @@ class User < ActiveRecord::Base
   
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
-  attr_accessible :name, :password, :password_confirmation, :time_zone, :something, :receive_email_notifications
+  attr_accessible :name, :password, :password_confirmation, :time_zone,
+                  :something, :receive_email_notifications, :about
+                  
   attr_accessor :email_confirmation
     
   is_gravtastic :size => 60, :rating => 'G', :default => "identicon" # "monsterid" or "identicon", or "wavatar"

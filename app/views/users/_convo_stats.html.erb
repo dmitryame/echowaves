@@ -25,4 +25,6 @@
   </span>
   <div class="clear"></div>
 </div>
-<div class="arrow">&nbsp;</div>
+<% unless @user.about.blank? %>
+  <div class="notice about"><%= @user.about %></div>
+<% end %>

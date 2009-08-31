@@ -15,7 +15,7 @@ class UserPageTest < ActionController::IntegrationTest
       assert_select 'div.balloon' do
         assert_select 'div.avatar'
         assert_select 'span.username', /crossblaim/
-        assert_select 'span.userinfo', "since: #{@crossblaim.date} | #{@crossblaim.conversations.size.to_s}&nbsp;Convos | #{@crossblaim.messages.size.to_s}&nbsp;Messages | #{@crossblaim.subscriptions.size.to_s}&nbsp;Following | #{@crossblaim.followers.size.to_s}&nbsp;Followers"
+        assert_select 'span.userinfo', "since: #{@crossblaim.date} | #{@crossblaim.conversations.size.to_s}&nbsp;Convos | #{@crossblaim.messages.size.to_s}&nbsp;Messages | #{@crossblaim.following.size.to_s}&nbsp;Following | #{@crossblaim.followers.size.to_s}&nbsp;Followers"
       end
     end
     

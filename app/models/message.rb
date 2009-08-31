@@ -216,7 +216,7 @@ class Message < ActiveRecord::Base
         :since => self.user.date,
         :convos_started => user.conversations.size,
         :messages_posted => user.messages.size,
-        :following => user.subscriptions.size,
+        :following => user.following.size,
         :followers => user.followers.size
       }
     }

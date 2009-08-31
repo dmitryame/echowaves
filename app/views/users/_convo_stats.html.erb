@@ -19,7 +19,7 @@
     <%= t("users.since") + " " + @user.date   + ' | ' +
       @user.conversations.size.to_s  + '&nbsp;' + t('ui.convos')    + ' | ' +
       @user.messages.size.to_s       + '&nbsp;' + t('ui.messages')  + ' | ' +
-      @user.subscriptions.size.to_s  + '&nbsp;' + t("ui.following") + ' | ' +
+      @user.following.size.to_s  + '&nbsp;' + t("ui.following") + ' | ' +
 	    @user.followers.size.to_s + '&nbsp;' + t("ui.followers")
  	  %>
   </span>

@@ -133,7 +133,7 @@ p {margin-bottom:10px;}
   -webkit-border-radius: 5px;
   background:#fff;
 }
-#recently_visited {
+#default #recently_visited {
   margin-top:10px;
   margin-bottom:10px;
   -moz-border-radius: 5px;

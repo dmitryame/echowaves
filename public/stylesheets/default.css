@@ -5,8 +5,6 @@ html, body {margin:0;background:#d0e4eb;}
 .container .search_link {
   display: block;
   margin-bottom:5px;
-  background:#151110;
-  padding-left:20px;
   }
 .conversation_for_user {
   overflow:hidden;
@@ -186,12 +184,6 @@ margin:0 auto;background:#151110;
   padding:2px 6px;
   color:#fff;
 }
-#menu ul li a.search_link, #menu ul li a.search_link {
-  display: block;
-  background:#151515 url(/images/icons/magnifier.png) 2px 5px no-repeat;
-  padding-left:20px;
-}
-
 
 /* balloon */
 .balloon {
@@ -419,3 +411,25 @@ font-weight:bold;
 }
 .last-read {color:#fff;background:#f00 url("/images/icons/little-down-arrow.gif") right no-repeat;display:inline;font-weight:bold;padding:0 12px 0 5px;}
 .twitter_like_username {color:#3366cc;font-family:'Lucida Grande';}
+#menu ul li a.bookmarks_link {
+	background: url("/images/icons/star.png") left no-repeat;
+	padding-left: 18px;
+}
+.menu_separator {
+	color:#b3e4ef;
+	border-right:2px solid #b3e4ef;
+}
+#menu ul li.menu_avatar a:link, #menu ul li.menu_avatar a:visited {
+  display:block;
+  padding:2px 0px 2px 6px;
+  color:#fff;
+}
+
+#menu ul li.search form {
+  padding:0px 0px;
+  background:#d0e4eb;
+}
+#menu ul li.search form input {
+float:left;
+}
+

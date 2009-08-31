@@ -11,7 +11,7 @@
 				<li><%= link_to t("ui.logout"), logout_path %></li>
 				<li><%= link_to h(current_user.login), user_path(current_user) %>
 				</li>
-				<li>
+				<li class='menu_avatar'>
 					<%= link_to image_tag(current_user.gravatar_url, :border => 0, :alt => current_user.login, :width => 20, :height => 20),
 					user_path(current_user),
 					:class => 'tip', 
@@ -22,16 +22,19 @@
 				<li><%= link_to t("ui.login"), new_user_session_path %></li>
 				<li><%= link_to t("ui.signup"), new_user_path %></li>
 				<%end%>
-				<li>
+
+				<li class="search">
 				  <form method="get" id="sform" action="/msgsearch" class="search_link">
   					<input type="text" id="q" onfocus="if(document.getElementById('q').value == 'search messages') { document.getElementById('q').value = ''; }" value="search messages" name="q" size="15" style="color:#888;"/>
 					<%= image_submit_tag("/images/icons/magnifier.png")%>
+					<div class="clear"></div>
   				</form>
 				</li>
+
 				<li class="users"><%= link_to t('ui.users'), users_path %></li>
 				<li class="conversations"><%= link_to t('ui.conversations'), conversations_path %></li>
 				<% if logged_in? %>
-					<li><%= link_to image_tag("/images/icons/star.png"), bookmarked_conversations_path %></li>
+					<li><%= link_to "bookmarks", bookmarked_conversations_path, :class => 'bookmarks_link' %></li>
 				<%end%>
 			</ul>
 			<div class="multilingual">

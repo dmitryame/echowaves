@@ -433,3 +433,12 @@ font-weight:bold;
 float:left;
 }
 
+.multilingual {
+	float:left;
+	display:block;
+	margin-top:8px;
+	}
+.multilingual form {
+	margin:0;
+	padding:0;
+}

@@ -1,4 +1,9 @@
 <div class="notice">
+  <%= link_to t("ui.edit_profile"), edit_user_path(current_user), :class => 'button' %>
+  <div class="clear"></div>
+</div>
+
+<div class="notice">
   <%= link_to_function("show access token and email address", nil, :id => "show_token") do |page|
     page.visual_effect(:toggle_blind, 'api_key')
     page[:show_token].replace_html "show access token"

@@ -9,7 +9,6 @@
 				<li><%= link_to session[:sound]=="on" ? image_tag("/images/icons/sound-on.png") : image_tag("/images/icons/sound-off.png"), "?sound="+(session[:sound] == "on" ? "off" : "on") %></li>
 				<% if logged_in? %>
 				<li><%= link_to t("ui.logout"), logout_path %></li>
-				<li><%= link_to t("ui.edit_profile"), edit_user_path(current_user) %></li>
 				<li><%= link_to h(current_user.login), user_path(current_user) %>
 				</li>
 				<li>

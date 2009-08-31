@@ -22,7 +22,9 @@
 				<li><%= link_to t("ui.login"), new_user_session_path %></li>
 				<li><%= link_to t("ui.signup"), new_user_path %></li>
 				<%end%>
-
+        
+        <li style="color:#fff;font-size:15px;margin:0px 5px 0px 10px;">&#126;</li>
+				
 				<li class="search">
 				  <form method="get" id="sform" action="/msgsearch" class="search_link">
   					<input type="text" id="q" onfocus="if(document.getElementById('q').value == 'search messages') { document.getElementById('q').value = ''; }" value="search messages" name="q" size="15" style="color:#888;"/>

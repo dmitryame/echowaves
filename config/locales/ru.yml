@@ -123,6 +123,7 @@ ru:
     invite_followed_users: "пригласить следуемых пользователей"
     invite_all_followers: "пригласить всех моих последователей"        
     email_invites: "пригласить по имаилу"
+    about: "About you"
   conversations:
     go_to_conversation: "go to conversation"
     bookmarked_conversations: "bookmarked conversations"

@@ -36,21 +36,15 @@ html,body{background:#ccc;
 
 #attachment_form input{margin:0;padding:0;}
 #attachment_form form{margin:0;padding:0;}
-#footer {
-}
-#messagesform_arrow {
-  width:520px;
-  position:fixed;
-  bottom:122px;
-  background:url(/images/uparrow.png) bottom center no-repeat;
-  z-index:99;
-}
-#messagesform {
-  padding-top:20px;
-}
+
+#messagesform { padding-top:10px; }
+#messageinputdiv { padding-bottom:0px; }
+#messageinputdiv form { margin-bottom:0px; }
+#msgtextarea { margin:0; }
+#msgcontrols { margin:0; }
 #messages {
   background:#fff;
-  padding-bottom:96px;
+  padding-bottom:82px;
   border-right:2px solid #a7a7a7;
 }
 #messages_controls {

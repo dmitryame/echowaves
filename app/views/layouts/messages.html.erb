@@ -165,7 +165,7 @@
                 <% remote_form_for(:message,
                   :update => 'messages', :position => 'bottom',
                   :url => conversation_messages_path(@conversation),
-                  :loading => "$('message_message').value = '';$('message_attachment').value = '';$('message_message').style.height = '3em';$('message_message').focus();$('messages').setStyle('padding-bottom: 96px');",
+                  :loading => "$('message_message').value = '';$('message_attachment').value = '';$('message_message').style.height = '3em';$('message_message').focus();$('messages').setStyle('padding-bottom: 82px');",
                   :complete => "$('working').fade({ duration: 0 });",
                   # don't poll right now, and set the "after" value
                   :before => "$('working').appear({ duration: 0 });",

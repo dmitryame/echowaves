@@ -1,5 +1,8 @@
 <span>
-	<h5><% if popular_convo.private? %><%= image_tag("/images/icons/icono_candado.gif") %> <% end %><%= link_to h(popular_convo.name), conversation_path(popular_convo) %></h5>	
+	<h5>
+	  <% if popular_convo.private? %><%= image_tag("/images/icons/icono_candado.gif") %><% end %>
+	  <%= link_to h(popular_convo.name), conversation_path(popular_convo) %>
+	</h5>	
 	<span class="quiet small">
 	  <%= popular_convo.date_time12 %> -
 	  <%= pluralize popular_convo.messages.size, 'message' %> 

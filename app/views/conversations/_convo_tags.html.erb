@@ -2,7 +2,7 @@
 	<h6><%= t("ui.tagged_with") %>:</h6>
 	<%= render :partial => 'conversations/tag', :collection => @conversation.tag_taggings %>
 	<div class="clear"></div>
-	<%if current_user%>
+	<% if current_user %>
 		<% form_remote_tag(:url => {:controller => 'conversations', :action => 'add_tag', :id => @conversation.id}) do %>
 			<%= text_field_with_auto_complete :tag, :name -%>	  	
 			<%= submit_tag t("ui.add_tag") %> 

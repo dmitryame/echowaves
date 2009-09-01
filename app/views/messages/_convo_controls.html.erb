@@ -8,9 +8,9 @@
 	  
 	  <%= render :partial => 'conversations/star', :locals => { :conversation => @conversation } %>
     
-	  <%if @conversation.parent_message_id%>
+	  <% if @conversation.parent_message_id %>
 	    <%= link_to t("ui.back_to_parent"), conversation_path(@conversation.parent_message.conversation)%> &#187;
-	  <%end%>
+	  <% end %>
 	  
 	  <%= render :partial => 'conversations/follow', :object => @conversation %>
 	  

@@ -1,6 +1,7 @@
 <div id="col1" class="span-14">
   <%= flash_messages %>
 	<div class="page">
+    
     <div class="balloon">
       <h1><%= t("ui.search_conversations") %></h1>
       <div>
@@ -16,6 +17,7 @@
       <%= image_tag("/images/icons/redarrowup.png") %>
       <h3><%= t("ui.search_advice") %></h3>
     </div>
+    
   </div>
 </div>
 
@@ -25,7 +27,6 @@
       <div id="main_headline">
         <h1><%= t("home.index.headline1") %></h1>
       </div>
-      
       <div id="signup_headline">
         <h2><%= link_to t("ui.signup"), new_user_path, :class => "button" -%> <%= t("home.index.p2") %></h2>
       </div>
@@ -35,7 +36,6 @@
       <%= render :partial => 'users/recently_visited' %>
       <%= render :partial => 'users/news' %>
     </div>
-    
   </div>
 </div>
 

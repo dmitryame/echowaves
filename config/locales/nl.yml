@@ -11,6 +11,12 @@ nl:
         p3: "Klik op 'registeren' om een account te maken"
         feedback_advice: 'Als je een fout vindt of een suggestie wil doen, kun je dat doen op <a href="http://code.google.com/p/echowaves/issues/list">http://echowaves.googlecode.com/</a>'
   ui:
+    update_my_password_and_log_me_in: "Update my password and log me in"
+    change_my_password: "Change My Password"
+    forgot_password: "Forgot Password"
+    dashboard: dashboard
+    search_convos_for: "Search conversations for: \"{{string}}\""
+    loading_messages: "LOADING MESSAGES"
     all: "allemaal"
     with_files: "met bestanden"
     with_images: "met afbeeldingen"
@@ -150,3 +156,6 @@ nl:
   errors:
     sorry_this_is_a_private_convo: "Sorry, dit is een privé gesprek."
     only_the_owner_can_invite: "Alleen de eigenaar kan mensen uitnodigen"
+    something_went_wrong: "Something went wrong..."
+    sorry_this_is_a_private_convo: "Sorry, this is a private conversation"
+    no_response_text: "error, no response text"

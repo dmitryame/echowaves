@@ -5,17 +5,10 @@
 <div class="item">
   <% form_for(@conversation) do |f| %>
     <%= f.error_messages %>
-  
     <p class="out_of_screen"><%= label_tag "important" %><%= f.text_field :something %></p>
-  
-    <p>
-      <%= f.label t("ui.name") %><br />
-      <%= f.text_field :name %>
-    </p>
+    <p><%= f.label t("ui.name") %><br /><%= f.text_field :name %></p>
     <p><%= f.check_box :private %> <%= f.label t("ui.private_convo") %></p>
-    <p>
-      <%= f.submit t("ui.create") %>
-    </p>
+    <p><%= f.submit t("ui.create") %></p>
   <% end %>
   
   <%= link_to t("ui.back"), conversations_path %>

@@ -1,8 +1,9 @@
 <div id="col1" class="span-14">
   <%= flash_messages %>
 	<div class="page">
+	  
     <div class="balloon">
-      <h1>search conversations for: "<%= params[:q] %>"</h1>
+      <h1><%= t("ui.search_convos_for", :string => params[:q]) %></h1>
       <div>
         <% form_tag convosearch_path, :method => :get do %>
           <%= text_field_tag :q %>
@@ -21,7 +22,6 @@
           </li>
         <% end %>
       </ul>
-
       <div class="pagination"><%= will_paginate @conversations %></div>
     </div>
 

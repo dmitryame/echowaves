@@ -2,7 +2,10 @@
 
 <div id='messages'>
 	<div id="first_message"></div>
-  <div class="center" id="load-indicator"><div>LOADING MESSAGES</div><%= image_tag("/images/big_spinner.gif") %></div>
+  <div class="center" id="load-indicator">
+    <div><%= t("ui.loading_messages") %></div>
+    <%= image_tag("/images/big_spinner.gif") %>
+  </div>
 </div>
 
 <script>
@@ -10,13 +13,13 @@
     {
       method:'get',
       onSuccess: function(transport){
-        var response = transport.responseText || "error, no responseText";
+        var response = transport.responseText || '<%= t("errors.no_response_text") %>';
         var json = response.evalJSON();
         var html = new EJS({url: '/templates/chat.ejs'}).render(json);
         $('messages').insert({"bottom":html});
         $('load-indicator').hide();
         Misc.pageScroll();
       },
-      onFailure: function(){ alert('Something went wrong...') }
+      onFailure: function(){ alert('<%= t("errors.something_went_wrong") %>') }
     });
 </script>

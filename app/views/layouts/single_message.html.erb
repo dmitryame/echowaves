@@ -4,8 +4,8 @@
 <html lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<meta name="Description" content="<%=@message.message[0..60] + '-' + (session[:locale] ? session[:locale] : '') %>" >
-	<title><%=@message.message[0..60]-%> | message on EchoWaves (Social Group Chat) - <%= session[:locale]%></title>
+	<meta name="Description" content="<%= @message.message[0..60] + '-' + (session[:locale] ? session[:locale] : '') %>" >
+	<title><%= @message.message[0..60] -%> | message on EchoWaves (Social Group Chat) - <%= session[:locale]%></title>
   <link rel="shortcut icon" href="/favicon.ico" />
  	
   <link rel="stylesheet" href="/stylesheets/screen.css" type="text/css" media="screen, projection">
@@ -34,7 +34,7 @@
 
 	<div id="footer_container"><%= render(:partial => "shared/footer") %></div>
 	
-  <%#do not remove rhis scrips tag, used by google stats, ie6 detector, etc...%>
+  <%#do not remove this scrips partial, used by google stats, ie6 detector, etc...%>
   <%#----------------------------------------------------------------------------%>
   <%= render :partial => "shared/scripts"%>
 </body>

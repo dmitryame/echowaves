@@ -29,7 +29,7 @@
 	  
 		<div id="col1" class="span-14">
 		  <div class="page">
-	        <%= flash_messages %>
+	      <%= flash_messages %>
  		    <%= yield  %>
  		  </div>
 		</div>
@@ -61,7 +61,7 @@
 		:frequency => UPDATE_NEW_MESSAGES_FREQUENCY*5, :complete => 'ShowUnreadMessagesInFLuidapp();' %> 
 	
 
-  <%#do not remove rhis scrips tag, used by google stats, ie6 detector, etc...%>
+  <%#do not remove this scrips partial, used by google stats, ie6 detector, etc...%>
   <%#----------------------------------------------------------------------------%>
   <%= render :partial => "shared/scripts"%>
 </body>

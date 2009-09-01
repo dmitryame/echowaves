@@ -11,6 +11,12 @@ en:
       p3: "Take it for a spin, post messages to our "
       feedback_advice: 'If you find an issue or would like to make a suggestion on what functionality you would like to see in echowaves, you can do it at <a href="http://code.google.com/p/echowaves/issues/list">http://echowaves.googlecode.com/</a>'
   ui:
+    update_my_password_and_log_me_in: "Update my password and log me in"
+    change_my_password: "Change My Password"
+    forgot_password: "Forgot Password"
+    dashboard: dashboard
+    search_convos_for: "Search conversations for: \"{{string}}\""
+    loading_messages: "LOADING MESSAGES"
     all: "all"
     with_files: "with files"
     with_images: "with images"
@@ -152,3 +158,6 @@ en:
   errors:
     sorry_this_is_a_private_convo: "Sorry, this is a private conversation. You can try anoter one"
     only_the_owner_can_invite: "Only the owner of this conversation can invite other users"
+    something_went_wrong: "Something went wrong..."
+    sorry_this_is_a_private_convo: "Sorry, this is a private conversation"
+    no_response_text: "error, no response text"

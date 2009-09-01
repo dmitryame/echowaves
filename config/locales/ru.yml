@@ -11,6 +11,12 @@ ru:
       p3: "Убедитесь сами, напишите в пробный разговор "
       feedback_advice: 'Если найдете проблеммы или хотите поделиться своим мнением, это можно сделать здесь <a href="http://code.google.com/p/echowaves/issues/list">http://echowaves.googlecode.com/</a>'
   ui:
+    update_my_password_and_log_me_in: "Update my password and log me in"
+    change_my_password: "Change My Password"
+    forgot_password: "Forgot Password"
+    dashboard: dashboard
+    search_convos_for: "Search conversations for: \"{{string}}\""
+    loading_messages: "LOADING MESSAGES"
     all: "все"
     with_files: "с файлы"
     with_images: "с картинки"
@@ -152,3 +158,6 @@ ru:
   errors:
     sorry_this_is_a_private_convo: "Извините, Этот разговор закрыт."
     only_the_owner_can_invite: "Только владелец этого разговора может приглашать других пользователей"
+    something_went_wrong: "Something went wrong..."
+    sorry_this_is_a_private_convo: "Sorry, this is a private conversation"
+    no_response_text: "error, no response text"

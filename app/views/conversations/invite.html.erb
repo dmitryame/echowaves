@@ -1,31 +1,31 @@
 <div class="balloon">
 	<h1><%= link_to @conversation.name , conversation_path(@conversation) %></h1>
 </div>
+
 <div>
 	<h2>
-		<%= t("users.email_invites")%>
-		
+		<%= t("users.email_invites")%>		
 		<% form_remote_tag :url => invite_via_email_conversation_path(@conversation), :loading => "$('spinner_1').show();" do %> 
 			<%= text_area :emails, {}, :cols => 30, :rows => 3 %>
 			<%= submit_tag t("ui.invite") %> 
-		<% end %> 
-      	<%= image_tag "/images/icons/spinner.gif", :style => 'display:none;', :id => "spinner_1" %>
-		
-		
+		<% end %>
+    <%= image_tag "/images/icons/spinner.gif", :style => 'display:none;', :id => "spinner_1" %>
 	</h2>
 </div>
+
 <hr/>
+
 <div>
 	<h2>
 		<%= link_to_remote t("users.invite_all_followers"), :url => invite_all_my_followers_conversation_path(@conversation),
    		  :confirm => t("users.invite_all_followers") + "?",
 		    :loading => "$('spinner_0').show();",
     	  :method => :post %>	
-      	<%= image_tag "/images/icons/spinner.gif", :style => 'display:none;', :id => "spinner_0" %>
+    <%= image_tag "/images/icons/spinner.gif", :style => 'display:none;', :id => "spinner_0" %>
 	</h2>
 </div>
-<hr/>
 
+<hr/>
 
 <div class="balloon">
 	<h2><%= t("users.invite_followed_users") %></h2>
@@ -34,34 +34,29 @@
 <div class="item">
   <ul id="users_list">
     <% @friends.each do |user|%>
-	    
 	    <li id="<%=dom_id user%>">
     		<span class="avatar">
     		  <%= link_to image_tag(user.gravatar_url, :border => 0, :width => 40, :height => 40, :class => "avatar", :alt => user.login), user_path(user),
-    		  :class => 'tip', 
-    		  :title =>  t("users.since") + user.date  + 
-    		'<br/>' + user.conversations.size.to_s  + '&nbsp;' + t('ui.convos') +
-    		'<br/>' + user.messages.size.to_s       + '&nbsp;' + t('ui.messages') +
-    		'<br/>' + user.subscriptions.size.to_s  + '&nbsp;' + t("ui.following") +
-    		'<br/>' + user.followers.size.to_s      + '&nbsp;' + t("ui.followers")
-    		%>
+    		    :class => 'tip', 
+    		    :title =>  t("users.since") + user.date  + 
+    		      '<br/>' + user.conversations.size.to_s  + '&nbsp;' + t('ui.convos') +
+    		      '<br/>' + user.messages.size.to_s       + '&nbsp;' + t('ui.messages') +
+    		      '<br/>' + user.subscriptions.size.to_s  + '&nbsp;' + t("ui.following") +
+    		      '<br/>' + user.followers.size.to_s      + '&nbsp;' + t("ui.followers")
+    		  %>
     		</span>
-        
-        <span class="username"><%=link_to h(user.login), user_path(user) %>
-        	&#187;
+        <span class="username">
+          <%=link_to h(user.login), user_path(user) %> &#187;
         	<%= link_to_remote t("ui.invite"), :url => invite_from_list_conversation_path(@conversation, :user_id => user.id),
         	  :loading => "$('link_#{user.id}').hide();$('spinner_#{user.id}').show();",
         	  :html => {:id => "link_#{user.id}"},
         	  :method => :post %>
         	<%= image_tag "/images/icons/spinner.gif", :style => 'display:none;', :id => "spinner_#{user.id}" %>
         </span>
-        
-        
         <span class="user_real_name">
           <%= user.name unless user.name == user.login %>
         </span>
       </li>
-      
 	  <%end%>
   </ul>
   <div class="clear"></div>

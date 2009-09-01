@@ -2,6 +2,8 @@
 	<%= link_to tag.tag, conversations_path(:tag => tag.tag.to_s) -%>
   <%#= tag.tag.to_s -%>
   <% if logged_in? && tag.tagger_id == current_user.id %>
-		<em class="tag_controls"><%= link_to_remote 'x', :url => {:controller => 'conversations', :action => 'remove_tag', :id => @conversation.id, :tag => tag.tag.to_s}, :confirm => t("ui.confirm_remove_tag") %></em>
+		<em class="tag_controls">
+		  <%= link_to_remote 'x', :url => {:controller => 'conversations', :action => 'remove_tag', :id => @conversation.id, :tag => tag.tag.to_s}, :confirm => t("ui.confirm_remove_tag") %>
+		</em>
 	<% end %>
 </span>

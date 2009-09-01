@@ -28,13 +28,16 @@
 <%= render :partial => 'recently_joined'%>	
 
 <% if logged_in? %>
-	<div id="recently_visited" class = "span-6 last"><div class="padding">
-		<%= render :partial => 'users/recently_visited' %>
-	</div></div>
-
-	<div id="recentl_news" class = "span-6 last round wbox"><div class="padding">
-		<%= render :partial => 'users/news' %>
-	</div></div>
+	<div id="recently_visited" class = "span-6 last">
+	  <div class="padding">
+		  <%= render :partial => 'users/recently_visited' %>
+	  </div>
+	</div>
+	<div id="recentl_news" class = "span-6 last round wbox">
+	  <div class="padding">
+		  <%= render :partial => 'users/news' %>
+	  </div>
+	</div>
 <%end%>
 
 

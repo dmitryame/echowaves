@@ -11,6 +11,12 @@ pt-BR:
       p3: "Dê um giro e nos mande uma mensagem"
       feedback_advice: 'Se você encontrar alguma falha ou gostaria de mandar uma sugestão sobre qual funcionalidade você gostaria de ver no echowaves, você pode fazer isso <a href="http://code.google.com/p/echowaves/issues/list">http://echowaves.googlecode.com/</a>'
   ui:
+    update_my_password_and_log_me_in: "Update my password and log me in"
+    change_my_password: "Change My Password"
+    forgot_password: "Forgot Password"
+    dashboard: dashboard
+    search_convos_for: "Search conversations for: \"{{string}}\""
+    loading_messages: "LOADING MESSAGES"
     all: "todo"
     with_files: "com arquivos"
     with_images: "com imagens"
@@ -152,3 +158,6 @@ pt-BR:
   errors:
     sorry_this_is_a_private_convo: "Desculpe, essa á uma conversação privada. Você pode tentar uma outra"
     only_the_owner_can_invite: "Apenas os donos dessa conversação podem convidar novos usuários"
+    something_went_wrong: "Something went wrong..."
+    sorry_this_is_a_private_convo: "Sorry, this is a private conversation"
+    no_response_text: "error, no response text"

@@ -1,6 +1,8 @@
-<div id="recent_convos" class="span-9 round wbox"><div class="padding">
-	<h3><%= t("ui.recent_convos")-%>:</h3>
-	<%= render :partial => 'convo', :collection => @recent_convos %>	
-	<br/>
-	<%= link_to t("ui.view_all_convos"), conversations_path %>
-</div></div>
+<div id="recent_convos" class="span-9 round wbox">
+  <div class="padding">
+	  <h3><%= t("ui.recent_convos")-%>:</h3>
+	  <%= render :partial => 'convo', :collection => @recent_convos %>	
+	  <br/>
+	  <%= link_to t("ui.view_all_convos"), conversations_path %>
+  </div>
+</div>

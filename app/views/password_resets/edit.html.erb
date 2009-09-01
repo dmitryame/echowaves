@@ -1,6 +1,6 @@
 <div class="page">
 	<div class="balloon">
-    <h1>Change My Password</h1>
+    <h1><%= t("ui.change_my_password") %></h1>
   </div>
   
   <div class="item">
@@ -12,7 +12,7 @@
       <%= f.label :password_confirmation %><br />
       <%= f.password_field :password_confirmation %><br />
       <br />
-      <%= f.submit "Update my password and log me in" %>
+      <%= f.submit t("ui.update_my_password_and_log_me_in") %>
     <% end %>
   </div>
 </div>

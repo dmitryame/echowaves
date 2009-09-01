@@ -118,10 +118,8 @@
 
 <body id="messages_layout" onLoad="Misc.focusInput('message_message');stomp_function();">
 
-	<div id="header_container"><%= render(:partial => "shared/header") %></div>
-	
-	<div id="main_content" class="container">  
-		
+	<div id="header_container"><%= render(:partial => "shared/header") %></div>	
+	<div id="main_content" class="container">
 		<div id="col1" class="span-14">
 		  <%= flash_messages %>
   		<% if (logged_in? && @conversation.readable_by?(current_user)) || !@conversation.private? %>
@@ -130,26 +128,31 @@
   		  
   		  <div id="attachment_form" style="display:none">
   		    <div id="attachment_form_padding">
-    	    <%#this form is purely for attachments handling%>
-    	    <% form_for(:message, 
-    	    	:url  => { :controller => "messages", :action => "upload_attachment", :conversation_id => @conversation.id },
-    	      :html => { :multipart => true, :target => "upload_frame", :id => 'atchform' } ) do |f| %>
+    	      <%#this form is purely for attachments handling%>
+    	      <% form_for(:message, 
+    	    	    :url  => { :controller => "messages", :action => "upload_attachment", :conversation_id => @conversation.id },
+    	          :html => { :multipart => true, :target => "upload_frame", :id => 'atchform' } ) do |f| %>
     	        <%= f.file_field :attachment %>
     	    	  <input type="hidden" name="conversation_id" id="conversation_id" value="<%= @conversation.id %>">
     	    	  <p id="attach_msgtextarea">        
-                <%= f.text_area :message, :onkeyup => "FitToTextAndMoveMessagesUp(this, (document.viewport.getHeight() - 300));Misc.pageScroll();", :class => 'messageinput', :id => "attch_message" %>  
+                <%= f.text_area :message,
+                    :onkeyup => "FitToTextAndMoveMessagesUp(this, (document.viewport.getHeight() - 300));Misc.pageScroll();",
+                    :class => 'messageinput',
+                    :id => "attch_message" %>  
               </p>
-              <p class="out_of_screen"><%= label_tag "important" %><input id="message_something" name="message[something]" onfocus="javascript:$('attch_message').focus()" size="30" type="text" /></p>
+              <p class="out_of_screen">
+                <%= label_tag "important" %>
+                <input id="message_something" name="message[something]" onfocus="javascript:$('attch_message').focus()" size="30" type="text" />
+              </p>
     	    	  <%= submit_tag t("ui.attach") %>
     	    	  <%= link_to_function t("ui.cancel") do |page|
-                page[:attachment_form].hide
-                page[:attachment_link].show
-                page.textarea.sync('attch_message','message_message')
-                page[:atchform].reset
+                  page[:attachment_form].hide
+                  page[:attachment_link].show
+                  page.textarea.sync('attch_message','message_message')
+                  page[:atchform].reset
               end %>
-    	    <% end %>
-    	    
-    	    <iframe id="upload_frame" name="upload_frame" style="width:0px;height:0px;border:0px" src="about:blank"></iframe>
+    	      <% end %>
+    	      <iframe id="upload_frame" name="upload_frame" style="width:0px;height:0px;border:0px" src="about:blank"></iframe>
           </div><!-- attachment_form_padding -->
         </div><!-- attachment_form -->
         
@@ -157,9 +160,7 @@
 		      <div id="messagesform_padding">
 		        <span id="working" style="display:none;"><%= image_tag "/images/icons/waves.png" %></span>
 			      <div id="messageinputdiv">
-			        
-			        
-			        
+			               
 			        <% if logged_in? && @conversation.writable_by?(current_user) %>
                 <% remote_form_for(:message,
                   :update => 'messages', :position => 'bottom',
@@ -196,18 +197,13 @@
                   <h4 class="center"><%= t("conversations.login_or_register_to_participate") %></h4>
                 <% end %>
        		    <% end %>
-			        
-			        
-			        
-			        
-			        
-			        
+			        	        
 			        
 			      </div><!-- messageinputdiv -->
           </div><!-- messagesform_padding -->
         </div><!-- messagesform -->
       <% else %>
-  		  <h4 class="center">Sorry, this is a private conversation</h4>
+  		  <h4 class="center"><%= t("errors.sorry_this_is_a_private_convo") %></h4>
   		<% end %>
 		</div><!-- col1 -->
 		
@@ -218,9 +214,9 @@
 			  <%= render :partial => 'messages/convo_controls' %>
 		      
         <ul id="convo_tabs" class="subsection_tabs span-10">  
-        	<li class="tab"><a href="#dashboard">dashboard</a></li>  
+        	<li class="tab"><a href="#dashboard"><%= t("ui.dashboard") %></a></li>  
         	<!-- <li class="tab"><a href="#tags">tags</a></li> -->
-        	<li class="tab"><a href="#followers">followers</a></li>
+        	<li class="tab"><a href="#followers"><%= t("ui.followers") %></a></li>
         </ul>
         		
 		    <div id="dashboard" class="span-10">
@@ -266,7 +262,7 @@
 	<%= periodically_call_remote :url => {:controller => 'users', :action => 'update_news', :conversation_id => @conversation.id}, 
 		:frequency => UPDATE_NEW_MESSAGES_FREQUENCY, :complete => 'ShowUnreadMessagesInFLuidapp();' %>
   
-  <%#do not remove rhis scrips tag, used by google stats, ie6 detector, etc...%>
+  <%#do not remove this scrips partial, used by google stats, ie6 detector, etc...%>
   <%#----------------------------------------------------------------------------%>
   <%= render :partial => "shared/scripts"%>
 </body>

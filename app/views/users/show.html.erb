@@ -8,24 +8,26 @@
 
 <div class="item">
 	<div id="convos">
-    <% unless @conversations.blank? %>	  
-	    <%= will_paginate @conversations %>
+    <% if @conversations.blank? %>
+      <% if logged_in? && current_user == @user %>
+        <div class="notice">
+          <h3>Don't know what to do next?</h3>
+          <p>Here are some suggestions:</p>
+          <ul>
+            <li><%= link_to "start a new conversation", new_conversation_path %> and invite someone to participate</li>
+            <li><%= link_to "search for a conversation", conversations_path %> and chat with people</li>
+            <li><%= link_to "look for an existing user", users_path %></li>
+          </ul>
+          <p>If you need help, feel free to ask in our <%= link_to "EchoWaves conversation", conversation_path(HOME_CONVERSATION) %></p>
+        </div>
+      <% end %>	  
+		<% else %>
+      <%= will_paginate @conversations %>
 		  <ul class="list">
 		  	<%= render :partial => 'conversations/conversation',
 		  	          :collection => @conversations %>
 		  </ul>
 		  <%= will_paginate @conversations %>
-		<% else %>
-		  <div class="notice">
-	      <h3>Don't know what to do next?</h3>
-	      <p>Here are some suggestions:</p>
-	      <ul>
-	        <li><%= link_to "start a new conversation", new_conversation_path %> and invite someone to participate</li>
-	        <li><%= link_to "search for a conversation", conversations_path %> and chat with people</li>
-	        <li><%= link_to "look for an existing user", users_path %></li>
-	      </ul>
-	      <p>If you need help, feel free to ask in our <%= link_to "EchoWaves conversation", conversation_path(HOME_CONVERSATION) %></p>
-	    </div>
 	  <% end %>
 	</div>
 </div>

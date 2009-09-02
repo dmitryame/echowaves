@@ -1,9 +1,10 @@
 <div id="footer" class="container">
   <div id="connection_stat_data" class='tip'>
+    <span class="status_yellow tip">&nbsp;</span>
   </div>
 	<span>
 		&copy; 2009 ::
-		<%= t("footer.report_problems_or_abuse") %> <a href="mailto:webmaster@echowaves.com">webmaster@echowaves.com</a> ::
+		<a href="mailto:webmaster@echowaves.com">Contact us</a> ::
 		<%= link_to t('footer.terms_and_conditions'), :controller => "home", :action => "terms"-%> ::
 		<%= link_to "OAuth", oauth_clients_path %>
 		<% if logged_in? && DEV_TEAM.include?( current_user.login ) %>
@@ -11,7 +12,7 @@
 		  <% rev = rev.split.join("/") if rev.match(/commit/) %>
 		:: <%= link_to "git", "http://github.com/dmitryame/echowaves/#{ rev }", :title => "#{ rev }" %>
 		<% end %> ::
-	  <%= session[:sound]=="on" ? image_tag("/images/icons/sound-on.png", :height => 13) : image_tag("/images/icons/sound-off.png", :height => 13) %><%= link_to "toogle sound", "?sound="+(session[:sound] == "on" ? "off" : "on") %>
+	  <%= session[:sound]=="on" ? image_tag("/images/icons/sound-on.png", :height => 13) : image_tag("/images/icons/sound-off.png", :height => 13) %><%= link_to "Toogle sound", "?sound="+(session[:sound] == "on" ? "off" : "on") %>
 	</span>
 	<div id="new_convo_button" class="round">
 	  <%= link_to "start a new convo", new_conversation_path %>

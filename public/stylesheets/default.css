@@ -54,7 +54,7 @@ html, body {
   right: 10px;
   width: 10px;
   height: 10px;
-  border: 1px solid #335b61;
+  border: 1px solid #000000;
   background: #426467;
 }
 div.auto_complete {
@@ -533,9 +533,9 @@ ul.subsection_tabs li.tab a {
   -webkit-border-radius: 5px;
 }
 #new_convo_button {
-  float: right;
+  float: left;
   background: #cc3333 url("/images/icons/speech.jpg") 5px no-repeat;
   padding: 0 10px 0 25px;
-  margin-right: 30px;
   font-weight: bold;
+  margin-right: 10px;
 }

@@ -68,8 +68,8 @@ class Message < ActiveRecord::Base
   end
     
   named_scope :published,  :conditions => { :abuse_report_id => nil }
-  named_scope :with_file,  :conditions => ["attachment_content_type like ?","application%"]
-  named_scope :with_image, :conditions => ["attachment_content_type like ?",'image%']
+  named_scope :with_file,  :conditions => [ "attachment_content_type not like ?","image%" ]
+  named_scope :with_image, :conditions => [ "attachment_content_type like ?",'image%' ]
   named_scope :non_system, :conditions => [ "system_message = false" ]
   named_scope :system,     :conditions => [ "system_message = true" ]
   # sphinx index
@@ -83,7 +83,7 @@ class Message < ActiveRecord::Base
   end
           
   validates_attachment_size :attachment, :less_than => 5.megabytes
-  validates_attachment_content_type :attachment, :content_type => [ 'application/msword', 'application/pdf', 'application/x-pdf', 'application/x-download', 'application/rtf', 'text/plain', 'image/gif', 'image/jpeg', 'image/png', 'image/tiff', 'image/rgb', 'application/zip', 'application/x-gzip' ]
+  validates_attachment_content_type :attachment, :content_type => [ 'application/msword', 'application/pdf', 'application/x-pdf', 'application/rtf', 'text/plain', 'image/gif', 'image/jpeg', 'image/png', 'image/tiff', 'image/rgb', 'application/zip', 'application/x-gzip' ]
   validates_presence_of :user_id, :conversation_id, :message
   validates_format_of :something, :with => /^$/ # anti spam, honeypot field must be blank
     
@@ -96,22 +96,30 @@ class Message < ActiveRecord::Base
   def has_attachment?
     self.attachment.exists?
   end
-
+  
+  def attachment_type
+    mimetype = self.attachment_content_type
+    case mimetype
+    when /word/;  "doc"
+    when /pdf/;   "pdf"
+    when /rtf/;   "rtf"
+    when /text/;  "txt"
+    when /zip/;   "zip"
+    when /image/; "image"
+    else;         "unknow"
+    end
+  end
+  
   #----------------------------------------------------------------------------
-  def has_pdf?
-    has_attachment? and self.attachment_content_type.include?("pdf")
+  def has_file?
+    has_attachment? and self.attachment_type != "image"
   end
 
   #----------------------------------------------------------------------------
   def has_image?
     has_attachment? and self.attachment_content_type.include?("image")
   end
-
-  #----------------------------------------------------------------------------
-  def has_zip?
-    has_attachment? and self.attachment_content_type.include?("zip")
-  end
-  
+    
   #----------------------------------------------------------------------------
   def over_abuse_reports_limit?
     self.abuse_reports.size > MESSAGE_ABUSE_THRESHOLD
@@ -189,8 +197,7 @@ class Message < ActiveRecord::Base
         :system => self.system_message,
         :has_attachment => self.has_attachment?,
         :has_image => self.has_image?,
-        :has_pdf => self.has_pdf?,
-        :has_zip => self.has_zip?
+        :has_file => self.has_file?
       },
       :message => {
         :id => self.id,
@@ -203,7 +210,8 @@ class Message < ActiveRecord::Base
         :image_url => self.has_image? ? self.attachment.url(:big) : nil,
         :url => self.has_attachment? ? self.attachment.url : nil,
         :height => self.has_image? ? self.attachment_height : nil,
-        :width => self.has_image? ? self.attachment_width : nil
+        :width => self.has_image? ? self.attachment_width : nil,
+        :type => self.has_attachment? ? self.attachment_type : "none"
       },
       :convo => {
         :id => self.conversation_id,
@@ -244,10 +252,8 @@ class Message < ActiveRecord::Base
   def attachment_markup
     if self.has_image?
       %Q( <div class="img_attachment"><a href="#{self.attachment.url}" style="display:block;height:#{self.attachment_height+40}px;width:#{self.attachment_width+40}px;"><img src="#{self.attachment.url(:big)}" alt="#{self.message}" height="#{self.attachment_height}" width="#{self.attachment_width}" /></a></div> )
-    elsif self.has_pdf?
-      %Q( <div class="file_attachment"><a href="#{self.attachment.url}" style="display:block;height:100px;"><img src="/images/icons/pdf_large.jpg" alt="PDF Document" height="100" /></a></div> )
-    elsif self.has_zip?
-      %Q( <div class="file_attachment"><a href="#{self.attachment.url}" style="display:block;height:99px;"><img src="/images/icons/zip_large.jpg" alt="ZIP File" height="99" /></a></div> )
+    elsif self.has_file?
+      %Q( <div class="file_attachment"><a href="#{self.attachment.url}" style="display:block;height:100px;"><img src="/images/icons/#{self.attachment_type}_large.jpg" alt="#{self.attachment_type}" height="100" /></a></div> )
     end
   end
   

@@ -297,7 +297,7 @@ select:focus {
   z-index: 100;
   width: 100%;
   padding: 0;
-  border-top: 1px solid #335b61;
+  border-top: 1px solid #000000;
   color: #ffffff;
 }
 #footer_container a:link { color: #ffffff; }
@@ -534,7 +534,7 @@ ul.subsection_tabs li.tab a {
 }
 #new_convo_button {
   float: right;
-  background: #ff1111 url("/images/icons/speech.jpg") 5px no-repeat;
+  background: #cc3333 url("/images/icons/speech.jpg") 5px no-repeat;
   padding: 0 10px 0 25px;
   margin-right: 30px;
   font-weight: bold;

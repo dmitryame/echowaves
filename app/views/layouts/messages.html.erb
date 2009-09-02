@@ -180,14 +180,14 @@
                     <%= f.text_area :message, :onkeyup => "FitToTextAndMoveMessagesUp(this, (document.viewport.getHeight() - 300));Misc.pageScroll();", :class => 'messageinput' %>  
                   </p>
 
-                  <p id="msgcontrols">
-                    <%= submit_tag t("ui.send") %> <span class="mute"><%= t("ui.shift_enter") %></span>
-                  
+                  <p id="msgcontrols">                  
                     <%= link_to_function t("ui.attach_file"), :id => 'attachment_link' do |page|
                       page[:attachment_form].show
                       page[:attachment_link].hide
                       page.textarea.sync('message_message','attch_message')
                     end %>
+                     <span class="mute"><%= t("ui.shift_enter") %></span>
+                    <%= submit_tag t("ui.send") %>
                   </p>
                 <% end %>
               <% else %>

@@ -49,9 +49,10 @@ html, body {
   font-weight: strong;
 }
 #connection_stat_data {
-  position: fixed;
-  bottom: 5px;
-  right: 10px;
+  float: left;
+  margin-top: 3px;
+  margin-right: 10px;
+  display: block;
   width: 10px;
   height: 10px;
   border: 1px solid #000000;
@@ -533,9 +534,9 @@ ul.subsection_tabs li.tab a {
   -webkit-border-radius: 5px;
 }
 #new_convo_button {
-  float: left;
+  float: right;
   background: #cc3333 url("/images/icons/speech.jpg") 5px no-repeat;
   padding: 0 10px 0 25px;
   font-weight: bold;
-  margin-right: 10px;
 }
+#msgcontrols { text-align: right; }

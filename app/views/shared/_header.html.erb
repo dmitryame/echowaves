@@ -6,6 +6,25 @@
 	<div class="span-19 last">
 		<div id="menu">
 			<ul>
+			  <li class="multilingual">
+			  <% form_tag '', :method => :get do %>
+          <%= select_tag("locale", options_for_select([["English","en"], ["Español","es-ES"], ["Русский", "ru"], ["Português Br.","pt-BR"], ["Nederlands","nl"]],I18n.locale), { :index => nil, :onchange => 'this.form.submit()'}) %>
+        <% end %>
+        </li>
+        
+        <li style="color:#fff;font-size:15px;margin:0px 5px 0px 5px;">::</li>
+				
+        <li class="search">
+				  <form method="get" id="sform" action="/msgsearch" class="search_link">
+  					<input type="text" id="q" onfocus="if(document.getElementById('q').value == 'search messages') { document.getElementById('q').value = ''; }" value="search messages" name="q" size="15" style="color:#888;"/>
+					<%= image_submit_tag("/images/icons/magnifier.png")%>
+					<div class="clear"></div>
+  				</form>
+				</li>
+				
+				<li style="color:#fff;font-size:15px;margin:0px 5px 0px 5px;">::</li>
+        
+        
 				<% if logged_in? %>
 				<li><%= link_to t("ui.logout"), logout_path %></li>
 				<li><%= link_to h(current_user.login), user_path(current_user) %>
@@ -22,15 +41,9 @@
 				<li><%= link_to t("ui.signup"), new_user_path %></li>
 				<%end%>
         
-        <li style="color:#fff;font-size:15px;margin:0px 5px 0px 10px;">&#126;</li>
+        <li style="color:#fff;font-size:15px;margin:0px 5px 0px 5px;">::</li>
 				
-				<li class="search">
-				  <form method="get" id="sform" action="/msgsearch" class="search_link">
-  					<input type="text" id="q" onfocus="if(document.getElementById('q').value == 'search messages') { document.getElementById('q').value = ''; }" value="search messages" name="q" size="15" style="color:#888;"/>
-					<%= image_submit_tag("/images/icons/magnifier.png")%>
-					<div class="clear"></div>
-  				</form>
-				</li>
+
 
 				<li class="users"><%= link_to t('ui.users'), users_path %></li>
 				<li class="conversations"><%= link_to t('ui.conversations'), conversations_path %></li>
@@ -38,12 +51,9 @@
 					<li><%= link_to "bookmarks", bookmarked_conversations_path, :class => 'bookmarks_link' %></li>
 				<%end%>
 			</ul>
-			<div class="multilingual">
-			  <% form_tag '', :method => :get do %>
-          <%= select_tag("locale", options_for_select([["English","en"], ["Español","es-ES"], ["Русский", "ru"], ["Português Br.","pt-BR"], ["Nederlands","nl"]],I18n.locale), { :index => nil, :onchange => 'this.form.submit()'}) %>
-        <% end %>
-      </div>
 			<div class="clear"></div>
 		</div>
 	</div>
+	
+
 </div>

@@ -168,10 +168,7 @@ p { margin-bottom: 10px; }
   padding: 2px 0px 2px 6px;
   color: #ffffff;
 }
-#menu ul li.search form {
-  padding: 0px 0px;
-  background: #d0e4eb;
-}
+#menu ul li.search form { padding: 0px 0px; }
 #menu ul li.search form input { float: left; }
 .balloon {
   padding: 10px;
@@ -296,7 +293,7 @@ select:focus {
   position: fixed;
   bottom: 0;
   left: 0;
-  background: #426467;
+  background: #151110;
   z-index: 100;
   width: 100%;
   padding: 0;
@@ -527,11 +524,6 @@ ul.subsection_tabs li.tab a {
   color: #b3e4ef;
   border-right: 2px solid #b3e4ef;
 }
-.multilingual {
-  float: left;
-  display: block;
-  margin-top: 8px;
-}
 .multilingual form {
   margin: 0;
   padding: 0;
@@ -539,4 +531,13 @@ ul.subsection_tabs li.tab a {
 .round {
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
+}
+#new_convo_button {
+  float: right;
+  background: #ff1111 url("/images/icons/speech.jpg") 5px no-repeat;
+  padding: 0 10px 0 25px;
+  margin-right: 30px;
+  font-weight: bold;
+  border-right: 1px solid #000000;
+  border-bottom: 1px solid #000000;
 }

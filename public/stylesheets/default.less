@@ -207,7 +207,6 @@ p { margin-bottom:10px; }
 		}
 		li.search form {
 		  padding:0px 0px;
-		  background:@cyan;
 			input { float:left; }
 		}		
 	}
@@ -292,7 +291,7 @@ textarea:focus, input[type='text']:focus, input[type='password']:focus, select:f
   position:fixed;
   bottom:0;
   left:0;
-  background:#426467;
+  background:#151110;
   z-index:100;
   width:100%;
   padding:0;
@@ -466,14 +465,19 @@ font-weight:bold;
 	border-right:2px solid #b3e4ef;
 }
 
-.multilingual {
-	float:left;
-	display:block;
-	margin-top:8px;
-	form { margin:0; padding:0; }
-}
+.multilingual form { margin:0; padding:0; }
 
 .round {
 	-moz-border-radius: 5px;
   -webkit-border-radius: 5px;
+}
+
+#new_convo_button {
+	float:right;
+	background:#f11 url("/images/icons/speech.jpg") 5px no-repeat;
+	padding:0 10px 0 25px;
+	margin-right:30px;
+	font-weight:bold;
+	border-right:1px solid #000;
+	border-bottom:1px solid #000;
 }

@@ -83,7 +83,7 @@ class Message < ActiveRecord::Base
   end
           
   validates_attachment_size :attachment, :less_than => 5.megabytes
-  validates_attachment_content_type :attachment, :content_type => [ 'application/msword', 'application/pdf', 'application/x-pdf', 'application/x-download', 'application/rtf', 'image/gif', 'image/jpeg', 'image/png', 'image/tiff', 'image/rgb', 'application/zip', 'application/x-gzip' ]
+  validates_attachment_content_type :attachment, :content_type => [ 'application/msword', 'application/pdf', 'application/x-pdf', 'application/x-download', 'application/rtf', 'text/plain', 'image/gif', 'image/jpeg', 'image/png', 'image/tiff', 'image/rgb', 'application/zip', 'application/x-gzip' ]
   validates_presence_of :user_id, :conversation_id, :message
   validates_format_of :something, :with => /^$/ # anti spam, honeypot field must be blank
     

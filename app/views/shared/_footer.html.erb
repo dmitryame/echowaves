@@ -13,7 +13,7 @@
 	  <%= session[:sound]=="on" ? image_tag("/images/icons/sound-on.png", :height => 13) : image_tag("/images/icons/sound-off.png", :height => 13) %><%= link_to "Toogle sound", "?sound="+(session[:sound] == "on" ? "off" : "on") %>
 	</span>
 	<div id="new_convo_button" class="round">
-	  <%= link_to "start a new convo", new_conversation_path %>
+	  <%= link_to "start new convo", new_conversation_path %>
 	</div>
 	<div class="clear"></div>
 </div>

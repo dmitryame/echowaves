@@ -6,11 +6,7 @@
 	<div class="span-19 last">
 		<div id="menu">
 			<ul>
-			  <li class="multilingual">
-			  <% form_tag '', :method => :get do %>
-          <%= select_tag("locale", options_for_select([["English","en"], ["Español","es-ES"], ["Русский", "ru"], ["Português Br.","pt-BR"], ["Nederlands","nl"]],I18n.locale), { :index => nil, :onchange => 'this.form.submit()'}) %>
-        <% end %>
-        </li>
+
         
         <li style="color:#fff;font-size:15px;margin:0px 5px 0px 5px;">::</li>
 				

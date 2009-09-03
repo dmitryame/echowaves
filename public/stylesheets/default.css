@@ -49,15 +49,8 @@ html, body {
   font-weight: strong;
 }
 #connection_stat_data {
-  float: left;
-  margin-top: 3px;
-  margin-right: 10px;
-  display: block;
-  width: 10px;
-  height: 10px;
-  border: 1px solid #000000;
-  background: #426467;
-	overflow:hidden;
+  font-weight: bold;
+  font-size: 14px;
 }
 div.auto_complete {
   width: 340px;
@@ -306,18 +299,9 @@ select:focus {
 #footer_container a:visited { color: #ffffff; }
 #footer_container a:hover { color: #ffffff; }
 #footer_container a:active { color: #ffffff; }
-.status_yellow {
-  display: block;
-  background: #ffff33;
-}
-.status_green {
-  display: block;
-  background: #bcd784;
-}
-.status_red {
-  display: block;
-  background: #cc3333;
-}
+.status_yellow { color: #cccc33; }
+.status_green { color: #33cc33; }
+.status_red { color: #cc3333; }
 .list { list-style: none; }
 .list li {
   border-bottom: 1px dashed #cccccc;
@@ -526,7 +510,11 @@ ul.subsection_tabs li.tab a {
   color: #b3e4ef;
   border-right: 2px solid #b3e4ef;
 }
-.multilingual form {
+#multilingual {
+  float: left;
+  margin-right: 5px;
+}
+#multilingual form {
   margin: 0;
   padding: 0;
 }

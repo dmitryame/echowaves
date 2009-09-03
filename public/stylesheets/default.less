@@ -1,11 +1,14 @@
 // colors
-@cyan: 			#D0E4EB;
-@highlight: #FF8;
-@gray1: 		#EEE;
-@gray2: 		#999;
-@error:			#CC3333;
-@white: 		#FFF;
-@green:			#68BD53;
+@cyan: 					#D0E4EB;
+@highlight: 		#FF8;
+@gray1: 				#EEE;
+@gray2: 				#999;
+@error:					#CC3333;
+@white: 				#FFF;
+@green:					#68BD53;
+@status_green: 	#33cc33;
+@yellow: 				#cccc33;
+@red: 					#cc3333;
 
 html, body {
 	margin:0;
@@ -61,15 +64,8 @@ html, body {
 }
 
 #connection_stat_data {
-	float:left;
-	margin-top:3px;
-	margin-right:10px;
-	display:block;
-	width:10px;
-	height:10px;
-	border:1px solid #000;
-	background:#426467;
-	overflow:hidden;
+	font-weight:bold;
+	font-size:14px;
 }
 
 div.auto_complete {
@@ -303,9 +299,10 @@ textarea:focus, input[type='text']:focus, input[type='password']:focus, select:f
 }
 
 
-.status_yellow {display:block;background:#ffff33;}
-.status_green {display:block;background:#bcd784;}
-.status_red {display:block;background:@error;}
+.status_yellow { color: @yellow; }
+.status_green { color: @status_green; }
+.status_red { color: @red; }
+
 .list {
 	list-style: none;
 	li {
@@ -467,7 +464,11 @@ font-weight:bold;
 	border-right:2px solid #b3e4ef;
 }
 
-.multilingual form { margin:0; padding:0; }
+#multilingual {
+	float:left;
+	margin-right:5px;
+	form { margin:0; padding:0; }
+}
 
 .round {
 	-moz-border-radius: 5px;

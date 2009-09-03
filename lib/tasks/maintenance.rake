@@ -44,10 +44,8 @@ namespace :maintenance do
     def attachment_markup(message)
       if message.has_image?
         %Q( <div class="img_attachment"><a href="#{message.attachment.url}" style="display:block;height:#{message.attachment_height+40}px;width:#{message.attachment_width+40}px;"><img src="#{message.attachment.url(:big)}" alt="#{message.message}" height="#{message.attachment_height}" width="#{message.attachment_width}" /></a></div> )
-      elsif message.has_pdf?
-        %Q( <div class="file_attachment"><a href="#{message.attachment.url}" style="display:block;height:100px;"><img src="/images/icons/pdf_large.jpg" alt="PDF Document" height="100" /></a></div> )
-      elsif message.has_zip?
-        %Q( <div class="file_attachment"><a href="#{message.attachment.url}" style="display:block;height:99px;"><img src="/images/icons/zip_large.jpg" alt="ZIP File" height="99" /></a></div> )
+      elsif message.has_file?
+        %Q( <div class="file_attachment"><a href="#{message.attachment.url}" style="display:block;height:100px;"><img src="/images/icons/#{message.attachment_type}_large.jpg" alt="#{message.attachment_type}" height="100" /></a></div> )
       end
     end
     

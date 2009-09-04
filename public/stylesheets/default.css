@@ -258,7 +258,7 @@ p { margin-bottom: 10px; }
 }
 .messageinput {
   width: 520px;
-  height: 3em;
+  height: 1.5em;
 }
 textarea, input[type='text'], input[type='password'], select {
   border: 1px solid #333333;

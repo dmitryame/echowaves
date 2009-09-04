@@ -1,35 +1,11 @@
 <div id="convo_controls" class="item2 span-10">
 	
   <div id="convos_links" class="padding05">
-	  <%= render :partial => 'conversations/star', :locals => { :conversation => @conversation } %>
     
-	  <% if @conversation.parent_message_id %>
-	    <%= link_to t("ui.back_to_parent"), conversation_path(@conversation.parent_message.conversation)%> &#187;
-	  <% end %>
+
 	  
-	  <%= render :partial => 'conversations/follow', :object => @conversation %>
 	  
-	  <% if current_user == @conversation.owner %>
-	    &#187;
-	    <% if @conversation.read_only %>
-	      <%= link_to t("ui.make_writable"), toogle_readwrite_status_conversation_path(@conversation, :mode => 'rw'), :method => 'put' %>
-	    <% else %>
-	      <%= link_to t("ui.make_read_only"), toogle_readwrite_status_conversation_path(@conversation), :method => 'put' %>
-	    <% end %>
-      &#187;
-	    <% if @conversation.private? %>
-	      <%= link_to t("ui.make_public"), toogle_private_status_conversation_path(@conversation, :mode => 'public'), :method => 'put' %>
-	    <% else %>
-	      <%= link_to t("ui.make_private"), toogle_private_status_conversation_path(@conversation), :method => 'put' %>
-	    <% end %>
-	  <% end %>
-	  
-	  <% if logged_in? %>
-	    <% unless ( @conversation.private? && current_user != @conversation.owner ) %>
-	      &#187;
-	      <%= link_to( t("ui.invite"), invite_conversation_path(@conversation) ) %>
-	    <% end %>
-	  <%end%>	
+
 	</div>
 	
 	

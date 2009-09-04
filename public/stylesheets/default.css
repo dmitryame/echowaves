@@ -226,30 +226,8 @@ p { margin-bottom: 10px; }
 .message .date a:active { color: #cc3333; }
 .messagetext { padding-left: 40px; }
 .system { padding: 8px 8px 0 8px; }
-#messagesform {
-  margin-bottom: 0;
-  background: #62949c;
-  -moz-border-radius: 10px;
-  -webkit-border-radius: 10px;
-}
-#messagesform_padding { padding: 0 10px; }
-#messageinputdiv { margin-bottom: 20px; }
-#messageinputdiv h4 {
-  padding: 0 0 10px 0;
-  margin: 0;
-}
-#attachment_form {
-  background: url(/images/unitip/TipMid.png) repeat;
-  padding: 10px;
-}
-#attachment_form input {
-  margin: 0;
-  padding: 0;
-}
-#attachment_form form {
-  margin: 0;
-  padding: 0;
-}
+
+
 #last_message_avise {
   background: #9acb63;
   padding: 0 20px;
@@ -521,7 +499,6 @@ ul.subsection_tabs li.tab a {
   padding: 0 10px 0 25px;
   font-weight: bold;
 }
-#msgcontrols { text-align: right; }
 #convo_header_container {
   position: fixed;
   top: 36px;

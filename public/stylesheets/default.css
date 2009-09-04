@@ -529,35 +529,36 @@ ul.subsection_tabs li.tab a {
   font-weight: bold;
 }
 #msgcontrols { text-align: right; }
-
-
 #convo_header_container {
-  position:fixed;
-  top:36px;
-  left:0;
-  width:100%;
-  z-index:100;
-  background:#ccc;
-  color:#fff;
+  position: fixed;
+  top: 36px;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  background: #cccccc;
+  color: #ffffff;
 }
 #convo_header {
   margin: 0 auto;
-  background: #666;
-  border-bottom:2px solid #ccc;
+  background: #666666;
+  border-bottom: 2px solid #cccccc;
 }
-#convo_header h5{
-  margin:0px;
-  padding:0 5px;
+#convo_header h5 {
+  margin: 0px;
+  padding: 0 5px;
 }
-#convo_header h5 a:link, #convo_header h5 a:visited {
-  color:#fff;
-  padding:0 5px;
-  text-decoration:none;
+#convo_header h5 a:link {
+  color: #ffffff;
+  padding: 0 5px;
+  text-decoration: none;
 }
-.padding05 {
-  padding:0 5px;
+#convo_header h5 a:visited {
+  color: #ffffff;
+  padding: 0 5px;
+  text-decoration: none;
 }
+.padding05 { padding: 0 5px; }
 .label {
-  background:#cc3333;
-  padding:0 2px;
+  background: #cc3333;
+  padding: 0 2px;
 }

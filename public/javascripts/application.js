@@ -61,7 +61,7 @@ function FitToTextAndMoveMessagesUp(id, maxHeight)
          adjustedHeight = Math.min(maxHeight, adjustedHeight);
       if ( adjustedHeight > text.clientHeight ) {
          text.style.height = adjustedHeight + "px";
-         $('messages').setStyle("padding-bottom: " + (adjustedHeight+46) + "px");
+         $('messages').setStyle("padding-bottom: " + (adjustedHeight+36) + "px");
       }
    }
 }

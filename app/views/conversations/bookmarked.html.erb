@@ -15,9 +15,8 @@
 </div>
 
 <div class="item">
+  <div class="notice">To bookmark a conversation just go to the <%= link_to "conversations list", conversations_path %> and click on the star icon near the name of the convo you want to bookmark</div>
   <div>
-    <%= link_to t('conversations.start_new_conversation'), new_conversation_path, :class => 'button' %>
-    <div class="clear"></div>
 	  <% if params[:tag] %>
 	  	<h6><%= t("ui.tagged_with") %>:<br/><span class="tag"><%= params[:tag] %></span></h6>
 	  <%end%>

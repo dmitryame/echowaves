@@ -22,14 +22,16 @@ html,body{background:#ccc;
 #sidebars {height:100%;}
 
 #attachment_form {
-  background: url(/images/unitip/TipMid.png) repeat;
+  margin-bottom: 0;
+  background: #151110;
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
-  padding:0px;}
-#attachment_form_padding {padding:10px 10px 0 10px;}
+  padding-top:5px;
+}
+#attachment_form_padding { padding: 0 10px; }
 #attachment_form {
   position:fixed;
-  bottom:10px;
+  bottom:0px;
   width:550px;
   z-index:101;
 }
@@ -37,12 +39,25 @@ html,body{background:#ccc;
 #attachment_form input{margin:0;padding:0;}
 #attachment_form form{margin:0;padding:0;}
 
-#messagesform { padding-top:5px; }
+#messagesform {
+  margin-bottom: 0;
+  background: #62949c;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  padding-top:5px;
+}
+#messagesform_padding { padding: 0 10px; }
+#messageinputdiv { margin-bottom: 20px; }
+#messageinputdiv h4 {
+  padding: 0 0 10px 0;
+  margin: 0;
+}
+
 #messageinputdiv { padding-bottom:0px; }
 #messageinputdiv form { margin-bottom:0px; }
 #msgtextarea { margin:0px;padding:0; display:block;}
 #messageinput {padding:0;}
-#msgcontrols { margin-top:-5px;}
+.msgformcontrols { margin-top:-5px; text-align:right;}
 #messages {
   background:#fff;
   padding-bottom:54px;
@@ -66,7 +81,7 @@ html,body{background:#ccc;
   position:fixed;
   bottom:0;
   background:#151110;
-  z-index:100;
+  z-index:102;
   width:100%;
   height:20px;
 }

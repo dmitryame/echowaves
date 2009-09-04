@@ -3,6 +3,6 @@
 	      image_tag(
 	        conversation.bookmark_list.include?(current_user.bookmark_tag) ? "/images/icons/star.png" : "/images/icons/star_empty.png"),
 	      :url => {:controller => 'conversations', :action => 'toogle_bookmark', :id => conversation.id},
-	      :html => {:id => "#{current_user.bookmark_tag}_#{conversation.id}"}) 
+	      :html => {:id => "#{current_user.bookmark_tag}_#{conversation.id}", :title => "click to bookmark/un-bookmark this conversation"}) 
 	%>
 <% end %>

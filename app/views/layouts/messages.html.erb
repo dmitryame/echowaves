@@ -221,18 +221,52 @@
       &nbsp;
       <div id="sidebars_container">
 	        
-			  <div id="convo_owner" class="span-10">
+			  <div id="convo_tools" class="span-10">
 			    <div class="padding05">
-      	  <em><%= t("ui.started_by") %></em>
-      		<%= link_to h(@conversation.user.login), user_path(@conversation.user) %>
-      	  <%= link_to image_tag(@conversation.user.gravatar_url, :border => 0, :width => 20, :height => 20,
-      	    :class => "avatar", :alt => @conversation.user.login, :style => 'margin-left:4px;margin-bottom:-7px;'),
-      	 	  user_path(@conversation.user),
-      		  :class => 'tip', 
-      		  :title => user_popup(@conversation.user)
-      		%>
+			      <%= render :partial => 'conversations/star', :locals => { :conversation => @conversation } %>
+            <span class="sbutton round"><%= render :partial => 'conversations/follow', :object => @conversation %></span>
+            <% if current_user == @conversation.owner %>
+        	    <span class="sbutton round">
+        	      <% if @conversation.read_only %>
+        	        <%= link_to t("ui.make_writable"), toogle_readwrite_status_conversation_path(@conversation, :mode => 'rw'), :method => 'put' %>
+        	      <% else %>
+        	        <%= link_to t("ui.make_read_only"), toogle_readwrite_status_conversation_path(@conversation), :method => 'put' %>
+        	      <% end %>
+        	    </span>
+        	    <span class="sbutton round">
+        	      <% if @conversation.private? %>
+        	        <%= link_to t("ui.make_public"), toogle_private_status_conversation_path(@conversation, :mode => 'public'), :method => 'put' %>
+        	      <% else %>
+        	        <%= link_to t("ui.make_private"), toogle_private_status_conversation_path(@conversation), :method => 'put' %>
+        	      <% end %>
+        	    </span>
+        	  <% end %>
+
+        	  <% if logged_in? %>
+        	    <% unless ( @conversation.private? && current_user != @conversation.owner ) %>
+        	      <span class="sbutton round"><%= link_to( t("ui.invite"), invite_conversation_path(@conversation) ) %></span>
+        	    <% end %>
+        	  <%end%>
+        	  
+            <% if @conversation.parent_message_id %>
+        	    <span class="sbutton round"><%= link_to t("ui.back_to_parent"), conversation_path(@conversation.parent_message.conversation)%></span>
+        	  <% end %>
+
       		</div>
       	</div>
+      	
+      	<div id="convo_owner" class="span-10">
+			    <div class="padding05">
+            <em><%= t("ui.started_by") %></em>
+            <%= link_to h(@conversation.user.login), user_path(@conversation.user) %>
+            <%= link_to image_tag(@conversation.user.gravatar_url, :border => 0, :width => 20, :height => 20,
+              :class => "avatar", :alt => @conversation.user.login, :style => 'margin-left:4px;margin-bottom:-7px;'),
+              user_path(@conversation.user),
+              :class => 'tip', 
+              :title => user_popup(@conversation.user)
+            %>
+			    </div>
+			  </div>
 		      
         <ul id="convo_tabs" class="subsection_tabs span-10">  
         	<li class="tab"><a href="#dashboard"><%= t("ui.dashboard") %></a></li>  
@@ -249,29 +283,6 @@
 		      <div class="span-4 last">
 		        <div id="toools" class="item2 page">
               <h6>Tools:</h6>
-              <%= render :partial => 'conversations/star', :locals => { :conversation => @conversation } %><br/>
-              <%= render :partial => 'conversations/follow', :object => @conversation %><br/>
-              <% if current_user == @conversation.owner %>
-          	    <% if @conversation.read_only %>
-          	      <%= link_to t("ui.make_writable"), toogle_readwrite_status_conversation_path(@conversation, :mode => 'rw'), :method => 'put' %><br/>
-          	    <% else %>
-          	      <%= link_to t("ui.make_read_only"), toogle_readwrite_status_conversation_path(@conversation), :method => 'put' %><br/>
-          	    <% end %>
-          	    <% if @conversation.private? %>
-          	      <%= link_to t("ui.make_public"), toogle_private_status_conversation_path(@conversation, :mode => 'public'), :method => 'put' %><br/>
-          	    <% else %>
-          	      <%= link_to t("ui.make_private"), toogle_private_status_conversation_path(@conversation), :method => 'put' %><br/>
-          	    <% end %>
-          	  <% end %>
-
-          	  <% if logged_in? %>
-          	    <% unless ( @conversation.private? && current_user != @conversation.owner ) %>
-          	      <%= link_to( t("ui.invite"), invite_conversation_path(@conversation) ) %><br/>
-          	    <% end %>
-          	  <%end%>
-              <% if @conversation.parent_message_id %>
-          	    <%= link_to t("ui.back_to_parent"), conversation_path(@conversation.parent_message.conversation)%><br/>
-          	  <% end %>
           	  
             </div><!-- tools -->
 		        

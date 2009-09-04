@@ -37,11 +37,12 @@ html,body{background:#ccc;
 #attachment_form input{margin:0;padding:0;}
 #attachment_form form{margin:0;padding:0;}
 
-#messagesform { padding-top:10px; }
+#messagesform { padding-top:5px; }
 #messageinputdiv { padding-bottom:0px; }
 #messageinputdiv form { margin-bottom:0px; }
-#msgtextarea { margin:0; }
-#msgcontrols { margin:0; }
+#msgtextarea { margin:0px;padding:0; display:block;}
+#messageinput {padding:0;}
+#msgcontrols { margin-top:-5px;}
 #messages {
   background:#fff;
   padding-bottom:82px;

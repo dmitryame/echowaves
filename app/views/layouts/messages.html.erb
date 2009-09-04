@@ -186,9 +186,9 @@
                     <%= label_tag "important" %><input id="message_something" name="message[something]" onfocus="javascript:$('message_message').focus()" size="30" type="text" />
                   </p>
 
-                  <p id="msgtextarea">        
+                  <span id="msgtextarea">        
                     <%= f.text_area :message, :onkeyup => "FitToTextAndMoveMessagesUp(this, (document.viewport.getHeight() - 300));Misc.pageScroll();", :class => 'messageinput' %>  
-                  </p>
+                  </span>
 
                   <p id="msgcontrols">                  
                     <%= link_to_function t("ui.attach_file"), :id => 'attachment_link' do |page|

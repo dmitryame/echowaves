@@ -8,6 +8,7 @@
     <p class="out_of_screen"><%= label_tag "important" %><%= f.text_field :something %></p>
     <p><%= f.label t("ui.name") %><br /><%= f.text_field :name %></p>
     <p><%= f.check_box :private %> <%= f.label t("ui.private_convo") %></p>
+    <p><%= f.check_box :read_only %> <%= f.label t("ui.read_only") %></p>
     <p><%= f.submit t("ui.create") %></p>
   <% end %>
   

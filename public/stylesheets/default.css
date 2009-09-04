@@ -226,8 +226,6 @@ p { margin-bottom: 10px; }
 .message .date a:active { color: #cc3333; }
 .messagetext { padding-left: 40px; }
 .system { padding: 8px 8px 0 8px; }
-
-
 #last_message_avise {
   background: #9acb63;
   padding: 0 20px;
@@ -453,7 +451,6 @@ ul.subsection_tabs li.tab a {
 .nube6 { font-size: 2em; }
 #convo_controls { position: relative; }
 #convos_links { padding-bottom: 0px; }
-
 .groupdate {
   padding: 16px 0 0 0;
   color: #333333;
@@ -539,7 +536,7 @@ ul.subsection_tabs li.tab a {
   margin-bottom: 4px;
 }
 #convo_owner {
-  text-align:right;
+  text-align: right;
   color: #999999;
   padding: 0px;
   margin-bottom: 4px;
@@ -548,13 +545,21 @@ ul.subsection_tabs li.tab a {
   background: #989898;
   padding: 0 2px;
   font-weight: bold;
-  margin-right:2px;
+  margin-right: 2px;
 }
-.sbutton a:link, .sbutton a:visited {
-  color:#fff;
-  text-decoration:none;
+.sbutton a:link {
+  color: #ffffff;
+  text-decoration: none;
 }
-.sbutton a:hover, .sbutton a:active {
-  color:#fff;
-  text-decoration:none;
+.sbutton a:visited {
+  color: #ffffff;
+  text-decoration: none;
+}
+.sbutton a:hover {
+  color: #ffffff;
+  text-decoration: none;
+}
+.sbutton a:active {
+  color: #ffffff;
+  text-decoration: none;
 }

@@ -283,18 +283,12 @@
 		      </div><!-- span-6 -->
 		      
 		      <div class="span-4 last">
-		        <div id="toools" class="item2 page">
-              <h6>Tools:</h6>
-          	  
-            </div><!-- tools -->
-		        
 		        
 		        <div id="filters" class="item2 page">
               <h6><%= t("ui.messages") %>:</h6>
               <%= link_to t("ui.all"), conversation_path(@conversation)%><br/>
               <%= link_to t("ui.with_files"), files_conversation_path(@conversation)%><br/>
-              <%= link_to t("ui.with_images"), images_conversation_path(@conversation)%><br/>
-              <%= link_to t("ui.system_messages"), system_messages_conversation_path(@conversation)%>
+              <%= link_to t("ui.with_images"), images_conversation_path(@conversation)%>
             </div><!-- filters -->
 		          
 		        <%= render :partial => 'conversations/recent_followers' %>

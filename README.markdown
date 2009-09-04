@@ -52,6 +52,9 @@ update gem sources
   
     gem sources -a http://gems.github.com
 
+note:
+	for oauth gem make sure to have 0.3.2 version installed –– the only version that works. If you already have it installed, make sure to uninstall it "sudo gem uninstall oauth", then install "sudo gem install oauth --version=0.3.2"
+	 
 install ImageMagick
 You can install it quite easily via apt, yum, or port, or the package manager of your choice.
 

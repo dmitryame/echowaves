@@ -277,21 +277,5 @@ class ConversationTest < ActiveSupport::TestCase
       assert_equal 1, @conversation.subscriptions.size
     end
   end
-
-  context "notify of new spawn" do
-    setup do
-      @user = Factory.create( :user )
-      @owner = Factory.create( :user )
-      @conversation = Factory.create( :conversation, :user => @owner )
-      @message = Factory.create( :message, :user => @user, :conversation => @conversation )
-      @spawn_convo = Factory.create( :conversation, :user => @user, :parent_message_id => @message.id )
-    end
-
-    should "return a Message object" do
-      notification = @spawn_convo.notify_of_new_spawn( @user )
-      assert_kind_of Message, notification
-      assert_match /spawned by/, notification.message
-    end
-  end
   
 end

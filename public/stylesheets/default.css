@@ -127,13 +127,15 @@ p { margin-bottom: 10px; }
 #col2_padding, #col3_padding { padding: 5px; }
 #header_container {
   background: #151110;
-  border-bottom: 1px solid #ffffff;
+  border-bottom: 1px solid #999999;
 }
 #header {
   margin: 0 auto;
   background: #151110;
 }
 #header h1 { margin: 0; }
+#top-nav { text-align: right; }
+#top_container { background: #333333; }
 #menu ul {
   margin: 5px 0 0 0;
   float: right;
@@ -153,18 +155,29 @@ p { margin-bottom: 10px; }
   background: url("/images/icons/star.png") left no-repeat;
   padding-left: 18px;
 }
-#menu ul li.menu_avatar a:link {
-  display: block;
-  padding: 2px 0px 2px 6px;
-  color: #ffffff;
-}
-#menu ul li.menu_avatar a:visited {
-  display: block;
-  padding: 2px 0px 2px 6px;
-  color: #ffffff;
-}
 #menu ul li.search form { padding: 0px 0px; }
 #menu ul li.search form input { float: left; }
+#topmenu ul {
+  margin: 0;
+  float: right;
+}
+#topmenu ul li { float: right; }
+#topmenu ul li a:link {
+  display: block;
+  padding: 2px 6px;
+  color: #cccccc;
+  border-left: 1px solid #111111;
+}
+#topmenu ul li a:visited {
+  display: block;
+  padding: 2px 6px;
+  color: #cccccc;
+  border-left: 1px solid #111111;
+}
+#topmenu ul li a.bookmarks_link {
+  background: url("/images/icons/mini-star.png") 4px 6px no-repeat;
+  padding-left: 22px;
+}
 .balloon {
   padding: 10px;
   background: #b3e4ef;
@@ -491,14 +504,13 @@ ul.subsection_tabs li.tab a {
   -webkit-border-radius: 5px;
 }
 #new_convo_button {
-  float: right;
   background: #cc3333 url("/images/icons/speech.jpg") 5px no-repeat;
-  padding: 0 10px 0 25px;
+  padding: 0 10px 0 18px;
   font-weight: bold;
 }
 #convo_header_container {
   position: fixed;
-  top: 36px;
+  top: 56px;
   left: 0;
   width: 100%;
   z-index: 100;

@@ -170,7 +170,7 @@ p { margin-bottom:10px; }
 /* header */
 #header_container {
   background:#151110;
-  border-bottom:1px solid @white;
+  border-bottom:1px solid #999;
 }
 #header {
 	margin:0 auto;
@@ -178,6 +178,14 @@ p { margin-bottom:10px; }
 	h1 { margin:0; }
 }
 
+
+#top-nav {
+  text-align:right;
+}
+#top_container {
+  background:#333;
+  
+}
 
 /* menu */
 #menu {
@@ -196,19 +204,33 @@ p { margin-bottom:10px; }
 				padding-left: 18px;
 			}
 		}
-		li.menu_avatar {
-			a:link, a:visited {
-			  display:block;
-			  padding:2px 0px 2px 6px;
-			  color:@white;
-			}
-		}
 		li.search form {
 		  padding:0px 0px;
 			input { float:left; }
 		}		
 	}
 }
+
+#topmenu {
+	ul {
+	  margin:0;
+		float:right;
+		li { 
+			float:right;
+			a:link, a:visited {
+			  display:block;
+			  padding:2px 6px;
+			  color:#ccc;
+			  border-left:1px solid #111;
+			}
+			a.bookmarks_link {
+				background: url("/images/icons/mini-star.png") 4px 6px no-repeat;
+				padding-left: 22px;
+			}
+		}	
+	}
+}
+
 
 /* balloon */
 .balloon {
@@ -452,15 +474,14 @@ font-weight:bold;
 }
 
 #new_convo_button {
-  float: right;
   background: #cc3333 url("/images/icons/speech.jpg") 5px no-repeat;
-  padding: 0 10px 0 25px;
+  padding: 0 10px 0 18px;
   font-weight: bold;
 }
 
 #convo_header_container {
   position:fixed;
-  top:36px;
+  top:56px;
   left:0;
   width:100%;
   z-index:100;

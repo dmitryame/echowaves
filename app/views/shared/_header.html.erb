@@ -6,7 +6,13 @@
 	<div class="span-19 last">
 		<div id="menu">
 			<ul>
-
+        
+        <li id="new_convo_button" class="round">
+      	  <%= link_to t('conversations.start_new_conversation'), new_conversation_path %>
+      	</li>
+				
+				<li style="color:#fff;font-size:15px;margin:0px 5px 0px 5px;">-</li>
+				
 				
         <li class="search">
 				  <form method="get" id="sform" action="/msgsearch" class="search_link">
@@ -16,34 +22,10 @@
   				</form>
 				</li>
 				
-				<li style="color:#fff;font-size:15px;margin:0px 5px 0px 5px;">::</li>
-        
-        
-				<% if logged_in? %>
-				<li><%= link_to t("ui.logout"), logout_path %></li>
-				<li><%= link_to h(current_user.login), user_path(current_user) %>
-				</li>
-				<li class='menu_avatar'>
-					<%= link_to image_tag(current_user.gravatar_url, :border => 0, :alt => current_user.login, :width => 20, :height => 20),
-					user_path(current_user),
-					:class => 'tip', 
-					:title => user_popup(current_user)
-					%>
-				</li>
-				<%else%>
-				<li><%= link_to t("ui.login"), new_user_session_path %></li>
-				<li><%= link_to t("ui.signup"), new_user_path %></li>
-				<%end%>
-        
-        <li style="color:#fff;font-size:15px;margin:0px 5px 0px 5px;">::</li>
+				<li style="color:#fff;font-size:15px;margin:0px 5px 0px 5px;">-</li>
 				
-
-
 				<li class="users"><%= link_to t('ui.users'), users_path %></li>
 				<li class="conversations"><%= link_to t('ui.conversations'), conversations_path %></li>
-				<% if logged_in? %>
-					<li><%= link_to "bookmarks", bookmarked_conversations_path, :class => 'bookmarks_link' %></li>
-				<%end%>
 			</ul>
 			<div class="clear"></div>
 		</div>

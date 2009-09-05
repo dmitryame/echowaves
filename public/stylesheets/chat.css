@@ -1,16 +1,23 @@
 html,body{background:#ccc;
 }
-#header_container {
+#top_container {
   position:fixed;
-  top:0;
+  top:0px;
   left:0;
   width:100%;
   z-index:100;
 }
+#header_container {
+  position:fixed;
+  top:22px;
+  left:0;
+  width:100%;
+  z-index:102;
+}
 #header {margin:0 auto;}
 
 #main_content {
-  margin-top:59px;
+  margin-top:76px;
   height:100%;  
 }
 #messagesform {
@@ -71,7 +78,7 @@ html,body{background:#ccc;
 .mute {color:#fff;}
 #sidebars_container {
   position:fixed;
-  top:57px;
+  top:76px;
 
 }
 #col3_container {

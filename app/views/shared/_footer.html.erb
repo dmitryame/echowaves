@@ -13,9 +13,6 @@
 	  <%= link_to "Toggle sound", "?sound="+(session[:sound] == "on" ? "off" : "on") %><span id="sound-icon"><%= session[:sound]=="on" ? image_tag("/images/icons/sound-on.png", :height => 13) : image_tag("/images/icons/sound-off.png", :height => 13) %></span>
 	</span>
 
-	<div id="new_convo_button" class="round">
-	  <%= link_to t('conversations.start_new_conversation'), new_conversation_path %>
-	</div>
 	<div id="multilingual">
     <% form_tag '', :method => :get do %>
       <%= select_tag("locale", options_for_select([["English","en"], ["Español","es-ES"], ["Русский", "ru"], ["Português Br.","pt-BR"], ["Nederlands","nl"]],I18n.locale), { :index => nil, :onchange => 'this.form.submit()'}) %>

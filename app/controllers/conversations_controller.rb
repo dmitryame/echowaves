@@ -73,10 +73,6 @@ class ConversationsController < ApplicationController
         flash[:notice] = t("conversations.convo_sucesfully_created")
         
         if @conversation.spawned?
-          # create a message in the original conversation notifying about this spawning
-          # and send realtime notification to everyone who's listening
-          notification_message = @conversation.notify_of_new_spawn( current_user )
-          notification_message.send_to_msg_broker unless notification_message == nil
           # copy the original message in the recient create convo
           copied_message = @conversation.parent_message.clone
           copied_message.conversation = @conversation

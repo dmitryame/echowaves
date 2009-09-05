@@ -24,9 +24,7 @@
 class Message < ActiveRecord::Base
   
   PER_PAGE = 50
-  
-  attr_protected :system_message #add more attributes as needed to protect from mass assignment
-  
+    
   auto_html_for(:message) do
     html_escape
     gist
@@ -70,15 +68,12 @@ class Message < ActiveRecord::Base
   named_scope :published,  :conditions => { :abuse_report_id => nil }
   named_scope :with_file,  :conditions => [ "attachment_content_type not like ?","image%" ]
   named_scope :with_image, :conditions => [ "attachment_content_type like ?",'image%' ]
-  named_scope :non_system, :conditions => [ "system_message = false" ]
-  named_scope :system,     :conditions => [ "system_message = true" ]
   # sphinx index
   #----------------------------------------------------------------------------
   define_index do
     indexes message
     has created_at
     has abuse_report_id
-    has system_message
     set_property :delta => :delayed
   end
           
@@ -194,7 +189,6 @@ class Message < ActiveRecord::Base
   def data_for_templates
     {
       :meta => {
-        :system => self.system_message,
         :has_attachment => self.has_attachment?,
         :has_image => self.has_image?,
         :has_file => self.has_file?

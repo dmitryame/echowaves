@@ -16,7 +16,7 @@ class MsgsearchesController < ApplicationController
   def create
     @messages = Message.search(
       params[:q],
-      :with => { :abuse_report_id => '@nil@', :system_message  => false } ,
+      :with => { :abuse_report_id => '@nil@' } ,
       :page => (params[:page] || 1),
       :per_page => 10,
       :order => 'created_at DESC'

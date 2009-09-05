@@ -21,7 +21,6 @@ ru:
     with_files: "с файлы"
     with_images: "с картинки"
     cancel: "отменить"
-    system_messages: "системные сообщения"
     name: "имя"
     description: "описание"
     create: "создать"

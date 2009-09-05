@@ -123,19 +123,6 @@ class Conversation < ActiveRecord::Base
     sub.empty? ? true : sub.each { |s| s.destroy }
   end
 
-  def notify_of_new_spawn(user)
-    msg = %Q(
-      new convo: <a href="#{HOST}/conversations/#{self.id}">#{self.name}</a>
-      spawned by: #{user.login}
-
-      in response to: <a href="#{HOST}/conversations/#{self.parent_message.conversation_id}/messages/#{self.parent_message.id}">#{HOST}/conversations/#{self.parent_message.conversation_id}/messages/#{self.parent_message.id}</a>
-    )
-    notification = user.messages.create( :conversation => self.parent_message.conversation, :message => msg)
-    notification.system_message = true
-    notification.save
-    return notification
-  end
-
   def messages_before(first_message_id)
     self.messages.published.find(:all, :include => [:user], :conditions => ["id < ?", first_message_id], :limit => 100, :order => 'id DESC')
   end

@@ -20,7 +20,6 @@ pt-BR:
     all: "todo"
     with_files: "com arquivos"
     with_images: "com imagens"
-    system_messages: "system messages"
     cancel: "cancelar"
     name: "nome"
     description: "descrição"

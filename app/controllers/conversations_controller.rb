@@ -36,7 +36,6 @@ class ConversationsController < ApplicationController
 
   alias_method :images, :show
   alias_method :files, :show
-  alias_method :system_messages, :show
   
   #----------------------------------------------------------------------------
   def new
@@ -87,7 +86,7 @@ class ConversationsController < ApplicationController
           copied_message.save
         end
         
-        # now let's create a system message and send it to the the creator's followers
+        # now let's invite all the creator's followers
         # unless the conversation is private
         unless @conversation.private?
           if USE_WORKLING

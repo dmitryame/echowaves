@@ -11,12 +11,10 @@ class MessagesController < ApplicationController
     case params[:action]
     when 'images'
       @messages = @conversation.messages.with_image.published.find(:all, :include => [:user], :limit => Message::PER_PAGE, :order => 'id DESC').reverse
-    when 'system_messages'
-      @messages = @conversation.messages.system.published.find(:all, :include => [:user], :limit => Message::PER_PAGE, :order => 'id DESC').reverse
     when 'files'
       @messages = @conversation.messages.with_file.published.find(:all, :include => [:user], :limit => Message::PER_PAGE, :order => 'id DESC').reverse
     else
-      @messages = @conversation.messages.non_system.published.find(:all, :include => [:user], :limit => Message::PER_PAGE, :order => 'id DESC').reverse
+      @messages = @conversation.messages.published.find(:all, :include => [:user], :limit => Message::PER_PAGE, :order => 'id DESC').reverse
     end
     respond_to do |format|
       format.html do
@@ -45,10 +43,9 @@ class MessagesController < ApplicationController
   
   alias_method :images, :index
   alias_method :files, :index
-  alias_method :system_messages, :index
   
   def export
-    @messages = @conversation.messages.non_system.published.find(:all, :include => [:user], :order => 'id DESC').reverse
+    @messages = @conversation.messages.published.find(:all, :include => [:user], :order => 'id DESC').reverse
     render :layout => 'export'
   end  
   

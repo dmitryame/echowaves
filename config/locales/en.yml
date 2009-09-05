@@ -20,7 +20,6 @@ en:
     all: "all"
     with_files: "with files"
     with_images: "with images"
-    system_messages: "system messages"
     cancel: "cancel"
     name: "name"
     description: "description"

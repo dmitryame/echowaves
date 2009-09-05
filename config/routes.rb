@@ -33,11 +33,10 @@ ActionController::Routing::Routes.draw do |map|
     :invite_via_email        => :post,
     :remove_user             => :post,
     :files                   => :get,
-    :images                  => :get,
-    :system_messages         => :get
+    :images                  => :get
     }, :new => { :spawn => :get } do |conversation|
       conversation.resources :messages, :member => { :report => :post }, 
-                                        :collection => {:images => :get, :files => :get, :system_messages => :get, :export => :get},
+                                        :collection => {:images => :get, :files => :get},
                                         :except => [:edit, :update, :destroy]
     end
   

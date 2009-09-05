@@ -1,7 +1,6 @@
 module MessagesHelper
 
   def mark_up(message)
-    return message.message if message.system_message == true # no markup for system_messages    
     "#{message.attachment_markup} #{message.message_html}"
   end
   

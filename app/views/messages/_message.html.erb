@@ -1,4 +1,3 @@
-<% if message.system_message == false %>
 	<div class="message" id="<%= dom_id(message) %>">
 	  	
 	  <div class="avatar"><%= link_to image_tag(message.user.gravatar_url, :border => 0, :width => 30, :height => 30, :class => "avatar", :alt => message.user.login), user_path(message.user),
@@ -24,17 +23,7 @@
 		</div>
 		<div class="clear"></div>
 	</div>
-<% else #system_message %>
-	<div class="message system" id="<%= dom_id(message) %>">
-	  <div class="avatar"><%= image_tag "/images/icon.png", :width => 30 %></div>
-		<div class="messagetext">
-	    <span class="username"><%= link_to h(message.user.login), user_path(message.user) %></span>
-			<%= mark_up message %>
-			<span class="date quiet small"><%= link_to message.time_pretty, conversation_message_path(message.conversation, message), :title => message.date_pretty_long %></span>
-		</div>
-		<div class="clear"></div>
-	</div>	
-<% end %>
+
 <% if message.id == @last_message_id %>
 	<div class="last-read"><%= t("messages.new_messages") %></div>
 <% end %>

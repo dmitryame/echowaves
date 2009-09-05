@@ -95,7 +95,7 @@ class User < ActiveRecord::Base
     # the new way, slightly more efficient
     subscriptions = Subscription.find(:all, 
     :joins => "JOIN conversations ON subscriptions.conversation_id=conversations.id JOIN messages ON conversations.id = messages.conversation_id and messages.id > subscriptions.last_message_id",
-    :conditions => ["subscriptions.user_id = ? and messages.system_message = 0 ", self.id ], 
+    :conditions => ["subscriptions.user_id = ?", self.id ], 
     :group => "conversations.id",
     :order => "messages.id ASC",
     :limit => 12)

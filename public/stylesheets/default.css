@@ -521,6 +521,7 @@ ul.subsection_tabs li.tab a {
   z-index: 100;
   background: #cccccc;
   color: #ffffff;
+  border-top: 2px solid #cccccc;
 }
 #convo_header {
   margin: 0 auto;
@@ -530,6 +531,7 @@ ul.subsection_tabs li.tab a {
 #convo_header h5 {
   margin: 0px;
   padding: 0 5px;
+  font-size: 110%;
 }
 #convo_header h5 a:link {
   color: #ffffff;
@@ -563,6 +565,7 @@ ul.subsection_tabs li.tab a {
   padding: 0 2px;
   font-weight: bold;
   margin-right: 2px;
+  font-size: 90%;
 }
 .sbutton a:link {
   color: #666666;

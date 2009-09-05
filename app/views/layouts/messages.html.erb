@@ -123,6 +123,9 @@
 	<div id="convo_header_container">
 	  <div id="convo_header" class="container">
 	    <h5>
+	      <% if @conversation.parent_message_id %>
+    	    <span class="sbutton round"><%= link_to t("ui.back_to_parent"), conversation_path(@conversation.parent_message.conversation)%></span>
+    	  <% end %>
   	    <% if @conversation.private? %><%= image_tag("/images/icons/icono_candado.gif") %> <% end %>
   	  	<% if @conversation.read_only %><span class="label"><%= t("ui.read_only") %></span> <% end %><%= link_to h(@conversation.name), conversation_path(@conversation) %>
   	  </h5>
@@ -249,10 +252,6 @@
         	      <span class="sbutton round"><%= link_to( t("ui.invite"), invite_conversation_path(@conversation) ) %></span>
         	    <% end %>
         	  <%end%>
-        	  
-            <% if @conversation.parent_message_id %>
-        	    <span class="sbutton round"><%= link_to t("ui.back_to_parent"), conversation_path(@conversation.parent_message.conversation)%></span>
-        	  <% end %>
 
       		</div>
       	</div>

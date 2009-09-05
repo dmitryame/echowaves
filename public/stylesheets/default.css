@@ -549,7 +549,7 @@ ul.subsection_tabs li.tab a {
 #convo_tools {
   color: #999999;
   padding: 0px;
-  background: #eeeeee;
+  background: #ffffff;
   margin-bottom: 4px;
 }
 #convo_owner {
@@ -559,24 +559,24 @@ ul.subsection_tabs li.tab a {
   margin-bottom: 4px;
 }
 .sbutton {
-  background: #989898;
+  background: #d0e4eb;
   padding: 0 2px;
   font-weight: bold;
   margin-right: 2px;
 }
 .sbutton a:link {
-  color: #ffffff;
+  color: #666666;
   text-decoration: none;
 }
 .sbutton a:visited {
-  color: #ffffff;
+  color: #666666;
   text-decoration: none;
 }
 .sbutton a:hover {
-  color: #ffffff;
+  color: #333333;
   text-decoration: none;
 }
 .sbutton a:active {
-  color: #ffffff;
+  color: #333333;
   text-decoration: none;
 }

@@ -20,7 +20,7 @@ html, body {
 	.quiet { color:@gray2; }
 	.search_link {
 	  display: block;
-	  margin-bottom:5px;
+	  margin-bottom:0px;
 	}
 	a:link, a:visited { color:#3366cc; }
 	a:hover, a:active { color:@error; }
@@ -194,6 +194,7 @@ p { margin-bottom:10px; }
 		float:right;
 		li { 
 			float:right;
+			border-left:1px solid #333;
 			a:link, a:visited {
 			  display:block;
 			  padding:2px 6px;
@@ -205,7 +206,7 @@ p { margin-bottom:10px; }
 			}
 		}
 		li.search form {
-		  padding:0px 0px;
+		  padding:0px 5px;
 			input { float:left; }
 		}		
 	}
@@ -474,9 +475,11 @@ font-weight:bold;
 }
 
 #new_convo_button {
+  display:block;
   background: #cc3333 url("/images/icons/speech.jpg") 5px no-repeat;
-  padding: 0 10px 0 18px;
+  padding: 0px 10px 0px 18px;
   font-weight: bold;
+  margin-left:5px;
 }
 
 #convo_header_container {

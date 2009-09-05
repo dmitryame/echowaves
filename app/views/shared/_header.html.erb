@@ -7,12 +7,9 @@
 		<div id="menu">
 			<ul>
         
-        <li id="new_convo_button" class="round">
-      	  <%= link_to t('conversations.start_new_conversation'), new_conversation_path %>
+        <li>
+      	  <span id="new_convo_button" class="round"><%= link_to t('conversations.start_new_conversation'), new_conversation_path %></span>
       	</li>
-				
-				<li style="color:#fff;font-size:15px;margin:0px 5px 0px 5px;">-</li>
-				
 				
         <li class="search">
 				  <form method="get" id="sform" action="/msgsearch" class="search_link">
@@ -22,7 +19,6 @@
   				</form>
 				</li>
 				
-				<li style="color:#fff;font-size:15px;margin:0px 5px 0px 5px;">-</li>
 				
 				<li class="users"><%= link_to t('ui.users'), users_path %></li>
 				<li class="conversations"><%= link_to t('ui.conversations'), conversations_path %></li>

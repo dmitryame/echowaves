@@ -1,9 +1,10 @@
 # == Schema Info
-# Schema version: 20090825132952
+# Schema version: 20090906125449
 #
 # Table name: users
 #
 #  id                          :integer(4)      not null, primary key
+#  about                       :string(255)     default("")
 #  conversations_count         :integer(4)      default(0)
 #  crypted_password            :string(128)     not null, default("")
 #  delta                       :boolean(1)

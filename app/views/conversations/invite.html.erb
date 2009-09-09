@@ -65,7 +65,7 @@
   <h6><%= t("users.invite_followed_users") %></h6>
   
   <ul id="users_list">
-    <% @friends.each do |user|%>
+    <% @users.each do |user|%>
 	    <li id="<%=dom_id user%>">
     		<span class="avatar">
     		  <%= link_to image_tag(user.gravatar_url, :border => 0, :width => 40, :height => 40, :class => "avatar", :alt => user.login), user_path(user),

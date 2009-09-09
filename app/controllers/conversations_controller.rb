@@ -186,9 +186,9 @@ class ConversationsController < ApplicationController
       flash[:error] = t("errors.only_the_owner_can_invite")
       redirect_to conversation_path(@conversation)
     else
-      @friends = current_user.friends    
+      @users = current_user.following    
       # should also remove the users if they were already invited or the users already follow the convo
-      @friends.delete_if do |user|
+      @users.delete_if do |user|
         true if !user.can_be_invited_to?(@conversation, current_user)
       end
     end

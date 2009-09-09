@@ -1,4 +1,3 @@
-<div id="col1" class="span-14">
   <%= flash_messages %>
 	<div class="page">
     
@@ -19,24 +18,3 @@
     </div>
     
   </div>
-</div>
-
-<div id="sidebars" class="span-10 last">
-  <div id="sidebars_container">
-    <% unless logged_in? %>
-      <div id="main_headline">
-        <h1><%= t("home.index.headline1") %></h1>
-      </div>
-      <div id="signup_headline">
-        <h2><%= link_to t("ui.signup"), new_user_path, :class => "button" -%> <%= t("home.index.p2") %></h2>
-      </div>
-    <% end %>
-    
-    <div id="col2" class="span-6">
-      <%= render :partial => 'users/recently_visited' %>
-      <%= render :partial => 'users/news' %>
-    </div>
-  </div>
-</div>
-
-

@@ -618,10 +618,17 @@ ul.subsection_tabs li.tab a {
   padding: 0;
 }
 #convo_owner {
-  text-align: right;
-  color: #999999;
+  position: absolute;
+  right: 0;
+  top: 28px;
+  background: #eeeeee;
   padding: 0px;
-  margin-bottom: 4px;
+}
+#convo_name {
+  width: 90%;
+  overflow: hidden;
+  position: absolute;
+  top: 5px;
 }
 .sbutton {
   background: #666666;
@@ -645,4 +652,11 @@ ul.subsection_tabs li.tab a {
 .sbutton a:active {
   color: #ffffff;
   text-decoration: none;
+}
+#extra_convo_stuff {
+  background: #ffffff;
+  margin-left: -10px;
+  border-left: 1px dashed #cccccc;
+  border-bottom: 2px solid #999999;
+  border-top: 1px solid #999999;
 }

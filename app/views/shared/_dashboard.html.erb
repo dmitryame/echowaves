@@ -14,6 +14,8 @@
     <div class="clear"></div>
   </div>
   
+  <%= yield(:sidebar_top) %>
+  
   <% if logged_in? %>
     <h5>DASHBOARD</h5>
     <div class="span-5">

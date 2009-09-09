@@ -585,10 +585,17 @@ font-weight:bold;
   }
 }
 #convo_owner {
-  text-align:right;
-  color: #999999;
+  position: absolute;
+  right:0;
+  top:28px;
+  background: #eee;
   padding: 0px;
-  margin-bottom: 4px;
+}
+#convo_name {
+  width:90%;
+  overflow:hidden;
+  position:absolute;
+  top:5px;
 }
 .sbutton {
   background: #666;
@@ -604,4 +611,11 @@ font-weight:bold;
 .sbutton a:hover, .sbutton a:active {
   color:#fff;
   text-decoration:none;
+}
+#extra_convo_stuff {
+  background:#fff;
+  margin-left:-10px;
+  border-left:1px dashed #ccc;
+  border-bottom:2px solid #999;
+  border-top:1px solid #999;
 }

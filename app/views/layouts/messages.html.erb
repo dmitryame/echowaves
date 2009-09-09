@@ -120,9 +120,13 @@
   		  
   		  <div id="convo_header_container">
       	  <div id="convo_header" >
-      	    <h5>
-        	    <% if @conversation.private? %><%= image_tag("/images/icons/icono_candado.gif") %> <% end %>
-        	  	<% if @conversation.read_only %><span class="label">RO</span> <% end %><%= link_to h(@conversation.name), conversation_path(@conversation) %>
+      	    <h5>&nbsp;
+        	    <% if @conversation.private? %><%= image_tag("/images/icons/icono_candado.gif") %><% end %>
+        	  	<% if @conversation.read_only %><span class="label">RO</span><% end %>
+        	  	<span id="convo_name"><%= link_to h(@conversation.name), conversation_path(@conversation) %></span>
+        	  	<span id="convo_owner">
+                  <%= link_to "@" + h(@conversation.user.login), user_path(@conversation.user) %>
+              </span>
         	  </h5>
         	  <div id="convo_tools">
     			    <div class="padding05">
@@ -246,33 +250,20 @@
 	      
 	      <%= render :partial => 'shared/dashboard' %>
 		      
-        		
-		    <div class="span-10">
-		      <%= render :partial => 'conversations/recent_followers' %>
-	        
-		      <div id="filters" class="item2 page">
-            <h6>Filter messages:
-            <%= link_to t("ui.all"), conversation_path(@conversation)%> -
-            <%= link_to t("ui.with_files"), files_conversation_path(@conversation)%> -
-            <%= link_to t("ui.with_images"), images_conversation_path(@conversation)%>
-            </h6>
-          </div><!-- filters -->
-		      
-		      <div id="convo_owner" class="span-10">
-  			    <div class="padding05">
-              <em><%= t("ui.started_by") %></em>
-              <%= link_to h(@conversation.user.login), user_path(@conversation.user) %>
-              <%= link_to image_tag(@conversation.user.gravatar_url, :border => 0, :width => 20, :height => 20,
-                :class => "avatar", :alt => @conversation.user.login, :style => 'margin-left:4px;margin-bottom:-7px;'),
-                user_path(@conversation.user),
-                :class => 'tip', 
-                :title => user_popup(@conversation.user)
-              %>
-  			    </div>
-  			  </div>
-		        <%# render :partial => 'conversations/last_convo_tags' %>
-		    </div><!-- dashboard -->
-	
+        
+        <div class="span-10">		
+        <div id="filters" class="page">
+          <h6>Filter messages:
+          <%= link_to t("ui.all"), conversation_path(@conversation)%> -
+          <%= link_to t("ui.with_files"), files_conversation_path(@conversation)%> -
+          <%= link_to t("ui.with_images"), images_conversation_path(@conversation)%>
+          </h6>
+        </div><!-- filters -->
+        </div>
+		    
+		    
+	      <div class="span-10"><%= yield(:sidebar_bottom) %></div>
+		    
           
       </div><!-- sidebars_container -->
       

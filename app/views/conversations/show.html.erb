@@ -23,3 +23,16 @@
       onFailure: function(){ alert('<%= t("errors.something_went_wrong") %>') }
     });
 </script>
+
+<% content_for :sidebar_top do %>
+  
+<div id="extra_convo_stuff">
+
+  
+  <%= render :partial => 'conversations/recent_followers' %>  
+  
+
+  
+</div>
+
+<% end %>

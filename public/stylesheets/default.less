@@ -3,18 +3,21 @@
 @highlight: 		#FF8;
 @gray1: 				#EEE;
 @gray2: 				#999;
+@gray3: 				#CCC;
+@gray4:         #666;
 @error:					#CC3333;
 @white: 				#FFF;
 @green:					#68BD53;
 @status_green: 	#33cc33;
 @yellow: 				#cccc33;
 @red: 					#cc3333;
+@gray5:         #151110;
 
 html, body {
 	margin:0;
-	background:@cyan;
+	background:@gray3;
 }
-
+h1 { margin:0px; }
 .container {
 	.highlight { background:@highlight; }
 	.quiet { color:@gray2; }
@@ -28,7 +31,7 @@ html, body {
 	ul { margin:0; }
 	ul li { margin:0; }
 }
-
+.big {font-size:120%}
 .out_of_screen { position:fixed;left:500000px; }
 .padding5 { padding:5px; }
 .conversation_for_user {
@@ -100,7 +103,7 @@ p { margin-bottom:10px; }
 .clear { clear:both; }
 .mute { color:@gray2;}
 .padding { padding:10px; }
-.item2 { margin-bottom:10px; }
+.item2 { margin-bottom:5px; }
 .content { background:@white; }
 
 #main_headline {
@@ -108,13 +111,14 @@ p { margin-bottom:10px; }
   line-height:1.9em;
   text-align:center;
 	h1 {
-		font-size: 170%;  
+		font-size: 150%;
+		margin:0;
 	}
 }
 
 #signup_headline {
   text-align:center;
-  color:@green;
+  color:@gray4;
 }
 #sidebars_container {
 	#main_headline {
@@ -131,7 +135,6 @@ p { margin-bottom:10px; }
 }
 
 #main_description {
-  margin-top:40px;
   font-size:130%;
 	h5 { margin-top:0; }
 }
@@ -156,7 +159,7 @@ p { margin-bottom:10px; }
 }
 
 #col1 {
-  background:@white;
+  margin-top:5px;
 }
 #col1_padding {
 
@@ -170,7 +173,6 @@ p { margin-bottom:10px; }
 /* header */
 #header_container {
   background:#151110;
-  border-bottom:1px solid #999;
 }
 #header {
 	margin:0 auto;
@@ -208,9 +210,68 @@ p { margin-bottom:10px; }
 		li.search form {
 		  padding:0px 5px;
 			input { float:left; }
-		}		
+		}
+		#new_convo_button {
+      display:block;
+      background: #cc3333 url("/images/icons/speech.jpg") 5px no-repeat;
+      padding: 0px 10px 0px 18px;
+      font-weight: bold;
+      margin-left:5px;
+    }		
 	}
 }
+
+#dashboard {
+  margin:5px 0;
+  -moz-border-radius-topleft: 5px;
+  -webkit-border-top-left-radius: 5px;
+  -moz-border-radius-topright: 5px;
+  -webkit-border-top-right-radius: 5px;
+  background: @white;
+  h5 {
+    padding:0 10px;
+    background:@gray1;
+    text-align:center;
+    margin:5px;
+  }
+  p {
+    padding:5px;
+  }
+}
+
+/* session menu */
+#session-menu {
+  background: @gray4;
+  padding:0 5px;
+  -moz-border-radius-topleft: 5px;
+  -webkit-border-top-left-radius: 5px;
+  -moz-border-radius-topright: 5px;
+  -webkit-border-top-right-radius: 5px;
+	ul {
+	  margin:0;
+		float:right;
+		li { 
+			float:right;
+			a:link, a:visited {
+			  display:block;
+			  padding:2px 6px;
+			  color:@white;
+		  }
+			a.bookmarks_link {
+				background: url("/images/icons/star.png") left no-repeat;
+				padding-left: 18px;
+			}
+		}
+		#new_convo_button {
+      display:block;
+      background: #cc3333 url("/images/icons/speech.jpg") 5px no-repeat;
+      padding: 0px 10px 0px 18px;
+      font-weight: bold;
+      margin-left:5px;
+    }
+	}
+}
+
 
 #topmenu {
 	ul {
@@ -233,12 +294,11 @@ p { margin-bottom:10px; }
 }
 
 
+
 /* balloon */
 .balloon {
-  padding:10px;
-  background:#b3e4ef;
-  -moz-border-radius: 10px;
-  -webkit-border-radius: 10px;
+  background:@gray1;
+  padding:5px;
 	margin-bottom:10px;
 	div form { margin:10px 0px 0px 0px; }
 	h1 { margin:0; }
@@ -248,6 +308,10 @@ p { margin-bottom:10px; }
 }
 
 .page {
+  -moz-border-radius-topleft: 5px;
+  -webkit-border-top-left-radius: 5px;
+  -moz-border-radius-topright: 5px;
+  -webkit-border-top-right-radius: 5px;
   padding:5px;
   background:#fcfcfc;
 	h6 {
@@ -256,7 +320,6 @@ p { margin-bottom:10px; }
 	}
 }
 
-#main_content { margin-top:10px; }
 .balloon2 h1 { margin:0; }
 /* messages */
 #messages { background:@white; }
@@ -474,28 +537,17 @@ font-weight:bold;
   -webkit-border-radius: 5px;
 }
 
-#new_convo_button {
-  display:block;
-  background: #cc3333 url("/images/icons/speech.jpg") 5px no-repeat;
-  padding: 0px 10px 0px 18px;
-  font-weight: bold;
-  margin-left:5px;
-}
-
 #convo_header_container {
-  position:fixed;
-  top:56px;
-  left:0;
-  width:100%;
-  z-index:100;
-  background:#ccc;
-  color:#fff;
-  border-top:2px solid #ccc;
+  z-index: 100;
+  background: #cccccc;
+  color: #ffffff;
+  border-bottom:2px solid #999;
 }
 #convo_header {
+  overflow:hidden;
+  width: 550px;
   margin: 0 auto;
-  background: #666;
-  border-bottom:2px solid #ccc;
+  background: @gray4;
   -moz-border-radius-topleft: 5px;
   -webkit-border-top-left-radius: 5px;
   -moz-border-radius-topright: 5px;
@@ -503,8 +555,9 @@ font-weight:bold;
 }
 #convo_header h5{
   margin:0px;
-  padding:0 5px;
+  padding:0 2px;
   font-size:110%;
+  font-weight:normal;
 }
 #convo_header h5 a:link, #convo_header h5 a:visited {
   color:#fff;
@@ -521,12 +574,13 @@ font-weight:bold;
 #convo_tools {
   color: #999999;
   padding: 0px;
-  background: #fff;
-  margin-bottom: 4px;
-  -moz-border-radius-bottomleft: 5px;
-  -webkit-border-bottom-left-radius: 5px;
-  -moz-border-radius-bottomright: 5px;
-  -webkit-border-bottom-right-radius: 5px;
+  background: #eee;
+  #filter {
+  	float:right;
+  	margin:0;
+  	padding:0;
+  	form { margin:0; padding:0; }
+  }
 }
 #convo_owner {
   text-align:right;
@@ -535,17 +589,17 @@ font-weight:bold;
   margin-bottom: 4px;
 }
 .sbutton {
-  background: @cyan;
+  background: #666;
   padding: 0 2px;
   font-weight: bold;
   margin-right:2px;
   font-size:90%;
 }
 .sbutton a:link, .sbutton a:visited {
-  color:#666;
+  color:#eee;
   text-decoration:none;
 }
 .sbutton a:hover, .sbutton a:active {
-  color:#333;
+  color:#fff;
   text-decoration:none;
 }

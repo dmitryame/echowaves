@@ -1,0 +1,36 @@
+<div id="dashboard" class="span-10 last">
+
+  <div id="session-menu">
+    <ul>
+			<% if logged_in? %>
+			<li><%= link_to t("ui.logout"), logout_path %></li>
+			<li><%= link_to "@" + h(current_user.login), user_path(current_user) %></li>
+			<li><%= link_to "bookmarks", bookmarked_conversations_path, :class => 'bookmarks_link' %></li>
+			<%else%>
+			<li><%= link_to t("ui.login"), new_user_session_path %></li>
+			<li><%= link_to t("ui.signup"), new_user_path %></li>
+			<%end%>
+    </ul>
+    <div class="clear"></div>
+  </div>
+  
+  <% if logged_in? %>
+    <h5>DASHBOARD</h5>
+    <div class="span-5">
+      <%= render :partial => 'users/recently_visited' %>
+    </div>
+    <div class="span-5 last">
+      <%= render :partial => 'users/news' %>
+    </div>
+  <% else %>
+  
+    <div class="item2">
+      <h5>What is EchoWaves?</h5>
+    	<p>Echowaves is a free service that enables comunication through, IM-style conversations. You can converse in real-time or over semi-frequent visits to the site continuing your conversations right where you left off.</p>
+    	<div class="big center"><%= link_to "Join Echowaves", new_user_path %></div>
+    </div>
+    
+    
+  <% end %>
+	
+</div>

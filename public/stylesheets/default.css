@@ -1,7 +1,8 @@
 html, body {
   margin: 0;
-  background: #d0e4eb;
+  background: #cccccc;
 }
+h1 { margin: 0px; }
 .container .highlight { background: #ffff88; }
 .container .quiet { color: #999999; }
 .container .search_link {
@@ -15,6 +16,7 @@ html, body {
 .container p { margin-bottom: 10px; }
 .container ul { margin: 0; }
 .container ul li { margin: 0; }
+.big { font-size: 120%; }
 .out_of_screen {
   position: fixed;
   left: 500000px;
@@ -80,17 +82,20 @@ p { margin-bottom: 10px; }
 .clear { clear: both; }
 .mute { color: #999999; }
 .padding { padding: 10px; }
-.item2 { margin-bottom: 10px; }
+.item2 { margin-bottom: 5px; }
 .content { background: #ffffff; }
 #main_headline {
   font-size: 150%;
   line-height: 1.9em;
   text-align: center;
 }
-#main_headline h1 { font-size: 170%; }
+#main_headline h1 {
+  font-size: 150%;
+  margin: 0;
+}
 #signup_headline {
   text-align: center;
-  color: #68bd53;
+  color: #666666;
 }
 #sidebars_container #main_headline {
   font-size: 100%;
@@ -103,10 +108,7 @@ p { margin-bottom: 10px; }
   font-size: 70%;
   text-align: left;
 }
-#main_description {
-  margin-top: 40px;
-  font-size: 130%;
-}
+#main_description { font-size: 130%; }
 #main_description h5 { margin-top: 0; }
 #test_convo_description {
   font-size: 170%;
@@ -123,12 +125,9 @@ p { margin-bottom: 10px; }
   -webkit-border-radius: 5px;
   background: #ffffff;
 }
-#col1 { background: #ffffff; }
+#col1 { margin-top: 5px; }
 #col2_padding, #col3_padding { padding: 5px; }
-#header_container {
-  background: #151110;
-  border-bottom: 1px solid #999999;
-}
+#header_container { background: #151110; }
 #header {
   margin: 0 auto;
   background: #151110;
@@ -160,6 +159,62 @@ p { margin-bottom: 10px; }
 }
 #menu ul li.search form { padding: 0px 5px; }
 #menu ul li.search form input { float: left; }
+#menu ul #new_convo_button {
+  display: block;
+  background: #cc3333 url("/images/icons/speech.jpg") 5px no-repeat;
+  padding: 0px 10px 0px 18px;
+  font-weight: bold;
+  margin-left: 5px;
+}
+#dashboard {
+  margin: 5px 0;
+  -moz-border-radius-topleft: 5px;
+  -webkit-border-top-left-radius: 5px;
+  -moz-border-radius-topright: 5px;
+  -webkit-border-top-right-radius: 5px;
+  background: #ffffff;
+}
+#dashboard h5 {
+  padding: 0 10px;
+  background: #eeeeee;
+  text-align: center;
+  margin: 5px;
+}
+#dashboard p { padding: 5px; }
+#session-menu {
+  background: #666666;
+  padding: 0 5px;
+  -moz-border-radius-topleft: 5px;
+  -webkit-border-top-left-radius: 5px;
+  -moz-border-radius-topright: 5px;
+  -webkit-border-top-right-radius: 5px;
+}
+#session-menu ul {
+  margin: 0;
+  float: right;
+}
+#session-menu ul li { float: right; }
+#session-menu ul li a:link {
+  display: block;
+  padding: 2px 6px;
+  color: #ffffff;
+}
+#session-menu ul li a:visited {
+  display: block;
+  padding: 2px 6px;
+  color: #ffffff;
+}
+#session-menu ul li a.bookmarks_link {
+  background: url("/images/icons/star.png") left no-repeat;
+  padding-left: 18px;
+}
+#session-menu ul #new_convo_button {
+  display: block;
+  background: #cc3333 url("/images/icons/speech.jpg") 5px no-repeat;
+  padding: 0px 10px 0px 18px;
+  font-weight: bold;
+  margin-left: 5px;
+}
 #topmenu ul {
   margin: 0;
   float: right;
@@ -182,10 +237,8 @@ p { margin-bottom: 10px; }
   padding-left: 22px;
 }
 .balloon {
-  padding: 10px;
-  background: #b3e4ef;
-  -moz-border-radius: 10px;
-  -webkit-border-radius: 10px;
+  background: #eeeeee;
+  padding: 5px;
   margin-bottom: 10px;
 }
 .balloon div form { margin: 10px 0px 0px 0px; }
@@ -202,6 +255,10 @@ p { margin-bottom: 10px; }
   color: #3366cc;
 }
 .page {
+  -moz-border-radius-topleft: 5px;
+  -webkit-border-top-left-radius: 5px;
+  -moz-border-radius-topright: 5px;
+  -webkit-border-top-right-radius: 5px;
   padding: 5px;
   background: #fcfcfc;
 }
@@ -209,7 +266,6 @@ p { margin-bottom: 10px; }
   margin: 0 0 4px 0;
   background: #eeeeee;
 }
-#main_content { margin-top: 10px; }
 .balloon2 h1 { margin: 0; }
 #messages { background: #ffffff; }
 .message {
@@ -506,27 +562,17 @@ ul.subsection_tabs li.tab a {
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
 }
-#new_convo_button {
-  display: block;
-  background: #cc3333 url("/images/icons/speech.jpg") 5px no-repeat;
-  padding: 0px 10px 0px 18px;
-  font-weight: bold;
-  margin-left: 5px;
-}
 #convo_header_container {
-  position: fixed;
-  top: 56px;
-  left: 0;
-  width: 100%;
   z-index: 100;
   background: #cccccc;
   color: #ffffff;
-  border-top: 2px solid #cccccc;
+  border-bottom: 2px solid #999999;
 }
 #convo_header {
+  overflow: hidden;
+  width: 550px;
   margin: 0 auto;
   background: #666666;
-  border-bottom: 2px solid #cccccc;
   -moz-border-radius-topleft: 5px;
   -webkit-border-top-left-radius: 5px;
   -moz-border-radius-topright: 5px;
@@ -534,8 +580,9 @@ ul.subsection_tabs li.tab a {
 }
 #convo_header h5 {
   margin: 0px;
-  padding: 0 5px;
+  padding: 0 2px;
   font-size: 110%;
+  font-weight: normal;
 }
 #convo_header h5 a:link {
   color: #ffffff;
@@ -555,12 +602,16 @@ ul.subsection_tabs li.tab a {
 #convo_tools {
   color: #999999;
   padding: 0px;
-  background: #ffffff;
-  margin-bottom: 4px;
-  -moz-border-radius-bottomleft: 5px;
-  -webkit-border-bottom-left-radius: 5px;
-  -moz-border-radius-bottomright: 5px;
-  -webkit-border-bottom-right-radius: 5px;
+  background: #eeeeee;
+}
+#convo_tools #filter {
+  float: right;
+  margin: 0;
+  padding: 0;
+}
+#convo_tools #filter form {
+  margin: 0;
+  padding: 0;
 }
 #convo_owner {
   text-align: right;
@@ -569,25 +620,25 @@ ul.subsection_tabs li.tab a {
   margin-bottom: 4px;
 }
 .sbutton {
-  background: #d0e4eb;
+  background: #666666;
   padding: 0 2px;
   font-weight: bold;
   margin-right: 2px;
   font-size: 90%;
 }
 .sbutton a:link {
-  color: #666666;
+  color: #eeeeee;
   text-decoration: none;
 }
 .sbutton a:visited {
-  color: #666666;
+  color: #eeeeee;
   text-decoration: none;
 }
 .sbutton a:hover {
-  color: #333333;
+  color: #ffffff;
   text-decoration: none;
 }
 .sbutton a:active {
-  color: #333333;
+  color: #ffffff;
   text-decoration: none;
 }

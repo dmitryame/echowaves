@@ -1,34 +1,74 @@
-<div class="balloon">
-	<h1><%= link_to @conversation.name , conversation_path(@conversation) %></h1>
+<% content_for :convo_header do %>
+<div id="convo_header_container">
+  <div id="convo_header" >
+    <h5>
+	    <% if @conversation.private? %><%= image_tag("/images/icons/icono_candado.gif") %> <% end %>
+	  	<% if @conversation.read_only %><span class="label">RO</span> <% end %><%= link_to h(@conversation.name), conversation_path(@conversation) %>
+	  </h5>
+	  <div id="convo_tools">
+	    <div class="padding05">
+	      <%= render :partial => 'conversations/star', :locals => { :conversation => @conversation } %>
+	      <% if @conversation.parent_message_id %>
+    	    <span class="sbutton round"><%= link_to t("ui.back_to_parent"), conversation_path(@conversation.parent_message.conversation)%></span>
+    	  <% end %>
+        <span class="sbutton round"><%= render :partial => 'conversations/follow', :object => @conversation %></span>
+        <% if current_user == @conversation.owner %>
+    	    <span class="sbutton round">
+    	      <% if @conversation.read_only %>
+    	        <%= link_to t("ui.make_writable"), toogle_readwrite_status_conversation_path(@conversation, :mode => 'rw'), :method => 'put' %>
+    	      <% else %>
+    	        <%= link_to t("ui.make_read_only"), toogle_readwrite_status_conversation_path(@conversation), :method => 'put' %>
+    	      <% end %>
+    	    </span>
+    	    <span class="sbutton round">
+    	      <% if @conversation.private? %>
+    	        <%= link_to t("ui.make_public"), toogle_private_status_conversation_path(@conversation, :mode => 'public'), :method => 'put' %>
+    	      <% else %>
+    	        <%= link_to t("ui.make_private"), toogle_private_status_conversation_path(@conversation), :method => 'put' %>
+    	      <% end %>
+    	    </span>
+    	  <% end %>
+
+    	  <% if logged_in? %>
+    	    <% unless ( @conversation.private? && current_user != @conversation.owner ) %>
+    	      <span class="sbutton round"><%= link_to( t("ui.invite"), invite_conversation_path(@conversation) ) %></span>
+    	    <% end %>
+    	  <%end%>
+        <%# filter here %>
+  		</div>
+  	</div>
+	  
+  </div>
 </div>
+<% end %>
+
 
 <div>
-	<h2>
-		<%= t("users.email_invites")%>		
+	<h4>Send invitations by email <%= image_tag "/images/icons/spinner.gif", :style => 'display:none;', :id => "spinner_1" %></h4>
+	write some email addresses in the text box and click on the invite button
 		<% form_remote_tag :url => invite_via_email_conversation_path(@conversation), :loading => "$('spinner_1').show();" do %> 
 			<%= text_area :emails, {}, :cols => 30, :rows => 3 %>
 			<%= submit_tag t("ui.invite") %> 
 		<% end %>
-    <%= image_tag "/images/icons/spinner.gif", :style => 'display:none;', :id => "spinner_1" %>
-	</h2>
+    
 </div>
 
 <hr/>
 
 <div>
-	<h2>
+	<h4>
 		<%= link_to_remote t("users.invite_all_followers"), :url => invite_all_my_followers_conversation_path(@conversation),
    		  :confirm => t("users.invite_all_followers") + "?",
 		    :loading => "$('spinner_0').show();",
     	  :method => :post %>	
     <%= image_tag "/images/icons/spinner.gif", :style => 'display:none;', :id => "spinner_0" %>
-	</h2>
+	</h4>
 </div>
 
 <hr/>
 
 <div class="balloon">
-	<h2><%= t("users.invite_followed_users") %></h2>
+	<h4><%= t("users.invite_followed_users") %></h4>
 </div>
 
 <div class="item">

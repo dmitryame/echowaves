@@ -9,7 +9,7 @@ html,body{background:#ccc;
 }
 #header_container {
   position:fixed;
-  top:22px;
+  top:0px;
   left:0;
   width:100%;
   z-index:102;
@@ -17,7 +17,7 @@ html,body{background:#ccc;
 #header {margin:0 auto;}
 
 #main_content {
-  margin-top:76px;
+  margin-top:78px;
   height:100%;  
 }
 #messagesform {
@@ -48,7 +48,7 @@ html,body{background:#ccc;
 
 #messagesform {
   margin-bottom: 0;
-  background: #62949c;
+  background: #666;
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
   padding-top:5px;
@@ -58,8 +58,12 @@ html,body{background:#ccc;
 #messageinputdiv h4 {
   padding: 0 0 10px 0;
   margin: 0;
+  color:#ccc;
+  font-weight:normal;
 }
-
+#messageinputdiv h4 a:link, #messageinputdiv h4 a:visited, #messageinputdiv h4 a:hover, #messageinputdiv h4 a:active {
+  color:#fff;
+} 
 #messageinputdiv { padding-bottom:0px; }
 #messageinputdiv form { margin-bottom:0px; }
 #msgtextarea { margin:0px;padding:0; display:block;}
@@ -68,17 +72,15 @@ html,body{background:#ccc;
 #messages {
   background:#fff;
   padding-bottom:54px;
-  border-right:2px solid #a7a7a7;
 }
 #messages_controls {
   background:#eee;
-  padding:5px;
-  border-right:2px solid #a7a7a7;
+  padding:0 5px;
 }
 .mute {color:#fff;}
 #sidebars_container {
   position:fixed;
-  top:76px;
+  top:32px;
 
 }
 #col3_container {
@@ -97,10 +99,6 @@ html,body{background:#ccc;
   background:#fff;
 }
 
-#dashboard, #tags, #followers {
-  background:#eee;
-  padding-top:5px;
-}
 .user_label {
   padding-right:10px;
 }
@@ -109,8 +107,14 @@ html,body{background:#ccc;
 #load-indicator {
   font-size:25px;
   color:#999;
-  margin-top:20px;
+  margin-top:0px;
+  padding:40px 0 0 0;
 }
 .img_attachment img {
   background:url('/images/big_spinner.gif') center no-repeat;
+}
+#convo_header_container {
+  top:32px;
+  position: fixed;
+  padding-top:5px;
 }

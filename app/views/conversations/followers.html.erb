@@ -1,0 +1,56 @@
+<% content_for :convo_header do %>
+<div id="convo_header_container">
+  <div id="convo_header" >
+    <h5>
+	    <% if @conversation.private? %><%= image_tag("/images/icons/icono_candado.gif") %> <% end %>
+	  	<% if @conversation.read_only %><span class="label">RO</span> <% end %><%= link_to h(@conversation.name), conversation_path(@conversation) %>
+	  </h5>
+	  <div id="convo_tools">
+	    <div class="padding05">
+	      <%= render :partial => 'conversations/star', :locals => { :conversation => @conversation } %>
+	      <% if @conversation.parent_message_id %>
+    	    <span class="sbutton round"><%= link_to t("ui.back_to_parent"), conversation_path(@conversation.parent_message.conversation)%></span>
+    	  <% end %>
+        <span class="sbutton round"><%= render :partial => 'conversations/follow', :object => @conversation %></span>
+        <% if current_user == @conversation.owner %>
+    	    <span class="sbutton round">
+    	      <% if @conversation.read_only %>
+    	        <%= link_to t("ui.make_writable"), toogle_readwrite_status_conversation_path(@conversation, :mode => 'rw'), :method => 'put' %>
+    	      <% else %>
+    	        <%= link_to t("ui.make_read_only"), toogle_readwrite_status_conversation_path(@conversation), :method => 'put' %>
+    	      <% end %>
+    	    </span>
+    	    <span class="sbutton round">
+    	      <% if @conversation.private? %>
+    	        <%= link_to t("ui.make_public"), toogle_private_status_conversation_path(@conversation, :mode => 'public'), :method => 'put' %>
+    	      <% else %>
+    	        <%= link_to t("ui.make_private"), toogle_private_status_conversation_path(@conversation), :method => 'put' %>
+    	      <% end %>
+    	    </span>
+    	  <% end %>
+
+    	  <% if logged_in? %>
+    	    <% unless ( @conversation.private? && current_user != @conversation.owner ) %>
+    	      <span class="sbutton round"><%= link_to( t("ui.invite"), invite_conversation_path(@conversation) ) %></span>
+    	    <% end %>
+    	  <%end%>
+        <%# filter here %>
+  		</div>
+  	</div>
+	  
+  </div>
+</div>
+<% end %>
+
+<div id="users_in_conversation" class="item2 page">
+  <h6><%= t("ui.followers") %>:</h6>
+  <% @conversation.users.each do |u| %>
+    <span class="user_label" id="follower_<%= u.id %>">
+	      <% if current_user == @conversation.owner && @conversation.private? %>
+	        <em class="tag_controls"><%= link_to_remote "X", :url => remove_user_conversation_path(:user_id => u.id), :method => :post %></em>
+	      <% end %>
+	    	<%= link_to h(u.login), user_path(u) %>
+	  </span>	
+  <% end %>
+  <div><%= link_to "return to conversation", conversation_path(@conversation) %></div>
+</div>

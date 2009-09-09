@@ -1,4 +1,4 @@
-<%= render :partial => 'convo_stats' %>
+<%= render :partial => 'user_stats' %>
 
 <%= render "user_links" %>
 
@@ -7,5 +7,5 @@
 	<ul id="users_list">
 		<%= render :partial => 'user', :collection => @followed_users %>
 	</ul>
-  <%= link_to t("ui.back"), users_path %>
+	<div class="clear"></div>
 </div>

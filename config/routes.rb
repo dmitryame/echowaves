@@ -33,7 +33,8 @@ ActionController::Routing::Routes.draw do |map|
     :invite_via_email        => :post,
     :remove_user             => :post,
     :files                   => :get,
-    :images                  => :get
+    :images                  => :get,
+    :followers               => :get
     }, :new => { :spawn => :get } do |conversation|
       conversation.resources :messages, :member => { :report => :post }, 
                                         :collection => {:images => :get, :files => :get},

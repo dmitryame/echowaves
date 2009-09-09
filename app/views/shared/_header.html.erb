@@ -6,15 +6,13 @@
 	<div class="span-19 last">
 		<div id="menu">
 			<ul>
-        
-        <li>
-      	  <span id="new_convo_button" class="round"><%= link_to t('conversations.start_new_conversation'), new_conversation_path %></span>
-      	</li>
 				
+				<li id="new_convo_button" class="round"><%= link_to t('conversations.start_new_conversation'), new_conversation_path %></li>
+        
         <li class="search">
 				  <form method="get" id="sform" action="/msgsearch" class="search_link">
+				    <%= image_submit_tag("/images/icons/magnifier.png")%>
   					<input type="text" id="q" onfocus="if(document.getElementById('q').value == 'search messages') { document.getElementById('q').value = ''; }" value="search messages" name="q" size="15" style="color:#888;"/>
-					<%= image_submit_tag("/images/icons/magnifier.png")%>
 					<div class="clear"></div>
   				</form>
 				</li>

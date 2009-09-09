@@ -1,46 +1,38 @@
 <div id="main_headline">
-  <h1><%= t("home.index.headline1") %></h1>
+  <h1>Social Group Chat</h1>
 </div>
 
 <div id="signup_headline">
-	<h2>
-		<%= link_to t("ui.signup"), new_user_path, :class => "button" -%>
-		<%= t("home.index.p2") -%>
-	</h2>
-</div>
-
-<div id="main_description" class="wbox round padding">
- <%= t("home.index.p1") %> <%= link_to t("ui.echowaves_conversation"), conversation_path(HOME_CONVERSATION), :action => "index" -%>.
-</div>
-
-<div id="test_convo_description" class="wbox round center padding">
- <%= t("home.index.p3") %> <%= link_to t("ui.test_conversation"), conversation_path(TEST_CONVERSATION), :action => "index" -%>.
+	<h5>
+		-- it's free and anyone can join. Start your own conversations, invite all your friends, follow other conversations that look interesting to you. Have fun!
+	</h5>
+	
+	<h5>
+	  If you like to chat, or blog, or post pictures, or share updates with friends, or just socialize -- you will enjoy EchoWaves.
+  </h5>
 </div>
 
 
-<%= render :partial => 'recent_convos'%>	
-
-<%= render :partial => 'popular_convos'%>	
-
-<%= render :partial => 'recently_joined'%>	
-
-<% if logged_in? %>
-	<div id="recently_visited" class = "span-6 last">
-	  <div class="padding">
-		  <%= render :partial => 'users/recently_visited' %>
-	  </div>
-	</div>
-	<div id="recentl_news" class = "span-6 last round wbox">
-	  <div class="padding">
-		  <%= render :partial => 'users/news' %>
-	  </div>
-	</div>
-<%end%>
-
-
-<div class="clear"></div>
-<div class="item center">
-  <h2><%= t("home.index.headline2") %></h2>
+<div class="item">
+  <h5>
+   Talk with us in our <%= link_to "EchoWaves conversation", conversation_path(HOME_CONVERSATION), :action => "index" -%><br/>or make tests in the  <%= link_to "Test conversation", conversation_path(TEST_CONVERSATION), :action => "index" -%>.
+   
+  </h5>
+  
 </div>
 
-<div class="item center"><h3><%= t("home.index.feedback_advice") %></h3></div>
+
+<%#= render :partial => 'recent_convos'%>	
+
+<%#= render :partial => 'popular_convos'%>	
+
+<%#= render :partial => 'recently_joined'%>	
+
+<hr/>
+
+
+<div class="item">
+  <p><%= t("home.index.headline2") %></p>
+</div>
+
+<div class="item"><p><%= t("home.index.feedback_advice") %></p></div>

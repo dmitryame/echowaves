@@ -106,36 +106,61 @@
  	};
 
   </script>
-  <%= javascript_include_tag "livepipe/livepipe" %>
-  <%= javascript_include_tag "livepipe/tabs" %>
 
-  <script type="text/javascript">
-  	document.observe('dom:loaded',function(){
-  	  new Control.Tabs('convo_tabs');
-  	});
-  </script>
 </head>
 
 <body id="messages_layout" onLoad="Misc.focusInput('message_message');stomp_function();">
-  <div id="top_container"><%= render(:partial => "shared/top") %></div>
 	<div id="header_container"><%= render(:partial => "shared/header") %></div>
-	<div id="convo_header_container">
-	  <div id="convo_header" class="container">
-	    <h5>
-	      <% if @conversation.parent_message_id %>
-    	    <span class="sbutton round"><%= link_to t("ui.back_to_parent"), conversation_path(@conversation.parent_message.conversation)%></span>
-    	  <% end %>
-  	    <% if @conversation.private? %><%= image_tag("/images/icons/icono_candado.gif") %> <% end %>
-  	  	<% if @conversation.read_only %><span class="label"><%= t("ui.read_only") %></span> <% end %><%= link_to h(@conversation.name), conversation_path(@conversation) %>
-  	  </h5>
-	  </div>
-	</div>
+
   	
 	<div id="main_content" class="container">
 		<div id="col1" class="span-14">
 		  <%= flash_messages %>
   		<% if (logged_in? && @conversation.readable_by?(current_user)) || !@conversation.private? %>
   		  
+  		  <div id="convo_header_container">
+      	  <div id="convo_header" >
+      	    <h5>
+        	    <% if @conversation.private? %><%= image_tag("/images/icons/icono_candado.gif") %> <% end %>
+        	  	<% if @conversation.read_only %><span class="label">RO</span> <% end %><%= link_to h(@conversation.name), conversation_path(@conversation) %>
+        	  </h5>
+        	  <div id="convo_tools">
+    			    <div class="padding05">
+    			      <%= render :partial => 'conversations/star', :locals => { :conversation => @conversation } %>
+    			      <% if @conversation.parent_message_id %>
+            	    <span class="sbutton round"><%= link_to t("ui.back_to_parent"), conversation_path(@conversation.parent_message.conversation)%></span>
+            	  <% end %>
+                <span class="sbutton round"><%= render :partial => 'conversations/follow', :object => @conversation %></span>
+                <% if current_user == @conversation.owner %>
+            	    <span class="sbutton round">
+            	      <% if @conversation.read_only %>
+            	        <%= link_to t("ui.make_writable"), toogle_readwrite_status_conversation_path(@conversation, :mode => 'rw'), :method => 'put' %>
+            	      <% else %>
+            	        <%= link_to t("ui.make_read_only"), toogle_readwrite_status_conversation_path(@conversation), :method => 'put' %>
+            	      <% end %>
+            	    </span>
+            	    <span class="sbutton round">
+            	      <% if @conversation.private? %>
+            	        <%= link_to t("ui.make_public"), toogle_private_status_conversation_path(@conversation, :mode => 'public'), :method => 'put' %>
+            	      <% else %>
+            	        <%= link_to t("ui.make_private"), toogle_private_status_conversation_path(@conversation), :method => 'put' %>
+            	      <% end %>
+            	    </span>
+            	  <% end %>
+
+            	  <% if logged_in? %>
+            	    <% unless ( @conversation.private? && current_user != @conversation.owner ) %>
+            	      <span class="sbutton round"><%= link_to( t("ui.invite"), invite_conversation_path(@conversation) ) %></span>
+            	    <% end %>
+            	  <%end%>
+            	  &nbsp;
+                <%# filter here %>
+          		</div>
+          	</div>
+    			  
+      	  </div>
+      	</div>
+      	
   		  <%= yield  %>
   		  
   		  <div id="attachment_form" style="display:none">
@@ -224,86 +249,36 @@
     <div id="sidebars" class="span-10 last">
       &nbsp;
       <div id="sidebars_container">
-	        
-			  <div id="convo_tools" class="span-10">
-			    <div class="padding05">
-			      <%= render :partial => 'conversations/star', :locals => { :conversation => @conversation } %>
-            <span class="sbutton round"><%= render :partial => 'conversations/follow', :object => @conversation %></span>
-            <% if current_user == @conversation.owner %>
-        	    <span class="sbutton round">
-        	      <% if @conversation.read_only %>
-        	        <%= link_to t("ui.make_writable"), toogle_readwrite_status_conversation_path(@conversation, :mode => 'rw'), :method => 'put' %>
-        	      <% else %>
-        	        <%= link_to t("ui.make_read_only"), toogle_readwrite_status_conversation_path(@conversation), :method => 'put' %>
-        	      <% end %>
-        	    </span>
-        	    <span class="sbutton round">
-        	      <% if @conversation.private? %>
-        	        <%= link_to t("ui.make_public"), toogle_private_status_conversation_path(@conversation, :mode => 'public'), :method => 'put' %>
-        	      <% else %>
-        	        <%= link_to t("ui.make_private"), toogle_private_status_conversation_path(@conversation), :method => 'put' %>
-        	      <% end %>
-        	    </span>
-        	  <% end %>
-
-        	  <% if logged_in? %>
-        	    <% unless ( @conversation.private? && current_user != @conversation.owner ) %>
-        	      <span class="sbutton round"><%= link_to( t("ui.invite"), invite_conversation_path(@conversation) ) %></span>
-        	    <% end %>
-        	  <%end%>
-
-      		</div>
-      	</div>
-      	
-      	<div id="convo_owner" class="span-10">
-			    <div class="padding05">
-            <em><%= t("ui.started_by") %></em>
-            <%= link_to h(@conversation.user.login), user_path(@conversation.user) %>
-            <%= link_to image_tag(@conversation.user.gravatar_url, :border => 0, :width => 20, :height => 20,
-              :class => "avatar", :alt => @conversation.user.login, :style => 'margin-left:4px;margin-bottom:-7px;'),
-              user_path(@conversation.user),
-              :class => 'tip', 
-              :title => user_popup(@conversation.user)
-            %>
-			    </div>
-			  </div>
+	      
+	      <%= render :partial => 'shared/dashboard' %>
 		      
-        <ul id="convo_tabs" class="subsection_tabs span-10">  
-        	<li class="tab"><a href="#dashboard"><%= t("ui.dashboard") %></a></li>  
-        	<!-- <li class="tab"><a href="#tags">tags</a></li> -->
-        	<li class="tab"><a href="#followers"><%= t("ui.followers") %></a></li>
-        </ul>
         		
-		    <div id="dashboard" class="span-10">
-		      <div  class="span-6">
-		        <%= render :partial => 'users/recently_visited' %>
-		        <%= render :partial => 'users/news' %>
-		      </div><!-- span-6 -->
+		    <div class="span-10">
+		      <%= render :partial => 'conversations/recent_followers' %>
+	        
+		      <div id="filters" class="item2 page">
+            <h6>Filter messages:
+            <%= link_to t("ui.all"), conversation_path(@conversation)%> -
+            <%= link_to t("ui.with_files"), files_conversation_path(@conversation)%> -
+            <%= link_to t("ui.with_images"), images_conversation_path(@conversation)%>
+            </h6>
+          </div><!-- filters -->
 		      
-		      <div class="span-4 last">
-		        
-		        <div id="filters" class="item2 page">
-              <h6>Filter messages:</h6>
-              <%= link_to t("ui.all"), conversation_path(@conversation)%><br/>
-              <%= link_to t("ui.with_files"), files_conversation_path(@conversation)%><br/>
-              <%= link_to t("ui.with_images"), images_conversation_path(@conversation)%>
-            </div><!-- filters -->
-		          
-		        <%= render :partial => 'conversations/recent_followers' %>
+		      <div id="convo_owner" class="span-10">
+  			    <div class="padding05">
+              <em><%= t("ui.started_by") %></em>
+              <%= link_to h(@conversation.user.login), user_path(@conversation.user) %>
+              <%= link_to image_tag(@conversation.user.gravatar_url, :border => 0, :width => 20, :height => 20,
+                :class => "avatar", :alt => @conversation.user.login, :style => 'margin-left:4px;margin-bottom:-7px;'),
+                user_path(@conversation.user),
+                :class => 'tip', 
+                :title => user_popup(@conversation.user)
+              %>
+  			    </div>
+  			  </div>
 		        <%# render :partial => 'conversations/last_convo_tags' %>
-		      </div><!-- span-4 -->
 		    </div><!-- dashboard -->
-		      
-		      <!--
-		        # removed tags stuff
-		        <div id="tags"  class="span-10">
-		          <%# render :partial => 'conversations/convo_tags' %>
-            </div>
-          	-->
-          
-        <div id="followers"  class="span-10">
-		      <%= render :partial => 'conversations/users_in_conversation' %>
-        </div>
+	
           
       </div><!-- sidebars_container -->
       

@@ -87,16 +87,12 @@ p { margin-bottom: 10px; }
 #main_headline {
   font-size: 150%;
   line-height: 1.9em;
-  text-align: center;
 }
 #main_headline h1 {
   font-size: 150%;
   margin: 0;
 }
-#signup_headline {
-  text-align: center;
-  color: #666666;
-}
+#signup_headline { color: #666666; }
 #sidebars_container #main_headline {
   font-size: 100%;
   line-height: 1.9em;
@@ -133,6 +129,10 @@ p { margin-bottom: 10px; }
   background: #151110;
 }
 #header h1 { margin: 0; }
+h4 {
+  background: #666666;
+  color: #ffffff;
+}
 #top-nav { text-align: right; }
 #top_container { background: #333333; }
 #menu ul {
@@ -265,6 +265,10 @@ p { margin-bottom: 10px; }
 .page h6 {
   margin: 0 0 4px 0;
   background: #eeeeee;
+}
+.page h6.hl {
+  background: #666666;
+  color: #ffffff;
 }
 .balloon2 h1 { margin: 0; }
 #messages { background: #ffffff; }

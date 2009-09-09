@@ -21,7 +21,7 @@ class UserSessionsController < ApplicationController
   def destroy
     current_user_session.destroy
     flash[:notice] = t("users.logged_out")
-    redirect_back_or_default('/')
+    redirect_to root_path
   end
 
 protected

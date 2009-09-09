@@ -1,8 +1,6 @@
-<div id="recently_joined" class="span-6 last round wbox">
-  <div class="padding">
-	  <h3><%= t("ui.recently_joined")-%>:</h3>
+<div class="item2 page">
+	  <h6 class="hl"><%= t("ui.recently_joined")-%>:</h6>
 	  <%= render :partial => 'user', :collection => @users %>	
 	  <br/>
 	  <%= link_to t("ui.view_all_users"), users_path %>
-  </div>
 </div>

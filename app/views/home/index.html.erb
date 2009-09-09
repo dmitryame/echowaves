@@ -1,14 +1,11 @@
-<div id="main_headline">
+<div id="main_headline" class="balloon">
   <h1>Social Group Chat</h1>
 </div>
 
 <div id="signup_headline">
-	<h5>
-		-- it's free and anyone can join. Start your own conversations, invite all your friends, follow other conversations that look interesting to you. Have fun!
-	</h5>
-	
-	<h5>
-	  If you like to chat, or blog, or post pictures, or share updates with friends, or just socialize -- you will enjoy EchoWaves.
+  <h5>
+	  If you like to chat, blog, or post pictures, or share updates with friends, or just socialize -- you will enjoy EchoWaves.<br/>
+	  -- it's free and anyone can join. Start your own conversations, invite all your friends, follow other conversations that look interesting to you. Have fun!
   </h5>
 </div>
 
@@ -22,17 +19,19 @@
 </div>
 
 
-<%#= render :partial => 'recent_convos'%>	
+<%= render :partial => 'recent_convos'%>	
 
-<%#= render :partial => 'popular_convos'%>	
-
-<%#= render :partial => 'recently_joined'%>	
-
-<hr/>
+<%= render :partial => 'popular_convos'%>	
 
 
+
+<h4>For developers</h4>
 <div class="item">
   <p><%= t("home.index.headline2") %></p>
 </div>
 
 <div class="item"><p><%= t("home.index.feedback_advice") %></p></div>
+
+<% content_for :sidebar_bottom do %>
+  <%= render :partial => 'recently_joined'%>	
+<% end %>

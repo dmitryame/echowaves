@@ -1,8 +1,7 @@
-<div id="popular_convos" class="span-9 round wbox">
-  <div class="padding">
-	  <h3><%= t("ui.popular_convos")-%>:</h3>
-	  <%= render :partial => 'popular_convo', :collection => @popular_convos %>	
-	  <br/>
-	  <%= link_to t("ui.view_all_convos"), conversations_path %>
-  </div>
+<div class="item">
+  <h4><%= t("ui.popular_convos")-%>:</h4>
+  <ul class="list">
+	  <%= render @popular_convos %>
+  </ul>
+  <%= link_to t("ui.view_all_convos"), conversations_path %>
 </div>

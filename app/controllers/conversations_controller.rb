@@ -197,7 +197,7 @@ class ConversationsController < ApplicationController
   #----------------------------------------------------------------------------
   def invite_from_list
     @user = User.active.find(params[:user_id])    
-    @user.invite( @conversation, current_user ) if @user.friend_of?( current_user )
+    @user.invite( @conversation, current_user ) # if @user.friend_of?( current_user )
     render :update do |page| 
       page["user_" + @user.id.to_s].visual_effect :drop_out
     end 
@@ -215,7 +215,7 @@ class ConversationsController < ApplicationController
       end
     end
     render :update do |page| 
-      page["spinner_0"].visual_effect :drop_out
+      page["spinner_x"].visual_effect :drop_out
     end 
   end
 
@@ -246,9 +246,10 @@ class ConversationsController < ApplicationController
       end
     end    
     render :update do |page|
-      page["user_" + @existing_user.id.to_s].visual_effect :drop_out if @existing_user.present?
-      page["spinner_1"].visual_effect :drop_out
+      page["spinner_y"].visual_effect :drop_out
       page["emails_"].clear
+      # FIXME: drop the user if the user is in the page
+      # page["user_" + @existing_user.id.to_s].visual_effect :drop_out if @existing_user.present?
     end 
   end
 

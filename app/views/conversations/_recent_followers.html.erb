@@ -1,9 +1,11 @@
 <div id="recent_followers" class="item2 page">
-	<h6><%= t("ui.recent_followers") %>: <%= link_to "View all the followers", followers_conversation_path(@conversation) %></h6>
+	<h6>
+	  <%= t("ui.recent_followers") %>: <span class="sbutton round"><%= link_to "View all", followers_conversation_path(@conversation) %></span>
+	  <% if logged_in? %>
+      <% unless ( @conversation.private? && current_user != @conversation.owner ) %>
+         <span class="sbutton round"><%= link_to( "invite people", invite_conversation_path(@conversation) ) %></span>
+      <% end %>
+    <%end%>
+	</h6>
 	<%= render :partial => 'conversations/user', :collection => @conversation.recent_followers %>
-	<% if @conversation.users.length > 10 %>
-	  <div>
-	    <a href="#followers" class="action"><%=t("ui.view_all")-%></a>
-	  </div>
-	<% end %>	
 </div>

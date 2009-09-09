@@ -29,11 +29,6 @@
     	    </span>
     	  <% end %>
 
-    	  <% if logged_in? %>
-    	    <% unless ( @conversation.private? && current_user != @conversation.owner ) %>
-    	      <span class="sbutton round"><%= link_to( t("ui.invite"), invite_conversation_path(@conversation) ) %></span>
-    	    <% end %>
-    	  <%end%>
         <%# filter here %>
   		</div>
   	</div>
@@ -44,7 +39,17 @@
 
 
 <div>
-	<h4>Send invitations by email <%= image_tag "/images/icons/spinner.gif", :style => 'display:none;', :id => "spinner_1" %></h4>
+	<h6>
+		<%= link_to_remote t("users.invite_all_followers"), :url => invite_all_my_followers_conversation_path(@conversation),
+   		  :confirm => t("users.invite_all_followers") + "?",
+		    :loading => "$('spinner_0').show();",
+    	  :method => :post %>	
+    <%= image_tag "/images/icons/spinner.gif", :style => 'display:none;', :id => "spinner_0" %>
+	</h6>
+</div>
+
+<div>
+	<h6>Send invitations by email <%= image_tag "/images/icons/spinner.gif", :style => 'display:none;', :id => "spinner_1" %></h6>
 	write some email addresses in the text box and click on the invite button
 		<% form_remote_tag :url => invite_via_email_conversation_path(@conversation), :loading => "$('spinner_1').show();" do %> 
 			<%= text_area :emails, {}, :cols => 30, :rows => 3 %>
@@ -53,25 +58,12 @@
     
 </div>
 
-<hr/>
 
-<div>
-	<h4>
-		<%= link_to_remote t("users.invite_all_followers"), :url => invite_all_my_followers_conversation_path(@conversation),
-   		  :confirm => t("users.invite_all_followers") + "?",
-		    :loading => "$('spinner_0').show();",
-    	  :method => :post %>	
-    <%= image_tag "/images/icons/spinner.gif", :style => 'display:none;', :id => "spinner_0" %>
-	</h4>
-</div>
 
-<hr/>
-
-<div class="balloon">
-	<h4><%= t("users.invite_followed_users") %></h4>
-</div>
 
 <div class="item">
+  <h6><%= t("users.invite_followed_users") %></h6>
+  
   <ul id="users_list">
     <% @friends.each do |user|%>
 	    <li id="<%=dom_id user%>">

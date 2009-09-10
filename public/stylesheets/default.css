@@ -660,3 +660,14 @@ ul.subsection_tabs li.tab a {
   border-bottom: 2px solid #999999;
   border-top: 1px solid #999999;
 }
+.invitation {
+  overflow: hidden;
+  border: 1px solid #cccccc;
+  margin-bottom: 5px;
+  padding: 5px;
+}
+.invitation h5 {
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+.invitation .actions { float: right; }

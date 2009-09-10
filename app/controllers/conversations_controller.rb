@@ -124,7 +124,7 @@ class ConversationsController < ApplicationController
 
   #----------------------------------------------------------------------------
   def follow
-    current_user.follow(@conversation)
+    current_user.follow(@conversation, params[:token])
   end
   
   #----------------------------------------------------------------------------

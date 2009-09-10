@@ -43,6 +43,7 @@ class User < ActiveRecord::Base
   end
     
   has_many :messages
+  has_many :invites
   has_many :client_applications
   has_many :tokens, :class_name => "OauthToken", :order => "authorized_at desc", :include => [:client_application]
   has_many :subscriptions, :order => "activated_at DESC"
@@ -209,14 +210,15 @@ class User < ActiveRecord::Base
       if (!Subscription.find_by_conversation_id_and_user_id(convo, self))
         subscription = convo.add_subscription(self) 
         subscription.mark_read!
+        invite.destroy if invite.present?
       end
-    elsif convo.private? && !invite.blank? && ( token == invite.token )
+    elsif convo.private? && invite.present? && ( token == invite.token )
       #create a subscription if not created yet
       if (!Subscription.find_by_conversation_id_and_user_id(convo, self))
         subscription = convo.add_subscription(self) 
         subscription.mark_read!
+        invite.destroy
       end
-      invite.reset_token!
     else
       return false
     end

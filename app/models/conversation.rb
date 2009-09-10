@@ -41,7 +41,7 @@ class Conversation < ActiveRecord::Base
     :limit => 10
 
   validates_presence_of     :name
-  validates_uniqueness_of   :name,      :unless => :spawned?
+#  validates_uniqueness_of   :name,      :unless => :spawned?
   validates_length_of       :name,      :within => 3..100
   validates_format_of       :something, :with => /^$/ # anti spam, honeypot field must be blank
   validates_presence_of     :uuid

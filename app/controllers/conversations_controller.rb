@@ -100,7 +100,7 @@ class ConversationsController < ApplicationController
           else # painfully slow if the user has many followers
             #invite all my followers, if the convo is public
             current_user.followers.each do |u|
-              u.invite @conversation, current_user
+              u.notify_follower @conversation, current_user
               u.follow @conversation # force all my followers to follow my new convo
             end
           end

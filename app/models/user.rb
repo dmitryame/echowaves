@@ -156,6 +156,15 @@ class User < ActiveRecord::Base
       UserMailer.deliver_public_invite_instructions(self, invite.conversation_id, invite.conversation.name, invite.requestor)
     end    
   end
+
+  def deliver_public_notify_follower!(invite)
+    return unless self.receive_email_notifications
+    if USE_WORKLING
+      EchowavesWorker.asynch_deliver_public_notify_follower(:user_id => id, :invite_id => invite.id)
+    else
+      UserMailer.deliver_public_notify_follower(self, invite.conversation_id, invite.conversation.name, invite.requestor)
+    end    
+  end
   
   def activate!
     self.activated_at = Time.now.utc

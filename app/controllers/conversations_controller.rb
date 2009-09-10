@@ -95,7 +95,7 @@ class ConversationsController < ApplicationController
         # unless the conversation is private
         unless @conversation.private?
           if USE_WORKLING
-            # EchowavesWorker.asynch_new_convo_notify_follower(:user_id => current_user.id, :conversation_id => @conversation.id)
+            EchowavesWorker.asynch_deliver_new_convo_notify_follower(:user_id => current_user.id, :conversation_id => @conversation.id)
             EchowavesWorker.asynch_force_followers_to_follow_new_convo(:user_id => current_user.id, :conversation_id => @conversation.id)
           else # painfully slow if the user has many followers
             #invite all my followers, if the convo is public

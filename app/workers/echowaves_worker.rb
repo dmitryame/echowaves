@@ -15,7 +15,8 @@ class EchowavesWorker < Workling::Base
   def deliver_public_notify_follower(options)
     user = User.find(options[:user_id])
     invite = Invite.find(options[:invite_id])
-    UserMailer.deliver_public_notify_follower(user, invite.conversation_id, invite.conversation.name, invite.requestor)
+#    UserMailer.deliver_public_notify_follower    (user, invite.conversation_id, invite.conversation.name, invite.requestor)
+    UserMailer.deliver_public_invite_instructions(user, invite.conversation_id, invite.conversation.name, invite.requestor)
   end
 
   

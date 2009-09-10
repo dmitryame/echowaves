@@ -12,10 +12,11 @@ class EchowavesWorker < Workling::Base
     UserMailer.deliver_public_invite_instructions(user, invite.conversation_id, invite.conversation.name, invite.requestor)
   end
 
-  def deliver_public_notify_follower(options)
+  def deliver_notification_about_new_convo(options)
     user = User.find(options[:user_id])
-    invite = Invite.find(options[:invite_id])
-    UserMailer.deliver_public_notify_follower(user, invite.conversation_id, invite.conversation.name, invite.requestor)
+    convo = Conversation.find(options[:convo_id])
+    requestor = User.find(options[:requestor_id])
+    UserMailer.deliver_notification_about_new_convo(user, convo.id, convo.name, requestor)
   end
 
   
@@ -38,11 +39,10 @@ class EchowavesWorker < Workling::Base
     end
   end
 
-  def new_convo_notify_followers(options)
-    user = User.find(options[:user_id])
-    convo = Conversation.find(options[:conversation_id])
-    user.followers.each do |u| 
-      u.notify_follower convo, user
+  def notify_followers_about_new_convo(options)
+    requestor = User.find(options[:user_id])
+    requestor.followers.each do |u| 
+      u.deliver_notification_about_new_convo! options[:conversation_id], requestor.id
     end
   end
 

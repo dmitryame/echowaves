@@ -158,12 +158,14 @@ class User < ActiveRecord::Base
     end    
   end
 
-  def deliver_public_notify_follower!(invite)
+  def deliver_notification_about_new_convo!(convo_id, requestor_id)
     return unless self.receive_email_notifications
     if USE_WORKLING
-      EchowavesWorker.asynch_deliver_public_notify_follower(:user_id => id, :invite_id => invite.id)
+      EchowavesWorker.asynch_deliver_notification_about_new_convo(:user_id => self.id, :requestor_id => requestor_id, :convo_id => convo_id)
     else
-      UserMailer.deliver_public_notify_follower(self, invite.conversation_id, invite.conversation.name, invite.requestor)
+      convo_name = Conversation.find(convo_id)
+      requestor = User.find(requestor_id)
+      UserMailer.deliver_notification_about_new_convo(self, convo_id, convo_name, requestor)
     end    
   end
   
@@ -270,28 +272,6 @@ class User < ActiveRecord::Base
       self.deliver_private_invite_instructions!(invite)      
     else
       self.deliver_public_invite_instructions!(invite)
-    end
-  end
-
-
-  #----------------------------------------------------------------------------
-  def notify_follower(conversation, invitee) 
-    return unless self.can_be_invited_to?(conversation, invitee)
-    existing_invite = Invite.find( :first, :conditions => [ "user_id = ? and requestor_id = ? and conversation_id = ?", self.id, invitee.id, conversation.id ] )
-    # destroy the old invite if present
-    existing_invite.destroy if( existing_invite.present? )
-    invite = Invite.new
-    invite.user_id = self.id
-    invite.requestor = invitee
-    invite.conversation_id = conversation.id
-    invite.token = self.perishable_token if conversation.private?
-    invite.save
- 
-    if conversation.private?
-      # private convo only sends invite via email
-      self.deliver_private_invite_instructions!(invite)      
-    else
-      self.deliver_public_notify_follower!(invite)
     end
   end
   

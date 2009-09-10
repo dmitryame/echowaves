@@ -32,7 +32,7 @@ class UserMailer < ActionMailer::Base
     body        :follow_conversation_url => follow_with_token_conversation_url(convo_id, :token => nil), :convo_name => convo_name
   end
 
-  def public_notify_follower(user, convo_id, convo_name, invitor)
+  def notification_about_new_convo(user, convo_id, convo_name, invitor)
     @user = invitor
     setup_email(user)
     @subject    += "You are auto-following new convo"

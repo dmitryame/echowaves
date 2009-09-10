@@ -1,4 +1,12 @@
 namespace :maintenance do
+  desc "Delete bad invitations"
+  task :delete_bad_invitations => :environment do
+    Invite.find_each(:batch_size => 100) do |i|
+      @subscription = Subscription.find(:first, :conditions => {:conversation_id => i.conversation_id, :user_id => i.user_id})
+      i.destroy if @subscription.present?
+    end
+  end
+  
   namespace :messages do
     
     desc "Regenerate message html"

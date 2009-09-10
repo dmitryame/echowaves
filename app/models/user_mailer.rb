@@ -32,6 +32,14 @@ class UserMailer < ActionMailer::Base
     body        :follow_conversation_url => follow_with_token_conversation_url(convo_id, :token => nil), :convo_name => convo_name
   end
 
+  def public_notify_follower(user, convo_id, convo_name, invitor)
+    @user = invitor
+    setup_email(user)
+    @subject    += "You are autofollowing newly created convo"
+    body        :follow_conversation_url => follow_with_token_conversation_url(convo_id, :token => nil), :convo_name => convo_name
+  end
+
+
   def email_invite(email, invite)
     @user = invite.requestor    
     default_url_options[:host] = HOST[7..-1]

@@ -261,6 +261,28 @@ class User < ActiveRecord::Base
       self.deliver_public_invite_instructions!(invite)
     end
   end
+
+
+  #----------------------------------------------------------------------------
+  def notify_follower(conversation, invitee) 
+    return unless self.can_be_invited_to?(conversation, invitee)
+    existing_invite = Invite.find( :first, :conditions => [ "user_id = ? and requestor_id = ? and conversation_id = ?", self.id, invitee.id, conversation.id ] )
+    # destroy the old invite if present
+    existing_invite.destroy if( existing_invite.present? )
+    invite = Invite.new
+    invite.user_id = self.id
+    invite.requestor = invitee
+    invite.conversation_id = conversation.id
+    invite.token = self.perishable_token if conversation.private?
+    invite.save
+ 
+    if conversation.private?
+      # private convo only sends invite via email
+      self.deliver_private_invite_instructions!(invite)      
+    else
+      self.deliver_public_notify_follower!(invite)
+    end
+  end
   
   #----------------------------------------------------------------------------
   def all_convos_tag_counts

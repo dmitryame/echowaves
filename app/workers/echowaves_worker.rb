@@ -30,6 +30,15 @@ class EchowavesWorker < Workling::Base
       u.invite convo, user
     end
   end
+
+  def new_convo_notify_followers(options)
+    user = User.find(options[:user_id])
+    convo = Conversation.find(options[:conversation_id])
+    user.followers.each do |u| 
+      u.notify_follower convo, user
+    end
+  end
+
   
   def force_followers_to_follow_new_convo(options)
     user = User.find(options[:user_id])

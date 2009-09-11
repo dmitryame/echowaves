@@ -165,10 +165,4 @@ class Conversation < ActiveRecord::Base
     self.uuid = UUID.create_v4.to_s
   end
 
-private
-
-  def escaped(value)
-    value.gsub(/"/, '&quot;').gsub(/'/, '.').gsub(/(\r\n|\n|\r)/,' <br />')
-  end
-
 end

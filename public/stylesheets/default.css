@@ -183,7 +183,7 @@ h4 {
 #dashboard p { padding: 5px; }
 #session-menu {
   background: #666666;
-  padding: 0 5px;
+  padding: 0 0 0 5px;
   -moz-border-radius-topleft: 5px;
   -webkit-border-top-left-radius: 5px;
   -moz-border-radius-topright: 5px;
@@ -193,7 +193,10 @@ h4 {
   margin: 0;
   float: right;
 }
-#session-menu ul li { float: right; }
+#session-menu ul li {
+  float: right;
+  margin-left: 5px;
+}
 #session-menu ul li a:link {
   display: block;
   padding: 2px 6px;
@@ -721,4 +724,11 @@ ul.subsection_tabs li.tab a {
 #convo-menu div a:hover {
   background: #3366cc;
   color: #ffffff;
+}
+.button {
+  display: block;
+  background: #000000;
+  padding: 0px 5px;
+  font-weight: bold;
+  margin-left: 5px;
 }

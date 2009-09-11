@@ -725,6 +725,12 @@ ul.subsection_tabs li.tab a {
   background: #3366cc;
   color: #ffffff;
 }
+.minilist { list-style: none; }
+.minilist li {
+  border-bottom: 1px dashed #cccccc;
+  padding: 0px 0;
+}
+.minilist li.conversation h3 { margin: 0; }
 .button {
   background: #000000;
   padding: 5px;

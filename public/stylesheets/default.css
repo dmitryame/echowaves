@@ -199,12 +199,12 @@ h4 {
 }
 #session-menu ul li a:link {
   display: block;
-  padding: 2px 6px;
+  padding: 0px 6px;
   color: #ffffff;
 }
 #session-menu ul li a:visited {
   display: block;
-  padding: 2px 6px;
+  padding: 0px 6px;
   color: #ffffff;
 }
 #session-menu ul li a.bookmarks_link {
@@ -726,9 +726,46 @@ ul.subsection_tabs li.tab a {
   color: #ffffff;
 }
 .button {
-  display: block;
   background: #000000;
-  padding: 0px 5px;
+  padding: 5px;
   font-weight: bold;
   margin-left: 5px;
+}
+.button a:link {
+  color: #ffffff;
+  text-decoration: none;
+}
+.button a:visited {
+  color: #ffffff;
+  text-decoration: none;
+}
+.button a:hover {
+  color: #ffffff;
+  text-decoration: none;
+}
+.button a:active {
+  color: #ffffff;
+  text-decoration: none;
+}
+.mbutton {
+  background: #000000;
+  padding: 0 5px;
+  font-weight: bold;
+  margin-left: 5px;
+}
+.mbutton a:link {
+  color: #ffffff;
+  text-decoration: none;
+}
+.mbutton a:visited {
+  color: #ffffff;
+  text-decoration: none;
+}
+.mbutton a:hover {
+  color: #ffffff;
+  text-decoration: none;
+}
+.mbutton a:active {
+  color: #ffffff;
+  text-decoration: none;
 }

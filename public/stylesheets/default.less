@@ -253,7 +253,7 @@ h4 {background:@gray4;color:@white;}
 			margin-left:5px;
 			a:link, a:visited {
 			  display:block;
-			  padding:2px 6px;
+			  padding:0px 6px;
 			  color:@white;
 		  }
 			a.bookmarks_link {
@@ -684,9 +684,22 @@ font-weight:bold;
 
 
 .button {
-  display:block;
   background: #000;
-  padding: 0px 5px;
+  padding:5px;
   font-weight: bold;
   margin-left:5px;
+  a:link, a:visited, a:hover, a:active {
+    color:@white;
+    text-decoration:none;
+  }
+}
+.mbutton {
+  background: #000;
+  padding:0 5px;
+  font-weight: bold;
+  margin-left:5px;
+  a:link, a:visited, a:hover, a:active {
+    color:@white;
+    text-decoration:none;
+  }
 }

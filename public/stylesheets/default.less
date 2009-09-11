@@ -555,23 +555,20 @@ font-weight:bold;
   -moz-border-radius-topright: 5px;
   -webkit-border-top-right-radius: 5px;
 }
-#convo_header h5{
+#convo_header h5 {
   margin:0px;
-  padding:0 2px;
-  font-size:110%;
+  padding:0;
+  font-size:100%;
   font-weight:normal;
+  img {margin:0px;display:inline;}
 }
 #convo_header h5 a:link, #convo_header h5 a:visited {
   color:#fff;
-  padding:0 5px;
+  padding:0px;
   text-decoration:none;
 }
 .padding05 {
   padding:0 5px;
-}
-.label {
-  background:#cc3333;
-  padding:0 2px;
 }
 #convo_tools {
   color: #999999;
@@ -586,10 +583,12 @@ font-weight:bold;
 }
 #convo_owner {
   position: absolute;
-  right:0;
-  top:28px;
-  background: #eee;
+  right:2px;
+  top:6px;
+  background:@gray4;
   padding: 0px;
+  font-size:90%;
+  line-height:1.2em;
 }
 #convo_name {
   width:90%;
@@ -626,4 +625,58 @@ font-weight:bold;
   padding:5px;
   h5 { margin-bottom:0px; margin-top:0px;}
   .actions {float:right;}
+}
+
+
+
+
+
+#convo-menu {
+  margin: 2px 0 0 0;
+	padding: 0;
+	z-index: 30;
+	float: right;
+  li {
+    margin: 0 0 0 2px;
+  	padding: 0;
+  	list-style: none;
+  	float: left;
+  	font: bold 11px arial;
+  	a {
+  	  display: block;
+    	margin: 0;
+    	padding: 2px;
+    	width: 60px;
+    	background: #999;
+    	color: #fff;
+    	text-align: center;
+    	text-decoration: none;
+    }
+    a:hover {	background: #3366cc}
+  }
+  div {	
+    position: absolute;
+  	visibility: hidden;
+  	margin: 0;
+  	padding: 0;
+  	background: #fff;
+  	border: 1px solid #999;
+  	a {
+  	  position: relative;
+  		display: block;
+  		margin: 0;
+  		padding: 5px 10px;
+  		width: auto;
+  		white-space: nowrap;
+  		text-align: left;
+  		text-decoration: none;
+  		background: #fff;
+  		color: #2875DE;
+  		font: 11px arial;
+  	}
+  	a:hover {	
+  	  background: #3366cc;
+  		color: #FFF;
+    }
+  }
 }

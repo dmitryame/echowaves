@@ -21,9 +21,7 @@
 </div>
 
 
-<%= render :partial => 'recent_convos'%>	
 
-<%= render :partial => 'popular_convos'%>	
 
 
 
@@ -35,5 +33,7 @@
 <div class="item"><p><%= t("home.index.feedback_advice") %></p></div>
 
 <% content_for :sidebar_bottom do %>
-  <%= render :partial => 'recently_joined'%>	
+  <%= render :partial => 'recent_convos'%>	
+  <%= render :partial => 'popular_convos'%>
+  <%= render :partial => 'recently_joined'%>
 <% end %>

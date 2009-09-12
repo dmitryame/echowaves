@@ -15,7 +15,10 @@ ActionController::Routing::Routes.draw do |map|
                                       :unfollow                 => :post,
                                       :follow_from_list         => :post,
                                       :unfollow_from_list       => :post
-                                    }
+                                    } do |user|
+    user.resources :invitations, :only => [:destroy, :index],
+      :member => { :accept => :post }
+  end
 
   map.resources :conversations, :collection => {:bookmarked => :get, :new_messages => :get}, :member => {
     :toogle_private_status   => :put,

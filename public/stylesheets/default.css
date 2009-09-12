@@ -183,7 +183,7 @@ h4 {
 #dashboard p { padding: 5px; }
 #session-menu {
   background: #666666;
-  padding: 0 5px;
+  padding: 0 0 0 5px;
   -moz-border-radius-topleft: 5px;
   -webkit-border-top-left-radius: 5px;
   -moz-border-radius-topright: 5px;
@@ -193,15 +193,18 @@ h4 {
   margin: 0;
   float: right;
 }
-#session-menu ul li { float: right; }
+#session-menu ul li {
+  float: right;
+  margin-left: 5px;
+}
 #session-menu ul li a:link {
   display: block;
-  padding: 2px 6px;
+  padding: 0px 6px;
   color: #ffffff;
 }
 #session-menu ul li a:visited {
   display: block;
-  padding: 2px 6px;
+  padding: 0px 6px;
   color: #ffffff;
 }
 #session-menu ul li a.bookmarks_link {
@@ -584,25 +587,25 @@ ul.subsection_tabs li.tab a {
 }
 #convo_header h5 {
   margin: 0px;
-  padding: 0 2px;
-  font-size: 110%;
+  padding: 0;
+  font-size: 100%;
   font-weight: normal;
+}
+#convo_header h5 img {
+  margin: 0px;
+  display: inline;
 }
 #convo_header h5 a:link {
   color: #ffffff;
-  padding: 0 5px;
+  padding: 0px;
   text-decoration: none;
 }
 #convo_header h5 a:visited {
   color: #ffffff;
-  padding: 0 5px;
+  padding: 0px;
   text-decoration: none;
 }
 .padding05 { padding: 0 5px; }
-.label {
-  background: #cc3333;
-  padding: 0 2px;
-}
 #convo_tools {
   color: #999999;
   padding: 0px;
@@ -619,10 +622,12 @@ ul.subsection_tabs li.tab a {
 }
 #convo_owner {
   position: absolute;
-  right: 0;
-  top: 28px;
-  background: #eeeeee;
+  right: 2px;
+  top: 6px;
+  background: #666666;
   padding: 0px;
+  font-size: 90%;
+  line-height: 1.2em;
 }
 #convo_name {
   width: 90%;
@@ -659,4 +664,114 @@ ul.subsection_tabs li.tab a {
   border-left: 1px dashed #cccccc;
   border-bottom: 2px solid #999999;
   border-top: 1px solid #999999;
+}
+.invitation {
+  overflow: hidden;
+  border: 1px solid #cccccc;
+  margin-bottom: 5px;
+  padding: 5px;
+}
+.invitation h5 {
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+.invitation .actions { float: right; }
+#convo-menu {
+  margin: 2px 0 0 0;
+  padding: 0;
+  z-index: 30;
+  float: right;
+}
+#convo-menu li {
+  margin: 0 0 0 2px;
+  padding: 0;
+  list-style: none;
+  float: left;
+  font: bold 11px arial;
+}
+#convo-menu li a {
+  display: block;
+  margin: 0;
+  padding: 2px;
+  width: 60px;
+  background: #999999;
+  color: #ffffff;
+  text-align: center;
+  text-decoration: none;
+}
+#convo-menu li a:hover { background: #3366cc; }
+#convo-menu div {
+  position: absolute;
+  visibility: hidden;
+  margin: 0;
+  padding: 0;
+  background: #ffffff;
+  border: 1px solid #999999;
+}
+#convo-menu div a {
+  position: relative;
+  display: block;
+  margin: 0;
+  padding: 5px 10px;
+  width: auto;
+  white-space: nowrap;
+  text-align: left;
+  text-decoration: none;
+  background: #ffffff;
+  color: #2875de;
+  font: 11px arial;
+}
+#convo-menu div a:hover {
+  background: #3366cc;
+  color: #ffffff;
+}
+.minilist { list-style: none; }
+.minilist li {
+  border-bottom: 1px dashed #cccccc;
+  padding: 0px 0;
+}
+.minilist li.conversation h3 { margin: 0; }
+.button {
+  background: #000000;
+  padding: 5px;
+  font-weight: bold;
+  margin-left: 5px;
+}
+.button a:link {
+  color: #ffffff;
+  text-decoration: none;
+}
+.button a:visited {
+  color: #ffffff;
+  text-decoration: none;
+}
+.button a:hover {
+  color: #ffffff;
+  text-decoration: none;
+}
+.button a:active {
+  color: #ffffff;
+  text-decoration: none;
+}
+.mbutton {
+  background: #000000;
+  padding: 0 5px;
+  font-weight: bold;
+  margin-left: 5px;
+}
+.mbutton a:link {
+  color: #ffffff;
+  text-decoration: none;
+}
+.mbutton a:visited {
+  color: #ffffff;
+  text-decoration: none;
+}
+.mbutton a:hover {
+  color: #ffffff;
+  text-decoration: none;
+}
+.mbutton a:active {
+  color: #ffffff;
+  text-decoration: none;
 }

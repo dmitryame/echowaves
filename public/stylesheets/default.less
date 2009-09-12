@@ -240,7 +240,7 @@ h4 {background:@gray4;color:@white;}
 /* session menu */
 #session-menu {
   background: @gray4;
-  padding:0 5px;
+  padding:0 0 0 5px;
   -moz-border-radius-topleft: 5px;
   -webkit-border-top-left-radius: 5px;
   -moz-border-radius-topright: 5px;
@@ -250,9 +250,10 @@ h4 {background:@gray4;color:@white;}
 		float:right;
 		li { 
 			float:right;
+			margin-left:5px;
 			a:link, a:visited {
 			  display:block;
-			  padding:2px 6px;
+			  padding:0px 6px;
 			  color:@white;
 		  }
 			a.bookmarks_link {
@@ -555,23 +556,20 @@ font-weight:bold;
   -moz-border-radius-topright: 5px;
   -webkit-border-top-right-radius: 5px;
 }
-#convo_header h5{
+#convo_header h5 {
   margin:0px;
-  padding:0 2px;
-  font-size:110%;
+  padding:0;
+  font-size:100%;
   font-weight:normal;
+  img {margin:0px;display:inline;}
 }
 #convo_header h5 a:link, #convo_header h5 a:visited {
   color:#fff;
-  padding:0 5px;
+  padding:0px;
   text-decoration:none;
 }
 .padding05 {
   padding:0 5px;
-}
-.label {
-  background:#cc3333;
-  padding:0 2px;
 }
 #convo_tools {
   color: #999999;
@@ -586,10 +584,12 @@ font-weight:bold;
 }
 #convo_owner {
   position: absolute;
-  right:0;
-  top:28px;
-  background: #eee;
+  right:2px;
+  top:6px;
+  background:@gray4;
   padding: 0px;
+  font-size:90%;
+  line-height:1.2em;
 }
 #convo_name {
   width:90%;
@@ -618,4 +618,94 @@ font-weight:bold;
   border-left:1px dashed #ccc;
   border-bottom:2px solid #999;
   border-top:1px solid #999;
+}
+.invitation {
+  overflow:hidden;
+  border:1px solid #ccc;
+  margin-bottom:5px;
+  padding:5px;
+  h5 { margin-bottom:0px; margin-top:0px;}
+  .actions {float:right;}
+}
+
+
+
+
+
+#convo-menu {
+  margin: 2px 0 0 0;
+	padding: 0;
+	z-index: 30;
+	float: right;
+  li {
+    margin: 0 0 0 2px;
+  	padding: 0;
+  	list-style: none;
+  	float: left;
+  	font: bold 11px arial;
+  	a {
+  	  display: block;
+    	margin: 0;
+    	padding: 2px;
+    	width: 60px;
+    	background: #999;
+    	color: #fff;
+    	text-align: center;
+    	text-decoration: none;
+    }
+    a:hover {	background: #3366cc}
+  }
+  div {	
+    position: absolute;
+  	visibility: hidden;
+  	margin: 0;
+  	padding: 0;
+  	background: #fff;
+  	border: 1px solid #999;
+  	a {
+  	  position: relative;
+  		display: block;
+  		margin: 0;
+  		padding: 5px 10px;
+  		width: auto;
+  		white-space: nowrap;
+  		text-align: left;
+  		text-decoration: none;
+  		background: #fff;
+  		color: #2875DE;
+  		font: 11px arial;
+  	}
+  	a:hover {	
+  	  background: #3366cc;
+  		color: #FFF;
+    }
+  }
+}
+.minilist { list-style: none; }
+.minilist li {
+  border-bottom: 1px dashed #cccccc;
+  padding: 0px 0;
+}
+.minilist li.conversation h3 { margin: 0; }
+
+
+.button {
+  background: #000;
+  padding:5px;
+  font-weight: bold;
+  margin-left:5px;
+  a:link, a:visited, a:hover, a:active {
+    color:@white;
+    text-decoration:none;
+  }
+}
+.mbutton {
+  background: #000;
+  padding:0 5px;
+  font-weight: bold;
+  margin-left:5px;
+  a:link, a:visited, a:hover, a:active {
+    color:@white;
+    text-decoration:none;
+  }
 }

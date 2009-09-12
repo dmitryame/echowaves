@@ -91,19 +91,19 @@ class ConversationsController < ApplicationController
           copied_message.save
         end
         
-        # now let's invite all the creator's followers
+        # now let's force all the creator's followers to follow the convo
         # unless the conversation is private
         unless @conversation.private?
           if USE_WORKLING
-            EchowavesWorker.asynch_new_convo_notify_followers(:user_id => current_user.id, :conversation_id => @conversation.id)
             EchowavesWorker.asynch_force_followers_to_follow_new_convo(:user_id => current_user.id, :conversation_id => @conversation.id)
+            EchowavesWorker.asynch_notify_followers_about_new_convo(:user_id => current_user.id, :conversation_id => @conversation.id)
           else # painfully slow if the user has many followers
-            #invite all my followers, if the convo is public
             current_user.followers.each do |u|
-              u.notify_follower @conversation, current_user
               u.follow @conversation # force all my followers to follow my new convo
+              u.deliver_notification_about_new_convo!(@conversation.id, current_user.id)
             end
           end
+          # notify everyone!
         end
         
         format.html { redirect_to(@conversation) }
@@ -124,7 +124,7 @@ class ConversationsController < ApplicationController
 
   #----------------------------------------------------------------------------
   def follow
-    current_user.follow(@conversation)
+    current_user.follow(@conversation, params[:token])
   end
   
   #----------------------------------------------------------------------------

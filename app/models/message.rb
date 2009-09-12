@@ -127,7 +127,7 @@ class Message < ActiveRecord::Base
     end
     self.reload
     # check if we need to deactivate the message for abuse
-    if (user == self.conversation.owner) or self.over_abuse_reports_limit?
+    if (user == self.conversation.owner) || DEV_TEAM.include?(user.login) || self.over_abuse_reports_limit?
       self.update_attributes(:abuse_report => abuse_report)
     end
   end

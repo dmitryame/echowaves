@@ -2,21 +2,18 @@
   <h1>Social Group Chat</h1>
 </div>
 
-<div id="signup_headline">
-  <h5>
-	  If you like to chat, blog, or post pictures, or share updates with friends, or just socialize -- you will enjoy EchoWaves.
-  </h5>
+<h2>If you like to <span class="highlight">chat</span>, <span class="highlight">blog</span>, <span class="highlight">post pictures and videos</span>, <span class="highlight">share updates with friends</span> or just <span class="highlight">socialize,</span> you will enjoy EchoWaves.</h2>
+
+<div class="item screencast">
+  <h3>See the intro in video</h3>
+  <object width="520" height="286"><param name="allowfullscreen" value="true" /><param name="allowscriptaccess" value="always" /><param name="movie" value="http://vimeo.com/moogaloop.swf?clip_id=6556980&amp;server=vimeo.com&amp;show_title=0&amp;show_byline=0&amp;show_portrait=0&amp;color=00adef&amp;fullscreen=1" /><embed src="http://vimeo.com/moogaloop.swf?clip_id=6556980&amp;server=vimeo.com&amp;show_title=0&amp;show_byline=0&amp;show_portrait=0&amp;color=00adef&amp;fullscreen=1" type="application/x-shockwave-flash" allowfullscreen="true" allowscriptaccess="always" width="520" height="286"></embed></object>
 </div>
 
 <div class="item">
-  <%= image_tag "/images/screen.jpg" %>
-</div>
-
-<div class="item">
-  <h5>
-   Talk with us in our <%= link_to "EchoWaves conversation", conversation_path(HOME_CONVERSATION), :action => "index" -%><br/>or make tests in the  <%= link_to "Test conversation", conversation_path(TEST_CONVERSATION), :action => "index" -%>.
+  <h2>
+   Talk with us in our <%= link_to "EchoWaves conversation", conversation_path(HOME_CONVERSATION), :action => "index" -%>.<br/>If you want to test how the system works, please, use this <%= link_to "Test conversation", conversation_path(TEST_CONVERSATION), :action => "index" -%>.
    
-  </h5>
+  </h2>
   
 </div>
 
@@ -24,16 +21,17 @@
 
 
 
-
-<h4>For developers</h4>
-<div class="item">
+<hr/>
+<div class="item mute">
+  <h4>Information for developers</h4>
   <p><%= t("home.index.headline2") %></p>
 </div>
 
-<div class="item"><p><%= t("home.index.feedback_advice") %></p></div>
+<div class="item mute"><p><%= t("home.index.feedback_advice") %></p></div>
 
 <% content_for :sidebar_bottom do %>
-  <%= render :partial => 'recent_convos'%>	
-  <%= render :partial => 'popular_convos'%>
-  <%= render :partial => 'recently_joined'%>
+  <%= render :partial => 'popular_topics' %>
+  <%= render :partial => 'recent_convos' %>	
+  <%= render :partial => 'popular_convos' %>
+  <%= render :partial => 'recently_joined' %>
 <% end %>

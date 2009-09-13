@@ -1,6 +1,6 @@
 // colors
 @cyan: 					#D0E4EB;
-@highlight: 		#FF8;
+@highlight: 		#ff8;
 @gray1: 				#EEE;
 @gray2: 				#999;
 @gray3: 				#CCC;
@@ -16,8 +16,10 @@
 html, body {
 	margin:0;
 	background:@gray3;
+	font-family: helvetica;
 }
 h1 { margin:0px; }
+h2 {line-height:1.2em;font-weight:normal;}
 .container {
 	.highlight { background:@highlight; }
 	.quiet { color:@gray2; }
@@ -30,6 +32,10 @@ h1 { margin:0px; }
 	p { margin-bottom:10px; }
 	ul { margin:0; }
 	ul li { margin:0; }
+}
+.redbox {
+  padding:10px;
+  background:@red;
 }
 .big {font-size:120%}
 .out_of_screen { position:fixed;left:500000px; }
@@ -708,4 +714,7 @@ font-weight:bold;
     color:@white;
     text-decoration:none;
   }
+}
+.screencast object {
+border:8px solid @gray5;
 }

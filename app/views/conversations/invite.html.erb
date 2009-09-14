@@ -39,17 +39,19 @@
 
 
 <div>
-	<h6>
-		<%= link_to_remote t("users.invite_all_followers"), :url => invite_all_my_followers_conversation_path(@conversation),
-   		  :confirm => t("users.invite_all_followers") + "?",
-		    :loading => "$('spinner_0').show();",
-    	  :method => :post %>	
-    <%= image_tag "/images/icons/spinner.gif", :style => 'display:none;', :id => "spinner_x" %>
-	</h6>
+	  <div class="big center vspace">
+	    <span class="round button">	
+		  <%= link_to_remote "Invite all your followers", :url => invite_all_my_followers_conversation_path(@conversation),
+   	  	  :confirm => t("users.invite_all_followers") + "?",
+		      :loading => "$('spinner_0').show();",
+      	  :method => :post %>	
+      <%= image_tag "/images/icons/spinner.gif", :style => 'display:none;', :id => "spinner_x" %>
+      </span>
+    </div>
 </div>
 
 <div>
-	<h6>Send invitations by email <%= image_tag "/images/icons/spinner.gif", :style => 'display:none;', :id => "spinner_y" %></h6>
+	<h5>Send invitations by email <%= image_tag "/images/icons/spinner.gif", :style => 'display:none;', :id => "spinner_y" %></h5>
 	write some email addresses in the text box and click on the invite button
 		<% form_remote_tag :url => invite_via_email_conversation_path(@conversation), :loading => "$('spinner_y').show();" do %> 
 			<%= text_area :emails, {}, :cols => 30, :rows => 3 %>

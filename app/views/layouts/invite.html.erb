@@ -21,13 +21,11 @@
 	
 </head>
 
-<body>
-  <div id="top_container"><%= render(:partial => "shared/top") %></div>
-  
+<body>  
 	<div id="header_container"><%= render(:partial => "shared/header") %></div>
   
 	<div id="main_content" class="container">
-		<div>
+		<div class>
 		  <%= flash_messages %>
   	  <%= yield  %>
 		</div>    

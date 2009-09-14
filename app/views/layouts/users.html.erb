@@ -28,9 +28,11 @@
 
 		<div id="col1" class="span-14">
 		  <%= yield(:convo_header) %>
-		  <div class="page">
+		  <div class="box round">
 		    <%= flash_messages %>
-  		  <%= yield  %>
+		    <div class="box-content">
+  		    <%= yield  %>
+  		  </div>
   		</div>
 		</div>
 		

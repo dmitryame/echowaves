@@ -42,8 +42,9 @@
 </div>
 <% end %>
 
-<div id="users_in_conversation" class="item2 page">
-  <h6><%= t("ui.followers") %>:</h6>
+<div id="users_in_conversation">
+  <h5><%= t("ui.followers") %>:</h5>
+  <div class="box-content">
   <% @conversation.users.each do |u| %>
     <span class="user_label" id="follower_<%= u.id %>">
 	      <% if current_user == @conversation.owner && @conversation.private? %>
@@ -52,5 +53,6 @@
 	    	<%= link_to h(u.login), user_path(u) %>
 	  </span>	
   <% end %>
+  </div>
   <div><%= link_to "return to conversation", conversation_path(@conversation) %></div>
 </div>

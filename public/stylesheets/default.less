@@ -1,4 +1,5 @@
 // colors
+@black:         #000;
 @cyan: 					#D0E4EB;
 @highlight: 		#ff8;
 @gray1: 				#EEE;
@@ -18,8 +19,13 @@ html, body {
 	background:@gray3;
 	font-family: helvetica;
 }
+.vspace {
+margin:20px 0;
+}
 h1 { margin:0px; }
 h2 {line-height:1.2em;font-weight:normal;}
+h7 { background:@gray1;padding:0 5px;
+}
 .container {
 	.highlight { background:@highlight; }
 	.quiet { color:@gray2; }
@@ -55,11 +61,11 @@ h2 {line-height:1.2em;font-weight:normal;}
 
 #flash_messages {
 	.notice {
-		background:@green;
+		background:@highlight;
 		padding:4px 10px;
 		border:none;
 		margin:0 0 10px 0;
-		color:@white;
+		color:@black;
 		font-weight:strong;
 	}
 	.error {
@@ -312,6 +318,7 @@ h4 {background:@gray4;color:@white;}
 	.userinfo { padding-left:70px;display:block;color:#3366cc; }
 }
 
+// remove this
 .page {
   -moz-border-radius-topleft: 5px;
   -webkit-border-top-left-radius: 5px;
@@ -326,6 +333,35 @@ h4 {background:@gray4;color:@white;}
 	h6.hl {
     background:@gray4;
     color:@white;
+	}
+}
+
+.box {
+  padding:0px;
+  background:#fcfcfc;
+  margin-bottom:5px;
+  h5 {
+    padding:0 5px;
+    background:@gray1;
+    text-align:center;
+    margin:5px 0;
+  }
+	h6 {
+	  margin:0px;
+	  background:@gray4;
+	  color:@white;
+	  padding:0 5px;
+	  -moz-border-radius-topleft: 5px;
+    -webkit-border-top-left-radius: 5px;
+    -moz-border-radius-topright: 5px;
+    -webkit-border-top-right-radius: 5px;
+    a:link, a:visited, a:hover, a:active {
+      color:@white;
+      text-decoration:none;
+    }
+	}
+	.box-content {
+	  padding:5px;
 	}
 }
 
@@ -699,7 +735,7 @@ font-weight:bold;
   background: #000;
   padding:5px;
   font-weight: bold;
-  margin-left:5px;
+  margin:5px;
   a:link, a:visited, a:hover, a:active {
     color:@white;
     text-decoration:none;
@@ -717,4 +753,7 @@ font-weight:bold;
 }
 .screencast object {
 border:8px solid @gray5;
+}
+.convo-name {
+
 }

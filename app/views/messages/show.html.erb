@@ -1,11 +1,10 @@
 <div class="span-5">&nbsp;</div>
 
-<div id="center" class="span-14 page">
+<div id="center" class="span-14 box round vspace">
 
-	<div class="balloon">
-		<h2 class="center"><%= link_to h(@conversation.name), conversation_path(@conversation) %></h2>
-	</div>
+	<h6><%= link_to h(@conversation.name), conversation_path(@conversation) %></h6>
 
+	<div class="box-content">
 	<%= render :partial => 'more_messages_on_top' %>
 	<div id='messages'>
 		<div id="first_message"></div>
@@ -13,6 +12,6 @@
 		<div id="last_message"></div>
 	</div>
 	<%= render :partial => 'more_messages_on_bottom' %>
-
+  </div>
 
 </div>

@@ -1,6 +1,8 @@
-<div class="item2 page">
-	  <h6 class="hl"><%= t("ui.recently_joined")-%>:</h6>
+<div class="box round">
+	<h6><%= t("ui.recently_joined")-%>:</h6>
+	<div class="box-content">
 	  <%= render :partial => 'user', :collection => @users %>	
 	  <br/>
 	  <%= link_to t("ui.view_all_users"), users_path %>
+	</div>
 </div>

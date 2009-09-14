@@ -1,7 +1,9 @@
-<div class="item2 page">
-  <h6 class="hl"><%= t("ui.popular_convos")-%>:</h6>
-  <ul class="minilist">
-	  <%= render @popular_convos %>
-  </ul>
-  <%= link_to t("ui.view_all_convos"), conversations_path %>
+<div class="box round">
+  <h6><%= t("ui.popular_convos")-%>:</h6>
+  <div class="box-content">
+    <ul class="minilist">
+	    <%= render @popular_convos %>
+    </ul>
+    <%= link_to t("ui.view_all_convos"), conversations_path %>
+  </div>
 </div>

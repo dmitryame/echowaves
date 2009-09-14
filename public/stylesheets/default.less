@@ -118,18 +118,6 @@ p { margin-bottom:10px; }
 .item2 { margin-bottom:5px; }
 .content { background:@white; }
 
-#main_headline {
-  font-size:150%;
-  line-height:1.9em;
-	h1 {
-		font-size: 150%;
-		margin:0;
-	}
-}
-
-#signup_headline {
-  color:@gray4;
-}
 #sidebars_container {
 	#main_headline {
   	font-size:100%;
@@ -305,19 +293,6 @@ h4 {background:@gray4;color:@white;}
 }
 
 
-
-/* balloon */
-.balloon {
-  background:@gray1;
-  padding:5px;
-	margin-bottom:10px;
-	div form { margin:10px 0px 0px 0px; }
-	h1 { margin:0; }
-	.avatar { float:left; }
-	.username { padding-left:70px;display:block;font-size:130%; }
-	.userinfo { padding-left:70px;display:block;color:#3366cc; }
-}
-
 // remove this
 .page {
   -moz-border-radius-topleft: 5px;
@@ -334,6 +309,27 @@ h4 {background:@gray4;color:@white;}
     background:@gray4;
     color:@white;
 	}
+}
+.bbox {
+  background:#313131;
+  color:#fff;
+  padding:10px;
+  h2 {margin:0 0 5px 0;}
+  
+  h1 {
+  	font-size: 200%;
+  	margin:0 0 10px 0;
+  }
+  div form { margin:10px 0px 0px 0px; }
+	.avatar { float:left; }
+	.username { padding-left:70px;display:block;font-size:130%; }
+	.userinfo { padding-left:70px;display:block;color:@white; }
+	a:link, a:visited, a:hover, a:active {
+	  color:@white;
+	}
+}
+.bbox-pointer {
+  background:url("/images/bbox-point.gif") 30px top no-repeat;
 }
 
 .box {

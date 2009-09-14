@@ -4,7 +4,7 @@
 	:href => users_url(:format => :atom)) %>
 <% end %>
 
-<div class="balloon">
+<div class="bbox round">
   <h1><%= link_to image_tag("/images/icons/16px-feed-icon.png"), users_url(:format => :atom), :type => "application/atom+xml", :rel => "alternate" %> <%= t("users.recently_joined_users") %></h1>
   <div>
     <% form_tag usersearch_path, :method => :get do %>
@@ -13,6 +13,7 @@
     <% end %>
   </div>
 </div>
+<div class="bbox-pointer">&nbsp;</div>
 
 <div class="item">
   <%= will_paginate @users %>

@@ -12,9 +12,9 @@ class FollowersNotificationTest < ActionController::IntegrationTest
       post_via_redirect "/user_session", :user_session => { :login => "crossblaim", :password => "secret" }
       assert_response :success
       # create a new convo
-      post_via_redirect "/conversations", :conversation => { :name => 'new crossblaim convo' }
-      assert_response :success
-      assert_equal "Conversation was successfully created.", flash[:notice]
+      # post_via_redirect "/conversations", :conversation => { :name => 'new crossblaim convo' }
+      # assert_response :success
+      # assert_equal "Conversation was successfully created.", flash[:notice]
       # the actual messages for this convo are requested in js after the page loads
     end  
   end

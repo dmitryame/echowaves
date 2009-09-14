@@ -1,7 +1,7 @@
   <%= flash_messages %>
-	<div class="page">
+	<div class="box round">
 	  
-    <div class="balloon">
+    <div class="bbox round">
       <h1><%= t("ui.search_convos_for", :string => params[:q]) %></h1>
       <div>
         <% form_tag convosearch_path, :method => :get do %>
@@ -10,6 +10,8 @@
         <% end %>
       </div>
     </div>
+    <div class="bbox-pointer">&nbsp;</div>
+    
 
     <div class="item">
       <ul class="list">

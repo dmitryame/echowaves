@@ -1,4 +1,4 @@
-<div class="balloon">
+<div class="bbox round">
   <h1><%= link_to image_tag("/images/icons/16px-feed-icon.png"),
         new_messages_conversations_url(params[:id], :format => :atom, :user_credentials => @user.single_access_token), 
         :type => "application/atom+xml",
@@ -29,6 +29,7 @@
 
   <div class="clear"></div>
 </div>
+<div class="bbox-pointer">&nbsp;</div>
 
 <% if logged_in? && @user && @current_user == @user %>
   <div class="notice">

@@ -98,15 +98,6 @@ p { margin-bottom: 10px; }
 .padding { padding: 10px; }
 .item2 { margin-bottom: 5px; }
 .content { background: #ffffff; }
-#main_headline {
-  font-size: 150%;
-  line-height: 1.9em;
-}
-#main_headline h1 {
-  font-size: 150%;
-  margin: 0;
-}
-#signup_headline { color: #666666; }
 #sidebars_container #main_headline {
   font-size: 100%;
   line-height: 1.9em;
@@ -253,24 +244,6 @@ h4 {
   background: url("/images/icons/mini-star.png") 4px 6px no-repeat;
   padding-left: 22px;
 }
-.balloon {
-  background: #eeeeee;
-  padding: 5px;
-  margin-bottom: 10px;
-}
-.balloon div form { margin: 10px 0px 0px 0px; }
-.balloon h1 { margin: 0; }
-.balloon .avatar { float: left; }
-.balloon .username {
-  padding-left: 70px;
-  display: block;
-  font-size: 130%;
-}
-.balloon .userinfo {
-  padding-left: 70px;
-  display: block;
-  color: #3366cc;
-}
 .page {
   -moz-border-radius-topleft: 5px;
   -webkit-border-top-left-radius: 5px;
@@ -287,6 +260,33 @@ h4 {
   background: #666666;
   color: #ffffff;
 }
+.bbox {
+  background: #313131;
+  color: #ffffff;
+  padding: 10px;
+}
+.bbox h2 { margin: 0 0 5px 0; }
+.bbox h1 {
+  font-size: 200%;
+  margin: 0 0 10px 0;
+}
+.bbox div form { margin: 10px 0px 0px 0px; }
+.bbox .avatar { float: left; }
+.bbox .username {
+  padding-left: 70px;
+  display: block;
+  font-size: 130%;
+}
+.bbox .userinfo {
+  padding-left: 70px;
+  display: block;
+  color: #ffffff;
+}
+.bbox a:link { color: #ffffff; }
+.bbox a:visited { color: #ffffff; }
+.bbox a:hover { color: #ffffff; }
+.bbox a:active { color: #ffffff; }
+.bbox-pointer { background: url("/images/bbox-point.gif") 30px top no-repeat; }
 .box {
   padding: 0px;
   background: #fcfcfc;

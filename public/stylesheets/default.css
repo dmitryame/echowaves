@@ -4,14 +4,19 @@ html, body {
   font-family: helvetica;
 }
 .vspace { margin: 20px 0; }
-h1 { margin: 0px; }
+h1 {
+  margin: 0px;
+  font-weight: normal;
+}
 h2 {
   line-height: 1.2em;
   font-weight: normal;
 }
+h3, h4, h5, h6 { font-weight: normal; }
 h7 {
   background: #eeeeee;
   padding: 0 5px;
+  font-weight: normal;
 }
 .container .highlight { background: #ffff88; }
 .container .quiet { color: #999999; }

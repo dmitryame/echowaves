@@ -1,9 +1,9 @@
 <li class="conversation">
-  <h3>
+  <span class="convo-name">
     <%= render :partial => 'conversations/star', :locals => { :conversation => conversation } %>
     <% if conversation.private? %><%= image_tag("/images/icons/icono_candado.gif") %><% end %>
     <%= link_to h(conversation.name), conversation_path(conversation) %>
-  </h3>
+  </span>
 
 	<div class="clear"></div>
 	

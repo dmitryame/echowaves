@@ -1,9 +1,11 @@
 <% if logged_in? %>
-  <div id="news" class="item2 page">
-  	<h6>My updates:</h6>
-  	<% if current_user.invites.count > 0 %>
-  	  <span class="msgcount"><%= current_user.invites.count %></span> <%= link_to "pending invitations", user_invitations_path(current_user) %>
-  	<% end %>
-  	<%= render :partial => 'users/subscription', :collection => current_user.news %>
+  <div id="news">
+  	<h5>My updates:</h5>
+  	<div class="box-content">
+  	  <% if current_user.invites.count > 0 %>
+  	    <span class="msgcount"><%= current_user.invites.count %></span> <%= link_to "pending invitations", user_invitations_path(current_user) %>
+  	  <% end %>
+  	  <%= render :partial => 'users/subscription', :collection => current_user.news %>
+  	</div>
   </div>
 <% end %>

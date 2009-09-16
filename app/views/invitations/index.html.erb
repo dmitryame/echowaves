@@ -1,9 +1,11 @@
 <% if @invitations.blank? %>
   <div class="notice">Currently, you don't have any pending invitations.</div>
 <% else %>
-  <div class="balloon">
+  <div class="bbox round">
     <h2>Pending invitations</h2>
   </div>
+  <div class="bbox-pointer">&nbsp;</div>
+  
   <% @invitations.each do |i| %>
 
    <div class="invitation" id="invitation_<%= i.id %>">

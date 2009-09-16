@@ -1,4 +1,4 @@
-<div class="balloon">
+<div class="bbox round">
   <h1><%= link_to image_tag("/images/icons/16px-feed-icon.png"),
         new_messages_conversations_url(params[:id], :format => :atom, :user_credentials => @user.single_access_token), 
         :type => "application/atom+xml",
@@ -11,7 +11,7 @@
   </div>
   
   <span class="username">
-	  <%=link_to h(@user.login), user_path(@user) %>
+	  <%= link_to h(@user.login), user_path(@user) %>
 	  <% if logged_in? && @user && @current_user == @user %>
       <%= link_to t("ui.edit_profile"), edit_user_path(current_user) %>
     <% end %>
@@ -29,15 +29,16 @@
 
   <div class="clear"></div>
 </div>
+<div class="bbox-pointer">&nbsp;</div>
 
 <% if logged_in? && @user && @current_user == @user %>
   <div class="notice">
     <b>The information in this yellow box is private and only you can see it:</b><br/>
     Your API key: <%= @user.single_access_token %><br/>
-    Your email address: <%= @user.email %>
+    Your email address: <%=h @user.email %>
   </div>
 <% end %>
 
 <% unless @user.about.blank? %>
-  <div class="notice about"><%= @user.about %></div>
+  <div class="notice about"><%=h @user.about %></div>
 <% end %>

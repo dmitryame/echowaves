@@ -45,7 +45,6 @@ class ConversationTest < ActiveSupport::TestCase
     subject { @conversation }
     
     should_validate_presence_of :uuid
-    should_validate_uniqueness_of :name
 
     should_have_db_index :name
     should_have_db_index :created_at

@@ -1,9 +1,11 @@
 <% if logged_in? %>
-<div id="recently_visited" class="item2 page">
-	<h6><%= t("ui.recently_visited") %>:</h6>
-	<ul>		
-		<%= render :partial => 'users/conversation', :collection => ( current_user.recent_conversations - [@conversation] ) %> 
-	</ul>
+<div id="recently_visited">
+	<h5><%= t("ui.recently_visited") %>:</h5>
+	<div class="box-content">
+	  <ul>		
+	  	<%= render :partial => 'users/conversation', :collection => ( current_user.recent_conversations - [@conversation] ) %> 
+	  </ul>
+	</div>
 </div>
 <% end %>
 

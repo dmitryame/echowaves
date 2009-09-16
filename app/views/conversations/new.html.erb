@@ -1,12 +1,13 @@
-<div class="balloon">
-  <h1><%= t("conversations.new_conversation") %></h1>
+<div class="bbox round">
+  <h1>Start a new conversation</h1>
 </div>
+<div class="bbox-pointer">&nbsp;</div>
 
 <div class="item">
   <% form_for(@conversation) do |f| %>
     <%= f.error_messages %>
     <p class="out_of_screen"><%= label_tag "important" %><%= f.text_field :something %></p>
-    <p><%= f.label t("ui.name") %><br /><%= f.text_field :name %></p>
+    <p><%= f.label "Convo's name" %><br /><%= f.text_field :name %></p>
     <p><%= f.check_box :private %> <%= f.label t("ui.private_convo") %></p>
     <p><%= f.check_box :read_only %> <%= f.label t("ui.read_only") %></p>
     <p><%= f.submit t("ui.create") %></p>

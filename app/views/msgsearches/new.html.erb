@@ -1,6 +1,6 @@
 <%= flash_messages %>
-<div class="page">
-	<div class="balloon">
+<div class="box round">
+	<div class="bbox round">
 		<h1><%= t("ui.search_messages") %></h1>
 		<div>
 			<% form_tag msgsearch_path, :method => :get do %>
@@ -9,6 +9,7 @@
 			<% end %>
 		</div>
 	</div>
+	<div class="bbox-pointer">&nbsp;</div>
 
 	<div class="item center">
 		<br/>

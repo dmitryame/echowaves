@@ -11,7 +11,7 @@
   </div>
   
   <span class="username">
-	  <%=link_to h(@user.login), user_path(@user) %>
+	  <%= link_to h(@user.login), user_path(@user) %>
 	  <% if logged_in? && @user && @current_user == @user %>
       <%= link_to t("ui.edit_profile"), edit_user_path(current_user) %>
     <% end %>
@@ -35,10 +35,10 @@
   <div class="notice">
     <b>The information in this yellow box is private and only you can see it:</b><br/>
     Your API key: <%= @user.single_access_token %><br/>
-    Your email address: <%= @user.email %>
+    Your email address: <%=h @user.email %>
   </div>
 <% end %>
 
 <% unless @user.about.blank? %>
-  <div class="notice about"><%= @user.about %></div>
+  <div class="notice about"><%=h @user.about %></div>
 <% end %>

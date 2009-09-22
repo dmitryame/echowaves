@@ -691,6 +691,7 @@ ul.subsection_tabs li.tab a {
   overflow: hidden;
   position: absolute;
   top: 5px;
+  white-space: nowrap;
 }
 .sbutton {
   background: #666666;

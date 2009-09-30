@@ -7,6 +7,14 @@ namespace :maintenance do
     end
   end
   
+  desc "Re-send signup notifications to created but not active users"
+  task :resend_signup_emails => :environment do
+    users = User.all(:conditions => { :activated_at => nil })
+    users.each do |user|
+      UserMailer.deliver_signup_notification(user)
+    end
+  end
+  
   namespace :messages do
     
     desc "Regenerate message html"

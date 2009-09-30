@@ -79,6 +79,20 @@ Rails::Initializer.run do |config|
   # config.active_record.observers = :user_observer
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
+  
+  config.action_mailer.smtp_settings = { 
+    :enable_starttls_auto => :true, 
+    :address => "smtp.gmail.com", 
+    :port => 587, 
+    :domain => "echowaves.local", 
+    :authentication => :plain, 
+    :user_name => "user@echowaves.local", 
+    :password => "**********", 
+    :tls => :true 
+  } 
+  config.action_mailer.perform_deliveries = :true 
+  config.action_mailer.raise_delivery_errors = :true 
+  config.action_mailer.default_charset = "utf-8"
 end
 
 ActiveSupport::JSON.backend = 'JSONGem'
@@ -97,14 +111,6 @@ Workling::Remote.dispatcher = Workling::Remote::Runners::ClientRunner.new
 # active mailer configuration
 # First, specify the Host that we will be using later for user_notifier.rb
 HOST = 'http://localhost:3000'
-
-ActionMailer::Base.delivery_method = :smtp
-# Third, add your SMTP settings
-ActionMailer::Base.smtp_settings = {
-  :address => "mail.rmgapps.com",
-  :port => 25,
-  :domain => "rmg-ny.com"
-}
 
 # emails sent from echowaves will use these parameters
 BCC         = "dmitry@rootlocusinc.com" # email monitoring log

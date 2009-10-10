@@ -44,12 +44,16 @@ class UserMailer < ActionMailer::Base
     @user = invite.requestor    
     default_url_options[:host] = HOST[7..-1]
     @recipients  = "#{email}"
-    @bcc         = BCC # email monitoring log, do not erase
+#    @bcc         = BCC # email monitoring log, do not erase
     @from        = FROM
     @subject     = SUBJECT
     @sent_on     = Time.now
     @subject    += "You're invited to participate in a conversation"
+    @body["title"] = SUBJECT
+    @body["email"] = FROM
     body        :follow_conversation_url => follow_email_with_token_conversation_url(invite.conversation.id, :token => invite.token), :convo_name => invite.conversation.name        
+    
+    
   end
   
 protected
@@ -57,7 +61,7 @@ protected
   def setup_email(user)
     default_url_options[:host] = HOST[7..-1]
     @recipients  = "#{user.email}"
-    @bcc         = BCC # email monitoring log, do not erase
+#    @bcc         = BCC # email monitoring log, do not erase
     @from        = FROM
     @subject     = SUBJECT
     @sent_on     = Time.now

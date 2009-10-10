@@ -87,6 +87,12 @@ namespace :deploy do
   task :publish_revision do
     run "cd /u/apps/#{application}/shared/cached-copy && git log -1 | grep ^commit > #{release_path}/app/views/shared/_revision.html.erb"
   end
+
+  desc "Restart workling client"
+  task :restart_workling do
+    run "cd #{current_path} &&  ./script/workling_client stop RAILS_ENV=production"
+    run "cd #{current_path} &&  ./script/workling_client start RAILS_ENV=production"
+  end
   
-  after "deploy:update_code", "deploy:copy_prod_configuration", "deploy:after_symlink_sphinx", "deploy:publish_revision"#, "deploy:restart_sphinx", "deploy:reindex_sphinx"
+  after "deploy:update_code", "deploy:copy_prod_configuration", "deploy:after_symlink_sphinx", "deploy:publish_revision", "deploy:restart_workling"#, "deploy:restart_sphinx", "deploy:reindex_sphinx"
 end

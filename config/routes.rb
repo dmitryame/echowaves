@@ -56,6 +56,7 @@ ActionController::Routing::Routes.draw do |map|
   map.logout '/logout', :controller => 'user_sessions', :action => 'destroy'
   map.signup '/signup', :controller => 'users', :action => 'new'
   map.activate '/activate/:perishable_token', :controller => "users", :action => "activate"
+  map.disable '/disable', :controller => "users", :action => "disable"
   
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'

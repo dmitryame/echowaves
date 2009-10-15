@@ -74,6 +74,8 @@ nl:
     recently_visited: "Recentelijk bezocht"
     time_zone: "tijd zone"
     update: "update"
+    disable: "disable my account"
+    disable_confirm: "Are you sure you want to permanently disable your EchoWaves account?"
     recent_followers: "Recente followers"
     recent_tags: "Recente tags"
     followers: "Followers"
@@ -127,6 +129,7 @@ nl:
     invite_all_followers: "Invite all my followers"
     email_invites: "Email invites"
     about: "About you"
+    disabled: "Account disabled"
   conversations:
     go_to_conversation: "Ga naar gesprek"
     bookmarked_conversations: "gemarkeerde gesprekken"

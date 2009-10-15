@@ -73,6 +73,8 @@ es-ES:
     recently_visited: "Visitado recientemente"
     time_zone: "zona horaria"
     update: "actualizar"
+    disable: "disable my account"
+    disable_confirm: "Are you sure you want to permanently disable your EchoWaves account?"
     recent_followers: "Seguidores recientes"
     recent_tags: "Recent tags"
     receive_email_notifications: "Recibir notificaciones por email"
@@ -129,6 +131,7 @@ es-ES:
     invite_all_followers: "Invitar a todos mis seguidores"
     email_invites: "Email invites"
     about: "Acerca de ti"
+    disabled: "Account disabled"
   conversations:
     go_to_conversation: "ir a conversacion"
     bookmarked_conversations: "conversaciones favoritas"

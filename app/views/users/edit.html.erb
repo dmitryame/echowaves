@@ -31,5 +31,8 @@
 <p><%= f.check_box :receive_email_notifications %> <%= label_tag t('ui.receive_email_notifications') %></p>
 
 <p><%= submit_tag t('ui.update') %></p>
+
+<%= link_to t("ui.disable"), disable_path, :confirm => t("ui.disable_confirm") %>
+
 <% end -%>
 </div>

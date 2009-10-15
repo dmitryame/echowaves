@@ -188,4 +188,11 @@ class UsersController < ApplicationController
     @conversation = Conversation.find(params[:conversation_id])
   end
   
+  def disable
+    current_user.disable!
+    current_user_session.destroy
+    flash[:notice] = t("users.disabled")
+    redirect_to root_path
+  end
+  
 end

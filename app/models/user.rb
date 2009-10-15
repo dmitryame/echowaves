@@ -176,6 +176,11 @@ class User < ActiveRecord::Base
     # self.personal_conversation_id = conversation.id
     self.save
   end
+  
+  def disable!
+    self.activated_at = nil
+    self.save
+  end
 
   def active?
     self.activated_at != nil

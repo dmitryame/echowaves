@@ -73,6 +73,8 @@ ru:
     recently_visited: "Недавние посещения"
     time_zone: "временная зона"
     update: "обновить"
+    disable: "disable my account"
+    disable_confirm: "Are you sure you want to permanently disable your EchoWaves account?"
     recent_followers: "Недавние последователи"
     recent_tags: "Недавние пометки"
     receive_email_notifications: "Receive email notifications"
@@ -129,6 +131,7 @@ ru:
     invite_all_followers: "пригласить всех моих последователей"        
     email_invites: "пригласить по имаилу"
     about: "About you"
+    disabled: "Account disabled"
   conversations:
     go_to_conversation: "go to conversation"
     bookmarked_conversations: "bookmarked conversations"

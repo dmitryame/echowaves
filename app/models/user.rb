@@ -150,7 +150,7 @@ class User < ActiveRecord::Base
   end
   
   def deliver_public_invite_instructions!(invite)
-    return unless self.receive_email_notifications
+    return unless self.receive_email_notifications && activated_at != nil 
     if USE_WORKLING
       EchowavesWorker.asynch_deliver_public_invite_instructions(:user_id => id, :invite_id => invite.id)
     else
@@ -159,7 +159,7 @@ class User < ActiveRecord::Base
   end
 
   def deliver_notification_about_new_convo!(convo_id, requestor_id)
-    return unless self.receive_email_notifications
+    return unless self.receive_email_notifications && activated_at != nil
     if USE_WORKLING
       EchowavesWorker.asynch_deliver_notification_about_new_convo(:user_id => self.id, :requestor_id => requestor_id, :convo_id => convo_id)
     else

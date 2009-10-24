@@ -1,5 +1,5 @@
 <span class="avatar" id="<%= dom_id user%>">
-  <%= link_to image_tag(user.gravatar_url, :border => 0, :width => 40, :height => 40, :class => "avatar", :alt => user.login), user_path(user),
+  <%= link_to image_tag(user.gravatar_url, :width => 40, :height => 40, :class => "avatar", :alt => user.login), user_path(user),
     :class => 'tip', 
     :title =>  user.login +
     '<br/>' +	t("users.since") + user.date  + 

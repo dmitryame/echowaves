@@ -24,6 +24,10 @@ h7 {
   display: block;
   margin-bottom: 0px;
 }
+.container .lang_picker {
+  display: block;
+  margin-bottom: 0px;
+}
 .container a:link { color: #3366cc; }
 .container a:visited { color: #3366cc; }
 .container a:hover { color: #cc3333; }

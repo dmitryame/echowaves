@@ -4,7 +4,7 @@
       <h1>Search Users</h1>
       <div>
         <% form_tag usersearch_path, :method => :get do %>
-          <%= text_field_tag :q %>
+          <%= text_field_tag :user_q %>
           <%= submit_tag t("ui.search"), :name => nil  %>
         <% end %>
       </div>

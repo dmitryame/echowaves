@@ -1,7 +1,7 @@
 class UsersearchesController < ApplicationController
   
   def show
-    if params.include?(:q)
+    if params.include?(:user_q)
       create
       render :create
     else
@@ -15,7 +15,7 @@ class UsersearchesController < ApplicationController
   
   def create
     @users = User.search(
-      params[:q],
+      params[:user_q],
       :with => { :activated => false } ,
       :page => (params[:page] || 1),
       :per_page => 10,

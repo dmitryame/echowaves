@@ -1,10 +1,10 @@
   <%= flash_messages %>
 	<div class="box round">
     <div class="bbox round">
-      <h1>search users for: "<%= params[:q] %>"</h1>
+      <h1>search users for: "<%= params[:user_q] %>"</h1>
       <div>
         <% form_tag usersearch_path, :method => :get do %>
-          <%= t("users.look_for_users") %>: <%= text_field_tag :q %>
+          <%= t("users.look_for_users") %>: <%= text_field_tag :user_q %>
           <%= submit_tag t("ui.search"), :name => nil  %>
         <% end %>
       </div>

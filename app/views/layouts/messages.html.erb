@@ -50,7 +50,7 @@
  		stomp = new STOMPClient();
  		stomp.onopen = function() {
 			output.title = "connecting"
- 			output.update("<span class='status_yellow tip'>&copy;</span>");
+ 			output.update('<span class="status_yellow tip">&copy;</span>');
  		};
  		stomp.onclose = function(code) {
  			output.update('<span class="status_red tip" title="disconnected">&copy;</span>');

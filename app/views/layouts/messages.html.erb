@@ -237,11 +237,12 @@
   		  <%= yield  %>
   		  
   		  <div id="attachment_form" style="display:none">
-  		    <div id="attachment_form_padding">
     	      <%#this form is purely for attachments handling%>
     	      <% form_for(:message, 
     	    	    :url  => { :controller => "messages", :action => "upload_attachment", :conversation_id => @conversation.id },
     	          :html => { :multipart => true, :target => "upload_frame", :id => 'atchform' } ) do |f| %>
+	  		    <div id="attachment_form_padding">
+				
     	        <%= f.file_field :attachment %>
     	    	  <input type="hidden" name="conversation_id" id="conversation_id" value="<%= @conversation.id %>">
     	    	  <p id="attach_msgtextarea">        
@@ -263,9 +264,9 @@
               end %>
               <%= submit_tag t("ui.attach") %>
               </p>
+          </div><!-- attachment_form_padding -->
     	      <% end %>
     	      <iframe id="upload_frame" name="upload_frame" style="width:0px;height:0px;border:0px" src="about:blank"></iframe>
-          </div><!-- attachment_form_padding -->
         </div><!-- attachment_form -->
         
 		    <div id="messagesform">

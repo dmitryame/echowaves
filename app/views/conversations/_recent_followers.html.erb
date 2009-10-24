@@ -1,12 +1,12 @@
 <div id="recent_followers" class="item2">
-	<h7>
+	<h6>
 	  <%= t("ui.recent_followers") %>: <span class="sbutton round"><%= link_to "View all", followers_conversation_path(@conversation) %></span>
 	  <% if logged_in? %>
       <% unless ( @conversation.private? && current_user != @conversation.owner ) %>
          <span class="sbutton round"><%= link_to( "invite people", invite_conversation_path(@conversation) ) %></span>
       <% end %>
     <%end%>
-	</h7>
+	</h6>
 	<div class="box-content">
 	<%= render :partial => 'conversations/user', :collection => @conversation.recent_followers %>
 	</div>

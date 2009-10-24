@@ -244,7 +244,7 @@
 	  		    <div id="attachment_form_padding">
 				
     	        <%= f.file_field :attachment %>
-    	    	  <input type="hidden" name="conversation_id" id="conversation_id" value="<%= @conversation.id %>">
+    	    	  <input type="hidden" name="conversation_id" id="conversation_id" value="<%= @conversation.id %>"/>
     	    	  <p id="attach_msgtextarea">        
                 <%= f.text_area :message,
                     :onkeyup => "FitToTextAndMoveMessagesUp(this, (document.viewport.getHeight() - 300));Misc.pageScroll();",

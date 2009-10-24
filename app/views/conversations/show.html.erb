@@ -8,7 +8,7 @@
   </div>
 </div>
 
-<script>
+<script type="text/javascript">
 	new Ajax.Request('/conversations/<%= @conversation.id %>/messages.json',
     {
       method:'get',
@@ -28,10 +28,7 @@
   
 <div id="extra_convo_stuff">
 
-  
   <%= render :partial => 'conversations/recent_followers' %>  
-  
-
   
 </div>
 

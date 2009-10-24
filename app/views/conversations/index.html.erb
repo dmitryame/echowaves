@@ -6,12 +6,12 @@
 
 <div class="bbox round">
   <h1><%= link_to image_tag("/images/icons/16px-feed-icon.png"), conversations_url(:format => :atom), :type => "application/atom+xml", :rel => "alternate" %> <%= t("conversations.recently_started_conversations") %></h1>
-  <div>
     <% form_tag convosearch_path, :method => :get do %>
+  <div>
       <%= t("conversations.look_for_conversations") %>: <%= text_field_tag :q %>
       <%= submit_tag t("ui.search"), :name => nil  %>
-    <% end %>
   </div>
+    <% end %>
 </div>
 <div class="bbox-pointer">&nbsp;</div>
 

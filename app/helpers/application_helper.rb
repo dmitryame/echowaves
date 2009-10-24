@@ -4,7 +4,7 @@ module ApplicationHelper
   
   def orbited_javascript
     [
-    "<script src=\"http://#{ORBITED_HOST}:#{ORBITED_PORT}/static/Orbited.js\"></script>",
+    "<script src=\"http://#{ORBITED_HOST}:#{ORBITED_PORT}/static/Orbited.js\" type=\"text\/javascript\"></script>",
     '<script>',
     "  document.domain = '#{ORBITED_DOMAIN}';",
     "  Orbited.settings.port = #{ORBITED_PORT};",

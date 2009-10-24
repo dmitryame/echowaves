@@ -4,14 +4,14 @@ module ApplicationHelper
   
   def orbited_javascript
     [
-    "<script src=\"http://#{ORBITED_HOST}:#{ORBITED_PORT}/static/Orbited.js\" type=\"text\/javascript\"></script>",
-    '<script type=\"text\/javascript\">',
+    "<script src=\"http://#{ORBITED_HOST}:#{ORBITED_PORT}/static/Orbited.js\"></script>",
+    '<script>',
     "  document.domain = '#{ORBITED_DOMAIN}';",
     "  Orbited.settings.port = #{ORBITED_PORT};",
     "  Orbited.settings.hostname = '#{ORBITED_HOST}';",
     '  TCPSocket = Orbited.TCPSocket;',
     '</script>',
-    "<script src=\"http://#{ORBITED_HOST}:#{ORBITED_PORT}/static/protocols/stomp/stomp.js\" type=\"text\/javascript\"></script>"
+    "<script src=\"http://#{ORBITED_HOST}:#{ORBITED_PORT}/static/protocols/stomp/stomp.js\"></script>"
     ].join("\n")
   end
 

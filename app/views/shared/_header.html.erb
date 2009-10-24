@@ -11,9 +11,11 @@
         
         <li class="search">
 				  <form method="get" id="sform" action="/msgsearch" class="search_link">
-				    <%= image_submit_tag("/images/icons/magnifier.png")%>
+					<p>
+				    <%= image_submit_tag("/images/icons/magnifier.png") %>
   					<input type="text" id="q" onfocus="if(document.getElementById('q').value == 'search messages') { document.getElementById('q').value = ''; }" value="search messages" name="q" size="15" style="color:#888;"/>
 					<div class="clear"></div>
+					</p>
   				</form>
 				</li>
 				

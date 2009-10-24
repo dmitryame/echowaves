@@ -149,7 +149,7 @@ ru:
   footer:
     uptime_monitoring: "Website Uptime Monitoring By"
     report_problems_or_abuse: "Сообщить о проблеммах"
-    terms_and_conditions: "Terms&Conditions"    
+    terms_and_conditions: "Terms&amp;Conditions"    
     conversations: "разговоры"
   messages:
     original_message: "исходное сообщение"

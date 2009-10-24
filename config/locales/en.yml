@@ -149,7 +149,7 @@ en:
   footer:
     uptime_monitoring: "Website Uptime Monitoring By"
     report_problems_or_abuse: "Report problems or Abuse to"
-    terms_and_conditions: "Terms&Conditions"    
+    terms_and_conditions: "Terms&amp;Conditions"    
     conversations: "convos"
   messages:
     original_message: "original message"

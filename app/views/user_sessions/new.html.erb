@@ -7,7 +7,7 @@
   <div class="item">
   
     <% form_for @user_session, :url => user_session_path do |f| -%>
-    <p><%= f.label :user_login, "username" %><br />
+    <p><%= f.label :login, "Username" %><br />
     <%= f.text_field :login %></p>
   
     <p><%= f.label t('ui.password') %><br/>

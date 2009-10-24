@@ -78,12 +78,10 @@
 			// this is an actual message for current conversation
  			if(frame.headers['destination'].startsWith("CONVERSATION_CHANNEL_") ) {
  			  // render message from JSON
- 			  //---------------------------------------------------------------------------
  			  var html = new EJS({url: '/templates/message.ejs'}).render(json);
  			  // alert(((document.body.clientHeight - document.viewport.getScrollOffsets().top ) - document.viewport.getHeight()));					
 				// let's see if the messages list is scrolled to the bottom
 				// before we render the message
-				//---------------------------------------------------------------------------
  			  var in_the_bottom = ((document.body.clientHeight - document.viewport.getScrollOffsets().top ) - document.viewport.getHeight()) <= 0 ? true : false
  				message_output.insert({"bottom":html});
         unitipize($('tip_'+json.message.id));

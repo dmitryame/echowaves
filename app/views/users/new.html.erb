@@ -27,13 +27,13 @@
 <p><%= label_tag t("ui.name") %><br/>
 <%= f.text_field :name %></p>
 
-<p><%= label_tag :about, t('users.about') %><br/>
+<p><%= label_tag :user_about, t('users.about') %><br/>
 <%= f.text_field :about, :size => 74 %></p>
 
-<p><%= label_tag t("ui.password") %><br/>
+<p><%= label_tag :user_password, t("ui.password") %><br/>
 <%= f.password_field :password %></p>
 
-<p><%= label_tag t('ui.password_confirmation') %><br/>
+<p><%= label_tag :user_password_confirmation, t('ui.password_confirmation') %><br/>
 <%= f.password_field :password_confirmation %></p>
 
 <p><%= label_tag t('ui.time_zone') %><br/>
@@ -41,7 +41,7 @@
 
 <p><%= submit_tag t('ui.signup') %></p>
 
-<p class="out_of_screen"><%= label_tag "important" %><%= f.text_field :something %></p>
+<p class="out_of_screen"><%= label_tag :user_something, "important" %><%= f.text_field :something %></p>
 
 <% end -%>
 </div>

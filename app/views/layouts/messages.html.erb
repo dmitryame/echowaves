@@ -30,7 +30,10 @@
   <![endif]-->
 	
  	<%= orbited_javascript %> 		
+
  	<script type="text/javascript">  
+  // FIXME: move this JS to file
+
   // FIXME: workaround for safari never ending loading issue
   var orig_chooseTransport = Orbited.util.chooseTransport; 
   Orbited.util.chooseTransport = function() { 

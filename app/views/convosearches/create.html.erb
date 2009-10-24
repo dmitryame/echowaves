@@ -2,10 +2,10 @@
 	<div class="box round">
 	  
     <div class="bbox round">
-      <h1><%= t("ui.search_convos_for", :string => params[:q]) %></h1>
+      <h1><%= t("ui.search_convos_for", :string => params[:convo_q]) %></h1>
       <div>
         <% form_tag convosearch_path, :method => :get do %>
-          <%= text_field_tag :q %>
+          <%= text_field_tag :convo_q %>
           <%= submit_tag t("ui.search"), :name => nil  %>
         <% end %>
       </div>
@@ -17,7 +17,7 @@
       <ul class="list">
         <% for conversation in @conversations %>
           <li>
-            <%= link_to highlight(h(conversation.name), params[:q].split), conversation_path(conversation) %>
+            <%= link_to highlight(h(conversation.name), params[:convo_q].split), conversation_path(conversation) %>
             <br/>
             <span class="quiet small"><%= conversation.date_time12 %></span>
           </li>

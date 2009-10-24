@@ -1,7 +1,7 @@
 class ConvosearchesController < ApplicationController
   
   def show
-    if params.include?(:q)
+    if params.include?(:convo_q)
       create
       render :create
     else
@@ -15,7 +15,7 @@ class ConvosearchesController < ApplicationController
   
   def create
     @conversations = Conversation.search(
-      params[:q],
+      params[:convo_q],
       :page => (params[:page] || 1),
       :per_page => 10,
       :order => 'created_at DESC'

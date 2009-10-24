@@ -11,7 +11,7 @@ module ApplicationHelper
     "  Orbited.settings.hostname = '#{ORBITED_HOST}';",
     '  TCPSocket = Orbited.TCPSocket;',
     '</script>',
-    "<script src=\"http://#{ORBITED_HOST}:#{ORBITED_PORT}/static/protocols/stomp/stomp.js\"></script>"
+    "<script src=\"http://#{ORBITED_HOST}:#{ORBITED_PORT}/static/protocols/stomp/stomp.js\" type=\"text\/javascript\"></script>"
     ].join("\n")
   end
 

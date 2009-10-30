@@ -24,6 +24,13 @@
     <div class="span-5 last">
       <%= render :partial => 'users/news' %>
     </div>
+	
+	<%if SHOW_DIGG && !@conversation.private?%>
+	<div class="span-5">
+		<script src="http://digg.com/tools/diggthis.js" type="text/javascript"></script> 
+	</div>
+	<%end%>
+	
   <% else %>
   
     <div>
@@ -36,3 +43,4 @@
   <% end %>
 	
 </div>
+

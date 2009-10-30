@@ -128,6 +128,7 @@ TEST_CONVERSATION = 3
 
 # override to false in production
 SHOW_ACTIVATION_LINK=true
+SHOW_DIGG=false
 
 # show deployed git revision to these users
 DEV_TEAM = ['dmitry','crossblaim']  

@@ -5,12 +5,12 @@
       
       <%# IMPORTANT: update Message#attachment_markup method if you change this markup below %>
       <% if(meta.has_image) { %>
-        <div class="img_attachment"><a href="<%= attachment.url %>" target="_blank" style="display:block;height:<%= attachment.height+40 %>px;width:<%= attachment.width+40 %>px;"><img src="<%= attachment.image_url %>" height="<%= attachment.height %>" width="<%= attachment.width %>" /></a></div>
+        <div class="img_attachment"><a href="<%= attachment.url(:big) %>" target="_blank" style="display:block;height:<%= attachment.height+40 %>px;width:<%= attachment.width+40 %>px;"><img src="<%= attachment.image_url %>" height="<%= attachment.height %>" width="<%= attachment.width %>" /></a></div>
       <% } %>
       
       <% if(meta.has_file) { %>
         <div class="file_attachment">
-          <a href="<%= attachment.url %>" target="_blank" style="display:block;height:100px;"><img alt="<%= attachment.type %>" src="/images/icons/<%= attachment.type %>_large.jpg" height="100" /></a>
+          <a href="<%= attachment.url(:big) %>" target="_blank" style="display:block;height:100px;"><img alt="<%= attachment.type %>" src="/images/icons/<%= attachment.type %>_large.jpg" height="100" /></a>
         </div>
       <% } %>
       <%# IMPORTANT: update Message#attachment_markup method if you change this markup above %>

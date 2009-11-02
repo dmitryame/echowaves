@@ -13,12 +13,13 @@ html,body{background:#ccc;
   left:0;
   width:100%;
   z-index:102;
+  height:34px;
 }
-#header {margin:0 auto;}
+#header {margin:0 auto;  height:34px;}
 
 #main_content {
   margin-top:78px;
-  height:100%;  
+  height:100%;
 }
 #messagesform {
   position:fixed;
@@ -63,7 +64,7 @@ html,body{background:#ccc;
 }
 #messageinputdiv h4 a:link, #messageinputdiv h4 a:visited, #messageinputdiv h4 a:hover, #messageinputdiv h4 a:active {
   color:#fff;
-} 
+}
 #messageinputdiv { padding-bottom:0px; }
 #messageinputdiv form { margin-bottom:0px; }
 #msgtextarea { margin:0px;padding:0; display:block;}

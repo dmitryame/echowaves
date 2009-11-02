@@ -112,7 +112,7 @@ html,body{background:#ccc;
   padding:40px 0 0 0;
 }
 .img_attachment img {
-  background:url('/images/big_spinner.gif') center no-repeat;
+  background:url('/images/icons/spinner3.gif') center no-repeat;
 }
 #convo_header_container {
   top:32px;

@@ -16,7 +16,7 @@
 	<div id="multilingual">
     <% form_tag '', :method => :get do %>
 	<div class="lang_picker">
-      <%= select_tag("locale", options_for_select([["English","en"], ["Español","es-ES"], ["Русский", "ru"], ["Português Br.","pt-BR"], ["Nederlands","nl"]],I18n.locale), { :index => nil, :onchange => 'this.form.submit()'}) %>
+      <%#- select_tag("locale", options_for_select([["English","en"], ["Español","es-ES"], ["Русский", "ru"], ["Português Br.","pt-BR"], ["Nederlands","nl"]],I18n.locale), { :index => nil, :onchange => 'this.form.submit()'}) %>
 	</div>
     <% end %>
   </div>

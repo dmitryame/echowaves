@@ -348,6 +348,9 @@ h4 {
   top: 0px;
   right: 10px;
 }
+.digs {
+    border-top: 1px dashed #cccccc;        
+}
 .ads {
     border-top: 1px dashed #cccccc;    
 }

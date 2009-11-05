@@ -26,22 +26,22 @@
 	<div id="main_content" class="container">
 
 		<div id="col1" class="span-14">
-		  <%= yield(:convo_header) %>
-		  <div class="box round">
-		    <%= flash_messages %>
-		    <div class="box-content">
-  		    <%= yield  %>
-  		  </div>
-  		</div>
+			<%= yield(:convo_header) %>
+			<div class="box round">
+				<%= flash_messages %>
+				<div class="box-content">
+					<%= yield  %>
+				</div>
+			</div>
 		</div>
 		
 		<div id="sidebars" class="span-10 last">
-		  <div id="sidebars_container">
-		    <%= render :partial => 'shared/dashboard' %>
-		    <div class="span-10"><%= yield(:sidebar_bottom) %></div>
-      </div>
-    </div>
-    
+			<div id="sidebars_container">
+				<%= render :partial => 'shared/dashboard' %>
+				<div class="span-10"><%= yield(:sidebar_bottom) %></div>
+			</div>
+		</div>
+
 	</div>
 
 

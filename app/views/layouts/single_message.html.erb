@@ -25,10 +25,21 @@
 	<div id="header_container"><%= render(:partial => "shared/header") %></div>
   
 	<div id="main_content" class="container">
-		<div>
-		  <%= flash_messages %>
-  	  <%= yield  %>
-		</div>    
+
+		<div id="col1" class="span-14">
+				<div class="box-content">
+					<%= yield  %>
+				</div>
+		</div>
+		
+		<div id="sidebars" class="span-10 last">
+			<div id="sidebars_container">
+				<%= render :partial => 'shared/dashboard' %>
+				<div class="span-10"><%= yield(:sidebar_bottom) %></div>
+			</div>
+		</div>
+
+
 	</div>
 
 	<div id="footer_container"><%= render(:partial => "shared/footer") %></div>

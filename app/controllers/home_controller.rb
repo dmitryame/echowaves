@@ -12,5 +12,9 @@ class HomeController < ApplicationController
   
   def terms
   end
-  
+
+  def toggle_sound
+    session[:sound] = (session[:sound] == "on" ? "off" : "on") 
+    redirect_to :back
+  end
 end

@@ -348,6 +348,9 @@ h4 {
   top: 0px;
   right: 10px;
 }
+.ads {
+    border-top: 1px dashed #cccccc;    
+}
 .message .messagelinks a:link { color: #aa9c84; }
 .message .messagelinks a:visited { color: #aa9c84; }
 .message .messagelinks a:hover { color: #cc3333; }

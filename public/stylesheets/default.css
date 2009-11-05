@@ -350,9 +350,13 @@ h4 {
 }
 .digs {
     border-top: 1px dashed #cccccc;        
+/*    display: block;*/
+/*    float: left;*/
 }
 .ads {
     border-top: 1px dashed #cccccc;    
+/*    display: block;*/
+    float: left;
 }
 .message .messagelinks a:link { color: #aa9c84; }
 .message .messagelinks a:visited { color: #aa9c84; }

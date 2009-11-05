@@ -24,7 +24,7 @@
 
 <div class="item">
   <h2>
-   Talk with us in our <%= link_to "EchoWaves conversation", conversation_path(HOME_CONVERSATION) -%>.<br/>If you want to test how the system works, please, use this <%= link_to "Test conversation", conversation_path(TEST_CONVERSATION) -%>.
+   Talk with us in our <%= link_to "EchoWaves conversation", conversation_path(Conversation.find(HOME_CONVERSATION)) -%>.<br/>If you want to test how the system works, please, use this <%= link_to "Test conversation", conversation_path(Conversation.find(TEST_CONVERSATION)) -%>.
    
   </h2>
   

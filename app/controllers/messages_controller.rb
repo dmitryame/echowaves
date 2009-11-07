@@ -10,11 +10,11 @@ class MessagesController < ApplicationController
   def index
     case params[:action]
     when 'images'
-      @messages = @conversation.messages.with_image.published.find(:all, :include => [:user], :limit => Message::PER_PAGE, :order => 'id DESC').reverse
+      @messages = @conversation.messages.with_image.published.find(:all, :include => [:user, :conversation], :limit => Message::PER_PAGE, :order => 'id DESC').reverse
     when 'files'
-      @messages = @conversation.messages.with_file.published.find(:all, :include => [:user], :limit => Message::PER_PAGE, :order => 'id DESC').reverse
+      @messages = @conversation.messages.with_file.published.find(:all, :include => [:user, :conversation], :limit => Message::PER_PAGE, :order => 'id DESC').reverse
     else
-      @messages = @conversation.messages.published.find(:all, :include => [:user], :limit => Message::PER_PAGE, :order => 'id DESC').reverse
+      @messages = @conversation.messages.published.find(:all, :include => [:user, :conversation], :limit => Message::PER_PAGE, :order => 'id DESC').reverse
     end
     respond_to do |format|
       format.html do

@@ -129,6 +129,7 @@ ru:
     invite_users: "пригласить пользователей"
     invite_followed_users: "пригласить следуемых пользователей"
     invite_all_followers: "пригласить всех моих последователей"        
+    my_followers: "My followers"
     email_invites: "пригласить по имаилу"
     about: "About you"
     disabled: "Account disabled"

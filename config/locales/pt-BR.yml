@@ -129,6 +129,7 @@ pt-BR:
     invite_users: "Convidar usuários"
     invite_followed_users: "Invite followed users"
     invite_all_followers: "Invite all my followers"
+    my_followers: "My followers"
     email_invites: "Email invites"
     about: "About you"
     disabled: "Account disabled"

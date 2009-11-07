@@ -38,17 +38,6 @@
 <% end %>
 
 
-<div>
-	  <div class="big center vspace">
-	    <span class="round button">	
-		  <%= link_to_remote "Invite all your followers", :url => invite_all_my_followers_conversation_path(@conversation),
-   	  	  :confirm => t("users.invite_all_followers") + "?",
-		      :loading => "$('spinner_0').show();",
-      	  :method => :post %>	
-      <%= image_tag "/images/icons/spinner.gif", :style => 'display:none;', :id => "spinner_x" %>
-      </span>
-    </div>
-</div>
 
 <div>
 	<h5>Send invitations by email <%= image_tag "/images/icons/spinner.gif", :style => 'display:none;', :id => "spinner_y" %></h5>
@@ -62,12 +51,23 @@
 
 
 
+<div>
+	  <div class="big center vspace">
+	    <span class="round button">	
+		  <%= link_to_remote t("users.invite_all_followers"), :url => invite_all_my_followers_conversation_path(@conversation),
+   	  	  :confirm => t("users.invite_all_followers") + "?",
+		      :loading => "$('spinner_0').show();",
+      	  :method => :post %>	
+      <%= image_tag "/images/icons/spinner.gif", :style => 'display:none;', :id => "spinner_x" %>
+      </span>
+    </div>
+</div>
 
 <div class="item">
-  <h6><%= t("users.invite_followed_users") %></h6>
+  <h6><%= t("users.my_followers") %></h6>
   
   <ul id="users_list">
-    <% @users.each do |user|%>
+    <% current_user.followers.each do |user|%>
 	    <li id="<%=dom_id user%>">
     		<span class="avatar">
     		  <%= link_to image_tag(user.gravatar_url, :border => 0, :width => 40, :height => 40, :class => "avatar", :alt => user.login), user_path(user),

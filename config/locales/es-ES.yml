@@ -129,6 +129,7 @@ es-ES:
     invite_users: "Invitar usuarios"
     invite_followed_users: "Invitar a usuarios que yo sigo"
     invite_all_followers: "Invitar a todos mis seguidores"
+    my_followers: "My followers"
     email_invites: "Email invites"
     about: "Acerca de ti"
     disabled: "Account disabled"

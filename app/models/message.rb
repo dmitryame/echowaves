@@ -243,7 +243,6 @@ class Message < ActiveRecord::Base
   # the markup below
   #----------------------------------------------------------------------------
   def attachment_markup
-    Rails.cache.write('message_'+self.id.to_s, self, :unless_exist => true, :expires_in => 15.minutes)    
     if self.has_image?
       %Q( <div class="img_attachment"><a href="#{self.attachment.url}" style="display:block;height:#{self.attachment_height+40}px;width:#{self.attachment_width+40}px;"><img src="#{self.attachment.url(:big)}" alt="#{self.message}" height="#{self.attachment_height}" width="#{self.attachment_width}" /></a></div> )
     elsif self.has_file?

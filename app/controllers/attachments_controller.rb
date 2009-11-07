@@ -20,11 +20,11 @@ private
 
   def find_message_and_check_read_access
     @message = Rails.cache.fetch('message_'+params[:id]) {Message.published.find(params[:id])}
-    unless (logged_in? && @message.conversation.readable_by?(current_user)) || !@message.conversation.private?
-      flash[:error] = "Sorry, this attachment is unavailable."
-      redirect_to root_path
-      return
-    end
+    # unless (logged_in? && @message.conversation.readable_by?(current_user)) || !@message.conversation.private?
+    #   flash[:error] = "Sorry, this attachment is unavailable."
+    #   redirect_to root_path
+    #   return
+    # end
   end
 
 end

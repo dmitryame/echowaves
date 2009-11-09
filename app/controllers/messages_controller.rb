@@ -83,7 +83,7 @@ class MessagesController < ApplicationController
     @message = @conversation.messages.new(params[:message])
     respond_to do |format|
       if current_user.messages << @message
-        cache_message(@message)
+        # cache_message(@message)
         format.html { redirect_to(conversation_path(@conversation)) }
         format.xml {
           @message.send_to_msg_broker
@@ -154,13 +154,15 @@ private
     data = []
     messages.group_by(&:date).each do |date, grouped_messages|
       group = { :date => date }
-      group.merge!({ :messages => grouped_messages.map { |message| cache_message(message); message.data_for_templates } })
+      # group.merge!({ :messages => grouped_messages.map { |message| cache_message(message); message.data_for_templates } })
+      group.merge!({ :messages => grouped_messages.map { |message| message.data_for_templates } })
+  
       data << group
     end
     return data
   end
 
-  def cache_message(message)
-    Rails.cache.write("message_#{message.id}", message, :unless_exist => true) unless message.attachment_type == 'unknow'
-  end
+  # def cache_message(message)
+  #   Rails.cache.write("message_#{message.id}", message, :unless_exist => true) unless message.attachment_type == 'unknow'
+  # end
 end

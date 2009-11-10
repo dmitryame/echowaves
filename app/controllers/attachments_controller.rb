@@ -19,9 +19,7 @@ class AttachmentsController < ApplicationController
 private
 
   def find_message_and_check_read_access
-    @message = Rails.cache.read('message_'+params[:id])
-    # Message.published.find(params[:id], :include => [:user, :conversation])
-    # Rails.cache.fetch('message_'+params[:id]) {Message.published.find(params[:id])}
+    @message = Rails.cache.fetch('message_'+params[:id]) {Message.published.find(params[:id], :include => [:user, :conversation])}
     unless (logged_in? && @message.conversation.readable_by?(current_user)) || !@message.conversation.private?
       flash[:error] = "Sorry, this attachment is unavailable."
       redirect_to root_path

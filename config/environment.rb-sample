@@ -1,5 +1,4 @@
 # Be sure to restart your server when you modify this file
-
 # Uncomment below to force Rails into production mode when
 # you don't control web/app server and can't set it the proper way
 # uncomment it on production to make workling happy
@@ -93,8 +92,8 @@ Rails::Initializer.run do |config|
   config.action_mailer.perform_deliveries = :true
   config.action_mailer.raise_delivery_errors = :true
   config.action_mailer.default_charset = "utf-8"
-  #config.cache_store = :memory_store
-  config.cache_store = :mem_cache_store
+  config.cache_store = :memory_store
+  #config.cache_store = :mem_cache_store
 end
 
 ActiveSupport::JSON.backend = 'JSONGem'

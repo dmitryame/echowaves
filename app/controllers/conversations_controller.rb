@@ -311,7 +311,7 @@ private
 
   #----------------------------------------------------------------------------
   def find_conversation
-    @conversation = Conversation.find( params[:id] )
+    @conversation = Rails.cache.fetch('conversation_'+params[:id]) {Conversation.find( params[:id] )}
   end
   
   #----------------------------------------------------------------------------

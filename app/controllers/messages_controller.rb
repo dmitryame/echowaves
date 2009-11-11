@@ -133,7 +133,7 @@ class MessagesController < ApplicationController
 private
 
   def find_conversation
-    @conversation = Rails.cache.fetch('conversation_'+params[:conversation_id]) {Conversation.find( params[:conversation_id] )}
+    @conversation = Rails.cache.fetch('conversation_'+params[:conversation_id], :expires_in => 24.hours) {Conversation.find( params[:conversation_id] )}
     # @conversation = Conversation.find( params[:conversation_id] )
   end
 
@@ -163,6 +163,6 @@ private
   end
 
   def cache_message(message)
-    Rails.cache.write("message_#{message.id}", message, :unless_exist => true) unless message.attachment_type == 'unknow'
+    Rails.cache.write("message_#{message.id}", message, :unless_exist => true, :expires_in => 24.hours) unless message.attachment_type == 'unknow'
   end
 end

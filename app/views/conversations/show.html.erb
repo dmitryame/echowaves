@@ -29,20 +29,8 @@
 <div id="extra_convo_stuff">
 
   <%= render :partial => 'conversations/recent_followers' %>  
+  <%= render :partial => 'shared/digg_buttons' %>  
 
-	<%if SHOW_DIGG && @conversation &&!@conversation.private?%>
-	<div class="digs">
-		<script type="text/javascript">
-		tweetmeme_style = 'compact';
-		</script>
-		<script type="text/javascript" src="http://tweetmeme.com/i/scripts/button.js"></script>
-
-		<script type="text/javascript">
-		digg_skin = 'compact';
-		</script>
-		<script src="http://digg.com/tools/diggthis.js" type="text/javascript"></script>
-	</div>
-	<%end%>
 </div>
 
 <% end %>

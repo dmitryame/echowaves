@@ -2,11 +2,11 @@ class ConversationsController < ApplicationController
 
   before_filter :login_or_oauth_required,
     :except => [:index, :show, :followers, :auto_complete_for_conversation_name, :complete_name]
-  before_filter :find_conversation, 
-    :except => [:bookmarked, :complete_name, :create, :spawn, :new, :index, :new_messages]
+  before_filter :find_conversation,
+    :except => [:bookmarked, :complete_name, :create, :spawn, :new, :index, :new_messages, :toogle_readwrite_status, :toogle_private_status]
   before_filter :check_read_access, :only => [:show, :followers]
   after_filter :store_location, :only => [:show, :new]
-  
+
   auto_complete_for :conversation, :name # multiple scopes can be chained like 'published.readonly'
   # auto_complete_for :tag, :name
 
@@ -36,7 +36,7 @@ class ConversationsController < ApplicationController
 
   alias_method :images, :show
   alias_method :files, :show
-  
+
   #----------------------------------------------------------------------------
   def followers
     @followers = @conversation.users
@@ -45,7 +45,7 @@ class ConversationsController < ApplicationController
       format.xml  { render :xml => {:followers => @followers} }
     end
   end
-  
+
   #----------------------------------------------------------------------------
   def new
     @conversation = Conversation.new
@@ -54,7 +54,7 @@ class ConversationsController < ApplicationController
       format.xml  { render :xml => @conversation }
     end
   end
-  
+
   #----------------------------------------------------------------------------
   def spawn
     @conversation = Conversation.new
@@ -72,25 +72,25 @@ class ConversationsController < ApplicationController
       format.xml  { render :xml => @conversation }
     end
   end
-  
+
   #----------------------------------------------------------------------------
   def create
     @conversation = Conversation.new(params[:conversation])
-    
+
     respond_to do |format|
       if current_user.conversations << @conversation
         flash[:notice] = t("conversations.convo_sucesfully_created")
-        
+
         if @conversation.spawned?
           # copy the original message in the recient create convo
           copied_message = @conversation.parent_message.clone
           copied_message.conversation = @conversation
           copied_message.save
           # now add the attachment markup to the copied message if the original message has an attachment
-          copied_message.message_html = @conversation.parent_message.attachment_markup + copied_message.message_html if @conversation.parent_message.has_attachment?            
+          copied_message.message_html = @conversation.parent_message.attachment_markup + copied_message.message_html if @conversation.parent_message.has_attachment?
           copied_message.save
         end
-        
+
         # now let's force all the creator's followers to follow the convo
         # unless the conversation is private
         unless @conversation.private?
@@ -105,7 +105,7 @@ class ConversationsController < ApplicationController
           end
           # notify everyone!
         end
-        
+
         format.html { redirect_to(@conversation) }
         format.xml  { render :xml => @conversation, :status => :created, :location => @conversation }
       else
@@ -126,7 +126,7 @@ class ConversationsController < ApplicationController
   def follow
     current_user.follow(@conversation, params[:token])
   end
-  
+
   #----------------------------------------------------------------------------
   def follow_with_token
     current_user.follow(@conversation, params[:token])
@@ -136,18 +136,18 @@ class ConversationsController < ApplicationController
   #----------------------------------------------------------------------------
   def follow_email_with_token
     # resolve invite
-    invite = Invite.find_by_conversation_id_and_token(params[:id], params[:token].to_s)        
+    invite = Invite.find_by_conversation_id_and_token(params[:id], params[:token].to_s)
     invite.update_attribute( :user_id, current_user.id)
-    
+
     current_user.follow(@conversation, params[:token].to_s)
     redirect_to @conversation
   end
-  
+
   #----------------------------------------------------------------------------
   def follow_from_list
     follow
   end
-  
+
   #----------------------------------------------------------------------------
   def unfollow
     current_user.unfollow(@conversation)
@@ -165,42 +165,44 @@ class ConversationsController < ApplicationController
       @user.unfollow(@conversation)
     end
   end
-  
+
   #----------------------------------------------------------------------------
   def toogle_readwrite_status
-    read_only = (params[:mode] == 'rw') ? false : true 
+    @conversation = Conversation.find(params[:id])
+    read_only = (params[:mode] == 'rw') ? false : true
     @conversation.update_attributes( :read_only => read_only ) if ( @conversation.owner == current_user )
     redirect_to conversation_path( @conversation )
   end
 
   #----------------------------------------------------------------------------
   def toogle_private_status
-    private_status = (params[:mode] == 'public') ? false : true 
+    @conversation = Conversation.find(params[:id])
+    private_status = (params[:mode] == 'public') ? false : true
     @conversation.update_attributes( :private => private_status ) if ( @conversation.owner == current_user )
     redirect_to conversation_path( @conversation )
   end
-  
-  #----------------------------------------------------------------------------  
+
+  #----------------------------------------------------------------------------
   def invite
     if @conversation.private? && @conversation.owner != current_user
       flash[:error] = t("errors.only_the_owner_can_invite")
       redirect_to conversation_path(@conversation)
     else
-      @users = current_user.followers    
+      @users = current_user.followers
       # should also remove the users if they were already invited or the users already follow the convo
       @users.delete_if do |user|
         true if !user.can_be_invited_to?(@conversation, current_user)
       end
     end
   end
-  
+
   #----------------------------------------------------------------------------
   def invite_from_list
-    @user = User.active.find(params[:user_id])    
+    @user = User.active.find(params[:user_id])
     @user.invite( @conversation, current_user ) # if @user.friend_of?( current_user )
-    render :update do |page| 
+    render :update do |page|
       page["user_" + @user.id.to_s].visual_effect :drop_out
-    end 
+    end
   end
 
   #----------------------------------------------------------------------------
@@ -210,19 +212,19 @@ class ConversationsController < ApplicationController
     else # painfully slow if the user has many followers
       #invite all my followers, if the convo is public
       current_user.followers.each do |u|
-        # next  if ( @conversation && @conversation.parent_message && personal_convo == @conversation.parent_message.conversation ) 
+        # next  if ( @conversation && @conversation.parent_message && personal_convo == @conversation.parent_message.conversation )
         u.invite @conversation, current_user unless @conversation.users.include?(user)
       end
     end
-    render :update do |page| 
+    render :update do |page|
       page["spinner_x"].visual_effect :drop_out
-    end 
+    end
   end
 
   #----------------------------------------------------------------------------
   def invite_via_email
-    emails_string = params[:emails]        
-    emails_string.to_s.split(/(,| |\r\n|\n|\r)/).each do |email|    
+    emails_string = params[:emails]
+    emails_string.to_s.split(/(,| |\r\n|\n|\r)/).each do |email|
       if(email =~ EMAIL_REGEX)
         # here we've got a valid email address lets send the invite
         # first lets see if the email belongs to an existing user
@@ -242,15 +244,15 @@ class ConversationsController < ApplicationController
           else
             UserMailer.deliver_email_invite(email, invite)
           end
-        end               
+        end
       end
-    end    
+    end
     render :update do |page|
       page["spinner_y"].visual_effect :drop_out
       page["emails_"].clear
       # FIXME: drop the user if the user is in the page
       # page["user_" + @existing_user.id.to_s].visual_effect :drop_out if @existing_user.present?
-    end 
+    end
   end
 
   #----------------------------------------------------------------------------
@@ -273,18 +275,18 @@ class ConversationsController < ApplicationController
       format.xml { render :xml => @conversations }
     end
   end
-  
+
   # temporary removed feature
   #----------------------------------------------------------------------------
   # def add_tag
   #   current_user.tag(@conversation, :with => @conversation.tags.collect{|tag| tag.name}.join(", ")  + ", " + params[:tag][:name].to_s, :on => :tags)
   # end
-  # 
+  #
   # def remove_tag
   #   @conversation.tag_list.remove(params[:tag])
-  #   @conversation.save    
+  #   @conversation.save
   # end
-  
+
   #----------------------------------------------------------------------------
   def new_messages
     @news = current_user.news
@@ -292,7 +294,7 @@ class ConversationsController < ApplicationController
       format.html do
         headers["Status"] = "403 Forbidden"
         redirect_to(conversations_url)
-      end      
+      end
       format.xml do
         render :xml => @news.to_xml(
                          :except => [:id, :activated_at, :created_at, :updated_at, :last_message_id, :user_id],
@@ -306,14 +308,14 @@ class ConversationsController < ApplicationController
       format.atom
     end
   end
-    
+
 private
 
   #----------------------------------------------------------------------------
   def find_conversation
     @conversation = Rails.cache.fetch('conversation_'+params[:id], :expires_in => 24.hours) {Conversation.find( params[:id] )}
   end
-  
+
   #----------------------------------------------------------------------------
   def check_read_access
     unless @conversation.readable_by?(current_user) || @conversation.public?

@@ -22,7 +22,7 @@
 
 class Message < ActiveRecord::Base
 
-  PER_PAGE = 50
+  PER_PAGE = 30
 
   auto_html_for(:message) do
     html_escape

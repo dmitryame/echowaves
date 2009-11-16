@@ -107,11 +107,12 @@ class Conversation < ActiveRecord::Base
   end
 
   def add_visit(user)
-    if cv = ConversationVisit.find_by_user_id_and_conversation_id(user.id, self.id)
-      cv.increment!( :visits_count ) 
-    else
-      user.conversation_visits.create( :conversation => self )
-    end
+    #TODO: find a better more effician way to update visits
+#    if cv = ConversationVisit.find_by_user_id_and_conversation_id(user.id, self.id)
+#      cv.increment!( :visits_count ) 
+#    else
+#      user.conversation_visits.create( :conversation => self )
+#    end
   end
 
   def add_subscription(user)

@@ -205,9 +205,10 @@ class User < ActiveRecord::Base
   end
 
   def conversation_visit_update(conversation)
-    conversation.add_visit(self)
-    self.mark_last_viewed_as_read
-    self.update_last_viewed_subscription(conversation)
+    #TODO: find a better, more efficient way, disabling the update conversations visit feature for now
+#    conversation.add_visit(self)
+#    self.mark_last_viewed_as_read
+#    self.update_last_viewed_subscription(conversation)
   end
 
   def follow(convo, token=nil)

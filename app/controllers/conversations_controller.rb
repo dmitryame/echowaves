@@ -169,6 +169,7 @@ class ConversationsController < ApplicationController
   #----------------------------------------------------------------------------
   def toogle_readwrite_status
     @conversation = Conversation.find(params[:id])
+    Rails.cache.write("conversation_#{params[:id]}", @conversation)
     read_only = (params[:mode] == 'rw') ? false : true
     @conversation.update_attributes( :read_only => read_only ) if ( @conversation.owner == current_user )
     redirect_to conversation_path( @conversation )
@@ -177,6 +178,7 @@ class ConversationsController < ApplicationController
   #----------------------------------------------------------------------------
   def toogle_private_status
     @conversation = Conversation.find(params[:id])
+    Rails.cache.write("conversation_#{params[:id]}", @conversation)
     private_status = (params[:mode] == 'public') ? false : true
     @conversation.update_attributes( :private => private_status ) if ( @conversation.owner == current_user )
     redirect_to conversation_path( @conversation )

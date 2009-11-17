@@ -38,6 +38,7 @@
   <% end %>
 
 	<%#google adsense%>
+	<% unless current_user %>	
 	<div class='ads'>
 		<script type="text/javascript"><!--
 		google_ad_client = "pub-1214584829465510";
@@ -51,7 +52,7 @@
 		src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 		</script>
 	</div>
-
+	<%end%>
 	
 	
 </div>

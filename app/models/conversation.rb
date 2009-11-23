@@ -94,12 +94,8 @@ class Conversation < ActiveRecord::Base
     ( self.private? && self.followed_by?(user) && !self.read_only )
   end
 
-  def private?
-    self.private
-  end
-
   def public?
-    !self.private
+    !self.private?
   end
 
   def spawned?

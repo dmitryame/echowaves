@@ -849,3 +849,9 @@ ul.subsection_tabs li.tab a {
   text-decoration: none;
 }
 .screencast object { border: 8px solid #151110; }
+
+#ads {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+}

@@ -177,6 +177,9 @@ class ConversationsController < ApplicationController
   #----------------------------------------------------------------------------
   def toogle_private_status
     @conversation = Conversation.find(params[:id])
+    if @conversation.private?
+      redirect_to conversation_path( @conversation )
+    end
     private_status = (params[:mode] == 'public') ? false : true
     @conversation.update_attributes( :private => private_status ) if ( @conversation.owner == current_user )
     redirect_to conversation_path( @conversation )

@@ -165,8 +165,7 @@
 	<div id="main_content" class="container">
 		<div id="col1" class="span-14">
 		  <%= flash_messages %>
-  		<% if (logged_in? && @conversation.readable_by?(current_user)) || !@conversation.private? %>
-  		  
+  		<% if (logged_in? && @conversation.readable_by?(current_user)) || !@conversation.private? %>  		  
   		  <div id="convo_header_container">
       	  <div id="convo_header" >
       	    <h5>&nbsp;
@@ -214,7 +213,7 @@
                     	      <% end %>
                         
                             <% if @conversation.private? %>
-                    	        <%= link_to t("ui.make_public"), toogle_private_status_conversation_path(@conversation, :mode => 'public'), :method => 'put' %>
+                    	        <%=  link_to_function  t("ui.make_public"), "alert('#{t("conversations.cant_make_private_convo_public_warning")}')" %>
                     	      <% else %>
                     	        <%= link_to t("ui.make_private"), toogle_private_status_conversation_path(@conversation), :method => 'put' %>
                     	      <% end %>

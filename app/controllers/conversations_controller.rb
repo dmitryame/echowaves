@@ -173,7 +173,7 @@ class ConversationsController < ApplicationController
     @conversation = Conversation.find(params[:id])
     read_only = (params[:mode] == 'rw') ? false : true
     @conversation.update_attributes( :read_only => read_only ) if ( @conversation.owner == current_user )
-    Rails.cache.write('conversation_'+params[:id], @conversation)
+#    Rails.cache.write('conversation_'+params[:id], @conversation)
     redirect_to conversation_path( @conversation )
   end
 
@@ -182,7 +182,7 @@ class ConversationsController < ApplicationController
     @conversation = Conversation.find(params[:id])
     private_status = (params[:mode] == 'public') ? false : true
     @conversation.update_attributes( :private => private_status ) if ( @conversation.owner == current_user )
-    Rails.cache.write('conversation_'+params[:id], @conversation)
+#    Rails.cache.write('conversation_'+params[:id], @conversation)
     redirect_to conversation_path( @conversation )
   end
 
@@ -317,7 +317,8 @@ private
 
   #----------------------------------------------------------------------------
   def find_conversation
-    @conversation = Rails.cache.fetch('conversation_'+params[:id], :expires_in => 24.hours) {Conversation.find( params[:id] )}
+#    @conversation = Rails.cache.fetch('conversation_'+params[:id], :expires_in => 24.hours) {Conversation.find( params[:id] )}
+  @conversation = Conversation.find( params[:id] )
   end
 
   #----------------------------------------------------------------------------

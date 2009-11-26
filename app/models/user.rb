@@ -229,7 +229,7 @@ class User < ActiveRecord::Base
     else
       return false
     end
-    Rails.cache.write('conversation_'+convo.to_param, convo)    
+#    Rails.cache.write('conversation_'+convo.to_param, convo)    
     return true
   end
   
@@ -238,7 +238,7 @@ class User < ActiveRecord::Base
     # remove invitation if exists so the user can be invited again
     invite = Invite.find(:first, :conditions => ["user_id = ? and conversation_id = ?", self, convo.id ])
     invite.destroy unless invite.blank?
-    Rails.cache.write('conversation_'+convo.to_param, convo)    
+#    Rails.cache.write('conversation_'+convo.to_param, convo)    
   end
   
   def all_convos_tags

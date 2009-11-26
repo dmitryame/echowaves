@@ -133,8 +133,7 @@ class MessagesController < ApplicationController
 private
 
   def find_conversation
-    @conversation = Rails.cache.fetch('conversation_'+params[:conversation_id], :expires_in => 24.hours) {Conversation.find( params[:conversation_id] )}
-    # @conversation = Conversation.find( params[:conversation_id] )
+    @conversation = Conversation.find( params[:conversation_id] )
   end
 
   def check_write_access

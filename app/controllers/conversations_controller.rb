@@ -124,6 +124,7 @@ class ConversationsController < ApplicationController
 
   #----------------------------------------------------------------------------
   def follow
+    @conversation = Conversation.find(params[:id])
     current_user.follow(@conversation, params[:token])
   end
 
@@ -150,6 +151,7 @@ class ConversationsController < ApplicationController
 
   #----------------------------------------------------------------------------
   def unfollow
+    @conversation = Conversation.find(params[:id])
     current_user.unfollow(@conversation)
   end
 
@@ -171,17 +173,16 @@ class ConversationsController < ApplicationController
     @conversation = Conversation.find(params[:id])
     read_only = (params[:mode] == 'rw') ? false : true
     @conversation.update_attributes( :read_only => read_only ) if ( @conversation.owner == current_user )
+    Rails.cache.write('conversation_'+params[:id], @conversation)
     redirect_to conversation_path( @conversation )
   end
 
   #----------------------------------------------------------------------------
   def toogle_private_status
     @conversation = Conversation.find(params[:id])
-    if @conversation.private?
-      redirect_to conversation_path( @conversation )
-    end
     private_status = (params[:mode] == 'public') ? false : true
     @conversation.update_attributes( :private => private_status ) if ( @conversation.owner == current_user )
+    Rails.cache.write('conversation_'+params[:id], @conversation)
     redirect_to conversation_path( @conversation )
   end
 

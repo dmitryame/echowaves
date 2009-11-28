@@ -105,11 +105,16 @@ class User < ActiveRecord::Base
   
   def self.find_by_id_or_username(user)
     id = /^(\d+)/.match(user.to_s)
-    if id
-      User.find(user)
-    else
-      User.find_by_login(user)
+    begin
+      u = if id
+        User.find(user)
+      else
+        User.find_by_login(user)
+      end
+    rescue ActiveRecord::RecordNotFound
+      return nil
     end
+    return u
   end
 
   # friends system

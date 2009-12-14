@@ -145,6 +145,7 @@ nl:
     user_spawned_convo_description: "{{login}} maakte dit bericht van het bericht {{original_message_link}}\n\nBedenk alsjeblieft een nieuwe titel en beschrijving voor dit gesprek"
     already_spawned_warning: "Je hebt al een nieuw gesprek gemaakt van dit bericht!"
     not_allowed_to_write_warning: "Je mag geen berichten toevoegen aan dit gesprek."
+    cant_make_private_convo_public_warning: "Changing convo status from private to public is not supported, create a new convo"
   footer:
     uptime_monitoring: "Website wordt gecheckt door"
     report_problems_or_abuse: "Problemen of misbruik melden aan:"

@@ -84,13 +84,13 @@ class Conversation < ActiveRecord::Base
   def readable_by?(user)
     return false if user.blank?
     self.owner == user ||
-    !self.private? ||
+    self.public? ||
     self.followed_by?(user)
   end
 
   def writable_by?(user)
     self.owner == user || 
-    ( !self.read_only && !self.private? ) ||
+    ( !self.read_only && self.public? ) ||
     ( self.private? && self.followed_by?(user) && !self.read_only )
   end
 

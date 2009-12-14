@@ -22,7 +22,7 @@
     	    </span>
     	    <span class="sbutton round">
     	      <% if @conversation.private? %>
-    	        <%= link_to t("ui.make_public"), toogle_private_status_conversation_path(@conversation, :mode => 'public'), :method => 'put' %>
+  	        	<%=  link_to_function  t("ui.make_public"), "alert('#{t("conversations.cant_make_private_convo_public_warning")}')" %>
     	      <% else %>
     	        <%= link_to t("ui.make_private"), toogle_private_status_conversation_path(@conversation), :method => 'put' %>
     	      <% end %>

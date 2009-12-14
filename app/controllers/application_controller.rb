@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
-    
+  include SslRequirement
+
   helper_method :current_user_session, :current_user, :logged_in?
   helper :all # include all helpers, all the time
   

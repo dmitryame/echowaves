@@ -1,9 +1,9 @@
 class ApplicationController < ActionController::Base
   include SslRequirement
 
-  def ssl_allowed? 
-     true unless Rails.env.development?
-  end
+  # def ssl_allowed? 
+  #    true unless Rails.env.development?
+  # end
 
   helper_method :current_user_session, :current_user, :logged_in?
   helper :all # include all helpers, all the time

@@ -1,5 +1,5 @@
 class UserSessionsController < ApplicationController
-  ssl_reqdef ssl_required? 
+  def ssl_required? 
      true unless Rails.env.development?
   end
   

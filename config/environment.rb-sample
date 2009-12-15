@@ -118,6 +118,8 @@ BCC         = "dmitry@rootlocusinc.com" # email monitoring log
 FROM        = "support@echowaves.com"
 SUBJECT     = "[echowaves.com] "
 
+
+ORBITED_PROTOCOL = 'http'
 ORBITED_HOST = 'localhost'
 ORBITED_PORT = '8500'
 ORBITED_DOMAIN = 'localhost'

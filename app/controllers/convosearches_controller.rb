@@ -1,7 +1,6 @@
 class ConvosearchesController < ApplicationController
-  ssl_required :show, :create unless Rails.env.development?
-  def ssl_allowed? 
-     true unless Rails.env.development?
+  def ssl_required?
+    true unless Rails.env.development?
   end
   
   def show

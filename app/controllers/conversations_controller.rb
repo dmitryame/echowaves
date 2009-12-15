@@ -1,7 +1,6 @@
 class ConversationsController < ApplicationController
-  ssl_required :show unless Rails.env.development?
-  def ssl_allowed? 
-     true unless Rails.env.development?
+  def ssl_required?
+    true unless Rails.env.development?
   end
 
   before_filter :login_or_oauth_required,

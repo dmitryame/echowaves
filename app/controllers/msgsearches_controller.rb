@@ -1,4 +1,5 @@
 class MsgsearchesController < ApplicationController
+  ssl_required :show, :create unless Rails.env.development?
   
   def show
     if params.include?(:q)

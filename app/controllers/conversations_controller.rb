@@ -1,4 +1,5 @@
 class ConversationsController < ApplicationController
+  ssl_required :show unless Rails.env.development?
 
   before_filter :login_or_oauth_required,
     :except => [:index, :show, :followers, :auto_complete_for_conversation_name, :complete_name]

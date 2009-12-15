@@ -1,5 +1,8 @@
 class MessagesController < ApplicationController
-
+  def ssl_required? 
+     true unless Rails.env.development?
+  end
+   
   before_filter :login_or_oauth_required, :except => [:index, :show, :get_more_messages, :export ]
   before_filter :find_conversation, :except => [ :send_data, :auto_complete_for_tag_name]
   before_filter :check_write_access, :only => [ :create, :upload_attachment ]

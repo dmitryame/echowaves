@@ -1,6 +1,9 @@
 class AttachmentsController < ApplicationController
 
   before_filter :find_message_and_check_read_access
+  def ssl_allowed? 
+     true unless Rails.env.development?
+  end
 
   def show
     attachment_path =  @message.attachment.path

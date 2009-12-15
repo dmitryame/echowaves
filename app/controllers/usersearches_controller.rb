@@ -1,5 +1,8 @@
 class UsersearchesController < ApplicationController
   ssl_required :show, :create unless Rails.env.development?
+  def ssl_allowed? 
+     true unless Rails.env.development?
+  end
   
   def show
     if params.include?(:user_q)

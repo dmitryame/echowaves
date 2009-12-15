@@ -1,4 +1,7 @@
 class PasswordResetsController < ApplicationController
+  def ssl_required? 
+     true unless Rails.env.development?
+  end
   
   layout "users"
   

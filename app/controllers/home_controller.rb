@@ -1,4 +1,7 @@
 class HomeController < ApplicationController
+  def ssl_allowed? 
+     true unless Rails.env.development?
+  end
   
   # just a homepage
   def index

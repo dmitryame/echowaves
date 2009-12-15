@@ -1,4 +1,7 @@
 class InvitationsController < ApplicationController
+  def ssl_allowed? 
+     true unless Rails.env.development?
+  end
 
   before_filter :require_user
   

@@ -1,5 +1,8 @@
 class UsersController < ApplicationController
   ssl_required :new, :create, :edit, :update unless Rails.env.development?
+  def ssl_allowed? 
+     true unless Rails.env.development?
+  end
 
   before_filter :require_user, :only => [ :edit, :update, :update_news, :change_password ]
   

@@ -35,10 +35,8 @@ class User < ActiveRecord::Base
                   
   attr_accessor :email_confirmation
       
-  is_gravtastic :size => 60, :rating => 'G', :default => "identicon", :secure => USE_SSL # "monsterid" or "identicon", or "wavatar"
+  is_gravtastic :size => 60, :rating => 'G', :default => "identicon" # "monsterid" or "identicon", or "wavatar"
   
-
-
   acts_as_tagger
   acts_as_authentic do |c|
     c.transition_from_restful_authentication = true

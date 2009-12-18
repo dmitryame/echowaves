@@ -1,6 +1,6 @@
 class UserSessionsController < ApplicationController
   def ssl_required? 
-     true unless Rails.env.development?
+    true if USE_SSL
   end
   
   before_filter :require_no_user, :only => [:new, :create]

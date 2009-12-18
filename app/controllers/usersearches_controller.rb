@@ -1,6 +1,6 @@
 class UsersearchesController < ApplicationController
   def ssl_required?
-    true unless Rails.env.development?
+    true if USE_SSL
   end
   
   def show

@@ -103,6 +103,7 @@ ActiveSupport::JSON.backend = 'JSONGem'
 # the documentation
 #----------------------------------------------------------------------------
 USE_WORKLING = false
+USE_SSL = false
 # use the Starling runner
 # Workling::Remote.dispatcher = Workling::Remote::Runners::StarlingRunner.new
 # use the RudeQ

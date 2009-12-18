@@ -1,6 +1,6 @@
 class OauthController < ApplicationController
   def ssl_allowed? 
-     true unless Rails.env.development?
+    true if USE_SSL
   end
   
   before_filter :require_user, :except => [:request_token, :access_token, :test_request]

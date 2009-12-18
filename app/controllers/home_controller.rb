@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
   def ssl_allowed? 
-     true unless Rails.env.development?
+    true if USE_SSL
   end
   
   # just a homepage

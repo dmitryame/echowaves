@@ -34,8 +34,12 @@ class User < ActiveRecord::Base
                   :something, :receive_email_notifications, :about
                   
   attr_accessor :email_confirmation
+
+  @@use_ssl = USE_SSL
     
-  is_gravtastic :size => 60, :rating => 'G', :default => "identicon" # "monsterid" or "identicon", or "wavatar"
+  is_gravtastic :size => 60, :rating => 'G', :secure => @@use_ssl, :default => "identicon" # "monsterid" or "identicon", or "wavatar"
+  
+
 
   acts_as_tagger
   acts_as_authentic do |c|

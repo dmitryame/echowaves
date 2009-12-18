@@ -2,7 +2,7 @@ class AttachmentsController < ApplicationController
 
   before_filter :find_message_and_check_read_access
   def ssl_allowed? 
-     true unless Rails.env.development?
+    true if USE_SSL
   end
 
   def show

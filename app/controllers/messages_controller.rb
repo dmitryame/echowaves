@@ -1,6 +1,6 @@
 class MessagesController < ApplicationController
   def ssl_required? 
-     true unless Rails.env.development?
+    true if USE_SSL
   end
    
   before_filter :login_or_oauth_required, :except => [:index, :show, :get_more_messages, :export ]

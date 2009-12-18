@@ -6,7 +6,7 @@
 
 <div class="item">
 
-<a href="http://gravatar.com" target="_blank"><%= t("ui.get_an_gravatar_here") %></a>
+<a href="<%=USE_SSL ? 'https://secure.gravatar.com' : 'http://gravatar.com'%>" target="_blank"><%= t("ui.get_an_gravatar_here") %></a>
 
 <% @user.password = @user.password_confirmation = nil %>
 

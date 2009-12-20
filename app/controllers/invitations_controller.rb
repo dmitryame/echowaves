@@ -1,5 +1,5 @@
 class InvitationsController < ApplicationController
-  def ssl_allowed? 
+  def ssl_required? 
     true if USE_SSL
   end
 

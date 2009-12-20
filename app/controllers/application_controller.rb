@@ -1,8 +1,8 @@
 class ApplicationController < ActionController::Base
   include SslRequirement
 
-  def ssl_allowed? 
-    false
+  def ssl_required? 
+    true if USE_SSL
   end
 
   helper_method :current_user_session, :current_user, :logged_in?

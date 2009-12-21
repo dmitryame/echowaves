@@ -129,6 +129,7 @@ class ConversationsController < ApplicationController
   def follow
     @conversation = Conversation.find(params[:id])
     current_user.follow(@conversation, params[:token])
+    redirect_to :back      
   end
 
   #----------------------------------------------------------------------------
@@ -156,6 +157,7 @@ class ConversationsController < ApplicationController
   def unfollow
     @conversation = Conversation.find(params[:id])
     current_user.unfollow(@conversation)
+    redirect_to :back    
   end
 
   #----------------------------------------------------------------------------

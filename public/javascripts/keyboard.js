@@ -10,7 +10,7 @@ var Keyboard = {
   verbose: false, // for debugging
 
   init: function() {
-    Event.observe(document, 'keyup', Keyboard.handleKeyEvent);
+    Event.observe(document, 'keydown', Keyboard.handleKeyEvent);
   },
 
   // the keyboard event handler function

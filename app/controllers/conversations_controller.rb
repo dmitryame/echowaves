@@ -272,7 +272,10 @@ class ConversationsController < ApplicationController
     else
       current_user.tag(@conversation, :with => @conversation.bookmarks.collect{|tag| tag.name}.join(", ")  + ", " + current_user.bookmark_tag, :on => :bookmarks)
     end
-    redirect_to :back    
+    respond_to do |format|
+      format.html { redirect_to :back }   
+      format.js 
+    end
   end
 
   #----------------------------------------------------------------------------

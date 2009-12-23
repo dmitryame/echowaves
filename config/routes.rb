@@ -23,7 +23,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :conversations, :collection => {:bookmarked => :get, :new_messages => :get}, :member => {
     :toogle_private_status   => :put,
     :toogle_readwrite_status => :put,
-    :toogle_bookmark         => :put,
+    :toogle_bookmark         => :post,
     :follow                  => :post,
     :follow_with_token       => :get,
     :follow_email_with_token => :get,

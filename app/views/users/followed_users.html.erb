@@ -4,8 +4,10 @@
 
 <h6><%= @user.login %> is following these users</h6>
 <div class="item">
+	<%= will_paginate @followed_users %>	
 	<ul id="users_list">
 		<%= render :partial => 'user', :collection => @followed_users %>
 	</ul>
+	<%= will_paginate @followed_users %>	
 	<div class="clear"></div>
 </div>

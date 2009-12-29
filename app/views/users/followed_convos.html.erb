@@ -5,10 +5,10 @@
 <h6>Convos followed by <%= @user.login %></h6>
 <div class="item">
 	<div id="convos">
-	  <%= will_paginate @conversations %>
+		<%= will_paginate @conversations %>
 		<ul class="list">
 			<%= render :partial => 'conversations/conversation',
-			          :collection => @conversations %>
+			:collection => @conversations %>
 		</ul>
 		<%= will_paginate @conversations %>
 	</div>

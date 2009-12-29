@@ -35,7 +35,7 @@ class UsersController < ApplicationController
   # followers, followed_users, followed_convos
   def followers
     @user = User.find(params[:id])
-    @followers = @user.followers
+    @followers = @user.followers.paginate :page => params[:page], :order => 'created_at DESC', :per_page => 20
     respond_to do |format|
       format.html
       format.xml  { render :xml => @user }
@@ -44,7 +44,7 @@ class UsersController < ApplicationController
   
   def followed_users
     @user = User.find(params[:id])
-    @followed_users = @user.following
+    @followed_users = @user.following.paginate :page => params[:page], :order => 'created_at DESC', :per_page => 20
     respond_to do |format|
       format.html
       format.xml  { render :xml => @user }

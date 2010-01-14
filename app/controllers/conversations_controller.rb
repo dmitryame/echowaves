@@ -4,10 +4,10 @@ class ConversationsController < ApplicationController
   end
 
   before_filter :login_or_oauth_required,
-    :except => [:index, :show, :followers, :auto_complete_for_conversation_name, :complete_name]
+    :except => [:index, :show, :auto_complete_for_conversation_name, :complete_name]
   before_filter :find_conversation,
     :except => [:bookmarked, :complete_name, :create, :spawn, :new, :index, :new_messages, :toggle_readwrite_status, :toggle_private_status]
-  before_filter :check_read_access, :only => [:show, :followers]
+  before_filter :check_read_access, :only => [:show]
   after_filter :store_location, :only => [:show, :new]
 
   auto_complete_for :conversation, :name # multiple scopes can be chained like 'published.readonly'
@@ -39,15 +39,6 @@ class ConversationsController < ApplicationController
 
   alias_method :images, :show
   alias_method :files, :show
-
-  #----------------------------------------------------------------------------
-  def followers
-    @followers = @conversation.users
-    respond_to do |format|
-      format.html# { render :layout => 'users' }
-      format.xml  { render :xml => {:followers => @followers} }
-    end
-  end
 
   #----------------------------------------------------------------------------
   def new

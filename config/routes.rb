@@ -37,11 +37,11 @@ ActionController::Routing::Routes.draw do |map|
     :remove_user             => :post,
     :files                   => :get,
     :images                  => :get,
-    :followers               => :get
     }, :new => { :spawn => :get } do |conversation|
       conversation.resources :messages, :member => { :report => :post }, 
                                         :collection => {:images => :get, :files => :get},
                                         :except => [:edit, :update, :destroy]
+      conversation.resources :subscribers
     end
   
   # OAuth routes

@@ -7,7 +7,7 @@ class SubscribersController < ApplicationController
     @conversation = Conversation.find(params[:conversation_id])
 
     respond_to do |format|
-      if @conversation.readable_by?(current_user) || @conversation.public?
+      if @conversation.public? || @conversation.readable_by?(current_user)
         @subscribers = @conversation.users
         format.html
         format.xml { render :xml => { :subscribers => @subscribers } }

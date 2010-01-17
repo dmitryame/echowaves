@@ -117,12 +117,6 @@ class ConversationsController < ApplicationController
   end
 
   #----------------------------------------------------------------------------
-  def follow
-    @conversation = Conversation.find(params[:id])
-    current_user.follow(@conversation, params[:token])
-  end
-
-  #----------------------------------------------------------------------------
   def follow_with_token
     current_user.follow(@conversation, params[:token])
     redirect_to @conversation
@@ -136,11 +130,6 @@ class ConversationsController < ApplicationController
 
     current_user.follow(@conversation, params[:token].to_s)
     redirect_to @conversation
-  end
-
-  #----------------------------------------------------------------------------
-  def follow_from_list
-    follow
   end
 
   #----------------------------------------------------------------------------

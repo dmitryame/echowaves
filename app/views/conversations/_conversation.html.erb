@@ -11,6 +11,6 @@
 	  <%= conversation.date_time12 %> -
 	  <%= pluralize conversation.messages.size, 'message' %> -
 	  <%= pluralize conversation.subscriptions.size, 'follower' %> -
-	  <%= render :partial => 'conversations/follow_from_list', :object => conversation %>
+    <%= render :partial => 'conversations/follow_from_list', :locals => { :conversation => conversation } %>
 	</span>
 </li>

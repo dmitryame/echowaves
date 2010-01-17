@@ -12,9 +12,18 @@ class SubscribersController < ApplicationController
         format.html
         format.xml { render :xml => { :subscribers => @subscribers } }
       else
-        flash[:error] = "Sorry, this is a private conversation. You can try anoter one"
+        flash[:error] = "Sorry, this is a private conversation. You can try another one"
         format.html { redirect_to conversations_path }
       end
+    end
+  end
+
+  def create
+    @conversation = Conversation.find(params[:conversation_id])
+    current_user.follow(@conversation, params[:token])
+
+    respond_to do |format|
+      format.js
     end
   end
 end

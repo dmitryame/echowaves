@@ -292,31 +292,6 @@ class ConversationsControllerTest < ActionController::TestCase
     end
   end # context toggle_private_status action
 
-  context "follow action" do
-    setup do
-      @convo = Factory.create( :conversation )
-      Conversation.stubs( :find ).returns( @convo )
-      @subscription = Factory.create( :subscription, :conversation => @convo )
-      @convo.stubs( :add_subscription ).returns( @subscription )
-    end
-
-    should "be success" do
-      xhr :post, :follow, :id => '1'
-      assert_response 200
-    end
-
-    should "call add_subscription" do
-      Conversation.expects( :find ).with( '1' ).returns( @convo )
-      @convo.expects( :add_subscription ).with( @current_user ).returns( @subscription )
-      xhr :post, :follow, :id => '1'
-    end
-
-    should "mark subscription as read" do
-      @subscription.expects( :mark_read! )
-      xhr :post, :follow, :id => '1'
-    end
-  end # context follow action
-
   context "unfollow action" do
     setup do
       @convo = Factory.create( :conversation )

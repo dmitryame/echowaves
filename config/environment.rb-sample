@@ -23,7 +23,7 @@ Rails::Initializer.run do |config|
   # Specify gems that this application depends on.
   # They can then be installed with "rake gems:install" on new installations.
 
-  config.gem 'chrislloyd-gravtastic', :version => '>= 2.1.2', :lib => "gravtastic"
+  config.gem 'gravtastic', :version => '>= 2.1.2'
   config.gem "stomp"
   config.gem "json"
   config.gem "oauth", :version => '0.3.2'

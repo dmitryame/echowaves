@@ -1,4 +1,4 @@
-page.replace "follow_conversation_#{@conversation.id}", :partial => 'follow', :object => @conversation
+page.replace "follow_conversation_#{@conversation.id}", :partial => 'follow', :locals => { :conversation => @conversation }
 page.replace "news", :partial => 'users/news'
 # page.replace "users_in_conversation", :partial => 'conversations/users_in_conversation'
 page["follow_conversation_#{@conversation.id}"].visual_effect :pulsate

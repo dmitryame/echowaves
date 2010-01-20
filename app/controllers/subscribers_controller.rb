@@ -17,13 +17,4 @@ class SubscribersController < ApplicationController
       end
     end
   end
-
-  def create
-    @conversation = Conversation.find(params[:conversation_id])
-    current_user.follow(@conversation, params[:token])
-
-    respond_to do |format|
-      format.js
-    end
-  end
 end

@@ -23,11 +23,4 @@ class SubscribersControllerTest < ActionController::TestCase
       end
     end
   end
-
-  context "create action" do
-    should "be success" do
-      xhr :post, :create, :conversation_id => @convo.id
-      assert_response 200
-    end
-  end
 end

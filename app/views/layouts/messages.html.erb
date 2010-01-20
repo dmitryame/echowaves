@@ -182,7 +182,7 @@
     			      <% if @conversation.parent_message_id %>
             	    <span class="sbutton round"><%= link_to t("ui.back_to_parent"), conversation_path(@conversation.parent_message.conversation)%></span>
             	  <% end %>
-                <span class="sbutton round"><%= render :partial => 'conversations/follow', :object => @conversation %></span>
+                <span class="sbutton round"><%= render :partial => 'subscriptions/follow', :locals => { :conversation => @conversation } %></span>
             	  &nbsp;
             	  
             	  

@@ -133,17 +133,6 @@ class ConversationsController < ApplicationController
   end
 
   #----------------------------------------------------------------------------
-  def unfollow
-    @conversation = Conversation.find(params[:id])
-    current_user.unfollow(@conversation)
-  end
-
-  #----------------------------------------------------------------------------
-  def unfollow_from_list
-    unfollow
-  end
-
-  #----------------------------------------------------------------------------
   def remove_user
     if @conversation.private? && @conversation.owner == current_user && !params[:user_id].blank?
       @user = User.find(params[:user_id])

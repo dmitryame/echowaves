@@ -26,8 +26,6 @@ ActionController::Routing::Routes.draw do |map|
     :toggle_bookmark         => :post,
     :follow_with_token       => :get,
     :follow_email_with_token => :get,
-    :unfollow                => :post,
-    :unfollow_from_list      => :post,
     :invite                  => :get,
     :invite_from_list        => :post,
     :invite_all_my_followers => :post,
@@ -40,6 +38,7 @@ ActionController::Routing::Routes.draw do |map|
                                         :collection => {:images => :get, :files => :get},
                                         :except => [:edit, :update, :destroy]
       conversation.resources :subscribers
+      conversation.resource :subscription
     end
   
   # OAuth routes

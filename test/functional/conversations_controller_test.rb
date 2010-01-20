@@ -292,26 +292,6 @@ class ConversationsControllerTest < ActionController::TestCase
     end
   end # context toggle_private_status action
 
-  context "unfollow action" do
-    setup do
-      @convo = Factory.create( :conversation )
-      Conversation.stubs( :find ).returns( @convo )
-      @subscription = Factory.create( :subscription, :conversation => @convo )
-      @convo.stubs( :remove_subscription )
-    end
-
-    should "be success" do
-      xhr :post, :unfollow, :id => '1'
-      assert_response 200
-    end
-
-    should "call remove_subscription" do
-      Conversation.expects( :find ).with( '1' ).returns( @convo )
-      @convo.expects( :remove_subscription ).with( @current_user )
-      xhr :post, :unfollow, :id => '1'
-    end
-  end # context unfollow action
-
   context "show action" do
     setup do
       @conversation = Factory(:conversation, :user => @user)

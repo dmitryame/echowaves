@@ -135,3 +135,12 @@ To use this with MySQL, you will probably need to uncomment the lines in the dat
 
 change the "adapter" lines to read "adapter: sqlite3"
 make the database lines something like "database: db/development.sqlite3" and "database: db/test.sqlite3"
+
+### MYSQL
+if you get an error: uninitialized constant MysqlCompat::MysqlRes
+
+try reinstalling mysql gem with following command:
+
+
+    gem uninstall mysql
+    export ARCHFLAGS="-arch i386 -arch x86_64" ; gem install --no-rdoc --no-ri mysql -- --with-mysql-dir=/usr/local --with-mysql-config=/usr/local/mysql/bin/mysql_config

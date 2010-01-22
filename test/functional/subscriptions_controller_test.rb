@@ -13,4 +13,11 @@ class SubscriptionsControllerTest < ActionController::TestCase
       assert_response 200
     end
   end
+
+  context "destroy action" do
+    should "be success" do
+      xhr :delete, :destroy, :conversation_id => @conv.id
+      assert_response 200
+    end
+  end
 end

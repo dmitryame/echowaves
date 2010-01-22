@@ -133,14 +133,6 @@ class ConversationsController < ApplicationController
   end
 
   #----------------------------------------------------------------------------
-  def remove_user
-    if @conversation.private? && @conversation.owner == current_user && !params[:user_id].blank?
-      @user = User.find(params[:user_id])
-      @user.unfollow(@conversation)
-    end
-  end
-
-  #----------------------------------------------------------------------------
   def toggle_readwrite_status
     @conversation = Conversation.find(params[:id])
     read_only = (params[:mode] == 'rw') ? false : true

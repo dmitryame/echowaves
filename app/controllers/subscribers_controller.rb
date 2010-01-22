@@ -17,4 +17,17 @@ class SubscribersController < ApplicationController
       end
     end
   end
+
+  def destroy
+    @conversation = Conversation.find(params[:conversation_id])
+
+    respond_to do |format|
+      if @conversation.private? && current_user.owns?(@conversation)
+        @user = User.find(params[:id])
+        @user.unfollow(@conversation)
+
+        format.js
+      end
+    end
+  end
 end

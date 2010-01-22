@@ -139,6 +139,10 @@ class User < ActiveRecord::Base
   def friend_of?(friend)
     self.following?(friend) and friend.following?(self)
   end
+
+  def owns?(conversation)
+    conversation.owner == self
+  end
       
   def deliver_password_reset_instructions!
     reset_perishable_token!

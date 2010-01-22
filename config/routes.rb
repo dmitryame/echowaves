@@ -30,7 +30,6 @@ ActionController::Routing::Routes.draw do |map|
     :invite_from_list        => :post,
     :invite_all_my_followers => :post,
     :invite_via_email        => :post,
-    :remove_user             => :post,
     :files                   => :get,
     :images                  => :get,
     }, :new => { :spawn => :get } do |conversation|

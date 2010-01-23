@@ -26,68 +26,72 @@ class MessageTest < ActiveSupport::TestCase
   context "Message" do
     setup do
       @message = Factory.create(:message)
-      
+
       @deactivated_message = Factory.create(:message)
       @abuse_report = Factory.create(:abuse_report, :user => @deactivated_message.user, :message => @deactivated_message)
       @deactivated_message.abuse_report = @abuse_report
       @deactivated_message.save
     end
     subject { @message }
-    
+
     should "return 2 messages when find" do
       assert_equal 2, Message.find(:all).length
     end
-    
+
     should "return only activated messages when find with published named_scope" do
       assert_equal 1, Message.published.length
     end
   end
-  
-  context "A Message instance" do    
+
+  context "A Message instance" do
     setup do
       @message = Factory.create(:message)
     end
     subject { @message }
-    
+
     should_belong_to :conversation
     should_belong_to :user
 
     should_have_many :abuse_reports
     should_belong_to :abuse_report
-    
+
     should_have_many :conversations #conversations spawned from this message
 
     should_have_db_index :user_id
     should_have_db_index :conversation_id
     should_have_db_index :created_at
-    
+
     should_validate_presence_of :message
     should_validate_presence_of :user_id, :conversation_id
-        
+
     should "be valid if honeypot field is blank" do
       assert @message.valid?
     end
-    
+
     should "not be valid if honeypot field is not blank" do
       @message.something = "spam"
       assert !@message.valid?
     end
-    
+
     should "return the date of creation in m/d/Y format" do
       assert_equal @message.created_at.strftime("%Y/%m/%d"), @message.date
     end
   end
-  
+
   context "filter message (video, links, html, ...)" do
     setup do
       @message = Message.create(:message => '<script>dangerous</script>', :user_id => Factory(:user).id, :conversation_id => Factory(:conversation).id)
     end
     subject { @message }
-    
+
     should "filter message on create" do
       assert_equal "<p>&lt;script&gt;dangerous&lt;/script&gt;</p>", @message.message_html
     end
-    
+
+    should "filter complex links" do
+      @message = Message.create(:message => 'http://es.engadget.com/2010/01/20/la-primera-apple-store-espanola-podria-abrirse-en-valencia/?utm_source=feedburner&amp;utm_medium=feed&amp;utm_campaign=Feed%3A+EngadgetSpanish\', :user_id => Factory(:user).id, :conversation_id => Factory(:conversation).id)
+      assert_equal '<a href=\"http://es.engadget.com/2010/01/20/la-primera-apple-store-espanola-podria-abrirse-en-valencia/?utm_source=feedburner&amp;utm_medium=feed&amp;utm_campaign=Feed%3A+EngadgetSpanish\">http://es.engadget.com/2010/01/20/la-primera-apple-store-espanola-podria-abrirse-en-valencia/?utm_source=feedburner&amp;utm_medium=feed&amp;utm_campaign=Feed%3A+EngadgetSpanish</a>'
+    end
     # messages can't be edited by the users, so this is not a problem, this way the system can modify
     # the message_html to add custom html code
     should "not filter message on save or update" do
@@ -96,13 +100,13 @@ class MessageTest < ActiveSupport::TestCase
       assert_equal "<p>&lt;script&gt;dangerous&lt;/script&gt;</p>", @message.message_html
     end
   end
-  
+
   def test_should_check_over_abuse_reports_limit?
     @message1 = Factory.create(:message)
     @message2 = Factory.create(:message)
-    @ab1 = Factory.create(:abuse_report, :message => @message1, :user => @message1.user) 
-    @ab2 = Factory.create(:abuse_report, :message => @message1, :user => @message1.user) 
-    @ab3 = Factory.create(:abuse_report, :message => @message1, :user => @message1.user) 
+    @ab1 = Factory.create(:abuse_report, :message => @message1, :user => @message1.user)
+    @ab2 = Factory.create(:abuse_report, :message => @message1, :user => @message1.user)
+    @ab3 = Factory.create(:abuse_report, :message => @message1, :user => @message1.user)
 
     assert @message1.over_abuse_reports_limit?
     assert_equal false, @message2.over_abuse_reports_limit?
@@ -111,7 +115,7 @@ class MessageTest < ActiveSupport::TestCase
   def test_published?_method
     message = Factory.create(:message)
     assert message.published?
-    
+
     abuse_report = Factory.create(:abuse_report, :message => message)
     message.update_attribute(:abuse_report, abuse_report)
     assert_equal false, message.published?
@@ -121,7 +125,7 @@ class MessageTest < ActiveSupport::TestCase
     message_owner = Factory.create(:user)
     report_user = Factory.create(:user)
     message = Factory.create(:message, :user => message_owner)
-    
+
     assert_equal 0, message.abuse_reports.size
     message.report_abuse(report_user)
     assert_equal 1, message.abuse_reports.size
@@ -185,7 +189,7 @@ class MessageTest < ActiveSupport::TestCase
         :size => 10
       )
     else
-      attachment = stub( 
+      attachment = stub(
         :nil? => false,
         :exists? => true,
         :to_tempfile => self,

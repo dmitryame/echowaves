@@ -24,10 +24,10 @@
 
 <div class="item">
   <h2>
-   Talk with us in our <%= link_to "EchoWaves conversation", conversation_path(Conversation.find(HOME_CONVERSATION)) -%>.<br/>If you want to test how the system works, please, use this <%= link_to "Test conversation", conversation_path(Conversation.find(TEST_CONVERSATION)) -%>.
-   
+    <% if @home_convo.present? %>Talk with us in our <%= link_to "EchoWaves conversation", conversation_path(@home_convo) -%>.<br/><% end %>
+    <% if @test_convo.present? %>If you want to test how the system works, please, use this <%= link_to "Test conversation", conversation_path(@test_convo) -%>.<% end %>
   </h2>
-  
+
 </div>
 
 
@@ -44,7 +44,7 @@
 
 <% content_for :sidebar_bottom do %>
   <%= render :partial => 'popular_topics' %>
-  <%= render :partial => 'recent_convos' %>	
+  <%= render :partial => 'recent_convos' %>
   <%= render :partial => 'popular_convos' %>
   <%= render :partial => 'recently_joined' %>
 <% end %>

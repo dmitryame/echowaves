@@ -27,7 +27,7 @@ Rails::Initializer.run do |config|
   config.gem "stomp"
   config.gem "json"
   config.gem "oauth", :version => '0.3.2'
-  config.gem "qoobaa-javascript_i18n", :lib => "javascript_i18n"
+  config.gem "javascript_i18n"
 
   # these are only required if you want to use workling (see below)
   #----------------------------------------------------------------------------

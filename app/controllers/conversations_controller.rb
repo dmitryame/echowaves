@@ -166,17 +166,21 @@ class ConversationsController < ApplicationController
 
   #----------------------------------------------------------------------------
   def invite_all_my_followers
-    if USE_WORKLING
-      EchowavesWorker.asynch_invite_followers_to_new_convo(:user_id => current_user.id, :conversation_id => @conversation.id)
-    else # painfully slow if the user has many followers
-      #invite all my followers, if the convo is public
-      current_user.followers.each do |u|
-        # next  if ( @conversation && @conversation.parent_message && personal_convo == @conversation.parent_message.conversation )
-        u.invite @conversation, current_user unless @conversation.users.include?(user)
+    if @conversation.public?
+      if USE_WORKLING
+        EchowavesWorker.asynch_invite_followers_to_new_convo(:user_id => current_user.id, :conversation_id => @conversation.id)
+      else # painfully slow if the user has many followers
+        #invite all my followers, if the convo is public
+        current_user.followers.each do |u|
+          # next  if ( @conversation && @conversation.parent_message && personal_convo == @conversation.parent_message.conversation )
+          u.invite @conversation, current_user unless @conversation.users.include?(user)
+        end
       end
-    end
-    render :update do |page|
-      page["spinner_x"].visual_effect :drop_out
+      render :update do |page|
+        page["spinner_x"].visual_effect :drop_out
+      end
+    else
+      render :nothing => :true
     end
   end
 

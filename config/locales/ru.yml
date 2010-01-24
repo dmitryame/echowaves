@@ -106,8 +106,6 @@ ru:
     total_messages: "Всего сообщений"
     total_users: "Всего пользователей"
     private_convo: "Закрытые разговоры"
-    make_public: "сделать открытым"
-    make_private: "сделать закрытым"
     last_message: "последнее сообщение"
     sound_on: "звук вкл"
     sound_off: "звук выкл"
@@ -147,7 +145,6 @@ ru:
     user_spawned_convo_description: "{{login}} ответвил разговор от {{original_message_link}}\n\n Опишите новый разговор"
     already_spawned_warning: "Разговор от даного сообщения уже был ответвлен."
     not_allowed_to_write_warning: "Вы не можете добавить сообщение в данный разговор."
-    cant_make_private_convo_public_warning: "Changing convo status from private to public is not supported, create a new convo"
   footer:
     uptime_monitoring: "Website Uptime Monitoring By"
     report_problems_or_abuse: "Сообщить о проблеммах"

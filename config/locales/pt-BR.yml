@@ -106,8 +106,6 @@ pt-BR:
     total_messages: "Mensagens"
     total_users: "Usuários"
     private_convo: "Conversação privada"
-    make_public: "tornar público"
-    make_private: "tornar privado"
     last_message: "última mensagem"
     sound_on: "ligar som"
     sound_off: "desligar som"
@@ -147,7 +145,6 @@ pt-BR:
     user_spawned_convo_description: "{{login}} ramificou esse convo, seguindo essa mensagem {{original_message_link}}\n\nPor favor forneça uma descrição e um título apropriado para a nova conversação"
     already_spawned_warning: "Você já ramificou uma nova conversação dessa mensagem."
     not_allowed_to_write_warning: "Você não tem permissão para adicionar novas mensagens a essa conversação."
-    cant_make_private_convo_public_warning: "Changing convo status from private to public is not supported, create a new convo"
   footer:
     uptime_monitoring: "Website Uptime Monitorado por"
     report_problems_or_abuse: "Denuncie problemas ou abusos para"

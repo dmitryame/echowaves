@@ -106,8 +106,6 @@ en:
     total_messages: "Total messages"
     total_users: "Total users"
     private_convo: "Private conversation"
-    make_public: "make public"
-    make_private: "make private"
     last_message: "last message"
     sound_on: "sound on"
     sound_off: "sound off"
@@ -147,7 +145,6 @@ en:
     user_spawned_convo_description: "{{login}} spawned this convo, following the message {{original_message_link}}\n\nPlease provide a description and an appropriate title for this new conversation"
     already_spawned_warning: "You already spawned a new conversation from this message."
     not_allowed_to_write_warning: "You are not allowed to add messages to this conversation."
-    cant_make_private_convo_public_warning: "Changing convo status from private to public is not supported, create a new convo"
   footer:
     uptime_monitoring: "Website Uptime Monitoring By"
     report_problems_or_abuse: "Report problems or Abuse to"

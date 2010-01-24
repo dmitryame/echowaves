@@ -106,8 +106,6 @@ es-ES:
     total_messages: "Mensajes"
     total_users: "Usuarios"
     private_convo: "Conversacion privada"
-    make_public: "hacer publica"
-    make_private: "hacer privada"
     last_message: "ultimo mensaje"
     sound_on: "sonido on"
     sound_off: "sonido off"
@@ -147,7 +145,6 @@ es-ES:
     user_spawned_convo_description: "{{login}} ha creado esta conversacion siguiendo el mensaje {{original_message_link}}\n\nPor favor, escribe una descripcion y un titulo adecuados para esta nueva conversacion"
     already_spawned_warning: "Ya has comenzado una nueva conversacion desde este mensaje."
     not_allowed_to_write_warning: "No puedes escribir mensajes en esta conversacion."
-    cant_make_private_convo_public_warning: "Changing convo status from private to public is not supported, create a new convo"
   footer:
     uptime_monitoring: "Website Uptime Monitoring By"
     report_problems_or_abuse: "Informa de problemas o abusos a"

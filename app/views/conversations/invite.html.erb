@@ -20,13 +20,6 @@
     	        <%= link_to t("ui.make_read_only"), toggle_readwrite_status_conversation_path(@conversation), :method => 'put' %>
     	      <% end %>
     	    </span>
-    	    <span class="sbutton round">
-    	      <% if @conversation.private? %>
-  	        	<%=  link_to_function  t("ui.make_public"), "alert('#{t("conversations.cant_make_private_convo_public_warning")}')" %>
-    	      <% else %>
-    	        <%= link_to t("ui.make_private"), toggle_private_status_conversation_path(@conversation), :method => 'put' %>
-    	      <% end %>
-    	    </span>
     	  <% end %>
 
         <%# filter here %>

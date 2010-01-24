@@ -10,6 +10,13 @@ RAILS_GEM_VERSION = '2.3.4' unless defined? RAILS_GEM_VERSION
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
 
+# set to true to make some tasks asyncronous and use workling, please read
+# the documentation
+#----------------------------------------------------------------------------
+USE_WORKLING = false
+USE_SSL = false
+
+
 Rails::Initializer.run do |config|
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers
@@ -99,11 +106,6 @@ end
 ActiveSupport::JSON.backend = 'JSONGem'
 
 
-# set to true to make some tasks asyncronous and use workling, please read
-# the documentation
-#----------------------------------------------------------------------------
-USE_WORKLING = false
-USE_SSL = false
 # use the Starling runner
 # Workling::Remote.dispatcher = Workling::Remote::Runners::StarlingRunner.new
 # use the RudeQ

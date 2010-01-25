@@ -30,13 +30,16 @@ Array.prototype.sum = function() {
 // Fluid stuff
 //----------------------------------------------------------------------------
 
-function ShowUnreadMessagesInFLuidapp()
+function ShowUnreadMessagesInFluidapp()
 {
   var numbers = $$('.msgcount').collect(function(n) {
-    return parseInt(n.innerHTML);
+    return parseInt(n.innerHTML, 10);
   });
-  window.fluid.dockBadge = numbers.sum();
+  if (window.fluid) {
+      window.fluid.dockBadge = numbers.sum() || null;
+  }
 }
+
 
 // Text area stuff
 //----------------------------------------------------------------------------

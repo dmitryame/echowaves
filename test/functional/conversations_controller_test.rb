@@ -217,7 +217,7 @@ class ConversationsControllerTest < ActionController::TestCase
     end
   end # context new action
 
-  context "toggle_readwrite_status action" do
+  context "update action" do
     setup do
       @owner = Factory.create(:user, :login => 'user1')
       @conversation = Factory.create(:conversation, :user => @current_user)
@@ -231,28 +231,30 @@ class ConversationsControllerTest < ActionController::TestCase
       should "only allow changes if the current_user is the conversation owner" do
         # try to change to writeable
         @other_conversation.update_attribute(:read_only, true)
-        put :toggle_readwrite_status, :id => @other_conversation, :mode => 'rw'
-        assert_equal true, assigns(:conversation).read_only
+        put :update, :id => @other_conversation
+        assert_equal true, assigns(:conversation).read_only?
 
         # try to change to readonly
         @other_conversation.update_attribute(:read_only, false)
-        put :toggle_readwrite_status, :id => @other_conversation
-        assert_equal false, assigns(:conversation).read_only
+        put :update, :id => @other_conversation
+        assert_equal false, assigns(:conversation).read_only?
       end
     end
 
     context "convo belongs to current_user" do
-      should "make readonly with no mode param" do
-        put :toggle_readwrite_status, :id => @conversation
-        assert_equal true, assigns(:conversation).read_only
+      should "make readonly when conversation is writable" do
+        put :update, :id => @conversation
+        assert_equal true, assigns(:conversation).read_only?
       end
 
-      should "make writeable with rw mode param" do
-        put :toggle_readwrite_status, :id => @conversation, :mode => 'rw'
-        assert_equal false, assigns(:conversation).read_only 
+      should "make writeable when conversation is readonly" do
+        @conversation.update_attribute(:read_only, true)
+
+        put :update, :id => @conversation
+        assert_equal false, assigns(:conversation).read_only?
       end
     end
-  end # context toggle_readwrite_status action
+  end # context update action
 
   context "show action" do
     setup do

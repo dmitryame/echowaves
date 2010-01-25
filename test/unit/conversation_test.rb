@@ -178,6 +178,11 @@ class ConversationTest < ActiveSupport::TestCase
     should "not be writable by the users" do
       assert !@conversation.writable_by?(@user2)
     end
+
+    should "become writable on read only status toggle" do
+      @conversation.toggle_read_only_status
+      assert !@conversation.read_only?
+    end
   end
   
   context "A writable conversation" do
@@ -195,6 +200,11 @@ class ConversationTest < ActiveSupport::TestCase
     
     should "be writable by the users" do
       assert @conversation.writable_by?(@user2)
+    end
+
+    should "become read only on read only status toggle" do
+      @conversation.toggle_read_only_status
+      assert @conversation.read_only?
     end
   end
 

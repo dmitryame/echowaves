@@ -102,6 +102,11 @@ class Conversation < ActiveRecord::Base
     !self.parent_message_id.nil?
   end
 
+  def toggle_read_only_status
+    toggled_status = !self.read_only?
+    self.update_attribute(:read_only, toggled_status)
+  end
+
   def add_visit(user)
     if cv = ConversationVisit.find_by_user_id_and_conversation_id(user.id, self.id)
       cv.increment!( :visits_count ) 

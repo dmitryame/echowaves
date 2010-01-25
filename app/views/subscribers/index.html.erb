@@ -12,13 +12,9 @@
     	    <span class="sbutton round"><%= link_to t("ui.back_to_parent"), conversation_path(@conversation.parent_message.conversation)%></span>
     	  <% end %>
         <span class="sbutton round"><%= render :partial => 'subscriptions/follow', :locals => { :conversation => @conversation } %></span>
-        <% if current_user == @conversation.owner %>
+        <% if current_user.owns?(@conversation) %>
     	    <span class="sbutton round">
-    	      <% if @conversation.read_only %>
-    	        <%= link_to t("ui.make_writable"), toggle_readwrite_status_conversation_path(@conversation, :mode => 'rw'), :method => 'put' %>
-    	      <% else %>
-    	        <%= link_to t("ui.make_read_only"), toggle_readwrite_status_conversation_path(@conversation), :method => 'put' %>
-    	      <% end %>
+            <%= link_to(@conversation.read_only? ? t("ui.make_writable") : t("ui.make_read_only"), conversation_path(@conversation), :method => 'put') %>
     	    </span>
     	  <% end %>
 

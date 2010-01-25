@@ -6,7 +6,7 @@ class ConversationsController < ApplicationController
   before_filter :login_or_oauth_required,
     :except => [:index, :show, :auto_complete_for_conversation_name, :complete_name]
   before_filter :find_conversation,
-    :except => [:bookmarked, :complete_name, :create, :spawn, :new, :index, :new_messages, :toggle_readwrite_status]
+    :except => [:bookmarked, :complete_name, :create, :spawn, :new, :index, :new_messages, :update]
   before_filter :check_read_access, :only => [:show]
   after_filter :store_location, :only => [:show, :new]
 
@@ -133,12 +133,13 @@ class ConversationsController < ApplicationController
   end
 
   #----------------------------------------------------------------------------
-  def toggle_readwrite_status
+  def update
     @conversation = Conversation.find(params[:id])
-    read_only = (params[:mode] == 'rw') ? false : true
-    @conversation.update_attributes( :read_only => read_only ) if ( @conversation.owner == current_user )
+    @conversation.toggle_read_only_status if current_user.owns?(@conversation) 
     Rails.cache.write("conversation_#{params[:id]}", @conversation)
-    redirect_to conversation_path( @conversation )
+    respond_to do |format|
+      format.html { redirect_to(conversation_path(@conversation)) }
+    end
   end
 
   #----------------------------------------------------------------------------

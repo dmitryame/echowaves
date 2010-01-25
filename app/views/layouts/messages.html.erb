@@ -206,11 +206,7 @@
                         <div id="m2" 
                             onmouseover="mcancelclosetime()" 
                             onmouseout="mclosetime()">
-                            <% if @conversation.read_only %>
-                    	        <%= link_to t("ui.make_writable"), toggle_readwrite_status_conversation_path(@conversation, :mode => 'rw'), :method => 'put' %>
-                    	      <% else %>
-                    	        <%= link_to t("ui.make_read_only"), toggle_readwrite_status_conversation_path(@conversation), :method => 'put' %>
-                    	      <% end %>
+                          <%= link_to(@conversation.read_only? ? t("ui.make_writable") : t("ui.make_read_only"), conversation_path(@conversation), :method => 'put') %>
                         </div>
                     </li>
                     <% end %>

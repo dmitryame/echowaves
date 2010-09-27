@@ -2,7 +2,8 @@
 
 ### echowaves is moving to http://github.com/echowaves/echowaves ###
 
-One might be wondering, how come this project does not get any activity recently. Here is why! -- The complete rewrite of an open source Social Chat Rails application is under way -- a new and exciting project living on the cutting edge. It is being built on Rails 3, Mongoid, JQuery, WebSockets, running on Ruby 1.9. It will be a while until we switch the http://echowaves.com to the new codebase, but if interested in keeping up to date with the latest development, follow us on http://github.com/echowaves/echowaves
+One might be wondering, how come this project does not get any activity recently. Here is why! -- The complete rewrite of an open source Social Chat Rails application is under way -- a new and exciting project living on the cutting edge. It is being built on Rails 3, Mongoid, JQuery, WebSockets, running on Ruby 1.9. 
+
 
 ### [echowaves](http://echowaves.com/) is an opensource Social Group Chat.
 

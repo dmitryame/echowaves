@@ -131,7 +131,7 @@ Control.ScrollBar = Class.create({
 						this.auto_sliding_executer = null;
 						if(typeof(animate) == "function")
 							animate();
-					}			
+					}
 				}.bind(this),this.options.scroll_to_smoothing);
 			}else
 				this.scrollBy(delta);

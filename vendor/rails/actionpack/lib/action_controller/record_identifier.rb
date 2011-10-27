@@ -1,5 +1,5 @@
-module ActionController  
-  # The record identifier encapsulates a number of naming conventions for dealing with records, like Active Records or 
+module ActionController
+  # The record identifier encapsulates a number of naming conventions for dealing with records, like Active Records or
   # Active Resources or pretty much any other model type that has an id. These patterns are then used to try elevate
   # the view actions to a higher logical level. Example:
   #
@@ -26,7 +26,7 @@ module ActionController
   #   end
   #
   # As the example above shows, you can stop caring to a large extent what the actual id of the post is. You just know
-  # that one is being assigned and that the subsequent calls in redirect_to and the RJS expect that same naming 
+  # that one is being assigned and that the subsequent calls in redirect_to and the RJS expect that same naming
   # convention and allows you to write less code if you follow it.
   module RecordIdentifier
     extend self
@@ -72,7 +72,7 @@ module ActionController
     # If you need to address multiple instances of the same class in the same view, you can prefix the dom_id:
     #
     #   dom_id(Post.find(45), :edit) # => "edit_post_45"
-    def dom_id(record, prefix = nil) 
+    def dom_id(record, prefix = nil)
       if record_id = record.id
         "#{dom_class(record, prefix)}#{JOIN}#{record_id}"
       else

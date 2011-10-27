@@ -11,7 +11,7 @@ module Authlogic
           add_acts_as_authentic_module(Methods)
         end
       end
-      
+
       # Configuration to modify how Authlogic handles the email field.
       module Config
         # The name of the field that stores email addresses.
@@ -22,7 +22,7 @@ module Authlogic
           config(:email_field, value, first_column_to_exist(nil, :email))
         end
         alias_method :email_field=, :email_field
-        
+
         # Toggles validating the email field or not.
         #
         # * <tt>Default:</tt> true
@@ -31,7 +31,7 @@ module Authlogic
           config(:validate_email_field, value, true)
         end
         alias_method :validate_email_field=, :validate_email_field
-        
+
         # A hash of options for the validates_length_of call for the email field. Allows you to change this however you want.
         #
         # * <tt>Default:</tt> {:within => 6..100}
@@ -40,7 +40,7 @@ module Authlogic
           config(:validates_length_of_email_field_options, value, {:within => 6..100})
         end
         alias_method :validates_length_of_email_field_options=, :validates_length_of_email_field_options
-        
+
         # A hash of options for the validates_format_of call for the email field. Allows you to change this however you want.
         #
         # * <tt>Default:</tt> {:with => email_regex, :message => I18n.t('error_messages.email_invalid', :default => "should look like an email address.")}
@@ -49,7 +49,7 @@ module Authlogic
           config(:validates_format_of_email_field_options, value, {:with => email_regex, :message => I18n.t('error_messages.email_invalid', :default => "should look like an email address.")})
         end
         alias_method :validates_format_of_email_field_options=, :validates_format_of_email_field_options
-        
+
         private
           def email_regex
             return @email_regex if @email_regex
@@ -59,7 +59,7 @@ module Authlogic
             @email_regex = /\A#{email_name_regex}@#{domain_head_regex}#{domain_tld_regex}\z/i
           end
       end
-      
+
       # All methods relating to the email field
       module Methods
         def self.included(klass)

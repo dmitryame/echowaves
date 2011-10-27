@@ -254,7 +254,7 @@ module ActionController
       def configuration_file=(path)
         add_configuration_file(path)
       end
-      
+
       # Deprecated accessor
       def configuration_file
         configuration_files
@@ -289,18 +289,18 @@ module ActionController
           add_route ":controller/:action/:id"
         end
       end
-      
+
       def routes_changed_at
         routes_changed_at = nil
-        
+
         configuration_files.each do |config|
           config_changed_at = File.stat(config).mtime
 
           if routes_changed_at.nil? || config_changed_at > routes_changed_at
-            routes_changed_at = config_changed_at 
+            routes_changed_at = config_changed_at
           end
         end
-        
+
         routes_changed_at
       end
 

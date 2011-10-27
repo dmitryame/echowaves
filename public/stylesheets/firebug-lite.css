@@ -1,5 +1,5 @@
 /* */
-#Firebug div, #Firebug h3, #Firebug span, #Firebug input, #Firebug textarea, #Firebug select, #Firebug option, #Firebug a, #Firebug strong, #Firebug em, #Firebug label, #Firebug center { 
+#Firebug div, #Firebug h3, #Firebug span, #Firebug input, #Firebug textarea, #Firebug select, #Firebug option, #Firebug a, #Firebug strong, #Firebug em, #Firebug label, #Firebug center {
 	float:none; width:auto; height:auto; text-align:left; border:0; overflow:visible; background:none; color:#111; font-size:1em; font-weight:normal; font-style:normal; font-family:sans-serif; margin:0; padding:0;
 }
 #Firebug input, #Firebug select, #Firebug textarea { background:#fff; font:11px Verdana, Geneva, Arial, Helvetica, sans-serif; border:1px outset #aaa; padding:2px }
@@ -152,7 +152,7 @@
  */
 
 #Firebug .Left .XHR { display:none; font:11px Verdana, Geneva, Arial, Helvetica, sans-serif; padding:5px; overflow:scroll; height:225px; }
-#Firebug .Left .XHR .Block { float:left; width:30%; } 
+#Firebug .Left .XHR .Block { float:left; width:30%; }
 #Firebug .Left .XHR .BlockContent { padding:3px; border-right:1px dotted #aaa; }
 #Firebug .Left .XHR .Block strong { display:block; text-align:center; padding:3px; background:rgb(200,225,255); color:rgb(50,50,50); }
 #Firebug .Left .XHR .Block span { display:block; text-align:center; overflow:hidden; }

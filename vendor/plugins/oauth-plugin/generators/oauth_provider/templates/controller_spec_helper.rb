@@ -8,22 +8,22 @@ module OAuthControllerSpecHelper
     @user.stub!(:tokens).and_return(@tokens)
     User.stub!(:find_by_id).and_return(@user)
   end
-  
+
   def login_as_application_owner
     login
     @client_application = mock_model(ClientApplication)
     @client_applications = [@client_application]
-    
+
     @user.stub!(:client_applications).and_return(@client_applications)
     @client_applications.stub!(:find).and_return(@client_application)
   end
-  
+
   def setup_oauth
     controller.stub!(:local_request?).and_return(true)
     @user||=mock_model(User)
-    
+
     User.stub!(:find_by_id).and_return(@user)
-    
+
     @server = OAuth::Server.new "http://test.host"
     @consumer = OAuth::Consumer.new('key', 'secret',{:site => "http://test.host"})
 
@@ -37,7 +37,7 @@ module OAuthControllerSpecHelper
     @request_token = mock_model(RequestToken, :token => 'request_token', :client_application => @client_application, :secret => "request_secret", :user => @user)
     @request_token.stub!(:invalidated?).and_return(false)
     ClientApplication.stub!(:find_token).and_return(@request_token)
-    
+
     @request_token_string = "oauth_token = request_token&oauth_token_secret = request_secret"
     @request_token.stub!(:to_query).and_return(@request_token_string)
 
@@ -51,7 +51,7 @@ module OAuthControllerSpecHelper
 #    @client_application.stub!(:sign_request_with_oauth_token).and_return(@request_token)
     @client_application.stub!(:exchange_for_access_token).and_return(@access_token)
   end
-  
+
   def setup_oauth_for_user
     login
     setup_oauth
@@ -60,12 +60,12 @@ module OAuthControllerSpecHelper
     @tokens.stub!(:find_by_token).and_return(@request_token)
     @user.stub!(:tokens).and_return(@tokens)
   end
-  
+
   def sign_request_with_oauth(token = nil)
     ActionController::TestRequest.use_oauth = true
     @request.configure_oauth(@consumer,token)
   end
-    
+
   def setup_to_authorize_request
     setup_oauth
     OauthToken.stub!(:find_by_token).with( @access_token.token).and_return(@access_token)

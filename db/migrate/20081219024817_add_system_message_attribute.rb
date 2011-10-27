@@ -4,6 +4,6 @@ class AddSystemMessageAttribute < ActiveRecord::Migration
   end
 
   def self.down
-    remove_column :messages, :system_message        
+    remove_column :messages, :system_message
   end
 end

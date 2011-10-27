@@ -21,10 +21,10 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class ConversationTest < ActiveSupport::TestCase
-  
+
   context "Conversation named scopes" do
     fixtures :users, :conversations, :subscriptions
-    
+
     should "find convos no owned by a concrete user" do
       @no_from_crossblaim = Conversation.no_owned_by(users(:crossblaim).id)
       @no_from_dmitry = Conversation.no_owned_by(users(:dmitry).id)
@@ -37,23 +37,23 @@ class ConversationTest < ActiveSupport::TestCase
       assert @no_from_dmitry.include?(conversations(:crossblaim_test_public_convo))
     end
   end
-  
-  context "A Conversation instance" do    
+
+  context "A Conversation instance" do
     setup do
       @conversation = Factory.create(:conversation)
     end
     subject { @conversation }
-    
+
     should_validate_presence_of :uuid
 
     should_have_db_index :name
     should_have_db_index :created_at
-    
-    should_ensure_length_in_range :name, (3..100) 
- 
+
+    should_ensure_length_in_range :name, (3..100)
+
     should_have_many :messages
-    
-    should "have users in conversations" do 
+
+    should "have users in conversations" do
       @user1 = Factory.create(:user, :login => "user1")
       @user2 = Factory.create(:user, :login => "user2")
       @user3 = Factory.create(:user, :login => "user3")
@@ -66,48 +66,48 @@ class ConversationTest < ActiveSupport::TestCase
       @message7 = Factory.create(:message, :conversation => @conversation, :user => @user3)
       @message8 = Factory.create(:message, :conversation => @conversation, :user => @user3)
       @message9 = Factory.create(:message, :conversation => @conversation, :user => @user1)
-      
+
       assert_equal 4, @conversation.users.size # it has to be one more user, the one who created the convo
     end
 
     # FIXME: could not get it to work :(
     # should "follow/unfollow" do
     #   conversation = Factory.create(:conversation)
-    #   
+    #
     #   user1 = Factory.create(:user, :login => "user10111")
     #   user2 = Factory.create(:user, :login => "user20111")
     #   user3 = Factory.create(:user, :login => "user30111")
-    #   
+    #
     #   user1.follow(conversation)
     #   user2.follow(conversation)
     #   user3.follow(conversation)
-    #   
-    #   puts "subscriptions: " + conversation.subscriptions.size.to_s       
+    #
+    #   puts "subscriptions: " + conversation.subscriptions.size.to_s
     #   assert_equal conversation.subscriptions.length, 4 # it has to be one more user, the one who created the convo
-    # 
+    #
     #   user1.unfollow(conversation)
     #   user2.unfollow(conversation)
     #   user3.unfollow(conversation)
-    # 
-    #   puts "subscriptions: " + conversation.subscriptions.size.to_s             
+    #
+    #   puts "subscriptions: " + conversation.subscriptions.size.to_s
     #   assert_equal conversation.subscriptions.length, 1 # it has to be one more user, the one who created the convo
-    #   
+    #
     # end
 
     should_have_many :subscriptions
     should_have_many :users, :through => :subscriptions
-    should_have_many :recent_followers, :through => :subscriptions          
-    
+    should_have_many :recent_followers, :through => :subscriptions
+
     should_belong_to :parent_message #parent message it was spawned from
     should_have_db_index :parent_message_id
-    
+
     should_belong_to :user
     should_have_db_index :user_id
-    
+
     should "be valid if honeypot field is blank" do
       assert @conversation.valid?
     end
-    
+
     should "not be valid if honeypot field is not blank" do
       @conversation.something = "spam"
       assert !@conversation.valid?
@@ -115,66 +115,66 @@ class ConversationTest < ActiveSupport::TestCase
       assert !@conversation.valid?
     end
   end
-  
 
 
-  
+
+
   context "A private conversation" do
     setup do
       @owner = Factory.create(:user, :login => "user1")
-      @conversation = Factory.create(:conversation, :user => @owner)      
+      @conversation = Factory.create(:conversation, :user => @owner)
       @follower = Factory.create(:user, :login => "user2")
       @follower.follow(@conversation)
       @conversation.update_attributes(:private => true)
       @no_follower = Factory.create(:user, :login => "user3")
     end
-    
+
     should "be writable by the owner" do
       assert @conversation.writable_by?(@owner)
     end
-    
+
     should "not be writable by the users what are not followers of this convo" do
       assert !@conversation.writable_by?(@no_follower)
     end
-    
+
     should "be writable by the users what are following this convo" do
       assert @conversation.writable_by?(@follower)
     end
-    
+
     should "be readable by the owner" do
       assert @conversation.readable_by?(@owner)
     end
-    
+
     should "not be readable by the users what are not followers of this convo" do
       assert !@conversation.readable_by?(@no_follower)
     end
-    
+
     should "be readable by the users what are following this convo" do
       assert @conversation.readable_by?(@follower)
     end
-    
+
     should "respond to #private? positively" do
       assert @conversation.private?
     end
-    
+
     should "respond to #public? negatively" do
       assert !@conversation.public?
     end
   end
-  
-  context "A read only conversation" do  
+
+  context "A read only conversation" do
     setup do
       @owner = Factory.create(:user, :login => "user1")
-      @conversation = Factory.create(:conversation, :user => @owner)      
+      @conversation = Factory.create(:conversation, :user => @owner)
       @user2 = Factory.create(:user, :login => "user2")
       @message1 = Factory.create(:message, :conversation => @conversation, :user => @owner)
       @conversation.update_attributes(:read_only => true)
     end
-    
+
     should "be writable by the owner" do
       assert @conversation.writable_by?(@owner)
     end
-    
+
     should "not be writable by the users" do
       assert !@conversation.writable_by?(@user2)
     end
@@ -184,7 +184,7 @@ class ConversationTest < ActiveSupport::TestCase
       assert !@conversation.read_only?
     end
   end
-  
+
   context "A writable conversation" do
     setup do
       @conversation = Factory.create(:conversation)
@@ -193,11 +193,11 @@ class ConversationTest < ActiveSupport::TestCase
       @message1 = Factory.create(:message, :conversation => @conversation, :user => @owner)
       @conversation.update_attributes(:read_only => false)
     end
-    
+
     should "be writable by the owner" do
       assert @conversation.writable_by?(@owner)
     end
-    
+
     should "be writable by the users" do
       assert @conversation.writable_by?(@user2)
     end
@@ -286,5 +286,5 @@ class ConversationTest < ActiveSupport::TestCase
       assert_equal 1, @conversation.subscriptions.size
     end
   end
-  
+
 end

@@ -5,7 +5,7 @@ module TZInfo
     module Europe
       module Minsk
         include TimezoneDefinition
-        
+
         timezone 'Europe/Minsk' do |tz|
           tz.offset :o0, 6616, 0, :LMT
           tz.offset :o1, 6600, 0, :MMT
@@ -15,7 +15,7 @@ module TZInfo
           tz.offset :o5, 3600, 0, :CET
           tz.offset :o6, 10800, 3600, :MSD
           tz.offset :o7, 7200, 3600, :EEST
-          
+
           tz.transition 1879, 12, :o1, 26003326573, 10800
           tz.transition 1924, 5, :o2, 349042669, 144
           tz.transition 1930, 6, :o3, 29113781, 12

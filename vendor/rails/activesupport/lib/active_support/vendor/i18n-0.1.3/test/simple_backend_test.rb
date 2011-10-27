@@ -297,9 +297,9 @@ class I18nSimpleBackendInterpolateTest < Test::Unit::TestCase
   def test_interpolate_given_a_string_containing_a_reserved_key_raises_reserved_interpolation_key
     assert_raise(I18n::ReservedInterpolationKey) { @backend.send(:interpolate, nil, '{{default}}', {:default => nil}) }
   end
-  
+
   private
-  
+
   def euc_jp(string)
     string.encode!(Encoding::EUC_JP)
   end
@@ -539,27 +539,27 @@ end
 
 class I18nSimpleBackendReloadTranslationsTest < Test::Unit::TestCase
   include I18nSimpleBackendTestSetup
-  
+
   def setup
     @backend = I18n::Backend::Simple.new
     I18n.load_path = [File.dirname(__FILE__) + '/locale/en.yml']
     assert_nil backend_get_translations
     @backend.send :init_translations
   end
-  
+
   def teardown
     I18n.load_path = []
   end
-  
+
   def test_setup
     assert_not_nil backend_get_translations
   end
-  
+
   def test_reload_translations_unloads_translations
     @backend.reload!
     assert_nil backend_get_translations
   end
-  
+
   def test_reload_translations_uninitializes_translations
     @backend.reload!
     assert_equal @backend.initialized?, false

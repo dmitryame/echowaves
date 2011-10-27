@@ -22,12 +22,12 @@ namespace :time do
     task :all do
       build_time_zone_list(:all)
     end
-    
+
     desc 'Displays names of US time zones recognized by the Rails TimeZone class, grouped by offset. Results can be filtered with optional OFFSET parameter, e.g., OFFSET=-6'
     task :us do
       build_time_zone_list(:us_zones)
     end
-    
+
     desc 'Displays names of time zones recognized by the Rails TimeZone class with the same offset as the system local time'
     task :local do
       jan_offset = Time.now.beginning_of_year.utc_offset
@@ -35,7 +35,7 @@ namespace :time do
       offset = jan_offset < jul_offset ? jan_offset : jul_offset
       build_time_zone_list(:all, offset)
     end
-    
+
     # to find UTC -06:00 zones, OFFSET can be set to either -6, -6:00 or 21600
     def build_time_zone_list(method, offset = ENV['OFFSET'])
       if offset

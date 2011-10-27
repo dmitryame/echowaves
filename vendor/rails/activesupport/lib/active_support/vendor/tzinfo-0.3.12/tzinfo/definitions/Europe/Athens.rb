@@ -5,7 +5,7 @@ module TZInfo
     module Europe
       module Athens
         include TimezoneDefinition
-        
+
         timezone 'Europe/Athens' do |tz|
           tz.offset :o0, 5692, 0, :LMT
           tz.offset :o1, 5692, 0, :AMT
@@ -13,7 +13,7 @@ module TZInfo
           tz.offset :o3, 7200, 3600, :EEST
           tz.offset :o4, 3600, 3600, :CEST
           tz.offset :o5, 3600, 0, :CET
-          
+
           tz.transition 1895, 9, :o1, 52130529377, 21600
           tz.transition 1916, 7, :o2, 3268447787, 1350
           tz.transition 1932, 7, :o3, 29122745, 12

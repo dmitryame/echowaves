@@ -58,14 +58,14 @@ module TMail
       # if you want the From address of the email itself, pass in 'From'.
       #
       # This is because a mailbox doesn't have the : after the From that designates the
-      # beginning of the envelope sender (which can be different to the from address of 
+      # beginning of the envelope sender (which can be different to the from address of
       # the email)
       #
       # Other fields can be passed as normal, "Reply-To", "Received" etc.
       #
       # Note: Change of behaviour in 1.2.1 => returns nil if it does not find the specified
       # header field, otherwise returns an instantiated object of the correct header class
-      # 
+      #
       # For example:
       #   port = TMail::FilePort.new("/test/fixtures/raw_email_simple")
       #   h = TMail::HeaderField.new_from_port(port, "From")
@@ -106,7 +106,7 @@ module TMail
 
       @illegal = false
       @parsed = false
-      
+
       if intern
         @parsed = true
         parse_init
@@ -916,7 +916,7 @@ module TMail
         strategy.kv_pair k, unquote(v)
       end
     end
-      
+
   end
 
 

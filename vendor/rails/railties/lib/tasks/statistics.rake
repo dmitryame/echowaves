@@ -1,6 +1,6 @@
 STATS_DIRECTORIES = [
   %w(Controllers        app/controllers),
-  %w(Helpers            app/helpers), 
+  %w(Helpers            app/helpers),
   %w(Models             app/models),
   %w(Libraries          lib/),
   %w(APIs               app/apis),

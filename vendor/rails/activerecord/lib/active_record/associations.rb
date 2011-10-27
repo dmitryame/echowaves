@@ -432,7 +432,7 @@ module ActiveRecord
     #   @group.users.collect { |u| u.avatar }.flatten # select all avatars for all users in the group
     #   @group.avatars                                # selects all avatars by going through the User join model.
     #
-    # An important caveat with going through +has_one+ or +has_many+ associations on the join model is that these associations are 
+    # An important caveat with going through +has_one+ or +has_many+ associations on the join model is that these associations are
     # *read-only*.  For example, the following would not work following the previous example:
     #
     #   @group.avatars << Avatar.new                # this would work if User belonged_to Avatar rather than the other way around.
@@ -538,14 +538,14 @@ module ActiveRecord
     #
     # Since only one table is loaded at a time, conditions or orders cannot reference tables other than the main one. If this is the case
     # Active Record falls back to the previously used LEFT OUTER JOIN based strategy. For example
-    #  
+    #
     #   Post.find(:all, :include => [ :author, :comments ], :conditions => ['comments.approved = ?', true])
     #
     # will result in a single SQL query with joins along the lines of: <tt>LEFT OUTER JOIN comments ON comments.post_id = posts.id</tt> and
     # <tt>LEFT OUTER JOIN authors ON authors.id = posts.author_id</tt>. Note that using conditions like this can have unintended consequences.
     # In the above example posts with no approved comments are not returned at all, because the conditions apply to the SQL statement as a whole
     # and not just to the association. You must disambiguate column references for this fallback to happen, for example
-    # <tt>:order => "author.name DESC"</tt> will work but <tt>:order => "name DESC"</tt> will not. 
+    # <tt>:order => "author.name DESC"</tt> will work but <tt>:order => "name DESC"</tt> will not.
     #
     # If you do want eagerload only some members of an association it is usually more natural to <tt>:include</tt> an association
     # which has conditions defined on it:
@@ -579,10 +579,10 @@ module ActiveRecord
     #
     #   Address.find(:all, :include => :addressable)
     #
-    # will execute one query to load the addresses and load the addressables with one query per addressable type. 
+    # will execute one query to load the addresses and load the addressables with one query per addressable type.
     # For example if all the addressables are either of class Person or Company then a total of 3 queries will be executed. The list of
     # addressable types to load is determined on the back of the addresses loaded. This is not supported if Active Record has to fallback
-    # to the previous implementation of eager loading and will raise ActiveRecord::EagerLoadPolymorphicError. The reason is that the parent 
+    # to the previous implementation of eager loading and will raise ActiveRecord::EagerLoadPolymorphicError. The reason is that the parent
     # model's type is a column value so its corresponding table name cannot be put in the +FROM+/+JOIN+ clauses of that query.
     #
     # == Table Aliasing
@@ -897,7 +897,7 @@ module ActiveRecord
       #   but not include the joined columns. Do not forget to include the primary and foreign keys, otherwise it will raise an error.
       # [:through]
       #   Specifies a Join Model through which to perform the query.  Options for <tt>:class_name</tt> and <tt>:foreign_key</tt>
-      #   are ignored, as the association uses the source reflection. You can only use a <tt>:through</tt> query through a 
+      #   are ignored, as the association uses the source reflection. You can only use a <tt>:through</tt> query through a
       #   <tt>has_one</tt> or <tt>belongs_to</tt> association on the join model.
       # [:source]
       #   Specifies the source association name used by <tt>has_one :through</tt> queries.  Only use it if the name cannot be
@@ -1154,8 +1154,8 @@ module ActiveRecord
       #   the association will use "project_id" as the default <tt>:association_foreign_key</tt>.
       # [:conditions]
       #   Specify the conditions that the associated object must meet in order to be included as a +WHERE+
-      #   SQL fragment, such as <tt>authorized = 1</tt>.  Record creations from the association are scoped if a hash is used.  
-      #   <tt>has_many :posts, :conditions => {:published => true}</tt> will create published posts with <tt>@blog.posts.create</tt> 
+      #   SQL fragment, such as <tt>authorized = 1</tt>.  Record creations from the association are scoped if a hash is used.
+      #   <tt>has_many :posts, :conditions => {:published => true}</tt> will create published posts with <tt>@blog.posts.create</tt>
       #   or <tt>@blog.posts.build</tt>.
       # [:order]
       #   Specify the order in which the associated objects are returned as an <tt>ORDER BY</tt> SQL fragment,
@@ -1370,12 +1370,12 @@ module ActiveRecord
             "#{reflection.class_name}.send(:attr_readonly,\"#{cache_column}\".intern) if defined?(#{reflection.class_name}) && #{reflection.class_name}.respond_to?(:attr_readonly)"
           )
         end
-        
+
         def add_touch_callbacks(reflection, touch_attribute)
           method_name = "belongs_to_touch_after_save_or_destroy_for_#{reflection.name}".to_sym
           define_method(method_name) do
             association = send(reflection.name)
-            
+
             if touch_attribute == true
               association.touch unless association.nil?
             else
@@ -1587,7 +1587,7 @@ module ActiveRecord
           options[:extend] = create_extension_modules(association_id, extension, options[:extend])
 
           reflection = create_reflection(:has_and_belongs_to_many, association_id, options, self)
-          
+
           if reflection.association_foreign_key == reflection.primary_key_name
             raise HasAndBelongsToManyAssociationForeignKeyNeeded.new(reflection)
           end

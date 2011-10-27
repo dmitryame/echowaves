@@ -7,7 +7,7 @@ class RemoveConvoReports < ActiveRecord::Migration
 
   def self.down
     add_column :abuse_reports, :conversation_id, :integer
-    add_index :abuse_reports, :conversation_id    
+    add_index :abuse_reports, :conversation_id
     add_column :conversations, :abuse_report_id, :integer
   end
 end

@@ -2,7 +2,7 @@ require 'abstract_unit'
 require 'controller/fake_models'
 
 class CompiledTemplatesTest < Test::Unit::TestCase
-  
+
   def setup
     @compiled_templates = ActionView::Base::CompiledTemplates
     @compiled_templates.instance_methods.each do |m|

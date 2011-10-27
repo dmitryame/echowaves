@@ -255,7 +255,7 @@ class AssetTagHelperTest < ActionView::TestCase
     ensure
       ActionController::Base.relative_url_root = ""
   end
-    
+
   def test_should_skip_asset_id_on_complete_url
     assert_equal %(<img alt="Rails" src="http://www.example.com/rails.png" />), image_tag("http://www.example.com/rails.png")
   end
@@ -286,7 +286,7 @@ class AssetTagHelperTest < ActionView::TestCase
         "#{request.protocol}assets#{source.length}.example.com"
       end
     end
-    
+
     ActionController::Base.perform_caching = true
 
 

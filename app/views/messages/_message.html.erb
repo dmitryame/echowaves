@@ -1,13 +1,13 @@
 	<div class="message" id="<%= dom_id(message) %>">
-	  	
+
 	  <div class="avatar"><%= link_to image_tag(message.user.gravatar_url, :width => 30, :height => 30, :class => "avatar", :alt => message.user.login), user_path(message.user),
-		:class => 'tip', 
+		:class => 'tip',
 		:title =>  user_popup(message.user) %>
 		</div>
 		<div class="messagetext">
-		  
+
 			<%= mark_up message %>
-			
+
 			<div class="meta">
 	      <span class="date quiet small">
 			  	<%= link_to message.time_pretty, conversation_message_path(message.conversation, message), :title => message.date_pretty_long %> -

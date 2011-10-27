@@ -32,7 +32,7 @@ module Paperclip
         end
 
         def negative_failure_message
-          "Content types #{@allowed_types.join(", ")} should be rejected" + 
+          "Content types #{@allowed_types.join(", ")} should be rejected" +
           " and #{@rejected_types.join(", ")} accepted by #{@attachment_name}"
         end
 

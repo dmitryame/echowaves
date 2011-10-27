@@ -5,7 +5,7 @@ module TZInfo
     module Pacific
       module Auckland
         include TimezoneDefinition
-        
+
         timezone 'Pacific/Auckland' do |tz|
           tz.offset :o0, 41944, 0, :LMT
           tz.offset :o1, 41400, 0, :NZMT
@@ -13,7 +13,7 @@ module TZInfo
           tz.offset :o3, 41400, 1800, :NZST
           tz.offset :o4, 43200, 0, :NZST
           tz.offset :o5, 43200, 3600, :NZDT
-          
+
           tz.transition 1868, 11, :o1, 25959290557, 10800
           tz.transition 1927, 11, :o2, 116409125, 48
           tz.transition 1928, 3, :o1, 38804945, 16

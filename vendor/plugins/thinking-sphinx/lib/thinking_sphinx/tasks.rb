@@ -6,41 +6,41 @@ namespace :thinking_sphinx do
       Rake::Task[:environment].invoke
       Rails.configuration.cache_classes = false
     end
-    
+
     Rake::Task[:merb_env].invoke    if defined?(Merb)
   end
-  
+
   desc "Output the current Thinking Sphinx version"
   task :version => :app_env do
     puts "Thinking Sphinx v" + ThinkingSphinx::Version::String
   end
-  
+
   desc "Stop if running, then start a Sphinx searchd daemon using Thinking Sphinx's settings"
   task :running_start => :app_env do
     Rake::Task["thinking_sphinx:stop"].invoke if sphinx_running?
     Rake::Task["thinking_sphinx:start"].invoke
   end
-  
+
   desc "Start a Sphinx searchd daemon using Thinking Sphinx's settings"
   task :start => :app_env do
     config = ThinkingSphinx::Configuration.instance
-    
+
     FileUtils.mkdir_p config.searchd_file_path
     raise RuntimeError, "searchd is already running." if sphinx_running?
-    
+
     Dir["#{config.searchd_file_path}/*.spl"].each { |file| File.delete(file) }
 
     system! "#{config.bin_path}#{config.searchd_binary_name} --pidfile --config #{config.config_file}"
-    
+
     sleep(2)
-    
+
     if sphinx_running?
       puts "Started successfully (pid #{sphinx_pid})."
     else
       puts "Failed to start searchd daemon. Check #{config.searchd_log_file}"
     end
   end
-  
+
   desc "Stop Sphinx using Thinking Sphinx's settings"
   task :stop => :app_env do
     raise RuntimeError, "searchd is not running." unless sphinx_running?
@@ -49,41 +49,41 @@ namespace :thinking_sphinx do
     system! "#{config.bin_path}#{config.searchd_binary_name} --stop --config #{config.config_file}"
     puts "Stopped search daemon (pid #{pid})."
   end
-  
+
   desc "Restart Sphinx"
   task :restart => [:app_env, :stop, :start]
-  
+
   desc "Generate the Sphinx configuration file using Thinking Sphinx's settings"
   task :configure => :app_env do
     config = ThinkingSphinx::Configuration.instance
     puts "Generating Configuration to #{config.config_file}"
     config.build
   end
-  
+
   desc "Index data for Sphinx using Thinking Sphinx's settings"
   task :index => :app_env do
     ThinkingSphinx::Deltas::Job.cancel_thinking_sphinx_jobs
-    
+
     config = ThinkingSphinx::Configuration.instance
     unless ENV["INDEX_ONLY"] == "true"
       puts "Generating Configuration to #{config.config_file}"
       config.build
     end
-        
+
     FileUtils.mkdir_p config.searchd_file_path
     cmd = "#{config.bin_path}#{config.indexer_binary_name} --config #{config.config_file} --all"
     cmd << " --rotate" if sphinx_running?
-    
+
     system! cmd
   end
-  
+
   desc "Stop Sphinx (if it's running), rebuild the indexes, and start Sphinx"
   task :rebuild => :app_env do
     Rake::Task["thinking_sphinx:stop"].invoke if sphinx_running?
     Rake::Task["thinking_sphinx:index"].invoke
     Rake::Task["thinking_sphinx:start"].invoke
   end
-  
+
   namespace :index do
     task :delta => :app_env do
       ThinkingSphinx.indexed_models.select { |model|
@@ -97,11 +97,11 @@ namespace :thinking_sphinx do
       end
     end
   end
-  
+
   desc "Process stored delta index requests"
   task :delayed_delta => :app_env do
     require 'delayed/worker'
-    
+
     Delayed::Worker.new(
       :min_priority => ENV['MIN_PRIORITY'],
       :max_priority => ENV['MAX_PRIORITY']

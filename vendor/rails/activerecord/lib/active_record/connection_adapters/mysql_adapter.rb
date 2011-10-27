@@ -206,7 +206,7 @@ module ActiveRecord
       def supports_migrations? #:nodoc:
         true
       end
-      
+
       def supports_primary_key? #:nodoc:
         true
       end

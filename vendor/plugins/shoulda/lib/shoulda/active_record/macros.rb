@@ -42,7 +42,7 @@ module Shoulda # :nodoc:
           end
         end
       end
-      
+
       # Ensures that the model cannot be saved if one of the attributes listed is not unique.
       # Requires an existing record
       #
@@ -168,7 +168,7 @@ module Shoulda # :nodoc:
       #   should_ensure_length_in_range :password, (6..20)
       #
       def should_ensure_length_in_range(attribute, range, opts = {})
-        short_message, long_message = get_options!([opts], 
+        short_message, long_message = get_options!([opts],
                                                    :short_message,
                                                    :long_message)
         matcher = ensure_length_of(attribute).
@@ -372,7 +372,7 @@ module Shoulda # :nodoc:
 
       # Ensure that the given columns are defined on the models backing SQL table.
       # Also aliased to should_have_db_column for readability.
-      # Takes the same options available in migrations: 
+      # Takes the same options available in migrations:
       # :type, :precision, :limit, :default, :null, and :scale
       #
       # Examples:
@@ -384,7 +384,7 @@ module Shoulda # :nodoc:
       #   should_have_db_column :admin,  :default => false, :null => false
       #
       def should_have_db_columns(*columns)
-        column_type, precision, limit, default, null, scale, sql_type = 
+        column_type, precision, limit, default, null, scale, sql_type =
           get_options!(columns, :type, :precision, :limit,
                                 :default, :null, :scale, :sql_type)
         columns.each do |name|
@@ -398,7 +398,7 @@ module Shoulda # :nodoc:
           end
         end
       end
-      
+
       alias_method :should_have_db_column, :should_have_db_columns
 
       # Ensures that there are DB indices on the given columns or tuples of columns.
@@ -419,7 +419,7 @@ module Shoulda # :nodoc:
       #
       def should_have_db_indices(*columns)
         unique = get_options!(columns, :unique)
-        
+
         columns.each do |column|
           matcher = have_db_index(column).unique(unique)
           should matcher.description do

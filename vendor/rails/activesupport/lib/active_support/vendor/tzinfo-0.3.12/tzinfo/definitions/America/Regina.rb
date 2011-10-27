@@ -5,7 +5,7 @@ module TZInfo
     module America
       module Regina
         include TimezoneDefinition
-        
+
         timezone 'America/Regina' do |tz|
           tz.offset :o0, -25116, 0, :LMT
           tz.offset :o1, -25200, 0, :MST
@@ -13,7 +13,7 @@ module TZInfo
           tz.offset :o3, -25200, 3600, :MWT
           tz.offset :o4, -25200, 3600, :MPT
           tz.offset :o5, -21600, 0, :CST
-          
+
           tz.transition 1905, 9, :o1, 17403046493, 7200
           tz.transition 1918, 4, :o2, 19373583, 8
           tz.transition 1918, 10, :o1, 14531387, 6

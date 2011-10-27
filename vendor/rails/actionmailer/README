@@ -23,14 +23,14 @@ are all set up this way. An example of such a method:
   end
 
 The body of the email is created by using an Action View template (regular
-ERb) that has the content of the body hash parameter available as instance variables. 
+ERb) that has the content of the body hash parameter available as instance variables.
 So the corresponding body template for the method above could look like this:
 
-  Hello there, 
+  Hello there,
 
   Mr. <%= @recipient %>
-  
-And if the recipient was given as "david@loudthinking.com", the email 
+
+And if the recipient was given as "david@loudthinking.com", the email
 generated would look like this:
 
   Date: Sun, 12 Dec 2004 00:00:00 +0100
@@ -38,7 +38,7 @@ generated would look like this:
   To: david@loudthinking.com
   Subject: [Signed up] Welcome david@loudthinking.com
 
-  Hello there, 
+  Hello there,
 
   Mr. david@loudthinking.com
 
@@ -54,7 +54,7 @@ ApplicationMailer, it would look like this:
 == Receiving emails
 
 To receive emails, you need to implement a public instance method called receive that takes a
-tmail object as its single parameter. The Action Mailer framework has a corresponding class method, 
+tmail object as its single parameter. The Action Mailer framework has a corresponding class method,
 which is also called receive, that accepts a raw, unprocessed email as a string, which it then turns
 into the tmail object and calls the receive instance method.
 
@@ -69,7 +69,7 @@ Example:
 
       if email.has_attachments?
         for attachment in email.attachments
-          page.attachments.create({ 
+          page.attachments.create({
             :file => attachment, :description => email.subject
           })
         end
@@ -77,13 +77,13 @@ Example:
     end
   end
 
-This Mailman can be the target for Postfix or other MTAs. In Rails, you would use the runner in the 
+This Mailman can be the target for Postfix or other MTAs. In Rails, you would use the runner in the
 trivial case like this:
 
   ./script/runner 'Mailman.receive(STDIN.read)'
 
-However, invoking Rails in the runner for each mail to be received is very resource intensive.  A single 
-instance of Rails should be run within a daemon if it is going to be utilized to process more than just 
+However, invoking Rails in the runner for each mail to be received is very resource intensive.  A single
+instance of Rails should be run within a daemon if it is going to be utilized to process more than just
 a limited number of email.
 
 == Configuration
@@ -119,7 +119,7 @@ The latest version of Action Mailer can be found at
 
 * http://rubyforge.org/project/showfiles.php?group_id=361
 
-Documentation can be found at 
+Documentation can be found at
 
 * http://actionmailer.rubyonrails.org
 

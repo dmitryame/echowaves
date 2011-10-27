@@ -8,7 +8,7 @@ module Rails
   # * +load+       - Finally 'load' the plugin.
   #
   # These methods are expected by the Rails::Plugin::Locator and Rails::Plugin::Loader classes.
-  # The default implementation returns the <tt>lib</tt> directory as its <tt>load_paths</tt>, 
+  # The default implementation returns the <tt>lib</tt> directory as its <tt>load_paths</tt>,
   # and evaluates <tt>init.rb</tt> when <tt>load</tt> is called.
   #
   # You can also inspect the about.yml data programmatically:
@@ -18,29 +18,29 @@ module Rails
   #   plugin.about["url"] # => "http://interblah.net"
   class Plugin
     include Comparable
-    
+
     attr_reader :directory, :name
-    
+
     def initialize(directory)
       @directory = directory
       @name      = File.basename(@directory) rescue nil
       @loaded    = false
     end
-    
+
     def valid?
       File.directory?(directory) && (has_app_directory? || has_lib_directory? || has_init_file?)
     end
-  
+
     # Returns a list of paths this plugin wishes to make available in <tt>$LOAD_PATH</tt>.
     def load_paths
       report_nonexistant_or_empty_plugin! unless valid?
-      
+
       returning [] do |load_paths|
         load_paths << lib_path  if has_lib_directory?
         load_paths << app_paths if has_app_directory?
       end.flatten
     end
-    
+
     # Evaluates a plugin's init.rb file.
     def load(initializer)
       return if loaded?
@@ -48,11 +48,11 @@ module Rails
       evaluate_init_rb(initializer)
       @loaded = true
     end
-    
+
     def loaded?
       @loaded
     end
-    
+
     def <=>(other_plugin)
       name <=> other_plugin.name
     end
@@ -65,7 +65,7 @@ module Rails
     def engine?
       has_app_directory?
     end
-    
+
     # Returns true if the engine ships with a routing file
     def routed?
       File.exist?(routing_file)
@@ -99,7 +99,7 @@ module Rails
     def locale_files
       Dir[ File.join(locale_path, '*.{rb,yml}') ]
     end
-    
+
 
     private
       def load_about_information
@@ -114,11 +114,11 @@ module Rails
         raise LoadError, "Can not find the plugin named: #{name}"
       end
 
-      
+
       def app_paths
         [ File.join(directory, 'app', 'models'), File.join(directory, 'app', 'helpers'), controller_path, metal_path ]
       end
-      
+
       def lib_path
         File.join(directory, 'lib')
       end
@@ -154,11 +154,11 @@ module Rails
           silence_warnings do
             # Allow plugins to reference the current configuration object
             config = initializer.configuration
-            
+
             eval(IO.read(init_path), binding, init_path)
           end
         end
-      end               
+      end
   end
 
   # This Plugin subclass represents a Gem plugin. Although RubyGems has already

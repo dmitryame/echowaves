@@ -5,7 +5,7 @@ class StubProxyTest < Test::Unit::TestCase
     setup do
       @proxy = Factory::Proxy::Stub.new(@class)
     end
-    
+
     context "when asked to associate with another factory" do
       setup do
         Factory.stubs(:create)
@@ -47,6 +47,6 @@ class StubProxyTest < Test::Unit::TestCase
       should "return that value when asked for that attribute" do
         assert_equal 'value', @proxy.get(:attribute)
       end
-    end    
+    end
   end
 end

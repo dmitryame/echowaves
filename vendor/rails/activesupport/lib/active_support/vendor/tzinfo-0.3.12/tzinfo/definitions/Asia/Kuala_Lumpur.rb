@@ -5,7 +5,7 @@ module TZInfo
     module Asia
       module Kuala_Lumpur
         include TimezoneDefinition
-        
+
         timezone 'Asia/Kuala_Lumpur' do |tz|
           tz.offset :o0, 24406, 0, :LMT
           tz.offset :o1, 24925, 0, :SMT
@@ -15,7 +15,7 @@ module TZInfo
           tz.offset :o5, 27000, 0, :MALT
           tz.offset :o6, 32400, 0, :JST
           tz.offset :o7, 28800, 0, :MYT
-          
+
           tz.transition 1900, 12, :o1, 104344641397, 43200
           tz.transition 1905, 5, :o2, 8353142363, 3456
           tz.transition 1932, 12, :o3, 58249757, 24

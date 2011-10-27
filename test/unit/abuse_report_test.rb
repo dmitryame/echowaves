@@ -12,15 +12,15 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class AbuseReportTest < ActiveSupport::TestCase
-  context "A AbuseReportTest instance" do    
+  context "A AbuseReportTest instance" do
      setup do
        @abuse_report = Factory(:abuse_report)
      end
      subject { @abuse_report }
-     
+
      should_belong_to :user
      should_belong_to :message
-          
+
      should_validate_presence_of :user_id
 
      should_have_db_indices :user_id, :message_id, :created_at

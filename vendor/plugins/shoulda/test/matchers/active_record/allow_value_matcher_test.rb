@@ -13,7 +13,7 @@ class AllowValueMatcherTest < ActiveSupport::TestCase # :nodoc:
     should "allow a good value" do
       assert_accepts allow_value("abcde").for(:attr), @model
     end
-    
+
     should "not allow a bad value" do
       assert_rejects allow_value("xyz").for(:attr), @model
     end
@@ -31,7 +31,7 @@ class AllowValueMatcherTest < ActiveSupport::TestCase # :nodoc:
       assert_accepts allow_value('abcde').for(:attr).with_message(/bad/),
                      @model
     end
-    
+
     should "not allow a bad value" do
       assert_rejects allow_value('xyz').for(:attr).with_message(/bad/),
                      @model
@@ -52,7 +52,7 @@ class AllowValueMatcherTest < ActiveSupport::TestCase # :nodoc:
     should "allow a good value" do
       assert_accepts allow_value("12345").for(:attr), @model
     end
-    
+
     bad_values = [nil, "", "abc", "0", "50001", "123456"]
     bad_values.each do |value|
       should "not allow a bad value (#{value.inspect})" do

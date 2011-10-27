@@ -7,13 +7,13 @@ module Authlogic
           extend Config
           include InstanceMethods
           validate :validate_by_password, :if => :authenticating_with_password?
-          
+
           class << self
             attr_accessor :configured_password_methods
           end
         end
       end
-      
+
       # Password configuration
       module Config
         # Authlogic tries to validate the credentials passed to it. One part of validation is actually finding the user and making sure it exists. What method it uses the do this is up to you.
@@ -35,7 +35,7 @@ module Authlogic
           config(:find_by_login_method, value, "find_by_#{login_field}")
         end
         alias_method :find_by_login_method=, :find_by_login_method
-        
+
         # The name of the method you want Authlogic to create for storing the login / username. Keep in mind this is just for your
         # Authlogic::Session, if you want it can be something completely different than the field in your model. So if you wanted people to
         # login with a field called "login" and then find users by email this is compeltely doable. See the find_by_login_method configuration
@@ -47,7 +47,7 @@ module Authlogic
           config(:login_field, value, klass.login_field || klass.email_field)
         end
         alias_method :login_field=, :login_field
-        
+
         # Works exactly like login_field, but for the password instead.
         #
         # * <tt>Default:</tt> :password
@@ -56,7 +56,7 @@ module Authlogic
           config(:password_field, value, :password)
         end
         alias_method :password_field=, :password_field
-        
+
         # The name of the method in your model used to verify the password. This should be an instance method. It should also be prepared to accept a raw password and a crytped password.
         #
         # * <tt>Default:</tt> "valid_#{password_field}?"
@@ -66,7 +66,7 @@ module Authlogic
         end
         alias_method :verify_password_method=, :verify_password_method
       end
-      
+
       # Password related instance methods
       module InstanceMethods
         def initialize(*args)
@@ -86,10 +86,10 @@ module Authlogic
 
             self.class.configured_password_methods = true
           end
-          
+
           super
         end
-        
+
         def credentials
           if authenticating_with_password?
             details = {}
@@ -100,7 +100,7 @@ module Authlogic
             super
           end
         end
-        
+
         def credentials=(value)
           super
           values = value.is_a?(Array) ? value : [value]
@@ -111,12 +111,12 @@ module Authlogic
             end
           end
         end
-        
+
         private
           def authenticating_with_password?
             !send(login_field).nil? || !send("protected_#{password_field}").nil?
           end
-          
+
           def validate_by_password
             errors.add(login_field, I18n.t('error_messages.login_blank', :default => "can not be blank")) if send(login_field).blank?
             errors.add(password_field, I18n.t('error_messages.password_blank', :default => "can not be blank")) if send("protected_#{password_field}").blank?
@@ -134,19 +134,19 @@ module Authlogic
               return
             end
           end
-          
+
           def find_by_login_method
             self.class.find_by_login_method
           end
-          
+
           def login_field
             self.class.login_field
           end
-          
+
           def password_field
             self.class.password_field
           end
-          
+
           def verify_password_method
             self.class.verify_password_method
           end

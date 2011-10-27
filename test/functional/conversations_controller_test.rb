@@ -29,12 +29,12 @@ class ConversationsControllerTest < ActionController::TestCase
   #  #     @convos = [ @conversation ]
   #  #     @user.expects( :conversations ).returns( @convos )
   #  #   end
-  #  # 
+  #  #
   #  #   should "check if user already spawned from that message" do
   #  #     @convos.expects( :find_by_parent_message_id ).with( @message.id ).returns( nil )
   #  #     get :spawn_conversation, :conversation_id => @conversation.id, :id => '1'
   #  #   end
-  #  # 
+  #  #
   #  #   should "set flash[:error] and redirect if user already spawned from this message" do
   #  #     @convos.expects( :find_by_parent_message_id ).with( @message.id ).returns( true )
   #  #     get :spawn_conversation, :conversation_id => @conversation.id, :id => '1'
@@ -42,28 +42,28 @@ class ConversationsControllerTest < ActionController::TestCase
   #  #     assert_redirected_to conversation_messages_path( @conversation )
   #  #   end
   #  # end
-  #  # 
+  #  #
   #  # should "create a new spawned conversation" do
   #  #   @message.expects( :spawn_new_conversation ).with( @user )
   #  #   get :spawn_conversation, :conversation_id => @conversation.id, :id => '1'
   #  # end
-  #  # 
+  #  #
   #  # should "send a notification message to the original conversation" do
   #  #   Conversation.any_instance.expects( :notify_of_new_spawn ).with( @user, @spawn_convo, @message )
   #  #   get :spawn_conversation, :conversation_id => @conversation.id, :id => '1'
   #  # end
-  #  # 
+  #  #
   #  # should "send stomp message" do
   #  #   # @controller.expects( :send_to_msg_broker ).with( @notify_message )
   #  #   get :spawn_conversation, :conversation_id => @conversation.id, :id => '1'
   #  # end
-  #  # 
+  #  #
   #  # should "redirect to the new spawned conversation" do
   #  #   get :spawn_conversation, :conversation_id => @conversation.id, :id => '1'
   #  #   assert_redirected_to conversation_messages_path( @spawn_convo )
   #  # end
   #end # context #spawn_conversation
-  
+
   context "create action" do
     setup do
       @convo = Factory.create( :conversation )
@@ -72,7 +72,7 @@ class ConversationsControllerTest < ActionController::TestCase
       @user_convos = []
       # FIX
       # @current_user.expects( :conversations ).returns( @user_convos )
-      @current_user.stubs( :conversations ).returns( @user_convos )   
+      @current_user.stubs( :conversations ).returns( @user_convos )
     end
 
     context "html request" do
@@ -91,7 +91,7 @@ class ConversationsControllerTest < ActionController::TestCase
           assert_redirected_to conversation_path( @convo )
         end
       end
-      
+
       context "failed create" do
         setup do
           @user_convos.stubs( :<< ).returns( false )
@@ -120,12 +120,12 @@ class ConversationsControllerTest < ActionController::TestCase
         setup do
           @user_convos.stubs( :<< ).returns( true )
         end
-        
+
         should "render XML" do
           post :create, :user => 'foo'
           assert_equal 'XML', @response.body
         end
-        
+
         should "set status to :created" do
           post :create, :user => 'foo'
           assert_response :created
@@ -136,7 +136,7 @@ class ConversationsControllerTest < ActionController::TestCase
         setup do
           @user_convos.stubs( :<< ).returns( false )
         end
-        
+
         should "render XML errors" do
           post :create, :user => 'foo'
           assert_equal 'XML errors', @response.body
@@ -149,7 +149,7 @@ class ConversationsControllerTest < ActionController::TestCase
       end
     end
   end # context create action
-   
+
   context "index action" do
     setup do
       @convo = Factory.create( :conversation )
@@ -262,17 +262,17 @@ class ConversationsControllerTest < ActionController::TestCase
       @message = Factory(:message, :message => "some random message", :conversation => @conversation, :user => @current_user )
       @message.stubs( :to_xml ).returns( 'XML' )
     end
-    
+
     # should "find the conversation" do
     #   Conversation.stubs( :find ).with( '1' ).returns( @convo )
     #   get :show, :id => '1'
     #   assert assigns( :conversation )
     # end
-    # 
+    #
     # should "find and assign the published conversation messages" do
     #   get :show, :id => @convo.id
     #   assert assigns( :messages )
     # end
   end # context show action
-  
+
 end

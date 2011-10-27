@@ -143,7 +143,7 @@ module ActionController #:nodoc:
           custom(@mime_type_priority.first, &block)
         end
       end
-      
+
       def self.generate_method_for_mime(mime)
         sym = mime.is_a?(Symbol) ? mime : mime.to_sym
         const = sym.to_s.upcase
@@ -160,7 +160,7 @@ module ActionController #:nodoc:
 
       def method_missing(symbol, &block)
         mime_constant = Mime.const_get(symbol.to_s.upcase)
-      
+
         if Mime::SET.include?(mime_constant)
           self.class.generate_method_for_mime(mime_constant)
           send(symbol, &block)

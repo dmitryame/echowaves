@@ -60,16 +60,16 @@ class Killer
         puts "#{action.capitalize}ing #{pid}"
         self.class.send(action, pid)
       end
-      
+
       delete_pid_files if terminating?(action)
-    end      
+    end
   end
-  
+
   private
     def terminating?(action)
       [ "kill", "graceful" ].include?(action)
     end
-  
+
     def find_processes
       files = pid_files
       if files.empty?
@@ -84,11 +84,11 @@ class Killer
         reject { |line| line =~ /inq|ps axww|grep|spawn-fcgi|spawner|reaper/ }
       lines.map { |line| line[/^\s*(\d+)/, 1].to_i }
     end
-    
+
     def delete_pid_files
       pid_files.each { |pid_file| File.delete(pid_file) }
     end
-    
+
     def pid_files
       Dir.glob(@pid_path + "/" + @pattern)
     end
@@ -115,7 +115,7 @@ ARGV.options do |opts|
     processes can be updated to use the latest code.
 
     It uses pid files to work on the processes and by default assume them to be located
-    in RAILS_ROOT/tmp/pids. 
+    in RAILS_ROOT/tmp/pids.
 
     The reaper actions are:
 

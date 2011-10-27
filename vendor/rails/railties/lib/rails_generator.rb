@@ -25,7 +25,7 @@ $:.unshift(File.dirname(__FILE__))
 $:.unshift(File.dirname(__FILE__) + "/../../activesupport/lib")
 
 begin
-  require 'active_support'  
+  require 'active_support'
 rescue LoadError
   require 'rubygems'
   gem 'activesupport'

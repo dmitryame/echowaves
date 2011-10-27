@@ -12,27 +12,27 @@
 
 	#unitippoint, #unitipmid, #unitipcap {
 		position: relative;
-		top: 0px; 
+		top: 0px;
 		left: 0px;
 		width: 245px;
 		display: block;
 	}
-	
-	#unitippoint { 
-		background: url(/images/unitip/TipPoint.png) no-repeat; 
-		height: 19px; 
-		overflow: hidden; 
+
+	#unitippoint {
+		background: url(/images/unitip/TipPoint.png) no-repeat;
+		height: 19px;
+		overflow: hidden;
 	}
-	
-	#unitipmid { 
-		background: url(/images/unitip/TipMid.png) repeat; 
+
+	#unitipmid {
+		background: url(/images/unitip/TipMid.png) repeat;
 		width: 215px;
-		height: auto; 
+		height: auto;
 		padding: 5px 15px;
 	}
-	
-	#unitipcap { 
-		background: url(/images/unitip/TipCap.png) no-repeat; 
-		height: 7px; 
-		overflow: hidden; 
+
+	#unitipcap {
+		background: url(/images/unitip/TipCap.png) no-repeat;
+		height: 7px;
+		overflow: hidden;
 	}

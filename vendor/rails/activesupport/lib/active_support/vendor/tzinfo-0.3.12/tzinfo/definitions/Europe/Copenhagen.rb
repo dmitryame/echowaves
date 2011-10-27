@@ -5,13 +5,13 @@ module TZInfo
     module Europe
       module Copenhagen
         include TimezoneDefinition
-        
+
         timezone 'Europe/Copenhagen' do |tz|
           tz.offset :o0, 3020, 0, :LMT
           tz.offset :o1, 3020, 0, :CMT
           tz.offset :o2, 3600, 0, :CET
           tz.offset :o3, 3600, 3600, :CEST
-          
+
           tz.transition 1889, 12, :o1, 10417111769, 4320
           tz.transition 1893, 12, :o2, 10423423289, 4320
           tz.transition 1916, 5, :o3, 29051981, 12

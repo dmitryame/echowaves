@@ -5,12 +5,12 @@ module TZInfo
     module Europe
       module Belgrade
         include TimezoneDefinition
-        
+
         timezone 'Europe/Belgrade' do |tz|
           tz.offset :o0, 4920, 0, :LMT
           tz.offset :o1, 3600, 0, :CET
           tz.offset :o2, 3600, 3600, :CEST
-          
+
           tz.transition 1883, 12, :o1, 1734607039, 720
           tz.transition 1941, 4, :o2, 29161241, 12
           tz.transition 1942, 11, :o1, 58335973, 24

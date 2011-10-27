@@ -1,5 +1,5 @@
 class << Object; alias_method :const_available?, :const_defined?; end
-  
+
 class ContentController < Class.new(ActionController::Base)
 end
 class NotAController

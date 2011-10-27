@@ -12,7 +12,7 @@ if(typeof(Prototype) == "undefined")
 	throw "Event.Behavior requires Prototype to be loaded.";
 if(typeof(Object.Event) == "undefined")
 	throw "Event.Behavior requires Object.Event to be loaded.";
-	
+
 Event.Behavior = {
 	addVerbs: function(verbs){
 		for(name in verbs){
@@ -262,7 +262,7 @@ Object.extend(Event.Behavior.Adjective.prototype,{
 	within: function(item){
 		this.lastConditionName = 'within';
 		this.attachCondition(function(item){
-			
+
 		}.bind(this,item));
 		this.attachObserver(true);
 		return this;

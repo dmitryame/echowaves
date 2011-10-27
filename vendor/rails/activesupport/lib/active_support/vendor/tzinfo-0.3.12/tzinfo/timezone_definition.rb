@@ -1,13 +1,13 @@
 #--
 # Copyright (c) 2006 Philip Ross
-# 
+#
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
 # in the Software without restriction, including without limitation the rights
 # to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 # copies of the Software, and to permit persons to whom the Software is
 # furnished to do so, subject to the following conditions:
-# 
+#
 # The above copyright notice and this permission notice shall be included in all
 # copies or substantial portions of the Software.
 #
@@ -24,7 +24,7 @@ require 'tzinfo/data_timezone_info'
 require 'tzinfo/linked_timezone_info'
 
 module TZInfo
-  
+
   # TimezoneDefinition is included into Timezone definition modules.
   # TimezoneDefinition provides the methods for defining timezones.
   module TimezoneDefinition #:nodoc:
@@ -33,20 +33,20 @@ module TZInfo
       super
       base.extend(ClassMethods)
     end
-    
+
     # Class methods for inclusion.
     module ClassMethods #:nodoc:
       # Returns and yields a DataTimezoneInfo object to define a timezone.
       def timezone(identifier)
         yield @timezone = DataTimezoneInfo.new(identifier)
       end
-      
+
       # Defines a linked timezone.
       def linked_timezone(identifier, link_to_identifier)
         @timezone = LinkedTimezoneInfo.new(identifier, link_to_identifier)
       end
-      
-      # Returns the last TimezoneInfo to be defined with timezone or 
+
+      # Returns the last TimezoneInfo to be defined with timezone or
       # linked_timezone.
       def get
         @timezone

@@ -5,7 +5,7 @@ module TZInfo
     module Asia
       module Jakarta
         include TimezoneDefinition
-        
+
         timezone 'Asia/Jakarta' do |tz|
           tz.offset :o0, 25632, 0, :LMT
           tz.offset :o1, 25632, 0, :JMT
@@ -14,7 +14,7 @@ module TZInfo
           tz.offset :o4, 32400, 0, :JST
           tz.offset :o5, 28800, 0, :WIT
           tz.offset :o6, 25200, 0, :WIT
-          
+
           tz.transition 1867, 8, :o1, 720956461, 300
           tz.transition 1923, 12, :o2, 87256267, 36
           tz.transition 1932, 10, :o3, 87372439, 36

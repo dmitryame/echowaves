@@ -13,8 +13,8 @@ class OauthController < ApplicationController
     else
       render :nothing => true, :status => 401
     end
-  end 
-  
+  end
+
   def access_token
     @token = current_token && current_token.exchange!
     if @token
@@ -27,11 +27,11 @@ class OauthController < ApplicationController
   def test_request
     render :text => params.collect{|k,v|"#{k}=#{v}"}.join("&")
   end
-  
+
   def authorize
     @token = RequestToken.find_by_token params[:oauth_token]
-    unless @token.invalidated?    
-      if request.post? 
+    unless @token.invalidated?
+      if request.post?
         if params[:authorize] == '1'
           @token.authorize!(current_user)
           redirect_url = params[:oauth_callback] || @token.client_application.callback_url
@@ -49,7 +49,7 @@ class OauthController < ApplicationController
       render :action => "authorize_failure"
     end
   end
-  
+
   def revoke
     @token = current_user.tokens.find_by_token params[:token]
     if @token
@@ -58,5 +58,5 @@ class OauthController < ApplicationController
     end
     redirect_to oauth_clients_url
   end
-  
+
 end

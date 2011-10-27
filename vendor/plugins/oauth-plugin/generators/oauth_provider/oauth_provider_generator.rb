@@ -23,7 +23,7 @@ class OauthProviderGenerator < Rails::Generator::Base
 
   def manifest
     record do |m|
-      
+
       # Check for class naming collisions.
       # Check for class naming collisions.
       m.class_collisions controller_class_path,       "#{controller_class_name}Controller", # Oauth Controller
@@ -56,7 +56,7 @@ class OauthProviderGenerator < Rails::Generator::Base
         m.directory File.join('spec/models')
         m.directory File.join('spec/fixtures', class_path)
         m.directory File.join('spec/controllers', controller_class_path)
-        
+
         m.template 'client_application_spec.rb',File.join('spec/models',"client_application_spec.rb")
         m.template 'oauth_token_spec.rb',    File.join('spec/models',"oauth_token_spec.rb")
         m.template 'oauth_nonce_spec.rb',    File.join('spec/models',"oauth_nonce_spec.rb")
@@ -64,7 +64,7 @@ class OauthProviderGenerator < Rails::Generator::Base
         m.template 'oauth_tokens.yml',    File.join('spec/fixtures',"oauth_tokens.yml")
         m.template 'oauth_nonces.yml',    File.join('spec/fixtures',"oauth_nonces.yml")
         m.template 'controller_spec_helper.rb', File.join('spec/controllers', controller_class_path,"#{controller_file_name}_controller_spec_helper.rb")
-        m.template 'controller_spec.rb',File.join('spec/controllers',controller_class_path,"#{controller_file_name}_controller_spec.rb")      
+        m.template 'controller_spec.rb',File.join('spec/controllers',controller_class_path,"#{controller_file_name}_controller_spec.rb")
         m.template 'clients_controller_spec.rb',File.join('spec/controllers',controller_class_path,"#{controller_file_name}_clients_controller_spec.rb")
       else
         m.directory File.join('test')
@@ -90,7 +90,7 @@ class OauthProviderGenerator < Rails::Generator::Base
       m.template 'authorize.html.erb',  File.join('app/views', controller_class_path, controller_file_name, "authorize.html.erb")
       m.template 'authorize_success.html.erb',  File.join('app/views', controller_class_path, controller_file_name, "authorize_success.html.erb")
       m.template 'authorize_failure.html.erb',  File.join('app/views', controller_class_path, controller_file_name, "authorize_failure.html.erb")
-      
+
 
       unless options[:skip_migration]
         m.migration_template 'migration.rb', 'db/migrate', :assigns => {
@@ -108,9 +108,9 @@ class OauthProviderGenerator < Rails::Generator::Base
     def add_options!(opt)
       opt.separator ''
       opt.separator 'Options:'
-      opt.on("--skip-migration", 
+      opt.on("--skip-migration",
              "Don't generate a migration file") { |v| options[:skip_migration] = v }
-      opt.on("--test-unit", 
+      opt.on("--test-unit",
              "Generate the Test::Unit compatible tests instead of RSpec") { |v| options[:test_unit] = v }
     end
 end

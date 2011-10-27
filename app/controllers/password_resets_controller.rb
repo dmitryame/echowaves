@@ -1,13 +1,13 @@
 class PasswordResetsController < ApplicationController
-  def ssl_required? 
+  def ssl_required?
     true if USE_SSL
   end
-  
+
   layout "users"
-  
+
   before_filter :load_user_using_perishable_token, :only => [:edit, :update]
   before_filter :require_no_user
-  
+
   def edit
     render
   end
@@ -27,18 +27,18 @@ class PasswordResetsController < ApplicationController
       render :action => :edit
     end
   end
-    
+
   def new
     render
   end
-  
+
   def create
     @user = User.find_by_email(params[:email])
     if @user
       @user.deliver_password_reset_instructions!
       if(SHOW_ACTIVATION_LINK)
         flash[:error] = "<a href=\"#{HOST}/password_resets/#{@user.perishable_token}/edit\">Click here to reset your password</a>" #want this notice it red, that's why it's error
-      else 
+      else
         flash[:notice] = "Instructions to reset your password have been emailed to you. " +
           "Please check your email."
       end
@@ -48,7 +48,7 @@ class PasswordResetsController < ApplicationController
       render :action => :new
     end
   end
-  
+
 private
 
   def load_user_using_perishable_token
@@ -61,5 +61,5 @@ private
       redirect_to "/"
     end
   end
-  
+
 end

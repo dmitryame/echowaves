@@ -10,14 +10,14 @@
 		</div>
 	</div>
 	<div class="bbox-pointer">&nbsp;</div>
-  
+
 
 
 	<div id='messages'>
 		<div class="pagination"><%= will_paginate @messages %></div>
-		
+
 		<% @messages.each do |message| %>
-		  
+
 		  <%# FIXME: I don't know how to filter the messages in private convos with sphinx search without reindexing the database each time a convo troggles the private status %>
 		  <% if message.conversation.private? %>
 		    <% if logged_in? %>
@@ -26,11 +26,11 @@
 		      <% next %>
 		    <%end%>
 		  <% end %>
-		  
+
 		  <%# REFACTOR DRY: this markup is used in some places %>
     	<div class="message" id="<%= dom_id(message) %>">
     	  <div class="avatar"><%= link_to image_tag(message.user.gravatar_url, :width => 30, :height => 30, :class => "avatar", :alt => message.user.login), user_path(message.user),
-    		:class => 'tip', 
+    		:class => 'tip',
     		:title =>  user_popup(message.user) %>
     		</div>
     		<div class="messagetext">
@@ -54,7 +54,7 @@
     		</div>
     		<div class="clear"></div>
     	</div>
-    	
+
 	  <% end %>
 
 		<div class="pagination"><%= will_paginate @messages %></div>

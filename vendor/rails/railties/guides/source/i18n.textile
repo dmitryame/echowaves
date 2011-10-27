@@ -117,7 +117,7 @@ To tell the I18n library where it can find your custom translation files you can
 # in config/initializer/locale.rb
 
 # tell the I18n library where to find your translations
-I18n.load_path << Dir[ File.join(RAILS_ROOT, 'lib', 'locale', 
+I18n.load_path << Dir[ File.join(RAILS_ROOT, 'lib', 'locale',
   '*.{rb,yml}') ]
 
 # set default locale to something other than :en
@@ -551,7 +551,7 @@ es:
       title: "Título"
 </yaml>
 
-you can look up the +books.index.title+ value *inside* +app/views/books/index.html.erb+ template like this (note the dot): 
+you can look up the +books.index.title+ value *inside* +app/views/books/index.html.erb+ template like this (note the dot):
 
 <ruby>
 <%= t '.title' %>

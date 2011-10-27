@@ -7,16 +7,16 @@ module ThinkingSphinx
   # Most times, you will just want a specific model's results - to search and
   # search_for_ids methods will do the job in exactly the same manner when
   # called from a model.
-  # 
+  #
   class Search
     GlobalFacetOptions = {
       :all_attributes => false,
       :class_facet    => true
     }
-    
+
     class << self
       include ThinkingSphinx::Search::Facets
-      
+
       # Searches for results that match the parameters provided. Will only
       # return the ids for the matching objects. See #search for syntax
       # examples.
@@ -27,10 +27,10 @@ module ThinkingSphinx
       #
       def search_for_ids(*args)
         results, client = search_results(*args.clone)
-        
+
         options = args.extract_options!
         page    = options[:page] ? options[:page].to_i : 1
-        
+
         ThinkingSphinx::Collection.ids_from_results(results, page, client.limit, options)
       end
 
@@ -42,11 +42,11 @@ module ThinkingSphinx
       # just like paginate. The same parameters - :page and :per_page - work as
       # expected, and the returned result set can be used by the will_paginate
       # helper.
-      # 
+      #
       # == Basic Searching
       #
       # The simplest way of searching is straight text.
-      # 
+      #
       #   ThinkingSphinx::Search.search "pat"
       #   ThinkingSphinx::Search.search "google"
       #   User.search "pat", :page => (params[:page] || 1)
@@ -54,7 +54,7 @@ module ThinkingSphinx
       #
       # If you specify :include, like in an #find call, this will be respected
       # when loading the relevant models from the search results.
-      # 
+      #
       #   User.search "pat", :include => :posts
       #
       # == Match Modes
@@ -90,10 +90,10 @@ module ThinkingSphinx
       # See http://sphinxsearch.com/doc.html#weighting for further details.
       #
       # == Searching by Fields
-      # 
+      #
       # If you want to step it up a level, you can limit your search terms to
       # specific fields:
-      # 
+      #
       #   User.search :conditions => {:name => "pat"}
       #
       # This uses Sphinx's extended match mode, unless you specify a different
@@ -121,11 +121,11 @@ module ThinkingSphinx
       # specific model (not multi-model searching). With a single model,
       # Thinking Sphinx can figure out what attributes and fields are available,
       # so you can put it all in the :conditions hash, and it will sort it out.
-      # 
+      #
       #   Node.search :conditions => {:parent_id => 10}
-      # 
+      #
       # Filters can be single values, arrays of values, or ranges.
-      # 
+      #
       #   Article.search "East Timor", :conditions => {:rating => 3..5}
       #
       # == Excluding by Attributes
@@ -210,28 +210,28 @@ module ThinkingSphinx
       #   User.search("pat", :sql_order => "name")
       #
       # == Grouping
-      # 
+      #
       # For this you can use the group_by, group_clause and group_function
       # options - which are all directly linked to Sphinx's expectations. No
       # magic from Thinking Sphinx. It can get a little tricky, so make sure
       # you read all the relevant
       # documentation[http://sphinxsearch.com/doc.html#clustering] first.
-      # 
+      #
       # Grouping is done via three parameters within the options hash
       # * <tt>:group_function</tt> determines the way grouping is done
       # * <tt>:group_by</tt> determines the field which is used for grouping
-      # * <tt>:group_clause</tt> determines the sorting order 
+      # * <tt>:group_clause</tt> determines the sorting order
       #
       # As a convenience, you can also use
       # * <tt>:group</tt>
       # which sets :group_by and defaults to :group_function of :attr
-      # 
+      #
       # === group_function
-      #  
+      #
       # Valid values for :group_function are
-      # * <tt>:day</tt>, <tt>:week</tt>, <tt>:month</tt>, <tt>:year</tt> - Grouping is done by the respective timeframes. 
+      # * <tt>:day</tt>, <tt>:week</tt>, <tt>:month</tt>, <tt>:year</tt> - Grouping is done by the respective timeframes.
       # * <tt>:attr</tt>, <tt>:attrpair</tt> - Grouping is done by the specified attributes(s)
-      # 
+      #
       # === group_by
       #
       # This parameter denotes the field by which grouping is done. Note that the
@@ -241,14 +241,14 @@ module ThinkingSphinx
       #
       # This determines the sorting order of the groups. In a grouping search,
       # the matches within a group will sorted by the <tt>:sort_mode</tt> and <tt>:order</tt> parameters.
-      # The group matches themselves however, will be sorted by <tt>:group_clause</tt>. 
-      # 
+      # The group matches themselves however, will be sorted by <tt>:group_clause</tt>.
+      #
       # The syntax for this is the same as an order parameter in extended sort mode.
-      # Namely, you can specify an SQL-like sort expression with up to 5 attributes 
+      # Namely, you can specify an SQL-like sort expression with up to 5 attributes
       # (including internal attributes), eg: "@relevance DESC, price ASC, @id DESC"
       #
       # === Grouping by timestamp
-      # 
+      #
       # Timestamp grouping groups off items by the day, week, month or year of the
       # attribute given. In order to do this you need to define a timestamp attribute,
       # which pretty much looks like the standard defintion for any attribute.
@@ -261,14 +261,14 @@ module ThinkingSphinx
       #   end
       #
       # When you need to fire off your search, it'll go something to the tune of
-      #   
+      #
       #   Fruit.search "apricot", :group_function => :day, :group_by => 'created_at'
       #
       # The <tt>@groupby</tt> special attribute will contain the date for that group.
       # Depending on the <tt>:group_function</tt> parameter, the date format will be
       #
       # * <tt>:day</tt> - YYYYMMDD
-      # * <tt>:week</tt> - YYYYNNN (NNN is the first day of the week in question, 
+      # * <tt>:week</tt> - YYYYNNN (NNN is the first day of the week in question,
       #   counting from the start of the year )
       # * <tt>:month</tt> - YYYYMM
       # * <tt>:year</tt> - YYYY
@@ -276,11 +276,11 @@ module ThinkingSphinx
       #
       # === Grouping by attribute
       #
-      # The syntax is the same as grouping by timestamp, except for the fact that the 
+      # The syntax is the same as grouping by timestamp, except for the fact that the
       # <tt>:group_function</tt> parameter is changed
       #
       #   Fruit.search "apricot", :group_function => :attr, :group_by => 'size'
-      # 
+      #
       #
       # == Geo/Location Searching
       #
@@ -289,11 +289,11 @@ module ThinkingSphinx
       # take advantage of this, you will need to have both of those values in
       # attributes. To search with that point, you can then use one of the
       # following syntax examples:
-      # 
+      #
       #   Address.search "Melbourne", :geo => [1.4, -2.217], :order => "@geodist asc"
       #   Address.search "Australia", :geo => [-0.55, 3.108], :order => "@geodist asc"
       #     :latitude_attr => "latit", :longitude_attr => "longit"
-      # 
+      #
       # The first example applies when your latitude and longitude attributes
       # are named any of lat, latitude, lon, long or longitude. If that's not
       # the case, you will need to explicitly state them in your search, _or_
@@ -302,17 +302,17 @@ module ThinkingSphinx
       #   define_index do
       #     has :latit  # Float column, stored in radians
       #     has :longit # Float column, stored in radians
-      #     
+      #
       #     set_property :latitude_attr   => "latit"
       #     set_property :longitude_attr  => "longit"
       #   end
-      # 
+      #
       # Now, geo-location searching really only has an affect if you have a
       # filter, sort or grouping clause related to it - otherwise it's just a
       # normal search, and _will not_ return a distance value otherwise. To
       # make use of the positioning difference, use the special attribute
       # "@geodist" in any of your filters or sorting or grouping clauses.
-      # 
+      #
       # And don't forget - both the latitude and longitude you use in your
       # search, and the values in your indexes, need to be stored as a float in radians,
       # _not_ degrees. Keep in mind that if you do this conversion in SQL
@@ -322,17 +322,17 @@ module ThinkingSphinx
       #     has 'RADIANS(lat)', :as => :lat,  :type => :float
       #     # ...
       #   end
-      # 
+      #
       # Once you've got your results set, you can access the distances as
       # follows:
-      # 
+      #
       # @results.each_with_geodist do |result, distance|
       #   # ...
       # end
-      # 
+      #
       # The distance value is returned as a float, representing the distance in
       # metres.
-      # 
+      #
       # == Handling a Stale Index
       #
       # Especially if you don't use delta indexing, you risk having records in the
@@ -355,23 +355,23 @@ module ThinkingSphinx
       # default Thinking Sphinx will retry three times. Pass :retry_stale => 5 to retry five
       # times, and so on. If there are still missing ids on the last retry, they are
       # shown as nils.
-      # 
+      #
       def search(*args)
         query = args.clone  # an array
         options = query.extract_options!
-        
+
         retry_search_on_stale_index(query, options) do
           results, client = search_results(*(query + [options]))
-          
+
           log "Sphinx Error: #{results[:error]}", :error if results[:error]
-        
+
           klass   = options[:class]
           page    = options[:page] ? options[:page].to_i : 1
-        
+
           ThinkingSphinx::Collection.create_from_results(results, page, client.limit, options)
         end
       end
-      
+
       def retry_search_on_stale_index(query, options, &block)
         stale_ids = []
         stale_retries_left = case options[:retry_stale]
@@ -399,7 +399,7 @@ module ThinkingSphinx
           log "Sphinx Stale Ids (%s %s left): %s" % [
             tries, (tries==1 ? 'try' : 'tries'), stale_ids.join(', ')
           ]
-          
+
           retry
         end
       end
@@ -415,42 +415,42 @@ module ThinkingSphinx
       # - ID of the document
       # - Index to check within
       # - Options hash (defaults to {})
-      # 
+      #
       # Example:
-      # 
+      #
       #   ThinkingSphinx::Search.search_for_id(10, "user_core", :class => User)
-      # 
+      #
       def search_for_id(*args)
         options = args.extract_options!
         client  = client_from_options options
-        
+
         query, filters    = search_conditions(
           options[:class], options[:conditions] || {}
         )
         client.filters   += filters
         client.match_mode = :extended unless query.empty?
         client.id_range   = args.first..args.first
-        
+
         begin
           return client.query(query, args[1])[:matches].length > 0
         rescue Errno::ECONNREFUSED => err
           raise ThinkingSphinx::ConnectionError, "Connection to Sphinx Daemon (searchd) failed."
         end
       end
-      
+
       private
-      
+
       # This method handles the common search functionality, and returns both
       # the result hash and the client. Not super elegant, but it'll do for
       # the moment.
-      # 
+      #
       def search_results(*args)
         options = args.extract_options!
         query   = args.join(' ')
         client  = client_from_options options
-        
+
         query = star_query(query, options[:star]) if options[:star]
-        
+
         extra_query, filters = search_conditions(
           options[:class], options[:conditions] || {}
         )
@@ -458,14 +458,14 @@ module ThinkingSphinx
         client.match_mode = :extended unless extra_query.empty?
         query             = [query, extra_query].join(' ')
         query.strip!  # Because "" and " " are not equivalent
-                
+
         set_sort_options! client, options
-        
+
         client.limit  = options[:per_page].to_i if options[:per_page]
         page          = options[:page] ? options[:page].to_i : 1
         page          = 1 if page <= 0
         client.offset = (page - 1) * client.limit
-        
+
         begin
           log "Sphinx: #{query}"
           results = client.query(query, '*', options[:comment] || '')
@@ -476,13 +476,13 @@ module ThinkingSphinx
         rescue Errno::ECONNREFUSED => err
           raise ThinkingSphinx::ConnectionError, "Connection to Sphinx Daemon (searchd) failed."
         end
-        
+
         return results, client
       end
-      
+
       # Set all the appropriate settings for the client, using the provided
       # options hash.
-      # 
+      #
       def client_from_options(options = {})
         config = ThinkingSphinx::Configuration.instance
         client = Riddle::Client.new config.address, config.port
@@ -496,7 +496,7 @@ module ThinkingSphinx
         if per_server_max_matches = config.configuration.searchd.max_matches
           options[:max_matches] ||= per_server_max_matches
         end
-        
+
         # Turn :index_weights => { "foo" => 2, User => 1 }
         # into :index_weights => { "foo" => 2, "user_core" => 1, "user_delta" => 1 }
         if iw = options[:index_weights]
@@ -511,13 +511,13 @@ module ThinkingSphinx
             hash
           end
         end
-        
+
         # Group by defaults using :group
         if options[:group]
           options[:group_by] = options[:group].to_s
           options[:group_function] ||= :attr
         end
-        
+
         [
           :max_matches, :match_mode, :sort_mode, :sort_by, :id_range,
           :group_by, :group_function, :group_clause, :group_distinct, :cut_off,
@@ -529,45 +529,45 @@ module ThinkingSphinx
             options[key] || index_options[key] || client.send(key)
           )
         end
-        
+
         options[:classes] = [klass] if klass
-        
+
         client.anchor = anchor_conditions(klass, options) || {} if client.anchor.empty?
-        
+
         client.filters << Riddle::Client::Filter.new(
           "sphinx_deleted", [0]
         )
-        
+
         # class filters
         client.filters << Riddle::Client::Filter.new(
           "class_crc", options[:classes].collect { |k| k.to_crc32s }.flatten
         ) if options[:classes]
-        
+
         # normal attribute filters
         client.filters += options[:with].collect { |attr,val|
           Riddle::Client::Filter.new attr.to_s, filter_value(val)
         } if options[:with]
-        
+
         # exclusive attribute filters
         client.filters += options[:without].collect { |attr,val|
           Riddle::Client::Filter.new attr.to_s, filter_value(val), true
         } if options[:without]
-        
+
         # every-match attribute filters
         client.filters += options[:with_all].collect { |attr,vals|
           Array(vals).collect { |val|
             Riddle::Client::Filter.new attr.to_s, filter_value(val)
           }
         }.flatten if options[:with_all]
-        
+
         # exclusive attribute filter on primary key
         client.filters += Array(options[:without_ids]).collect { |id|
           Riddle::Client::Filter.new 'sphinx_internal_id', filter_value(id), true
         } if options[:without_ids]
-        
+
         client
       end
-      
+
       def star_query(query, custom_token = nil)
         token = custom_token.is_a?(Regexp) ? custom_token : /\w+/u
 
@@ -583,7 +583,7 @@ module ThinkingSphinx
           end
         end
       end
-      
+
       def filter_value(value)
         case value
         when Range
@@ -594,31 +594,31 @@ module ThinkingSphinx
           Array(value)
         end
       end
-      
+
       # Returns the integer timestamp for a Time object.
-      # 
+      #
       # If using Rails 2.1+, need to handle timezones to translate them back to
       # UTC, as that's what datetimes will be stored as by MySQL.
-      # 
+      #
       # in_time_zone is a method that was added for the timezone support in
       # Rails 2.1, which is why it's used for testing. I'm sure there's better
       # ways, but this does the job.
-      # 
+      #
       def timestamp(value)
         value.respond_to?(:in_time_zone) ? value.utc.to_i : value.to_i
       end
-      
+
       # Translate field and attribute conditions to the relevant search string
       # and filters.
-      # 
+      #
       def search_conditions(klass, conditions={})
         attributes = klass ? klass.sphinx_indexes.collect { |index|
           index.attributes.collect { |attrib| attrib.unique_name }
         }.flatten : []
-        
+
         search_string = []
         filters       = []
-        
+
         conditions.each do |key,val|
           if attributes.include?(key.to_sym)
             filters << Riddle::Client::Filter.new(
@@ -628,45 +628,45 @@ module ThinkingSphinx
             search_string << "@#{key} #{val}"
           end
         end
-        
+
         return search_string.join(' '), filters
       end
-      
+
       # Return the appropriate latitude and longitude values, depending on
       # whether the relevant attributes have been defined, and also whether
       # there's actually any values.
-      # 
+      #
       def anchor_conditions(klass, options)
         attributes = klass ? klass.sphinx_indexes.collect { |index|
           index.attributes.collect { |attrib| attrib.unique_name }
         }.flatten : []
-        
+
         lat_attr = klass ? klass.sphinx_indexes.collect { |index|
           index.local_options[:latitude_attr]
         }.compact.first : nil
-        
+
         lon_attr = klass ? klass.sphinx_indexes.collect { |index|
           index.local_options[:longitude_attr]
         }.compact.first : nil
-        
+
         lat_attr = options[:latitude_attr] if options[:latitude_attr]
         lat_attr ||= :lat       if attributes.include?(:lat)
         lat_attr ||= :latitude  if attributes.include?(:latitude)
-        
+
         lon_attr = options[:longitude_attr] if options[:longitude_attr]
         lon_attr ||= :lng       if attributes.include?(:lng)
         lon_attr ||= :lon       if attributes.include?(:lon)
         lon_attr ||= :long      if attributes.include?(:long)
         lon_attr ||= :longitude if attributes.include?(:longitude)
-        
+
         lat = options[:lat]
         lon = options[:lon]
-        
+
         if options[:geo]
           lat = options[:geo].first
           lon = options[:geo].last
         end
-        
+
         lat && lon ? {
           :latitude_attribute   => lat_attr.to_s,
           :latitude             => lat,
@@ -674,10 +674,10 @@ module ThinkingSphinx
           :longitude            => lon
         } : nil
       end
-      
+
       # Set the sort options using the :order key as well as the appropriate
       # Riddle settings.
-      # 
+      #
       def set_sort_options!(client, options)
         klass = options[:class]
         fields = klass ? klass.sphinx_indexes.collect { |index|
@@ -685,7 +685,7 @@ module ThinkingSphinx
         }.flatten : []
         index_options = klass ? klass.sphinx_index_options : {}
 
-        order = options[:order] || index_options[:order]        
+        order = options[:order] || index_options[:order]
         case order
         when Symbol
           client.sort_mode = :attr_asc if client.sort_mode == :relevance || client.sort_mode.nil?
@@ -700,24 +700,24 @@ module ThinkingSphinx
         else
           # do nothing
         end
-        
+
         client.sort_mode = :attr_asc  if client.sort_mode == :asc
         client.sort_mode = :attr_desc if client.sort_mode == :desc
       end
-      
+
       # Search through a collection of fields and translate any appearances
       # of them in a string to their attribute equivalent for sorting.
-      # 
+      #
       def sorted_fields_to_attributes(string, fields)
         fields.each { |field|
           string.gsub!(/(^|\s)#{field}(,?\s|$)/) { |match|
             match.gsub field.to_s, field.to_s.concat("_sort")
           }
         }
-        
+
         string
       end
-      
+
       def log(message, method = :debug)
         return if ::ActiveRecord::Base.logger.nil?
         ::ActiveRecord::Base.logger.send method, message

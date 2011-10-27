@@ -1,7 +1,7 @@
 require File.join(File.dirname(__FILE__), '..', '..', 'test_helper')
 
 class HaveDbIndexMatcherTest < ActiveSupport::TestCase # :nodoc:
-  
+
   context "have_db_index" do
     setup do
       @matcher = have_db_index(:age)
@@ -15,13 +15,13 @@ class HaveDbIndexMatcherTest < ActiveSupport::TestCase # :nodoc:
       define_model_class 'Superhero'
       assert_accepts @matcher, Superhero.new
     end
-    
+
     should "reject a nonexistent index" do
       define_model :superhero
       assert_rejects @matcher, Superhero.new
     end
   end
-  
+
   context "have_db_index with unique option" do
     setup do
       @matcher = have_db_index(:ssn).unique(true)
@@ -35,7 +35,7 @@ class HaveDbIndexMatcherTest < ActiveSupport::TestCase # :nodoc:
       define_model_class 'Superhero'
       assert_accepts @matcher, Superhero.new
     end
-    
+
     should "reject an index of wrong unique" do
       db_connection = create_table 'superheros' do |table|
         table.integer :ssn
@@ -45,7 +45,7 @@ class HaveDbIndexMatcherTest < ActiveSupport::TestCase # :nodoc:
       assert_rejects @matcher, Superhero.new
     end
   end
-  
+
   context "have_db_index on multiple columns" do
     setup do
       @matcher = have_db_index([:geocodable_type, :geocodable_id])
@@ -60,7 +60,7 @@ class HaveDbIndexMatcherTest < ActiveSupport::TestCase # :nodoc:
       define_model_class 'Geocoding'
       assert_accepts @matcher, Geocoding.new
     end
-    
+
     should "reject a nonexistant index" do
       db_connection = create_table 'geocodings' do |table|
         table.integer :geocodable_id
@@ -87,5 +87,5 @@ class HaveDbIndexMatcherTest < ActiveSupport::TestCase # :nodoc:
   should "not describe an index's uniqueness when it isn't important" do
     assert_no_match /unique/, have_db_index(:user_id).description
   end
-  
+
 end

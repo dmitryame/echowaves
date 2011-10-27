@@ -15,7 +15,7 @@ class AddFewIndexes < ActiveRecord::Migration
     remove_index :conversations, :name
     remove_index :conversations, :created_at
     remove_index :messages, :user_id
-    remove_index :messages, :conversation_id    
+    remove_index :messages, :conversation_id
     remove_index :messages, :created_at
   end
 end

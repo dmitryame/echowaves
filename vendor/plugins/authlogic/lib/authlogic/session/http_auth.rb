@@ -5,7 +5,7 @@ module Authlogic
       def self.included(klass)
         klass.persist :persist_by_http_auth
       end
-      
+
       private
         def persist_by_http_auth
           controller.authenticate_with_http_basic do |login, password|
@@ -15,7 +15,7 @@ module Authlogic
               return valid?
             end
           end
-        
+
           false
         end
     end

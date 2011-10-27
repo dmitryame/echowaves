@@ -5,7 +5,7 @@ module TZInfo
     module Europe
       module Brussels
         include TimezoneDefinition
-        
+
         timezone 'Europe/Brussels' do |tz|
           tz.offset :o0, 1050, 0, :LMT
           tz.offset :o1, 1050, 0, :BMT
@@ -13,7 +13,7 @@ module TZInfo
           tz.offset :o3, 3600, 0, :CET
           tz.offset :o4, 3600, 3600, :CEST
           tz.offset :o5, 0, 3600, :WEST
-          
+
           tz.transition 1879, 12, :o1, 1386844121, 576
           tz.transition 1892, 5, :o2, 1389438713, 576
           tz.transition 1914, 11, :o3, 4840889, 2

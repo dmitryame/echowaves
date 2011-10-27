@@ -11,7 +11,7 @@ module ActiveRecord #:nodoc:
     # available through +options+.
     #
     # The option <tt>ActiveRecord::Base.include_root_in_json</tt> controls the
-    # top-level behavior of to_json. In a new Rails application, it is set to 
+    # top-level behavior of to_json. In a new Rails application, it is set to
     # <tt>true</tt> in initializers/new_rails_defaults.rb. When it is <tt>true</tt>,
     # to_json will emit a single root node named after the object's type. For example:
     #

@@ -5,7 +5,7 @@ module TZInfo
     module Europe
       module Vilnius
         include TimezoneDefinition
-        
+
         timezone 'Europe/Vilnius' do |tz|
           tz.offset :o0, 6076, 0, :LMT
           tz.offset :o1, 5040, 0, :WMT
@@ -16,7 +16,7 @@ module TZInfo
           tz.offset :o6, 3600, 3600, :CEST
           tz.offset :o7, 10800, 3600, :MSD
           tz.offset :o8, 7200, 3600, :EEST
-          
+
           tz.transition 1879, 12, :o1, 52006653281, 21600
           tz.transition 1916, 12, :o2, 290547533, 120
           tz.transition 1919, 10, :o3, 8720069161, 3600

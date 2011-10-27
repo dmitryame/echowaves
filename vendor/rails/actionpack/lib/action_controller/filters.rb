@@ -448,7 +448,7 @@ module ActionController #:nodoc:
     # <tt>before_filter</tt> and <tt>around_filter</tt> may halt the request
     # before a controller action is run. This is useful, for example, to deny
     # access to unauthenticated users or to redirect from HTTP to HTTPS.
-    # Simply call render or redirect. After filters will not be executed if the filter 
+    # Simply call render or redirect. After filters will not be executed if the filter
     # chain is halted.
     #
     # Around filters halt the request unless the action block is called.

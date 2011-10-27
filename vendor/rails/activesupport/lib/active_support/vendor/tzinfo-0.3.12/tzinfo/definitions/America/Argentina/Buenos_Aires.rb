@@ -6,7 +6,7 @@ module TZInfo
       module Argentina
         module Buenos_Aires
           include TimezoneDefinition
-          
+
           timezone 'America/Argentina/Buenos_Aires' do |tz|
             tz.offset :o0, -14028, 0, :LMT
             tz.offset :o1, -15408, 0, :CMT
@@ -14,7 +14,7 @@ module TZInfo
             tz.offset :o3, -14400, 3600, :ARST
             tz.offset :o4, -10800, 0, :ART
             tz.offset :o5, -10800, 3600, :ARST
-            
+
             tz.transition 1894, 10, :o1, 17374555169, 7200
             tz.transition 1920, 5, :o2, 1453467407, 600
             tz.transition 1930, 12, :o3, 7278935, 3

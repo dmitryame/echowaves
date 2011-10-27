@@ -139,7 +139,7 @@ For example, assuming we had this definition:
   has_attached_file :scan, :styles => { :text => { :quality => :better } },
                            :processors => [:rotator, :ocr]
 
-then both the :rotator processor and the :ocr processor would receive the 
+then both the :rotator processor and the :ocr processor would receive the
 options "{ :quality => :better }". This parameter may not mean anything to one
 or more or the processors, and they are free to ignore it.
 
@@ -168,5 +168,5 @@ guidelines:
 
 1. Ask on the mailing list, or post a ticket in Lighthouse.
 2. Make sure there are tests! We will not accept any patch that is not tested.
-   It's a rare time when explicit tests aren't needed. If you have questions 
+   It's a rare time when explicit tests aren't needed. If you have questions
    about writing tests for paperclip, please ask the mailing list.

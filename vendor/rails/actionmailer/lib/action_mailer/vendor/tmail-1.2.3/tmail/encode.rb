@@ -34,7 +34,7 @@ require 'tmail/utils'
 
 
 module TMail
-  
+
   #:stopdoc:
   class << self
     attr_accessor :KCODE
@@ -62,12 +62,12 @@ module TMail
     # You should call this before you are packaging up your  email to
     # correctly escape all the values that need escaping in the email, line
     # wrap the email etc.
-    # 
+    #
     # It is also a good idea to call this before you marshal or serialize
     # a TMail object.
-    # 
+    #
     # For Example:
-    # 
+    #
     #  email = TMail::Load(my_email_file)
     #  email_to_send = email.encoded
     def encoded( eol = "\r\n", charset = 'j', dest = nil )
@@ -76,13 +76,13 @@ module TMail
 
     # Returns the TMail object decoded and ready to be used by you, your
     # program etc.
-    # 
+    #
     # You should call this before you are packaging up your  email to
     # correctly escape all the values that need escaping in the email, line
     # wrap the email etc.
-    # 
+    #
     # For Example:
-    # 
+    #
     #  email = TMail::Load(my_email_file)
     #  email_to_send = email.encoded
     def decoded( eol = "\n", charset = 'e', dest = nil )
@@ -340,7 +340,7 @@ module TMail
       types = ''
       strs = []
       if str.respond_to?(:encoding)
-        enc = str.encoding 
+        enc = str.encoding
         str.force_encoding(Encoding::ASCII_8BIT)
       end
       until str.empty?

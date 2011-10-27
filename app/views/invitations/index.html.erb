@@ -5,11 +5,11 @@
     <h2>Pending invitations</h2>
   </div>
   <div class="bbox-pointer">&nbsp;</div>
-  
+
   <% @invitations.each do |i| %>
 
    <div class="invitation" id="invitation_<%= i.id %>">
-    
+
     <h5><%= i.conversation.name %></h5>
     send by @<%= i.requestor.name %>
     <div class="actions">
@@ -17,6 +17,6 @@
     <%= link_to_remote "delete", :url => user_invitation_path(current_user, i), :method => 'delete' %>
     </div>
     <div class="clear"></div>
-  </div> 
+  </div>
   <% end %>
 <% end %>

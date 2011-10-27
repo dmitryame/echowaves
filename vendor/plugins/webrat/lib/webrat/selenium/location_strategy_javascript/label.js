@@ -5,7 +5,7 @@ var candidateLabels = $A(allLabels).select(function(candidateLabel){
   return (labelText.search(regExp) >= 0);
 });
 if (candidateLabels.length == 0) {
-  return null;      
+  return null;
 }
 candidateLabels = candidateLabels.sortBy(function(s) { return s.length * -1; }); //reverse length sort
 var locatedLabel = candidateLabels.first();

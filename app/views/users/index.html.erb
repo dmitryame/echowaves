@@ -7,7 +7,7 @@
 <div class="bbox round">
   <h1><%= link_to image_tag("/images/icons/16px-feed-icon.png"), users_url(:format => :atom), :type => "application/atom+xml", :rel => "alternate" %> <%= t("users.recently_joined_users") %></h1>
     <% form_tag usersearch_path, :method => :get do %>
-  	  <div>	
+  	  <div>
 	      <%= t("users.look_for_users") %>: <%= text_field_tag :user_q %>
 	      <%= submit_tag t("ui.search"), :name => nil  %>
   	  </div>

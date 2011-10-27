@@ -5,13 +5,13 @@ module TZInfo
     module Europe
       module Bucharest
         include TimezoneDefinition
-        
+
         timezone 'Europe/Bucharest' do |tz|
           tz.offset :o0, 6264, 0, :LMT
           tz.offset :o1, 6264, 0, :BMT
           tz.offset :o2, 7200, 0, :EET
           tz.offset :o3, 7200, 3600, :EEST
-          
+
           tz.transition 1891, 9, :o1, 964802571, 400
           tz.transition 1931, 7, :o2, 970618571, 400
           tz.transition 1932, 5, :o3, 29122181, 12

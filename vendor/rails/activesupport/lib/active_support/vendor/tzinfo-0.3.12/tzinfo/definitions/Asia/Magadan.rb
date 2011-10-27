@@ -5,14 +5,14 @@ module TZInfo
     module Asia
       module Magadan
         include TimezoneDefinition
-        
+
         timezone 'Asia/Magadan' do |tz|
           tz.offset :o0, 36192, 0, :LMT
           tz.offset :o1, 36000, 0, :MAGT
           tz.offset :o2, 39600, 0, :MAGT
           tz.offset :o3, 39600, 3600, :MAGST
           tz.offset :o4, 36000, 3600, :MAGST
-          
+
           tz.transition 1924, 5, :o1, 2181516373, 900
           tz.transition 1930, 6, :o2, 29113777, 12
           tz.transition 1981, 3, :o3, 354891600

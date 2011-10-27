@@ -52,7 +52,7 @@ production:
   database: <%= app_name %>_production
   pool: 5
   username: root
-  password: 
+  password:
 <% if socket -%>
   socket: <%= socket %>
 <% else -%>

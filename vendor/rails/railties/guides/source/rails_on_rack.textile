@@ -256,7 +256,7 @@ class Poller
 end
 </ruby>
 
-Metal applications within +app/metal+ folders in plugins will also be discovered and added to the list 
+Metal applications within +app/metal+ folders in plugins will also be discovered and added to the list
 
 Metal applications are an optimization. You should make sure to "understand the related performance implications":http://weblog.rubyonrails.org/2008/12/20/performance-of-rails-metal before using it.
 

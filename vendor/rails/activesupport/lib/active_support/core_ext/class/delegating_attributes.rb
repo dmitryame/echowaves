@@ -1,8 +1,8 @@
 # These class attributes behave something like the class
 # inheritable accessors.  But instead of copying the hash over at
 # the time the subclass is first defined,  the accessors simply
-# delegate to their superclass unless they have been given a 
-# specific value.  This stops the strange situation where values 
+# delegate to their superclass unless they have been given a
+# specific value.  This stops the strange situation where values
 # set after class definition don't get applied to subclasses.
 class Class
   def superclass_delegating_reader(*names)

@@ -6,7 +6,7 @@ module ActiveSupport #:nodoc:
       module Grouping
         # Splits or iterates over the array in groups of size +number+,
         # padding any remaining slots with +fill_with+ unless it is +false+.
-        # 
+        #
         #   %w(1 2 3 4 5 6 7).in_groups_of(3) {|group| p group}
         #   ["1", "2", "3"]
         #   ["4", "5", "6"]

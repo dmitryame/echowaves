@@ -5,13 +5,13 @@ module TZInfo
     module Europe
       module Berlin
         include TimezoneDefinition
-        
+
         timezone 'Europe/Berlin' do |tz|
           tz.offset :o0, 3208, 0, :LMT
           tz.offset :o1, 3600, 0, :CET
           tz.offset :o2, 3600, 3600, :CEST
           tz.offset :o3, 3600, 7200, :CEMT
-          
+
           tz.transition 1893, 3, :o1, 26055588199, 10800
           tz.transition 1916, 4, :o2, 29051813, 12
           tz.transition 1916, 9, :o1, 58107299, 24

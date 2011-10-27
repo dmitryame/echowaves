@@ -2,7 +2,7 @@ class UsersearchesController < ApplicationController
   def ssl_required?
     true if USE_SSL
   end
-  
+
   def show
     if params.include?(:user_q)
       create
@@ -12,10 +12,10 @@ class UsersearchesController < ApplicationController
       render :new
     end
   end
-  
+
   def new
   end
-  
+
   def create
     @users = User.search(
       params[:user_q],
@@ -25,5 +25,5 @@ class UsersearchesController < ApplicationController
       :order => 'created_at DESC'
     )
   end
-  
+
 end

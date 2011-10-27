@@ -5,7 +5,7 @@ if commands.include?(ARGV.first)
 else
   puts <<-USAGE
 The 'run' provides a unified access point for all the default Rails' commands.
-  
+
 Usage: ./script/run <command> [OPTIONS]
 
 Examples:

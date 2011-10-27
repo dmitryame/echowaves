@@ -44,7 +44,7 @@ task :clean do |t|
   FileUtils.rm "test/paperclip.db" rescue nil
 end
 
-spec = Gem::Specification.new do |s| 
+spec = Gem::Specification.new do |s|
   s.name              = "paperclip"
   s.version           = Paperclip::VERSION
   s.author            = "Jon Yurek"
@@ -68,7 +68,7 @@ spec = Gem::Specification.new do |s|
   s.add_development_dependency 'thoughtbot-shoulda'
   s.add_development_dependency 'mocha'
 end
- 
+
 desc "Generate a gemspec file for GitHub"
 task :gemspec do
   File.open("#{spec.name}.gemspec", 'w') do |f|

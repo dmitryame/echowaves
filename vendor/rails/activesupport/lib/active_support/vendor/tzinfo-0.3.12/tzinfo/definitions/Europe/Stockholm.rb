@@ -5,13 +5,13 @@ module TZInfo
     module Europe
       module Stockholm
         include TimezoneDefinition
-        
+
         timezone 'Europe/Stockholm' do |tz|
           tz.offset :o0, 4332, 0, :LMT
           tz.offset :o1, 3614, 0, :SET
           tz.offset :o2, 3600, 0, :CET
           tz.offset :o3, 3600, 3600, :CEST
-          
+
           tz.transition 1878, 12, :o1, 17332923239, 7200
           tz.transition 1899, 12, :o2, 104328883793, 43200
           tz.transition 1916, 5, :o3, 29051981, 12

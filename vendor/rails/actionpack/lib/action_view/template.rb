@@ -59,7 +59,7 @@ module ActionView #:nodoc:
     class EagerPath < Path
       def load!
         return if @loaded
-        
+
         @paths = {}
         templates_in_path do |template|
           template.load!

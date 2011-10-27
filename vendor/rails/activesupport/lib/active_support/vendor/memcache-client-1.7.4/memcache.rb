@@ -216,7 +216,7 @@ class MemCache
   end
 
   ##
-  # Performs a +get+ with the given +key+.  If 
+  # Performs a +get+ with the given +key+.  If
   # the value does not exist and a block was given,
   # the block will be called and the result saved via +add+.
   #
@@ -406,7 +406,7 @@ class MemCache
       end
     end
   end
-  
+
   ##
   # Add +key+ to the cache with value +value+ that expires in +expiry+
   # seconds, but only if +key+ already exists in the cache.
@@ -655,7 +655,7 @@ class MemCache
       break unless failover
       hkey = hash_for "#{try}#{key}"
     end
-    
+
     raise MemCacheError, "No servers available"
   end
 

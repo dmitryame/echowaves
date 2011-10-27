@@ -152,7 +152,7 @@ Object.extend(Control.ContextMenu,{
 	disable: function(){
 		Event.stopObserving(document.body,'click',Control.ContextMenu.onClick);
 		if(Control.ContextMenu.capture_all)
-			Event.stopObserving(document.body,'contextmenu',Control.ContextMenu.onContextMenu);					
+			Event.stopObserving(document.body,'contextmenu',Control.ContextMenu.onContextMenu);
 	},
 	onContextMenu: function(event){
 		event.stop();

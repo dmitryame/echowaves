@@ -5,7 +5,7 @@ module TZInfo
     module Asia
       module Yerevan
         include TimezoneDefinition
-        
+
         timezone 'Asia/Yerevan' do |tz|
           tz.offset :o0, 10680, 0, :LMT
           tz.offset :o1, 10800, 0, :YERT
@@ -16,7 +16,7 @@ module TZInfo
           tz.offset :o6, 10800, 0, :AMT
           tz.offset :o7, 14400, 0, :AMT
           tz.offset :o8, 14400, 3600, :AMST
-          
+
           tz.transition 1924, 5, :o1, 1745213311, 720
           tz.transition 1957, 2, :o2, 19487187, 8
           tz.transition 1981, 3, :o3, 354916800

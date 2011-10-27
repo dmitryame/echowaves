@@ -14,7 +14,7 @@ class HomeControllerTest < ActionController::TestCase
       convo = Factory.create( :conversation )
       convo.stubs( :users ).returns( followers )
       User.expects( :find ).returns( [user] )
-      
+
       get :index
       assert_response :success
       assert_template "home/index"

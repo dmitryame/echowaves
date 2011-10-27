@@ -16,7 +16,7 @@ class FollowersNotificationTest < ActionController::IntegrationTest
       # assert_response :success
       # assert_equal "Conversation was successfully created.", flash[:notice]
       # the actual messages for this convo are requested in js after the page loads
-    end  
+    end
   end
 
 end

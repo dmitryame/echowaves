@@ -5,7 +5,7 @@ module TZInfo
     module Asia
       module Irkutsk
         include TimezoneDefinition
-        
+
         timezone 'Asia/Irkutsk' do |tz|
           tz.offset :o0, 25040, 0, :LMT
           tz.offset :o1, 25040, 0, :IMT
@@ -13,7 +13,7 @@ module TZInfo
           tz.offset :o3, 28800, 0, :IRKT
           tz.offset :o4, 28800, 3600, :IRKST
           tz.offset :o5, 25200, 3600, :IRKST
-          
+
           tz.transition 1879, 12, :o1, 2600332427, 1080
           tz.transition 1920, 1, :o2, 2616136067, 1080
           tz.transition 1930, 6, :o3, 58227557, 24

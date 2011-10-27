@@ -3,10 +3,10 @@
     <h1><%= t("ui.forgot_password") %></h1>
   </div>
   <div class="bbox-pointer">&nbsp;</div>
- 
+
  <div class="item">
    <br />Fill out the form below and instructions to reset your password will be emailed to you:<br /><br />
-   
+
    <% form_tag password_resets_path do %>
      <label>Email:</label><br />
      <%= text_field_tag "email" %><br />

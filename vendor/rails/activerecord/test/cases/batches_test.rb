@@ -8,7 +8,7 @@ class EachTest < ActiveRecord::TestCase
     @posts = Post.all(:order => "id asc")
     @total = Post.count
   end
-  
+
   def test_each_should_excecute_one_query_per_batch
     assert_queries(Post.count + 1) do
       Post.find_each(:batch_size => 1) do |post|
@@ -28,7 +28,7 @@ class EachTest < ActiveRecord::TestCase
       Post.find_each(:limit => 1) { |post| post }
     end
   end
-  
+
   def test_find_in_batches_should_return_batches
     assert_queries(Post.count + 1) do
       Post.find_in_batches(:batch_size => 1) do |batch|

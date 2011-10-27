@@ -12,15 +12,15 @@
 dmitry_follow_crossblaim:
   requested_by_me: dmitry
   requested_for_me: crossblaim
-  
+
 crossblaim_follow_akira:
   requested_by_me: crossblaim
   requested_for_me: akira
-  
+
 akira_follow_dmitry:
   requested_by_me: akira
   requested_for_me: dmitry
-    
+
 akira_follow_crossblaim:
   requested_by_me: akira
   requested_for_me: crossblaim

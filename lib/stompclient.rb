@@ -2,7 +2,7 @@ require 'eventmachine'
 
 class StompClient < EM::Connection
   include EM::Protocols::Stomp
-  
+
   def connection_completed
     connect
   end
@@ -10,9 +10,9 @@ class StompClient < EM::Connection
   def unbind
     EventMachine::stop_event_loop
   end
-  
+
   private
- 
+
   def log msg
     puts msg
   end

@@ -1,5 +1,5 @@
 #:stopdoc:
-unless Enumerable.method_defined?(:map) 
+unless Enumerable.method_defined?(:map)
   module Enumerable #:nodoc:
     alias map collect
   end

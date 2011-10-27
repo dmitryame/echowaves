@@ -7,12 +7,12 @@ module SessionTest
         UserSession.authenticate_with = Employee
         assert_equal "Employee", UserSession.klass_name
         assert_equal Employee, UserSession.klass
-    
+
         UserSession.authenticate_with User
         assert_equal "User", UserSession.klass_name
         assert_equal User, UserSession.klass
       end
-    
+
       def test_klass
         assert_equal User, UserSession.klass
       end
@@ -21,7 +21,7 @@ module SessionTest
         assert_equal "User", UserSession.klass_name
       end
     end
-    
+
     class InstanceMethodsTest < ActiveSupport::TestCase
       def test_record_method
         ben = users(:ben)

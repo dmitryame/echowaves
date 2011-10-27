@@ -35,7 +35,7 @@ class Factory
   #     sequence.
   #
   # Example:
-  #   
+  #
   #   Factory.sequence(:email) {|n| "somebody_#{n}@example.com" }
   def self.sequence (name, &block)
     self.sequences[name] = Sequence.new(&block)

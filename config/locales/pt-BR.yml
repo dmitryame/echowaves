@@ -113,9 +113,9 @@ pt-BR:
     recently_joined_users: "usuários registrados recentemente"
     sign_up_as_new_user: "registrar-se como um novo usuário"
     look_for_users: "buscar por usuários"
-    since: "desde:"                  
+    since: "desde:"
     since_date: "since: {{date}}"
-    n_convos_started: "{{number}} convos started"   
+    n_convos_started: "{{number}} convos started"
     n_messages_posted: "{{number}} messages posted"
     following_n_users: "following {{number}} users"
     n_followers: "{{number}} followers"
@@ -148,7 +148,7 @@ pt-BR:
   footer:
     uptime_monitoring: "Website Uptime Monitorado por"
     report_problems_or_abuse: "Denuncie problemas ou abusos para"
-    terms_and_conditions: "Termos e condições"    
+    terms_and_conditions: "Termos e condições"
     conversations: "convos"
   messages:
     original_message: "mensagem original"

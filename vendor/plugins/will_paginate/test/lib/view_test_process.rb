@@ -10,7 +10,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'ibocorp/:page', :controller => 'ibocorp',
                                :requirements => { :page => /\d+/ },
                                :defaults => { :page => 1 }
-                               
+
   map.connect ':controller/:action/:id'
 end
 
@@ -30,7 +30,7 @@ class WillPaginate::ViewTestCase < Test::Unit::TestCase
     @request     = @controller.request
     @html_result = nil
     @template    = '<%= will_paginate collection, options %>'
-    
+
     @view = ActionView::Base.new
     @view.assigns['controller'] = @controller
     @view.assigns['_request']   = @request
@@ -38,7 +38,7 @@ class WillPaginate::ViewTestCase < Test::Unit::TestCase
   end
 
   def test_no_complain; end
-  
+
   protected
 
     def paginate(collection = {}, options = {}, &block)
@@ -63,7 +63,7 @@ class WillPaginate::ViewTestCase < Test::Unit::TestCase
 
         @html_result = @view.render_template(*args)
       end
-      
+
       @html_document = HTML::Document.new(@html_result, true, false)
 
       if block_given?
@@ -78,7 +78,7 @@ class WillPaginate::ViewTestCase < Test::Unit::TestCase
 
     def validate_page_numbers expected, links, param_name = :page
       param_pattern = /\W#{CGI.escape(param_name.to_s)}=([^&]*)/
-      
+
       assert_equal(expected, links.map { |e|
         e['href'] =~ param_pattern
         $1 ? $1.to_i : $1
@@ -91,7 +91,7 @@ class WillPaginate::ViewTestCase < Test::Unit::TestCase
       end
 
       pages = [] if numbers
-      
+
       links.each do |el|
         assert_match pattern, el['href']
         if numbers
@@ -114,13 +114,13 @@ end
 
 class DummyRequest
   attr_accessor :symbolized_path_parameters
-  
+
   def initialize
     @get = true
     @params = {}
     @symbolized_path_parameters = { :controller => 'foo', :action => 'bar' }
   end
-  
+
   def get?
     @get
   end
@@ -142,7 +142,7 @@ end
 class DummyController
   attr_reader :request
   attr_accessor :controller_name
-  
+
   def initialize
     @request = DummyRequest.new
     @url = ActionController::UrlRewriter.new(@request, @request.params)
@@ -151,7 +151,7 @@ class DummyController
   def params
     @request.params
   end
-  
+
   def url_for(params)
     @url.rewrite(params)
   end
@@ -163,7 +163,7 @@ module HTML
       children.map(&:inner_text).join('')
     end
   end
-  
+
   Text.class_eval do
     def inner_text
       self.to_s

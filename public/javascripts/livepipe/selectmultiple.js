@@ -108,7 +108,7 @@ Control.SelectMultiple = Class.create({
 		};
 	},
 	getLabelForExtraOption: function(){
-		var label = (typeof(this.options.nameSelector) == 'function' 
+		var label = (typeof(this.options.nameSelector) == 'function'
 			? this.options.nameSelector.bind(this)()
 			: this.container.getElementsBySelector(this.options.nameSelector).inject([],function(labels,name_element,i){
 				if(this.checkboxes[i].checked)

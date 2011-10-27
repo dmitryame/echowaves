@@ -141,7 +141,7 @@ module ActionController #:nodoc:
             new(controller, options, infer_extension).path
           end
         end
-        
+
         # When true, infer_extension will look up the cache path extension from the request's path & format.
         # This is desirable when reading and writing the cache, but not when expiring the cache -
         # expire_action should expire the same files regardless of the request format.
@@ -165,7 +165,7 @@ module ActionController #:nodoc:
           def add_extension!(path, extension)
             path << ".#{extension}" if extension and !path.ends_with?(extension)
           end
-          
+
           def extract_extension(request)
             # Don't want just what comes after the last '.' to accommodate multi part extensions
             # such as tar.gz.

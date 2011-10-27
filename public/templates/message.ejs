@@ -2,19 +2,19 @@
   	<div class="avatar"><a href="/users/<%= user.id %>-<%= user.login %>" class="tip" id="tip_<%= message.id %>" title="&lt;img alt=&quot;<%= user.login %>&quot; border=&quot;0&quot; height=&quot;60&quot; src=&quot;<%= user.gravatar_url %>?d=identicon&amp;r=PG&amp;s=60&quot; style=&quot;float:left;margin-right:15px;margin-bottom:15px;&quot; width=&quot;60&quot; /&gt;<%= I18n.t('users.since_date', {date: user.since}) %>&lt;br/&gt;<%= I18n.t('users.n_convos_started', {number: user.convos_started}) %>&lt;br/&gt;<%= I18n.t('users.n_messages_posted', {number: user.messages_posted}) %>&lt;br/&gt;<%= I18n.t('users.following_n_users', {number: user.following}) %>&lt;br/&gt;<%= I18n.t('users.n_followers', {number: user.followers}) %>"><img alt="<%= user.login %>" border="0" class="avatar" height="30" src="<%= user.gravatar_url %>?d=identicon&amp;r=PG&amp;s=60" width="30" /></a>
   	</div>
   	<div class="messagetext">
-      
+
       <%# IMPORTANT: update Message#attachment_markup method if you change this markup below %>
       <% if(meta.has_image) { %>
         <div class="img_attachment"><a href="<%= attachment.url %>" target="_blank" style="display:block;height:<%= attachment.height+40 %>px;width:<%= attachment.width+40 %>px;"><img src="<%= attachment.image_url %>" height="<%= attachment.height %>" width="<%= attachment.width %>" /></a></div>
       <% } %>
-      
+
       <% if(meta.has_file) { %>
         <div class="file_attachment">
           <a href="<%= attachment.url %>" target="_blank" style="display:block;height:100px;"><img alt="<%= attachment.type %>" src="/images/icons/<%= attachment.type %>_large.jpg" height="100" /></a>
         </div>
       <% } %>
       <%# IMPORTANT: update Message#attachment_markup method if you change this markup above %>
-      
+
   		<%= message.body %>
 
   		<div class="meta">

@@ -31,7 +31,7 @@ require 'nkf'
 module TMail
 
   class Mail
-    
+
     def send_to( smtp )
       do_send_to(smtp) do
         ready_to_send
@@ -124,7 +124,7 @@ module TMail
               'using C.T.Encoding with multipart mail is not permitted'
       end
     end
-  
+
   end
 
   #:stopdoc:
@@ -149,7 +149,7 @@ module TMail
       end
       delete_if {|n,v| v.empty? } if @delete_empty_fields
     end
-  
+
   end
   #:startdoc:
 
@@ -165,7 +165,7 @@ module TMail
     def exec( mail )
       mail.message_id = ::TMail::new_msgid(@fqdn)
     end
-  
+
   end
   #:startdoc:
 
@@ -175,7 +175,7 @@ module TMail
     def exec( mail )
       mail.date = Time.now
     end
-  
+
   end
   #:startdoc:
 
@@ -195,10 +195,10 @@ module TMail
       then @multipart_composer
       else @singlepart_composer end.exec mail
     end
-  
+
   end
   #:startdoc:
-  
+
   #:stopdoc:
   class MimeEncodeSingle
 
@@ -223,10 +223,10 @@ module TMail
       mail.set_content_type 'application', 'octet-stream'
       mail.encoding = 'Base64'
     end
-  
+
   end
   #:startdoc:
-  
+
   #:stopdoc:
   class MimeEncodeMulti
 

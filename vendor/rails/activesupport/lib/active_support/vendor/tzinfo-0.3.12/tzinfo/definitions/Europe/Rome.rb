@@ -5,13 +5,13 @@ module TZInfo
     module Europe
       module Rome
         include TimezoneDefinition
-        
+
         timezone 'Europe/Rome' do |tz|
           tz.offset :o0, 2996, 0, :LMT
           tz.offset :o1, 2996, 0, :RMT
           tz.offset :o2, 3600, 0, :CET
           tz.offset :o3, 3600, 3600, :CEST
-          
+
           tz.transition 1866, 9, :o1, 51901915651, 21600
           tz.transition 1893, 10, :o2, 52115798851, 21600
           tz.transition 1916, 6, :o3, 58104419, 24

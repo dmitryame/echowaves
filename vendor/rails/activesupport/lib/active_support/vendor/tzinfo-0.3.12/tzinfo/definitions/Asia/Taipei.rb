@@ -5,12 +5,12 @@ module TZInfo
     module Asia
       module Taipei
         include TimezoneDefinition
-        
+
         timezone 'Asia/Taipei' do |tz|
           tz.offset :o0, 29160, 0, :LMT
           tz.offset :o1, 28800, 0, :CST
           tz.offset :o2, 28800, 3600, :CDT
-          
+
           tz.transition 1895, 12, :o1, 193084733, 80
           tz.transition 1945, 4, :o2, 14589457, 6
           tz.transition 1945, 9, :o1, 19453833, 8

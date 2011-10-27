@@ -6,7 +6,7 @@
     <th>Title</th>
     <th>Body</th>
   </tr>
-  
+
 <% for post in @posts %>
   <tr>
     <td><%=h post.user_id %></td>
@@ -14,7 +14,7 @@
     <td><%=h post.body %></td>
     <td><%= link_to 'Show', user_post_path(post.user, post) %></td>
     <td><%= link_to 'Edit', edit_user_post_path(post.user, post) %></td>
-    <td><%= link_to 'Destroy', user_post_path(post.user, post), :confirm => 'Are you sure?', 
+    <td><%= link_to 'Destroy', user_post_path(post.user, post), :confirm => 'Are you sure?',
                     :method => :delete %></td>
   </tr>
 <% end %>

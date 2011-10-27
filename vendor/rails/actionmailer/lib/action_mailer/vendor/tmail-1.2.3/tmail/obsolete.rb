@@ -87,7 +87,7 @@ module TMail #:nodoc:
     alias route routes
     alias addr spec
 
-    def spec=( str ) 
+    def spec=( str )
       @local, @domain = str.split(/@/,2).map {|s| s.split(/\./) }
     end
 

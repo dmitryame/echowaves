@@ -51,7 +51,7 @@ module TMail
 
     alias new_preamble_port  new_body_port
     alias new_part_port      new_body_port
-  
+
   end
 
   DEFAULT_CONFIG        = Config.new(false)

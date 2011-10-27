@@ -127,9 +127,9 @@ module RailsGuides
         code_blocks << %{<div class="code_container"><code class="#{css_class}">#{es}</code></div>}
         "\ndirty_workaround_for_notextile_#{code_blocks.size - 1}\n"
       end
-      
+
       body = yield body
-      
+
       body.gsub(%r{<p>dirty_workaround_for_notextile_(\d+)</p>}) do |_|
         code_blocks[$1.to_i]
       end

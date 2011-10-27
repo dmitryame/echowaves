@@ -34,11 +34,11 @@ module ActiveRecord
         loaded
         record
       end
-      
+
       def updated?
         @updated
       end
-      
+
       private
         def find_target
           find_method = if @reflection.options[:primary_key]

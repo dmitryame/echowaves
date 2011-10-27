@@ -261,22 +261,22 @@ class TransactionTest < ActiveRecord::TestCase
     assert !@first.reload.approved?
     assert !@second.reload.approved?
   end if Topic.connection.supports_savepoints?
-  
+
   def test_many_savepoints
     Topic.transaction do
       @first.content = "One"
       @first.save!
-      
+
       begin
         Topic.transaction :requires_new => true do
           @first.content = "Two"
           @first.save!
-          
+
           begin
             Topic.transaction :requires_new => true do
               @first.content = "Three"
               @first.save!
-              
+
               begin
                 Topic.transaction :requires_new => true do
                   @first.content = "Four"
@@ -285,22 +285,22 @@ class TransactionTest < ActiveRecord::TestCase
                 end
               rescue
               end
-              
+
               @three = @first.reload.content
               raise
             end
           rescue
           end
-          
+
           @two = @first.reload.content
           raise
         end
       rescue
       end
-      
+
       @one = @first.reload.content
     end
-    
+
     assert_equal "One", @one
     assert_equal "Two", @two
     assert_equal "Three", @three
@@ -318,7 +318,7 @@ class TransactionTest < ActiveRecord::TestCase
       end
     end
   end
-  
+
   if current_adapter?(:PostgreSQLAdapter) && defined?(PGconn::PQTRANS_IDLE)
     def test_outside_transaction_works
       assert Topic.connection.outside_transaction?
@@ -327,7 +327,7 @@ class TransactionTest < ActiveRecord::TestCase
       Topic.connection.rollback_db_transaction
       assert Topic.connection.outside_transaction?
     end
-    
+
     def test_rollback_wont_be_executed_if_no_transaction_active
       assert_raise RuntimeError do
         Topic.transaction do
@@ -337,7 +337,7 @@ class TransactionTest < ActiveRecord::TestCase
         end
       end
     end
-    
+
     def test_open_transactions_count_is_reset_to_zero_if_no_transaction_active
       Topic.transaction do
         Topic.transaction do
@@ -357,12 +357,12 @@ class TransactionTest < ActiveRecord::TestCase
     #
     # We go back to the connection for the column queries because
     # Topic.columns is cached and won't report changes to the DB
-    
+
     assert_nothing_raised do
       Topic.reset_column_information
       Topic.connection.add_column('topics', 'stuff', :string)
       assert Topic.column_names.include?('stuff')
-      
+
       Topic.reset_column_information
       Topic.connection.remove_column('topics', 'stuff')
       assert !Topic.column_names.include?('stuff')
@@ -414,7 +414,7 @@ class TransactionsWithTransactionalFixturesTest < ActiveRecord::TestCase
 
   def test_automatic_savepoint_in_outer_transaction
     @first = Topic.find(1)
-    
+
     begin
       Topic.transaction do
         @first.approved = true

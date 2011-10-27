@@ -32,15 +32,15 @@ Factory.sequence :uuid do |n|
 end
 
 Factory.sequence :name do |n|
-  "testname#{n}" 
+  "testname#{n}"
 end
 
 Factory.sequence :email do |n|
-  "person#{n}@example.com" 
+  "person#{n}@example.com"
 end
 
 Factory.sequence :password do |n|
-  "Sup3r#{n}" 
+  "Sup3r#{n}"
 end
 
 Factory.define :user do |u|

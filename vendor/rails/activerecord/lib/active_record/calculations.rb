@@ -141,7 +141,7 @@ module ActiveRecord
         def construct_count_options_from_args(*args)
           options     = {}
           column_name = :all
-          
+
           # We need to handle
           #   count()
           #   count(:column_name=:all)
@@ -155,7 +155,7 @@ module ActiveRecord
           else
             raise ArgumentError, "Unexpected parameters passed to count(): #{args.inspect}"
           end if args.size > 0
-          
+
           [column_name, options]
         end
 
@@ -180,7 +180,7 @@ module ActiveRecord
           end
 
           if options[:distinct] && column_name.to_s !~ /\s*DISTINCT\s+/i
-            distinct = 'DISTINCT ' 
+            distinct = 'DISTINCT '
           end
           sql = "SELECT #{operation}(#{distinct}#{column_name}) AS #{aggregate_alias}"
 

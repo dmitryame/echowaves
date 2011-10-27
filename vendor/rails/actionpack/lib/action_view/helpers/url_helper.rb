@@ -541,9 +541,9 @@ module ActionView
       def current_page?(options)
         url_string = CGI.unescapeHTML(url_for(options))
         request = @controller.request
-        # We ignore any extra parameters in the request_uri if the 
+        # We ignore any extra parameters in the request_uri if the
         # submitted url doesn't have any either.  This lets the function
-        # work with things like ?order=asc 
+        # work with things like ?order=asc
         if url_string.index("?")
           request_uri = request.request_uri
         else

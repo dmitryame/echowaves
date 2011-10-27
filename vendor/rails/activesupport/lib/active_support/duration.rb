@@ -1,7 +1,7 @@
 require 'active_support/basic_object'
 
 module ActiveSupport
-  # Provides accurate date and time measurements using Date#advance and 
+  # Provides accurate date and time measurements using Date#advance and
   # Time#advance, respectively. It mainly supports the methods on Numeric,
   # such as in this example:
   #

@@ -70,11 +70,11 @@ module ActionView
     end
 
     def to_s
-      "\n#{self.class} (#{message}) #{source_location}:\n" + 
+      "\n#{self.class} (#{message}) #{source_location}:\n" +
       "#{source_extract}\n    #{clean_backtrace.join("\n    ")}\n\n"
     end
 
-    # don't do anything nontrivial here. Any raised exception from here becomes fatal 
+    # don't do anything nontrivial here. Any raised exception from here becomes fatal
     # (and can't be rescued).
     def backtrace
       @backtrace

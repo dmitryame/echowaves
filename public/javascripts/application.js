@@ -92,7 +92,7 @@ var BrowserDetect = {
             else if (dataProp)
                 return data[i].identity;
         }
-        
+
         return null;
     },
     searchVersion: function (dataString) {

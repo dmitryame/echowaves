@@ -6,13 +6,13 @@ module ActiveRecord
   # output format (i.e., ActiveRecord::Schema).
   class SchemaDumper #:nodoc:
     private_class_method :new
-    
+
     ##
     # :singleton-method:
-    # A list of tables which should not be dumped to the schema. 
+    # A list of tables which should not be dumped to the schema.
     # Acceptable values are strings as well as regexp.
     # This setting is only used if ActiveRecord::Base.schema_format == :ruby
-    cattr_accessor :ignore_tables 
+    cattr_accessor :ignore_tables
     @@ignore_tables = []
 
     def self.dump(connection=ActiveRecord::Base.connection, stream=STDOUT)
@@ -39,7 +39,7 @@ module ActiveRecord
         define_params = @version ? ":version => #{@version}" : ""
 
         stream.puts <<HEADER
-# This file is auto-generated from the current state of the database. Instead of editing this file, 
+# This file is auto-generated from the current state of the database. Instead of editing this file,
 # please use the migrations feature of Active Record to incrementally modify your database, and
 # then regenerate this schema definition.
 #
@@ -68,7 +68,7 @@ HEADER
             else
               raise StandardError, 'ActiveRecord::SchemaDumper.ignore_tables accepts an array of String and / or Regexp values.'
             end
-          end 
+          end
           table(tbl, stream)
         end
       end
@@ -84,7 +84,7 @@ HEADER
           elsif @connection.respond_to?(:primary_key)
             pk = @connection.primary_key(table)
           end
-          
+
           tbl.print "  create_table #{table.inspect}"
           if columns.detect { |c| c.name == pk }
             if pk != 'id'
@@ -138,7 +138,7 @@ HEADER
 
           tbl.puts "  end"
           tbl.puts
-          
+
           indexes(table, tbl)
 
           tbl.rewind
@@ -148,7 +148,7 @@ HEADER
           stream.puts "#   #{e.message}"
           stream.puts
         end
-        
+
         stream
       end
 
@@ -162,7 +162,7 @@ HEADER
           value.inspect
         end
       end
-      
+
       def indexes(table, stream)
         if (indexes = @connection.indexes(table)).any?
           add_index_statements = indexes.map do |index|

@@ -59,12 +59,12 @@ module ActionController
         end
         result
       end
-      
+
       # The default 500.html uses the h() method.
       def h(text) # :nodoc:
         ERB::Util.h(text)
       end
-      
+
       def render_template(filename)
         ERB.new(File.read(filename)).result(binding)
       end

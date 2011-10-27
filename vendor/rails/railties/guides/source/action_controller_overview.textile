@@ -115,7 +115,7 @@ h4. Routing Parameters
 The +params+ hash will always contain the +:controller+ and +:action+ keys, but you should use the methods +controller_name+ and +action_name+ instead to access these values. Any other parameters defined by the routing, such as +:id+ will also be available. As an example, consider a listing of clients where the list can show either active or inactive clients. We can add a route which captures the +:status+ parameter in a "pretty" URL:
 
 <ruby>
-map.connect "/clients/:status", 
+map.connect "/clients/:status",
   :controller => "clients",
   :action => "index",
   :foo => "bar"
@@ -170,7 +170,7 @@ Rails sets up a session key (the name of the cookie) and (for the CookieStore) a
 <ruby>
 # Your secret key for verifying cookie session data integrity.
 # If you change this key, all old sessions will become invalid!
-# Make sure the secret is at least 30 characters and all random, 
+# Make sure the secret is at least 30 characters and all random,
 # no regular words or you'll be exposed to dictionary attacks.
 ActionController::Base.session = {
   :key         => '_yourappname_session',
@@ -281,7 +281,7 @@ class MainController < ApplicationController
     # Will persist all flash values.
     flash.keep
 
-    # You can also use a key to keep only some kind of value. 
+    # You can also use a key to keep only some kind of value.
     # flash.keep(:notice)
     redirect_to users_url
   end
@@ -340,9 +340,9 @@ Note that while for session values you set the key to +nil+, to delete a cookie 
 
 h3. Filters
 
-Filters are methods that are run before, after or "around" a controller action. 
+Filters are methods that are run before, after or "around" a controller action.
 
-Filters are inherited, so if you set a filter on +ApplicationController+, it will be run on every controller in your application. 
+Filters are inherited, so if you set a filter on +ApplicationController+, it will be run on every controller in your application.
 
 Before filters may halt the request cycle. A common before filter is one which requires that a user is logged in for an action to be run. You can define the filter method this way:
 
@@ -500,7 +500,7 @@ You will see how the token gets added as a hidden field:
 
 <html>
 <form action="/users/1" method="post">
-<input type="hidden" 
+<input type="hidden"
        value="67250ab105eb5ad10851c00a5621854a23af5489"
        name="authenticity_token"/>
 <!-- fields -->
@@ -621,7 +621,7 @@ class ClientsController < ApplicationController
   # returns it. The user will get the PDF as a file download.
   def download_pdf
     client = Client.find(params[:id])
-    send_data(generate_pdf, 
+    send_data(generate_pdf,
               :filename => "#{client.name}.pdf",
               :type => "application/pdf")
   end

@@ -15,14 +15,14 @@
 #  updated_at            :datetime
 
 class RequestToken < OauthToken
-  
+
   def authorize!(user)
     return false if authorized?
     self.user = user
     self.authorized_at = Time.now
     self.save
   end
-  
+
   def exchange!
     return false unless authorized?
     RequestToken.transaction do
@@ -31,5 +31,5 @@ class RequestToken < OauthToken
       access_token
     end
   end
-  
+
 end

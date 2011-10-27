@@ -13,7 +13,7 @@ class UsersControllerTest < ActionController::TestCase
     @response   = ActionController::TestResponse.new
     @user       = User.find(:first)
   end
-  
+
   should_filter_params :ssn
 
 end

@@ -46,7 +46,7 @@ module ActiveSupport #:nodoc:
               self
             end
           end
-          
+
           # Returns true if the string has UTF-8 semantics (a String used for purely byte resources is unlikely to have
           # them), returns false otherwise.
           def is_utf8?
@@ -63,7 +63,7 @@ module ActiveSupport #:nodoc:
           def mb_chars #:nodoc
             self
           end
-          
+
           def is_utf8? #:nodoc
             case encoding
             when Encoding::UTF_8

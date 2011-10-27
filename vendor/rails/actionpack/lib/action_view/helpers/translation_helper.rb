@@ -3,7 +3,7 @@ require 'action_view/helpers/tag_helper'
 module ActionView
   module Helpers
     module TranslationHelper
-      # Delegates to I18n#translate but also performs two additional functions. First, it'll catch MissingTranslationData exceptions 
+      # Delegates to I18n#translate but also performs two additional functions. First, it'll catch MissingTranslationData exceptions
       # and turn them into inline spans that contains the missing key, such that you can see in a view what is missing where.
       #
       # Second, it'll scope the key by the current partial if the key starts with a period. So if you call translate(".foo") from the

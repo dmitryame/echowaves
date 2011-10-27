@@ -5,12 +5,12 @@ module TZInfo
     module Australia
       module Melbourne
         include TimezoneDefinition
-        
+
         timezone 'Australia/Melbourne' do |tz|
           tz.offset :o0, 34792, 0, :LMT
           tz.offset :o1, 36000, 0, :EST
           tz.offset :o2, 36000, 3600, :EST
-          
+
           tz.transition 1895, 1, :o1, 26062831051, 10800
           tz.transition 1916, 12, :o2, 3486569881, 1440
           tz.transition 1917, 3, :o1, 19370497, 8

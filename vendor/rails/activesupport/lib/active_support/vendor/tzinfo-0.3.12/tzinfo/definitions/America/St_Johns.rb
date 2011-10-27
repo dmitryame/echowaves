@@ -5,7 +5,7 @@ module TZInfo
     module America
       module St_Johns
         include TimezoneDefinition
-        
+
         timezone 'America/St_Johns' do |tz|
           tz.offset :o0, -12652, 0, :LMT
           tz.offset :o1, -12652, 0, :NST
@@ -15,7 +15,7 @@ module TZInfo
           tz.offset :o5, -12600, 3600, :NWT
           tz.offset :o6, -12600, 3600, :NPT
           tz.offset :o7, -12600, 7200, :NDDT
-          
+
           tz.transition 1884, 1, :o1, 52038215563, 21600
           tz.transition 1917, 4, :o2, 52300657363, 21600
           tz.transition 1917, 9, :o1, 52304155663, 21600

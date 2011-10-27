@@ -8,7 +8,7 @@ require "webrat"
 Webrat.configure do |config|
   config.mode = :rails
 end
-  
+
 class ActiveSupport::TestCase
 
   self.use_transactional_fixtures = true
@@ -21,14 +21,14 @@ class ActiveSupport::TestCase
     @response   = ActionController::TestResponse.new
 
     @user = Factory(:user, :login => "admin", :name => "Dmitry Amelchenko", :email => "qwe@mail.com", :password => "password", :password_confirmation => "password")
-    
+
     #activate the user so it can be logged in to
     @user.activate!
-    
-    @request.env['HTTP_AUTHORIZATION'] = 
+
+    @request.env['HTTP_AUTHORIZATION'] =
     ActionController::HttpAuthentication::Basic.encode_credentials(
-    "admin", 
-    "password" 
+    "admin",
+    "password"
     )
     @user
   end
@@ -54,30 +54,30 @@ class ActiveSupport::TestCase
     end
 
     should "have a paperclip attachment named ##{attachment}" do
-      assert klass.new.respond_to?(attachment.to_sym), 
+      assert klass.new.respond_to?(attachment.to_sym),
              "@#{klass.name.underscore} doesn't have a paperclip field named #{attachment}"
       assert_equal Paperclip::Attachment, klass.new.send(attachment.to_sym).class
     end
   end
-  
+
   #----------------------------------------------------------------------------
   def login_as(login)
     post_via_redirect "/user_session", :user_session => { :login => login, :password => "secret" }
   end
-  
+
   def goto_convo(convo)
     get "/conversations/#{conversations(convo).id}/messages.json"
     get "/conversations/#{conversations(convo).id}"
   end
-  
+
   def goto_convo_api(convo, format)
     get "/conversations/#{conversations(convo).id}/messages.#{format}"
   end
 end
 
-class Module  
-   def redefine_const(name, value)  
-     __send__(:remove_const, name) if const_defined?(name)  
-     const_set(name, value)  
-   end  
+class Module
+   def redefine_const(name, value)
+     __send__(:remove_const, name) if const_defined?(name)
+     const_set(name, value)
+   end
 end

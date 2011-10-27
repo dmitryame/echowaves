@@ -9,7 +9,7 @@
 == Description
 
 Webrat lets you quickly write expressive and robust acceptance tests for a Ruby
-web application. 
+web application.
 
 == Features
 
@@ -24,7 +24,7 @@ web application.
 == Example
 
   class SignupTest < ActionController::IntegrationTest
-  
+
     def test_trial_account_sign_up
       visit home_path
       click_link "Sign up"
@@ -32,9 +32,9 @@ web application.
       select "Free account"
       click_button "Register"
     end
-    
+
   end
-  
+
 Behind the scenes, Webrat will ensure:
 
 * If a link, form field or button is missing, the test will fail.
@@ -54,7 +54,7 @@ Otherwise the Nokogiri gem, which Webrat depends on, won't install properly.
 To install the latest release as a gem:
 
   sudo gem install webrat
-  
+
 To install the latest code as a plugin: (_Note:_ This may be less stable than using a released version)
 
   script/plugin install git://github.com/brynary/webrat.git
@@ -62,11 +62,11 @@ To install the latest code as a plugin: (_Note:_ This may be less stable than us
 In your test_helper.rb or env.rb (for Cucumber) add:
 
   require "webrat"
-  
+
   Webrat.configure do |config|
     config.mode = :rails
   end
-  
+
 == Install with Merb
 
 Merb 1.0 has built-in, seamless Webrat support. Just start using

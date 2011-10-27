@@ -14,33 +14,33 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class InviteTest < ActiveSupport::TestCase
-  context "An invite instance for a public convo" do    
+  context "An invite instance for a public convo" do
     setup do
-      user = Factory.create(:user, :login => "user1")              
+      user = Factory.create(:user, :login => "user1")
       @invite = Factory.create(:invite, :requestor => user)
     end
     subject { @invite }
-    
+
     should_belong_to :user
     should_belong_to :requestor
     should_belong_to :conversation
-    
+
     should_have_db_indices :user_id, :requestor_id, :conversation_id
     should_validate_presence_of :requestor_id, :conversation_id
-    
+
     should "be public" do
       assert @invite.public?
     end
   end
-   
+
   context "An invite instance for a private convo" do
     setup do
-      user = Factory.create(:user, :login => "user1")              
+      user = Factory.create(:user, :login => "user1")
       @invite = Factory.create(:invite, :requestor => user)
       @invite.token = user.perishable_token
       @invite.save
     end
-    
+
     should "be private" do
       assert @invite.private?
     end

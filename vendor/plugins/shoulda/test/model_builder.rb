@@ -1,7 +1,7 @@
-class ActiveSupport::TestCase  
+class ActiveSupport::TestCase
   def create_table(table_name, &block)
     connection = ActiveRecord::Base.connection
-    
+
     begin
       connection.execute("DROP TABLE IF EXISTS #{table_name}")
       connection.create_table(table_name, &block)
@@ -64,7 +64,7 @@ class ActiveSupport::TestCase
     klass = define_controller('Examples')
     block ||= lambda { render :nothing => true }
     klass.class_eval { define_method(:example, &block) }
-    define_routes do |map| 
+    define_routes do |map|
       map.connect 'examples', :controller => 'examples', :action => 'example'
     end
 
@@ -78,7 +78,7 @@ class ActiveSupport::TestCase
 
   def teardown_with_models
     if @defined_constants
-      @defined_constants.each do |class_name| 
+      @defined_constants.each do |class_name|
         Object.send(:remove_const, class_name)
       end
     end

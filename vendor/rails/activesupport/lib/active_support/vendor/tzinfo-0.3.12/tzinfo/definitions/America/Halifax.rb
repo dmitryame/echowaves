@@ -5,14 +5,14 @@ module TZInfo
     module America
       module Halifax
         include TimezoneDefinition
-        
+
         timezone 'America/Halifax' do |tz|
           tz.offset :o0, -15264, 0, :LMT
           tz.offset :o1, -14400, 0, :AST
           tz.offset :o2, -14400, 3600, :ADT
           tz.offset :o3, -14400, 3600, :AWT
           tz.offset :o4, -14400, 3600, :APT
-          
+
           tz.transition 1902, 6, :o1, 724774703, 300
           tz.transition 1916, 4, :o2, 7262864, 3
           tz.transition 1916, 10, :o1, 19369101, 8

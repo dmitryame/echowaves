@@ -15,17 +15,17 @@ dmitry_follow_crossblaim_convo:
   user: dmitry
   conversation: crossblaim_convo
   activated_at: <%= Time.now.to_s(:db) %>
-  
+
 crossblaim_follow_akira_convo:
   user: crossblaim
   conversation: akira_convo
   activated_at: <%= Time.now.to_s(:db) %>
-  
+
 akira_follow_dmitry_convo:
   user: akira
   conversation: dmitry_convo
   activated_at: <%= Time.now.to_s(:db) %>
-    
+
 akira_follow_crossblaim_convo:
   user: akira
   conversation: crossblaim_convo
@@ -40,7 +40,7 @@ crossblaim_follow_crossblaim_test_private_convo:
   user: crossblaim
   conversation: crossblaim_test_private_convo
   activated_at: <%= Time.now.to_s(:db) %>
-  
+
 crossblaim_follow_crossblaim_convo:
   user: crossblaim
   conversation: crossblaim_convo

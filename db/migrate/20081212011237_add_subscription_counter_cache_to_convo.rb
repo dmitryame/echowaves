@@ -9,6 +9,6 @@ class AddSubscriptionCounterCacheToConvo < ActiveRecord::Migration
   end
 
   def self.down
-    remove_column :conversations, :subscriptions_count    
+    remove_column :conversations, :subscriptions_count
   end
 end

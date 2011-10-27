@@ -9,27 +9,27 @@ module Authlogic
         klass.extend ClassMethods
         klass.send(:include, InstanceMethods)
       end
-      
+
       module ClassMethods
         def human_attribute_name(*args)
           klass.human_attribute_name(*args)
         end
-        
+
         def human_name(*args)
           klass.human_name(*args)
         end
-        
+
         # For rails < 2.3, mispelled
         def self_and_descendents_from_active_record
           [self]
         end
-        
+
         # For Rails >2.3, fix mispelling
         def self_and_descendants_from_active_record
           [self]
         end
       end
-      
+
       module InstanceMethods
         def new_record?
           new_session?

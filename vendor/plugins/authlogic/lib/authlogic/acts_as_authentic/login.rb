@@ -8,7 +8,7 @@ module Authlogic
           add_acts_as_authentic_module(Methods)
         end
       end
-      
+
       # Confguration for the login field.
       module Config
         # The name of the login field in the database.
@@ -19,7 +19,7 @@ module Authlogic
           config(:login_field, value, first_column_to_exist(nil, :login, :username))
         end
         alias_method :login_field=, :login_field
-        
+
         # Whether or not the validate the login field
         #
         # * <tt>Default:</tt> true
@@ -28,7 +28,7 @@ module Authlogic
           config(:validate_login_field, value, true)
         end
         alias_method :validate_login_field=, :validate_login_field
-        
+
         # A hash of options for the validates_length_of call for the login field. Allows you to change this however you want.
         #
         # * <tt>Default:</tt> {:within => 6..100}
@@ -37,7 +37,7 @@ module Authlogic
           config(:validates_length_of_login_field_options, value, {:within => 3..100})
         end
         alias_method :validates_length_of_login_field_options=, :validates_length_of_login_field_options
-        
+
         # A hash of options for the validates_format_of call for the email field. Allows you to change this however you want.
         #
         # * <tt>Default:</tt> {:with => /\A\w[\w\.\-_@ ]+\z/, :message => I18n.t('error_messages.login_invalid', :default => "should use only letters, numbers, spaces, and .-_@ please.")}
@@ -47,7 +47,7 @@ module Authlogic
         end
         alias_method :validates_format_of_login_field_options=, :validates_format_of_login_field_options
       end
-      
+
       # All methods relating to the login field
       module Methods
         def self.included(klass)

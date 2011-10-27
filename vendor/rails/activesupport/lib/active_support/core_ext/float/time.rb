@@ -16,7 +16,7 @@ module ActiveSupport #:nodoc:
           ActiveSupport::Duration.new(self * 30.days, [[:months, self]])
         end
         alias :month :months
-      
+
         def years_without_deprecation
           ActiveSupport::Duration.new(self * 365.25.days, [[:years, self]])
         end

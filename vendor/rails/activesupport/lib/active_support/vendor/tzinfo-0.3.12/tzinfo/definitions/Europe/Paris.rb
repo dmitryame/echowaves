@@ -5,7 +5,7 @@ module TZInfo
     module Europe
       module Paris
         include TimezoneDefinition
-        
+
         timezone 'Europe/Paris' do |tz|
           tz.offset :o0, 561, 0, :LMT
           tz.offset :o1, 561, 0, :PMT
@@ -14,7 +14,7 @@ module TZInfo
           tz.offset :o4, 3600, 3600, :CEST
           tz.offset :o5, 3600, 0, :CET
           tz.offset :o6, 0, 7200, :WEMT
-          
+
           tz.transition 1891, 3, :o1, 69460027033, 28800
           tz.transition 1911, 3, :o2, 69670267033, 28800
           tz.transition 1916, 6, :o3, 58104707, 24

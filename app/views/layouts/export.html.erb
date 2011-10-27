@@ -6,18 +6,18 @@
 	<meta name="Description" content="Exported messages"/>
 	<title>Exported messages</title>
   <link rel="shortcut icon" href="/favicon.ico"/>
- 	
+
   <link rel="stylesheet" href="/stylesheets/screen.css" type="text/css" media="screen, projection"/>
-  <link rel="stylesheet" href="/stylesheets/print.css" type="text/css" media="print"/> 
+  <link rel="stylesheet" href="/stylesheets/print.css" type="text/css" media="print"/>
   <!--[if IE]>
     <link rel="stylesheet" href="/stylesheets/ie.css" type="text/css" media="screen, projection"/>
   <![endif]-->
   <link rel="stylesheet" href="/stylesheets/style.css" type="text/css" media="screen, projection"/>
   <%= stylesheet_link_tag 'default' %>
- 	<%= javascript_include_tag :defaults %> 	
+ 	<%= javascript_include_tag :defaults %>
  	<%= stylesheet_link_tag 'unitip' %>
 	<%= javascript_include_tag 'unitip' %>
-	
+
 </head>
 
 <body onload="Misc.focusInput('login');">
@@ -27,16 +27,16 @@
 	   <h1 style="padding:10px;color:#fff;"><%= @conversation.name %></h1>
 	 </div>
 	</div>
-  
+
 	<div id="main_content" class="container">
 		<div>
 		  <%= flash_messages %>
   	  <%= yield  %>
-		</div>    
+		</div>
 	</div>
 
 	<div id="footer_container"><%= render(:partial => "shared/footer") %></div>
-	
+
   <%#do not remove this scrips partial, used by google stats, ie6 detector, etc...%>
   <%#----------------------------------------------------------------------------%>
   <%= render :partial => "shared/scripts"%>

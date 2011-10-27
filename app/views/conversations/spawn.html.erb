@@ -6,7 +6,7 @@
 
 <div class="item">
   <% form_for(@conversation) do |f| %>
-    <%= f.error_messages %>  
+    <%= f.error_messages %>
     <p class="out_of_screen"><%= label_tag "important" %><%= f.text_field :something %></p>
     <%= f.hidden_field :parent_message_id %>
     <p><%= f.label t("ui.name") %><br /><%= f.text_field :name %></p>

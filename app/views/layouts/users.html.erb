@@ -6,9 +6,9 @@
 	<meta name="Description" content="<%=h @user ? @user.name_and_nick : 'Users' -%> | EchoWaves (Social Group Chat) <%= @tag -%>"/>
 	<title><%=h @user ? @user.name_and_nick : "Users" -%> | EchoWaves (Social Group Chat) <%= @tag -%></title>
   <link rel="shortcut icon" href="/favicon.ico"/>
- 	
+
   <link rel="stylesheet" href="/stylesheets/screen.css" type="text/css" media="screen, projection"/>
-  <link rel="stylesheet" href="/stylesheets/print.css" type="text/css" media="print"/> 
+  <link rel="stylesheet" href="/stylesheets/print.css" type="text/css" media="print"/>
   <!--[if IE]>
     <link rel="stylesheet" href="/stylesheets/ie.css" type="text/css" media="screen, projection"/>
   <![endif]-->
@@ -22,7 +22,7 @@
 
 <body>
 	<div id="header_container"><%= render(:partial => "shared/header") %></div>
-  
+
 	<div id="main_content" class="container">
 
 		<div id="col1" class="span-14">
@@ -34,22 +34,22 @@
   		  </div>
   		</div>
 		</div>
-		
+
 		<div id="sidebars" class="span-10 last">
 		  <div id="sidebars_container">
 		    <%= render :partial => 'shared/dashboard' %>
 		    <div class="span-10"><%= yield(:sidebar_bottom) %></div>
       </div>
-      
+
     </div>
-    
+
 	</div>
 
 	<div id="footer_container"><%= render(:partial => "shared/footer") %></div>
-  	<%#for now lets poll for new messages in conversations that are off the screen%>  
-	<%= periodically_call_remote :url => {:controller => 'users', :action => 'update_news'}, 
-		:frequency => UPDATE_NEW_MESSAGES_FREQUENCY*5, :complete => 'ShowUnreadMessagesInFluidapp();' %> 
-	
+  	<%#for now lets poll for new messages in conversations that are off the screen%>
+	<%= periodically_call_remote :url => {:controller => 'users', :action => 'update_news'},
+		:frequency => UPDATE_NEW_MESSAGES_FREQUENCY*5, :complete => 'ShowUnreadMessagesInFluidapp();' %>
+
   <%#do not remove this scrips partial, used by google stats, ie6 detector, etc...%>
   <%#----------------------------------------------------------------------------%>
   <%= render :partial => "shared/scripts"%>

@@ -1,7 +1,7 @@
 /**
  *
    IE6Update.js
-   
+
  * IE6Update is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 3 of the License.
@@ -16,7 +16,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * * * * * * * * * * * *
- * 
+ *
  * This is code is derived from Activebar2
  *
  * Activebar2 is free software; you can redistribute it and/or modify
@@ -33,7 +33,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * You may contact the author by mail: jakob@php.net
- * 
+ *
  * Or write to:
  * Jakob Westhoff
  * Kleiner Floraweg 35
@@ -47,20 +47,20 @@
  * @version $Revision$
  * @license http://www.gnu.org/licenses/gpl-3.0.txt GPL
  */
- 
- 
+
+
 try {
   document.execCommand("BackgroundImageCache", true, true);
 } catch(err) {}
 
-if(window.__noconflict){ jQuery.noConflict();} 
+if(window.__noconflict){ jQuery.noConflict();}
 (function($) {
-    
-    
+
+
     $.fn.activebar = function( options ) {
         // Merge the specified options with the default ones
         options = $.fn.extend( {}, $.fn.activebar.defaults, options );
-        
+
         if ( $.fn.activebar.container === null ) {
             $.fn.activebar.container = initializeActivebar( options );
         }
@@ -70,7 +70,7 @@ if(window.__noconflict){ jQuery.noConflict();}
 
         // If the activebar is currently visible hide it
         $.fn.activebar.hide();
-        
+
         // Remove all elements from the activebar content, which might be there
         $( '.contents', $.fn.activebar.container ).empty();
 
@@ -84,7 +84,7 @@ if(window.__noconflict){ jQuery.noConflict();}
 
         // Add a new "gotoURL" function if one has been supplied
         if( options.url !== null ) {
-            $.fn.activebar.container.click( 
+            $.fn.activebar.container.click(
                 function() {
                     window.location.href = options.url;
                 }
@@ -96,23 +96,23 @@ if(window.__noconflict){ jQuery.noConflict();}
 
         // Show the activebar
         if(options.preload){
-          var load = {a:0, b:0, c:0, d:0}          
-          
+          var load = {a:0, b:0, c:0, d:0}
+
           function preloadInit(){
             if(load.a && load.b && load.c && load.d){
               $.fn.activebar.show();
             }
           }
-          
+
           $('<img src="'+options.icons_path+'icon.png" class="normal">').load(function(){load.a=1; preloadInit()});
           $('<img src="'+options.icons_path+'icon-over.png" class="normal">').load(function(){load.b=1; preloadInit()});
           $('<img src="'+options.icons_path+'close.png" class="normal">').load(function(){load.c=1; preloadInit()});
           $('<img src="'+options.icons_path+'close-over.png" class="normal">').load(function(){load.d=1; preloadInit()});
-          
+
         }else{
           $.fn.activebar.show();
         }
-        
+
     };
 
     /**
@@ -120,7 +120,7 @@ if(window.__noconflict){ jQuery.noConflict();}
      */
     $.fn.activebar.defaults = {
         'background': '#ffffe1',
-        'border': '#666', 
+        'border': '#666',
         'highlight': '#3399ff',
         'font': 'Bitstream Vera Sans,verdana,sans-serif',
         'fontColor': 'InfoText',
@@ -152,13 +152,13 @@ if(window.__noconflict){ jQuery.noConflict();}
             // Already moving out or visible. Do Nothing.
             return;
         }
-        
+
         $.fn.activebar.state = 2;
         $.fn.activebar.container.css( 'display', 'block' );
-        
+
         var height = $.fn.activebar.container.height();
         $.fn.activebar.container.animate({
-            'top': '+=' + height + 'px' 
+            'top': '+=' + height + 'px'
         }, height * 20, 'linear', function() {
             $.fn.activebar.state = 3;
         });
@@ -177,7 +177,7 @@ if(window.__noconflict){ jQuery.noConflict();}
 
         var height   = $.fn.activebar.container.height();
         $.fn.activebar.container.animate({
-            'top': '-=' + height + 'px' 
+            'top': '-=' + height + 'px'
         }, height * 20, 'linear', function() {
             $.fn.activebar.container.css( 'display', 'none' );
             $.fn.activebar.visible = false;
@@ -194,14 +194,14 @@ if(window.__noconflict){ jQuery.noConflict();}
      function initializeActivebar( options ) {
         // Create the container object
         var container = $( '<div></div>' ).attr( 'id', 'activebar-container' );
-        
+
         // Set the needed css styles
         container.css({
           'display': 'none',
           'position': 'fixed',
           'zIndex': '9999',
           'top': '0px',
-          'left': '0px',            
+          'left': '0px',
           'cursor': 'default',
           'padding': '4px',
           'font-size' : '9px',
@@ -217,7 +217,7 @@ if(window.__noconflict){ jQuery.noConflict();}
 
         // Set the initial bar width
         $(window).trigger( 'resize' );
-        
+
         // The IE prior to version 7.0 does not support position fixed. However
         // the correct behaviour can be emulated using a hook to the scroll
         // event. This is a little choppy, but it works.
@@ -237,11 +237,11 @@ if(window.__noconflict){ jQuery.noConflict();}
                       container.css( 'top', ( $( window ).scrollTop() - container.height() ) + 'px' );
                     }
                 }
-            ).resize(function(){$(window).scroll();}); 
+            ).resize(function(){$(window).scroll();});
         }
 
         // Add the icon container
-        container.append( 
+        container.append(
           $( '<div></div>' ).attr( 'class', 'icon' )
           .css({
             'float': 'left',
@@ -255,7 +255,7 @@ if(window.__noconflict){ jQuery.noConflict();}
         );
 
         // Add the close button
-        container.append( 
+        container.append(
           $( '<div></div>' ).attr( 'class', 'close' )
           .css({
             'float': 'right',
@@ -266,13 +266,13 @@ if(window.__noconflict){ jQuery.noConflict();}
           .click(function(event) {
                 $.fn.activebar.hide();
                 event.stopPropagation();
-          }) 
+          })
           .append('<img src="'+options.icons_path+'close.png" class="normal">')
           .append('<img src="'+options.icons_path+'close-over.png" class="hover">')
         );
-       
+
         // Create the initial content container
-        container.append( 
+        container.append(
           $( '<div></div>' ).attr( 'class', 'contents' )
           .css({
             'margin': '0px 8px',
@@ -292,7 +292,7 @@ if(window.__noconflict){ jQuery.noConflict();}
         // Register functions to change between normal and highlight background
         // color on mouseover
         container.unbind( 'mouseenter mouseleave' );
-        container.hover( 
+        container.hover(
             function() {
                 $(this).css({backgroundColor: options.highlight, color: "#FFFFFF"}).addClass('hover');
                 $('.hover', container).show();
@@ -309,7 +309,7 @@ if(window.__noconflict){ jQuery.noConflict();}
         $( '.contents', container ).css({
             'fontFamily': options.font,
             'fontSize': options.fontSize
-        });                                      
+        });
      }
 
 })(jQuery);

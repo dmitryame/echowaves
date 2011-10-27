@@ -5,7 +5,7 @@ module TZInfo
     module Europe
       module Warsaw
         include TimezoneDefinition
-        
+
         timezone 'Europe/Warsaw' do |tz|
           tz.offset :o0, 5040, 0, :LMT
           tz.offset :o1, 5040, 0, :WMT
@@ -13,7 +13,7 @@ module TZInfo
           tz.offset :o3, 3600, 3600, :CEST
           tz.offset :o4, 7200, 0, :EET
           tz.offset :o5, 7200, 3600, :EEST
-          
+
           tz.transition 1879, 12, :o1, 288925853, 120
           tz.transition 1915, 8, :o2, 290485733, 120
           tz.transition 1916, 4, :o3, 29051813, 12

@@ -56,7 +56,7 @@ module Shoulda # :nodoc:
               "Expected action to assign a value for @#{@variable}"
             false
           else
-            @negative_failure_message = 
+            @negative_failure_message =
               "Didn't expect action to assign a value for @#{@variable}, " <<
               "but it was assigned to #{assigned_value.inspect}"
             true
@@ -99,7 +99,7 @@ module Shoulda # :nodoc:
         end
 
         def assigns
-          @controller.response.template.assigns 
+          @controller.response.template.assigns
         end
 
       end

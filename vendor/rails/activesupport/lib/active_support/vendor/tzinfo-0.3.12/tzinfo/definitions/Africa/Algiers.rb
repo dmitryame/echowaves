@@ -5,7 +5,7 @@ module TZInfo
     module Africa
       module Algiers
         include TimezoneDefinition
-        
+
         timezone 'Africa/Algiers' do |tz|
           tz.offset :o0, 732, 0, :LMT
           tz.offset :o1, 561, 0, :PMT
@@ -13,7 +13,7 @@ module TZInfo
           tz.offset :o3, 0, 3600, :WEST
           tz.offset :o4, 3600, 0, :CET
           tz.offset :o5, 3600, 3600, :CEST
-          
+
           tz.transition 1891, 3, :o1, 2170625843, 900
           tz.transition 1911, 3, :o2, 69670267013, 28800
           tz.transition 1916, 6, :o3, 58104707, 24

@@ -21,7 +21,7 @@ class MimeTypeTest < Test::Unit::TestCase
     expect = [Mime::HTML, Mime::XML, Mime::PNG, Mime::PDF, Mime::TEXT, Mime::YAML, Mime::ALL]
     assert_equal expect, Mime::Type.parse(accept)
   end
-  
+
   # Accept header send with user HTTP_USER_AGENT: Sunrise/0.42j (Windows XP)
   def test_parse_crappy_broken_acceptlines
     accept = "text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/*,,*/*;q=0.5"
@@ -35,17 +35,17 @@ class MimeTypeTest < Test::Unit::TestCase
     expect = ['image/gif', 'image/x-xbitmap', 'image/jpeg','image/pjpeg', 'application/x-shockwave-flash', 'application/vnd.ms-excel', 'application/vnd.ms-powerpoint', 'application/msword', 'pronto/1.00.00', 'sslvpn/1.00.00.00', Mime::ALL  ]
     assert_equal expect, Mime::Type.parse(accept).collect { |c| c.to_s }
   end
-  
+
   def test_custom_type
     Mime::Type.register("image/gif", :gif)
-    assert_nothing_raised do 
+    assert_nothing_raised do
       Mime::GIF
       assert_equal Mime::GIF, Mime::SET.last
     end
   ensure
     Mime.module_eval { remove_const :GIF if const_defined?(:GIF) }
   end
-  
+
   def test_type_should_be_equal_to_symbol
     assert_equal Mime::HTML, 'application/xhtml+xml'
     assert_equal Mime::HTML, :html

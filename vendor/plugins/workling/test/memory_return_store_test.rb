@@ -7,7 +7,7 @@ context "the memory return store" do
     store.set(key, value)
     store.get(key).should.equal(value)
   end
-  
+
   specify "should delete values in the store once they have been get()tted." do
     store = Workling::Return::Store::MemoryReturnStore.new
     key, value = :gender, :undecided
@@ -15,7 +15,7 @@ context "the memory return store" do
     store.get(key)
     store.get(key).should.equal nil
   end
-  
+
   specify "should return nothing for a key that is not in the store" do
     store = Workling::Return::Store::MemoryReturnStore.new
     store.get(:bollocks).should.equal nil

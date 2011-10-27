@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class FixturesTest < ActiveSupport::TestCase
   fixtures :users, :conversations, :subscriptions
-  
+
   test "fixtures should be correct" do
     assert_equal 3, User.all.length
     assert_equal 5, Conversation.all.length

@@ -4,7 +4,7 @@ require 'features/support/models/tagging'
 class Developer < ActiveRecord::Base
   has_many :taggings, :as => :taggable
   has_many :tags, :through => :taggings
-  
+
   define_index do
     indexes country,  :facet => true
     indexes state,    :facet => true

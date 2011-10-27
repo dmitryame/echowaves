@@ -5,17 +5,17 @@ module ActiveSupport #:nodoc:
         def self.included(base) #:nodoc:
           base.extend(ClassMethods) if base == ::Time # i.e., don't include class methods in DateTime
         end
-        
+
         module ClassMethods
           attr_accessor :zone_default
-          
-          # Returns the TimeZone for the current request, if this has been set (via Time.zone=). 
+
+          # Returns the TimeZone for the current request, if this has been set (via Time.zone=).
           # If <tt>Time.zone</tt> has not been set for the current request, returns the TimeZone specified in <tt>config.time_zone</tt>.
           def zone
             Thread.current[:time_zone] || zone_default
           end
 
-          # Sets <tt>Time.zone</tt> to a TimeZone object for the current request/thread. 
+          # Sets <tt>Time.zone</tt> to a TimeZone object for the current request/thread.
           #
           # This method accepts any of the following:
           #
@@ -37,7 +37,7 @@ module ActiveSupport #:nodoc:
           def zone=(time_zone)
             Thread.current[:time_zone] = get_zone(time_zone)
           end
-          
+
           # Allows override of <tt>Time.zone</tt> locally inside supplied block; resets <tt>Time.zone</tt> to existing value when done.
           def use_zone(time_zone)
             old_zone, ::Time.zone = ::Time.zone, get_zone(time_zone)
@@ -45,12 +45,12 @@ module ActiveSupport #:nodoc:
           ensure
             ::Time.zone = old_zone
           end
-          
+
           # Returns <tt>Time.zone.now</tt> when <tt>config.time_zone</tt> is set, otherwise just returns <tt>Time.now</tt>.
           def current
             ::Time.zone_default ? ::Time.zone.now : ::Time.now
           end
-          
+
           private
             def get_zone(time_zone)
               return time_zone if time_zone.nil? || time_zone.is_a?(TimeZone)
@@ -64,7 +64,7 @@ module ActiveSupport #:nodoc:
               end
             end
         end
-        
+
         # Returns the simultaneous time in <tt>Time.zone</tt>.
         #
         #   Time.zone = 'Hawaii'         # => 'Hawaii'
@@ -73,7 +73,7 @@ module ActiveSupport #:nodoc:
         # This method is similar to Time#localtime, except that it uses <tt>Time.zone</tt> as the local zone
         # instead of the operating system's time zone.
         #
-        # You can also pass in a TimeZone instance or string that identifies a TimeZone as an argument, 
+        # You can also pass in a TimeZone instance or string that identifies a TimeZone as an argument,
         # and the conversion will be based on that zone instead of <tt>Time.zone</tt>.
         #
         #   Time.utc(2000).in_time_zone('Alaska')  # => Fri, 31 Dec 1999 15:00:00 AKST -09:00

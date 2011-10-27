@@ -4,7 +4,7 @@ nl:
     url: 'http://www.microsoft.com/windows/internet-explorer/default.aspx'
   home:
     index:
-        headline1: "Welkom op Echowaves."      
+        headline1: "Welkom op Echowaves."
         headline2: 'The source code is hosted at: <a href="http://github.com/dmitryame/echowaves">http://github.com/dmitryame/echowaves</a>.'
         p1: "<H5>Als je van kletsen, bloggen, foto's laten zien aan je vrienden of gewoon socializen met je vrienden houdt, is Echowaves iets voor jou!"
         p2: "-- het is gratis en iedereen kan meedoen. Begin je eigen convos, nodig al je vrienden uit voor jouw convos of neem deel aan convos die je interessant lijken. Veel plezier!"
@@ -111,9 +111,9 @@ nl:
     recently_joined_users: "nieuwe gebruikers"
     sign_up_as_new_user: "registreren"
     look_for_users: "zoek nieuwe gebruikers"
-    since: "sinds:"     
+    since: "sinds:"
     since_date: "since: {{date}}"
-    n_convos_started: "{{number}} convos started"   
+    n_convos_started: "{{number}} convos started"
     n_messages_posted: "{{number}} messages posted"
     following_n_users: "following {{number}} users"
     n_followers: "{{number}} followers"
@@ -146,7 +146,7 @@ nl:
   footer:
     uptime_monitoring: "Website wordt gecheckt door"
     report_problems_or_abuse: "Problemen of misbruik melden aan:"
-    terms_and_conditions: "Voorwaarden"    
+    terms_and_conditions: "Voorwaarden"
     conversations: "convos"
   messages:
     original_message: "eerste bericht"

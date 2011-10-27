@@ -5,12 +5,12 @@ module TZInfo
     module America
       module Monterrey
         include TimezoneDefinition
-        
+
         timezone 'America/Monterrey' do |tz|
           tz.offset :o0, -24076, 0, :LMT
           tz.offset :o1, -21600, 0, :CST
           tz.offset :o2, -21600, 3600, :CDT
-          
+
           tz.transition 1922, 1, :o1, 9692223, 4
           tz.transition 1988, 4, :o2, 576057600
           tz.transition 1988, 10, :o1, 594198000

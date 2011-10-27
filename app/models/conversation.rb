@@ -21,10 +21,10 @@
 require File.expand_path(File.dirname(__FILE__) + "/../../lib/uuid")
 
 class Conversation < ActiveRecord::Base
-  
+
   before_validation_on_create :generate_uuid
   acts_as_taggable_on :tags, :bookmarks
-  
+
   belongs_to :user, :counter_cache => true
   belongs_to :parent_message, # parent message it was spawned from, in case it was created by spawning
     :class_name => "Message",
@@ -33,10 +33,10 @@ class Conversation < ActiveRecord::Base
   has_many :messages # these are the conversations messages
   has_many :subscriptions
   has_many :users, :through => :subscriptions, :uniq => true,:order => "login ASC" # followers,  subscribers
-  has_many :recent_followers, 
-    :through => :subscriptions, 
-    :source => :user, 
-    :uniq => true, 
+  has_many :recent_followers,
+    :through => :subscriptions,
+    :source => :user,
+    :uniq => true,
     :order => "subscriptions.created_at DESC",
     :limit => 10
 
@@ -89,7 +89,7 @@ class Conversation < ActiveRecord::Base
   end
 
   def writable_by?(user)
-    self.owner == user || 
+    self.owner == user ||
     ( !self.read_only && self.public? ) ||
     ( self.private? && self.followed_by?(user) && !self.read_only )
   end
@@ -109,7 +109,7 @@ class Conversation < ActiveRecord::Base
 
   def add_visit(user)
     if cv = ConversationVisit.find_by_user_id_and_conversation_id(user.id, self.id)
-      cv.increment!( :visits_count ) 
+      cv.increment!( :visits_count )
     else
       user.conversation_visits.create( :conversation => self )
     end
@@ -130,7 +130,7 @@ class Conversation < ActiveRecord::Base
 
   def has_messages_before?(first_message)
     return false if(first_message == nil)
-    messages = self.messages.published.find(:first, :conditions => ["id < ?", first_message.id], :order => 'id DESC') 
+    messages = self.messages.published.find(:first, :conditions => ["id < ?", first_message.id], :order => 'id DESC')
     messages ? true : false
   end
 

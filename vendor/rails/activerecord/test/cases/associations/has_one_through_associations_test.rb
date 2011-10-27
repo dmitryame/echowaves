@@ -9,7 +9,7 @@ require 'models/member_detail'
 
 class HasOneThroughAssociationsTest < ActiveRecord::TestCase
   fixtures :member_types, :members, :clubs, :memberships, :sponsors, :organizations
-  
+
   def setup
     @member = members(:groucho)
   end
@@ -21,7 +21,7 @@ class HasOneThroughAssociationsTest < ActiveRecord::TestCase
   def test_has_one_through_with_has_many
     assert_equal clubs(:moustache_club), @member.favourite_club
   end
-  
+
   def test_creating_association_creates_through_record
     new_member = Member.create(:name => "Chris")
     new_member.club = Club.create(:name => "LRUG")
@@ -38,19 +38,19 @@ class HasOneThroughAssociationsTest < ActiveRecord::TestCase
     assert new_member.save
     assert_equal clubs(:moustache_club), new_member.club
   end
-  
+
   def test_replace_target_record
     new_club = Club.create(:name => "Marx Bros")
     @member.club = new_club
     @member.reload
     assert_equal new_club, @member.club
   end
-  
+
   def test_replacing_target_record_deletes_old_association
     assert_no_difference "Membership.count" do
       new_club = Club.create(:name => "Bananarama")
       @member.club = new_club
-      @member.reload      
+      @member.reload
     end
   end
 
@@ -82,7 +82,7 @@ class HasOneThroughAssociationsTest < ActiveRecord::TestCase
       Member.find(:all, :include => :sponsor_club, :conditions => ["name = ?", "Groucho Marx"])
     end
     assert_equal 1, members.size
-    assert_not_nil assert_no_queries {members[0].sponsor_club}    
+    assert_not_nil assert_no_queries {members[0].sponsor_club}
   end
 
   def test_has_one_through_polymorphic_with_source_type

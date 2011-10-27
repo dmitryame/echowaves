@@ -5,7 +5,7 @@ module TZInfo
     module Asia
       module Karachi
         include TimezoneDefinition
-        
+
         timezone 'Asia/Karachi' do |tz|
           tz.offset :o0, 16092, 0, :LMT
           tz.offset :o1, 19800, 0, :IST
@@ -13,7 +13,7 @@ module TZInfo
           tz.offset :o3, 18000, 0, :KART
           tz.offset :o4, 18000, 0, :PKT
           tz.offset :o5, 18000, 3600, :PKST
-          
+
           tz.transition 1906, 12, :o1, 1934061051, 800
           tz.transition 1942, 8, :o2, 116668957, 48
           tz.transition 1945, 10, :o1, 116723675, 48

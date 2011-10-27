@@ -115,7 +115,7 @@ pl:
     look_for_users: "szukaj użytkowników"
     since: "od:"
     since_date: "od: {{date}}"
-    n_convos_started: "{{number}} konwersacji"   
+    n_convos_started: "{{number}} konwersacji"
     n_messages_posted: "{{number}} wiadomości"
     following_n_users: "śledzony przez {{number}} użytkowników"
     n_followers: "{{number}} śledzonych"
@@ -148,7 +148,7 @@ pl:
   footer:
     uptime_monitoring: "Website Uptime Monitoring By"
     report_problems_or_abuse: "Zaraportuj błędy"
-    terms_and_conditions: "Warunki użytkowania"    
+    terms_and_conditions: "Warunki użytkowania"
     conversations: "konwersacje"
   messages:
     original_message: "oryginalna wiadomość"

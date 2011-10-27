@@ -754,7 +754,7 @@ class LegacyRouteSetTests < ActiveSupport::TestCase
 
     ActionController::Routing.use_controllers! %w(content admin/user admin/news_feed)
   end
-  
+
   def teardown
     @rs.clear!
   end
@@ -2564,10 +2564,10 @@ class RouteLoadingTest < Test::Unit::TestCase
 
     routes.reload
   end
-  
+
   def test_load_multiple_configurations
     routes.add_configuration_file("engines.rb")
-    
+
     File.expects(:stat).at_least_once.returns(@stat)
 
     routes.expects(:load).with('./config/routes.rb')

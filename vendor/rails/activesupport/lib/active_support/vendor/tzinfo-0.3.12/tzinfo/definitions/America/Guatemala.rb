@@ -5,12 +5,12 @@ module TZInfo
     module America
       module Guatemala
         include TimezoneDefinition
-        
+
         timezone 'America/Guatemala' do |tz|
           tz.offset :o0, -21724, 0, :LMT
           tz.offset :o1, -21600, 0, :CST
           tz.offset :o2, -21600, 3600, :CDT
-          
+
           tz.transition 1918, 10, :o1, 52312429831, 21600
           tz.transition 1973, 11, :o2, 123055200
           tz.transition 1974, 2, :o1, 130914000

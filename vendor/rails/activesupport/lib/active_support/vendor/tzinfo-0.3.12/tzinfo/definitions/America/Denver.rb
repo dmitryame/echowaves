@@ -5,14 +5,14 @@ module TZInfo
     module America
       module Denver
         include TimezoneDefinition
-        
+
         timezone 'America/Denver' do |tz|
           tz.offset :o0, -25196, 0, :LMT
           tz.offset :o1, -25200, 0, :MST
           tz.offset :o2, -25200, 3600, :MDT
           tz.offset :o3, -25200, 3600, :MWT
           tz.offset :o4, -25200, 3600, :MPT
-          
+
           tz.transition 1883, 11, :o1, 57819199, 24
           tz.transition 1918, 3, :o2, 19373471, 8
           tz.transition 1918, 10, :o1, 14531363, 6

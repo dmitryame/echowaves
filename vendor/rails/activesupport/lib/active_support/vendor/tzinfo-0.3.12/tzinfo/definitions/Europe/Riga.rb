@@ -5,7 +5,7 @@ module TZInfo
     module Europe
       module Riga
         include TimezoneDefinition
-        
+
         timezone 'Europe/Riga' do |tz|
           tz.offset :o0, 5784, 0, :LMT
           tz.offset :o1, 5784, 0, :RMT
@@ -16,7 +16,7 @@ module TZInfo
           tz.offset :o6, 3600, 0, :CET
           tz.offset :o7, 10800, 3600, :MSD
           tz.offset :o8, 7200, 3600, :EEST
-          
+
           tz.transition 1879, 12, :o1, 8667775559, 3600
           tz.transition 1918, 4, :o2, 8718114659, 3600
           tz.transition 1918, 9, :o1, 8718669059, 3600

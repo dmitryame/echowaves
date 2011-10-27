@@ -5,13 +5,13 @@ module TZInfo
     module Asia
       module Chongqing
         include TimezoneDefinition
-        
+
         timezone 'Asia/Chongqing' do |tz|
           tz.offset :o0, 25580, 0, :LMT
           tz.offset :o1, 25200, 0, :LONT
           tz.offset :o2, 28800, 0, :CST
           tz.offset :o3, 28800, 3600, :CDT
-          
+
           tz.transition 1927, 12, :o1, 10477063601, 4320
           tz.transition 1980, 4, :o2, 325962000
           tz.transition 1986, 5, :o3, 515520000

@@ -1,13 +1,13 @@
 #--
 # Copyright (c) 2006 Philip Ross
-# 
+#
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
 # in the Software without restriction, including without limitation the rights
 # to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 # copies of the Software, and to permit persons to whom the Software is
 # furnished to do so, subject to the following conditions:
-# 
+#
 # The above copyright notice and this permission notice shall be included in all
 # copies or substantial portions of the Software.
 #
@@ -23,15 +23,15 @@
 module TZInfo
   # Represents a timezone defined in a data module.
   class TimezoneInfo #:nodoc:
-    
+
     # The timezone identifier.
     attr_reader :identifier
-    
+
     # Constructs a new TimezoneInfo with an identifier.
     def initialize(identifier)
       @identifier = identifier
     end
-    
+
     # Returns internal object state as a programmer-readable string.
     def inspect
       "#<#{self.class}: #@identifier>"

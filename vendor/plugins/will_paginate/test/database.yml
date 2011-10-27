@@ -10,13 +10,13 @@ sqlite2:
 mysql:
   adapter: mysql
   username: root
-  password: 
+  password:
   encoding: utf8
   database: will_paginate_unittest
 
 postgres:
   adapter: postgresql
   username: mislav
-  password: 
+  password:
   database: will_paginate_unittest
   min_messages: warning

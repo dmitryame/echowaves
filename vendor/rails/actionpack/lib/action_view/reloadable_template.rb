@@ -79,7 +79,7 @@ module ActionView #:nodoc:
 
     def initialize(*args)
       super
-      
+
       # we don't ever want to get frozen
       extend Unfreezable
     end

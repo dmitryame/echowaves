@@ -5,13 +5,13 @@ module TZInfo
     module Asia
       module Urumqi
         include TimezoneDefinition
-        
+
         timezone 'Asia/Urumqi' do |tz|
           tz.offset :o0, 21020, 0, :LMT
           tz.offset :o1, 21600, 0, :URUT
           tz.offset :o2, 28800, 0, :CST
           tz.offset :o3, 28800, 3600, :CDT
-          
+
           tz.transition 1927, 12, :o1, 10477063829, 4320
           tz.transition 1980, 4, :o2, 325965600
           tz.transition 1986, 5, :o3, 515520000

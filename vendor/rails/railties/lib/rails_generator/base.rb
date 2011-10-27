@@ -8,7 +8,7 @@ module Rails
   # web application framework.  Generators are easily invoked within Rails
   # applications to add and remove components such as models and controllers.
   # New generators are easy to create and may be distributed as RubyGems,
-  # tarballs, or Rails plugins for inclusion system-wide, per-user, 
+  # tarballs, or Rails plugins for inclusion system-wide, per-user,
   # or per-application.
   #
   # For actual examples see the rails_generator/generators directory in the
@@ -19,12 +19,12 @@ module Rails
   # require little or no new logic but replace the template files.
   #
   # For a RubyGem, put your generator class and templates in the +lib+
-  # directory. For a Rails plugin, make a +generators+ directory at the 
+  # directory. For a Rails plugin, make a +generators+ directory at the
   # root of your plugin.
   #
-  # The layout of generator files can be seen in the built-in 
+  # The layout of generator files can be seen in the built-in
   # +controller+ generator:
-  #   
+  #
   #   generators/
   #     components/
   #       controller/
@@ -41,10 +41,10 @@ module Rails
   # directory.
   #
   # The filenames of the templates don't matter, but choose something that
-  # will be self-explanatory since you will be referencing these in the 
+  # will be self-explanatory since you will be referencing these in the
   # +manifest+ method inside your generator subclass.
   #
-  # 
+  #
   module Generator
     class GeneratorError < StandardError; end
     class UsageError < GeneratorError; end
@@ -53,11 +53,11 @@ module Rails
     # The base code generator is bare-bones.  It sets up the source and
     # destination paths and tells the logger whether to keep its trap shut.
     #
-    # It's useful for copying files such as stylesheets, images, or 
+    # It's useful for copying files such as stylesheets, images, or
     # javascripts.
     #
     # For more comprehensive template-based passive code generation with
-    # arguments, you'll want Rails::Generator::NamedBase. 
+    # arguments, you'll want Rails::Generator::NamedBase.
     #
     # Generators create a manifest of the actions they perform then hand
     # the manifest to a command which replays the actions to do the heavy
@@ -178,23 +178,23 @@ module Rails
     # The base generator for named components: models, controllers, mailers,
     # etc.  The target name is taken as the first argument and inflected to
     # singular, plural, class, file, and table forms for your convenience.
-    # The remaining arguments are aliased to +actions+ as an array for 
+    # The remaining arguments are aliased to +actions+ as an array for
     # controller and mailer convenience.
     #
-    # Several useful local variables and methods are populated in the 
+    # Several useful local variables and methods are populated in the
     # +initialize+ method. See below for a list of Attributes and
-    # External Aliases available to both the manifest and to all templates.    
+    # External Aliases available to both the manifest and to all templates.
     #
     # If no name is provided, the generator raises a usage error with content
     # optionally read from the USAGE file in the generator's base path.
     #
-    # For example, the +controller+ generator takes the first argument as 
+    # For example, the +controller+ generator takes the first argument as
     # the name of the class and subsequent arguments as the names of
     # actions to be generated:
     #
     #   ./script/generate controller Article index new create
     #
-    # See Rails::Generator::Base for a discussion of manifests, 
+    # See Rails::Generator::Base for a discussion of manifests,
     # Rails::Generator::Commands::Create for methods available to the manifest,
     # and Rails::Generator for a general discussion of generators.
     class NamedBase < Base
@@ -219,7 +219,7 @@ module Rails
         def banner
           "Usage: #{$0} #{spec.name} #{spec.name.camelize}Name [options]"
         end
-    
+
         def attributes
           @attributes ||= @args.collect do |attribute|
             Rails::Generator::GeneratedAttribute.new(*attribute.split(":"))

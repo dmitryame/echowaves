@@ -5,14 +5,14 @@ module TZInfo
     module America
       module Mazatlan
         include TimezoneDefinition
-        
+
         timezone 'America/Mazatlan' do |tz|
           tz.offset :o0, -25540, 0, :LMT
           tz.offset :o1, -25200, 0, :MST
           tz.offset :o2, -21600, 0, :CST
           tz.offset :o3, -28800, 0, :PST
           tz.offset :o4, -25200, 3600, :MDT
-          
+
           tz.transition 1922, 1, :o1, 58153339, 24
           tz.transition 1927, 6, :o2, 9700171, 4
           tz.transition 1930, 11, :o1, 9705183, 4

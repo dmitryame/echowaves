@@ -130,7 +130,7 @@ render "/u/apps/warehouse_app/current/app/views/products/show"
 Rails determines that this is a file render because of the leading slash character. To be explicit, you can use the +:file+ option (which was required on Rails 2.2 and earlier):
 
 <ruby>
-render :file => 
+render :file =>
   "/u/apps/warehouse_app/current/app/views/products/show"
 </ruby>
 
@@ -145,7 +145,7 @@ h5. Using +render+ with +:inline+
 The +render+ method can do without a view completely, if you're willing to use the +:inline+ option to supply ERB as part of the method call. This is perfectly valid:
 
 <ruby>
-render :inline => 
+render :inline =>
   "<% products.each do |p| %><p><%= p.name %><p><% end %>"
 </ruby>
 
@@ -154,7 +154,7 @@ WARNING: There is seldom any good reason to use this option. Mixing ERB into you
 By default, inline rendering uses ERb. You can force it to use Builder instead with the +:type+ option:
 
 <ruby>
-render :inline => 
+render :inline =>
   "xml.p {'Horrid coding practice!'}", :type => :builder
 </ruby>
 
@@ -533,7 +533,7 @@ h5. Linking to Feeds with +auto_discovery_link_tag+
 The +auto_discovery_link_tag+ helper builds HTML that most browsers and newsreaders can use to detect the presences of RSS or ATOM feeds. It takes the type of the link (+:rss+ or +:atom+), a hash of options that are passed through to url_for, and a hash of options for the tag:
 
 <erb>
-<%= auto_discovery_link_tag(:rss, {:action => "feed"}, 
+<%= auto_discovery_link_tag(:rss, {:action => "feed"},
   {:title => "RSS Feed"}) %>
 </erb>
 
@@ -596,7 +596,7 @@ If you're loading multiple javascript files, you can create a better user experi
 By default, the combined file will be delivered as +javascripts/all.js+. You can specify a location for the cached asset file instead:
 
 <erb>
-<%= javascript_include_tag "main", "columns", 
+<%= javascript_include_tag "main", "columns",
   :cache => 'cache/main/display' %>
 </erb>
 
@@ -655,7 +655,7 @@ If you're loading multiple CSS files, you can create a better user experience by
 By default, the combined file will be delivered as +stylesheets/all.css+. You can specify a location for the cached asset file instead:
 
 <erb>
-<%= stylesheet_link_tag "main", "columns", 
+<%= stylesheet_link_tag "main", "columns",
   :cache => 'cache/main/display' %>
 </erb>
 
@@ -801,7 +801,7 @@ You can also pass local variables into partials, making them even more powerful 
 <erb>
 <h1>New zone</h1>
 <%= error_messages_for :zone %>
-<%= render :partial => "form", :locals => 
+<%= render :partial => "form", :locals =>
   { :button_label => "Create zone", :zone => @zone } %>
 </erb>
 
@@ -810,7 +810,7 @@ You can also pass local variables into partials, making them even more powerful 
 <erb>
 <h1>Editing zone</h1>
 <%= error_messages_for :zone %>
-<%= render :partial => "form", :locals => 
+<%= render :partial => "form", :locals =>
   { :button_label => "Update zone", :zone => @zone } %>
 </erb>
 
@@ -878,7 +878,7 @@ TIP: Rails also makes a counter variable available within a partial called by th
 You can also specify a second partial to be rendered between instances of the main partial by using the +:spacer_template+ option:
 
 <erb>
-<%= render :partial => "product", :collection => @products, 
+<%= render :partial => "product", :collection => @products,
   :spacer_template => "product_ruler" %>
 </erb>
 
@@ -905,7 +905,7 @@ Rails determines the name of the partial to use by looking at the model name in 
 
 <erb>
 <h1>Contacts</h1>
-<%= render :partial => 
+<%= render :partial =>
   [customer1, employee1, customer2, employee2] %>
 </erb>
 

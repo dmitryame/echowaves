@@ -49,7 +49,7 @@ var Keyboard = {
     // okay, for now, all we're doing is seeing if you pressed "Ctrl-ENTER" in the text area
     // ugh, "e.target.id" fails in IE (7 anyway) too lazy to figure out what to do.
 //    if (e.target.id == "message_message") {
-    
+
       if (k == 13 && e.shiftKey) { // "Shift-ENTER" enters a new line
         return;
       }

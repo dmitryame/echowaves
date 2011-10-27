@@ -47,12 +47,12 @@ module Paperclip
 
   class << self
     # Provides configurability to Paperclip. There are a number of options available, such as:
-    # * whiny_thumbnails: Will raise an error if Paperclip cannot process thumbnails of 
+    # * whiny_thumbnails: Will raise an error if Paperclip cannot process thumbnails of
     #   an uploaded image. Defaults to true.
     # * log: Logs progress to the Rails log. Uses ActiveRecord's logger, so honors
     #   log levels, etc. Defaults to true.
     # * command_path: Defines the path at which to find the command line
-    #   programs if they are not visible to Rails the system's search path. Defaults to 
+    #   programs if they are not visible to Rails the system's search path. Defaults to
     #   nil, which uses the first executable found in the user's search path.
     # * image_magick_path: Deprecated alias of command_path.
     def options
@@ -111,7 +111,7 @@ module Paperclip
       name = name.to_s.camelize
       processor = Paperclip.const_get(name)
       unless processor.ancestors.include?(Paperclip::Processor)
-        raise PaperclipError.new("Processor #{name} was not found") 
+        raise PaperclipError.new("Processor #{name} was not found")
       end
       processor
     end
@@ -128,42 +128,42 @@ module Paperclip
 
   module ClassMethods
     # +has_attached_file+ gives the class it is called on an attribute that maps to a file. This
-    # is typically a file stored somewhere on the filesystem and has been uploaded by a user. 
+    # is typically a file stored somewhere on the filesystem and has been uploaded by a user.
     # The attribute returns a Paperclip::Attachment object which handles the management of
-    # that file. The intent is to make the attachment as much like a normal attribute. The 
-    # thumbnails will be created when the new file is assigned, but they will *not* be saved 
-    # until +save+ is called on the record. Likewise, if the attribute is set to +nil+ is 
-    # called on it, the attachment will *not* be deleted until +save+ is called. See the 
-    # Paperclip::Attachment documentation for more specifics. There are a number of options 
+    # that file. The intent is to make the attachment as much like a normal attribute. The
+    # thumbnails will be created when the new file is assigned, but they will *not* be saved
+    # until +save+ is called on the record. Likewise, if the attribute is set to +nil+ is
+    # called on it, the attachment will *not* be deleted until +save+ is called. See the
+    # Paperclip::Attachment documentation for more specifics. There are a number of options
     # you can set to change the behavior of a Paperclip attachment:
     # * +url+: The full URL of where the attachment is publically accessible. This can just
     #   as easily point to a directory served directly through Apache as it can to an action
     #   that can control permissions. You can specify the full domain and path, but usually
-    #   just an absolute path is sufficient. The leading slash *must* be included manually for 
-    #   absolute paths. The default value is 
+    #   just an absolute path is sufficient. The leading slash *must* be included manually for
+    #   absolute paths. The default value is
     #   "/system/:attachment/:id/:style/:basename.:extension". See
     #   Paperclip::Attachment#interpolate for more information on variable interpolaton.
     #     :url => "/:class/:attachment/:id/:style_:basename.:extension"
     #     :url => "http://some.other.host/stuff/:class/:id_:extension"
-    # * +default_url+: The URL that will be returned if there is no attachment assigned. 
-    #   This field is interpolated just as the url is. The default value is 
+    # * +default_url+: The URL that will be returned if there is no attachment assigned.
+    #   This field is interpolated just as the url is. The default value is
     #   "/:attachment/:style/missing.png"
     #     has_attached_file :avatar, :default_url => "/images/default_:style_avatar.png"
     #     User.new.avatar_url(:small) # => "/images/default_small_avatar.png"
-    # * +styles+: A hash of thumbnail styles and their geometries. You can find more about 
-    #   geometry strings at the ImageMagick website 
+    # * +styles+: A hash of thumbnail styles and their geometries. You can find more about
+    #   geometry strings at the ImageMagick website
     #   (http://www.imagemagick.org/script/command-line-options.php#resize). Paperclip
-    #   also adds the "#" option (e.g. "50x50#"), which will resize the image to fit maximally 
-    #   inside the dimensions and then crop the rest off (weighted at the center). The 
+    #   also adds the "#" option (e.g. "50x50#"), which will resize the image to fit maximally
+    #   inside the dimensions and then crop the rest off (weighted at the center). The
     #   default value is to generate no thumbnails.
-    # * +default_style+: The thumbnail style that will be used by default URLs. 
+    # * +default_style+: The thumbnail style that will be used by default URLs.
     #   Defaults to +original+.
     #     has_attached_file :avatar, :styles => { :normal => "100x100#" },
     #                       :default_style => :normal
     #     user.avatar.url # => "/avatars/23/normal_me.png"
     # * +whiny_thumbnails+: Will raise an error if Paperclip cannot post_process an uploaded file due
-    #   to a command line error. This will override the global setting for this attachment. 
-    #   Defaults to true. 
+    #   to a command line error. This will override the global setting for this attachment.
+    #   Defaults to true.
     # * +convert_options+: When creating thumbnails, use this free-form options
     #   field to pass in various convert command options.  Typical options are "-strip" to
     #   remove all Exif data from the image (save space for thumbnails and avatars) or
@@ -194,7 +194,7 @@ module Paperclip
 
       define_callbacks :before_post_process, :after_post_process
       define_callbacks :"before_#{name}_post_process", :"after_#{name}_post_process"
-     
+
       define_method name do |*args|
         a = attachment_for(name)
         (args.length > 0) ? a.to_s(args.first) : a
@@ -245,14 +245,14 @@ module Paperclip
         message unless attachment.file?
       end
     end
-    
+
     # Places ActiveRecord-style validations on the content type of the file
-    # assigned. The possible options are: 
-    # * +content_type+: Allowed content types.  Can be a single content type 
-    #   or an array.  Each type can be a String or a Regexp. It should be 
-    #   noted that Internet Explorer upload files with content_types that you 
-    #   may not expect. For example, JPEG images are given image/pjpeg and 
-    #   PNGs are image/x-png, so keep that in mind when determining how you 
+    # assigned. The possible options are:
+    # * +content_type+: Allowed content types.  Can be a single content type
+    #   or an array.  Each type can be a String or a Regexp. It should be
+    #   noted that Internet Explorer upload files with content_types that you
+    #   may not expect. For example, JPEG images are given image/pjpeg and
+    #   PNGs are image/x-png, so keep that in mind when determining how you
     #   match.  Allows all by default.
     # * +message+: The message to display when the uploaded file has an invalid
     #   content type.
@@ -262,7 +262,7 @@ module Paperclip
     def validates_attachment_content_type name, options = {}
       attachment_definitions[name][:validations][:content_type] = lambda do |attachment, instance|
         valid_types = [options[:content_type]].flatten
-        
+
         unless attachment.original_filename.blank?
           unless valid_types.blank?
             content_type = attachment.instance_read(:content_type)
@@ -286,7 +286,7 @@ module Paperclip
       @_paperclip_attachments ||= {}
       @_paperclip_attachments[name] ||= Attachment.new(name, self, self.class.attachment_definitions[name])
     end
-    
+
     def each_attachment
       self.class.attachment_definitions.each do |name, definition|
         yield(name, attachment_for(name))

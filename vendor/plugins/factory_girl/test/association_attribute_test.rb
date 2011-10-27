@@ -24,7 +24,7 @@ class AssociationAttributeTest < Test::Unit::TestCase
   end
 
   should "convert names to symbols" do
-    assert_equal :name, 
+    assert_equal :name,
                  Factory::Attribute::Association.new('name', :user, {}).name
   end
 

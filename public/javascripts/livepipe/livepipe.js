@@ -9,7 +9,7 @@
 
 if(typeof(Control) == 'undefined')
 	Control = {};
-	
+
 var $proc = function(proc){
 	return typeof(proc) == 'function' ? proc : function(){return proc};
 };
@@ -156,17 +156,17 @@ Object.extend(Event, (function() {
 			Event.extend(event);
 			handler.call(element, event);
 		};
-		
+
 		//begin extension
 		if(!(Prototype.Browser.IE) && ['mouseenter','mouseleave'].include(eventName)){
-			wrapper = wrapper.wrap(function(proceed,event) {	
+			wrapper = wrapper.wrap(function(proceed,event) {
 				var rel = event.relatedTarget;
-				var cur = event.currentTarget;			 
+				var cur = event.currentTarget;
 				if(rel && rel.nodeType == Node.TEXT_NODE)
-					rel = rel.parentNode;	  
-				if(rel && rel != cur && !rel.descendantOf(cur))	  
-					return proceed(event);   
-			});	 
+					rel = rel.parentNode;
+				if(rel && rel != cur && !rel.descendantOf(cur))
+					return proceed(event);
+			});
 		}
 		//end extension
 
@@ -317,7 +317,7 @@ var IframeShim = Class.create({
 		this.element = new Element('iframe',{
 			style: 'position:absolute;filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0);display:none',
 			src: 'javascript:void(0);',
-			frameborder: 0 
+			frameborder: 0
 		});
 		$(document.body).insert(this.element);
 	},

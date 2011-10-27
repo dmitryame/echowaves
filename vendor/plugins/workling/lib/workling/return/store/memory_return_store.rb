@@ -8,15 +8,15 @@ module Workling
     module Store
       class MemoryReturnStore < Base
         attr_accessor :sky
-        
+
         def initialize
           self.sky = {}
         end
-        
+
         def set(key, value)
           self.sky[key] = value
         end
-        
+
         def get(key)
           self.sky.delete(key)
         end

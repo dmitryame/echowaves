@@ -31,7 +31,7 @@ module RudeQ
     def cleanup!(expiry=1.hour)
       self.delete_all(["processed = ? AND updated_at < ?", true, expiry.to_i.ago])
     end
-  
+
     # Add any serialize-able +data+ to the queue +queue_name+ (strings and symbols are treated the same)
     #   RudeQueue.set(:sausage_queue, Sausage.new(:sauce => "yummy"))
     #   RudeQueue.set("sausage_queue", Sausage.new(:other => true))
@@ -62,7 +62,7 @@ module RudeQ
     #   -> nil
     def get(queue_name)
       qname = sanitize_queue_name(queue_name)
-      
+
       fetch_with_lock(qname) do |record|
         if record
           processed!(record)
@@ -109,7 +109,7 @@ module RudeQ
       end
       self.count(:conditions => conditions)
     end
-    
+
     def fetch_with_lock(qname, &block) # :nodoc:
       lock = case queue_options[:lock]
       when :pessimistic then RudeQ::PessimisticLock
@@ -119,7 +119,7 @@ module RudeQ
       end
       lock.fetch_with_lock(self, qname, &block)
     end
-    
+
     # class method to make it more easily stubbed
     def processed!(record) # :nodoc:
       case queue_options[:processed]
@@ -132,7 +132,7 @@ module RudeQ
       end
     end
     protected :processed!
-    
+
     # configure your RudeQ
     # ==== :processed - what do we do after retrieving a queue item?
     # * <tt>:set_flag</tt> - set the +processed+ flag to +true+ (keep data in the db) [*default*]
@@ -152,12 +152,12 @@ module RudeQ
       self[:data] = YAML.dump(value)
     end
     private
-    
+
     def sanitize_queue_name(queue_name) # :nodoc:
       queue_name.to_s
     end
   end
-  
+
   # uses standard ActiveRecord :lock => true
   # this will invoke a lock on the particular queue
   #   eg. daemon1: RudeQueue.get(:abc)
@@ -165,20 +165,20 @@ module RudeQ
   #       daemon3: RudeQueue.get(:def) - will avoid the lock
   module PessimisticLock
     class << self
-      
+
       def fetch_with_lock(klass, qname) # :nodoc:
         klass.transaction do
           record = klass.find(:first,
             :conditions => {:queue_name => qname, :processed => false},
             :lock => true, :order => "id ASC", :limit => 1)
-      
+
           return yield(record)
         end
       end
-    
+
     end
   end
-  
+
   # a crazy hack around database locking
   # that I thought was a good idea
   # turns out we can't make it use transactions properly
@@ -189,14 +189,14 @@ module RudeQ
   # and as of RudeQueue2, you'll need to manually add the "token" column
   module TokenLock
     class << self
-      
+
       require 'digest/sha1'
-      
+
       def fetch_with_lock(klass, qname) # :nodoc:
         token = get_unique_token
         klass.update_all(["token = ?", token], ["queue_name = ? AND processed = ? AND token IS NULL", qname, false], :limit => 1, :order => "id ASC")
         record = klass.find_by_queue_name_and_token_and_processed(qname, token, false)
-      
+
         return yield(record)
       end
 

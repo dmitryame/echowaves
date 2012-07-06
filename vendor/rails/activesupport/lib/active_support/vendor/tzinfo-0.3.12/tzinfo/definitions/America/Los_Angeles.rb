@@ -5,14 +5,14 @@ module TZInfo
     module America
       module Los_Angeles
         include TimezoneDefinition
-        
+
         timezone 'America/Los_Angeles' do |tz|
           tz.offset :o0, -28378, 0, :LMT
           tz.offset :o1, -28800, 0, :PST
           tz.offset :o2, -28800, 3600, :PDT
           tz.offset :o3, -28800, 3600, :PWT
           tz.offset :o4, -28800, 3600, :PPT
-          
+
           tz.transition 1883, 11, :o1, 7227400, 3
           tz.transition 1918, 3, :o2, 29060207, 12
           tz.transition 1918, 10, :o1, 19375151, 8

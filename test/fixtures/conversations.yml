@@ -31,7 +31,7 @@ crossblaim_convo:
   # parent_message
   something: ""
   uuid: "a72ee27d-51e6-4b50-a6c9-38c08d544006"
-  
+
 dmitry_convo:
   name: "dmitry convo"
   read_only: false
@@ -41,7 +41,7 @@ dmitry_convo:
   # parent_message
   something: ""
   uuid: "12444b2b-318d-475e-b159-ac4954ead7dd"
-  
+
 akira_convo:
   name: "akira convo"
   read_only: false
@@ -51,7 +51,7 @@ akira_convo:
   # parent_message
   something: ""
   uuid: "ccebc124-25b1-4651-a667-cdc3d46c9da6"
-  
+
 crossblaim_test_public_convo:
   name: "crossblaim test public convo"
   read_only: false
@@ -61,7 +61,7 @@ crossblaim_test_public_convo:
   # parent_message
   something: ""
   uuid: "5810dd5c-d661-4159-a6f2-9a8ceba1cd0d"
-  
+
 crossblaim_test_private_convo:
   name: "crossblaim test private convo"
   read_only: false

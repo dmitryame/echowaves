@@ -74,10 +74,10 @@ module ActiveRecord
 
       private
         def find_target
-          @reflection.klass.find(:first, 
+          @reflection.klass.find(:first,
             :conditions => @finder_sql,
             :select     => @reflection.options[:select],
-            :order      => @reflection.options[:order], 
+            :order      => @reflection.options[:order],
             :include    => @reflection.options[:include],
             :readonly   => @reflection.options[:readonly]
           )
@@ -86,7 +86,7 @@ module ActiveRecord
         def construct_sql
           case
             when @reflection.options[:as]
-              @finder_sql = 
+              @finder_sql =
                 "#{@reflection.quoted_table_name}.#{@reflection.options[:as]}_id = #{owner_quoted_id} AND " +
                 "#{@reflection.quoted_table_name}.#{@reflection.options[:as]}_type = #{@owner.class.quote_value(@owner.class.base_class.name.to_s)}"
             else
@@ -94,7 +94,7 @@ module ActiveRecord
           end
           @finder_sql << " AND (#{conditions})" if conditions
         end
-        
+
         def construct_scope
           create_scoping = {}
           set_belongs_to_association_for(create_scoping)
@@ -111,7 +111,7 @@ module ActiveRecord
           end
 
           if replace_existing
-            replace(record, true) 
+            replace(record, true)
           else
             record[@reflection.primary_key_name] = @owner.id unless @owner.new_record?
             self.target = record

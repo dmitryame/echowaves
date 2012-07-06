@@ -14,11 +14,11 @@ Example:
   class AccountController < ApplicationController
     ssl_required :signup, :payment
     ssl_allowed :index
-    
+
     def signup
       # Non-SSL access will be redirected to SSL
     end
-    
+
     def payment
       # Non-SSL access will be redirected to SSL
     end
@@ -31,7 +31,7 @@ Example:
       # SSL access will be redirected to non-SSL
     end
   end
-  
+
 You can overwrite the protected method ssl_required? to rely on other things
 than just the declarative specification. Say, only premium accounts get SSL.
 

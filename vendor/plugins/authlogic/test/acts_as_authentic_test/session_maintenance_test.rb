@@ -6,7 +6,7 @@ module ActsAsAuthenticTest
       assert User.create(:login => "awesome", :password => "saweet", :password_confirmation => "saweet", :email => "awesome@awesome.com")
       assert UserSession.find
     end
-    
+
     def test_updating_session_with_failed_magic_state
       ben = users(:ben)
       ben.confirmed = false
@@ -39,7 +39,7 @@ module ActsAsAuthenticTest
       assert_equal @controller.session["user_credentials"], old_session_key
       assert_equal @controller.cookies["user_credentials"], old_cookie_key
     end
-    
+
     def test_creating_other_user
       ben = users(:ben)
       UserSession.create(ben)

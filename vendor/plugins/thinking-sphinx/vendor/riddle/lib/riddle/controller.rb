@@ -4,18 +4,18 @@ module Riddle
       @configuration  = configuration
       @path           = path
     end
-    
+
     def index
       cmd = "indexer --config #{@path} --all"
       cmd << " --rotate" if running?
       `#{cmd}`
     end
-    
+
     def start
       return if running?
 
       cmd = "searchd --pidfile --config #{@path}"
-      `#{cmd}`    
+      `#{cmd}`
 
       sleep(1)
 

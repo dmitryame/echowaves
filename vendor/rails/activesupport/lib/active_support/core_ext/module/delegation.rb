@@ -34,7 +34,7 @@ class Module
   #   class Foo
   #     CONSTANT_ARRAY = [0,1,2,3]
   #     @@class_array  = [4,5,6,7]
-  #     
+  #
   #     def initialize
   #       @instance_array = [8,9,10,11]
   #     end

@@ -28,7 +28,7 @@ class MessagesControllerTest < ActionController::TestCase
     #   assert_response :success
     #   assert_template 'messages/show'
     # end
-    
+
 
     # FIX
     # should "be success and render xml when xml" do
@@ -45,7 +45,7 @@ class MessagesControllerTest < ActionController::TestCase
     end
 
     should "report abuse for the logged in user and render nothing" do
-      # @message.expects( :report_abuse ).with( @user ) 
+      # @message.expects( :report_abuse ).with( @user )
       Message.any_instance.expects( :report_abuse ).with( @user )
       post :report, :conversation_id => @conversation.id, :id => @message.id
       assert_response :success
@@ -74,12 +74,12 @@ class MessagesControllerTest < ActionController::TestCase
       setup do
         @messages.stubs( :<< ).with( @new_message ).returns( true )
       end
-    
+
       should "add new message to current users messages" do
         @messages.expects( :<< ).with( @new_message ).returns( true )
         post :create, :conversation_id => @conversation.id, :message => 'foo'
       end
-      
+
       should "redirect to conversation messages path when text/html" do
         post :create, :conversation_id => @conversation.id, :message => 'foo'
         assert_redirected_to conversation_path( @conversation )
@@ -113,7 +113,7 @@ class MessagesControllerTest < ActionController::TestCase
         @messages.expects( :<< ).with( @new_message ).returns( false )
         post :create, :conversation_id => @conversation.id, :message => 'foo'
       end
-      
+
       should "render nothing when text/html" do
         post :create, :conversation_id => @conversation.id, :message => 'foo'
         assert_equal ' ', @response.body
@@ -148,14 +148,14 @@ class MessagesControllerTest < ActionController::TestCase
       User.any_instance.stubs( :id ).returns( 1 )
       Conversation.stubs( :find ).returns( @conversation )
     end
-    
+
     should "render nothing if upload is blank" do
       post :upload_attachment, :conversation_id => @conversation.id, :message => { :attachment => '' }
       assert_equal ' ', @response.body
     end
 
     should "create and assign a new message for the current_user" do
-      # TODO: figure out how to uncomment the line below 
+      # TODO: figure out how to uncomment the line below
       # @messages.expects( :new ).returns( @new_message )
       post :upload_attachment, :conversation_id => @conversation.id, :message => { :attachment => 'foo' }
       assert assigns( :message )
@@ -167,7 +167,7 @@ class MessagesControllerTest < ActionController::TestCase
       end
 
       should "add the new message to the conversation messages" do
-        # TODO: figure out how to uncomment the line below 
+        # TODO: figure out how to uncomment the line below
         # @messages.expects( :<< ).returns( true )
         post :upload_attachment, :conversation_id => @conversation.id, :message => { :attachment => 'foo' }
       end
@@ -183,7 +183,7 @@ class MessagesControllerTest < ActionController::TestCase
         post :upload_attachment, :conversation_id => @conversation.id, :message => { :attachment => 'foo' }
         assert_equal 'txt', @new_message.message
       end
-      
+
       should "send stomp message and stomp notifications" do
         # @controller.expects( :send_stomp_message ).once.with( @new_message )
         # @controller.expects( :send_stomp_notifications ).once
@@ -195,7 +195,7 @@ class MessagesControllerTest < ActionController::TestCase
         assert_equal ' ', @response.body
       end
     end
-    
+
     context "failed create" do
       should "render nothing" do
         # @messages.expects( :<< ).returns( false )
@@ -218,12 +218,12 @@ class MessagesControllerTest < ActionController::TestCase
         @controller.stubs( :current_user ).returns( @u2 )
         @c2.stubs( :writable_by? ).with( @u2 ).returns( true )
       end
-      
+
       should "check conversation#writable_by? method" do
         @c2.expects( :writable_by? ).with( @u2 ).returns( true )
         post :create, :conversation_id => @c2.id, :message => { :message => 'foo' }
       end
-      
+
     end
 
     context "access denied" do

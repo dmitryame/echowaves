@@ -193,7 +193,7 @@ module ActionController
   #
   #   map.connect '*path' , :controller => 'blog' , :action => 'unrecognized?'
   #
-  # will glob all remaining parts of the route that were not recognized earlier. 
+  # will glob all remaining parts of the route that were not recognized earlier.
   # The globbed values are in <tt>params[:path]</tt> as an array of path segments.
   #
   # == Route conditions

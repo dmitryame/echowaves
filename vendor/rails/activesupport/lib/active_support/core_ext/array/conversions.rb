@@ -23,10 +23,10 @@ module ActiveSupport #:nodoc:
               options[:last_word_connector] ||= skip_last_comma ? default_two_words_connector : default_last_word_connector
             end
           end
-          
-          options.assert_valid_keys(:words_connector, :two_words_connector, :last_word_connector, :locale)       
+
+          options.assert_valid_keys(:words_connector, :two_words_connector, :last_word_connector, :locale)
           options.reverse_merge! :words_connector => default_words_connector, :two_words_connector => default_two_words_connector, :last_word_connector => default_last_word_connector
-          
+
           case length
             when 0
               ""
@@ -38,10 +38,10 @@ module ActiveSupport #:nodoc:
               "#{self[0...-1].join(options[:words_connector])}#{options[:last_word_connector]}#{self[-1]}"
           end
         end
-        
+
 
         # Calls <tt>to_param</tt> on all its elements and joins the result with
-        # slashes. This is used by <tt>url_for</tt> in Action Pack. 
+        # slashes. This is used by <tt>url_for</tt> in Action Pack.
         def to_param
           collect { |e| e.to_param }.join '/'
         end

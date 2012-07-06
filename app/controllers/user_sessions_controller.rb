@@ -1,11 +1,11 @@
 class UserSessionsController < ApplicationController
-  def ssl_required? 
+  def ssl_required?
     true if USE_SSL
   end
-  
+
   before_filter :require_no_user, :only => [:new, :create]
   before_filter :require_user, :only => :destroy
-    
+
   def new
     @user_session = UserSession.new
   end
@@ -28,11 +28,11 @@ class UserSessionsController < ApplicationController
   end
 
 protected
-  
+
   # Track failed login attempts
   def note_failed_signin
     flash[:error] = t("users.could_not_login_as", :login => params[:user_session][:login])
     logger.warn "Failed login for '#{params[:user_session][:login]}' from #{request.remote_ip} at #{Time.now.utc}"
   end
-  
+
 end

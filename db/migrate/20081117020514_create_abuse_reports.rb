@@ -12,7 +12,7 @@ class CreateAbuseReports < ActiveRecord::Migration
 
     add_column :messages, :deactivated_at, :datetime
     add_column :messages, :abuse_report_id, :integer
-        
+
   end
 
   def self.down
@@ -22,7 +22,7 @@ class CreateAbuseReports < ActiveRecord::Migration
     remove_index :abuse_reports, :created_at
     remove_index :abuse_reports, :message_id
     remove_index :abuse_reports, :user_id
-    
+
     drop_table :abuse_reports
   end
 end

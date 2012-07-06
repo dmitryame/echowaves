@@ -5,12 +5,12 @@ module TZInfo
     module Europe
       module Budapest
         include TimezoneDefinition
-        
+
         timezone 'Europe/Budapest' do |tz|
           tz.offset :o0, 4580, 0, :LMT
           tz.offset :o1, 3600, 0, :CET
           tz.offset :o2, 3600, 3600, :CEST
-          
+
           tz.transition 1890, 9, :o1, 10418291051, 4320
           tz.transition 1916, 4, :o2, 29051813, 12
           tz.transition 1916, 9, :o1, 58107299, 24

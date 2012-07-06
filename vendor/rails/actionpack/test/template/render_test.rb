@@ -264,7 +264,7 @@ module TemplatesSetupTeardown
     assert_equal(new_cache_template_loading ? ActionView::Template::EagerPath : ActionView::ReloadableTemplate::ReloadablePath, view_paths.first.class)
     setup_view(view_paths)
   end
-  
+
   def teardown
     ActionView::Base.cache_template_loading = @previous_cache_template_loading
   end

@@ -5,14 +5,14 @@ module TZInfo
     module Asia
       module Jerusalem
         include TimezoneDefinition
-        
+
         timezone 'Asia/Jerusalem' do |tz|
           tz.offset :o0, 8456, 0, :LMT
           tz.offset :o1, 8440, 0, :JMT
           tz.offset :o2, 7200, 0, :IST
           tz.offset :o3, 7200, 3600, :IDT
           tz.offset :o4, 7200, 7200, :IDDT
-          
+
           tz.transition 1879, 12, :o1, 26003326343, 10800
           tz.transition 1917, 12, :o2, 5230643909, 2160
           tz.transition 1940, 5, :o3, 29157377, 12

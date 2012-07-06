@@ -141,7 +141,7 @@ class BaseLoadTest < Test::Unit::TestCase
     assert_kind_of String, places.first
     assert_equal @deep[:street][:state][:places].first, places.first
   end
-  
+
   def test_nested_collections_within_the_same_namespace
     n = Highrise::Note.new(:comments => [{ :name => "1" }])
     assert_kind_of Highrise::Comment, n.comments.first

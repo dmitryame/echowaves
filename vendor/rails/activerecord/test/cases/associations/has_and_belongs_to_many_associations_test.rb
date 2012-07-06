@@ -767,7 +767,7 @@ class HasAndBelongsToManyAssociationsTest < ActiveRecord::TestCase
     assert_equal developer, project.developers.find(:first)
     assert_equal project, developer.projects.find(:first)
   end
-  
+
   def test_self_referential_habtm_without_foreign_key_set_should_raise_exception
     assert_raise(ActiveRecord::HasAndBelongsToManyAssociationForeignKeyNeeded) {
       Member.class_eval do

@@ -43,7 +43,7 @@ crossblaim:
   messages_count: 0
   subscriptions_count: 2
   activated_at: <%= Time.now.to_s(:db) %>
-  
+
 dmitry:
   login: dmitry
   name: Dmitry Amelchenko
@@ -61,7 +61,7 @@ dmitry:
   messages_count: 0
   subscriptions_count: 1
   activated_at: <%= Time.now.to_s(:db) %>
-  
+
 akira:
   login: akira
   name: Akira Perez

@@ -26,8 +26,8 @@ module ActiveRecord
       #     named_scope :red, :conditions => {:color => 'red'}
       #     named_scope :dry_clean_only, :joins => :washing_instructions, :conditions => ['washing_instructions.dry_clean_only = ?', true]
       #   end
-      # 
-      # The above calls to <tt>named_scope</tt> define class methods Shirt.red and Shirt.dry_clean_only. Shirt.red, 
+      #
+      # The above calls to <tt>named_scope</tt> define class methods Shirt.red and Shirt.dry_clean_only. Shirt.red,
       # in effect, represents the query <tt>Shirt.find(:all, :conditions => {:color => 'red'})</tt>.
       #
       # Unlike <tt>Shirt.find(...)</tt>, however, the object returned by Shirt.red is not an Array; it resembles the association object

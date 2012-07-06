@@ -7,7 +7,7 @@ begin
 
   $: << as_lib if File.directory?(as_lib)
   $: << ap_lib if File.directory?(ap_lib)
-  
+
   require "action_controller"
   require "action_view"
 rescue LoadError

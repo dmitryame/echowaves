@@ -5,7 +5,7 @@ module TZInfo
     module Europe
       module Lisbon
         include TimezoneDefinition
-        
+
         timezone 'Europe/Lisbon' do |tz|
           tz.offset :o0, -2192, 0, :LMT
           tz.offset :o1, 0, 0, :WET
@@ -13,7 +13,7 @@ module TZInfo
           tz.offset :o3, 0, 7200, :WEMT
           tz.offset :o4, 3600, 0, :CET
           tz.offset :o5, 3600, 3600, :CEST
-          
+
           tz.transition 1912, 1, :o1, 13064773637, 5400
           tz.transition 1916, 6, :o2, 58104779, 24
           tz.transition 1916, 11, :o1, 4842337, 2

@@ -2,19 +2,19 @@
   A quick benchmark vs Starling
   doesn't deal with contention
   running in Production mode
-  
+
   # empty queue
                        user     system      total        real
   rudequeue       30.630000   1.050000  31.680000 ( 44.472249)
   starling - one   1.450000   0.550000   2.000000 ( 11.144641)
   starling - many  1.160000   0.420000   1.580000 ( 18.012299)
-  
+
   # after 1st run -> 10,000 :processed items
                        user     system      total        real
   rudequeue       30.910000   1.090000  32.000000 ( 45.863217)
   starling - one   1.380000   0.530000   1.910000 ( 12.189596)
   starling - many  1.110000   0.390000   1.500000 ( 17.231946)
-  
+
   # after 5th run -> 50,000 :processed items
                        user     system      total        real
   rudequeue       33.670000   1.090000  34.760000 ( 47.945849)
@@ -34,17 +34,17 @@
   key points:
     If you don't need items to persist, should destroy on processed!
     (need to implement this!)
-    
+
   To run this benchmark;
-  
+
   :~ $ sudo gem install starling
   :~ $ starling -d
   :~ ruby script/console production
   * paste in the below code
- 
+
 BENCHMARK
 
-def random_queue_name 
+def random_queue_name
   queues = ["a", "b", "c", "d"] # Starling doesnt accept symbol queue names
   queues[rand(queues.length)]
 end

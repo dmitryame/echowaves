@@ -5,12 +5,12 @@ module TZInfo
     module America
       module Godthab
         include TimezoneDefinition
-        
+
         timezone 'America/Godthab' do |tz|
           tz.offset :o0, -12416, 0, :LMT
           tz.offset :o1, -10800, 0, :WGT
           tz.offset :o2, -10800, 3600, :WGST
-          
+
           tz.transition 1916, 7, :o1, 3268448069, 1350
           tz.transition 1980, 4, :o2, 323845200
           tz.transition 1980, 9, :o1, 338950800

@@ -25,26 +25,26 @@ ActionController::Routing::Routes.reload rescue nil
 
 class SslRequirementController < ActionController::Base
   include SslRequirement
-  
+
   ssl_required :a, :b
   ssl_allowed :c
-  
+
   def a
     render :nothing => true
   end
-  
+
   def b
     render :nothing => true
   end
-  
+
   def c
     render :nothing => true
   end
-  
+
   def d
     render :nothing => true
   end
-  
+
   def set_flash
     flash[:foo] = "bar"
   end
@@ -56,21 +56,21 @@ class SslRequirementTest < Test::Unit::TestCase
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
   end
-  
+
   def test_redirect_to_https_preserves_flash
     get :set_flash
     get :b
     assert_response :redirect
     assert_equal "bar", flash[:foo]
   end
-  
+
   def test_not_redirecting_to_https_does_not_preserve_the_flash
     get :set_flash
     get :d
     assert_response :success
     assert_nil flash[:foo]
   end
-  
+
   def test_redirect_to_http_preserves_flash
     get :set_flash
     @request.env['HTTPS'] = "on"
@@ -78,7 +78,7 @@ class SslRequirementTest < Test::Unit::TestCase
     assert_response :redirect
     assert_equal "bar", flash[:foo]
   end
-  
+
   def test_not_redirecting_to_http_does_not_preserve_the_flash
     get :set_flash
     @request.env['HTTPS'] = "on"
@@ -86,7 +86,7 @@ class SslRequirementTest < Test::Unit::TestCase
     assert_response :success
     assert_nil flash[:foo]
   end
-  
+
   def test_required_without_ssl
     assert_not_equal "on", @request.env["HTTPS"]
     get :a
@@ -96,7 +96,7 @@ class SslRequirementTest < Test::Unit::TestCase
     assert_response :redirect
     assert_match %r{^https://}, @response.headers['Location']
   end
-  
+
   def test_required_with_ssl
     @request.env['HTTPS'] = "on"
     get :a

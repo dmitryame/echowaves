@@ -11,7 +11,7 @@ module ActionController
   #   polymorphic_url([:admin, @article, @comment])
   #
   # results in:
-  #   
+  #
   #   admin_article_comment_url(@article, @comment)
   #
   # == Usage within the framework

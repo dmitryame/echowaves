@@ -5,9 +5,9 @@ module Authlogic # :nodoc:
   # consists of three parts: the +major+ number, the +minor+ number, and the
   # +tiny+ (or +patch+) number.
   class Version
-    
+
     include Comparable
-  
+
     # A convenience method for instantiating a new Version instance with the
     # given +major+, +minor+, and +tiny+ components.
     def self.[](major, minor, tiny)
@@ -37,7 +37,7 @@ module Authlogic # :nodoc:
     def to_i
       @to_i ||= @major * 1_000_000 + @minor * 1_000 + @tiny
     end
-    
+
     def to_a
       [@major, @minor, @tiny]
     end
@@ -50,7 +50,7 @@ module Authlogic # :nodoc:
     CURRENT = new(MAJOR, MINOR, TINY)
     # The current version as a String
     STRING = CURRENT.to_s
-    
+
   end
-  
+
 end

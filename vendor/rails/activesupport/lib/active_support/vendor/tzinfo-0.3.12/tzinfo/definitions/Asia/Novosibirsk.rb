@@ -5,14 +5,14 @@ module TZInfo
     module Asia
       module Novosibirsk
         include TimezoneDefinition
-        
+
         timezone 'Asia/Novosibirsk' do |tz|
           tz.offset :o0, 19900, 0, :LMT
           tz.offset :o1, 21600, 0, :NOVT
           tz.offset :o2, 25200, 0, :NOVT
           tz.offset :o3, 25200, 3600, :NOVST
           tz.offset :o4, 21600, 3600, :NOVST
-          
+
           tz.transition 1919, 12, :o1, 2092872833, 864
           tz.transition 1930, 6, :o2, 9704593, 4
           tz.transition 1981, 3, :o3, 354906000

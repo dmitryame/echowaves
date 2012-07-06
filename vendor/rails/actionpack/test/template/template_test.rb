@@ -9,13 +9,13 @@ class TemplateTest < Test::Unit::TestCase
       t.assert_parses_template_path 'abc.plain.html.erb',     :format => 'plain.html'
       t.assert_parses_template_path 'abc.erb',                :format => nil
       t.assert_parses_template_path 'abc.html',               :extension => nil
-      
+
       t.assert_parses_template_path '_abc.html.erb',          :name => '_abc'
-      
+
       t.assert_parses_template_path 'test/abc.html.erb',      :base_path => 'test'
       t.assert_parses_template_path './test/abc.html.erb',    :base_path => './test'
       t.assert_parses_template_path '../test/abc.html.erb',   :base_path => '../test'
-      
+
       t.assert_parses_template_path 'abc',                    :extension => nil, :format => nil, :name => nil
       t.assert_parses_template_path 'abc.xxx',                :extension => nil, :format => 'xxx', :name => 'abc'
       t.assert_parses_template_path 'abc.html.xxx',           :extension => nil, :format => 'xxx', :name => 'abc'

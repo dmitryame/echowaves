@@ -110,7 +110,7 @@ module ActiveRecord
     #     rescue ActiveRecord::StatementInvalid
     #       # ...which we ignore.
     #     end
-    #     
+    #
     #     # On PostgreSQL, the transaction is now unusable. The following
     #     # statement will cause a PostgreSQL error, even though the unique
     #     # constraint is no longer violated:
@@ -134,7 +134,7 @@ module ActiveRecord
     #       raise ActiveRecord::Rollback
     #     end
     #   end
-    #   
+    #
     #   User.find(:all)  # => empty
     #
     # It is also possible to requires a sub-transaction by passing
@@ -149,7 +149,7 @@ module ActiveRecord
     #       raise ActiveRecord::Rollback
     #     end
     #   end
-    #   
+    #
     #   User.find(:all)  # => Returns only Kotori
     #
     # Most databases don't support true nested transactions. At the time of
@@ -168,7 +168,7 @@ module ActiveRecord
     # is finished and tries to release the savepoint it created earlier, a
     # database error will occur because the savepoint has already been
     # automatically released. The following example demonstrates the problem:
-    # 
+    #
     #   Model.connection.transaction do                           # BEGIN
     #     Model.connection.transaction(:requires_new => true) do  # CREATE SAVEPOINT active_record_1
     #       Model.connection.create_table(...)                    # active_record_1 now automatically released

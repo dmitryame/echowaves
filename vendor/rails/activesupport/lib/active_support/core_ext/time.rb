@@ -19,7 +19,7 @@ class Time
         utc ? time.utc : time
       end
     end
-    
+
     alias_method :_original_dump, :_dump
     def _dump(*args)
       obj = self.frozen? ? self.dup : self

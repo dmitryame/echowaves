@@ -144,7 +144,7 @@ module ActiveResource
   #
   # <tt>404</tt> is just one of the HTTP error response codes that Active Resource will handle with its own exception. The
   # following HTTP response codes will also result in these exceptions:
-  # 
+  #
   # * 200..399 - Valid response, no exception (other than 301, 302)
   # * 301, 302 - ActiveResource::Redirection
   # * 400 - ActiveResource::BadRequest
@@ -403,7 +403,7 @@ module ActiveResource
 
       attr_accessor_with_default(:collection_name) { element_name.pluralize } #:nodoc:
       attr_accessor_with_default(:primary_key, 'id') #:nodoc:
-      
+
       # Gets the \prefix for a resource's nested URL (e.g., <tt>prefix/collectionname/1.xml</tt>)
       # This method is regenerated at runtime based on what the \prefix is set to.
       def prefix(options={})
@@ -847,7 +847,7 @@ module ActiveResource
       end
     end
 
-    # A method to \save (+POST+) or \update (+PUT+) a resource.  It delegates to +create+ if a \new object, 
+    # A method to \save (+POST+) or \update (+PUT+) a resource.  It delegates to +create+ if a \new object,
     # +update+ if it is existing. If the response to the \save includes a body, it will be assumed that this body
     # is XML for the final object as it looked after the \save (which would include attributes like +created_at+
     # that weren't part of the original submit).

@@ -15,7 +15,7 @@ module ActionView
       def div_for(record, *args, &block)
         content_tag_for(:div, record, *args, &block)
       end
-  
+
       # content_tag_for creates an HTML element with id and class parameters
       # that relate to the specified Active Record object. For example:
       #
@@ -34,7 +34,7 @@ module ActionView
       #    <% content_tag_for(:tr, @person, :foo) do %> ...
       #
       # produces:
-      #    
+      #
       #    <tr id="foo_person_123" class="person">...
       #
       # content_tag_for also accepts a hash of options, which will be converted to

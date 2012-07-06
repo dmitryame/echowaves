@@ -34,7 +34,7 @@ module ActiveRecord
           options[:readonly]   = finding_with_ambiguous_select?(options[:select] || @reflection.options[:select])
           options[:select]   ||= (@reflection.options[:select] || '*')
         end
-        
+
         def count_records
           load_target.size
         end

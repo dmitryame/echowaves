@@ -9,7 +9,7 @@ module Paperclip
     # which is a "WxH"-style string. +format+ will be inferred from the +file+
     # unless specified. Thumbnail creation will raise no errors unless
     # +whiny+ is true (which it is, by default. If +convert_options+ is
-    # set, the options will be appended to the convert command upon image conversion 
+    # set, the options will be appended to the convert command upon image conversion
     def initialize file, options = {}, attachment = nil
       super
       geometry          = options[:geometry]
@@ -29,7 +29,7 @@ module Paperclip
     def crop?
       @crop
     end
-    
+
     # Returns true if the image is meant to make use of additional convert options.
     def convert_options?
       not @convert_options.blank?

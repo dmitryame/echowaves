@@ -344,7 +344,7 @@ class BelongsToAssociationsTest < ActiveRecord::TestCase
     assert_raise(ActiveRecord::ReadOnlyRecord) { companies(:first_client).readonly_firm.save! }
     assert companies(:first_client).readonly_firm.readonly?
   end
-  
+
   def test_polymorphic_assignment_foreign_type_field_updating
     # should update when assigning a saved record
     sponsor = Sponsor.new

@@ -5,13 +5,13 @@ module TZInfo
     module Asia
       module Almaty
         include TimezoneDefinition
-        
+
         timezone 'Asia/Almaty' do |tz|
           tz.offset :o0, 18468, 0, :LMT
           tz.offset :o1, 18000, 0, :ALMT
           tz.offset :o2, 21600, 0, :ALMT
           tz.offset :o3, 21600, 3600, :ALMST
-          
+
           tz.transition 1924, 5, :o1, 1939125829, 800
           tz.transition 1930, 6, :o2, 58227559, 24
           tz.transition 1981, 3, :o3, 354909600

@@ -27,35 +27,35 @@
 #  updated_at                  :datetime
 
 class User < ActiveRecord::Base
-  
+
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
   attr_accessible :name, :password, :password_confirmation, :time_zone,
                   :something, :receive_email_notifications, :about
-                  
+
   attr_accessor :email_confirmation
-      
+
   is_gravtastic :size => 60, :rating => 'G', :default => "identicon", :secure => USE_SSL # "monsterid" or "identicon", or "wavatar"
-  
+
   acts_as_tagger
   acts_as_authentic do |c|
     c.transition_from_restful_authentication = true
   end
-    
+
   has_many :messages
   has_many :invites
   has_many :client_applications
   has_many :tokens, :class_name => "OauthToken", :order => "authorized_at desc", :include => [:client_application]
   has_many :subscriptions, :order => "activated_at DESC"
-  has_many :subscribed_conversations, :through => :subscriptions, :uniq => true, :order => "name", :source => :conversation  
+  has_many :subscribed_conversations, :through => :subscriptions, :uniq => true, :order => "name", :source => :conversation
   has_many :conversations
   has_many :conversation_visits
-  has_many :recent_conversations, 
-           :through => :conversation_visits, 
+  has_many :recent_conversations,
+           :through => :conversation_visits,
            :source => :conversation,
            :order => "conversation_visits.updated_at DESC",
            :limit => 10
-  
+
   has_many :friendships
   has_many :friend_requests_by_me,  :foreign_key => :user_id,   :class_name => "Friendship"
   has_many :friend_requests_for_me, :foreign_key => :friend_id, :class_name => "Friendship"
@@ -65,7 +65,7 @@ class User < ActiveRecord::Base
   has_many :followers,
            :through => :friend_requests_for_me,
            :source => :requested_by_me
-  
+
   # sphinx index
   define_index do
     indexes :login
@@ -74,7 +74,7 @@ class User < ActiveRecord::Base
     where "activated_at != '@nil@'"
     set_property :delta => :delayed
   end
-           
+
   validates_presence_of     :login
   validates_length_of       :login,    :within => 3..40
   validates_uniqueness_of   :login
@@ -85,24 +85,24 @@ class User < ActiveRecord::Base
   validates_length_of       :email,    :within => 6..100 # r@a.wk
   validates_uniqueness_of   :email
   validates_format_of       :email,    :with => EMAIL_REGEX, :message => "should look like an email address.".freeze
-  validates_confirmation_of :email 
+  validates_confirmation_of :email
   validates_format_of       :something, :with => /^$/ # anti spam, honeypot field must be blank
-  
+
   named_scope :active, :conditions => "activated_at is not null"
-  
+
   # this method returns a collection of all the convos with the new messages for the user.
   def news
     # the old way
     # subscriptions = self.subscriptions.reject { |subscription| subscription.new_messages_count == 0 }
     # the new way, slightly more efficient
-    subscriptions = Subscription.find(:all, 
+    subscriptions = Subscription.find(:all,
     :joins => "JOIN conversations ON subscriptions.conversation_id=conversations.id JOIN messages ON conversations.id = messages.conversation_id and messages.id > subscriptions.last_message_id",
-    :conditions => ["subscriptions.user_id = ?", self.id ], 
+    :conditions => ["subscriptions.user_id = ?", self.id ],
     :group => "conversations.id",
     :order => "messages.id ASC",
     :limit => 12)
   end
-  
+
   def self.find_by_id_or_username(user)
     id = /^(\d+)/.match(user.to_s)
     begin
@@ -123,11 +123,11 @@ class User < ActiveRecord::Base
   def follow_user(user)
     Friendship.create!(:user_id => self.id, :friend_id => user.id) unless user.id == self.id
   end
-    
+
   def friends
-    (self.following & self.followers).uniq  
+    (self.following & self.followers).uniq
   end
-  
+
   def unfollow_user(user)
     Friendship.find(:first, :conditions => ['user_id = ? AND friend_id = ?', self.id, user.id] ).destroy
   end
@@ -135,7 +135,7 @@ class User < ActiveRecord::Base
   def following?(friend)
     self.following.include?(friend)
   end
-  
+
   def friend_of?(friend)
     self.following?(friend) and friend.following?(self)
   end
@@ -143,12 +143,12 @@ class User < ActiveRecord::Base
   def owns?(conversation)
     conversation.owner == self
   end
-      
+
   def deliver_password_reset_instructions!
     reset_perishable_token!
     UserMailer.deliver_password_reset_instructions(self)
   end
-  
+
   def deliver_private_invite_instructions!(invite)
     reset_perishable_token!
     if USE_WORKLING
@@ -157,14 +157,14 @@ class User < ActiveRecord::Base
       UserMailer.deliver_private_invite_instructions(self, invite.conversation_id, invite.conversation.name, invite.requestor, invite.token)
     end
   end
-  
+
   def deliver_public_invite_instructions!(invite)
-    return unless self.receive_email_notifications && activated_at != nil 
+    return unless self.receive_email_notifications && activated_at != nil
     if USE_WORKLING
       EchowavesWorker.asynch_deliver_public_invite_instructions(:user_id => id, :invite_id => invite.id)
     else
       UserMailer.deliver_public_invite_instructions(self, invite.conversation_id, invite.conversation.name, invite.requestor)
-    end    
+    end
   end
 
   def deliver_notification_about_new_convo!(convo_id, requestor_id)
@@ -175,9 +175,9 @@ class User < ActiveRecord::Base
       convo_name = Conversation.find(convo_id)
       requestor = User.find(requestor_id)
       UserMailer.deliver_notification_about_new_convo(self, convo_id, convo_name, requestor)
-    end    
+    end
   end
-  
+
   def activate!
     self.activated_at = Time.now.utc
     # create initial personal conversation
@@ -185,7 +185,7 @@ class User < ActiveRecord::Base
     # self.personal_conversation_id = conversation.id
     self.save
   end
-  
+
   def disable!
     self.activated_at = nil
     self.save
@@ -194,7 +194,7 @@ class User < ActiveRecord::Base
   def active?
     self.activated_at != nil
   end
-  
+
   def login=(value)
     write_attribute :login, (value ? value.downcase : nil)
   end
@@ -221,35 +221,35 @@ class User < ActiveRecord::Base
 
   def follow(convo, token=nil)
     invite = Invite.find(:first, :conditions => ["user_id = ? and conversation_id = ?", self, convo.id ])
-    if !convo.private? || self == convo.owner      
+    if !convo.private? || self == convo.owner
       #create a subscription if not created yet
       if (!Subscription.find_by_conversation_id_and_user_id(convo, self))
-        subscription = convo.add_subscription(self) 
+        subscription = convo.add_subscription(self)
         subscription.mark_read!
         invite.destroy if invite.present?
       end
     elsif convo.private? && invite.present? && ( token == invite.token )
       #create a subscription if not created yet
       if (!Subscription.find_by_conversation_id_and_user_id(convo, self))
-        subscription = convo.add_subscription(self) 
+        subscription = convo.add_subscription(self)
         subscription.mark_read!
         invite.destroy
       end
     else
       return false
     end
-#    Rails.cache.write('conversation_'+convo.to_param, convo)    
+#    Rails.cache.write('conversation_'+convo.to_param, convo)
     return true
   end
-  
+
   def unfollow(convo)
     convo.remove_subscription(self)
     # remove invitation if exists so the user can be invited again
     invite = Invite.find(:first, :conditions => ["user_id = ? and conversation_id = ?", self, convo.id ])
     invite.destroy unless invite.blank?
-#    Rails.cache.write('conversation_'+convo.to_param, convo)    
+#    Rails.cache.write('conversation_'+convo.to_param, convo)
   end
-  
+
   def all_convos_tags
     tags = [] # have to initialize the array
     self.subscriptions.each do |subscription|
@@ -269,9 +269,9 @@ class User < ActiveRecord::Base
     afirmative_condition_3 = existing_invite.present? && existing_invite.public? && conversation.private?
     (afirmative_condition_1 || afirmative_condition_2 || afirmative_condition_3) ? true : false
   end
-  
+
   #----------------------------------------------------------------------------
-  def invite(conversation, invitee) 
+  def invite(conversation, invitee)
     return unless self.can_be_invited_to?(conversation, invitee)
     existing_invite = Invite.find( :first, :conditions => [ "user_id = ? and requestor_id = ? and conversation_id = ?", self.id, invitee.id, conversation.id ] )
     # destroy the old invite if present
@@ -282,24 +282,24 @@ class User < ActiveRecord::Base
     invite.conversation_id = conversation.id
     invite.token = self.perishable_token if conversation.private?
     invite.save
- 
+
     if conversation.private?
       # private convo only sends invite via email
-      self.deliver_private_invite_instructions!(invite)      
+      self.deliver_private_invite_instructions!(invite)
     else
       self.deliver_public_invite_instructions!(invite)
     end
   end
-  
+
   #----------------------------------------------------------------------------
   def all_convos_tag_counts
     tag_counts = [] # have to initialize the array
-    self.subscriptions.each do |subscription|      
+    self.subscriptions.each do |subscription|
       tag_counts |= subscription.conversation.tag_counts
     end
     tag_counts
   end
-  
+
   def convos_by_tag(tag)
     convos = []
     self.subscriptions.each do |subscription|
@@ -313,27 +313,27 @@ class User < ActiveRecord::Base
   def date
     self.created_at.strftime '%b %d, %Y'
   end
-  
+
   def name_and_nick
     (self.name.blank? or self.name == self.login) ? self.login : "#{self.name} (#{self.login})"
   end
-  
+
   def bookmark_tag
     "star_#{self.id}"
   end
-  
+
   alias_method :unsafe_to_xml, :to_xml
-  
+
   def to_xml(options = {})
     excluded_by_default = [:crypted_password, :salt, :remember_token, :something,
                           :remember_token_expires_at, :activated_at, :perishable_token, :persistence_token,
                           :single_access_token, :email, :receive_email_notifications]
-    options[:except] = (options[:except] ? options[:except] + excluded_by_default : excluded_by_default)   
+    options[:except] = (options[:except] ? options[:except] + excluded_by_default : excluded_by_default)
     unsafe_to_xml(options)
   end
-  
+
   def to_param
     "#{id}-#{login.parameterize}"
   end
-  
+
 end

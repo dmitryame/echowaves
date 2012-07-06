@@ -5,13 +5,13 @@ module TZInfo
     module Asia
       module Tokyo
         include TimezoneDefinition
-        
+
         timezone 'Asia/Tokyo' do |tz|
           tz.offset :o0, 33539, 0, :LMT
           tz.offset :o1, 32400, 0, :JST
           tz.offset :o2, 32400, 0, :CJT
           tz.offset :o3, 32400, 3600, :JDT
-          
+
           tz.transition 1887, 12, :o1, 19285097, 8
           tz.transition 1895, 12, :o2, 19308473, 8
           tz.transition 1937, 12, :o1, 19431193, 8

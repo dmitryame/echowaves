@@ -184,7 +184,7 @@ module TMail
       a.delete tag unless true_p
       a.compact.sort.join('').squeeze
     end
-  
+
   end
 
 
@@ -193,7 +193,7 @@ module TMail
     include MailFlags
 
     private
-    
+
     def set_status( tag, flag )
       begin
         tmpfile = @filename + '.tmailtmp.' + $$.to_s
@@ -239,7 +239,7 @@ module TMail
       }
       false
     end
-  
+
   end
 
 
@@ -288,7 +288,7 @@ module TMail
       m = MAIL_FILE.match(File.basename(@filename)) or return false
       m[2] == '2' and m[3].to_s.include?(tag[0])
     end
-  
+
   end
 
 

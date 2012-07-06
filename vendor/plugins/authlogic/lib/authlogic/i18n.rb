@@ -21,7 +21,7 @@ module Authlogic
   #       # do whatever you want here with the arguments passed to you.
   #     end
   #   end
-  #   
+  #
   #   Authlogic::I18n.extend MyAuthlogicI18nAdapter
   #
   # That it's! Here is a complete list of the keys that are passed. Just define these however you wish:

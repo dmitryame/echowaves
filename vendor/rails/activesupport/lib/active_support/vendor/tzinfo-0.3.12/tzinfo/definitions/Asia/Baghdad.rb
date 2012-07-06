@@ -5,13 +5,13 @@ module TZInfo
     module Asia
       module Baghdad
         include TimezoneDefinition
-        
+
         timezone 'Asia/Baghdad' do |tz|
           tz.offset :o0, 10660, 0, :LMT
           tz.offset :o1, 10656, 0, :BMT
           tz.offset :o2, 10800, 0, :AST
           tz.offset :o3, 10800, 3600, :ADT
-          
+
           tz.transition 1889, 12, :o1, 10417111387, 4320
           tz.transition 1917, 12, :o2, 726478313, 300
           tz.transition 1982, 4, :o3, 389048400

@@ -36,35 +36,35 @@ class TestController < ActionController::Base
       render :action => 'hello_world'
     end
   end
-  
+
   def conditional_hello_with_public_header
     if stale?(:last_modified => Time.now.utc.beginning_of_day, :etag => [:foo, 123], :public => true)
       render :action => 'hello_world'
     end
   end
-  
+
   def conditional_hello_with_public_header_and_expires_at
     expires_in 1.minute
     if stale?(:last_modified => Time.now.utc.beginning_of_day, :etag => [:foo, 123], :public => true)
       render :action => 'hello_world'
     end
   end
-  
+
   def conditional_hello_with_expires_in
     expires_in 1.minute
     render :action => 'hello_world'
   end
-  
+
   def conditional_hello_with_expires_in_with_public
     expires_in 1.minute, :public => true
     render :action => 'hello_world'
   end
-  
+
   def conditional_hello_with_expires_in_with_public_with_more_keys
     expires_in 1.minute, :public => true, 'max-stale' => 5.hours
     render :action => 'hello_world'
   end
-  
+
   def conditional_hello_with_expires_in_with_public_with_more_keys_old_syntax
     expires_in 1.minute, :public => true, :private => nil, 'max-stale' => 5.hours
     render :action => 'hello_world'
@@ -1557,22 +1557,22 @@ class ExpiresInRenderTest < ActionController::TestCase
   def setup
     @request.host = "www.nextangle.com"
   end
-  
+
   def test_expires_in_header
     get :conditional_hello_with_expires_in
     assert_equal "max-age=60, private", @response.headers["Cache-Control"]
   end
-  
+
   def test_expires_in_header_with_public
     get :conditional_hello_with_expires_in_with_public
     assert_equal "max-age=60, public", @response.headers["Cache-Control"]
   end
-  
+
   def test_expires_in_header_with_additional_headers
     get :conditional_hello_with_expires_in_with_public_with_more_keys
     assert_equal "max-age=60, public, max-stale=18000", @response.headers["Cache-Control"]
   end
-  
+
   def test_expires_in_old_syntax
     get :conditional_hello_with_expires_in_with_public_with_more_keys_old_syntax
     assert_equal "max-age=60, public, max-stale=18000", @response.headers["Cache-Control"]
@@ -1669,12 +1669,12 @@ class EtagRenderTest < ActionController::TestCase
     get :conditional_hello_with_bangs
     assert_response :not_modified
   end
-  
+
   def test_etag_with_public_true_should_set_header
     get :conditional_hello_with_public_header
     assert_equal "public", @response.headers['Cache-Control']
   end
-  
+
   def test_etag_with_public_true_should_set_header_and_retain_other_headers
     get :conditional_hello_with_public_header_and_expires_at
     assert_equal "max-age=60, public", @response.headers['Cache-Control']

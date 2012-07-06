@@ -75,7 +75,7 @@ class MongrelSpawner < Spawner
     end
     system(cmd)
   end
-  
+
   def self.can_bind_to_custom_address?
     true
   end

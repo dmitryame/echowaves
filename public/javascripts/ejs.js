@@ -8,24 +8,24 @@
  *
  *  EJS is a client-side preprocessing engine written in and for JavaScript.
  *  If you have used PHP, ASP, JSP, or ERB then you get the idea: code embedded
- *  in <% // Code here %> tags will be executed, and code embedded in <%= .. %> 
- *  tags will be evaluated and appended to the output. 
- * 
- *  This is essentially a direct JavaScript port of Masatoshi Seki's erb.rb 
- *  from the Ruby Core, though it contains a subset of ERB's functionality. 
- * 
+ *  in <% // Code here %> tags will be executed, and code embedded in <%= .. %>
+ *  tags will be evaluated and appended to the output.
+ *
+ *  This is essentially a direct JavaScript port of Masatoshi Seki's erb.rb
+ *  from the Ruby Core, though it contains a subset of ERB's functionality.
+ *
  *  Requirements:
  *      prototype.js
- * 
+ *
  *  Usage:
  *      // source should be either a string or a DOM node whose innerHTML
  *      // contains EJB source.
- *  	var source = "<% var ejb="EJB"; %><h1>Hello, <%= ejb %>!</h1>"; 
- *      var compiler = new EjsCompiler(source);		
- *	    compiler.compile();	
+ *  	var source = "<% var ejb="EJB"; %><h1>Hello, <%= ejb %>!</h1>";
+ *      var compiler = new EjsCompiler(source);
+ *	    compiler.compile();
  *	    var output = eval(compiler.out);
  *      alert(output); // -> "<h1>Hello, EJB!</h1>"
- *       
+ *
  *  For a demo:      see demo.html
  *  For the license: see license.txt
  *
@@ -45,10 +45,10 @@ String.prototype.rsplit = function(regex) {
 			var first_bit = item.substring(0,first_idx);
 			retArr.push(item.substring(0,first_idx));
 			item = item.slice(first_idx);
-		}		
+		}
 		retArr.push(result[0]);
 		item = item.slice(result[0].length);
-		result = regex.exec(item);	
+		result = regex.exec(item);
 	}
 	if (! item == '')
 	{
@@ -73,8 +73,8 @@ var EjsScanner = function(source, left, right) {
 	if(left=='[')
 		this.SplitRegexp = /(\[%%)|(%%\])|(\[%=)|(\[%#)|(\[%)|(%\]\n)|(%\])|(\n)/;
 	else
-		this.SplitRegexp = new RegExp('('+this.double_left+')|(%%'+this.double_right+')|('+this.left_equal+')|('+this.left_comment+')|('+this.left_delimiter+')|('+this.right_delimiter+'\n)|('+this.right_delimiter+')|(\n)') 
-	
+		this.SplitRegexp = new RegExp('('+this.double_left+')|(%%'+this.double_right+')|('+this.left_equal+')|('+this.left_comment+')|('+this.left_delimiter+')|('+this.right_delimiter+'\n)|('+this.right_delimiter+')|(\n)')
+
 	this.source = source;
 	this.stag = null;
 	this.lines = 0;
@@ -92,7 +92,7 @@ EjsScanner.to_text = function(input){
         return '';
     if(input instanceof Date)
 		return input.toDateString();
-	if(input.toString) 
+	if(input.toString)
         return input.toString()
 	return '';
 }
@@ -112,7 +112,7 @@ EjsScanner.prototype = {
 		 }
 	 }
   },
-  
+
   /* For each token, block! */
   scanline: function(line, regex, block) {
 	 this.lines++
@@ -136,14 +136,14 @@ var EjsBuffer = function(pre_cmd, post_cmd) {
 	this.script = "";
 	this.pre_cmd = pre_cmd;
 	this.post_cmd = post_cmd;
-	
+
 	for (var i=0; i<this.pre_cmd.length; i++)
 	{
 		this.push(pre_cmd[i]);
 	}
 }
 EjsBuffer.prototype = {
-	
+
   push: function(cmd) {
 	this.line.push(cmd);
   },
@@ -165,14 +165,14 @@ EjsBuffer.prototype = {
 		line = null;
 	}
   }
- 	
+
 };
 
 /* Adaptation from the Compiler of erb.rb  */
 EjsCompiler = function(source, left) {
 	this.pre_cmd = ['___ejsO = "";'];
 	this.post_cmd = new Array();
-	this.source = ' ';	
+	this.source = ' ';
 	if (source != null)
 	{
 		if (typeof source == 'string')
@@ -184,7 +184,7 @@ EjsCompiler = function(source, left) {
 		else if (source.innerHTML)
 		{
 			this.source = source.innerHTML;
-		} 
+		}
 		if (typeof this.source != 'string')
 		{
 			this.source = "";
@@ -211,7 +211,7 @@ EjsCompiler.prototype = {
 	this.out = '';
 	var put_cmd = "___ejsO += ";
 	var insert_cmd = put_cmd;
-	var buff = new EjsBuffer(this.pre_cmd, this.post_cmd);		
+	var buff = new EjsBuffer(this.pre_cmd, this.post_cmd);
 	var content = '';
 	var clean = function(content)
 	{
@@ -219,7 +219,7 @@ EjsCompiler.prototype = {
         content = content.replace(/\n/g, '\\n');
         content = content.replace(/"/g,  '\\"');
         return content;
-	} 
+	}
 	this.scanner.scan(function(token, scanner) {
 		if (scanner.stag == null)
 		{
@@ -238,7 +238,7 @@ EjsCompiler.prototype = {
 					if (content.length > 0)
 					{
 						// Chould be content.dump in Ruby
-						
+
 						buff.push(put_cmd + '"' + clean(content) + '"');
 					}
 					content = '';
@@ -290,7 +290,7 @@ EjsCompiler.prototype = {
 	buff.close();
 	this.out = buff.script + ";";
 	var to_be_evaled = 'this.process = function(_CONTEXT,_VIEW) { try { with(_VIEW) { with (_CONTEXT) {'+this.out+" return ___ejsO;}}}catch(e){e.lineNumber=null;throw e;}};";
-	
+
 	try{
 		eval(to_be_evaled);
 	}catch(e){
@@ -319,7 +319,7 @@ EjsCompiler.prototype = {
 //type, cache, folder
 EJS = function( options ){
 	this.set_options(options)
-	
+
 	if(options.url){
 		var template = EJS.get(options.url, this.cache)
 		if (template) return template;
@@ -349,7 +349,7 @@ EJS = function( options ){
 
 	template.compile(options);
 
-	
+
 	EJS.update(this.name, this);
 	this.template = template
 }
@@ -357,21 +357,21 @@ EJS.config = function(options){
 	EJS.cache = options.cache != null ? options.cache : EJS.cache
 	EJS.type = options.type != null ? options.type : EJS.type
 	var templates_directory = {} //nice and private container
-	
+
 	EJS.get = function(path, cache){
 		if(cache == false) return null;
 		if(templates_directory[path]) return templates_directory[path];
   		return null;
 	}
-	
-	EJS.update = function(path, template) { 
+
+	EJS.update = function(path, template) {
 		if(path == null) return;
-		templates_directory[path] = template 
+		templates_directory[path] = template
 	}
-	
+
 	EJS.INVALID_PATH =  -1;
-	
-	
+
+
 }
 EJS.config( {cache: true, type: '<' } )
 
@@ -428,21 +428,21 @@ EJS.prototype = {
 	        catch(e) { continue;}
 	   }
 	}
-	
+
 	EJS.request = function(path){
 	   var request = new EJS.newRequest()
 	   request.open("GET", path, false);
-	   
+
 	   try{request.send(null);}
 	   catch(e){return null;}
-	   
+
 	   if ( request.status == 404 || request.status == 2 ||(request.status == 0 && request.responseText == '') ) return null;
-	   
+
 	   return request.responseText
 	}
 	EJS.ajax_request = function(params){
 		params.method = ( params.method ? params.method : 'GET')
-		
+
 		var request = new EJS.newRequest();
 		request.onreadystatechange = function(){
 			if(request.readyState == 4){

@@ -13,9 +13,9 @@
     </ul>
     <div class="clear"></div>
   </div>
-  
+
   <%= yield(:sidebar_top) %>
-  
+
   <% if logged_in? %>
     <h5>DASHBOARD</h5>
     <div class="span-5">
@@ -24,21 +24,21 @@
     <div class="span-5 last">
       <%= render :partial => 'users/news' %>
     </div>
-	
-	
+
+
   <% else %>
-  
+
     <div>
       <h5>What is EchoWaves?</h5>
     	<p>Echowaves is a free service that enables comunication through, IM-style conversations. You can converse in real-time or over semi-frequent visits to the site continuing your conversations right where you left off.</p>
     	<div class="big center vspace"><span class="round button"><%= link_to "Join Echowaves", new_user_path %></span></div>
     </div>
-    
-    
+
+
   <% end %>
 
-	
-	
+
+
 </div>
 
 

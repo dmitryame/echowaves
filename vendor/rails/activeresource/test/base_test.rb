@@ -921,7 +921,7 @@ class BaseTest < Test::Unit::TestCase
     end
     assert_raise(ActiveResource::ResourceNotFound) { StreetAddress.find(1, :params => { :person_id => 1 }) }
   end
-  
+
   def test_delete_with_410_gone
     assert Person.delete(1)
     ActiveResource::HttpMock.respond_to do |mock|

@@ -48,7 +48,7 @@ module ActiveSupport #:nodoc:
           return to_default_s unless formatter = DATE_FORMATS[format]
           formatter.respond_to?(:call) ? formatter.call(self).to_s : strftime(formatter)
         end
-        
+
         # Returns the UTC offset as an +HH:MM formatted string.
         #
         #   Time.local(2000).formatted_offset         # => "-06:00"

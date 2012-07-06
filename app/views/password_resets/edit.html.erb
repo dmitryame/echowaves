@@ -3,7 +3,7 @@
     <h1><%= t("ui.change_my_password") %></h1>
   </div>
   <div class="bbox-pointer">&nbsp;</div>
-  
+
   <div class="item">
     <% form_for @user, :url => password_reset_path, :method => :put do |f| %>
       <%= f.error_messages %>

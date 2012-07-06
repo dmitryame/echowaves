@@ -14,7 +14,7 @@ class ErbUtilTest < Test::Unit::TestCase
       end
     end
   end
-  
+
   def test_rest_in_ascii
     (0..127).to_a.map(&:chr).each do |chr|
       next if %w(& " < >).include?(chr)

@@ -1,7 +1,7 @@
 Before do
   $queries_executed = []
   ThinkingSphinx::Deltas::Job.cancel_thinking_sphinx_jobs
-  
+
   @model      = nil
   @method     = :search
   @query      = ""
@@ -125,7 +125,7 @@ Then /^the (\w+) of each result should indicate order$/ do |attribute|
     unless prev.nil?
       current.send(attribute.to_sym).should >= prev.send(attribute.to_sym)
     end
-    
+
     current
   end
 end
@@ -134,10 +134,10 @@ Then /^I can iterate by result and (\w+)$/ do |attribute|
   iteration = lambda { |result, attr_value|
     result.should be_kind_of(@model)
     unless attribute == "group" && attr_value.nil?
-      attr_value.should be_kind_of(Integer) 
+      attr_value.should be_kind_of(Integer)
     end
   }
-  
+
   results.send("each_with_#{attribute}", &iteration)
 end
 

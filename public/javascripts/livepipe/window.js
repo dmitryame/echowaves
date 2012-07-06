@@ -16,19 +16,19 @@ if(typeof(Draggable) != 'undefined'){
 			var r = Position.realOffset(this.element);
 			pos[0] += r[0] - Position.deltaX; pos[1] += r[1] - Position.deltaY;
 		}
-		
+
 		var d = this.currentDelta();
 		pos[0] -= d[0]; pos[1] -= d[1];
-		
+
 		if(this.options.scroll && (this.options.scroll != window && this._isScrollChild)) {
 			pos[0] -= this.options.scroll.scrollLeft-this.originalScrollLeft;
 			pos[1] -= this.options.scroll.scrollTop-this.originalScrollTop;
 		}
-		
-		var p = [0,1].map(function(i){ 
-			return (point[i]-pos[i]-this.offset[i]) 
+
+		var p = [0,1].map(function(i){
+			return (point[i]-pos[i]-this.offset[i])
 		}.bind(this));
-		
+
 		if(this.options.snap) {
 			if(typeof this.options.snap == 'function') {
 				p = this.options.snap(p[0],p[1],this);
@@ -40,7 +40,7 @@ if(typeof(Draggable) != 'undefined'){
 	  			}
 			}
 		}
-		
+
 		if(this.options.onDraw)
 			this.options.onDraw.bind(this)(p);
 		else{
@@ -57,17 +57,17 @@ if(typeof(Draggable) != 'undefined'){
 					(viewport_dimensions.width - container_dimensions.width) - margin_left,
 					(viewport_dimensions.height - container_dimensions.height) - margin_top
 				]];
-				if((!this.options.constraint) || (this.options.constraint=='horizontal')){ 
+				if((!this.options.constraint) || (this.options.constraint=='horizontal')){
 					if((p[0] >= boundary[0][0]) && (p[0] <= boundary[1][0]))
 						this.element.style.left = p[0] + "px";
 					else
 						this.element.style.left = ((p[0] < boundary[0][0]) ? boundary[0][0] : boundary[1][0]) + "px";
-				} 
-				if((!this.options.constraint) || (this.options.constraint=='vertical')){ 
+				}
+				if((!this.options.constraint) || (this.options.constraint=='vertical')){
 					if((p[1] >= boundary[0][1] ) && (p[1] <= boundary[1][1]))
 						this.element.style.top = p[1] + "px";
 				  else
-						this.element.style.top = ((p[1] <= boundary[0][1]) ? boundary[0][1] : boundary[1][1]) + "px";			   
+						this.element.style.top = ((p[1] <= boundary[0][1]) ? boundary[0][1] : boundary[1][1]) + "px";
 				}
 			}else{
 				if((!this.options.constraint) || (this.options.constraint=='horizontal'))
@@ -101,7 +101,7 @@ if(typeof(Object.Event) == "undefined")
 Control.Window = Class.create({
 	initialize: function(container,options){
 		Control.Window.windows.push(this);
-		
+
 		//attribute initialization
 		this.container = false;
 		this.isOpen = false;
@@ -119,7 +119,7 @@ Control.Window = Class.create({
 			fade: false,
 			appear: false
 		};
-		
+
 		//options
 		this.options = Object.extend({
 			//lifecycle
@@ -138,7 +138,7 @@ Control.Window = Class.create({
 			hover: false, //element object to hover over, or if "true" only available for windows with sourceContainer (an anchor or any element already on the page with an href attribute)
 			indicator: false, //element to show or hide when ajax requests, images and iframes are loading
 			closeOnClick: false, //does not work with hover,can be: true (click anywhere), 'container' (will refer to this.container), or element (a specific element)
-			iframeshim: true, //wether or not to position an iFrameShim underneath the window 
+			iframeshim: true, //wether or not to position an iFrameShim underneath the window
 			//effects
 			fade: false,
 			fadeDuration: 0.75,
@@ -165,7 +165,7 @@ Control.Window = Class.create({
 			onRemoteContentLoaded: Prototype.emptyFunction,
 			insertRemoteContentAt: false //false will set this to this.container, can be string selector (first returned will be selected), or an Element that must be a child of this.container
 		},options || {});
-		
+
 		//container setup
 		this.indicator = this.options.indicator ? $(this.options.indicator) : false;
 		if(container){
@@ -177,7 +177,7 @@ Control.Window = Class.create({
 				//second call made below will not create the container since the check is done inside createDefaultContainer()
 				this.createDefaultContainer(container);
 				//if an element with an href was passed in we use it to activate the window
-				if(this.container && ((this.container.readAttribute('href') && this.container.readAttribute('href') != '') || (this.options.hover && this.options.hover !== true))){						
+				if(this.container && ((this.container.readAttribute('href') && this.container.readAttribute('href') != '') || (this.options.hover && this.options.hover !== true))){
 					if(this.options.hover && this.options.hover !== true)
 						this.sourceContainer = $(this.options.hover);
 					else{
@@ -242,10 +242,10 @@ Control.Window = Class.create({
 		this.applyResizable();
 		//draggable support
 		this.applyDraggable();
-		
+
 		//makes sure the window can't go out of bounds
 		Event.observe(window,'resize',this.outOfBoundsPositionHandler);
-		
+
 		this.notify('afterInitialize');
 	},
 	open: function(event){

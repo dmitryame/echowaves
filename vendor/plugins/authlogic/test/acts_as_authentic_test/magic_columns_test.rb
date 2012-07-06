@@ -7,18 +7,18 @@ module ActsAsAuthenticTest
       u.login_count = -1
       assert !u.valid?
       assert u.errors.on(:login_count)
-      
+
       u.login_count = 0
       assert !u.valid?
       assert !u.errors.on(:login_count)
     end
-    
+
     def test_validates_numericality_of_failed_login_count
       u = User.new
       u.failed_login_count = -1
       assert !u.valid?
       assert u.errors.on(:failed_login_count)
-      
+
       u.failed_login_count = 0
       assert !u.valid?
       assert !u.errors.on(:failed_login_count)

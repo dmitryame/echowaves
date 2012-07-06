@@ -5,7 +5,7 @@ module TZInfo
     module Asia
       module Tehran
         include TimezoneDefinition
-        
+
         timezone 'Asia/Tehran' do |tz|
           tz.offset :o0, 12344, 0, :LMT
           tz.offset :o1, 12344, 0, :TMT
@@ -13,7 +13,7 @@ module TZInfo
           tz.offset :o3, 14400, 0, :IRST
           tz.offset :o4, 14400, 3600, :IRDT
           tz.offset :o5, 12600, 3600, :IRDT
-          
+
           tz.transition 1915, 12, :o1, 26145324257, 10800
           tz.transition 1945, 12, :o2, 26263670657, 10800
           tz.transition 1977, 10, :o3, 247177800

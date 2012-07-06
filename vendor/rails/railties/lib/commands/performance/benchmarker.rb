@@ -21,4 +21,4 @@ bm(6) do |x|
   ARGV.each_with_index do |expression, idx|
     x.report("##{idx + 1}") { N.times { eval(expression) } }
   end
-end 
+end

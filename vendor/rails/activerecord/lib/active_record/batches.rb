@@ -70,8 +70,8 @@ module ActiveRecord
           end
         end
       end
-      
-      
+
+
       private
         def batch_order
           "#{table_name}.#{primary_key} ASC"

@@ -46,7 +46,7 @@ namespace :db do
             $stderr.puts "Couldn't create database for #{config.inspect}"
           end
         end
-        return # Skip the else clause of begin/rescue    
+        return # Skip the else clause of begin/rescue
       else
         ActiveRecord::Base.establish_connection(config)
         ActiveRecord::Base.connection

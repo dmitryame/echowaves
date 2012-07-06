@@ -5,13 +5,13 @@ module TZInfo
     module Africa
       module Casablanca
         include TimezoneDefinition
-        
+
         timezone 'Africa/Casablanca' do |tz|
           tz.offset :o0, -1820, 0, :LMT
           tz.offset :o1, 0, 0, :WET
           tz.offset :o2, 0, 3600, :WEST
           tz.offset :o3, 3600, 0, :CET
-          
+
           tz.transition 1913, 10, :o1, 10454687371, 4320
           tz.transition 1939, 9, :o2, 4859037, 2
           tz.transition 1939, 11, :o1, 58310075, 24

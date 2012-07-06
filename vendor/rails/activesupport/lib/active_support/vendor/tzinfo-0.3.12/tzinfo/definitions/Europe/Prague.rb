@@ -5,13 +5,13 @@ module TZInfo
     module Europe
       module Prague
         include TimezoneDefinition
-        
+
         timezone 'Europe/Prague' do |tz|
           tz.offset :o0, 3464, 0, :LMT
           tz.offset :o1, 3464, 0, :PMT
           tz.offset :o2, 3600, 0, :CET
           tz.offset :o3, 3600, 3600, :CEST
-          
+
           tz.transition 1849, 12, :o1, 25884991367, 10800
           tz.transition 1891, 9, :o2, 26049669767, 10800
           tz.transition 1916, 4, :o3, 29051813, 12

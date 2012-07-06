@@ -20,7 +20,7 @@ module Rails
           when :boolean                     then :check_box
           else
             :text_field
-        end      
+        end
       end
 
       def default
@@ -35,7 +35,7 @@ module Rails
           when :boolean                     then false
           else
             ""
-        end      
+        end
       end
 
       def reference?

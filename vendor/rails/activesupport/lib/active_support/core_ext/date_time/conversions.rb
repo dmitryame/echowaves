@@ -22,12 +22,12 @@ module ActiveSupport #:nodoc:
         end
 
         # Convert to a formatted string. See Time::DATE_FORMATS for predefined formats.
-        # 
+        #
         # This method is aliased to <tt>to_s</tt>.
-        # 
+        #
         # === Examples
         #   datetime = DateTime.civil(2007, 12, 4, 0, 0, 0, 0)   # => Tue, 04 Dec 2007 00:00:00 +0000
-        # 
+        #
         #   datetime.to_formatted_s(:db)            # => "2007-12-04 00:00:00"
         #   datetime.to_s(:db)                      # => "2007-12-04 00:00:00"
         #   datetime.to_s(:number)                  # => "20071204000000"
@@ -58,7 +58,7 @@ module ActiveSupport #:nodoc:
         def formatted_offset(colon = true, alternate_utc_string = nil)
           utc? && alternate_utc_string || utc_offset.to_utc_offset_s(colon)
         end
-        
+
         # Overrides the default inspect method with a human readable one, e.g., "Mon, 21 Feb 2005 14:30:00 +0000"
         def readable_inspect
           to_s(:rfc822)
@@ -84,8 +84,8 @@ module ActiveSupport #:nodoc:
         def xmlschema
           strftime("%Y-%m-%dT%H:%M:%S%Z")
         end if RUBY_VERSION < '1.9'
-        
-        # Converts self to a floating-point number of seconds since the Unix epoch 
+
+        # Converts self to a floating-point number of seconds since the Unix epoch
         def to_f
           days_since_unix_epoch = self - ::DateTime.civil(1970)
           (days_since_unix_epoch * 86_400).to_f

@@ -5,7 +5,7 @@ class ClientApplication < ActiveRecord::Base
   validates_presence_of :name, :url, :key, :secret
   validates_uniqueness_of :key
   before_validation_on_create :generate_keys
-  
+
   def self.find_token(token_key)
     token = OauthToken.find_by_token(token_key, :include => :client_application)
     if token && token.authorized?
@@ -15,7 +15,7 @@ class ClientApplication < ActiveRecord::Base
       nil
     end
   end
-  
+
   def self.verify_request(request, options = {}, &block)
     begin
       signature = OAuth::Signature.build(request, options, &block)
@@ -31,21 +31,21 @@ class ClientApplication < ActiveRecord::Base
       false
     end
   end
-  
+
   def oauth_server
     @oauth_server ||= OAuth::Server.new("http://your.site")
   end
-  
+
   def credentials
     @oauth_client ||= OAuth::Consumer.new(key, secret)
   end
-    
+
   def create_request_token
     RequestToken.create :client_application => self
   end
-  
+
 protected
-  
+
   def generate_keys
     @oauth_client = oauth_server.generate_consumer_credentials
     self.key = @oauth_client.key

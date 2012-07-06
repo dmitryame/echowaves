@@ -1,15 +1,15 @@
 <div class="bbox round">
   <h1><%= link_to image_tag("/images/icons/16px-feed-icon.png"),
-        new_messages_conversations_url(params[:id], :format => :atom, :user_credentials => @user.single_access_token), 
+        new_messages_conversations_url(params[:id], :format => :atom, :user_credentials => @user.single_access_token),
         :type => "application/atom+xml",
         :rel => "alternate" if (logged_in? && current_user == @user) %> <%= @user.name_and_nick %> profile</h1>
   <br/>
   <div class="avatar">
     <%= link_to image_tag(@user.gravatar_url, :border => 0, :width => 60,
                           :height => 60, :class => "avatar", :alt => @user.name_and_nick),
-                          user_path(@user) %>		
+                          user_path(@user) %>
   </div>
-  
+
   <span class="username">
 	  <%= link_to h(@user.login), user_path(@user) %>
 	  <% if logged_in? && @user && @current_user == @user %>
@@ -17,8 +17,8 @@
     <% end %>
     <%= render :partial => 'users/follow_from_list', :object => @user %>
   </span>
-	
-  <span class="userinfo">                                        
+
+  <span class="userinfo">
     <%= t("users.since") + " " + @user.date   + ' | ' +
       @user.conversations.size.to_s  + '&nbsp;' + t('ui.convos')    + ' | ' +
       @user.messages.size.to_s       + '&nbsp;' + t('ui.messages')  + ' | ' +

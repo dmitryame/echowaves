@@ -356,10 +356,10 @@ class UrlWriterTests < ActionController::TestCase
     controller = kls.new
     params = {:id => 1, :format => :xml}
     assert_deprecated do
-      assert_equal("/posts/1.xml", controller.send(:formatted_post_path, params))    
+      assert_equal("/posts/1.xml", controller.send(:formatted_post_path, params))
     end
     assert_deprecated do
-      assert_equal("/posts/1.xml", controller.send(:formatted_post_path, 1, :xml))    
+      assert_equal("/posts/1.xml", controller.send(:formatted_post_path, 1, :xml))
     end
   ensure
     ActionController::Routing::Routes.load!

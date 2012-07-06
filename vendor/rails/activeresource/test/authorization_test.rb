@@ -22,29 +22,29 @@ class AuthorizationTest < Test::Unit::TestCase
     authorization_header = @authenticated_conn.__send__(:authorization_header)
     assert_equal @authorization_request_header['Authorization'], authorization_header['Authorization']
     authorization = authorization_header["Authorization"].to_s.split
-    
+
     assert_equal "Basic", authorization[0]
     assert_equal ["david", "test123"], ActiveSupport::Base64.decode64(authorization[1]).split(":")[0..1]
   end
-  
+
   def test_authorization_header_with_username_but_no_password
     @conn = ActiveResource::Connection.new("http://david:@localhost")
     authorization_header = @conn.__send__(:authorization_header)
     authorization = authorization_header["Authorization"].to_s.split
-    
+
     assert_equal "Basic", authorization[0]
     assert_equal ["david"], ActiveSupport::Base64.decode64(authorization[1]).split(":")[0..1]
   end
-  
+
   def test_authorization_header_with_password_but_no_username
     @conn = ActiveResource::Connection.new("http://:test123@localhost")
     authorization_header = @conn.__send__(:authorization_header)
     authorization = authorization_header["Authorization"].to_s.split
-    
+
     assert_equal "Basic", authorization[0]
     assert_equal ["", "test123"], ActiveSupport::Base64.decode64(authorization[1]).split(":")[0..1]
   end
-  
+
   def test_authorization_header_with_decoded_credentials_from_url
     @conn = ActiveResource::Connection.new("http://my%40email.com:%31%32%33@localhost")
     authorization_header = @conn.__send__(:authorization_header)
@@ -90,17 +90,17 @@ class AuthorizationTest < Test::Unit::TestCase
     david = @authenticated_conn.get("/people/2.xml")
     assert_equal "David", david["name"]
   end
-  
+
   def test_post
     response = @authenticated_conn.post("/people/2/addresses.xml")
     assert_equal "/people/1/addresses/5", response["Location"]
   end
-  
+
   def test_put
     response = @authenticated_conn.put("/people/2.xml")
     assert_equal 204, response.code
   end
-  
+
   def test_delete
     response = @authenticated_conn.delete("/people/2.xml")
     assert_equal 200, response.code

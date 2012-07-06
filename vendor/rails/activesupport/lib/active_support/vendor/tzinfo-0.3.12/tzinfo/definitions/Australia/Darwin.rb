@@ -5,13 +5,13 @@ module TZInfo
     module Australia
       module Darwin
         include TimezoneDefinition
-        
+
         timezone 'Australia/Darwin' do |tz|
           tz.offset :o0, 31400, 0, :LMT
           tz.offset :o1, 32400, 0, :CST
           tz.offset :o2, 34200, 0, :CST
           tz.offset :o3, 34200, 3600, :CST
-          
+
           tz.transition 1895, 1, :o1, 1042513259, 432
           tz.transition 1899, 4, :o2, 19318201, 8
           tz.transition 1916, 12, :o3, 3486569911, 1440

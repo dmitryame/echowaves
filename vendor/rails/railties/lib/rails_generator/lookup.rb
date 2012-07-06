@@ -94,11 +94,11 @@ module Rails
         # 1.  Rails application.  If RAILS_ROOT is defined we know we're
         #     generating in the context of a Rails application, so search
         #     RAILS_ROOT/generators.
-        # 2.  Look in plugins, either for generators/ or rails_generators/ 
+        # 2.  Look in plugins, either for generators/ or rails_generators/
         #     directories within each plugin
         # 3.  User home directory.  Search ~/.rails/generators.
-        # 4.  RubyGems.  Search for gems named *_generator, and look for 
-        #     generators within any RubyGem's 
+        # 4.  RubyGems.  Search for gems named *_generator, and look for
+        #     generators within any RubyGem's
         #     /rails_generators/<generator_name>_generator.rb file.
         # 5.  Builtins.  Model, controller, mailer, scaffold, and so on.
         def use_component_sources!
@@ -125,7 +125,7 @@ module Rails
           @found ||= {}
           generator_name = generator_name.to_s.downcase
           @found[generator_name] ||= cache.find { |spec| spec.name == generator_name }
-          unless @found[generator_name] 
+          unless @found[generator_name]
             chars = generator_name.scan(/./).map{|c|"#{c}.*?"}
             rx = /^#{chars}$/
             gns = cache.select{|spec| spec.name =~ rx }

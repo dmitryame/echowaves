@@ -1,29 +1,29 @@
 require 'oauth/signature'
 module OAuth
   module Rails
-   
+
     module ControllerMethods
       protected
-      
+
       def current_token
         @current_token
       end
-      
+
       def current_client_application
         @current_client_application
       end
-      
+
       def oauthenticate
         logger.info "entering oauthenticate"
-        verified=verify_oauth_signature 
+        verified=verify_oauth_signature
         logger.info "verified=#{verified.to_s}"
         return verified && current_token.is_a?(::AccessToken)
       end
-      
+
       def oauth?
         current_token!=nil
       end
-      
+
       # use in a before_filter
       def oauth_required
         logger.info "Current_token=#{@current_token.inspect}"
@@ -38,11 +38,11 @@ module OAuth
           end
         else
           logger.info "failed oauthenticate"
-          
+
           invalid_oauth_response
         end
       end
-      
+
       # This requies that you have an acts_as_authenticated compatible authentication plugin installed
       def login_or_oauth_required
         if oauthenticate
@@ -55,8 +55,8 @@ module OAuth
           login_required
         end
       end
-      
-      
+
+
       # verifies a request token request
       def verify_oauth_consumer_signature
         begin
@@ -82,16 +82,16 @@ module OAuth
       end
 
       private
-      
+
       def current_token=(token)
         @current_token=token
         if @current_token
           @current_user=@current_token.user
-          @current_client_application=@current_token.client_application 
+          @current_client_application=@current_token.client_application
         end
         @current_token
       end
-      
+
       # Implement this for your own application using app-specific models
       def verify_oauth_signature
         begin

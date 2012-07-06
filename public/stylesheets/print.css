@@ -1,13 +1,13 @@
-/* -------------------------------------------------------------- 
-  
+/* --------------------------------------------------------------
+
  Hartija Css Print  Framework
    * Version:   0.8 (2008-03-10)
-   
+
    * In use by BlueTripCSS
-	 
+
 -------------------------------------------------------------- */
 
-body { 
+body {
 width:100% !important;
 margin:0 !important;
 padding:0 !important;
@@ -22,7 +22,7 @@ h2{font-size:17pt;}
 h3{font-size:15pt;}
 h4,h5,h6{font-size:12pt;}
 
-code { font: 10pt Courier, monospace; } 
+code { font: 10pt Courier, monospace; }
 blockquote { margin: 1.3em; padding: 1em;  font-size: 10pt; }
 hr { background-color: #ccc; }
 
@@ -43,11 +43,11 @@ th,td { padding: 4px 10px 4px 0; }
 tfoot { font-style: italic; }
 caption { background: #fff; margin-bottom:2em; text-align:left; }
 thead {display: table-header-group;}
-tr {page-break-inside: avoid;} 
+tr {page-break-inside: avoid;}
 
 /*hide various parts from the site*/
 
-#header, #footer, #navigation, #rightSideBar, #leftSideBar 
+#header, #footer, #navigation, #rightSideBar, #leftSideBar
 {display:none;}
 
 .container a.button, .container button {

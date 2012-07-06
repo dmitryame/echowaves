@@ -6,7 +6,7 @@ class CreateConversationVisits < ActiveRecord::Migration
 
       t.timestamps
     end
-    
+
     add_index :conversation_visits, :created_at
     add_index :conversation_visits, :user_id
     add_index :conversation_visits, :conversation_id
@@ -16,7 +16,7 @@ class CreateConversationVisits < ActiveRecord::Migration
     remove_index :conversation_visits, :created_at
     remove_index :conversation_visits, :user_id
     remove_index :conversation_visits, :conversation_id
-    
+
     drop_table :conversation_visits
   end
 end

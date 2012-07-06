@@ -3,7 +3,7 @@ class MockCookieJar < Hash
     hash = super
     hash && hash[:value]
   end
-  
+
   def delete(key, options = {})
     super(key)
   end

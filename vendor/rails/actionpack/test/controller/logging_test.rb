@@ -11,7 +11,7 @@ class LoggingTest < ActionController::TestCase
 
   class MockLogger
     attr_reader :logged
-    
+
     def method_missing(method, *args)
       @logged ||= []
       @logged << args.first
@@ -33,13 +33,13 @@ class LoggingTest < ActionController::TestCase
     params = logs.detect {|l| l =~ /Parameters/ }
     assert_equal 'Parameters: {"id"=>"10"}', params
   end
-  
+
   private
 
   def set_logger
     @controller.logger = MockLogger.new
   end
-  
+
   def logs
     @logs ||= @controller.logger.logged.compact.map {|l| l.strip}
   end

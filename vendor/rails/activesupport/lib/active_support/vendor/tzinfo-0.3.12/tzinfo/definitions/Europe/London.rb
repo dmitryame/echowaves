@@ -5,14 +5,14 @@ module TZInfo
     module Europe
       module London
         include TimezoneDefinition
-        
+
         timezone 'Europe/London' do |tz|
           tz.offset :o0, -75, 0, :LMT
           tz.offset :o1, 0, 0, :GMT
           tz.offset :o2, 0, 3600, :BST
           tz.offset :o3, 0, 7200, :BDST
           tz.offset :o4, 3600, 0, :BST
-          
+
           tz.transition 1847, 12, :o1, 2760187969, 1152
           tz.transition 1916, 5, :o2, 29052055, 12
           tz.transition 1916, 10, :o1, 29053651, 12

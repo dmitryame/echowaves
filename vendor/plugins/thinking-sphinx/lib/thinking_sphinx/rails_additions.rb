@@ -62,7 +62,7 @@ module ThinkingSphinx
   module ActiveRecordQuotedName
     def quoted_table_name
       self.connection.quote_table_name(self.table_name)
-    end 
+    end
   end
 end
 

@@ -1,42 +1,42 @@
 module Rails
   class Plugin
-    
+
     # The Plugin::Locator class should be subclasses to provide custom plugin-finding
     # abilities to Rails (i.e. loading plugins from Gems, etc). Each subclass should implement
     # the <tt>located_plugins</tt> method, which return an array of Plugin objects that have been found.
     class Locator
       include Enumerable
-      
+
       attr_reader :initializer
-      
+
       def initialize(initializer)
         @initializer = initializer
       end
-      
+
       # This method should return all the plugins which this Plugin::Locator can find
       # These will then be used by the current Plugin::Loader, which is responsible for actually
       # loading the plugins themselves
       def plugins
         raise "The `plugins' method must be defined by concrete subclasses of #{self.class}"
       end
-      
+
       def each(&block)
         plugins.each(&block)
       end
-      
+
       def plugin_names
         plugins.map(&:name)
       end
     end
-    
+
     # The Rails::Plugin::FileSystemLocator will try to locate plugins by examining the directories
     # in the paths given in configuration.plugin_paths. Any plugins that can be found are returned
-    # in a list. 
+    # in a list.
     #
     # The criteria for a valid plugin in this case is found in Rails::Plugin#valid?, although
     # other subclasses of Rails::Plugin::Locator can of course use different conditions.
     class FileSystemLocator < Locator
-      
+
       # Returns all the plugins which can be loaded in the filesystem, under the paths given
       # by configuration.plugin_paths.
       def plugins
@@ -45,9 +45,9 @@ module Rails
           plugins
         end.flatten
       end
-          
+
       private
-      
+
         # Attempts to create a plugin from the given path. If the created plugin is valid?
         # (see Rails::Plugin#valid?) then the plugin instance is returned; otherwise nil.
         def create_plugin(path)
@@ -56,7 +56,7 @@ module Rails
         end
 
         # This starts at the base path looking for valid plugins (see Rails::Plugin#valid?).
-        # Since plugins can be nested arbitrarily deep within an unspecified number of intermediary 
+        # Since plugins can be nested arbitrarily deep within an unspecified number of intermediary
         # directories, this method runs recursively until it finds a plugin directory, e.g.
         #
         #     locate_plugins_under('vendor/plugins/acts/acts_as_chunky_bacon')

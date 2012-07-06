@@ -20,7 +20,7 @@ Control.TextArea = Class.create({
 		$(this.element).observe('paste',this.doOnChange.bindAsEventListener(this));
 		$(this.element).observe('input',this.doOnChange.bindAsEventListener(this));
 		if(!!document.selection){
-			$(this.element).observe('mouseup',this.saveRange.bindAsEventListener(this));  
+			$(this.element).observe('mouseup',this.saveRange.bindAsEventListener(this));
 			$(this.element).observe('keyup',this.saveRange.bindAsEventListener(this));
 		}
 	},
@@ -32,7 +32,7 @@ Control.TextArea = Class.create({
 		}.bind(this),Control.TextArea.onChangeTimeoutLength);
 	},
 	saveRange: function(){
-		this.range = document.selection.createRange();  
+		this.range = document.selection.createRange();
 	},
 	getValue: function(){
 		return this.element.value;

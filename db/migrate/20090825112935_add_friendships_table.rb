@@ -7,7 +7,7 @@ class AddFriendshipsTable < ActiveRecord::Migration
     end
     add_index :friendships, :user_id
     add_index :friendships, :friend_id
-    
+
     Subscription.all.each do |s|
       begin
         convo = Conversation.find(s.conversation_id)
@@ -20,7 +20,7 @@ class AddFriendshipsTable < ActiveRecord::Migration
         puts "convo #{s.conversation_id} for suscription #{s.id} does not exist"
       end
     end
-    
+
   end
 
   def self.down

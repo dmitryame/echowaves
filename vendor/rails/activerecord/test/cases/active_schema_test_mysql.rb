@@ -44,7 +44,7 @@ class ActiveSchemaTest < ActiveRecord::TestCase
     assert_equal "DROP TABLE `otherdb`.`people`", drop_table('otherdb.people')
   end
 
-  def test_add_timestamps 
+  def test_add_timestamps
     with_real_execute do
       begin
         ActiveRecord::Base.connection.create_table :delete_me do |t|
@@ -57,8 +57,8 @@ class ActiveSchemaTest < ActiveRecord::TestCase
       end
     end
   end
-  
-  def test_remove_timestamps 
+
+  def test_remove_timestamps
     with_real_execute do
       begin
         ActiveRecord::Base.connection.create_table :delete_me do |t|

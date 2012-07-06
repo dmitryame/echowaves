@@ -5,7 +5,7 @@ module TZInfo
     module Asia
       module Tashkent
         include TimezoneDefinition
-        
+
         timezone 'Asia/Tashkent' do |tz|
           tz.offset :o0, 16632, 0, :LMT
           tz.offset :o1, 18000, 0, :TAST
@@ -14,7 +14,7 @@ module TZInfo
           tz.offset :o4, 18000, 3600, :TASST
           tz.offset :o5, 18000, 3600, :UZST
           tz.offset :o6, 18000, 0, :UZT
-          
+
           tz.transition 1924, 5, :o1, 969562923, 400
           tz.transition 1930, 6, :o2, 58227559, 24
           tz.transition 1981, 3, :o3, 354909600

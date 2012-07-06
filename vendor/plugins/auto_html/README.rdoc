@@ -7,7 +7,7 @@ Rails plugin for embedding rich content by converting provided URL's to appropri
 
 auto_html plugin is the perfect choice if you don't want to bother visitors with rich HTML editor or markup code, but you still want to allow them to embed video, images, links and more on your site, purely by pasting URL.
 
-Let's say you have model Comment with attribute body. Create another column in table Comments called body_html. Now have something like this: 
+Let's say you have model Comment with attribute body. Create another column in table Comments called body_html. Now have something like this:
 
   class Comment < ActiveRecord::Base
     auto_html_for :body do
@@ -19,9 +19,9 @@ Let's say you have model Comment with attribute body. Create another column in t
     end
   end
 
-... and you'll have this behaviour: 
+... and you'll have this behaviour:
 
-  Comment.create(:body => 'Hey check out this cool video: http://www.youtube.com/watch?v=WdsGihou8J4')  
+  Comment.create(:body => 'Hey check out this cool video: http://www.youtube.com/watch?v=WdsGihou8J4')
   => #<Comment id: 123, body: 'Hey check out this cool video: http://www.youtube.com/watch?v=WdsGihou8J4', body_html: '<p>Hey check out this cool video: <object height="250" width="400"><param name="movie" value="http://www.youtube.com/v/WdsGihou8J4" /><param name="wmode" value="transparent" /><embed src="http://www.youtube.com/v/WdsGihou8J4" type="application/x-shockwave-flash" height="250" wmode="transparent" width="400"></embed></object></p>'>
 
 Note that order of invoking filters is important, ie. you want html_escape as first and link amongst last, so that it doesn't transform youtube URL to plain link.
@@ -53,7 +53,7 @@ Plugin is highly customizable, and you can easily create new filters that will t
 
 == Bundled filters
 
-For filter list and options they support check: http://github.com/dejan/auto_html/tree/master/lib/auto_html/filters 
+For filter list and options they support check: http://github.com/dejan/auto_html/tree/master/lib/auto_html/filters
 
 
 == Install

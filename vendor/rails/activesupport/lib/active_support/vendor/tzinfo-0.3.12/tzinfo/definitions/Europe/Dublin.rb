@@ -5,7 +5,7 @@ module TZInfo
     module Europe
       module Dublin
         include TimezoneDefinition
-        
+
         timezone 'Europe/Dublin' do |tz|
           tz.offset :o0, -1500, 0, :LMT
           tz.offset :o1, -1521, 0, :DMT
@@ -14,7 +14,7 @@ module TZInfo
           tz.offset :o4, 0, 3600, :BST
           tz.offset :o5, 0, 3600, :IST
           tz.offset :o6, 3600, 0, :IST
-          
+
           tz.transition 1880, 8, :o1, 693483701, 288
           tz.transition 1916, 5, :o2, 7747214723, 3200
           tz.transition 1916, 10, :o3, 7747640323, 3200

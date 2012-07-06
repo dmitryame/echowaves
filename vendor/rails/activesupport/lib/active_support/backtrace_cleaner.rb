@@ -9,7 +9,7 @@ module ActiveSupport
   # Example:
   #
   #   bc = BacktraceCleaner.new
-  #   bc.add_filter   { |line| line.gsub(Rails.root, '') } 
+  #   bc.add_filter   { |line| line.gsub(Rails.root, '') }
   #   bc.add_silencer { |line| line =~ /mongrel|rubygems/ }
   #   bc.clean(exception.backtrace) # will strip the Rails.root prefix and skip any lines from mongrel or rubygems
   #
@@ -18,7 +18,7 @@ module ActiveSupport
     def initialize
       @filters, @silencers = [], []
     end
-    
+
     # Returns the backtrace after all filters and silencers has been run against it. Filters run first, then silencers.
     def clean(backtrace)
       silence(filter(backtrace))
@@ -51,21 +51,21 @@ module ActiveSupport
       @silencers = []
     end
 
-    
+
     private
       def filter(backtrace)
         @filters.each do |f|
           backtrace = backtrace.map { |line| f.call(line) }
         end
-        
+
         backtrace
       end
-      
+
       def silence(backtrace)
         @silencers.each do |s|
           backtrace = backtrace.reject { |line| s.call(line) }
         end
-        
+
         backtrace
       end
   end

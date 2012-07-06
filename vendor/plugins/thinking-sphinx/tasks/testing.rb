@@ -23,7 +23,7 @@ namespace :features do
       t.profile = name
     end
   end
-  
+
   add_task :mysql,      "Run feature-set against MySQL"
   add_task :postgresql, "Run feature-set against PostgreSQL"
 end
@@ -50,7 +50,7 @@ namespace :rcov do
       ]
     end
   end
-  
+
   add_task :mysql,      "Run feature-set against MySQL with rcov"
   add_task :postgresql, "Run feature-set against PostgreSQL with rcov"
 end
@@ -63,13 +63,13 @@ task :cucumber_defaults do
     --require features/support/db/active_record.rb
     --require features/support/post_database.rb
   ).join(" ")
-  
+
   step_definitions = FileList["features/step_definitions/**.rb"].collect { |path|
     "--require #{path}"
   }.join(" ")
-  
+
   features = FileList["features/*.feature"].join(" ")
-  
+
   File.open('cucumber.yml', 'w') { |f|
     f.write "default: \"#{default_requires} #{step_definitions}\"\n\n"
     f.write "mysql: \"#{default_requires} #{step_definitions} #{features}\"\n\n"

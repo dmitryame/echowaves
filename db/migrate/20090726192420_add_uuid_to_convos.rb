@@ -1,8 +1,8 @@
 class AddUuidToConvos < ActiveRecord::Migration
   def self.up
     add_column :conversations, :uuid, :string
-    
-    Conversation.find_each(:batch_size => 100) do |c|  
+
+    Conversation.find_each(:batch_size => 100) do |c|
       c.reset_uuid!
     end
   end

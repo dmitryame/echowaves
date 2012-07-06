@@ -17,7 +17,7 @@ module ActiveSupport #:nodoc:
     #   bad.explicit_checking_method "T".mb_chars.downcase.to_s
     #
     # The default Chars implementation assumes that the encoding of the string is UTF-8, if you want to handle different
-    # encodings you can write your own multibyte string handler and configure it through 
+    # encodings you can write your own multibyte string handler and configure it through
     # ActiveSupport::Multibyte.proxy_class.
     #
     #   class CharsForUTF32
@@ -516,7 +516,7 @@ module ActiveSupport #:nodoc:
               unpacked << codepoints[marker..pos-1]
               marker = pos
             end
-          end 
+          end
           unpacked
         end
 
@@ -661,12 +661,12 @@ module ActiveSupport #:nodoc:
             rescue ArgumentError => e
               chunk = @wrapped_string[0..(byte_offset+=1)]
               # Stop retrying at the end of the string
-              raise e unless byte_offset < chunk.length 
+              raise e unless byte_offset < chunk.length
               # We damaged a character, retry
               retry
             end
           # Catch the ArgumentError so we can throw our own
-          rescue ArgumentError 
+          rescue ArgumentError
             raise EncodingError, 'malformed UTF-8 character'
           end
         end

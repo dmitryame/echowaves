@@ -2,13 +2,13 @@ require 'benchmark'
 
 module ActionView
   module Helpers
-    # This helper offers a method to measure the execution time of a block 
+    # This helper offers a method to measure the execution time of a block
     # in a template.
     module BenchmarkHelper
-      # Allows you to measure the execution time of a block 
+      # Allows you to measure the execution time of a block
       # in a template and records the result to the log. Wrap this block around
       # expensive operations or possible bottlenecks to get a time reading
-      # for the operation.  For example, let's say you thought your file 
+      # for the operation.  For example, let's say you thought your file
       # processing method was taking too long; you could wrap it in a benchmark block.
       #
       #  <% benchmark "Process data files" do %>
@@ -25,7 +25,7 @@ module ActionView
       #    <%= lowlevel_files_operation %>
       #  <% end %>
       #
-      # Finally, you can pass true as the third argument to silence all log activity 
+      # Finally, you can pass true as the third argument to silence all log activity
       # inside the block. This is great for boiling down a noisy block to just a single statement:
       #
       #  <% benchmark "Process data files", :level => :info, :silence => true do %>
@@ -40,7 +40,7 @@ module ActionView
             options.assert_valid_keys(:level, :silence)
             options[:level] ||= :info
           end
-          
+
           result = nil
           ms = Benchmark.ms { result = options[:silence] ? controller.logger.silence { yield } : yield }
           controller.logger.send(options[:level], '%s (%.1fms)' % [ message, ms ])

@@ -1,7 +1,7 @@
 class AddParentMessageIdToConversation < ActiveRecord::Migration
   def self.up
     add_column :conversations, :parent_message_id, :integer
-    add_index :conversations, :parent_message_id    
+    add_index :conversations, :parent_message_id
   end
 
   def self.down

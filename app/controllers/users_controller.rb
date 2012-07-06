@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   end
 
   before_filter :require_user, :only => [ :edit, :update, :update_news, :change_password ]
-  
+
   auto_complete_for :user, :name
 
   def index
@@ -30,7 +30,7 @@ class UsersController < ApplicationController
       end
     end
   end
-  
+
   # TODO: optimize each method as needed, or refactor
   # followers, followed_users, followed_convos
   def followers
@@ -41,7 +41,7 @@ class UsersController < ApplicationController
       format.xml  { render :xml => @user }
     end
   end
-  
+
   def followed_users
     @user = User.find(params[:id])
     @followed_users = @user.following.paginate :page => params[:page], :order => 'created_at DESC', :per_page => 20
@@ -50,7 +50,7 @@ class UsersController < ApplicationController
       format.xml  { render :xml => @user }
     end
   end
-  
+
   def friends
     @user = User.find(params[:id])
     @friends = @user.friends
@@ -59,7 +59,7 @@ class UsersController < ApplicationController
       format.xml  { render :xml => @user }
     end
   end
-  
+
   def followed_convos
     @user = User.find(params[:id])
     @conversations = @user.subscribed_conversations.no_owned_by(@user.id).paginate :page => params[:page], :order => 'created_at DESC', :per_page => 20
@@ -68,19 +68,19 @@ class UsersController < ApplicationController
       format.xml  { render :xml => @user }
     end
   end
-  
-  
+
+
   #----------------------------------------------------------------------------
   def follow
     @user = User.find(params[:id])
     current_user.follow_user(@user)
   end
-  
+
   #----------------------------------------------------------------------------
   def follow_from_list
     follow
   end
-  
+
   #----------------------------------------------------------------------------
   def unfollow
     @user = User.find(params[:id])
@@ -91,8 +91,8 @@ class UsersController < ApplicationController
   def unfollow_from_list
     unfollow
   end
-  
-  
+
+
   def tagged_convos
     @user = User.find(params[:id])
     @tag = params[:tag]
@@ -110,13 +110,13 @@ class UsersController < ApplicationController
   def new
     @user = User.new
   end
- 
+
   def create
     @user = User.new(params[:user])
     @user.login = params[:user][:login]
     @user.name = @user.login if params[:user][:name].blank?
-    @user.email              = params[:user][:email] 
-    @user.email_confirmation = params[:user][:email_confirmation] 
+    @user.email              = params[:user][:email]
+    @user.email_confirmation = params[:user][:email_confirmation]
 
     success = @user && @user.save
     if success && @user.errors.empty?
@@ -146,7 +146,7 @@ class UsersController < ApplicationController
       render :edit
     end
   end
-  
+
   def activate
     user = User.find_using_perishable_token(params[:perishable_token], 0) unless params[:perishable_token].blank?
     case
@@ -157,7 +157,7 @@ class UsersController < ApplicationController
     when params[:perishable_token].blank?
       flash[:error] = "The activation code was missing.  Please follow the URL from your email."
       redirect_back_or_default('/')
-    else 
+    else
       flash[:error]  = "We couldn't find a user with that activation code -- check your email? Or maybe you've already activated -- try signing in."
       redirect_back_or_default('/')
     end
@@ -168,7 +168,7 @@ class UsersController < ApplicationController
     if User.authenticate(current_user.login, params[:old_password])
       if ((params[:password] == params[:password_confirmation]) && !params[:password_confirmation].blank?)
         current_user.password_confirmation = params[:password_confirmation]
-        current_user.password = params[:password]        
+        current_user.password = params[:password]
         if current_user.save
           flash[:notice] = "Password successfully updated."
           redirect_to root_path #profile_url(current_user.login)
@@ -179,23 +179,23 @@ class UsersController < ApplicationController
       else
         flash[:error] = "New password does not match the password confirmation."
         @old_password = params[:old_password]
-        render :edit      
+        render :edit
       end
     else
       flash[:error] = "Your old password is incorrect."
       render :edit
-    end 
+    end
   end
-  
+
   def update_news
     @conversation = Conversation.find(params[:conversation_id])
   end
-  
+
   def disable
     current_user.disable!
     current_user_session.destroy
     flash[:notice] = t("users.disabled")
     redirect_to root_path
   end
-  
+
 end

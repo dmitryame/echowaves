@@ -15,7 +15,7 @@ class ModelGenerator < Rails::Generator::NamedBase
       m.template 'model.rb',      File.join('app/models', class_path, "#{file_name}.rb")
       m.template 'unit_test.rb',  File.join('test/unit', class_path, "#{file_name}_test.rb")
 
-      unless options[:skip_fixture] 
+      unless options[:skip_fixture]
        	m.template 'fixtures.yml',  File.join('test/fixtures', "#{table_name}.yml")
       end
 
@@ -44,7 +44,7 @@ class ModelGenerator < Rails::Generator::NamedBase
       opt.separator 'Options:'
       opt.on("--skip-timestamps",
              "Don't add timestamps to the migration file for this model") { |v| options[:skip_timestamps] = v }
-      opt.on("--skip-migration", 
+      opt.on("--skip-migration",
              "Don't generate a migration file for this model") { |v| options[:skip_migration] = v }
       opt.on("--skip-fixture",
              "Don't generation a fixture file for this model") { |v| options[:skip_fixture] = v}

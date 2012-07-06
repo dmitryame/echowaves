@@ -6,7 +6,7 @@
 * write some code that knows if the client should be started, and gives out a warning
 * add a configuration option for SERVER/CLIENT
 * add phusion daemon starter option so that workling_client doesn't need to be started manually on SERVER
-* write some more documentation on the above issues and on standard remote setup. 
+* write some more documentation on the above issues and on standard remote setup.
 * create a public forum, rdoc site
 * try to reduce user error in setting environments correctly
 * add beanstalkd runner

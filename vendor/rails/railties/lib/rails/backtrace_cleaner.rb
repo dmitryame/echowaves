@@ -25,8 +25,8 @@ module Rails
       add_silencer { |line| RAILS_GEMS.any? { |gem| line =~ /^#{gem} / } }
       add_silencer { |line| line =~ %r(vendor/plugins/[^\/]+/lib) }
     end
-    
-    
+
+
     private
       def add_gem_filters
         Gem.path.each do |path|

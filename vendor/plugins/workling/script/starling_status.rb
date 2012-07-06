@@ -11,13 +11,13 @@ puts '** Rails loaded.'
 trap(:INT) { exit }
 
 client = Workling::Clients::MemcacheQueueClient.new
-  
+
 begin
   client.connect
   client.reset
-  
-  client.stats # do this so that connection is shown as established below. 
-  
+
+  client.stats # do this so that connection is shown as established below.
+
   puts "Queue state:"
   pp client.inspect
   pp "Active?: #{client.active?}"

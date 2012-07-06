@@ -64,11 +64,11 @@ module Rails
               if n > max then n else max end
             end
           end
-             
+
           def next_migration_number
             current_migration_number + 1
           end
-               
+
           def migration_directory(relative_path)
             directory(@migration_directory = relative_path)
           end

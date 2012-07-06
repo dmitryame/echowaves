@@ -1,5 +1,5 @@
 class Class #:nodoc:
-  
+
   # Unassociates the class with its subclasses and removes the subclasses
   # themselves.
   #
@@ -37,10 +37,10 @@ class Class #:nodoc:
     klasses.flatten.each do |klass|
       # Skip this class if there is nothing bound to this name
       next unless defined?(klass.name)
-      
+
       basename = klass.to_s.split("::").last
       parent = klass.parent
-      
+
       # Skip this class if it does not match the current one bound to this name
       next unless parent.const_defined?(basename) && klass = parent.const_get(basename)
 

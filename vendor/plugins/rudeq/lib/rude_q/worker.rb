@@ -25,11 +25,11 @@ module RudeQ
     def queue_name
       raise NotImplementedError
     end
-    
+
     def do_work(data)
       raise NotImplementedError
     end
-    
+
     def do!
       logger.info("starting up")
       if work = self.queue.get
@@ -39,8 +39,8 @@ module RudeQ
         logger.info("couldn't find any work")
       end
       logger.info("finished for now")
-    end      
-  
+    end
+
     def logger
       unless @logger
         @logger = Logger.new(RAILS_ROOT + "/log/#{self.class.to_s.underscore}_#{RAILS_ENV}.log")

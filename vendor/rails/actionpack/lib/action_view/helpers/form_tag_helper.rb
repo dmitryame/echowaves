@@ -117,7 +117,7 @@ module ActionView
 
       # Creates a label field
       #
-      # ==== Options  
+      # ==== Options
       # * Creates standard HTML attributes for the tag.
       #
       # ==== Examples
@@ -356,7 +356,7 @@ module ActionView
         if disable_with = options.delete("disable_with")
           disable_with = "this.value='#{disable_with}'"
           disable_with << ";#{options.delete('onclick')}" if options['onclick']
-          
+
           options["onclick"]  = "if (window.hiddenCommit) { window.hiddenCommit.setAttribute('value', this.value); }"
           options["onclick"] << "else { hiddenCommit = document.createElement('input');hiddenCommit.type = 'hidden';"
           options["onclick"] << "hiddenCommit.value = this.value;hiddenCommit.name = this.name;this.form.appendChild(hiddenCommit); }"

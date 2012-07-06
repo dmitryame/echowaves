@@ -288,7 +288,7 @@ module ActionController
     # * <tt>:new</tt> - Same as <tt>:collection</tt>, but for actions that operate on the new \resource action.
     # * <tt>:controller</tt> - Specify the controller name for the routes.
     # * <tt>:singular</tt> - Specify the singular name used in the member routes.
-    # * <tt>:requirements</tt> - Set custom routing parameter requirements; this is a hash of either 
+    # * <tt>:requirements</tt> - Set custom routing parameter requirements; this is a hash of either
     #     regular expressions (which must match for the route to match) or extra parameters. For example:
     #
     #       map.resource :profile, :path_prefix => ':name', :requirements => { :name => /[a-zA-Z]+/, :extra => 'value' }

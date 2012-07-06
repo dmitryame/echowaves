@@ -44,7 +44,7 @@ class UsersControllerTest < ActionController::TestCase
       assert_response :success
     end
   end
-  
+
   def test_should_return_users_on_index
     user = Factory.create( :user )
     followers = [ Factory.create( :user ), Factory.create(:user) ]
@@ -55,36 +55,36 @@ class UsersControllerTest < ActionController::TestCase
     assert assigns( :users )
     assert_response :success
     assert_template "users/index"
-  end 
+  end
 
   def test_should_find_and_return_user_on_show_with_id
     user = Factory.create( :user )
-    user.activate!    
+    user.activate!
     get :show, :id => user.id
     assert assigns( :user )
     assert_response :success
     assert_template "users/show"
   end
-  
+
   def test_should_find_and_return_user_on_show_with_id_plus_username
     user = Factory.create( :user )
-    user.activate!    
+    user.activate!
     get :show, :id => "#{user.id}-#{user.login}"
     assert assigns( :user )
     assert_response :success
     assert_template "users/show"
   end
-  
+
   def test_should_find_and_return_user_on_show_with_username
     user = Factory.create( :user )
-    user.activate!    
+    user.activate!
     get :show, :id => user.login
     assert assigns( :user )
     assert_response :success
     assert_template "users/show"
   end
-  
-  def test_should_return_new_blank_user_on_new 
+
+  def test_should_return_new_blank_user_on_new
     get :new
     assert assigns( :user )
     assert_response :success
@@ -112,24 +112,24 @@ class UsersControllerTest < ActionController::TestCase
                       :password_confirmation => 'updated_password',
                       :time_zone => 'Europe/Madrid'} # TODO: test description update
     end
-    
+
     should "update the name" do
       assert_equal 'updated_name', @user.name
     end
-    
+
     should "update the password" do
       assert_equal 'updated_password', @user.password
     end
-    
+
     should "update the timezone" do
       assert_equal 'Europe/Madrid', @user.time_zone
     end
-    
+
     should "not update the login" do
       assert_equal 'admin', @user.login
     end
   end
-  
+
   protected
     def create_user(options = {})
       post :create, :user => { :login => 'quire', :email => 'quire@example.com',

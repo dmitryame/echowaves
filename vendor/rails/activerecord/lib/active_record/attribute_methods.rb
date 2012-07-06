@@ -59,11 +59,11 @@ module ActiveRecord
       def generated_methods #:nodoc:
         @generated_methods ||= Set.new
       end
-      
+
       def generated_methods?
         !generated_methods.empty?
       end
-      
+
       # Generates all the attribute related methods for columns in the database
       # accessors, mutators and query methods.
       def define_attribute_methods
@@ -82,7 +82,7 @@ module ActiveRecord
           unless instance_method_already_implemented?("#{name}=")
             if create_time_zone_conversion_attribute?(name, column)
               define_write_method_for_time_zone_conversion(name)
-            else  
+            else
               define_write_method(name.to_sym)
             end
           end
@@ -104,7 +104,7 @@ module ActiveRecord
         raise DangerousAttributeError, "#{method_name} is defined by ActiveRecord" if @@_defined_activerecord_methods.include?(method_name)
         @_defined_class_methods.include?(method_name)
       end
-      
+
       alias :define_read_methods :define_attribute_methods
 
       # +cache_attributes+ allows you to declare which converted attribute values should
@@ -137,11 +137,11 @@ module ActiveRecord
         def attribute_method_suffixes
           @@attribute_method_suffixes ||= []
         end
-        
+
         def create_time_zone_conversion_attribute?(name, column)
           time_zone_aware_attributes && !skip_time_zone_conversion_for_attributes.include?(name.to_sym) && [:datetime, :timestamp].include?(column.type)
         end
-        
+
         # Define an attribute reader method.  Cope with nil column.
         def define_read_method(symbol, attr_name, column)
           cast_code = column.type_cast_code('v') if column
@@ -150,7 +150,7 @@ module ActiveRecord
           unless attr_name.to_s == self.primary_key.to_s
             access_code = access_code.insert(0, "missing_attribute('#{attr_name}', caller) unless @attributes.has_key?('#{attr_name}'); ")
           end
-          
+
           if cache_attribute?(attr_name)
             access_code = "@attributes_cache['#{attr_name}'] ||= (#{access_code})"
           end
@@ -161,7 +161,7 @@ module ActiveRecord
         def define_read_method_for_serialized_attribute(attr_name)
           evaluate_attribute_method attr_name, "def #{attr_name}; unserialize_attribute('#{attr_name}'); end"
         end
-        
+
         # Defined for all +datetime+ and +timestamp+ attributes when +time_zone_aware_attributes+ are enabled.
         # This enhanced read method automatically converts the UTC time stored in the database to the time zone stored in Time.zone.
         def define_read_method_for_time_zone_conversion(attr_name)
@@ -184,7 +184,7 @@ module ActiveRecord
         def define_write_method(attr_name)
           evaluate_attribute_method attr_name, "def #{attr_name}=(new_value);write_attribute('#{attr_name}', new_value);end", "#{attr_name}="
         end
-        
+
         # Defined for all +datetime+ and +timestamp+ attributes when +time_zone_aware_attributes+ are enabled.
         # This enhanced write method will automatically convert the time passed to it to the zone stored in Time.zone.
         def define_write_method_for_time_zone_conversion(attr_name)
@@ -244,7 +244,7 @@ module ActiveRecord
           return self.send(method_id, *args, &block)
         end
       end
-      
+
       if self.class.primary_key.to_s == method_name
         id
       elsif md = self.class.match_attribute_method?(method_name)
@@ -300,7 +300,7 @@ module ActiveRecord
           "#{attr_name} was supposed to be a #{self.class.serialized_attributes[attr_name]}, but was a #{unserialized_object.class.to_s}"
       end
     end
-  
+
 
     # Updates the attribute identified by <tt>attr_name</tt> with the specified +value+. Empty strings for fixnum and float
     # columns are turned into +nil+.
@@ -334,7 +334,7 @@ module ActiveRecord
         end
       end
     end
-    
+
     # A Person object with a name attribute can ask <tt>person.respond_to?(:name)</tt>,
     # <tt>person.respond_to?(:name=)</tt>, and <tt>person.respond_to?(:name?)</tt>
     # which will all return +true+.
@@ -353,7 +353,7 @@ module ActiveRecord
           return true
         end
       end
-        
+
       if @attributes.nil?
         return super
       elsif @attributes.include?(method_name)
@@ -365,11 +365,11 @@ module ActiveRecord
     end
 
     private
-    
+
       def missing_attribute(attr_name, stack)
         raise ActiveRecord::MissingAttributeError, "missing attribute: #{attr_name}", stack
       end
-      
+
       # Handle *? for method_missing.
       def attribute?(attribute_name)
         query_attribute(attribute_name)

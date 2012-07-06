@@ -16,7 +16,7 @@ class Test::Unit::TestCase
     def comments_url
       'http://www.example.com/comments'
     end
-    
+
     def comment_url(comment)
       "http://www.example.com/comments/#{comment.id}"
     end
@@ -72,7 +72,7 @@ class RecordIdentifierTest < Test::Unit::TestCase
   def test_dom_class
     assert_equal @singular, dom_class(@record)
   end
-  
+
   def test_dom_class_with_prefix
     assert_equal "custom_prefix_#{@singular}", dom_class(@record, :custom_prefix)
   end

@@ -5,7 +5,7 @@ module TZInfo
     module Europe
       module Amsterdam
         include TimezoneDefinition
-        
+
         timezone 'Europe/Amsterdam' do |tz|
           tz.offset :o0, 1172, 0, :LMT
           tz.offset :o1, 1172, 0, :AMT
@@ -14,7 +14,7 @@ module TZInfo
           tz.offset :o4, 1200, 0, :NET
           tz.offset :o5, 3600, 3600, :CEST
           tz.offset :o6, 3600, 0, :CET
-          
+
           tz.transition 1834, 12, :o1, 51651636907, 21600
           tz.transition 1916, 4, :o2, 52293264907, 21600
           tz.transition 1916, 9, :o1, 52296568807, 21600

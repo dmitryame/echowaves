@@ -5,7 +5,7 @@ module TZInfo
     module Asia
       module Baku
         include TimezoneDefinition
-        
+
         timezone 'Asia/Baku' do |tz|
           tz.offset :o0, 11964, 0, :LMT
           tz.offset :o1, 10800, 0, :BAKT
@@ -16,7 +16,7 @@ module TZInfo
           tz.offset :o6, 10800, 0, :AZT
           tz.offset :o7, 14400, 0, :AZT
           tz.offset :o8, 14400, 3600, :AZST
-          
+
           tz.transition 1924, 5, :o1, 17452133003, 7200
           tz.transition 1957, 2, :o2, 19487187, 8
           tz.transition 1981, 3, :o3, 354916800

@@ -132,7 +132,7 @@ module ActionController
                 "Expected no partials to be rendered"
             end
           else
-            raise ArgumentError  
+            raise ArgumentError
           end
         end
       end

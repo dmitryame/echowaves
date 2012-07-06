@@ -5,12 +5,12 @@ module TZInfo
     module Asia
       module Hong_Kong
         include TimezoneDefinition
-        
+
         timezone 'Asia/Hong_Kong' do |tz|
           tz.offset :o0, 27396, 0, :LMT
           tz.offset :o1, 28800, 0, :HKT
           tz.offset :o2, 28800, 3600, :HKST
-          
+
           tz.transition 1904, 10, :o1, 5800279639, 2400
           tz.transition 1946, 4, :o2, 38910885, 16
           tz.transition 1946, 11, :o1, 116743453, 48

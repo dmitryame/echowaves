@@ -5,7 +5,7 @@ module TZInfo
     module Asia
       module Seoul
         include TimezoneDefinition
-        
+
         timezone 'Asia/Seoul' do |tz|
           tz.offset :o0, 30472, 0, :LMT
           tz.offset :o1, 30600, 0, :KST
@@ -13,7 +13,7 @@ module TZInfo
           tz.offset :o3, 28800, 0, :KST
           tz.offset :o4, 28800, 3600, :KDT
           tz.offset :o5, 32400, 3600, :KDT
-          
+
           tz.transition 1889, 12, :o1, 26042775991, 10800
           tz.transition 1904, 11, :o2, 116007127, 48
           tz.transition 1927, 12, :o1, 19401969, 8

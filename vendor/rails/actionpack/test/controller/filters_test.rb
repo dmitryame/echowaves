@@ -165,11 +165,11 @@ class FilterTest < Test::Unit::TestCase
     def index
       render :text => 'ok'
     end
-    
+
     def public
     end
   end
-  
+
   class SkippingAndReorderingController < TestController
     skip_before_filter :ensure_login
     before_filter :find_record
@@ -589,7 +589,7 @@ class FilterTest < Test::Unit::TestCase
     response = test_process(PrependingBeforeAndAfterController)
     assert_equal %w( before_all between_before_all_and_after_all after_all ), response.template.assigns["ran_filter"]
   end
-  
+
   def test_skipping_and_limiting_controller
     assert_equal %w( ensure_login ), test_process(SkippingAndLimitedController, "index").template.assigns["ran_filter"]
     assert_nil test_process(SkippingAndLimitedController, "public").template.assigns["ran_filter"]

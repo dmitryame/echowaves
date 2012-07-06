@@ -6,9 +6,9 @@
 	<meta name="Description" content="Search | EchoWaves (Social Group Chat)"/>
 	<title>Search | EchoWaves (Social Group Chat)</title>
   <link rel="shortcut icon" href="/favicon.ico"/>
- 	
+
   <link rel="stylesheet" href="/stylesheets/screen.css" type="text/css" media="screen, projection"/>
-  <link rel="stylesheet" href="/stylesheets/print.css" type="text/css" media="print"/> 
+  <link rel="stylesheet" href="/stylesheets/print.css" type="text/css" media="print"/>
   <!--[if IE]>
     <link rel="stylesheet" href="/stylesheets/ie.css" type="text/css" media="screen, projection">
   <![endif]-->
@@ -21,18 +21,18 @@
 </head>
 
 <body onload="Misc.focusInput('q');">
-  
+
 	<div id="header_container"><%= render(:partial => "shared/header") %></div>
-	
+
 	<div id="main_content" class="container">
-	  
+
 		<div id="col1" class="span-14">
 		  <div class="page">
 	      <%= flash_messages %>
  		    <%= yield  %>
  		  </div>
 		</div>
-		
+
 		<div id="sidebars" class="span-10 last">
 		  	<div id="sidebars_container">
 		    	<%= render :partial => 'shared/dashboard' %>
@@ -42,10 +42,10 @@
 	</div>
 
 	<div id="footer_container"><%= render(:partial => "shared/footer") %></div>
-  	<%#for now lets poll for new messages in conversations that are off the screen%>  
-	<%= periodically_call_remote :url => {:controller => 'users', :action => 'update_news'}, 
-		:frequency => UPDATE_NEW_MESSAGES_FREQUENCY*5, :complete => 'ShowUnreadMessagesInFluidapp();' %> 
-	
+  	<%#for now lets poll for new messages in conversations that are off the screen%>
+	<%= periodically_call_remote :url => {:controller => 'users', :action => 'update_news'},
+		:frequency => UPDATE_NEW_MESSAGES_FREQUENCY*5, :complete => 'ShowUnreadMessagesInFluidapp();' %>
+
 
   <%#do not remove this scrips partial, used by google stats, ie6 detector, etc...%>
   <%#----------------------------------------------------------------------------%>

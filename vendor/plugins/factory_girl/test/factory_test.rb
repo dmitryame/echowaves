@@ -26,12 +26,12 @@ factory = Factory.new(:post)
 
     should "add the factory to the list of factories" do
       Factory.define(@name) {|f| }
-      assert_equal Factory.factories[@name], 
+      assert_equal Factory.factories[@name],
                    @factory,
                    "Factories: #{Factory.factories.inspect}"
     end
   end
-  
+
   context "a factory" do
     setup do
       @name    = :user
@@ -46,7 +46,7 @@ factory = Factory.new(:post)
     should "have a build class" do
       assert_equal @class, @factory.build_class
     end
-    
+
     should "have a default strategy" do
       assert_equal :create, @factory.default_strategy
     end
@@ -56,7 +56,7 @@ factory = Factory.new(:post)
         2.times { @factory.add_attribute :first_name }
       end
     end
-    
+
     should "add a static attribute when an attribute is defined with a value" do
       attribute = mock('attribute', :name => :name)
       Factory::Attribute::Static.
@@ -81,24 +81,24 @@ factory = Factory.new(:post)
         @factory.add_attribute(:name, 'value') {}
       end
     end
-    
+
     context "adding an attribute using a in-line sequence" do
       should 'create the sequence' do
         Factory::Sequence.
           expects(:new)
         @factory.sequence(:name) {}
-      end    
-      
+      end
+
       should 'add a dynamic attribute' do
-        attr = mock('attribute', :name => :name)      
+        attr = mock('attribute', :name => :name)
         Factory::Attribute::Dynamic.
           expects(:new).
           with(:name, instance_of(Proc)).
-          returns(attr)        
+          returns(attr)
         @factory.sequence(:name) {}
         assert @factory.attributes.include?(attr)
       end
-    end    
+    end
 
     context "after adding an attribute" do
       setup do
@@ -181,13 +181,13 @@ factory = Factory.new(:post)
       factory.association(:author, :factory => :user, :first_name => 'Ben')
       assert factory.attributes.include?(attr)
     end
-    
+
     should "raise for a self referencing association" do
       factory = Factory.new(:post)
       assert_raise(Factory::AssociationDefinitionError) do
         factory.association(:parent, :factory => :post)
       end
-    end    
+    end
 
     should "add an attribute using the method name when passed an undefined method" do
       attr  = mock('attribute', :name => :name)
@@ -199,7 +199,7 @@ factory = Factory.new(:post)
       @factory.send(:name, 'value')
       assert @factory.attributes.include?(attr)
     end
-    
+
     context "when overriding generated attributes with a hash" do
       setup do
         @attr  = :name
@@ -230,7 +230,7 @@ factory = Factory.new(:post)
       setup do
         @factory.add_attribute(:test, 'original')
         Factory.alias(/(.*)_alias/, '\1')
-        @result = @factory.run(Factory::Proxy::AttributesFor, 
+        @result = @factory.run(Factory::Proxy::AttributesFor,
                                :test_alias => 'new')
       end
 
@@ -242,7 +242,7 @@ factory = Factory.new(:post)
         assert_nil @result[:test]
       end
     end
-    
+
     should "guess the build class from the factory name" do
       assert_equal User, @factory.build_class
     end
@@ -285,14 +285,14 @@ factory = Factory.new(:post)
       end
     end
   end
-  
+
   context "a factory with a name ending in s" do
     setup do
       @name    = :business
       @class   = Business
       @factory = Factory.new(@name)
     end
-    
+
     should "have a factory name" do
       assert_equal @name, @factory.factory_name
     end
@@ -358,15 +358,15 @@ factory = Factory.new(:post)
         returns('result')
       assert_equal 'result', Factory.create(@name, :attr => 'value')
     end
-    
+
     should "use Proxy::Stub for Factory.stub" do
       @factory.
         expects(:run).
         with(Factory::Proxy::Stub, :attr => 'value').
         returns('result')
       assert_equal 'result', Factory.stub(@name, :attr => 'value')
-    end    
-    
+    end
+
     should "use default strategy option as Factory.default_strategy" do
       @factory.stubs(:default_strategy).returns(:create)
       @factory.
@@ -374,10 +374,10 @@ factory = Factory.new(:post)
         with(Factory::Proxy::Create, :attr => 'value').
         returns('result')
       assert_equal 'result', Factory.default_strategy(@name, :attr => 'value')
-    end    
+    end
 
     should "use the default strategy for the global Factory method" do
-      @factory.stubs(:default_strategy).returns(:create)    
+      @factory.stubs(:default_strategy).returns(:create)
       @factory.
         expects(:run).
         with(Factory::Proxy::Create, :attr => 'value').
@@ -397,18 +397,18 @@ factory = Factory.new(:post)
       end
     end
   end
-  
+
   context 'defining a factory with a parent parameter' do
     setup do
       @parent = Factory.define :object do |f|
         f.name  'Name'
       end
     end
-    
+
     should 'raise an ArgumentError when trying to use a non-existent factory as parent' do
       assert_raise(ArgumentError) { Factory.define(:child, :parent => :nonexsitent) {} }
     end
-    
+
     should 'create a new factory using the class of the parent' do
       child = Factory.define(:child, :parent => :object) {}
       assert_equal @parent.build_class, child.build_class
@@ -420,20 +420,20 @@ factory = Factory.new(:post)
       child = Factory.define(:child, :parent => :object, :class => Other) {}
       assert_equal Other, child.build_class
     end
-    
+
     should 'create a new factory with attributes of the parent' do
       child = Factory.define(:child, :parent => :object) {}
       assert_equal 1, child.attributes.size
       assert_equal :name, child.attributes.first.name
     end
-    
+
     should 'allow to define additional attributes' do
       child = Factory.define(:child, :parent => :object) do |f|
         f.email 'person@somebody.com'
       end
       assert_equal 2, child.attributes.size
     end
-    
+
     should 'allow to override parent attributes' do
       child = Factory.define(:child, :parent => :object) do |f|
         f.name { 'Child Name' }
@@ -442,18 +442,18 @@ factory = Factory.new(:post)
       assert_kind_of Factory::Attribute::Dynamic, child.attributes.first
     end
   end
-  
+
   context 'defining a factory with a default strategy parameter' do
     should 'raise an ArgumentError when trying to use a non-existent factory' do
       assert_raise(ArgumentError) { Factory.define(:object, :default_strategy => :nonexistent) {} }
     end
-    
+
     should 'create a new factory with a specified default strategy' do
       factory = Factory.define(:object, :default_strategy => :stub) {}
       assert_equal :stub, factory.default_strategy
     end
-  end 
-  
+  end
+
   def self.context_in_directory_with_files(*files)
     context "in a directory with #{files.to_sentence}" do
       setup do
@@ -461,14 +461,14 @@ factory = Factory.new(:post)
         @tmp_dir = File.join(File.dirname(__FILE__), 'tmp')
         FileUtils.mkdir_p @tmp_dir
         Dir.chdir(@tmp_dir)
-        
+
         files.each do |file|
           FileUtils.mkdir_p File.dirname(file)
           FileUtils.touch file
           Factory.stubs(:require).with(file)
         end
       end
-      
+
       teardown do
         Dir.chdir(@pwd)
         FileUtils.rm_rf(@tmp_dir)
@@ -477,18 +477,18 @@ factory = Factory.new(:post)
       yield
     end
   end
-  
+
   def self.should_require_definitions_from(file)
     should "load definitions from #{file}" do
       Factory.expects(:require).with(file)
       Factory.find_definitions
-    end    
+    end
   end
-  
+
   context_in_directory_with_files 'factories.rb' do
     should_require_definitions_from 'factories.rb'
   end
-  
+
   %w(spec test).each do |dir|
     context_in_directory_with_files File.join(dir, 'factories.rb') do
       should_require_definitions_from "#{dir}/factories.rb"

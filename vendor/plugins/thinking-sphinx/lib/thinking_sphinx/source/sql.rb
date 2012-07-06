@@ -6,9 +6,9 @@ module ThinkingSphinx
       # the version filtered for delta values, send through :delta => true in the
       # options. Won't do much though if the index isn't set up to support a
       # delta sibling.
-      # 
+      #
       # Examples:
-      # 
+      #
       #   source.to_sql
       #   source.to_sql(:delta => true)
       #
@@ -28,10 +28,10 @@ GROUP BY #{ sql_group_clause }
       # Simple helper method for the query range SQL - which is a statement that
       # returns minimum and maximum id values. These can be filtered by delta -
       # so pass in :delta => true to get the delta version of the SQL.
-      # 
+      #
       def to_sql_query_range(options={})
         return nil if @index.options[:disable_range]
-        
+
         min_statement = adapter.convert_nulls(
           "MIN(#{quote_column(@model.primary_key)})", 1
         )
@@ -50,7 +50,7 @@ GROUP BY #{ sql_group_clause }
 
       # Simple helper method for the query info SQL - which is a statement that
       # returns the single row for a corresponding id.
-      # 
+      #
       def to_sql_query_info(offset)
         "SELECT * FROM #{@model.quoted_table_name} WHERE " +
         "#{quote_column(@model.primary_key)} = (($id - #{offset}) / #{ThinkingSphinx.indexed_models.size})"
@@ -60,7 +60,7 @@ GROUP BY #{ sql_group_clause }
         unique_id_expr = ThinkingSphinx.unique_id_expression(offset)
 
         (
-          ["#{@model.quoted_table_name}.#{quote_column(@model.primary_key)} #{unique_id_expr} AS #{quote_column(@model.primary_key)} "] + 
+          ["#{@model.quoted_table_name}.#{quote_column(@model.primary_key)} #{unique_id_expr} AS #{quote_column(@model.primary_key)} "] +
           @fields.collect     { |field|     field.to_select_sql     } +
           @attributes.collect { |attribute| attribute.to_select_sql }
         ).compact.join(", ")
@@ -88,7 +88,7 @@ GROUP BY #{ sql_group_clause }
         end
 
         (
-          ["#{@model.quoted_table_name}.#{quote_column(@model.primary_key)}"] + 
+          ["#{@model.quoted_table_name}.#{quote_column(@model.primary_key)}"] +
           @fields.collect     { |field|     field.to_group_sql     }.compact +
           @attributes.collect { |attribute| attribute.to_group_sql }.compact +
           @groupings + internal_groupings

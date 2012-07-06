@@ -19,13 +19,13 @@ class HaveNamedScopeMatcherTest < ActiveSupport::TestCase # :nodoc:
     should "accept having a scope with the correct signature and find options" do
       assert_accepts have_named_scope("xyz(1)").finding(:order => :attr), @model
     end
-    
+
     should "reject having a scope with incorrect find options" do
       assert_rejects have_named_scope("xyz(1)").
                        finding(:order => 'attr DESC'),
                      @model
     end
-    
+
     should "reject having a scope with another name" do
       assert_rejects have_named_scope("abc(1)"), @model
     end

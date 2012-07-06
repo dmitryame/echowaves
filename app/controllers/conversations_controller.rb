@@ -135,7 +135,7 @@ class ConversationsController < ApplicationController
   #----------------------------------------------------------------------------
   def update
     @conversation = Conversation.find(params[:id])
-    @conversation.toggle_read_only_status if current_user.owns?(@conversation) 
+    @conversation.toggle_read_only_status if current_user.owns?(@conversation)
     Rails.cache.write("conversation_#{params[:id]}", @conversation)
     respond_to do |format|
       format.html { redirect_to(conversation_path(@conversation)) }
@@ -227,7 +227,7 @@ class ConversationsController < ApplicationController
     else
       current_user.tag(@conversation, :with => @conversation.bookmarks.collect{|tag| tag.name}.join(", ")  + ", " + current_user.bookmark_tag, :on => :bookmarks)
     end
-    redirect_to :back    
+    redirect_to :back
   end
 
   #----------------------------------------------------------------------------

@@ -5,12 +5,12 @@ module TZInfo
     module Australia
       module Perth
         include TimezoneDefinition
-        
+
         timezone 'Australia/Perth' do |tz|
           tz.offset :o0, 27804, 0, :LMT
           tz.offset :o1, 28800, 0, :WST
           tz.offset :o2, 28800, 3600, :WST
-          
+
           tz.transition 1895, 11, :o1, 17377402883, 7200
           tz.transition 1916, 12, :o2, 3486570001, 1440
           tz.transition 1917, 3, :o1, 58111493, 24

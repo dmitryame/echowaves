@@ -1,11 +1,11 @@
 = Active Record -- Object-relation mapping put on rails
 
 Active Record connects business objects and database tables to create a persistable
-domain model where logic and data are presented in one wrapping. It's an implementation 
-of the object-relational mapping (ORM) pattern[http://www.martinfowler.com/eaaCatalog/activeRecord.html] 
+domain model where logic and data are presented in one wrapping. It's an implementation
+of the object-relational mapping (ORM) pattern[http://www.martinfowler.com/eaaCatalog/activeRecord.html]
 by the same name as described by Martin Fowler:
 
-  "An object that wraps a row in a database table or view, encapsulates 
+  "An object that wraps a row in a database table or view, encapsulates
        the database access, and adds domain logic on that data."
 
 Active Record's main contribution to the pattern is to relieve the original of two stunting problems:
@@ -18,21 +18,21 @@ A short rundown of the major features:
 * Automated mapping between classes and tables, attributes and columns.
 
    class Product < ActiveRecord::Base; end
-   
+
    ...is automatically mapped to the table named "products", such as:
-   
+
    CREATE TABLE products (
      id int(11) NOT NULL auto_increment,
      name varchar(255),
      PRIMARY KEY  (id)
    );
 
-   ...which again gives Product#name and Product#name=(new_name) 
-   
+   ...which again gives Product#name and Product#name=(new_name)
+
   {Learn more}[link:classes/ActiveRecord/Base.html]
 
 
-* Associations between objects controlled by simple meta-programming macros. 
+* Associations between objects controlled by simple meta-programming macros.
 
    class Firm < ActiveRecord::Base
      has_many   :clients
@@ -43,12 +43,12 @@ A short rundown of the major features:
   {Learn more}[link:classes/ActiveRecord/Associations/ClassMethods.html]
 
 
-* Aggregations of value objects controlled by simple meta-programming macros. 
+* Aggregations of value objects controlled by simple meta-programming macros.
 
    class Account < ActiveRecord::Base
      composed_of :balance, :class_name => "Money",
                  :mapping => %w(balance amount)
-     composed_of :address, 
+     composed_of :address,
                  :mapping => [%w(address_street street), %w(address_city city)]
    end
 
@@ -65,7 +65,7 @@ A short rundown of the major features:
     end
 
   {Learn more}[link:classes/ActiveRecord/Validations.html]
- 
+
 * Callbacks as methods or queues on the entire lifecycle (instantiation, saving, destroying, validating, etc).
 
    class Person < ActiveRecord::Base
@@ -92,7 +92,7 @@ A short rundown of the major features:
   {Learn more}[link:classes/ActiveRecord/Observer.html]
 
 
-* Inheritance hierarchies 
+* Inheritance hierarchies
 
    class Company < ActiveRecord::Base; end
    class Firm < Company; end
@@ -147,10 +147,10 @@ A short rundown of the major features:
    ActiveRecord::Base.establish_connection(:adapter => "sqlite", :database => "dbfile")
 
    ActiveRecord::Base.establish_connection(
-     :adapter  => "mysql", 
-     :host     => "localhost", 
-     :username => "me", 
-     :password => "secret", 
+     :adapter  => "mysql",
+     :host     => "localhost",
+     :username => "me",
+     :password => "secret",
      :database => "activerecord"
    )
 
@@ -188,11 +188,11 @@ A short rundown of the major features:
 
 == Simple example (1/2): Defining tables and classes (using MySQL)
 
-Data definitions are specified only in the database. Active Record queries the database for 
+Data definitions are specified only in the database. Active Record queries the database for
 the column names (that then serves to determine which attributes are valid) on regular
 object instantiation through the new constructor and relies on the column names in the rows
 with the finders.
- 
+
    # CREATE TABLE companies (
    #   id int(11) unsigned NOT NULL auto_increment,
    #   client_of int(11),
@@ -209,14 +209,14 @@ Active Record automatically links the "Company" object to the "companies" table
 
    class Firm < Company
      has_many :clients
-  
+
      def people_with_all_clients
       clients.inject([]) { |people, client| people + client.people }
      end
    end
 
 The foreign_key is only necessary because we didn't use "firm_id" in the data definition
- 
+
    class Client < Company
      belongs_to :firm, :foreign_key => "client_of"
    end
@@ -239,10 +239,10 @@ Active Record will also automatically link the "Person" object to the "people" t
 Picking a database connection for all the Active Records
 
    ActiveRecord::Base.establish_connection(
-     :adapter  => "mysql", 
-     :host     => "localhost", 
-     :username => "me", 
-     :password => "secret", 
+     :adapter  => "mysql",
+     :host     => "localhost",
+     :username => "me",
+     :password => "secret",
      :database => "activerecord"
    )
 
@@ -262,7 +262,7 @@ Lots of different finders
    next_angle = Company.find(1)
 
    # SQL: SELECT * FROM companies WHERE id = 1 AND type = 'Firm'
-   next_angle = Firm.find(1)    
+   next_angle = Firm.find(1)
 
    # SQL: SELECT * FROM companies WHERE id = 1 AND name = 'Next Angle'
    next_angle = Company.find(:first, :conditions => "name = 'Next Angle'")
@@ -289,9 +289,9 @@ Bi-directional associations thanks to the "belongs_to" macro
    thirty_seven_signals.firm.nil? # true
 
 
-== Philosophy 
+== Philosophy
 
-Active Record attempts to provide a coherent wrapper as a solution for the inconvenience that is 
+Active Record attempts to provide a coherent wrapper as a solution for the inconvenience that is
 object-relational mapping. The prime directive for this mapping has been to minimize
 the amount of code needed to build a real-world domain model. This is made possible
 by relying on a number of conventions that make it easy for Active Record to infer
@@ -300,7 +300,7 @@ complex relations and structures from a minimal amount of explicit direction.
 Convention over Configuration:
 * No XML-files!
 * Lots of reflection and run-time extension
-* Magic is not inherently a bad word 
+* Magic is not inherently a bad word
 
 Admit the Database:
 * Lets you drop down to SQL for odd cases and performance
@@ -313,7 +313,7 @@ The latest version of Active Record can be found at
 
 * http://rubyforge.org/project/showfiles.php?group_id=182
 
-Documentation can be found at 
+Documentation can be found at
 
 * http://ar.rubyonrails.com
 
@@ -347,5 +347,5 @@ RubyForge page at http://rubyforge.org/projects/activerecord. And as Jim from Ra
    remember to update the corresponding unit tests.  If fact, I prefer
    new feature to be submitted in the form of new unit tests.
 
-For other information, feel free to ask on the rubyonrails-talk 
+For other information, feel free to ask on the rubyonrails-talk
 (http://groups.google.com/group/rubyonrails-talk) mailing list.

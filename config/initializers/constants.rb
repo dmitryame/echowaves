@@ -1,5 +1,5 @@
 # PAPERCLIP_URL  = "/attachments/:id/:style/:basename.:extension"
-                                                                             
+
 # Set USE_X_SENDFILE or USE_X_ACCEL_REDIRECT to true if you want your web
 # server to do the hard work to serve the attachments. Remember to enable
 # the x_sendfile module for your web server. This option is highly

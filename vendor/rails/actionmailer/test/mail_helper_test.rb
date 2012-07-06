@@ -27,7 +27,7 @@ class HelperMailer < ActionMailer::Base
     recipients recipient
     subject    "using mailing helpers"
     from       "tester@example.com"
-    self.body = { :text => 
+    self.body = { :text =>
       "But soft! What light through yonder window breaks? It is the east, " +
       "and Juliet is the sun. Arise, fair sun, and kill the envious moon, " +
       "which is sick and pale with grief that thou, her maid, art far more " +
@@ -66,11 +66,11 @@ class MailerHelperTest < Test::Unit::TestCase
 
     @recipient = 'test@localhost'
   end
-  
+
   def teardown
     restore_delivery_method
   end
-  
+
   def test_use_helper
     mail = HelperMailer.create_use_helper(@recipient)
     assert_match %r{Mr. Joe Person}, mail.encoded

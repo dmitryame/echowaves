@@ -5,7 +5,7 @@ module TZInfo
     module Europe
       module Tallinn
         include TimezoneDefinition
-        
+
         timezone 'Europe/Tallinn' do |tz|
           tz.offset :o0, 5940, 0, :LMT
           tz.offset :o1, 5940, 0, :TMT
@@ -15,7 +15,7 @@ module TZInfo
           tz.offset :o5, 10800, 0, :MSK
           tz.offset :o6, 10800, 3600, :MSD
           tz.offset :o7, 7200, 3600, :EEST
-          
+
           tz.transition 1879, 12, :o1, 385234469, 160
           tz.transition 1918, 1, :o2, 387460069, 160
           tz.transition 1918, 4, :o3, 58120765, 24

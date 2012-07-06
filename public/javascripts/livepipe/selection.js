@@ -399,25 +399,25 @@ Control.Selection = {
 			Control.Selection.observe('selected',Control.Selection.DragProxy.selected);
 			Control.Selection.observe('deselected',Control.Selection.DragProxy.deselected);
 		},
-		start: function(event){            
+		start: function(event){
 			if(event.isRightClick()){
 				Control.Selection.DragProxy.container.hide();
 				return;
-			}		    
+			}
 			if(Control.Selection.DragProxy.xorigin == Event.pointerX(event) && Control.Selection.DragProxy.yorigin == Event.pointerY(event))
-				return;    		
+				return;
 		    Control.Selection.DragProxy.active = true;
 			Control.Selection.DragProxy.container.setStyle({
 				position: 'absolute',
 				top: Event.pointerY(event) + 'px',
 				left: Event.pointerX(event) + 'px'
-			});			
-			Control.Selection.DragProxy.container.observe('mouseup',Control.Selection.DragProxy.onMouseUp);			
+			});
+			Control.Selection.DragProxy.container.observe('mouseup',Control.Selection.DragProxy.onMouseUp);
 			Control.Selection.DragProxy.container.show();
 			Control.Selection.DragProxy.container._draggable = new Draggable(Control.Selection.DragProxy.container,Object.extend({
 				onEnd: Control.Selection.DragProxy.stop
 			},Control.Selection.options.drag_proxy_options));
-			Control.Selection.DragProxy.container._draggable.eventMouseDown(event);			
+			Control.Selection.DragProxy.container._draggable.eventMouseDown(event);
 			Control.Selection.DragProxy.notify('start',Control.Selection.DragProxy.container,Control.Selection.elements);
 		},
 		stop: function(){

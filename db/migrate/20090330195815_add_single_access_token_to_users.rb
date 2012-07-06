@@ -1,4 +1,4 @@
-class AddSingleAccessTokenToUsers < ActiveRecord::Migration  
+class AddSingleAccessTokenToUsers < ActiveRecord::Migration
   def self.up
     add_column :users, :single_access_token, :string,  :null => false
   end

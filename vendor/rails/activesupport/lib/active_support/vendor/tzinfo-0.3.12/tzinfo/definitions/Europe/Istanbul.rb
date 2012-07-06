@@ -5,7 +5,7 @@ module TZInfo
     module Europe
       module Istanbul
         include TimezoneDefinition
-        
+
         timezone 'Europe/Istanbul' do |tz|
           tz.offset :o0, 6952, 0, :LMT
           tz.offset :o1, 7016, 0, :IMT
@@ -13,7 +13,7 @@ module TZInfo
           tz.offset :o3, 7200, 3600, :EEST
           tz.offset :o4, 10800, 3600, :TRST
           tz.offset :o5, 10800, 0, :TRT
-          
+
           tz.transition 1879, 12, :o1, 26003326531, 10800
           tz.transition 1910, 9, :o2, 26124610523, 10800
           tz.transition 1916, 4, :o3, 29051813, 12

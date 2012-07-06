@@ -5,7 +5,7 @@ class RequestToken < OauthToken
     self.authorized_at = Time.now
     self.save
   end
-  
+
   def exchange!
     return false unless authorized?
     RequestToken.transaction do

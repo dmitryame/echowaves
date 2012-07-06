@@ -1,5 +1,5 @@
 #:stopdoc:
-# This is here for Rolls. 
+# This is here for Rolls.
 # Rolls uses this instead of lib/tmail.rb.
 
 require 'tmail/version'

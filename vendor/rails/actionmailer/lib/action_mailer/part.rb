@@ -11,24 +11,24 @@ module ActionMailer
     # into the body of a subpart you can do it with the mailer's +render+ method
     # and assign the result here.
     adv_attr_accessor :body
-    
+
     # Specify the charset for this subpart. By default, it will be the charset
     # of the containing part or mailer.
     adv_attr_accessor :charset
-    
+
     # The content disposition of this part, typically either "inline" or
     # "attachment".
     adv_attr_accessor :content_disposition
-    
+
     # The content type of the part.
     adv_attr_accessor :content_type
-    
+
     # The filename to use for this subpart (usually for attachments).
     adv_attr_accessor :filename
-    
+
     # Accessor for specifying additional headers to include with this part.
     adv_attr_accessor :headers
-    
+
     # The transfer encoding to use for this subpart, like "base64" or
     # "quoted-printable".
     adv_attr_accessor :transfer_encoding
@@ -75,19 +75,19 @@ module ActionMailer
             squish("filename" => filename).merge(ctype_attrs))
         else
           part.set_content_type(real_content_type, nil, ctype_attrs)
-          part.set_content_disposition(content_disposition) 
-        end        
+          part.set_content_disposition(content_disposition)
+        end
       else
         if String === body
           @parts.unshift Part.new(:charset => charset, :body => @body, :content_type => 'text/plain')
           @body = nil
         end
-          
+
         @parts.each do |p|
           prt = (TMail::Mail === p ? p : p.to_mail(defaults))
           part.parts << prt
         end
-        
+
         if real_content_type =~ /multipart/
           ctype_attrs.delete 'charset'
           part.set_content_type(real_content_type, nil, ctype_attrs)

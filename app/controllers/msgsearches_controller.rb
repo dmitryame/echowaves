@@ -2,7 +2,7 @@ class MsgsearchesController < ApplicationController
   def ssl_required?
     true if USE_SSL
   end
-  
+
   def show
     if params.include?(:q)
       create
@@ -12,10 +12,10 @@ class MsgsearchesController < ApplicationController
       render :new
     end
   end
-  
+
   def new
   end
-  
+
   def create
     @messages = Message.search(
       params[:q],
@@ -25,5 +25,5 @@ class MsgsearchesController < ApplicationController
       :order => 'created_at DESC'
     )
   end
-  
+
 end

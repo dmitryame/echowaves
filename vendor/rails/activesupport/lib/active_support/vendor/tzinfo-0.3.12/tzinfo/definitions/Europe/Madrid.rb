@@ -5,7 +5,7 @@ module TZInfo
     module Europe
       module Madrid
         include TimezoneDefinition
-        
+
         timezone 'Europe/Madrid' do |tz|
           tz.offset :o0, -884, 0, :LMT
           tz.offset :o1, 0, 0, :WET
@@ -13,7 +13,7 @@ module TZInfo
           tz.offset :o3, 0, 7200, :WEMT
           tz.offset :o4, 3600, 0, :CET
           tz.offset :o5, 3600, 3600, :CEST
-          
+
           tz.transition 1901, 1, :o1, 52172327021, 21600
           tz.transition 1917, 5, :o2, 58112507, 24
           tz.transition 1917, 10, :o1, 58116203, 24

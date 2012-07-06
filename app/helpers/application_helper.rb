@@ -1,7 +1,7 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
   include TagsHelper
-  
+
   def orbited_javascript
     [
     "<script src=\"#{ORBITED_PROTOCOL}://#{ORBITED_HOST}:#{ORBITED_PORT}/static/Orbited.js\" type=\"text\/javascript\"></script>",
@@ -30,5 +30,5 @@ module ApplicationHelper
   #     dt.to_s(:pretty_long)
   #   end
   # end
-  
+
 end

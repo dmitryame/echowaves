@@ -1,5 +1,5 @@
 # Rails Plugin Manager.
-# 
+#
 # Listing available plugins:
 #
 #   $ ./script/plugin list
@@ -16,21 +16,21 @@
 # Finding Repositories:
 #
 #   $ ./script/plugin discover
-# 
+#
 # Adding Repositories:
 #
 #   $ ./script/plugin source http://svn.protocool.com/rails/plugins/
 #
 # How it works:
-# 
+#
 #   * Maintains a list of subversion repositories that are assumed to have
 #     a plugin directory structure. Manage them with the (source, unsource,
 #     and sources commands)
-#     
+#
 #   * The discover command scrapes the following page for things that
 #     look like subversion repositories with plugins:
 #     http://wiki.rubyonrails.org/rails/pages/Plugins
-# 
+#
 #   * Unless you specify that you want to use svn, script/plugin uses plain old
 #     HTTP for downloads.  The following bullets are true if you specify
 #     that you want to use svn.
@@ -38,11 +38,11 @@
 #   * If `vendor/plugins` is under subversion control, the script will
 #     modify the svn:externals property and perform an update. You can
 #     use normal subversion commands to keep the plugins up to date.
-# 
+#
 #   * Or, if `vendor/plugins` is not under subversion control, the
 #     plugin is pulled via `svn checkout` or `svn export` but looks
 #     exactly the same.
-# 
+#
 # Specifying revisions:
 #
 #   * Subversion revision is a single integer.
@@ -53,7 +53,7 @@
 #              'tag 1.8.0' (equivalent to 'refs/tags/1.8.0')
 #
 #
-# This is Free Software, copyright 2005 by Ryan Tomayko (rtomayko@gmail.com) 
+# This is Free Software, copyright 2005 by Ryan Tomayko (rtomayko@gmail.com)
 # and is licensed MIT: (http://www.opensource.org/licenses/mit-license.php)
 
 $verbose = false
@@ -79,18 +79,18 @@ class RailsEnvironment
       dir = File.dirname(dir)
     end
   end
-  
+
   def self.default
     @default ||= find
   end
-  
+
   def self.default=(rails_env)
     @default = rails_env
   end
-  
+
   def install(name_uri_or_plugin)
     if name_uri_or_plugin.is_a? String
-      if name_uri_or_plugin =~ /:\/\// 
+      if name_uri_or_plugin =~ /:\/\//
         plugin = Plugin.new(name_uri_or_plugin)
       else
         plugin = Plugins[name_uri_or_plugin]
@@ -104,7 +104,7 @@ class RailsEnvironment
       puts "Plugin not found: #{name_uri_or_plugin}"
     end
   end
- 
+
   def use_svn?
     require 'active_support/core_ext/kernel'
     silence_stderr {`svn --version` rescue nil}
@@ -136,7 +136,7 @@ class RailsEnvironment
     ext = `svn propget svn:externals "#{root}/vendor/plugins"`
     lines = ext.respond_to?(:lines) ? ext.lines : ext
     lines.reject{ |line| line.strip == '' }.map do |line|
-      line.strip.split(/\s+/, 2) 
+      line.strip.split(/\s+/, 2)
     end
   end
 
@@ -150,38 +150,38 @@ class RailsEnvironment
       system("svn propset -q svn:externals -F \"#{file.path}\" \"#{root}/vendor/plugins\"")
     end
   end
-  
+
 end
 
 class Plugin
   attr_reader :name, :uri
-  
+
   def initialize(uri, name=nil)
     @uri = uri
     guess_name(uri)
   end
-  
+
   def self.find(name)
     name =~ /\// ? new(name) : Repositories.instance.find_plugin(name)
   end
-  
+
   def to_s
     "#{@name.ljust(30)}#{@uri}"
   end
-  
+
   def svn_url?
     @uri =~ /svn(?:\+ssh)?:\/\/*/
   end
-  
+
   def git_url?
     @uri =~ /^git:\/\// || @uri =~ /\.git$/
   end
-  
+
   def installed?
     File.directory?("#{rails_env.root}/vendor/plugins/#{name}") \
       or rails_env.externals.detect{ |name, repo| self.uri == repo }
   end
-  
+
   def install(method=nil, options = {})
     method ||= rails_env.best_install_method?
     if :http == method
@@ -228,7 +228,7 @@ class Plugin
     FileUtils.rm_rf tmp if svn_url?
   end
 
-  private 
+  private
 
     def run_install_hook
       install_hook_file = "#{rails_env.root}/vendor/plugins/#{name}/install.rb"
@@ -243,11 +243,11 @@ class Plugin
     def install_using_export(options = {})
       svn_command :export, options
     end
-    
+
     def install_using_checkout(options = {})
       svn_command :checkout, options
     end
-    
+
     def install_using_externals(options = {})
       externals = rails_env.externals
       externals.push([@name, uri])
@@ -265,7 +265,7 @@ class Plugin
         fetcher.fetch
       end
     end
-    
+
     def install_using_git(options = {})
       root = rails_env.root
       install_path = mkdir_p "#{root}/vendor/plugins/#{name}"
@@ -304,7 +304,7 @@ class Plugin
       end
       @name.gsub!(/\.git$/, '') if @name =~ /\.git$/
     end
-    
+
     def rails_env
       @rails_env || RailsEnvironment.default
     end
@@ -312,34 +312,34 @@ end
 
 class Repositories
   include Enumerable
-  
+
   def initialize(cache_file = File.join(find_home, ".rails-plugin-sources"))
     @cache_file = File.expand_path(cache_file)
     load!
   end
-  
+
   def each(&block)
     @repositories.each(&block)
   end
-  
+
   def add(uri)
     unless find{|repo| repo.uri == uri }
       @repositories.push(Repository.new(uri)).last
     end
   end
-  
+
   def remove(uri)
     @repositories.reject!{|repo| repo.uri == uri}
   end
-  
+
   def exist?(uri)
     @repositories.detect{|repo| repo.uri == uri }
   end
-  
+
   def all
     @repositories
   end
-  
+
   def find_plugin(name)
     @repositories.each do |repo|
       repo.each do |plugin|
@@ -348,7 +348,7 @@ class Repositories
     end
     return nil
   end
-  
+
   def load!
     contents = File.exist?(@cache_file) ? File.read(@cache_file) : defaults
     contents = defaults if contents.empty?
@@ -356,7 +356,7 @@ class Repositories
       line =~ /^\s*#/ or line =~ /^\s*$/
     end.map { |source| Repository.new(source.strip) }
   end
-  
+
   def save
     File.open(@cache_file, 'w') do |f|
       each do |repo|
@@ -365,13 +365,13 @@ class Repositories
       end
     end
   end
-  
+
   def defaults
     <<-DEFAULTS
     http://dev.rubyonrails.com/svn/rails/plugins/
     DEFAULTS
   end
- 
+
   def find_home
     ['HOME', 'USERPROFILE'].each do |homekey|
       return ENV[homekey] if ENV[homekey]
@@ -393,7 +393,7 @@ class Repositories
   def self.instance
     @instance ||= Repositories.new
   end
-  
+
   def self.each(&block)
     self.instance.each(&block)
   end
@@ -402,16 +402,16 @@ end
 class Repository
   include Enumerable
   attr_reader :uri, :plugins
-  
+
   def initialize(uri)
     @uri = uri.chomp('/') << "/"
     @plugins = nil
   end
-  
+
   def plugins
     unless @plugins
       if $verbose
-        puts "Discovering plugins in #{@uri}" 
+        puts "Discovering plugins in #{@uri}"
         puts index
       end
 
@@ -421,11 +421,11 @@ class Repository
 
     @plugins
   end
-  
+
   def each(&block)
     plugins.each(&block)
   end
-  
+
   private
     def index
       @index ||= RecursiveHTTPFetcher.new(@uri).ls
@@ -442,36 +442,36 @@ module Commands
     def initialize
       @environment = RailsEnvironment.default
       @rails_root = RailsEnvironment.default.root
-      @script_name = File.basename($0) 
+      @script_name = File.basename($0)
       @sources = []
     end
-    
+
     def environment=(value)
       @environment = value
       RailsEnvironment.default = value
     end
-    
+
     def options
       OptionParser.new do |o|
         o.set_summary_indent('  ')
         o.banner =    "Usage: #{@script_name} [OPTIONS] command"
         o.define_head "Rails plugin manager."
-        
-        o.separator ""        
+
+        o.separator ""
         o.separator "GENERAL OPTIONS"
-        
+
         o.on("-r", "--root=DIR", String,
              "Set an explicit rails app directory.",
              "Default: #{@rails_root}") { |rails_root| @rails_root = rails_root; self.environment = RailsEnvironment.new(@rails_root) }
         o.on("-s", "--source=URL1,URL2", Array,
              "Use the specified plugin repositories instead of the defaults.") { |sources| @sources = sources}
-        
+
         o.on("-v", "--verbose", "Turn on verbose output.") { |verbose| $verbose = verbose }
         o.on("-h", "--help", "Show this help message.") { puts o; exit }
-        
+
         o.separator ""
         o.separator "COMMANDS"
-        
+
         o.separator "  discover   Discover plugin repositories."
         o.separator "  list       List available plugins."
         o.separator "  install    Install plugin(s) from known repositories or URLs."
@@ -480,7 +480,7 @@ module Commands
         o.separator "  source     Add a plugin source repository."
         o.separator "  unsource   Remove a plugin repository."
         o.separator "  sources    List currently configured plugin repositories."
-        
+
         o.separator ""
         o.separator "EXAMPLES"
         o.separator "  Install a plugin:"
@@ -504,14 +504,14 @@ module Commands
         o.separator "  Remove a repository from the source list:"
         o.separator "    #{@script_name} unsource http://dev.rubyonrails.com/svn/rails/plugins/\n"
         o.separator "  Show currently configured repositories:"
-        o.separator "    #{@script_name} sources\n"        
+        o.separator "    #{@script_name} sources\n"
       end
     end
-    
+
     def parse!(args=ARGV)
       general, sub = split_args(args)
       options.parse!(general)
-      
+
       command = general.shift
       if command =~ /^(list|discover|install|source|unsource|sources|remove|update|info)$/
         command = Commands.const_get(command.capitalize).new(self)
@@ -522,20 +522,20 @@ module Commands
         exit 1
       end
     end
-    
+
     def split_args(args)
       left = []
       left << args.shift while args[0] and args[0] =~ /^-/
       left << args.shift if args[0]
       return [left, args]
     end
-    
+
     def self.parse!(args=ARGV)
       Plugin.new.parse!(args)
     end
   end
-  
-  
+
+
   class List
     def initialize(base_command)
       @base_command = base_command
@@ -543,25 +543,25 @@ module Commands
       @local = false
       @remote = true
     end
-    
+
     def options
       OptionParser.new do |o|
         o.set_summary_indent('  ')
         o.banner =    "Usage: #{@base_command.script_name} list [OPTIONS] [PATTERN]"
         o.define_head "List available plugins."
-        o.separator   ""        
+        o.separator   ""
         o.separator   "Options:"
         o.separator   ""
         o.on(         "-s", "--source=URL1,URL2", Array,
                       "Use the specified plugin repositories.") {|sources| @sources = sources}
-        o.on(         "--local", 
+        o.on(         "--local",
                       "List locally installed plugins.") {|local| @local, @remote = local, false}
         o.on(         "--remote",
                       "List remotely available plugins. This is the default behavior",
                       "unless --local is provided.") {|remote| @remote = remote}
       end
     end
-    
+
     def parse!(args)
       options.order!(args)
       unless @sources.empty?
@@ -570,39 +570,39 @@ module Commands
         @sources = Repositories.instance.all
       end
       if @remote
-        @sources.map{|r| r.plugins}.flatten.each do |plugin| 
+        @sources.map{|r| r.plugins}.flatten.each do |plugin|
           if @local or !plugin.installed?
             puts plugin.to_s
           end
         end
       else
         cd "#{@base_command.environment.root}/vendor/plugins"
-        Dir["*"].select{|p| File.directory?(p)}.each do |name| 
+        Dir["*"].select{|p| File.directory?(p)}.each do |name|
           puts name
         end
       end
     end
   end
-  
-  
+
+
   class Sources
     def initialize(base_command)
       @base_command = base_command
     end
-    
+
     def options
       OptionParser.new do |o|
         o.set_summary_indent('  ')
         o.banner =    "Usage: #{@base_command.script_name} sources [OPTIONS] [PATTERN]"
         o.define_head "List configured plugin repositories."
-        o.separator   ""        
+        o.separator   ""
         o.separator   "Options:"
         o.separator   ""
-        o.on(         "-c", "--check", 
+        o.on(         "-c", "--check",
                       "Report status of repository.") { |sources| @sources = sources}
       end
     end
-    
+
     def parse!(args)
       options.parse!(args)
       Repositories.each do |repo|
@@ -610,13 +610,13 @@ module Commands
       end
     end
   end
-  
-  
+
+
   class Source
     def initialize(base_command)
       @base_command = base_command
     end
-    
+
     def options
       OptionParser.new do |o|
         o.set_summary_indent('  ')
@@ -624,7 +624,7 @@ module Commands
         o.define_head "Add new repositories to the default search list."
       end
     end
-    
+
     def parse!(args)
       options.parse!(args)
       count = 0
@@ -640,13 +640,13 @@ module Commands
       puts "Added #{count} repositories."
     end
   end
-  
-  
+
+
   class Unsource
     def initialize(base_command)
       @base_command = base_command
     end
-    
+
     def options
       OptionParser.new do |o|
         o.set_summary_indent('  ')
@@ -656,7 +656,7 @@ module Commands
         o.on_tail("-h", "--help", "Show this help message.") { puts o; exit }
       end
     end
-    
+
     def parse!(args)
       options.parse!(args)
       count = 0
@@ -673,25 +673,25 @@ module Commands
     end
   end
 
-  
+
   class Discover
     def initialize(base_command)
       @base_command = base_command
       @list = false
       @prompt = true
     end
-    
+
     def options
       OptionParser.new do |o|
         o.set_summary_indent('  ')
         o.banner =    "Usage: #{@base_command.script_name} discover URI [URI [URI]...]"
         o.define_head "Discover repositories referenced on a page."
-        o.separator   ""        
+        o.separator   ""
         o.separator   "Options:"
         o.separator   ""
-        o.on(         "-l", "--list", 
+        o.on(         "-l", "--list",
                       "List but don't prompt or add discovered repositories.") { |list| @list, @prompt = list, !@list }
-        o.on(         "-n", "--no-prompt", 
+        o.on(         "-n", "--no-prompt",
                       "Add all new repositories without prompting.") { |v| @prompt = !v }
       end
     end
@@ -721,7 +721,7 @@ module Commands
       end
       Repositories.instance.save
     end
-    
+
     def scrape(uri)
       require 'open-uri'
       puts "Scraping #{uri}" if $verbose
@@ -741,19 +741,19 @@ module Commands
         end
       end
     end
-    
+
     def extract_repository_uri(uri)
       uri.match(/(svn|https?):.*\/plugins\//i)[0]
-    end 
+    end
   end
-  
+
   class Install
     def initialize(base_command)
       @base_command = base_command
       @method = :http
       @options = { :quiet => false, :revision => nil, :force => false }
     end
-    
+
     def options
       OptionParser.new do |o|
         o.set_summary_indent('  ')
@@ -761,8 +761,8 @@ module Commands
         o.define_head "Install one or more plugins."
         o.separator   ""
         o.separator   "Options:"
-        o.on(         "-x", "--externals", 
-                      "Use svn:externals to grab the plugin.", 
+        o.on(         "-x", "--externals",
+                      "Use svn:externals to grab the plugin.",
                       "Enables plugin updates and plugin versioning.") { |v| @method = :externals }
         o.on(         "-o", "--checkout",
                       "Use svn checkout to grab the plugin.",
@@ -783,7 +783,7 @@ module Commands
         o.separator   "a plugin repository."
       end
     end
-    
+
     def determine_install_method
       best = @base_command.environment.best_install_method
       @method = :http if best == :http and @method == :export
@@ -801,7 +801,7 @@ module Commands
       end
       @method
     end
-    
+
     def parse!(args)
       options.parse!(args)
       environment = @base_command.environment
@@ -821,7 +821,7 @@ module Commands
     def initialize(base_command)
       @base_command = base_command
     end
-   
+
     def options
       OptionParser.new do |o|
         o.set_summary_indent('  ')
@@ -832,7 +832,7 @@ module Commands
         o.define_head "Update plugins."
       end
     end
-   
+
     def parse!(args)
       options.parse!(args)
       root = @base_command.environment.root
@@ -856,7 +856,7 @@ module Commands
     def initialize(base_command)
       @base_command = base_command
     end
-    
+
     def options
       OptionParser.new do |o|
         o.set_summary_indent('  ')
@@ -864,7 +864,7 @@ module Commands
         o.define_head "Remove plugins."
       end
     end
-    
+
     def parse!(args)
       options.parse!(args)
       root = @base_command.environment.root
@@ -896,7 +896,7 @@ module Commands
     end
   end
 end
- 
+
 class RecursiveHTTPFetcher
   attr_accessor :quiet
   def initialize(urls_to_fetch, level = 1, cwd = ".")
@@ -937,7 +937,7 @@ class RecursiveHTTPFetcher
     end
     links
   end
-  
+
   def download(link)
     puts "+ #{File.join(@cwd, File.basename(link))}" unless @quiet
     open(link) do |stream|
@@ -946,13 +946,13 @@ class RecursiveHTTPFetcher
       end
     end
   end
-  
+
   def fetch(links = @urls_to_fetch)
     links.each do |l|
       (l =~ /\/$/ || links == @urls_to_fetch) ? fetch_dir(l) : download(l)
     end
   end
-  
+
   def fetch_dir(url)
     @level += 1
     push_d(File.basename(url)) if @level > 0

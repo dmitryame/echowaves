@@ -9,12 +9,12 @@ module Submodule
     def public_action
       render :nothing => true
     end
-    
+
     hide_action :hidden_action
     def hidden_action
       raise "Noooo!"
     end
-    
+
     def another_hidden_action
     end
     hide_action :another_hidden_action
@@ -28,25 +28,25 @@ end
 class NonEmptyController < ActionController::Base
   def public_action
   end
-  
+
   hide_action :hidden_action
   def hidden_action
   end
 end
 
 class MethodMissingController < ActionController::Base
-  
+
   hide_action :shouldnt_be_called
   def shouldnt_be_called
     raise "NO WAY!"
   end
-  
+
 protected
-  
+
   def method_missing(selector)
     render :text => selector.to_s
   end
-  
+
 end
 
 class DefaultUrlOptionsController < ActionController::Base
@@ -76,7 +76,7 @@ class ControllerInstanceTests < Test::Unit::TestCase
     @empty = EmptyController.new
     @contained = Submodule::ContainedEmptyController.new
     @empty_controllers = [@empty, @contained, Submodule::SubclassedController.new]
-    
+
     @non_empty_controllers = [NonEmptyController.new,
                               Submodule::ContainedNonEmptyController.new]
   end
@@ -132,28 +132,28 @@ class PerformActionTest < ActionController::TestCase
 
     rescue_action_in_public!
   end
-  
+
   def test_get_on_priv_should_show_selector
     use_controller MethodMissingController
     get :shouldnt_be_called
     assert_response :success
     assert_equal 'shouldnt_be_called', @response.body
   end
-  
+
   def test_method_missing_is_not_an_action_name
     use_controller MethodMissingController
     assert ! @controller.__send__(:action_methods).include?('method_missing')
-    
+
     get :method_missing
     assert_response :success
     assert_equal 'method_missing', @response.body
   end
-  
+
   def test_get_on_hidden_should_fail
     use_controller NonEmptyController
     get :hidden_action
     assert_response 404
-    
+
     get :another_hidden_action
     assert_response 404
   end

@@ -5,14 +5,14 @@ module TZInfo
     module America
       module Mexico_City
         include TimezoneDefinition
-        
+
         timezone 'America/Mexico_City' do |tz|
           tz.offset :o0, -23796, 0, :LMT
           tz.offset :o1, -25200, 0, :MST
           tz.offset :o2, -21600, 0, :CST
           tz.offset :o3, -21600, 3600, :CDT
           tz.offset :o4, -21600, 3600, :CWT
-          
+
           tz.transition 1922, 1, :o1, 58153339, 24
           tz.transition 1927, 6, :o2, 9700171, 4
           tz.transition 1930, 11, :o1, 9705183, 4

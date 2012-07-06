@@ -5,7 +5,7 @@ module TZInfo
     module Europe
       module Kiev
         include TimezoneDefinition
-        
+
         timezone 'Europe/Kiev' do |tz|
           tz.offset :o0, 7324, 0, :LMT
           tz.offset :o1, 7324, 0, :KMT
@@ -15,7 +15,7 @@ module TZInfo
           tz.offset :o5, 3600, 0, :CET
           tz.offset :o6, 10800, 3600, :MSD
           tz.offset :o7, 7200, 3600, :EEST
-          
+
           tz.transition 1879, 12, :o1, 52006652969, 21600
           tz.transition 1924, 5, :o2, 52356400169, 21600
           tz.transition 1930, 6, :o3, 29113781, 12

@@ -54,6 +54,6 @@ task :rcov do
                  lib/will_paginate/core_ext.rb
                  lib/will_paginate.rb
                  rails* )
-  
+
   system %[rcov -Itest:lib test/*.rb -x #{excludes.join(',')}]
 end

@@ -1,13 +1,13 @@
 #--
 # Copyright (c) 2006 Philip Ross
-# 
+#
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
 # in the Software without restriction, including without limitation the rights
 # to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 # copies of the Software, and to permit persons to whom the Software is
 # furnished to do so, subject to the following conditions:
-# 
+#
 # The above copyright notice and this permission notice shall be included in all
 # copies or substantial portions of the Software.
 #
@@ -24,13 +24,13 @@ require 'rational'
 require 'tzinfo/ruby_core_support'
 
 module TZInfo
-  
+
   # Provides a method for getting Rationals for a timezone offset in seconds.
   # Pre-reduced rationals are returned for all the half-hour intervals between
-  # -14 and +14 hours to avoid having to call gcd at runtime.  
+  # -14 and +14 hours to avoid having to call gcd at runtime.
   module OffsetRationals #:nodoc:
     @@rational_cache = {
-      -50400 => RubyCoreSupport.rational_new!(-7,12), 
+      -50400 => RubyCoreSupport.rational_new!(-7,12),
       -48600 => RubyCoreSupport.rational_new!(-9,16),
       -46800 => RubyCoreSupport.rational_new!(-13,24),
       -45000 => RubyCoreSupport.rational_new!(-25,48),
@@ -87,11 +87,11 @@ module TZInfo
        46800 => RubyCoreSupport.rational_new!(13,24),
        48600 => RubyCoreSupport.rational_new!(9,16),
        50400 => RubyCoreSupport.rational_new!(7,12)}
-    
-    # Returns a Rational expressing the fraction of a day that offset in 
-    # seconds represents (i.e. equivalent to Rational(offset, 86400)). 
+
+    # Returns a Rational expressing the fraction of a day that offset in
+    # seconds represents (i.e. equivalent to Rational(offset, 86400)).
     def rational_for_offset(offset)
-      @@rational_cache[offset] || Rational(offset, 86400)      
+      @@rational_cache[offset] || Rational(offset, 86400)
     end
     module_function :rational_for_offset
   end

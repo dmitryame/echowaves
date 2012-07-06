@@ -79,7 +79,7 @@ class BenchmarkHelperTest < ActionView::TestCase
     def buffer
       controller.logger.send(:buffer)
     end
-  
+
     def assert_last_logged(message = 'Benchmarking')
       assert_match(/^#{message} \(.*\)$/, buffer.last)
     end

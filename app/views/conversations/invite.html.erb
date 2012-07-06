@@ -16,7 +16,7 @@
         <%# filter here %>
   		</div>
   	</div>
-	  
+
   </div>
 </div>
 <% end %>
@@ -26,11 +26,11 @@
 <div>
 	<h5>Send invitations by email <%= image_tag "/images/icons/spinner.gif", :style => 'display:none;', :id => "spinner_y" %></h5>
 	write some email addresses in the text box and click on the invite button
-		<% form_remote_tag :url => invite_via_email_conversation_path(@conversation), :loading => "$('spinner_y').show();" do %> 
+		<% form_remote_tag :url => invite_via_email_conversation_path(@conversation), :loading => "$('spinner_y').show();" do %>
 			<%= text_area :emails, {}, :cols => 30, :rows => 3 %>
-			<%= submit_tag t("ui.invite") %> 
+			<%= submit_tag t("ui.invite") %>
 		<% end %>
-    
+
 </div>
 
 
@@ -38,11 +38,11 @@
 <%if @conversation.public? %>
 <div>
 	  <div class="big center vspace">
-	    <span class="round button">	
+	    <span class="round button">
 		  <%= link_to_remote t("users.invite_all_followers"), :url => invite_all_my_followers_conversation_path(@conversation),
    	  	  :confirm => t("users.invite_all_followers") + "?",
 		      :loading => "$('spinner_0').show();",
-      	  :method => :post %>	
+      	  :method => :post %>
       <%= image_tag "/images/icons/spinner.gif", :style => 'display:none;', :id => "spinner_x" %>
       </span>
     </div>
@@ -51,14 +51,14 @@
 
 <div class="item">
   <h6><%= t("users.my_followers") %></h6>
-  
+
   <ul id="users_list">
     <% @users.each do |user|%>
 	    <li id="<%=dom_id user%>">
     		<span class="avatar">
     		  <%= link_to image_tag(user.gravatar_url, :border => 0, :width => 40, :height => 40, :class => "avatar", :alt => user.login), user_path(user),
-    		    :class => 'tip', 
-    		    :title =>  t("users.since") + user.date  + 
+    		    :class => 'tip',
+    		    :title =>  t("users.since") + user.date  +
     		      '<br/>' + user.conversations.size.to_s  + '&nbsp;' + t('ui.convos') +
     		      '<br/>' + user.messages.size.to_s       + '&nbsp;' + t('ui.messages') +
     		      '<br/>' + user.subscriptions.size.to_s  + '&nbsp;' + t("ui.following") +

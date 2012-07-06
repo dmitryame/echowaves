@@ -2,7 +2,7 @@ class ConvosearchesController < ApplicationController
   def ssl_required?
     true if USE_SSL
   end
-  
+
   def show
     if params.include?(:convo_q)
       create
@@ -12,10 +12,10 @@ class ConvosearchesController < ApplicationController
       render :new
     end
   end
-  
+
   def new
   end
-  
+
   def create
     @conversations = Conversation.search(
       params[:convo_q],
@@ -24,5 +24,5 @@ class ConvosearchesController < ApplicationController
       :order => 'created_at DESC'
     )
   end
-  
+
 end

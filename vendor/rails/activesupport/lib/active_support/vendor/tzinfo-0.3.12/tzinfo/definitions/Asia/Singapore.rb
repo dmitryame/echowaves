@@ -5,7 +5,7 @@ module TZInfo
     module Asia
       module Singapore
         include TimezoneDefinition
-        
+
         timezone 'Asia/Singapore' do |tz|
           tz.offset :o0, 24925, 0, :LMT
           tz.offset :o1, 24925, 0, :SMT
@@ -16,7 +16,7 @@ module TZInfo
           tz.offset :o6, 32400, 0, :JST
           tz.offset :o7, 27000, 0, :SGT
           tz.offset :o8, 28800, 0, :SGT
-          
+
           tz.transition 1900, 12, :o1, 8347571291, 3456
           tz.transition 1905, 5, :o2, 8353142363, 3456
           tz.transition 1932, 12, :o3, 58249757, 24

@@ -3,25 +3,25 @@
     <h1>Login to EchoWaves</h1>
   </div>
   <div class="bbox-pointer">&nbsp;</div>
-  
+
   <div class="item">
-  
+
     <% form_for @user_session, :url => user_session_path do |f| -%>
     <p><%= f.label :login, "Username" %><br />
     <%= f.text_field :login %></p>
-  
+
     <p><%= f.label t('ui.password') %><br/>
     <%= f.password_field :password %></p>
-  
+
     <p><%= f.check_box :remember_me %><%= f.label :remember_me %></p>
-  
+
     <p>
     <%= f.submit t("ui.login") %>&nbsp;<%= link_to t("ui.signup"), :controller => "users", :action => "new" -%>
     &nbsp;
     <span class="mute"><%= t("ui.its_free") %></span>
     </p>
     <p><%= link_to t('ui.forgot_password'), new_password_reset_path -%></p>
-  
+
     <% end -%>
   </div>
 

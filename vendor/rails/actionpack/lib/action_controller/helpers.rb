@@ -23,20 +23,20 @@ module ActionController #:nodoc:
       end
     end
 
-    # The Rails framework provides a large number of helpers for working with +assets+, +dates+, +forms+, 
+    # The Rails framework provides a large number of helpers for working with +assets+, +dates+, +forms+,
     # +numbers+ and Active Record objects, to name a few. These helpers are available to all templates
     # by default.
     #
     # In addition to using the standard template helpers provided in the Rails framework, creating custom helpers to
-    # extract complicated logic or reusable functionality is strongly encouraged.  By default, the controller will 
+    # extract complicated logic or reusable functionality is strongly encouraged.  By default, the controller will
     # include a helper whose name matches that of the controller, e.g., <tt>MyController</tt> will automatically
     # include <tt>MyHelper</tt>.
-    # 
+    #
     # Additional helpers can be specified using the +helper+ class method in <tt>ActionController::Base</tt> or any
     # controller which inherits from it.
     #
     # ==== Examples
-    # The +to_s+ method from the Time class can be wrapped in a helper method to display a custom message if 
+    # The +to_s+ method from the Time class can be wrapped in a helper method to display a custom message if
     # the Time object is blank:
     #
     #   module FormattedTimeHelper
@@ -58,14 +58,14 @@ module ActionController #:nodoc:
     #
     #   <% @events.each do |event| -%>
     #     <p>
-    #       <% format_time(event.time, :short, "N/A") %> | <%= event.name %> 
+    #       <% format_time(event.time, :short, "N/A") %> | <%= event.name %>
     #     </p>
     #   <% end -%>
     #
-    # Finally, assuming we have two event instances, one which has a time and one which does not, 
+    # Finally, assuming we have two event instances, one which has a time and one which does not,
     # the output might look like this:
     #
-    #   23 Aug 11:30 | Carolina Railhawks Soccer Match 
+    #   23 Aug 11:30 | Carolina Railhawks Soccer Match
     #   N/A | Carolina Railhaws Training Workshop
     #
     module ClassMethods
@@ -80,10 +80,10 @@ module ActionController #:nodoc:
       #
       # * <tt>*args</tt>: One or more modules, strings or symbols, or the special symbol <tt>:all</tt>.
       # * <tt>&block</tt>: A block defining helper methods.
-      # 
+      #
       # ==== Examples
-      # When the argument is a string or symbol, the method will provide the "_helper" suffix, require the file 
-      # and include the module in the template class.  The second form illustrates how to include custom helpers 
+      # When the argument is a string or symbol, the method will provide the "_helper" suffix, require the file
+      # and include the module in the template class.  The second form illustrates how to include custom helpers
       # when working with namespaced controllers, or other cases where the file containing the helper definition is not
       # in one of Rails' standard load paths:
       #   helper :foo             # => requires 'foo_helper' and includes FooHelper
@@ -96,17 +96,17 @@ module ActionController #:nodoc:
       # <tt>ActionController::Base.helpers_dir</tt> (defaults to <tt>app/helpers/**/*.rb</tt> under RAILS_ROOT).
       #   helper :all
       #
-      # Additionally, the +helper+ class method can receive and evaluate a block, making the methods defined available 
+      # Additionally, the +helper+ class method can receive and evaluate a block, making the methods defined available
       # to the template.
       #   # One line
       #   helper { def hello() "Hello, world!" end }
       #   # Multi-line
       #   helper do
-      #     def foo(bar) 
-      #       "#{bar} is the very best" 
+      #     def foo(bar)
+      #       "#{bar} is the very best"
       #     end
       #   end
-      # 
+      #
       # Finally, all the above styles can be mixed together, and the +helper+ method can be invoked with a mix of
       # +symbols+, +strings+, +modules+ and blocks.
       #   helper(:three, BlindHelper) { def mice() 'mice' end }

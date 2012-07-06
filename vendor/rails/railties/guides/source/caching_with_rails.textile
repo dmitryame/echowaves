@@ -130,11 +130,11 @@ available as of Rails 2.2.
 You can modify the default action cache path by passing a +:cache_path+ option.
 This will be passed directly to +ActionCachePath.path_for+.  This is handy for
 actions with multiple possible routes that should be cached differently.  If
-a block is given, it is called with the current controller instance.  
+a block is given, it is called with the current controller instance.
 
 Finally, if you are using memcached, you can also pass +:expires_in+. In fact,
 all parameters not used by +caches_action+ are sent to the underlying cache
-store. 
+store.
 
 h4. Fragment Caching
 
@@ -178,7 +178,7 @@ want to cache multiple fragments per action, you should provide an +action_suffi
 You can expire the cache using the +expire_fragment+ method, like so:
 
 <ruby>
-expire_fragment(:controller => 'products', :action => 'recent', 
+expire_fragment(:controller => 'products', :action => 'recent',
   :action_suffix => 'all_prods)
 </ruby>
 
@@ -187,7 +187,7 @@ also use globally keyed fragments. To do this, call the +cache+ method with a ke
 so:
 
 <ruby>
-<% cache(:key => 
+<% cache(:key =>
   ['all_available_products', @latest_product.created_at].join(':')) do %>
   All available products:
 <% end %>
@@ -197,7 +197,7 @@ This fragment is then available to all actions in the +ProductsController+ using
 the key and can be expired the same way:
 
 <ruby>
-expire_fragment(:key => 
+expire_fragment(:key =>
   ['all_available_products', @latest_product.created_at].join(':'))
 </ruby>
 
@@ -239,7 +239,7 @@ class StoreSweeper < ActionController::Caching::Sweeper
     expire_page(:controller => '#{record}', :action => 'list')
 
     # Expire a fragment
-    expire_fragment(:controller => '#{record}', 
+    expire_fragment(:controller => '#{record}',
       :action => 'recent', :action_suffix => 'all_products')
   end
 end
@@ -332,13 +332,13 @@ Phusion Passenger), then this means that your Rails server process instances
 won't be able to share cache data with each other. If your application never
 performs manual cache item expiry (e.g. when you‘re using generational cache
 keys), then using +MemoryStore+ is ok. Otherwise, consider carefully whether you
-should be using this cache store.  
+should be using this cache store.
 
 +MemoryStore+ is not only able to store strings, but also arbitrary Ruby objects.
 
 +MemoryStore+ is not thread-safe. Use +SynchronizedMemoryStore+ instead if you
 need thread-safety.
-                                      
+
 
 <ruby>
 ActionController::Base.cache_store = :memory_store
@@ -390,7 +390,7 @@ marshaled
 
 When writing to the cache it is also possible to specify +:raw => true+. This means
 that the value is not passed to +Marshal.dump+ before being stored in the cache (by
-default this is false). 
+default this is false).
 
 The write method also accepts an +:unless_exist+ flag which determines whether
 the memcached add (when true) or set (when false) method is used to store the
@@ -505,7 +505,7 @@ interlock plugin (more info "here": http://blog.evanweaver.com/articles/2007/12/
 of these plugins play nice with memcached and are a must-see for anyone
 seriously considering optimizing their caching needs.
 
-Also the new "Cache money":http://github.com/nkallen/cache-money/tree/master plugin is supposed to be mad cool. 
+Also the new "Cache money":http://github.com/nkallen/cache-money/tree/master plugin is supposed to be mad cool.
 
 h3. References
 

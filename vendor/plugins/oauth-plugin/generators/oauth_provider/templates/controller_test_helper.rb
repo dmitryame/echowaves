@@ -1,6 +1,6 @@
 require "mocha"
 module OAuthControllerTestHelper
-  
+
   # Some custom stuff since we're using Mocha
   def mock_model(model_class, options_and_stubs = {})
     id = rand(10000)
@@ -8,7 +8,7 @@ module OAuthControllerTestHelper
       :to_param => id.to_s,
       :new_record? => false,
       :errors => stub("errors", :count => 0)
-      
+
     m = stub("#{model_class.name}_#{options_and_stubs[:id]}", options_and_stubs)
     m.instance_eval <<-CODE
       def is_a?(other)
@@ -27,11 +27,11 @@ module OAuthControllerTestHelper
     yield m if block_given?
     m
   end
-    
+
   def mock_full_client_application
-    mock_model(ClientApplication, 
-                :name => "App1", 
-                :url => "http://app.com", 
+    mock_model(ClientApplication,
+                :name => "App1",
+                :url => "http://app.com",
                 :callback_url => "http://app.com/callback",
                 :support_url => "http://app.com/support",
                 :key => "asd23423yy",
@@ -39,7 +39,7 @@ module OAuthControllerTestHelper
                 :oauth_server => OAuth::Server.new("http://kowabunga.com")
               )
   end
-  
+
   def login
     @controller.stubs(:local_request?).returns(true)
     @user = mock_model(User, :login => "ron")
@@ -49,22 +49,22 @@ module OAuthControllerTestHelper
     @user.stubs(:tokens).returns(@tokens)
     User.stubs(:find_by_id).returns(@user)
   end
-  
+
   def login_as_application_owner
     login
     @client_application = mock_full_client_application
     @client_applications = [@client_application]
-    
+
     @user.stubs(:client_applications).returns(@client_applications)
     @client_applications.stubs(:find).returns(@client_application)
   end
-  
+
   def setup_oauth
     @controller.stubs(:local_request?).returns(true)
     @user||=mock_model(User)
-    
+
     User.stubs(:find_by_id).returns(@user)
-    
+
     @server=OAuth::Server.new "http://test.host"
     @consumer=OAuth::Consumer.new('key','secret',{:site=>"http://test.host"})
 
@@ -78,7 +78,7 @@ module OAuthControllerTestHelper
     @request_token=mock_model(RequestToken,:token=>'request_token',:client_application=>@client_application,:secret=>"request_secret",:user=>@user)
     @request_token.stubs(:invalidated?).returns(false)
     ClientApplication.stubs(:find_token).returns(@request_token)
-    
+
     @request_token_string="oauth_token=request_token&oauth_token_secret=request_secret"
     @request_token.stubs(:to_query).returns(@request_token_string)
 
@@ -92,7 +92,7 @@ module OAuthControllerTestHelper
 #    @client_application.stubs(:sign_request_with_oauth_token).returns(@request_token)
     @client_application.stubs(:exchange_for_access_token).returns(@access_token)
   end
-  
+
   def setup_oauth_for_user
     login
     setup_oauth
@@ -101,12 +101,12 @@ module OAuthControllerTestHelper
     @tokens.stubs(:find_by_token).returns(@request_token)
     @user.stubs(:tokens).returns(@tokens)
   end
-  
+
   def sign_request_with_oauth(token=nil)
     ActionController::TestRequest.use_oauth=true
     @request.configure_oauth(@consumer, token)
   end
-    
+
   def setup_to_authorize_request
     setup_oauth
     OauthToken.stubs(:find_by_token).with( @access_token.token).returns(@access_token)

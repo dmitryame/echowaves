@@ -23,7 +23,7 @@ Sound = {
     var options = Object.extend({
       track: 'global', url: url, replace: false
     }, arguments[1] || {});
-    
+
     if(options.replace && this.tracks[options.track]) {
       $R(0, this.tracks[options.track].id).each(function(id){
         var sound = $('sound_'+options.track+'_'+id);
@@ -32,12 +32,12 @@ Sound = {
       })
       this.tracks[options.track] = null;
     }
-      
+
     if(!this.tracks[options.track])
       this.tracks[options.track] = { id: 0 }
     else
       this.tracks[options.track].id++;
-      
+
     options.id = this.tracks[options.track].id;
     if (Prototype.Browser.IE) {
       var sound = document.createElement('bgsound');
@@ -46,7 +46,7 @@ Sound = {
       sound.setAttribute('loop','1');
       sound.setAttribute('autostart','true');
       $$('body')[0].appendChild(sound);
-    }  
+    }
     else
       new Insertion.Bottom($$('body')[0], Sound.template.evaluate(options));
   }

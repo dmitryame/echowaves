@@ -8,18 +8,18 @@ module Paperclip
     # * +path+: The location of the repository of attachments on disk. This can (and, in
     #   almost all cases, should) be coordinated with the value of the +url+ option to
     #   allow files to be saved into a place where Apache can serve them without
-    #   hitting your app. Defaults to 
+    #   hitting your app. Defaults to
     #   ":rails_root/public/:attachment/:id/:style/:basename.:extension"
-    #   By default this places the files in the app's public directory which can be served 
-    #   directly. If you are using capistrano for deployment, a good idea would be to 
-    #   make a symlink to the capistrano-created system directory from inside your app's 
+    #   By default this places the files in the app's public directory which can be served
+    #   directly. If you are using capistrano for deployment, a good idea would be to
+    #   make a symlink to the capistrano-created system directory from inside your app's
     #   public directory.
     #   See Paperclip::Attachment#interpolate for more information on variable interpolaton.
     #     :path => "/var/app/attachments/:class/:id/:style/:basename.:extension"
     module Filesystem
       def self.extended base
       end
-      
+
       def exists?(style = default_style)
         if original_filename
           File.exist?(path(style))
@@ -79,25 +79,25 @@ module Paperclip
     #   database.yml file, so different environments can use different accounts:
     #     development:
     #       access_key_id: 123...
-    #       secret_access_key: 123... 
+    #       secret_access_key: 123...
     #     test:
     #       access_key_id: abc...
-    #       secret_access_key: abc... 
+    #       secret_access_key: abc...
     #     production:
     #       access_key_id: 456...
-    #       secret_access_key: 456... 
+    #       secret_access_key: 456...
     #   This is not required, however, and the file may simply look like this:
     #     access_key_id: 456...
-    #     secret_access_key: 456... 
+    #     secret_access_key: 456...
     #   In which case, those access keys will be used in all environments. You can also
     #   put your bucket name in this file, instead of adding it to the code directly.
-    #   This is useful when you want the same account but a different bucket for 
+    #   This is useful when you want the same account but a different bucket for
     #   development versus production.
     # * +s3_permissions+: This is a String that should be one of the "canned" access
     #   policies that S3 provides (more information can be found here:
     #   http://docs.amazonwebservices.com/AmazonS3/2006-03-01/RESTAccessPolicy.html#RESTCannedAccessPolicies)
     #   The default for Paperclip is "public-read".
-    # * +s3_protocol+: The protocol for the URLs generated to your S3 assets. Can be either 
+    # * +s3_protocol+: The protocol for the URLs generated to your S3 assets. Can be either
     #   'http' or 'https'. Defaults to 'http' when your :s3_permissions are 'public-read' (the
     #   default), and 'https' when your :s3_permissions are anything else.
     # * +s3_headers+: A hash of headers such as {'Expires' => 1.year.from_now.httpdate}
@@ -112,7 +112,7 @@ module Paperclip
     # * +url+: There are three options for the S3 url. You can choose to have the bucket's name
     #   placed domain-style (bucket.s3.amazonaws.com) or path-style (s3.amazonaws.com/bucket).
     #   Lastly, you can specify a CNAME (which requires the CNAME to be specified as
-    #   :s3_alias_url. You can read more about CNAMEs and S3 at 
+    #   :s3_alias_url. You can read more about CNAMEs and S3 at
     #   http://docs.amazonwebservices.com/AmazonS3/latest/index.html?VirtualHosting.html
     #   Normally, this won't matter in the slightest and you can leave the default (which is
     #   path-style, or :s3_path_url). But in some cases paths don't work and you need to use
@@ -173,7 +173,7 @@ module Paperclip
         creds = find_credentials(creds).stringify_keys
         (creds[ENV['RAILS_ENV']] || creds).symbolize_keys
       end
-      
+
       def exists?(style = default_style)
         s3_bucket.key(path(style)) ? true : false
       end
@@ -216,7 +216,7 @@ module Paperclip
         end
         @queued_for_delete = []
       end
-      
+
       def find_credentials creds
         case creds
         when File

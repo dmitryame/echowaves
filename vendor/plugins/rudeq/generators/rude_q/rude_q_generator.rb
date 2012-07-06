@@ -23,5 +23,5 @@ class RudeQGenerator < Rails::Generator::NamedBase
 
     end
   end
-  
+
 end

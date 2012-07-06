@@ -5,7 +5,7 @@ module TZInfo
     module Asia
       module Colombo
         include TimezoneDefinition
-        
+
         timezone 'Asia/Colombo' do |tz|
           tz.offset :o0, 19164, 0, :LMT
           tz.offset :o1, 19172, 0, :MMT
@@ -14,7 +14,7 @@ module TZInfo
           tz.offset :o4, 19800, 3600, :IST
           tz.offset :o5, 23400, 0, :LKT
           tz.offset :o6, 21600, 0, :LKT
-          
+
           tz.transition 1879, 12, :o1, 17335550003, 7200
           tz.transition 1905, 12, :o2, 52211763607, 21600
           tz.transition 1942, 1, :o3, 116657485, 48

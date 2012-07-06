@@ -5,7 +5,7 @@ module TZInfo
     module Europe
       module Sofia
         include TimezoneDefinition
-        
+
         timezone 'Europe/Sofia' do |tz|
           tz.offset :o0, 5596, 0, :LMT
           tz.offset :o1, 7016, 0, :IMT
@@ -13,7 +13,7 @@ module TZInfo
           tz.offset :o3, 3600, 0, :CET
           tz.offset :o4, 3600, 3600, :CEST
           tz.offset :o5, 7200, 3600, :EEST
-          
+
           tz.transition 1879, 12, :o1, 52006653401, 21600
           tz.transition 1894, 11, :o2, 26062154123, 10800
           tz.transition 1942, 11, :o3, 58335973, 24

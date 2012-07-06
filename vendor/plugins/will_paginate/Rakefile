@@ -19,10 +19,10 @@ Rake::RDocTask.new(:rdoc) do |rdoc|
     exclude('lib/will_paginate/named_scope*').
     exclude('lib/will_paginate/array.rb').
     exclude('lib/will_paginate/version.rb')
-  
+
   rdoc.main = "README.rdoc" # page to start on
   rdoc.title = "will_paginate documentation"
-  
+
   rdoc.rdoc_dir = 'doc' # rdoc output folder
   rdoc.options << '--inline-source' << '--charset=UTF-8'
   rdoc.options << '--webcvs=http://github.com/mislav/will_paginate/tree/master/'
@@ -33,7 +33,7 @@ desc %{Update ".manifest" with the latest list of project filenames. Respect\
 `test_files` arrays in "*.gemspec" file if it's present.}
 task :manifest do
   list = `git ls-files --full-name --exclude=*.gemspec --exclude=.*`.chomp.split("\n")
-  
+
   if spec_file = Dir['*.gemspec'].first
     spec = File.read spec_file
     spec.gsub! /^(\s* s.(test_)?files \s* = \s* )( \[ [^\]]* \] | %w\( [^)]* \) )/mx do
@@ -41,7 +41,7 @@ task :manifest do
       bunch = $2 ? list.grep(/^test\//) : list
       '%s%%w(%s)' % [assignment, bunch.join(' ')]
     end
-      
+
     File.open(spec_file, 'w') { |f| f << spec }
   end
   File.open('.manifest', 'w') { |f| f << list.join("\n") }

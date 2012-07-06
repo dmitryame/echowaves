@@ -10,7 +10,7 @@ class AddFilteredMessageColumnToMessagesTable < ActiveRecord::Migration
       simple_format
     end
   end
-  
+
   def self.up
     add_column :messages, :message_html, :text
     # generate all the markup for the existing messages

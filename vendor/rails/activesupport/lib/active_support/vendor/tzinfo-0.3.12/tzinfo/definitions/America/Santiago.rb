@@ -5,7 +5,7 @@ module TZInfo
     module America
       module Santiago
         include TimezoneDefinition
-        
+
         timezone 'America/Santiago' do |tz|
           tz.offset :o0, -16966, 0, :LMT
           tz.offset :o1, -16966, 0, :SMT
@@ -13,7 +13,7 @@ module TZInfo
           tz.offset :o3, -14400, 0, :CLT
           tz.offset :o4, -18000, 3600, :CLST
           tz.offset :o5, -14400, 3600, :CLST
-          
+
           tz.transition 1890, 1, :o1, 104171127683, 43200
           tz.transition 1910, 1, :o2, 104486660483, 43200
           tz.transition 1916, 7, :o1, 58105097, 24

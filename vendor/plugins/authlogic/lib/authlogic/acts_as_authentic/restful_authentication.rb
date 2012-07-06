@@ -8,7 +8,7 @@ module Authlogic
           include InstanceMethods
         end
       end
-      
+
       module Config
         # Switching an existing app to Authlogic from restful_authentication? No problem, just set this true and your users won't know
         # anything changed. From your database perspective nothing will change at all. Authlogic will continue to encrypt passwords
@@ -23,7 +23,7 @@ module Authlogic
           r
         end
         alias_method :act_like_restful_authentication=, :act_like_restful_authentication
-        
+
         # This works just like act_like_restful_authentication except that it will start transitioning your users to the algorithm you
         # specify with the crypto provider option. The next time they log in it will resave their password with the new algorithm
         # and any new record will use the new algorithm as well.
@@ -33,7 +33,7 @@ module Authlogic
           r
         end
         alias_method :transition_from_restful_authentication=, :transition_from_restful_authentication
-        
+
         private
           def set_restful_authentication_config
             crypto_provider_key = act_like_restful_authentication ? :crypto_provider : :transition_from_crypto_providers
@@ -44,13 +44,13 @@ module Authlogic
             end
           end
       end
-      
+
       module InstanceMethods
         private
           def act_like_restful_authentication?
             self.class.act_like_restful_authentication == true
           end
-          
+
           def transition_from_restful_authentication?
             self.class.transition_from_restful_authentication == true
           end

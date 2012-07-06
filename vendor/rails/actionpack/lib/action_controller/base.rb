@@ -1146,7 +1146,7 @@ module ActionController #:nodoc:
       #
       # Parameters:
       # * <tt>:etag</tt>
-      # * <tt>:last_modified</tt> 
+      # * <tt>:last_modified</tt>
       # * <tt>:public</tt> By default the Cache-Control header is private, set this to true if you want your application to be cachable by other devices (proxy caches).
       #
       # Example:
@@ -1171,7 +1171,7 @@ module ActionController #:nodoc:
       #
       # Parameters:
       # * <tt>:etag</tt>
-      # * <tt>:last_modified</tt> 
+      # * <tt>:last_modified</tt>
       # * <tt>:public</tt> By default the Cache-Control header is private, set this to true if you want your application to be cachable by other devices (proxy caches).
       #
       # Example:
@@ -1189,8 +1189,8 @@ module ActionController #:nodoc:
 
         response.etag          = options[:etag]          if options[:etag]
         response.last_modified = options[:last_modified] if options[:last_modified]
-        
-        if options[:public] 
+
+        if options[:public]
           cache_control = response.headers["Cache-Control"].split(",").map {|k| k.strip }
           cache_control.delete("private")
           cache_control.delete("no-cache")
@@ -1224,10 +1224,10 @@ module ActionController #:nodoc:
         else
           cache_control << "private"
         end
-        
+
         # This allows for additional headers to be passed through like 'max-stale' => 5.hours
         cache_control += options.symbolize_keys.reject{|k,v| k == :public || k == :private }.map{ |k,v| v == true ? k.to_s : "#{k.to_s}=#{v.to_s}"}
-        
+
         response.headers["Cache-Control"] = cache_control.join(', ')
       end
 

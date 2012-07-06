@@ -5,7 +5,7 @@ module TZInfo
     module Atlantic
       module Azores
         include TimezoneDefinition
-        
+
         timezone 'Atlantic/Azores' do |tz|
           tz.offset :o0, -6160, 0, :LMT
           tz.offset :o1, -6872, 0, :HMT
@@ -15,7 +15,7 @@ module TZInfo
           tz.offset :o5, -3600, 0, :AZOT
           tz.offset :o6, -3600, 3600, :AZOST
           tz.offset :o7, 0, 0, :WET
-          
+
           tz.transition 1884, 1, :o1, 2601910697, 1080
           tz.transition 1911, 5, :o2, 26127150259, 10800
           tz.transition 1916, 6, :o3, 58104781, 24

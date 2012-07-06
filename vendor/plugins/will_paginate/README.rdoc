@@ -78,7 +78,7 @@ More detailed documentation:
 == Authors and credits
 
 Authors::                Mislav Marohnić, PJ Hyett
-Original announcement::  http://errtheblog.com/post/929 
+Original announcement::  http://errtheblog.com/post/929
 Original PHP source::    http://www.strangerstudios.com/sandbox/pagination/diggstyle.php
 
 All these people helped making will_paginate what it is now with their code

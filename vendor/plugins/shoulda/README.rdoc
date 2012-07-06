@@ -75,7 +75,7 @@ Makes TDD so much easier.
 === Controller Tests (Shoulda::Controller::Macros)
 
 Macros to test the most common controller patterns...
-  
+
   class PostsControllerTest < ActionController::TestCase
     context "on GET to :show for first record" do
       setup do
@@ -92,7 +92,7 @@ Macros to test the most common controller patterns...
       end
     end
   end
-  
+
 === Helpful Assertions (Shoulda::Assertions)
 
 More to come here, but have fun with what's there.

@@ -136,7 +136,7 @@ class SendFileTest < ActionController::TestCase
 
     assert_equal 'image/png', headers['Content-Type']
   end
-  
+
 
   def test_send_file_headers_with_bad_symbol
     options = {
